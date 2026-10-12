@@ -9,6 +9,7 @@
   import { openPopup } from '../popupState.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
+  import LevelEditor from '../LevelEditor.svelte'
   import Medallion from '../Medallion.svelte'
   import CharacterViewer from '../viewer/CharacterViewer.svelte'
 
@@ -244,62 +245,55 @@
     </ul>
   </section>
 
-  <section class="box">
-    <h3>{tr(UI.levels)}</h3>
-    <table class="levels">
-      <thead><tr><th>{tr(UI.level)}</th><th>{tr(UI.class)}</th><th>{tr(UI.feats)}</th></tr></thead>
-      <tbody>
-        {#each app.character.levels as l, i (i)}
-          <tr>
-            <td>{i + 1}</td>
-            <td>{tr(rules.classes.get(l.classId)?.name)}{l.abilityIncrease ? ` (+1 ${tr(ABILITY_LABEL[l.abilityIncrease])})` : ''}</td>
-            <td>{l.feats.map((f) => tr(rules.feats.get(f.featId)?.name)).join(', ')}</td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-    <WarningList areas={['levels']} />
-  </section>
+  <div class="wide"><LevelEditor /></div>
 </div>
 
 <style>
   .hero {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
   .col {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    gap: 1rem;
   }
   .abilities {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    gap: 0.7rem 0.6rem;
+    gap: 1rem 0.9rem;
   }
   .pair,
   .saves {
     display: flex;
-    gap: 0.6rem;
+    gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
   }
+  .saves {
+    padding: 0.25rem 0 0.25rem;
+  }
   .hp-block {
     text-align: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
   }
   .hp-title {
     font-family: var(--font-title);
-    color: var(--accent);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
   }
   /* Tablet portrait and phones: portrait on top, medallions below. */
   @media (max-width: 52rem) {
     .hero {
       grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 1rem;
+      align-items: start;
     }
     .portrait {
       grid-column: 1 / -1;
@@ -310,11 +304,18 @@
       justify-content: center;
     }
   }
+  @media (max-width: 30rem) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+  }
 
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
-    gap: 1rem;
+    grid-auto-flow: row dense;
+    align-items: start;
+    gap: 1.25rem;
   }
   .wide {
     grid-column: 1 / -1;
@@ -325,66 +326,122 @@
   .hp {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    font-size: 1.4em;
+    font-family: var(--font-num);
+    font-size: 1.3em;
+    color: var(--ink-soft);
   }
   .hp-current {
+    font-family: var(--font-num);
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.6em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
   }
   .hp-current.low {
     color: var(--danger);
   }
   .hp-buttons {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 2.9rem);
     gap: 0.3rem;
-    margin: 0.4rem 0;
+    justify-content: center;
+    margin: 0.5rem 0;
   }
   .hp-buttons button {
     min-width: 2.75rem;
-    min-height: 2.5rem;
-    font: inherit;
-    border: 1px solid var(--rule);
+    min-height: 2.75rem;
+    font-family: var(--font-num);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid var(--rule-strong);
     background: var(--box);
     color: var(--ink);
     border-radius: 4px;
+    cursor: pointer;
+  }
+  .hp-buttons button:hover {
+    border-color: var(--frame);
+    background: var(--paper-2);
   }
   dl {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 0.3rem 0.5rem;
+    align-items: stretch;
+    margin: 0;
+  }
+  dt,
+  dd {
+    min-height: 3.1rem;
+    display: flex;
     align-items: center;
-    margin: 0.75rem 0 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  dt:last-of-type,
+  dd:last-of-type {
+    border-bottom: none;
   }
   dd {
     margin: 0;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    flex-wrap: wrap;
     text-align: right;
   }
-  .iter {
-    margin-left: 0.3em;
+  dd small {
     color: var(--ink-soft);
+  }
+  .iter {
+    color: var(--ink-soft);
+    font-family: var(--font-num);
+    font-size: 0.85em;
   }
   .link {
     font: inherit;
     background: none;
     border: none;
     padding: 0.25em 0;
+    min-height: 2.75rem;
     color: var(--ink);
     text-align: left;
     cursor: pointer;
-    text-decoration: underline dotted var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+  }
+  .link:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
   }
   .abil {
     color: var(--ink-soft);
-    margin-left: 0.3em;
+    margin-left: 0.4em;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
+  }
+  .skills td:nth-child(2) {
+    width: 2rem;
+    text-align: center;
+    font-size: 0.6em;
+    color: var(--ink);
+  }
+  .skills td {
+    padding-block: 0.15em;
   }
   .toggle {
     display: inline-flex;
-    gap: 0.4em;
+    gap: 0.5em;
     align-items: center;
     margin-bottom: 0.4rem;
-    min-height: 2rem;
+    min-height: 2.75rem;
+    cursor: pointer;
+  }
+  .toggle input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--ink);
   }
   .feats {
     list-style: none;
@@ -394,21 +451,25 @@
   .feats li {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4em;
+    gap: 0.2em 0.6em;
     align-items: baseline;
     border-bottom: 1px solid var(--rule);
+  }
+  .feats li:last-child {
+    border-bottom: none;
   }
   .feats small {
     color: var(--ink-soft);
   }
   .unusable {
-    opacity: 0.75;
+    opacity: 0.7;
   }
   .badge {
     color: var(--danger) !important;
-    font-weight: 700;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
   }
   small {
-    font-size: 0.8em;
+    font-size: 0.82em;
   }
 </style>

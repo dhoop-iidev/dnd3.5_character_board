@@ -280,7 +280,8 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
-    gap: 1rem;
+    grid-auto-flow: row dense;
+    gap: 1.25rem;
   }
   .wide {
     grid-column: 1 / -1;
@@ -288,35 +289,46 @@
   .slider {
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .slider strong {
+    font-family: var(--font-num);
   }
   input[type='range'] {
     width: 100%;
-    min-height: 2.25rem;
-    accent-color: var(--accent);
+    min-height: 2.75rem;
+    accent-color: var(--ink);
   }
   .check {
     display: flex;
-    gap: 0.5em;
+    gap: 0.6em;
     align-items: center;
-    min-height: 2.25rem;
+    min-height: 2.75rem;
+    cursor: pointer;
   }
   .check input {
+    flex: none;
     width: 1.2rem;
     height: 1.2rem;
-    accent-color: var(--accent);
+    accent-color: var(--ink);
   }
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
   }
   .row label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.85em;
+    gap: 0.2rem;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
+    font-size: 0.9em;
+    color: var(--ink-soft);
   }
   .flags {
     color: var(--danger);
@@ -325,62 +337,95 @@
   .attacks {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-    gap: 0.75rem;
+    gap: 1rem;
   }
   .attack {
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    padding: 0.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    padding: 0.6rem 0.85rem 0.4rem;
     background: var(--box);
   }
   .attack.choice {
-    border-color: var(--accent);
+    border: 1.5px solid var(--frame);
+    border-top-width: 3px;
   }
   h4 {
     margin: 0 0 0.3rem;
-    font-family: var(--font-title);
-    color: var(--accent);
+    padding-bottom: 0.3rem;
+    font-family: var(--font-num);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
   }
   h4 small {
-    font-family: var(--font-body);
-    font-size: 0.75em;
-    color: var(--ink-soft);
+    display: block;
+    font-family: var(--font-title);
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
   }
   .line {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5em;
     align-items: center;
-    min-height: 2.4rem;
+    min-height: 2.9rem;
+  }
+  .line + .line {
+    border-top: 1px solid var(--rule);
   }
   .line > span:first-child {
-    min-width: 6.5em;
+    min-width: 7em;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
     color: var(--ink-soft);
+  }
+  .line strong {
+    font-family: var(--font-num);
   }
   .iter {
     color: var(--ink-soft);
+    font-family: var(--font-num);
+    font-size: 0.9em;
   }
   .uses {
     display: flex;
     gap: 0.5em;
     align-items: center;
-    min-height: 2.6rem;
+    min-height: 3rem;
+    border-bottom: 1px solid var(--rule);
   }
   .uses span {
     flex: 1;
   }
+  .uses strong {
+    font-family: var(--font-num);
+    min-width: 3.5em;
+    text-align: center;
+  }
   button {
     font: inherit;
-    min-height: 2.4rem;
-    min-width: 2.4rem;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    padding: 0 0.7rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     cursor: pointer;
   }
+  button:hover:not(:disabled) {
+    border-color: var(--frame);
+    background: var(--paper-2);
+  }
+  button:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
   .newday {
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
   .note {
     font-size: 0.9em;
@@ -396,7 +441,10 @@
     gap: 0.5em;
     align-items: center;
     border-bottom: 1px solid var(--rule);
-    min-height: 2.6rem;
+    min-height: 2.9rem;
+  }
+  .effects li input {
+    accent-color: var(--ink);
   }
   .effects li.off {
     opacity: 0.6;
@@ -407,31 +455,41 @@
   }
   .effects .none {
     font-style: italic;
+    color: var(--ink-soft);
   }
   .link {
     background: none;
     border: none;
-    text-decoration: underline dotted var(--accent);
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 0.22em;
     text-align: left;
     flex: 1;
   }
+  .link:hover:not(:disabled) {
+    background: none;
+    color: var(--accent);
+  }
   .del {
     color: var(--danger);
+    border-color: transparent;
   }
   .add,
   .custom {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin: 0.4rem 0;
+    margin: 0.5rem 0;
   }
   select,
   .custom input {
     font: inherit;
-    min-height: 2.4rem;
+    min-height: 2.75rem;
+    padding: 0 0.5rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     max-width: 100%;
   }
@@ -444,10 +502,34 @@
   .field {
     display: flex;
     flex-direction: column;
-    margin-top: 0.5rem;
+    gap: 0.2rem;
+    margin-top: 0.6rem;
+    font-family: var(--font-title);
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  .field select {
+    font-family: var(--font-body);
+    letter-spacing: 0;
   }
   summary {
     cursor: pointer;
-    min-height: 2rem;
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    list-style: none;
+  }
+  summary::before {
+    content: '+';
+    font-family: var(--font-num);
+    font-weight: 700;
+    width: 1rem;
+  }
+  details[open] summary::before {
+    content: '−';
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 </style>

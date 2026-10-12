@@ -113,134 +113,177 @@
 <Popup />
 
 <style>
-  /* Header and tabs: tooled leather with gold trim, like the PHB 3.5 cover. */
+  /* Header: the sheet's title block. Paper, large name, a heavy rule over a hairline (book style). */
   .top {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.8rem 1.2rem;
-    color: var(--gold-light);
-    background:
-      var(--grain-dark),
-      linear-gradient(180deg, #4a2c18, var(--leather) 60%, var(--leather-dark));
-    border-bottom: 3px solid var(--gold);
-    box-shadow: inset 0 -6px 0 -3px var(--gold-dark);
+    align-items: flex-end;
+    gap: 1rem 1.5rem;
+    padding: 1.4rem 1.5rem 1rem;
+    color: var(--ink);
+    background: var(--paper);
+    border-bottom: 3px solid var(--frame);
+    box-shadow: 0 4px 0 -2px var(--paper), 0 5px 0 -2px var(--frame);
   }
   h1 {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 4.2vw, 2.4rem);
-    line-height: 1.1;
-    background: linear-gradient(180deg, #fff3c4, var(--gold) 55%, #8a6514);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 2px 1px rgb(0 0 0 / 0.6));
+    font-weight: 700;
+    font-size: clamp(1.7rem, 4.2vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    color: var(--ink);
   }
   .who p {
-    margin: 0.15rem 0 0;
+    margin: 0.35rem 0 0;
     font-family: var(--font-title);
-    color: #e9d6a6;
-    letter-spacing: 0.02em;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
   }
   .controls {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.5rem;
     align-items: flex-end;
     flex-wrap: wrap;
   }
   .controls label {
     display: flex;
     flex-direction: column;
+    gap: 0.15rem;
     font-family: var(--font-title);
     font-size: 0.85em;
-    color: #e9d6a6;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
   }
   select {
     font: inherit;
     font-family: var(--font-body);
     font-size: 1rem;
-    min-height: 2.6rem;
-    background: #f6ead0;
-    color: #2a1a0e;
-    border: 1px solid var(--gold);
+    min-height: 2.75rem;
+    padding: 0 0.6rem;
+    background: var(--box);
+    color: var(--ink);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
   }
   .theme,
   .lang button {
     font-family: var(--font-num);
     font-weight: 700;
-    min-width: 2.8rem;
-    min-height: 2.6rem;
-    border: 1px solid var(--gold);
-    background: linear-gradient(180deg, #5a3720, var(--leather-dark));
-    color: var(--gold-light);
+    font-size: 0.9rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--box);
+    color: var(--ink);
     cursor: pointer;
+  }
+  .theme {
+    border-radius: 4px;
+    font-size: 1.1rem;
+  }
+  .theme:hover,
+  .lang button:not(.on):hover {
+    background: var(--paper-2);
+  }
+  .lang {
+    display: flex;
   }
   .lang button:first-child {
     border-radius: 4px 0 0 4px;
   }
   .lang button:last-child {
     border-radius: 0 4px 4px 0;
-  }
-  .theme {
-    border-radius: 50%;
+    margin-left: -1px;
   }
   .lang button.on {
-    background: linear-gradient(180deg, var(--gold-light), var(--gold) 60%, var(--gold-dark));
-    color: #2a1a0e;
+    background: var(--frame);
+    border-color: var(--frame);
+    color: var(--on-frame);
   }
+  /* Tabs: small caps on a hairline, active one underlined in red. */
   .tabs {
     display: flex;
-    gap: 0.3rem;
-    padding: 0.6rem 1rem 0;
+    gap: 0.25rem;
+    padding: 0.4rem 1rem 0;
     overflow-x: auto;
-    background: linear-gradient(180deg, rgb(60 35 15 / 0.15), transparent);
+    border-bottom: 1px solid var(--rule);
+    scrollbar-width: none;
   }
   .tabs button {
+    position: relative;
     font-family: var(--font-title);
-    font-size: 1.1rem;
-    min-height: 2.8rem;
-    padding: 0 1.1rem;
-    border: 1px solid var(--gold-dark);
-    border-bottom: none;
-    border-radius: 6px 6px 0 0;
-    background: var(--noise), var(--paper-2);
-    color: var(--ink);
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    min-height: 3rem;
+    padding: 0 0.9rem;
+    border: none;
+    background: none;
+    color: var(--ink-soft);
     cursor: pointer;
     white-space: nowrap;
   }
+  .tabs button::after {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: -1px;
+    height: 3px;
+    background: transparent;
+  }
+  .tabs button:hover {
+    color: var(--ink);
+  }
   .tabs button.active {
-    background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-    color: var(--gold-light);
-    border-color: var(--gold);
-    box-shadow: inset 0 2px 0 var(--gold);
+    color: var(--ink);
+  }
+  .tabs button.active::after {
+    background: var(--accent);
   }
   .count {
     display: inline-block;
-    min-width: 1.4em;
+    min-width: 1.35rem;
     margin-left: 0.3em;
+    padding: 0 0.3em;
     border-radius: 1em;
-    background: var(--gold);
-    color: #2a1a0e;
+    background: var(--accent);
+    color: var(--paper);
     font-family: var(--font-num);
-    font-size: 0.75em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.35rem;
     text-align: center;
+    vertical-align: 0.15em;
   }
   main {
-    padding: 1rem;
-    border-top: 2px solid var(--gold-dark);
+    padding: 1.5rem;
   }
   footer {
-    padding: 1rem;
+    padding: 1.25rem 1rem 1.5rem;
     font-size: 0.85em;
     color: var(--ink-soft);
     text-align: center;
     border-top: 1px solid var(--rule);
   }
   footer a {
-    color: var(--accent);
+    color: var(--ink-soft);
+  }
+  @media (max-width: 30rem) {
+    .top {
+      padding: 1rem 1rem 0.8rem;
+    }
+    main {
+      padding: 1rem;
+    }
+    .tabs {
+      padding: 0.2rem 0.4rem 0;
+    }
+    .tabs button {
+      padding: 0 0.6rem;
+      font-size: 1.05rem;
+    }
   }
 </style>

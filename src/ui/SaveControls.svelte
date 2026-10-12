@@ -53,16 +53,20 @@
     justify-content: center;
     gap: 0.5rem;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.9rem;
   }
   button {
     font: inherit;
-    min-height: 2.5rem;
-    padding: 0 0.8rem;
+    min-height: 2.75rem;
+    padding: 0 0.9rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     cursor: pointer;
+  }
+  button:hover {
+    border-color: var(--frame);
+    background: var(--paper-2);
   }
 </style>

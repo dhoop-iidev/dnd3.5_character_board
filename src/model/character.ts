@@ -1,6 +1,6 @@
 import type { AbilityId, I18n, Lang, ModifierSpec } from '../data/types'
 
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 /** Feat slot that granted the feat (docs/rules/advancement.md, house rule #3 for 'deity'). */
 export type FeatSlot = 'general' | 'human' | 'fighter' | 'deity'
@@ -94,6 +94,8 @@ export interface Character {
     hair: string
     homeland: string
   }
+  /** Experience points; reaching the next threshold offers a level-up (https://www.d20srd.org/srd/xp.htm). */
+  xp: number
   baseAbilities: Record<AbilityId, number>
   /** Ability damage / drain points currently suffered (positive numbers). */
   abilityDamage: Partial<Record<AbilityId, number>>

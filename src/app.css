@@ -1,7 +1,9 @@
 /*
- * Look of the 3.5 rulebooks: parchment pages on a tooled-leather binding, gold trim, PHB red.
- * Free fonts close to the books: Cinzel Decorative (titles), IM Fell English SC (headings), EB Garamond (text).
- * Textures are generated (SVG noise), no image files.
+ * Look: the 3.5 Player's Handbook page and the official character sheet, done as a modern app.
+ * Warm off-white paper, near-black ink, hairline rules, small-caps labels in black tags.
+ * One accent (PHB red), used sparingly: active tab, links, key numbers. No gradients, no textures.
+ * Fonts: EB Garamond (text), IM Fell English SC (small-caps labels), Cinzel (numbers, titles),
+ * Cinzel Decorative (character name only).
  */
 :root {
   --font-display: 'Cinzel Decorative', 'Cinzel', serif;
@@ -9,64 +11,76 @@
   --font-num: 'Cinzel', 'Times New Roman', serif;
   --font-body: 'EB Garamond', 'Crimson Text', Georgia, serif;
 
-  --leather: #3a2314;
-  --leather-dark: #24150b;
-  --page: #2b1a0f;
-  --paper: #f2e4c4;
-  --paper-2: #e9d6aa;
-  --box: #f8eedb;
-  --ink: #2a1a0e;
-  --ink-soft: #6e5636;
-  --rule: #c7a874;
-  --accent: #8e1b12;
-  --accent-dark: #5e0f09;
-  --gold: #c9a227;
-  --gold-light: #f1d784;
-  --gold-dark: #7a5a12;
-  --warn: #c98a12;
-  --danger: #b3261e;
+  --page: #ecebe6; /* around the sheet (wide screens) */
+  --paper: #fbfaf7; /* the sheet */
+  --box: #ffffff; /* cards, inputs */
+  --paper-2: #f2f0eb; /* subtle fills: hover, wells */
+  --ink: #1a1714;
+  --ink-soft: #6b655d;
+  --rule: #dcd8d0; /* hairlines */
+  --rule-strong: #b9b3a8; /* control outlines */
+  --frame: var(--ink); /* panel frames, black labels */
+  --on-frame: #fbfaf7; /* text on black labels */
+  --accent: #8a1c14;
+  --accent-dark: #6a140e;
+  --accent-soft: #f5e9e7;
+  --gold: #9c7b2c;
+  --warn: #9a6400;
+  --danger: #a3241a;
+  --shadow-pop: 0 12px 40px rgb(26 23 20 / 0.18), 0 2px 6px rgb(26 23 20 / 0.08);
 
-  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.24 0 0 0 0 0.1 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --blotches: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.12 0 0 0 0.22 -0.06'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
-  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* Legacy names kept so older components keep resolving (no texture, no gold). */
+  --leather: var(--ink);
+  --leather-dark: var(--ink);
+  --gold-light: var(--paper);
+  --gold-dark: var(--ink);
+  --noise: none;
+  --blotches: none;
+  --grain-dark: none;
   color-scheme: light;
 }
 
-/* Night reading: dark leather pages, parchment ink. */
+/* Night reading: the same sheet inverted. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --page: #120b06;
-    --paper: #2a1d12;
-    --paper-2: #332416;
-    --box: #3a2a1a;
-    --ink: #efe0bf;
-    --ink-soft: #bba17a;
-    --rule: #6b5232;
-    --accent: #d65a48;
-    --accent-dark: #7a1d14;
-    --gold: #d9b343;
-    --gold-light: #f4dc8c;
-    --gold-dark: #9c7a2a;
-    --warn: #e0b04a;
-    --danger: #ef6b62;
+    --page: #0b0a09;
+    --paper: #141210;
+    --box: #1b1916;
+    --paper-2: #23201c;
+    --ink: #ece7de;
+    --ink-soft: #a39b8f;
+    --rule: #34302b;
+    --rule-strong: #57514a;
+    --frame: #d9d3c8;
+    --on-frame: #141210;
+    --accent: #e06b5c;
+    --accent-dark: #c4544a;
+    --accent-soft: #3a1f1b;
+    --gold: #c9a85a;
+    --warn: #e0a84a;
+    --danger: #ef7b70;
+    --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
-  --page: #120b06;
-  --paper: #2a1d12;
-  --paper-2: #332416;
-  --box: #3a2a1a;
-  --ink: #efe0bf;
-  --ink-soft: #bba17a;
-  --rule: #6b5232;
-  --accent: #d65a48;
-  --accent-dark: #7a1d14;
-  --gold: #d9b343;
-  --gold-light: #f4dc8c;
-  --gold-dark: #9c7a2a;
-  --warn: #e0b04a;
-  --danger: #ef6b62;
+  --page: #0b0a09;
+  --paper: #141210;
+  --box: #1b1916;
+  --paper-2: #23201c;
+  --ink: #ece7de;
+  --ink-soft: #a39b8f;
+  --rule: #34302b;
+  --rule-strong: #57514a;
+  --frame: #d9d3c8;
+  --on-frame: #141210;
+  --accent: #e06b5c;
+  --accent-dark: #c4544a;
+  --accent-soft: #3a1f1b;
+  --gold: #c9a85a;
+  --warn: #e0a84a;
+  --danger: #ef7b70;
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.6);
   color-scheme: dark;
 }
 
@@ -83,76 +97,51 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 17.5px;
-  line-height: 1.4;
-  /* Tooled leather binding around the pages. */
-  background:
-    var(--grain-dark),
-    radial-gradient(ellipse at 50% 0%, #4a2d18, var(--page) 70%);
-  background-color: var(--page);
+  line-height: 1.45;
+  font-variant-numeric: lining-nums;
+  background: var(--page);
+  -webkit-font-smoothing: antialiased;
 }
 
 #app {
   max-width: 80rem;
   margin: 0 auto;
   min-height: 100vh;
-  /* Parchment page: grain + stains + darkened edges. */
-  background:
-    var(--noise),
-    var(--blotches),
-    radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(110 70 25 / 0.28) 100%),
-    var(--paper);
-  box-shadow:
-    0 0 0 3px var(--gold-dark),
-    0 0 0 5px var(--leather-dark),
-    0 0 3rem rgb(0 0 0 / 0.6);
+  background: var(--paper);
+  border-inline: 1px solid var(--rule);
 }
 
-/* ---------- Panels: parchment card, gold double frame, red ribbon title ---------- */
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+
+/* ---------- Panels: framed card with a black small-caps tag, as on the official sheet ---------- */
 .box {
   position: relative;
-  border: 1px solid var(--gold-dark);
-  border-radius: 4px;
-  padding: 0.6rem 0.8rem 0.8rem;
-  background: var(--noise), var(--box);
-  box-shadow:
-    inset 0 0 0 3px var(--box),
-    inset 0 0 0 4px var(--rule),
-    0 1px 3px rgb(60 35 10 / 0.25);
+  border: 1.5px solid var(--frame);
+  border-radius: 3px;
+  padding: 0 1rem 1rem;
+  background: var(--box);
   min-width: 0;
 }
 .box > h3 {
-  position: relative;
-  margin: -0.6rem -0.8rem 0.6rem;
-  padding: 0.25rem 2rem;
-  text-align: center;
+  width: fit-content;
+  max-width: calc(100% + 1rem);
+  margin: -1px 0 0.85rem -1rem;
+  padding: 0.3rem 0.9rem 0.35rem 1rem;
   font-family: var(--font-title);
   font-weight: 400;
-  font-size: 1.15rem;
-  letter-spacing: 0.04em;
-  color: var(--gold-light);
-  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-  border-bottom: 2px solid var(--gold);
-  border-radius: 3px 3px 0 0;
-  text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
-}
-.box > h3::before,
-.box > h3::after {
-  content: '❦';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gold);
-  font-size: 0.9em;
-}
-.box > h3::before {
-  left: 0.7rem;
-  transform: translateY(-50%) scaleX(-1);
-}
-.box > h3::after {
-  right: 0.7rem;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  color: var(--on-frame);
+  background: var(--frame);
+  border-radius: 0 0 3px 0;
 }
 
-/* Book tables: tan alternating rows. */
+/* Tables: hairline rows, small-caps headers. */
 .box table {
   width: 100%;
   border-collapse: collapse;
@@ -160,31 +149,31 @@ body {
 .box th {
   font-family: var(--font-title);
   font-weight: 400;
-  color: var(--accent);
-  border-bottom: 2px solid var(--rule);
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  border-bottom: 1.5px solid var(--frame);
   text-align: left;
-  padding: 0.2em 0.35em;
+  padding: 0.25em 0.45em;
 }
 .box td {
-  padding: 0.2em 0.35em;
-  border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, transparent);
+  padding: 0.2em 0.45em;
+  border-bottom: 1px solid var(--rule);
 }
-.box tbody tr:nth-child(even) {
-  background: color-mix(in srgb, var(--paper-2) 70%, transparent);
-}
-
-/* Ornamental divider */
-.fleuron {
-  text-align: center;
-  color: var(--gold-dark);
-  letter-spacing: 0.6em;
-  margin: 0.4rem 0;
+.box tbody tr:hover {
+  background: var(--paper-2);
 }
 
 button:focus-visible,
 select:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+summary:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent-soft);
 }

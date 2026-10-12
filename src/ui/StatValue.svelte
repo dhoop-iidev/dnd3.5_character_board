@@ -21,27 +21,41 @@
 </button>
 
 <style>
+  /* Clickable value: quiet at rest, clearly tappable (44px), outlined on hover/focus. */
   .stat {
     font: inherit;
+    font-family: var(--font-num);
     font-weight: 700;
-    min-width: 2.6em;
-    min-height: 2.2em;
-    padding: 0.15em 0.5em;
+    font-variant-numeric: tabular-nums lining-nums;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.1em 0.5em;
     border: 1px solid var(--rule);
     border-radius: 4px;
     background: var(--box);
     color: var(--ink);
     cursor: pointer;
+    transition:
+      border-color 0.12s,
+      background-color 0.12s;
   }
-  .stat:hover,
+  .stat:hover {
+    border-color: var(--frame);
+    background: var(--paper-2);
+  }
   .stat:focus-visible {
-    border-color: var(--accent);
-    outline: none;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .stat:active {
+    background: var(--paper-2);
   }
   .big {
     font-size: 1.5em;
   }
   sup {
     color: var(--accent);
+    font-size: 0.55em;
+    margin-left: 0.05em;
   }
 </style>

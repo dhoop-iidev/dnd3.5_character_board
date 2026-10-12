@@ -180,7 +180,7 @@
 <style>
   .grid {
     display: grid;
-    gap: 1rem;
+    gap: 1.25rem;
   }
   .load {
     display: flex;
@@ -189,11 +189,13 @@
     align-items: baseline;
   }
   .load strong {
+    font-family: var(--font-num);
     font-size: 1.5em;
   }
   .band {
-    font-weight: 700;
-    text-transform: uppercase;
+    font-family: var(--font-title);
+    letter-spacing: 0.06em;
+    font-size: 1.1em;
   }
   .band.medium,
   .band.heavy {
@@ -208,16 +210,16 @@
   }
   .bar {
     position: relative;
-    height: 0.8rem;
-    margin: 0.5rem 0;
-    border: 1px solid var(--rule);
+    height: 0.6rem;
+    margin: 0.6rem 0;
+    border: 1px solid var(--frame);
     background: var(--box);
-    border-radius: 4px;
+    border-radius: 1px;
     overflow: hidden;
   }
   .fill {
     height: 100%;
-    background: var(--ink-soft);
+    background: var(--ink);
   }
   .fill.medium,
   .fill.heavy {
@@ -230,45 +232,54 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: var(--accent);
+    width: 1px;
+    background: var(--ink-soft);
   }
   .total {
     margin: 0;
     font-size: 0.9em;
+    color: var(--ink-soft);
   }
   input[type='search'] {
     width: 100%;
     font: inherit;
     min-height: 2.75rem;
-    padding: 0 0.6rem;
+    padding: 0 0.7rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
   }
   .results {
     list-style: none;
     padding: 0;
-    margin: 0.4rem 0 0;
+    margin: 0.5rem 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
+    gap: 0.35rem;
   }
   .results button,
   .actions button,
   .qty button {
     font: inherit;
-    min-height: 2.4rem;
-    min-width: 2.4rem;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    padding: 0 0.6rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     cursor: pointer;
   }
+  .results button:hover,
+  .actions button:hover,
+  .qty button:hover {
+    border-color: var(--frame);
+    background: var(--paper-2);
+  }
   .results small {
     color: var(--ink-soft);
+    font-style: italic;
   }
   td {
     vertical-align: middle;
@@ -276,6 +287,7 @@
   .num {
     text-align: right;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
   td small {
     display: block;
@@ -290,24 +302,31 @@
     background: none;
     border: none;
     padding: 0.25em 0;
+    min-height: 2.75rem;
     color: var(--ink);
     text-align: left;
     cursor: pointer;
-    text-decoration: underline dotted var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 0.22em;
+  }
+  .link:hover {
+    color: var(--accent);
   }
   select {
     font: inherit;
-    min-height: 2.4rem;
+    min-height: 2.75rem;
+    padding: 0 0.4rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     max-width: 11rem;
   }
   .quality {
-    min-height: 2rem;
+    min-height: 2.25rem;
     font-size: 0.85em;
-    margin-top: 0.2em;
+    margin: 0.1em 0 0.3em;
   }
   .actions {
     white-space: nowrap;
@@ -315,5 +334,6 @@
   }
   .del {
     color: var(--danger) !important;
+    border-color: transparent !important;
   }
 </style>

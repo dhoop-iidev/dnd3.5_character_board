@@ -1,0 +1,43 @@
+// Prerequisite checks (feats, prestige classes).
+import type { Rules } from '../data/rules'
+import type { I18n, Prereq } from '../data/types'
+import type { Sheet } from './compute'
+
+/** Check a prerequisite against a computed sheet; returns the unmet parts (English/French). */
+export function unmetPrereqs(
+  prereq: Prereq | undefined,
+  sheet: Sheet,
+  rules: Rules,
+  ownedFeats: { featId: string; choice?: string }[],
+  choice?: string,
+): I18n[] {
+  if (!prereq) return []
+  const out: I18n[] = []
+  for (const [a, min] of Object.entries(prereq.abilities ?? {})) {
+    const score = sheet.abilities[a as keyof Sheet['abilities']].score.total
+    if (score < (min ?? 0)) out.push({ en: `${a.toUpperCase()} ${min} (has ${score})`, fr: `${a.toUpperCase()} ${min} (a ${score})` })
+  }
+  if (prereq.bab !== undefined && sheet.bab.total < prereq.bab)
+    out.push({ en: `BAB +${prereq.bab} (has +${sheet.bab.total})`, fr: `BBA +${prereq.bab} (a +${sheet.bab.total})` })
+  for (const req of prereq.feats ?? []) {
+    const [id, c] = req.split(':')
+    const wanted = c === '$choice' ? choice : c
+    if (!ownedFeats.some((f) => f.featId === id && (wanted === undefined || f.choice === wanted))) {
+      const name = rules.feats.get(id)?.name ?? { en: id, fr: id }
+      out.push({ en: `${name.en}${wanted ? ` (${wanted})` : ''}`, fr: `${name.fr}${wanted ? ` (${wanted})` : ''}` })
+    }
+  }
+  if (prereq.fighterLevel && (sheet.classLevels['fighter'] ?? 0) < prereq.fighterLevel)
+    out.push({ en: `Fighter level ${prereq.fighterLevel}`, fr: `Guerrier niveau ${prereq.fighterLevel}` })
+  if (prereq.characterLevel && sheet.characterLevel < prereq.characterLevel)
+    out.push({ en: `Character level ${prereq.characterLevel}`, fr: `Niveau global ${prereq.characterLevel}` })
+  for (const [skill, min] of Object.entries(prereq.skills ?? {})) {
+    const ranks = sheet.skills.find((s) => s.key === skill)?.ranks ?? 0
+    if (ranks < min) {
+      const name = rules.skills.get(skill.split(':')[0])?.name ?? { en: skill, fr: skill }
+      out.push({ en: `${name.en} ${min} ranks (has ${ranks})`, fr: `${name.fr} ${min} degrés (a ${ranks})` })
+    }
+  }
+  return out
+}
+

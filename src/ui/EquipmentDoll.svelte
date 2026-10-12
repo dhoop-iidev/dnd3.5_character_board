@@ -182,69 +182,71 @@
   .layout {
     display: grid;
     grid-template-columns: minmax(10rem, 1fr) minmax(0, 1.4fr) minmax(10rem, 1fr);
-    gap: 0.8rem;
+    gap: 1.25rem;
     align-items: center;
   }
   .side {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.85rem;
   }
   .slot {
     position: relative;
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 0.1rem 0.3rem;
+    gap: 0.2rem 0.35rem;
     align-items: center;
   }
-  /* Leader line toward the character, like the official sheet. */
+  /* Short leader line toward the character, like the official sheet. */
   .slot::after {
     content: '';
     position: absolute;
-    top: 1.3rem;
-    width: 1rem;
-    height: 2px;
-    background: var(--gold-dark);
+    top: 1.375rem;
+    width: 1.25rem;
+    height: 1.5px;
+    background: var(--frame);
   }
   .left::after {
-    right: -0.9rem;
+    right: -1.25rem;
   }
   .right::after {
-    left: -0.9rem;
+    left: -1.25rem;
+  }
+  .label {
+    grid-column: 1 / -1;
+    line-height: 1.15;
+    padding-left: 0.1rem;
   }
   .frame {
     grid-column: 1;
-    min-height: 2.6rem;
-    padding: 0.3rem 0.6rem;
+    min-height: 2.75rem;
+    padding: 0.3rem 0.7rem;
     text-align: left;
     font: inherit;
-    color: var(--ink);
-    background: var(--noise), var(--paper);
-    border: 1px solid var(--gold-dark);
-    border-radius: 14px;
-    box-shadow:
-      inset 0 0 0 2px var(--paper),
-      inset 0 0 0 3px var(--rule);
+    color: var(--ink-soft);
+    background: var(--box);
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
     cursor: pointer;
   }
+  .frame:hover {
+    border-color: var(--frame);
+    background: var(--paper-2);
+  }
   .filled .frame {
-    border-color: var(--gold);
-    background: var(--noise), linear-gradient(180deg, var(--box), var(--paper-2));
+    color: var(--ink);
+    border: 1.5px solid var(--frame);
     font-weight: 600;
   }
   .name {
     display: block;
   }
-  .label {
-    grid-column: 1 / -1;
-    line-height: 1.15;
-    padding-left: 0.3rem;
-  }
   .label strong {
     font-family: var(--font-title);
     font-weight: 400;
-    color: var(--accent);
-    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    font-size: 1.1rem;
   }
   .label small {
     display: block;
@@ -254,29 +256,38 @@
   .off {
     grid-column: 2;
     grid-row: 1;
-    min-width: 2.4rem;
-    min-height: 2.4rem;
-    border: 1px solid var(--rule);
-    border-radius: 50%;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
     background: var(--box);
     color: var(--ink);
     cursor: pointer;
   }
+  .off:hover {
+    border-color: var(--frame);
+  }
   .weapons {
-    margin-top: 0.8rem;
+    margin-top: 1.25rem;
     border-top: 1px solid var(--rule);
-    padding-top: 0.5rem;
+    padding-top: 0.75rem;
   }
   .weapons strong {
     font-family: var(--font-title);
     font-weight: 400;
-    color: var(--accent);
+    letter-spacing: 0.05em;
+    color: var(--ink);
   }
   .row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
+  }
+  .weapon {
+    color: var(--ink);
+    border: 1.5px solid var(--frame);
+    font-weight: 600;
   }
   .weapon small {
     display: block;
@@ -286,7 +297,7 @@
   }
   .warn {
     color: var(--danger);
-    margin: 0.4rem 0 0;
+    margin: 0.5rem 0 0;
   }
   .picker {
     position: fixed;
@@ -294,18 +305,20 @@
     z-index: 10;
     display: grid;
     place-items: center;
-    background: rgb(0 0 0 / 0.45);
+    background: rgb(20 17 14 / 0.45);
     padding: 1rem;
   }
   .sheet {
     width: min(32rem, 100%);
     max-height: 85vh;
     overflow-y: auto;
+    box-shadow: var(--shadow-pop);
   }
   .sub {
-    margin: 0.4rem 0 0.2rem;
+    margin: 0.6rem 0 0.3rem;
     font-family: var(--font-title);
-    color: var(--accent);
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
   }
   .picker ul {
     list-style: none;
@@ -315,7 +328,7 @@
   .picker li button,
   .close {
     width: 100%;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     text-align: left;
     font: inherit;
     background: none;
@@ -324,23 +337,26 @@
     color: var(--ink);
     cursor: pointer;
   }
+  .picker li button:hover {
+    background: var(--paper-2);
+  }
   .picker small {
     color: var(--ink-soft);
   }
   .picker input {
     width: 100%;
     font: inherit;
-    min-height: 2.5rem;
-    padding: 0 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.6rem;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
   }
   .close {
-    margin-top: 0.6rem;
+    margin-top: 0.8rem;
     text-align: center;
-    border: 1px solid var(--gold-dark);
+    border: 1.5px solid var(--frame);
     border-radius: 4px;
   }
   /* Tablet portrait / phone: character on top, slots in two columns below. */
@@ -354,6 +370,11 @@
     }
     .slot::after {
       display: none;
+    }
+  }
+  @media (max-width: 30rem) {
+    .layout {
+      grid-template-columns: 1fr;
     }
   }
 </style>

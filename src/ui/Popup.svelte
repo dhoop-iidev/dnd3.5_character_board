@@ -81,35 +81,47 @@
   dialog {
     width: min(42rem, calc(100vw - 2rem));
     max-height: 85vh;
-    border: 2px solid var(--accent);
+    border: 1.5px solid var(--frame);
     border-radius: 6px;
-    background: var(--paper);
+    background: var(--box);
     color: var(--ink);
-    padding: 1rem 1.25rem;
+    padding: 1.1rem 1.4rem 1.2rem;
+    box-shadow: var(--shadow-pop);
   }
   dialog::backdrop {
-    background: rgb(0 0 0 / 0.45);
+    background: rgb(20 17 14 / 0.45);
   }
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--accent);
-    margin-bottom: 0.5rem;
+    gap: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1.5px solid var(--frame);
+    margin-bottom: 0.6rem;
   }
   h2 {
     margin: 0;
-    font-family: var(--font-title);
-    color: var(--accent);
+    font-family: var(--font-num);
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
   }
   .close {
-    font-size: 1.3rem;
+    flex: none;
+    font-size: 1.1rem;
     background: none;
-    border: none;
-    color: var(--ink);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--ink-soft);
     cursor: pointer;
-    min-width: 2.5rem;
-    min-height: 2.5rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+  .close:hover {
+    color: var(--ink);
+    border-color: var(--rule);
   }
   table {
     width: 100%;
@@ -117,22 +129,37 @@
   }
   td,
   th {
-    padding: 0.3em 0.4em;
+    padding: 0.35em 0.4em;
     border-bottom: 1px solid var(--rule);
     text-align: left;
     vertical-align: top;
   }
+  tfoot th {
+    border-top: 1.5px solid var(--frame);
+    border-bottom: none;
+    font-family: var(--font-title);
+    font-weight: 400;
+    font-size: 1.1em;
+    letter-spacing: 0.04em;
+  }
+  tfoot th.num {
+    font-family: var(--font-num);
+    font-weight: 700;
+    color: var(--accent);
+  }
   .num {
     text-align: right;
+    font-family: var(--font-num);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
   .type {
     font-size: 0.8em;
+    font-style: italic;
     color: var(--ink-soft);
   }
   .inactive {
-    opacity: 0.55;
+    color: var(--ink-soft);
     text-decoration: line-through;
   }
   .inactive .cond {
@@ -140,18 +167,20 @@
   }
   .cond {
     display: block;
-    margin-top: 0.2em;
+    margin-top: 0.3em;
     font: inherit;
     font-size: 0.85em;
+    min-height: 2.75rem;
     background: var(--box);
-    border: 1px dashed var(--accent);
+    border: 1px dashed var(--rule-strong);
     border-radius: 4px;
     color: var(--ink);
     cursor: pointer;
-    padding: 0.2em 0.5em;
+    padding: 0.2em 0.7em;
   }
   .cond.on {
     border-style: solid;
+    border-color: var(--frame);
   }
   .summary {
     font-weight: 600;
@@ -159,6 +188,6 @@
   .rule-text {
     font-size: 0.95em;
     border-top: 1px solid var(--rule);
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
   }
 </style>

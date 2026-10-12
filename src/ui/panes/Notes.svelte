@@ -50,7 +50,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
   .bar input {
     flex: 1;
@@ -62,45 +62,65 @@
     font: inherit;
     background: var(--box);
     color: var(--ink);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
-    min-height: 2.6rem;
-    padding: 0 0.6rem;
+    min-height: 2.75rem;
+    padding: 0 0.7rem;
   }
   button {
     cursor: pointer;
   }
   .add {
-    border-color: var(--accent);
+    background: var(--frame);
+    border-color: var(--frame);
+    color: var(--on-frame);
   }
   .note {
-    border: 2px solid var(--ink);
-    border-radius: 6px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    background: var(--paper);
+    border: 1.5px solid var(--frame);
+    border-radius: 3px;
+    padding: 0.75rem 1rem 1rem;
+    margin-bottom: 1.25rem;
+    background: var(--box);
   }
   header {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  header input {
+    border-color: transparent;
+    background: transparent;
+  }
+  header input:hover {
+    border-color: var(--rule);
   }
   .title {
     flex: 1;
     min-width: 10rem;
-    font-family: var(--font-title);
+    font-family: var(--font-num);
+    font-weight: 700;
+    font-size: 1.1rem;
   }
   textarea {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.6rem 0.7rem;
     resize: vertical;
-    line-height: 1.4;
+    line-height: 1.5;
+    border-color: var(--rule);
   }
   .del {
     color: var(--danger);
+    border-color: transparent;
+    background: transparent;
+  }
+  .del:hover {
+    border-color: var(--rule);
   }
   .empty {
     font-style: italic;
+    color: var(--ink-soft);
   }
 </style>

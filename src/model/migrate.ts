@@ -7,6 +7,12 @@ export function migrate(raw: unknown): Character {
   const version = data.schemaVersion ?? 0
   if (version > SCHEMA_VERSION)
     throw new Error(`This file was made by a newer version of the app (schema ${version} > ${SCHEMA_VERSION})`)
-  // Add one step per schema change: if (version < 2) { ...; data.schemaVersion = 2 }
-  return data as Character
+  const c = data as Character & { xp?: number }
+  // v1 -> v2: XP added; start at the threshold of the current level.
+  if (version < 2) {
+    const n = c.levels?.length ?? 1
+    c.xp = c.xp ?? (1000 * n * (n - 1)) / 2
+    c.schemaVersion = 2
+  }
+  return c
 }

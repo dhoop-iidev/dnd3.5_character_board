@@ -45,20 +45,23 @@
 </figure>
 
 <style>
+  /* Plate: thin black frame with a hairline inner rule, on a flat neutral backdrop. */
   .viewer {
     position: relative;
     margin: 0;
     width: 100%;
-    border-radius: 50% 50% 8px 8px / 18% 18% 8px 8px;
+    border: 1.5px solid var(--frame);
+    border-radius: 3px;
     overflow: hidden;
-    background:
-      radial-gradient(ellipse at 50% 40%, rgb(255 236 190 / 0.55), transparent 65%),
-      radial-gradient(ellipse at 50% 100%, rgb(60 40 20 / 0.35), transparent 60%);
-    box-shadow:
-      inset 0 0 0 2px var(--gold),
-      inset 0 0 0 5px var(--paper),
-      inset 0 0 0 6px var(--gold-dark),
-      inset 0 0 2.5rem rgb(60 35 10 / 0.35);
+    background: var(--paper-2);
+  }
+  .viewer::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 1px;
+    pointer-events: none;
   }
   canvas {
     width: 100%;
@@ -78,19 +81,22 @@
   .reset {
     position: absolute;
     right: 0.6rem;
-    bottom: 0.8rem;
-    width: 2.6rem;
-    height: 2.6rem;
+    bottom: 0.6rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: 50%;
-    border: 1px solid var(--gold-dark);
+    border: 1px solid var(--rule-strong);
     background: var(--box);
     color: var(--ink);
     font-size: 1.2rem;
     cursor: pointer;
   }
+  .reset:hover {
+    border-color: var(--frame);
+  }
   figcaption {
     position: absolute;
-    left: 0.9rem;
+    left: 0.8rem;
     bottom: 0.5rem;
     max-width: 60%;
     text-align: left;

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "identity": {
     "name": "Fenrir Ykiyuk",
     "player": "Gaspard",
@@ -8,13 +8,25 @@
     "alignment": "CN",
     "gender": "m",
     "age": 29,
-    "height": { "m": 1.89 },
-    "weight": { "kg": 100 },
+    "height": {
+      "m": 1.89
+    },
+    "weight": {
+      "kg": 100
+    },
     "eyes": "noirs",
     "hair": "noirs, sauvages",
     "homeland": ""
   },
-  "baseAbilities": { "str": 17, "dex": 16, "con": 15, "int": 13, "wis": 9, "cha": 13 },
+  "xp": 36000,
+  "baseAbilities": {
+    "str": 17,
+    "dex": 16,
+    "con": 15,
+    "int": 13,
+    "wis": 9,
+    "cha": 13
+  },
   "abilityDamage": {},
   "abilityDrain": {},
   "levels": [
@@ -30,49 +42,103 @@
         "knowledge-monsters": 1
       },
       "feats": [
-        { "featId": "dodge", "slot": "general" },
-        { "featId": "combat-expertise", "slot": "human" },
-        { "featId": "power-attack", "slot": "fighter" },
-        { "featId": "weapon-focus", "slot": "deity", "choice": "greatsword" }
+        {
+          "featId": "dodge",
+          "slot": "general"
+        },
+        {
+          "featId": "combat-expertise",
+          "slot": "human"
+        },
+        {
+          "featId": "power-attack",
+          "slot": "fighter"
+        },
+        {
+          "featId": "weapon-focus",
+          "slot": "deity",
+          "choice": "greatsword"
+        }
       ]
     },
     {
       "classId": "fighter",
-      "skillRanks": { "knowledge-monsters": 1, "intimidate": 1, "spot": 1 },
-      "feats": [{ "featId": "mobility", "slot": "fighter" }]
+      "skillRanks": {
+        "knowledge-monsters": 1,
+        "intimidate": 1,
+        "spot": 1
+      },
+      "feats": [
+        {
+          "featId": "mobility",
+          "slot": "fighter"
+        }
+      ]
     },
     {
       "classId": "fighter",
-      "skillRanks": { "listen": 1, "knowledge-monsters": 1, "intimidate": 1 },
-      "feats": [{ "featId": "cleave", "slot": "general" }]
+      "skillRanks": {
+        "listen": 1,
+        "knowledge-monsters": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "cleave",
+          "slot": "general"
+        }
+      ]
     },
     {
       "classId": "fighter",
-      "skillRanks": { "knowledge-monsters": 1, "spot": 1, "intimidate": 1 },
-      "feats": [{ "featId": "spring-attack", "slot": "fighter" }],
+      "skillRanks": {
+        "knowledge-monsters": 1,
+        "spot": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "spring-attack",
+          "slot": "fighter"
+        }
+      ],
       "abilityIncrease": "str"
     },
     {
       "classId": "fighter",
-      "skillRanks": { "listen": 1 },
+      "skillRanks": {
+        "listen": 1
+      },
       "feats": []
     },
     {
       "classId": "fighter",
       "skillRanks": {},
       "feats": [
-        { "featId": "whirlwind-attack", "slot": "general" },
-        { "featId": "combat-reflexes", "slot": "fighter" }
+        {
+          "featId": "whirlwind-attack",
+          "slot": "general"
+        },
+        {
+          "featId": "combat-reflexes",
+          "slot": "fighter"
+        }
       ]
     },
     {
       "classId": "weapon-master",
-      "skillRanks": { "spot": 2, "listen": 2 },
+      "skillRanks": {
+        "spot": 2,
+        "listen": 2
+      },
       "feats": []
     },
     {
       "classId": "weapon-master",
-      "skillRanks": { "spot": 2, "listen": 2 },
+      "skillRanks": {
+        "spot": 2,
+        "listen": 2
+      },
       "feats": [],
       "abilityIncrease": "con"
     },
@@ -84,41 +150,181 @@
   ],
   "weaponOfChoice": "greatsword",
   "inventory": [
-    { "uid": "greatsword", "kind": "weapon", "refId": "greatsword", "quantity": 1, "location": "carried", "enhancement": 2 },
-    { "uid": "short-sword", "kind": "weapon", "refId": "short-sword", "quantity": 1, "location": "carried" },
-    { "uid": "longbow", "kind": "weapon", "refId": "longbow", "quantity": 1, "location": "carried" },
+    {
+      "uid": "greatsword",
+      "kind": "weapon",
+      "refId": "greatsword",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 2
+    },
+    {
+      "uid": "short-sword",
+      "kind": "weapon",
+      "refId": "short-sword",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "longbow",
+      "kind": "weapon",
+      "refId": "longbow",
+      "quantity": 1,
+      "location": "carried"
+    },
     {
       "uid": "arrows",
       "kind": "custom",
       "refId": "",
-      "name": { "en": "Arrows (14)", "fr": "Flèches (14)" },
+      "name": {
+        "en": "Arrows (14)",
+        "fr": "Flèches (14)"
+      },
       "quantity": 1,
       "location": "carried",
-      "custom": { "weightLb": 2.1, "costGp": 0.7, "text": { "en": "14 arrows (3 lb per 20).", "fr": "14 flèches (1,5 kg les 20)." } }
+      "custom": {
+        "weightLb": 2.1,
+        "costGp": 0.7,
+        "text": {
+          "en": "14 arrows (3 lb per 20).",
+          "fr": "14 flèches (1,5 kg les 20)."
+        }
+      }
     },
-    { "uid": "full-plate", "kind": "armor", "refId": "full-plate", "quantity": 1, "location": "worn", "enhancement": 2 },
-    { "uid": "shield", "kind": "armor", "refId": "heavy-steel-shield", "quantity": 1, "location": "pack" },
-    { "uid": "amulet", "kind": "magic", "refId": "amulet-of-health-2", "quantity": 1, "location": "worn" },
-    { "uid": "outfit", "kind": "gear", "refId": "travelers-outfit", "quantity": 1, "location": "worn" },
-    { "uid": "waterskin", "kind": "gear", "refId": "waterskin", "quantity": 1, "location": "carried" },
-    { "uid": "belt-pouch", "kind": "gear", "refId": "belt-pouch", "quantity": 1, "location": "carried" },
-    { "uid": "backpack", "kind": "gear", "refId": "backpack", "quantity": 1, "location": "carried" },
-    { "uid": "grappling-hook", "kind": "gear", "refId": "grappling-hook", "quantity": 1, "location": "pack" },
-    { "uid": "flask", "kind": "gear", "refId": "flask", "quantity": 1, "location": "pack" },
-    { "uid": "potion-invisibility", "kind": "magic", "refId": "potion-of-invisibility", "quantity": 1, "location": "pack" },
-    { "uid": "potion-bulls-strength", "kind": "magic", "refId": "potion-of-bulls-strength", "quantity": 1, "location": "pack" },
-    { "uid": "potion-levitate", "kind": "magic", "refId": "potion-of-levitate", "quantity": 1, "location": "pack" },
-    { "uid": "potion-clw", "kind": "magic", "refId": "potion-of-cure-light-wounds", "quantity": 2, "location": "pack" }
+    {
+      "uid": "full-plate",
+      "kind": "armor",
+      "refId": "full-plate",
+      "quantity": 1,
+      "location": "worn",
+      "enhancement": 2
+    },
+    {
+      "uid": "shield",
+      "kind": "armor",
+      "refId": "heavy-steel-shield",
+      "quantity": 1,
+      "location": "pack"
+    },
+    {
+      "uid": "amulet",
+      "kind": "magic",
+      "refId": "amulet-of-health-2",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "outfit",
+      "kind": "gear",
+      "refId": "travelers-outfit",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "waterskin",
+      "kind": "gear",
+      "refId": "waterskin",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "belt-pouch",
+      "kind": "gear",
+      "refId": "belt-pouch",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "backpack",
+      "kind": "gear",
+      "refId": "backpack",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "grappling-hook",
+      "kind": "gear",
+      "refId": "grappling-hook",
+      "quantity": 1,
+      "location": "pack"
+    },
+    {
+      "uid": "flask",
+      "kind": "gear",
+      "refId": "flask",
+      "quantity": 1,
+      "location": "pack"
+    },
+    {
+      "uid": "potion-invisibility",
+      "kind": "magic",
+      "refId": "potion-of-invisibility",
+      "quantity": 1,
+      "location": "pack"
+    },
+    {
+      "uid": "potion-bulls-strength",
+      "kind": "magic",
+      "refId": "potion-of-bulls-strength",
+      "quantity": 1,
+      "location": "pack"
+    },
+    {
+      "uid": "potion-levitate",
+      "kind": "magic",
+      "refId": "potion-of-levitate",
+      "quantity": 1,
+      "location": "pack"
+    },
+    {
+      "uid": "potion-clw",
+      "kind": "magic",
+      "refId": "potion-of-cure-light-wounds",
+      "quantity": 2,
+      "location": "pack"
+    }
   ],
   "loadouts": [
-    { "id": "greatsword", "name": { "en": "Greatsword", "fr": "Épée à deux mains" }, "weapons": ["greatsword", "longbow"] },
-    { "id": "tank", "name": { "en": "Tank (shield + short sword)", "fr": "Tank (écu + épée courte)" }, "weapons": ["short-sword"], "shield": "shield" }
+    {
+      "id": "greatsword",
+      "name": {
+        "en": "Greatsword",
+        "fr": "Épée à deux mains"
+      },
+      "weapons": [
+        "greatsword",
+        "longbow"
+      ]
+    },
+    {
+      "id": "tank",
+      "name": {
+        "en": "Tank (shield + short sword)",
+        "fr": "Tank (écu + épée courte)"
+      },
+      "weapons": [
+        "short-sword"
+      ],
+      "shield": "shield"
+    }
   ],
   "activeLoadout": "greatsword",
   "activeEffects": [],
-  "hp": { "damage": 0, "nonlethal": 0, "temp": 0 },
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
   "dailyUsesSpent": {},
-  "toggles": { "powerAttack": 0, "combatExpertise": 0, "fightingDefensively": false, "totalDefense": false, "situational": {} },
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
   "notes": [],
-  "settings": { "lang": "fr" }
+  "settings": {
+    "lang": "fr"
+  }
 }

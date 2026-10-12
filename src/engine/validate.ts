@@ -1,8 +1,12 @@
 // Rule checks. They only produce warnings; nothing is ever blocked (CLAUDE.md).
 import type { Rules } from '../data/rules'
-import type { I18n, Prereq } from '../data/types'
+import type { I18n } from '../data/types'
 import type { Character } from '../model/character'
-import { compute, type Sheet } from './compute'
+import { compute } from './compute'
+import { unmetPrereqs } from './prereq'
+import { featSlotsAt, isAbilityIncreaseLevel, skillBudget } from './progression'
+
+export { unmetPrereqs }
 
 export type Severity = 'error' | 'warning' | 'info'
 export type WarningArea = 'abilities' | 'skills' | 'feats' | 'levels' | 'inventory' | 'combat'
@@ -38,46 +42,6 @@ function permanent(char: Character): Character {
   }
 }
 
-const isGeneralFeatLevel = (lvl: number) => lvl === 1 || lvl % 3 === 0
-const isAbilityIncreaseLevel = (lvl: number) => lvl % 4 === 0
-
-/** Check a prerequisite against a computed sheet; returns the unmet parts (English/French). */
-export function unmetPrereqs(
-  prereq: Prereq | undefined,
-  sheet: Sheet,
-  rules: Rules,
-  ownedFeats: { featId: string; choice?: string }[],
-  choice?: string,
-): I18n[] {
-  if (!prereq) return []
-  const out: I18n[] = []
-  for (const [a, min] of Object.entries(prereq.abilities ?? {})) {
-    const score = sheet.abilities[a as keyof Sheet['abilities']].score.total
-    if (score < (min ?? 0)) out.push({ en: `${a.toUpperCase()} ${min} (has ${score})`, fr: `${a.toUpperCase()} ${min} (a ${score})` })
-  }
-  if (prereq.bab !== undefined && sheet.bab.total < prereq.bab)
-    out.push({ en: `BAB +${prereq.bab} (has +${sheet.bab.total})`, fr: `BBA +${prereq.bab} (a +${sheet.bab.total})` })
-  for (const req of prereq.feats ?? []) {
-    const [id, c] = req.split(':')
-    const wanted = c === '$choice' ? choice : c
-    if (!ownedFeats.some((f) => f.featId === id && (wanted === undefined || f.choice === wanted))) {
-      const name = rules.feats.get(id)?.name ?? { en: id, fr: id }
-      out.push({ en: `${name.en}${wanted ? ` (${wanted})` : ''}`, fr: `${name.fr}${wanted ? ` (${wanted})` : ''}` })
-    }
-  }
-  if (prereq.fighterLevel && (sheet.classLevels['fighter'] ?? 0) < prereq.fighterLevel)
-    out.push({ en: `Fighter level ${prereq.fighterLevel}`, fr: `Guerrier niveau ${prereq.fighterLevel}` })
-  if (prereq.characterLevel && sheet.characterLevel < prereq.characterLevel)
-    out.push({ en: `Character level ${prereq.characterLevel}`, fr: `Niveau global ${prereq.characterLevel}` })
-  for (const [skill, min] of Object.entries(prereq.skills ?? {})) {
-    const ranks = sheet.skills.find((s) => s.key === skill)?.ranks ?? 0
-    if (ranks < min) {
-      const name = rules.skills.get(skill.split(':')[0])?.name ?? { en: skill, fr: skill }
-      out.push({ en: `${name.en} ${min} ranks (has ${ranks})`, fr: `${name.fr} ${min} degrés (a ${ranks})` })
-    }
-  }
-  return out
-}
 
 export function validate(char: Character, rules: Rules): RuleWarning[] {
   const out: RuleWarning[] = []
@@ -115,23 +79,19 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
           { level: L, book: cls.source.book, srdUrl: cls.source.srdUrl ?? `${SRD}prestigeClasses.htm` }))
     }
 
-    // Skill points (docs/rules/skills.md; rulings-character.md q3, q4).
-    const intMod = after.abilities.int.mod
-    let available = Math.max(1, cls.skillPoints + intMod) * (L === 1 ? 4 : 1)
-    if (char.identity.race === 'human') available += L === 1 ? 4 : 1
-    let spent = 0
+    // Skill points and max ranks (docs/rules/skills.md; rulings-character.md q3, q4).
+    const budget = skillBudget(perm, rules, L)
+    const { available, spent } = budget
     for (const [key, ranks] of Object.entries(lvl.skillRanks)) {
       const skillId = key.split(':')[0]
-      const inClass = cls.classSkills.includes(skillId)
-      spent += inClass ? ranks : ranks * 2
       rankTotals[key] = (rankTotals[key] ?? 0) + ranks
-      const anyClass = Object.keys(after.classLevels).some((c) => rules.classes.get(c)?.classSkills.includes(skillId))
-      const max = anyClass ? L + 3 : (L + 3) / 2
+      const max = budget.maxRanks(skillId)
       if (rankTotals[key] > max) {
         const name = rules.skills.get(skillId)?.name ?? { en: key, fr: key }
+        const kind = budget.costPerRank(skillId) === 1 || max === L + 3
         out.push(w(`max-ranks-${key}-${L}`, 'error', 'skills',
-          `Level ${L}: ${name.en} has ${rankTotals[key]} ranks, max ${max} (${anyClass ? 'class' : 'cross-class'} skill)`,
-          `Niveau ${L} : ${name.fr} a ${rankTotals[key]} degrés, max ${max} (compétence ${anyClass ? 'de classe' : 'hors classe'})`,
+          `Level ${L}: ${name.en} has ${rankTotals[key]} ranks, max ${max} (${kind ? 'class' : 'cross-class'} skill)`,
+          `Niveau ${L} : ${name.fr} a ${rankTotals[key]} degrés, max ${max} (compétence ${kind ? 'de classe' : 'hors classe'})`,
           { level: L, srdUrl: `${SRD}skills/skillsSummary.htm` }))
       }
       if (!rules.skills.has(skillId))
@@ -148,11 +108,7 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
         { level: L, srdUrl: `${SRD}skills/skillsSummary.htm` }))
 
     // Feat slots (docs/rules/feats.md; house rule #3 for the deity feat).
-    const expected = {
-      general: isGeneralFeatLevel(L) ? 1 : 0,
-      human: L === 1 && char.identity.race === 'human' ? 1 : 0,
-      fighter: cls.bonusFeatLevels?.includes(classLevel) ? 1 : 0,
-    }
+    const expected = featSlotsAt(perm, rules, L)
     for (const slot of ['general', 'human', 'fighter'] as const) {
       const n = lvl.feats.filter((f) => f.slot === slot).length
       if (n < expected[slot])

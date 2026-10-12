@@ -24,21 +24,31 @@
 <style>
   .warnings {
     list-style: none;
-    margin: 0.5rem 0 0;
+    margin: 0.75rem 0 0;
     padding: 0;
-    font-size: 0.9em;
+    font-size: 0.92em;
   }
   li {
-    padding: 0.3em 0.5em;
-    border-left: 4px solid var(--rule);
-    margin-bottom: 0.25em;
-    background: var(--box);
+    padding: 0.35em 0.7em;
+    border-left: 3px solid var(--rule-strong);
+    margin-bottom: 0.3em;
+    background: var(--paper-2);
+    border-radius: 0 3px 3px 0;
+  }
+  li > span:first-child {
+    margin-right: 0.2em;
   }
   .error {
     border-color: var(--danger);
   }
+  .error > span:first-child {
+    color: var(--danger);
+  }
   .warning {
     border-color: var(--warn);
+  }
+  .warning > span:first-child {
+    color: var(--warn);
   }
   .info {
     border-color: var(--ink-soft);
