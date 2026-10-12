@@ -90,10 +90,10 @@
   }
   figcaption {
     position: absolute;
-    right: 0.8rem;
-    top: 0.5rem;
-    max-width: 45%;
-    text-align: right;
+    left: 0.9rem;
+    bottom: 0.5rem;
+    max-width: 60%;
+    text-align: left;
     font-size: 0.7rem;
     color: var(--ink-soft);
   }

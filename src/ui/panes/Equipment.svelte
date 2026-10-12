@@ -7,6 +7,7 @@
   import { catalog, itemInfo, newUid, norm } from '../items'
   import { openPopup } from '../popupState.svelte'
   import WarningList from '../WarningList.svelte'
+  import EquipmentDoll from '../EquipmentDoll.svelte'
 
   const LOCATIONS: { id: ItemLocation; label: I18n }[] = [
     { id: 'worn', label: { en: 'Worn', fr: 'Porté' } },
@@ -71,6 +72,8 @@
 </script>
 
 <div class="grid">
+  <EquipmentDoll />
+
   <section class="box wide">
     <h3>{tr(UI.load)}</h3>
     <div class="load">

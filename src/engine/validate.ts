@@ -246,7 +246,14 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       { srdUrl: `${SRD}equipment/armor.htm#maximumDexBonus` }))
   const slots: Record<string, number> = {}
   for (const it of char.inventory) {
-    const slot = it.kind === 'magic' && it.location === 'worn' ? rules.magicItems.get(it.refId)?.slot : undefined
+    if (it.location !== 'worn') continue
+    const armorCat = it.kind === 'armor' ? rules.armor.get(it.refId)?.category : undefined
+    const slot =
+      it.kind === 'magic'
+        ? rules.magicItems.get(it.refId)?.slot
+        : armorCat && armorCat !== 'shield' && armorCat !== 'tower'
+          ? 'body' // a suit of armor occupies the body slot
+          : undefined
     if (slot) slots[slot] = (slots[slot] ?? 0) + it.quantity
   }
   for (const [slot, n] of Object.entries(slots))

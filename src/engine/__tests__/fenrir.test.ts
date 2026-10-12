@@ -146,6 +146,10 @@ describe('rule warnings', () => {
     expect(ids).toContain('feat-missing-general-9')
   })
   it('flags Spring Attack as unusable in heavy armor', () => expect(ids).toContain('unusable-spring-attack'))
+  it('two items on one slot are flagged (armor + robe on the body)', () => {
+    const robed = { ...fenrir, inventory: [...fenrir.inventory, { uid: 'robe', kind: 'magic' as const, refId: 'robe-of-blending', quantity: 1, location: 'worn' as const }] }
+    expect(validate(robed, rules).map((w) => w.id)).toContain('slot-body')
+  })
   it('no errors in the build itself', () => {
     expect(warnings.filter((w) => w.severity === 'error')).toEqual([])
   })
