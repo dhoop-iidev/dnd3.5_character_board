@@ -2,7 +2,11 @@
   import { rules } from './data/rules'
   import { UI } from './i18n/ui'
   import { app, tr, view } from './state.svelte'
+  import Combat from './ui/panes/Combat.svelte'
+  import Equipment from './ui/panes/Equipment.svelte'
   import General from './ui/panes/General.svelte'
+  import Notes from './ui/panes/Notes.svelte'
+  import SaveControls from './ui/SaveControls.svelte'
   import Popup from './ui/Popup.svelte'
 
   type Tab = 'general' | 'equipment' | 'combat' | 'notes'
@@ -91,12 +95,17 @@
 <main>
   {#if tab === 'general'}
     <General />
+  {:else if tab === 'equipment'}
+    <Equipment />
+  {:else if tab === 'combat'}
+    <Combat />
   {:else}
-    <p class="soon">{tr({ en: 'Coming in the next milestone.', fr: 'Prévu pour la prochaine étape.' })}</p>
+    <Notes />
   {/if}
 </main>
 
 <footer>
+  <SaveControls />
   <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master)
 </footer>
 
@@ -192,9 +201,6 @@
   main {
     padding: 1rem;
     border-top: 2px solid var(--ink);
-  }
-  .soon {
-    font-style: italic;
   }
   footer {
     padding: 1rem;

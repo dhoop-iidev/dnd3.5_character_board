@@ -111,6 +111,31 @@ describe('effects', () => {
   })
 })
 
+describe('conditions', () => {
+  const withEffects = (...ids: string[]) =>
+    compute(
+      { ...fenrir, activeEffects: ids.map((id, i) => ({ uid: `c${i}`, kind: 'condition' as const, refId: id, enabled: true })) },
+      rules,
+      { level: 8 },
+    )
+  it('exhausted replaces fatigued (−6, not −8)', () => {
+    expect(withEffects('fatigued', 'exhausted').abilities.str.score.total).toBe(12)
+  })
+  it('shaken and sickened (different sources, untyped) stack on attacks', () => {
+    expect(withEffects('shaken', 'sickened').attacks.find((a) => a.itemUid === 'greatsword')!.attack.total).toBe(11)
+  })
+  it('prone: the two situational AC modifiers are toggled separately', () => {
+    const prone = withEffects('prone')
+    const parts = prone.ac.parts.filter((p) => p.sourceId.startsWith('condition:prone'))
+    expect(parts).toHaveLength(2)
+    expect(new Set(parts.map((p) => p.toggleKey)).size).toBe(2)
+    expect(prone.ac.total).toBe(21)
+  })
+  it('flat-footed: no Dex, no dodge', () => {
+    expect(withEffects('flat-footed').ac.total).toBe(20)
+  })
+})
+
 describe('rule warnings', () => {
   const warnings = validate(fenrir, rules)
   const ids = warnings.map((w) => w.id)

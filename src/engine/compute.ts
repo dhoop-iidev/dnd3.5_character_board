@@ -172,11 +172,17 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const spec of def?.modifiers ?? item.custom?.modifiers ?? [])
       mods.push({ spec, sourceId: `item:${item.uid}`, label: item.name ?? def?.name ?? i18n(item.refId), source: def?.source })
   }
+  // A condition replaced by a stronger active one (e.g. fatigued by exhausted) is ignored.
+  const replaced = new Set(
+    char.activeEffects
+      .filter((e) => e.enabled && e.kind === 'condition')
+      .flatMap((e) => rules.conditions.get(e.refId ?? '')?.replaces ?? []),
+  )
   for (const eff of char.activeEffects) {
     if (!eff.enabled) continue
     if (eff.kind === 'condition') {
       const def = rules.conditions.get(eff.refId ?? '')
-      if (!def) continue
+      if (!def || replaced.has(def.id)) continue
       flags.push(...def.flags)
       for (const spec of def.modifiers) mods.push({ spec, sourceId: `condition:${def.id}`, label: def.name, source: def.source })
     } else if (eff.kind === 'magic') {
@@ -187,18 +193,21 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       for (const spec of eff.custom.modifiers) mods.push({ spec, sourceId: `effect:${eff.uid}`, label: eff.custom.name })
     }
   }
+  // Situational toggle key: source + target (+ condition text, e.g. prone vs melee / vs ranged).
+  const keyOf = (m: ModSource) =>
+    `${m.sourceId}|${m.spec.target}${m.spec.condition && !m.sourceId.startsWith('feat:') ? `|${m.spec.condition.en}` : ''}`
   const partsFor = (targets: string[]): Part[] =>
     mods
       .filter((m) => targets.includes(m.spec.target))
       .map((m) => ({
-        sourceId: m.sourceId,
+        sourceId: m.spec.condition ? `${m.sourceId}|${m.spec.condition.en}` : m.sourceId,
         label: m.label,
         value: m.spec.value,
         bonusType: m.spec.bonusType,
         source: m.source,
         condition: m.spec.condition,
-        situationalOn: toggles.situational[`${m.sourceId}|${m.spec.target}`] ?? false,
-        toggleKey: `${m.sourceId}|${m.spec.target}`,
+        situationalOn: toggles.situational[keyOf(m)] ?? false,
+        toggleKey: keyOf(m),
       }))
   const sumTarget = (target: string) =>
     mods.filter((m) => m.spec.target === target).reduce((s, m) => s + m.spec.value, 0)
