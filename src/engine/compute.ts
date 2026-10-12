@@ -198,6 +198,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         source: m.source,
         condition: m.spec.condition,
         situationalOn: toggles.situational[`${m.sourceId}|${m.spec.target}`] ?? false,
+        toggleKey: `${m.sourceId}|${m.spec.target}`,
       }))
   const sumTarget = (target: string) =>
     mods.filter((m) => m.spec.target === target).reduce((s, m) => s + m.spec.value, 0)
@@ -439,6 +440,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         source: syn.source,
         condition: syn.condition,
         situationalOn: toggles.situational[`synergy:${syn.from}|skill.${id}`] ?? false,
+        toggleKey: `synergy:${syn.from}|skill.${id}`,
       })
     }
     const strdex = def.ability === 'str' || def.ability === 'dex' ? ['skill.strdex'] : []

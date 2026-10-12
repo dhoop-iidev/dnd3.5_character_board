@@ -12,6 +12,8 @@ export interface Part {
   /** Situational text; the part only counts when `situationalOn` is true. */
   condition?: I18n
   situationalOn?: boolean
+  /** Key in character.toggles.situational that switches this part on/off. */
+  toggleKey?: string
   /** Filled by `resolve`: whether the part counts in the total. */
   active?: boolean
   /** Filled by `resolve`: why it doesn't count. */
