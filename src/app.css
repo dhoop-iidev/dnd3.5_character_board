@@ -1,42 +1,70 @@
-/* Look of the 3.5 rulebooks: parchment, black ink, dark-red accents. */
+/*
+ * Look of the 3.5 rulebooks: parchment pages on a tooled-leather binding, gold trim, PHB red.
+ * Free fonts close to the books: Cinzel Decorative (titles), IM Fell English SC (headings), EB Garamond (text).
+ * Textures are generated (SVG noise), no image files.
+ */
 :root {
-  --font-title: 'Cinzel', 'Times New Roman', serif;
-  --font-body: 'Crimson Text', Georgia, serif;
-  --paper: #f4ead5;
-  --page: #e8d9b5;
-  --box: #fbf5e6;
-  --ink: #2b1d14;
-  --ink-soft: #6b5a48;
-  --rule: #c7b48d;
-  --accent: #7a1712;
-  --warn: #d49a1a;
+  --font-display: 'Cinzel Decorative', 'Cinzel', serif;
+  --font-title: 'IM Fell English SC', 'Cinzel', serif;
+  --font-num: 'Cinzel', 'Times New Roman', serif;
+  --font-body: 'EB Garamond', 'Crimson Text', Georgia, serif;
+
+  --leather: #3a2314;
+  --leather-dark: #24150b;
+  --page: #2b1a0f;
+  --paper: #f2e4c4;
+  --paper-2: #e9d6aa;
+  --box: #f8eedb;
+  --ink: #2a1a0e;
+  --ink-soft: #6e5636;
+  --rule: #c7a874;
+  --accent: #8e1b12;
+  --accent-dark: #5e0f09;
+  --gold: #c9a227;
+  --gold-light: #f1d784;
+  --gold-dark: #7a5a12;
+  --warn: #c98a12;
   --danger: #b3261e;
+
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.24 0 0 0 0 0.1 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --blotches: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.12 0 0 0 0.22 -0.06'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
+  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 
+/* Night reading: dark leather pages, parchment ink. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: #24201b;
-    --page: #171410;
-    --box: #2e2922;
-    --ink: #eadfc8;
-    --ink-soft: #b3a68f;
-    --rule: #5a4f40;
-    --accent: #d0594f;
+    --page: #120b06;
+    --paper: #2a1d12;
+    --paper-2: #332416;
+    --box: #3a2a1a;
+    --ink: #efe0bf;
+    --ink-soft: #bba17a;
+    --rule: #6b5232;
+    --accent: #d65a48;
+    --accent-dark: #7a1d14;
+    --gold: #d9b343;
+    --gold-light: #f4dc8c;
+    --gold-dark: #9c7a2a;
     --warn: #e0b04a;
     --danger: #ef6b62;
     color-scheme: dark;
   }
 }
-
 :root[data-theme='dark'] {
-  --paper: #24201b;
-  --page: #171410;
-  --box: #2e2922;
-  --ink: #eadfc8;
-  --ink-soft: #b3a68f;
-  --rule: #5a4f40;
-  --accent: #d0594f;
+  --page: #120b06;
+  --paper: #2a1d12;
+  --paper-2: #332416;
+  --box: #3a2a1a;
+  --ink: #efe0bf;
+  --ink-soft: #bba17a;
+  --rule: #6b5232;
+  --accent: #d65a48;
+  --accent-dark: #7a1d14;
+  --gold: #d9b343;
+  --gold-light: #f4dc8c;
+  --gold-dark: #9c7a2a;
   --warn: #e0b04a;
   --danger: #ef6b62;
   color-scheme: dark;
@@ -52,24 +80,111 @@ html {
 
 body {
   margin: 0;
-  background: var(--page);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 17.5px;
   line-height: 1.4;
+  /* Tooled leather binding around the pages. */
+  background:
+    var(--grain-dark),
+    radial-gradient(ellipse at 50% 0%, #4a2d18, var(--page) 70%);
+  background-color: var(--page);
 }
 
 #app {
-  max-width: 78rem;
+  max-width: 80rem;
   margin: 0 auto;
   min-height: 100vh;
-  background: var(--paper);
-  box-shadow: 0 0 2rem rgb(0 0 0 / 0.25);
+  /* Parchment page: grain + stains + darkened edges. */
+  background:
+    var(--noise),
+    var(--blotches),
+    radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(110 70 25 / 0.28) 100%),
+    var(--paper);
+  box-shadow:
+    0 0 0 3px var(--gold-dark),
+    0 0 0 5px var(--leather-dark),
+    0 0 3rem rgb(0 0 0 / 0.6);
+}
+
+/* ---------- Panels: parchment card, gold double frame, red ribbon title ---------- */
+.box {
+  position: relative;
+  border: 1px solid var(--gold-dark);
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem 0.8rem;
+  background: var(--noise), var(--box);
+  box-shadow:
+    inset 0 0 0 3px var(--box),
+    inset 0 0 0 4px var(--rule),
+    0 1px 3px rgb(60 35 10 / 0.25);
+  min-width: 0;
+}
+.box > h3 {
+  position: relative;
+  margin: -0.6rem -0.8rem 0.6rem;
+  padding: 0.25rem 2rem;
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: var(--gold-light);
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  border-bottom: 2px solid var(--gold);
+  border-radius: 3px 3px 0 0;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
+}
+.box > h3::before,
+.box > h3::after {
+  content: '❦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 0.9em;
+}
+.box > h3::before {
+  left: 0.7rem;
+  transform: translateY(-50%) scaleX(-1);
+}
+.box > h3::after {
+  right: 0.7rem;
+}
+
+/* Book tables: tan alternating rows. */
+.box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.box th {
+  font-family: var(--font-title);
+  font-weight: 400;
+  color: var(--accent);
+  border-bottom: 2px solid var(--rule);
+  text-align: left;
+  padding: 0.2em 0.35em;
+}
+.box td {
+  padding: 0.2em 0.35em;
+  border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, transparent);
+}
+.box tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--paper-2) 70%, transparent);
+}
+
+/* Ornamental divider */
+.fleuron {
+  text-align: center;
+  color: var(--gold-dark);
+  letter-spacing: 0.6em;
+  margin: 0.4rem 0;
 }
 
 button:focus-visible,
 select:focus-visible,
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

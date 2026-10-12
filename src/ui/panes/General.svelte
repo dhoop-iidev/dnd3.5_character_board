@@ -9,6 +9,8 @@
   import { openPopup } from '../popupState.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
+  import Medallion from '../Medallion.svelte'
+  import CharacterViewer from '../viewer/CharacterViewer.svelte'
 
   const s = $derived(view.sheet)
   let showAllSkills = $state(false)
@@ -20,6 +22,14 @@
     int: { en: 'INT', fr: 'INT' },
     wis: { en: 'WIS', fr: 'SAG' },
     cha: { en: 'CHA', fr: 'CHA' },
+  }
+  const ABILITY_NAME: Record<AbilityId, I18n> = {
+    str: { en: 'Strength', fr: 'Force' },
+    dex: { en: 'Dexterity', fr: 'Dextérité' },
+    con: { en: 'Constitution', fr: 'Constitution' },
+    int: { en: 'Intelligence', fr: 'Intelligence' },
+    wis: { en: 'Wisdom', fr: 'Sagesse' },
+    cha: { en: 'Charisma', fr: 'Charisme' },
   }
   const SAVES: { id: SaveId; label: I18n }[] = [
     { id: 'fort', label: UI.fort },
@@ -94,59 +104,66 @@
   )
 </script>
 
+<!-- Hero: abilities | 3D portrait | vital statistics (inspired by ornate character sheets) -->
+<section class="hero">
+  <div class="col abilities">
+    {#each ABILITIES as a (a)}
+      <Medallion label={tr(ABILITY_LABEL[a])} sub={fmt(s.abilities[a].mod)} size="sm">
+        <StatValue stat={() => view.sheet.abilities[a].score} title={ABILITY_NAME[a]} signed={false} />
+      </Medallion>
+    {/each}
+  </div>
+
+  <div class="portrait">
+    <CharacterViewer height="clamp(22rem, 52vw, 34rem)" />
+  </div>
+
+  <div class="col vitals">
+    <Medallion label={tr(UI.acShort)} size="lg">
+      <StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} />
+    </Medallion>
+    <div class="pair">
+      <Medallion label={tr(UI.touch)} size="sm">
+        <StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} />
+      </Medallion>
+      <Medallion label={tr({ en: 'Flat', fr: 'Dépourvu' })} size="sm">
+        <StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} />
+      </Medallion>
+    </div>
+    <Medallion label={tr(UI.initiative)} size="sm">
+      <StatValue stat={() => view.sheet.initiative} title={UI.initiative} />
+    </Medallion>
+    <div class="hp-block">
+      <div class="hp-title">{tr(UI.hp)}</div>
+      <div class="hp">
+        <span class="hp-current" class:low={hpCurrent <= s.hpMax.total / 4}>{hpCurrent}</span>
+        <span>/</span>
+        <StatValue stat={() => view.sheet.hpMax} title={UI.hp} signed={false} />
+      </div>
+      <div class="hp-buttons">
+        {#each [-10, -5, -1] as d (d)}<button onclick={() => adjustHp(d)}>{d}</button>{/each}
+        {#each [1, 5, 10] as d (d)}<button onclick={() => adjustHp(d)}>+{d}</button>{/each}
+      </div>
+    </div>
+  </div>
+</section>
+<WarningList areas={['abilities']} />
+
 <div class="grid">
   <section class="box">
-    <h3>{tr(UI.abilities)}</h3>
-    <table class="abilities">
-      <tbody>
-        {#each ABILITIES as a (a)}
-          <tr>
-            <th>{tr(ABILITY_LABEL[a])}</th>
-            <td>
-              <StatValue
-                stat={() => view.sheet.abilities[a].score}
-                title={{ en: ABILITY_LABEL[a].en, fr: ABILITY_LABEL[a].fr }}
-                signed={false}
-              />
-            </td>
-            <td class="mod">{fmt(s.abilities[a].mod)}</td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-    <WarningList areas={['abilities']} />
-  </section>
-
-  <section class="box">
-    <h3>{tr(UI.hp)}</h3>
-    <div class="hp">
-      <span class="hp-current" class:low={hpCurrent <= s.hpMax.total / 4}>{hpCurrent}</span>
-      <span>/</span>
-      <StatValue stat={() => view.sheet.hpMax} title={UI.hp} signed={false} />
-    </div>
-    <div class="hp-buttons">
-      {#each [-10, -5, -1] as d (d)}<button onclick={() => adjustHp(d)}>{d}</button>{/each}
-      {#each [1, 5, 10] as d (d)}<button onclick={() => adjustHp(d)}>+{d}</button>{/each}
-    </div>
-
-    <h3>{tr(UI.ac)}</h3>
-    <div class="row3">
-      <label>{tr(UI.acShort)} <StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big /></label>
-      <label>{tr(UI.touch)} <StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} /></label>
-      <label>{tr(UI.flatFooted)} <StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} /></label>
-    </div>
-  </section>
-
-  <section class="box">
     <h3>{tr(UI.saves)}</h3>
-    <div class="row3">
+    <div class="saves">
       {#each SAVES as sv (sv.id)}
-        <label>{tr(sv.label)} <StatValue stat={() => view.sheet.saves[sv.id]} title={sv.label} big /></label>
+        <Medallion label={tr(sv.label)} size="sm">
+          <StatValue stat={() => view.sheet.saves[sv.id]} title={sv.label} />
+        </Medallion>
       {/each}
     </div>
+  </section>
+
+  <section class="box">
+    <h3>{tr({ en: 'Combat', fr: 'Combat' })}</h3>
     <dl>
-      <dt>{tr(UI.initiative)}</dt>
-      <dd><StatValue stat={() => view.sheet.initiative} title={UI.initiative} /></dd>
       <dt>{tr(UI.bab)}</dt>
       <dd>
         <StatValue stat={() => view.sheet.bab} title={UI.bab} />
@@ -246,6 +263,54 @@
 </div>
 
 <style>
+  .hero {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 0.7rem 0.6rem;
+  }
+  .pair,
+  .saves {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hp-block {
+    text-align: center;
+  }
+  .hp-title {
+    font-family: var(--font-title);
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  /* Tablet portrait and phones: portrait on top, medallions below. */
+  @media (max-width: 52rem) {
+    .hero {
+      grid-template-columns: 1fr 1fr;
+    }
+    .portrait {
+      grid-column: 1 / -1;
+      order: -1;
+    }
+    .abilities {
+      grid-template-columns: repeat(3, auto);
+      justify-content: center;
+    }
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
@@ -254,46 +319,8 @@
   .wide {
     grid-column: 1 / -1;
   }
-  .box {
-    border: 2px solid var(--ink);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem 0.75rem;
-    background: var(--paper);
-    min-width: 0;
-  }
-  h3 {
-    margin: -0.5rem -0.75rem 0.5rem;
-    padding: 0.2rem 0.75rem;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: var(--font-title);
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  h3:not(:first-child) {
-    margin-top: 0.75rem;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th,
-  td {
-    padding: 0.2em 0.3em;
-    border-bottom: 1px solid var(--rule);
-    text-align: left;
-  }
   .num {
     text-align: right;
-  }
-  .abilities th {
-    font-family: var(--font-title);
-    width: 4em;
-  }
-  .mod {
-    font-weight: 700;
-    font-size: 1.2em;
   }
   .hp {
     display: flex;
@@ -322,17 +349,6 @@
     background: var(--box);
     color: var(--ink);
     border-radius: 4px;
-  }
-  .row3 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  .row3 label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.85em;
   }
   dl {
     display: grid;

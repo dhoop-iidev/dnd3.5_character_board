@@ -22,3 +22,9 @@ Thumbs.db
 
 # data pipeline cache
 tools/.cache/
+
+# 3D model sources (large downloads; the optimized GLB lives in public/models)
+model/
+
+# reference images from the web (not ours to publish)
+design inspiration/

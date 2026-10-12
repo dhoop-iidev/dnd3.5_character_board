@@ -106,107 +106,139 @@
 
 <footer>
   <SaveControls />
-  <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master)
+  <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) ·
+  <a href="models/CREDITS.md" target="_blank">3D : « Fallen Paladin », Pigcraft, CC-BY 4.0</a>
 </footer>
 
 <Popup />
 
 <style>
+  /* Header and tabs: tooled leather with gold trim, like the PHB 3.5 cover. */
   .top {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem 1rem 0.5rem;
-    border-bottom: 3px double var(--accent);
+    padding: 0.8rem 1.2rem;
+    color: var(--gold-light);
+    background:
+      var(--grain-dark),
+      linear-gradient(180deg, #4a2c18, var(--leather) 60%, var(--leather-dark));
+    border-bottom: 3px solid var(--gold);
+    box-shadow: inset 0 -6px 0 -3px var(--gold-dark);
   }
   h1 {
     margin: 0;
-    font-family: var(--font-title);
-    color: var(--accent);
-    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4.2vw, 2.4rem);
+    line-height: 1.1;
+    background: linear-gradient(180deg, #fff3c4, var(--gold) 55%, #8a6514);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 1px rgb(0 0 0 / 0.6));
   }
   .who p {
-    margin: 0.1rem 0 0;
-    color: var(--ink-soft);
+    margin: 0.15rem 0 0;
+    font-family: var(--font-title);
+    color: #e9d6a6;
+    letter-spacing: 0.02em;
   }
   .controls {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.6rem;
     align-items: flex-end;
     flex-wrap: wrap;
   }
   .controls label {
     display: flex;
     flex-direction: column;
-    font-size: 0.8em;
+    font-family: var(--font-title);
+    font-size: 0.85em;
+    color: #e9d6a6;
   }
   select {
     font: inherit;
+    font-family: var(--font-body);
     font-size: 1rem;
-    min-height: 2.5rem;
-    background: var(--box);
-    color: var(--ink);
-    border: 1px solid var(--rule);
+    min-height: 2.6rem;
+    background: #f6ead0;
+    color: #2a1a0e;
+    border: 1px solid var(--gold);
     border-radius: 4px;
   }
   .theme,
   .lang button {
-    font: inherit;
-    min-width: 2.75rem;
-    min-height: 2.5rem;
-    border: 1px solid var(--accent);
-    background: var(--box);
-    color: var(--ink);
+    font-family: var(--font-num);
+    font-weight: 700;
+    min-width: 2.8rem;
+    min-height: 2.6rem;
+    border: 1px solid var(--gold);
+    background: linear-gradient(180deg, #5a3720, var(--leather-dark));
+    color: var(--gold-light);
     cursor: pointer;
   }
+  .lang button:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+  .lang button:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+  .theme {
+    border-radius: 50%;
+  }
   .lang button.on {
-    background: var(--accent);
-    color: var(--paper);
+    background: linear-gradient(180deg, var(--gold-light), var(--gold) 60%, var(--gold-dark));
+    color: #2a1a0e;
   }
   .tabs {
     display: flex;
-    gap: 0.25rem;
-    padding: 0.5rem 1rem 0;
+    gap: 0.3rem;
+    padding: 0.6rem 1rem 0;
     overflow-x: auto;
+    background: linear-gradient(180deg, rgb(60 35 15 / 0.15), transparent);
   }
   .tabs button {
     font-family: var(--font-title);
-    font-size: 1rem;
-    min-height: 2.75rem;
-    padding: 0 1rem;
-    border: 2px solid var(--ink);
+    font-size: 1.1rem;
+    min-height: 2.8rem;
+    padding: 0 1.1rem;
+    border: 1px solid var(--gold-dark);
     border-bottom: none;
     border-radius: 6px 6px 0 0;
-    background: var(--box);
+    background: var(--noise), var(--paper-2);
     color: var(--ink);
     cursor: pointer;
     white-space: nowrap;
   }
   .tabs button.active {
-    background: var(--ink);
-    color: var(--paper);
+    background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+    color: var(--gold-light);
+    border-color: var(--gold);
+    box-shadow: inset 0 2px 0 var(--gold);
   }
   .count {
     display: inline-block;
     min-width: 1.4em;
     margin-left: 0.3em;
     border-radius: 1em;
-    background: var(--warn);
-    color: #000;
-    font-family: var(--font-body);
-    font-size: 0.8em;
+    background: var(--gold);
+    color: #2a1a0e;
+    font-family: var(--font-num);
+    font-size: 0.75em;
+    text-align: center;
   }
   main {
     padding: 1rem;
-    border-top: 2px solid var(--ink);
+    border-top: 2px solid var(--gold-dark);
   }
   footer {
     padding: 1rem;
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: var(--ink-soft);
     text-align: center;
+    border-top: 1px solid var(--rule);
   }
   footer a {
     color: var(--accent);

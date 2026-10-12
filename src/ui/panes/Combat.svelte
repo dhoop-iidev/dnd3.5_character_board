@@ -285,23 +285,6 @@
   .wide {
     grid-column: 1 / -1;
   }
-  .box {
-    border: 2px solid var(--ink);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem 0.75rem;
-    background: var(--paper);
-    min-width: 0;
-  }
-  h3 {
-    margin: -0.5rem -0.75rem 0.5rem;
-    padding: 0.2rem 0.75rem;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: var(--font-title);
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
   .slider {
     display: flex;
     flex-direction: column;

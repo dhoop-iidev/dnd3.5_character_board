@@ -179,24 +179,6 @@
     display: grid;
     gap: 1rem;
   }
-  .box {
-    border: 2px solid var(--ink);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem 0.75rem;
-    background: var(--paper);
-    min-width: 0;
-    overflow-x: auto;
-  }
-  h3 {
-    margin: -0.5rem -0.75rem 0.5rem;
-    padding: 0.2rem 0.75rem;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: var(--font-title);
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
   .load {
     display: flex;
     flex-wrap: wrap;
@@ -285,15 +267,7 @@
   .results small {
     color: var(--ink-soft);
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th,
   td {
-    padding: 0.2em 0.3em;
-    border-bottom: 1px solid var(--rule);
-    text-align: left;
     vertical-align: middle;
   }
   .num {
