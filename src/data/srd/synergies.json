@@ -1,0 +1,318 @@
+[
+  {
+    "from": "bluff",
+    "to": "diplomacy",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "bluff",
+    "to": "disguise",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to act in character when you know you're being observed",
+      "fr": "seulement pour jouer un rôle quand on se sait observé"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "bluff",
+    "to": "intimidate",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "bluff",
+    "to": "sleight-of-hand",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "craft",
+    "to": "appraise",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only for items made with that Craft skill",
+      "fr": "seulement pour les objets relevant de cet Artisanat"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "decipher-script",
+    "to": "use-magic-device",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only with scrolls",
+      "fr": "seulement pour les parchemins"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "escape-artist",
+    "to": "use-rope",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to bind someone",
+      "fr": "seulement pour ligoter quelqu’un"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "handle-animal",
+    "to": "ride",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "jump",
+    "to": "tumble",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-arcana",
+    "to": "spellcraft",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-architecture-and-engineering",
+    "to": "search",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to find secret doors or hidden compartments",
+      "fr": "seulement pour trouver portes secrètes et compartiments cachés"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-dungeoneering",
+    "to": "survival",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only when underground",
+      "fr": "seulement sous terre"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-geography",
+    "to": "survival",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to keep from getting lost or to avoid natural hazards",
+      "fr": "seulement pour ne pas se perdre ou éviter les dangers naturels"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-local",
+    "to": "gather-information",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-nature",
+    "to": "survival",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only in aboveground natural environments",
+      "fr": "seulement en milieu naturel, à la surface"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-nobility-and-royalty",
+    "to": "diplomacy",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "knowledge-the-planes",
+    "to": "survival",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only while on other planes",
+      "fr": "seulement sur les autres plans"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "search",
+    "to": "survival",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to find or follow tracks",
+      "fr": "seulement pour trouver ou suivre une piste"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "sense-motive",
+    "to": "diplomacy",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "spellcraft",
+    "to": "use-magic-device",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only with scrolls",
+      "fr": "seulement pour les parchemins"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "survival",
+    "to": "knowledge-nature",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "tumble",
+    "to": "balance",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "tumble",
+    "to": "jump",
+    "ranks": 5,
+    "value": 2,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "use-magic-device",
+    "to": "spellcraft",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to decipher spells on scrolls",
+      "fr": "seulement pour déchiffrer les sorts des parchemins"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "use-rope",
+    "to": "climb",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to climb a rope, a knotted rope or a rope-and-wall combination",
+      "fr": "seulement pour grimper à une corde, une corde à nœuds ou une corde le long d’une paroi"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "from": "use-rope",
+    "to": "escape-artist",
+    "ranks": 5,
+    "value": 2,
+    "condition": {
+      "en": "only to escape from rope bonds",
+      "fr": "seulement pour se libérer de liens de corde"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/usingSkills.htm#tableSkillSynergies",
+      "frRef": "DRS 04 (compétences)"
+    }
+  }
+]

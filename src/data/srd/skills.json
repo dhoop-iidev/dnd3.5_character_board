@@ -1,0 +1,857 @@
+[
+  {
+    "id": "appraise",
+    "name": {
+      "en": "Appraise",
+      "fr": "Estimation"
+    },
+    "ability": "int",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can appraise common or well-known objects with a DC 12 Appraise check. Failure means that you estimate the value at 50% to 150% (2d6+3 times 10%,) of its actual value.</p><p>Appraising a rare or exotic item requires a successful check against DC 15, 20, or higher. If the check is successful, you estimate the value correctly; failure means you cannot estimate the item's value.</p><p>A magnifying glass gives you a +2 circumstance bonus on Appraise checks involving any item that is small or highly detailed, such as a gem. A merchant's scale gives you a +2 circumstance bonus on Appraise checks involving any items that are valued by weight, including anything made of precious metals.</p><p>These bonuses stack.</p><p><b>Action:</b> Appraising an item takes 1 minute (ten consecutive full-round actions).</p><p><b>Try Again:</b> No. You cannot try again on the same object, regardless of success.</p><p><b>Special:</b> A dwarf gets a +2 racial bonus on Appraise checks that are related to stone or metal items because dwarves are familiar with valuable items of all kinds (especially those made of stone or metal).</p><p>The master of a raven familiar gains a +3 bonus on Appraise checks.</p><p>A character with the Diligent feat gets a +2 bonus on Appraise checks.</p><p><b>Synergy:</b> If you have 5 ranks in any Craft skill, you gain a +2 bonus on Appraise checks related to items made with that Craft skill.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le personnage est capable d’évaluer les objets courants grâce à un test d’Estimation de DD 12. En cas d’échec, son estimation est plus éloignée de la vérité (entre 50 % et 150 % du prix exact ; soit 2d6+3 x 10%).</p><p>La difficulté augmente dans le cas des objets rares ou exotiques, puisque le DD passe à 15, 20, ou même plus. En cas de succès, le personnage estime correctement le prix de l’objet. Dans le cas contraire, il n’a aucune idée de son prix.</p><p>Une loupe confère un bonus de circonstances de +2 au test d’Estimation, pour peu que l’objet examiné soit suffisamment petit ou présente de nombreux détails, comme c’est le cas pour une pierre précieuse. De même, une balance confère un bonus de circonstances de +2 au test si l’objet examiné s’évalue au poids (métal précieux, etc.). Ces deux bonus se cumulent.</p><p><b>Action.</b> Il faut 1 minute pour estimer la valeur d’un objet (soit 10 actions complexes successives).</p><p><b>Nouvelles tentatives.</b> Non. Deux estimations sur le même objet donnent toujours le même résultat.</p><p><b>Spécial.</b> Les nains bénéficient d’un bonus racial de +2 aux tentatives d’Estimation liées aux objets en pierre ou en métal, car ils s’intéressent tout particulièrement à ces matériaux.</p><p>Un personnage ayant un corbeau pour familier obtient un bonus de +3 sur les tests d’Estimation.</p><p>Un personnage possédant le don Méticuleux obtient un bonus de +2 sur les tests d’Estimation.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/appraise.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "balance",
+    "name": {
+      "en": "Balance",
+      "fr": "Équilibre"
+    },
+    "ability": "dex",
+    "trainedOnly": false,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can walk on a precarious surface. A successful check lets you move at half your speed along the surface for 1 round. A failure by 4 or less means you can't move for 1 round. A failure by 5 or more means you fall. The difficulty varies with the surface, as follows:</p><p><p/><p/><p><i>Being Attacked while Balancing:</i> You are considered flat-footed while balancing, since you can't move to avoid a blow, and thus you lose your Dexterity bonus to AC (if any). If you have 5 or more ranks in Balance, you aren't considered flat-footed while balancing. If you take damage while balancing, you must make another Balance check against the same DC to remain standing.</p><p><i>Accelerated Movement:</i> You can try to walk across a precarious surface more quickly than normal. If you accept a -5 penalty, you can move your full speed as a move action. (Moving twice your speed in a round requires two Balance checks, one for each move action used.) You may also accept this penalty in order to charge across a precarious surface; charging requires one Balance check for each multiple of your speed (or fraction thereof ) that you charge.</p><p><b>Action:</b> None. A Balance check doesn't require an action; it is made as part of another action or as a reaction to a situation.</p><p><b>Special:</b> If you have the Agile feat, you get a +2 bonus on Balance checks.</p><p><b>Synergy:</b> If you have 5 or more ranks in Tumble, you get a +2 bonus on Balance checks.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le personnage peut se déplacer sur une surface dangereuse. Un test de compétence réussi lui permet d’avancer à vitesse réduite de moitié pendant 1 round. En cas d’échec de 1 à 4 points, il ne progresse pas de tout le round. S’il rate son test d’au moins 5 points, il tombe. La difficulté varie en fonction de la surface, comme suit :</p><p>1 À ces DD s’ajoutent éventuellement les modificateurs de la table suivante.</p><p>2 Seulement dans le cas d’une charge ou d’une course. En cas d’échec de moins de 5 points, le personnage ne peur courir ou charger, mais il peut agir normalement par ailleurs.</p><p>Modificateurs de surface étroite</p><p>1 Ces modificateurs s’ajoutent au DD pour une surface étroite. Ils se cumulent entre eux.</p><p>Combat en équilibre. Un personnage se déplaçant en équilibre est considéré comme étant pris au dépourvu, puisqu’il est incapable de bouger pour éviter les coups. Il perd donc son bonus de Dextérité à la CA. S’il a atteint un degré de maîtrise de 5 ou plus en Équilibre, il n’est pas considéré comme étant pris au dépourvu et conserve son bonus de Dextérité à la CA. Chaque fois qu’un personnage en équilibre subit des dégâts, il doit réussir un nouveau test de compétence de même DD pour rester debout.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/balance.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "bluff",
+    "name": {
+      "en": "Bluff",
+      "fr": "Bluff"
+    },
+    "ability": "cha",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>A Bluff check is opposed by the target's Sense Motive check. See the accompanying table for examples of different kinds of bluffs and the modifier to the target's Sense Motive check for each one.</p><p>Favorable and unfavorable circumstances weigh heavily on the outcome of a bluff. Two circumstances can weigh against you: The bluff is hard to believe, or the action that the target is asked to take goes against its self-interest, nature, personality, orders, or the like. If it's important, you can distinguish between a bluff that fails because the target doesn't believe it and one that fails because it just asks too much of the target. For instance, if the target gets a +10 bonus on its Sense Motive check because the bluff demands something risky, and the Sense Motive check succeeds by 10 or less, then the target didn't so much see through the bluff as prove reluctant to go along with it. A target that succeeds by 11 or more has seen through the bluff.</p><p>A successful Bluff check indicates that the target reacts as you wish, at least for a short time (usually 1 round or less) or believes something that you want it to believe. Bluff, however, is not a <i>suggestion</i> spell.</p><p>A bluff requires interaction between you and the target. Creatures unaware of you cannot be bluffed.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le test de Bluff est opposé à un test de Psychologie de la victime. La table suivante contient des exemples de bluffs possibles et les modificateurs associés au test de Psychologie de la cible.</p><p>Exemples de bluffs</p><p>Il peut être fortement influencé par la situation. Deux éléments, entre autres, peuvent être très défavorables au bluffeur : l’histoire qu’il raconte est particulièrement difficile à croire ou l’action qu’il cherche à faire accomplir à la cible va à l’encontre des convictions ou de l’intérêt de cette dernière (ou des ordres qu’elle a reçus, etc.). S’il le juge important, on peut faire la différence entre un bluff échouant parce que la cible n’y croit pas, et un autre échouant pour la simple raison que le personnage en demande trop. Par exemple, si la cible bénéficie d’un bonus de +10 au test de Psychologie en raison des risques associés à la proposition faite par le personnage et si elle remporte le duel de compétences de 10 points ou moins, elle refuse de faire ce qu’on lui demande, mais ne se rend pas compte qu’on tente de l’abuser. Par contre, si elle le remporte de 11 ou plus, la cible comprend que le personnage essaye de la rouler.</p><p>Un test de Bluff réussi indique que la cible se comporte comme le personnage le souhaite, du moins pour un temps limité (généralement 1 round), ou qu’elle croit ce que le personnage lui raconte.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/bluff.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "climb",
+    "name": {
+      "en": "Climb",
+      "fr": "Escalade"
+    },
+    "ability": "str",
+    "trainedOnly": false,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>With a successful Climb check, you can advance up, down, or across a slope, a wall, or some other steep incline (or even a ceiling with handholds) at one-quarter your normal speed. A slope is considered to be any incline at an angle measuring less than 60 degrees; a wall is any incline at an angle measuring 60 degrees or more.</p><p>A Climb check that fails by 4 or less means that you make no progress, and one that fails by 5 or more means that you fall from whatever height you have already attained.</p><p>A climber's kit gives you a +2 circumstance bonus on Climb checks.</p><p>The DC of the check depends on the conditions of the climb. Compare the task with those on the following table to determine an appropriate DC.</p><p><p/><p/><p>You need both hands free to climb, but you may cling to a wall with one hand while you cast a spell or take some other action that requires only one hand. While climbing, you can't move to avoid a blow, so you lose your Dexterity bonus to AC (if any). You also can't use a shield while climbing.</p><p>Any time you take damage while climbing, make a Climb check against the DC of the slope or wall. Failure means you fall from your current height and sustain the appropriate falling damage.</p><p><i>Accelerated Climbing:</i> You try to climb more quickly than normal. By accepting a -5 penalty, you can move half your speed (instead of one-quarter your speed).</p>",
+      "fr": "<p><b>Test de compétence.</b> Chaque test d’Escalade réussi permet de progresser (vers le haut, le bas ou les côtés) le long d’une pente fortement inclinée ou d’un mur (voire d’un plafond muni de prises suffisamment marquées) à un quart de sa vitesse habituelle. On considère qu’une pente fait moins de 60° ; au-delà, il s’agit d’un mur.</p><p>Un test de compétence raté de 1 à 4 points indique que le personnage ne parvient pas à progresser et un test raté de 5 points ou plus provoque une chute le long de la hauteur déjà parcourue.</p><p>Un matériel d’escalade complet confère un bonus de circonstances de +2 à tous les tests d’Escalade.</p><p>Le DD du test dépend des conditions dans lesquelles l’escalade s’effectue, qui sont à comparer à celles de la table suivante.</p><p>1 Ces modificateurs se cumulent entre eux. Prenez en compte tous ceux qui s’appliquent à la situation.</p><p>Il est nécessaire d’avoir les deux mains libres lors d’une escalade, mais on peut se tenir à un mur d’une main le temps de lancer un sort ou d’effectuer toute autre action réalisable d’une main. Il est impossible d’éviter les coups en grimpant, ce qui signifie le personnage perd son bonus de Dextérité à la CA. Il est aussi dans l’incapacité d’utiliser un bouclier.</p><p>Chaque fois qu’un individu en train d’escalader subit des dégâts, il doit réussir un test de compétence contre le DD de la paroi, sous peine de tomber. En cas d’échec, les dégâts sont proportionnels à la hauteur de chute.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/climb.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "concentration",
+    "name": {
+      "en": "Concentration",
+      "fr": "Concentration"
+    },
+    "ability": "con",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You must make a Concentration check whenever you might potentially be distracted (by taking damage, by harsh weather, and so on) while engaged in some action that requires your full attention. Such actions include casting a spell, concentrating on an active spell, directing a spell, using a spell-like ability, or using a skill that would provoke an attack of opportunity. In general, if an action wouldn't normally provoke an attack of opportunity, you need not make a Concentration check to avoid being distracted.</p><p>If the Concentration check succeeds, you may continue with the action as normal. If the check fails, the action automatically fails and is wasted. If you were in the process of casting a spell, the spell is lost. If you were concentrating on an active spell, the spell ends as if you had ceased concentrating on it. If you were directing a spell, the direction fails but the spell remains active. If you were using a spell-like ability, that use of the ability is lost. A skill use also fails, and in some cases a failed skill check may have other ramifications as well.</p>",
+      "fr": "<p><b>Test de compétence.</b> Un test de Concentration est nécessaire chaque fois qu’un personnage risque d'être distrait (par des dégâts reçus, par un coup de vent et ainsi de suite) alors qu’il entreprend une action qui requiert toute son attention, comme lancer un sort, se concentrer sur un sort actif, diriger un sort, utiliser un pouvoir magique ou lors de l’utilisation d’une compétence qui peut provoquer une attaque d’opportunité. En règle générale, si une action ne peut pas provoquer d’attaque d’opportunité, il n’est pas nécessaire de réussir un test de Concentration lors d’une distraction.</p><p>Si le test de Concentration réussit, le personnage peut continuer son activité malgré la distraction. Dans le cas contraire, l’action échoue automatiquement et les ressources engagées sont perdues. C’est-à-dire que si le personnage lançait un sort, ce sort est perdu. S’il se concentrait sur un sort actif, ce sort s’arrête comme si le personnage avait interrompu sa concentration. S’il dirigeait un sort, la direction échoue, mais le sort reste actif. S’il utilisait un pouvoir magique, cette utilisation du pouvoir est perdue. Une compétence échoue aussi, ce qui peut parfois avoir d’autres conséquences.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/concentration.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "craft",
+    "name": {
+      "en": "Craft",
+      "fr": "Artisanat"
+    },
+    "ability": "int",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": true,
+    "text": {
+      "en": "<p>Like Knowledge, Perform, and Profession, Craft is actually a number of separate skills. You could have several Craft skills, each with its own ranks, each purchased as a separate skill.</p><p>A Craft skill is specifically focused on creating something. If nothing is created by the endeavor, it probably falls under the heading of a Profession skill.</p><p>You can practice your trade and make a decent living, earning about half your check result in gold pieces per week of dedicated work. You know how to use the tools of your trade, how to perform the craft's daily tasks, how to supervise untrained helpers, and how to handle common problems. (Untrained laborers and assistants earn an average of 1 silver piece per day.)</p><p>The basic function of the Craft skill, however, is to allow you to make an item of the appropriate type. The DC depends on the complexity of the item to be created. The DC, your check results, and the price of the item determine how long it takes to make a particular item. The item's finished price also determines the cost of raw materials.</p><p>In some cases, the <i>fabricate</i> spell can be used to achieve the results of a Craft check with no actual check involved. However, you must make an appropriate Craft check when using the spell to make articles requiring a high degree of craftsmanship.</p>",
+      "fr": "<p>Comme Connaissances, Profession ou Représentation, cette compétence est en réalité une famille de compétences distinctes.</p><p>Toute forme d’artisanat vise à créer quelque chose. Si un travail n’a pas pour résultat final la production de quelque chose, c’est probablement une forme de Profession.</p><p><b>Test de compétence.</b> Le personnage peut vivre de son métier, auquel cas il gagne, par semaine de travail, un nombre de pièces d’or égal à la moitié du résultat de son test de compétence. Il sait comment utiliser au mieux les outils de sa spécialité, accomplir les tâches habituelles, superviser le travail de la main-d’œuvre et régler les problèmes courants (assistants et ouvriers non qualifiés sont payés en moyenne 1 pa par jour).</p><p>Mais l’utilité principale de cette compétence est de permettre au personnage de fabriquer un objet correspondant à la branche d’artisanat choisie. Le DD dépend de la complexité de l’objet créé. Le temps nécessaire à la fabrication est déterminé par le DD, le résultat du test de compétence et le prix de l’objet (ce dernier indique également le prix des matières premières nécessaires). (Dans l’univers du jeu, ce sont le degré de maîtrise, le temps de fabrication et les matières premières qui déterminent la valeur d’un objet. C’est pour cette raison que le coût de ce dernier et le DD du test d’artisanat définissent le temps de fabrication et le coût des matières premières.)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/craft.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "decipher-script",
+    "name": {
+      "en": "Decipher Script",
+      "fr": "Décryptage"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can decipher writing in an unfamiliar language or a message written in an incomplete or archaic form. The base DC is 20 for the simplest messages, 25 for standard texts, and 30 or higher for intricate, exotic, or very old writing.</p><p>If the check succeeds, you understand the general content of a piece of writing about one page long (or the equivalent). If the check fails, make a DC 5 Wisdom check to see if you avoid drawing a false conclusion about the text. (Success means that you do not draw a false conclusion; failure means that you do.)</p><p>Both the Decipher Script check and (if necessary) the Wisdom check are made secretly, so that you can't tell whether the conclusion you draw is true or false.</p><p><b>Action:</b> Deciphering the equivalent of a single page of script takes 1 minute (ten consecutive full-round actions).</p><p><b>Try Again:</b> No.</p><p><b>Special:</b> A character with the Diligent feat gets a +2 bonus on Decipher Script checks.</p><p><b>Synergy:</b> If you have 5 or more ranks in Decipher Script, you get a +2 bonus on Use Magic Device checks involving scrolls.</p><p>The character can decipher magic scrolls.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le personnage peut décrypter les textes incomplets, mais aussi ceux qui sont rédigés dans une langue inconnue ou archaïque. Le DD de base est égal à 20 pour les messages simples, 25 pour les textes de difficulté normale, et 30 pour ceux qui sont particulièrement complexes ou anciens.</p><p>En cas de réussite, le personnage comprend une page (ou son équivalent) du texte qu’il vient de lire. En cas d’échec, on joue un test de Sagesse (DD 5). Si ce second test est également raté, le personnage tire de mauvaises conclusions sur la teneur du texte.</p><p>On effectue les deux tests (celui de Décryptage et, au besoin, celui de Sagesse) en secret, pour que le joueur ne sache pas si les informations découvertes par son personnage sont fiables ou non.</p><p><b>Action.</b> Déchiffrer l’équivalent d’une page de texte prend 1 minute (dix action complexes successives).</p><p><b>Nouvelles tentatives.</b> Non.</p><p><b>Spécial.</b> Un personnage possédant le don Méticuleux obtient un bonus de +2 sur les tests de Décryptage.</p><p><b>Synergie.</b> Un degré de maîtrise de 5 ou plus en Décryptage confère un bonus de +2 aux tests d’Utilisation des objets magiques en rapport avec les parchemins.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/decipherScript.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "diplomacy",
+    "name": {
+      "en": "Diplomacy",
+      "fr": "Diplomatie"
+    },
+    "ability": "cha",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can change the attitudes of others (nonplayer characters) with a successful Diplomacy check; see the Influencing NPC Attitudes sidebar, below, for basic DCs. In negotiations, participants roll opposed Diplomacy checks, and the winner gains the advantage. Opposed checks also resolve situations when two advocates or diplomats plead opposite cases in a hearing before a third party.</p><p><b>Action:</b> Changing others' attitudes with Diplomacy generally takes at least 1 full minute (10 consecutive full-round actions). In some situations, this time requirement may greatly increase. A rushed Diplomacy check can be made as a full-round action, but you take a -10 penalty on the check.</p><p><b>Try Again:</b> Optional, but not recommended because retries usually do not work. Even if the initial Diplomacy check succeeds, the other character can be persuaded only so far, and a retry may do more harm than good. If the initial check fails, the other character has probably become more firmly committed to his position, and a retry is futile.</p><p><b>Special:</b> A half-elf has a +2 racial bonus on Diplomacy checks.</p><p>If you have the Negotiator feat, you get a +2 bonus on Diplomacy checks.</p><p><b>Synergy:</b> If you have 5 or more ranks in Bluff, Knowledge (nobility and royalty), or Sense Motive, you get a +2 bonus on Diplomacy checks.</p><p>The character can turn a person into a fanatic follower. Refer to the accompanying table.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le personnage peut modifier l’attitude des gens qui l’entourent en réussissant un test de Diplomatie (voir Influencer l’attitude des PNJ ci-dessous). Dans le cadre de négociations, tous les participants jouent un test de Diplomatie afin de déterminer qui prend l’ascendant. On a également recours à cette méthode lorsque deux individus opposés par un différend plaident leur cause devant une tierce personne.</p><p><b>Action.</b> Modifier l’attitude de ses interlocuteurs par un test de Diplomatie prend généralement au moins 1 minute (soit dix actions complexes successives). Selon la situation, ce temps peut grandement augmenter. Les tentatives de Diplomatie précipitées, par exemple pour séparer deux guerriers en colère prêts à en découdre, sont possibles, mais avec un malus de –10 sur le jet.</p><p><b>Nouvelles tentatives.</b> Éventuellement, mais ce n’est pas recommandé car les nouvelles tentatives sont généralement sans effet. Même si le test initial est réussi, il y a des limites au-delà desquelles l’autre participant aux négociations ne peut aller, et tenter de l’influencer davantage risque de faire plus de mal que de bien. Si le test est raté, la partie adverse n’en est que plus ancrée dans ses convictions, et il devient impossible de la faire changer d’avis.</p><p><b>Spécial.</b> Les demi-elfes étant souvent au cœur de multiples cultures, ils bénéficient d’un bonus de +2 sur les tests de Diplomatie.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/diplomacy.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "disable-device",
+    "name": {
+      "en": "Disable Device",
+      "fr": "Désamorçage/sabotage"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The Disable Device check is made secretly, so that you don't necessarily know whether you've succeeded.</p><p>The DC depends on how tricky the device is. Disabling (or rigging or jamming) a fairly simple device has a DC of 10; more intricate and complex devices have higher DCs.</p><p>If the check succeeds, you disable the device. If it fails by 4 or less, you have failed but can try again. If you fail by 5 or more, something goes wrong. If the device is a trap, you spring it. If you're attempting some sort of sabotage, you think the device is disabled, but it still works normally.</p><p>You also can rig simple devices such as saddles or wagon wheels to work normally for a while and then fail or fall off some time later (usually after 1d4 rounds or minutes of use).</p><p><p/> <p><b>Action:</b> The amount of time needed to make a Disable Device check depends on the task, as noted above. Disabling a simple device takes 1 round and is a full-round action. An intricate or complex device requires 1d4 or 2d4 rounds.</p><p><b>Try Again:</b> Varies. You can retry if you have missed the check by 4 or less, though you must be aware that you have failed in order to try again.</p><p><b>Special:</b> If you have the Nimble Fingers feat, you get a +2 bonus on Disable Device checks.</p><p>A rogue who beats a trap's DC by 10 or more can study the trap, figure out how it works, and bypass it (along with her companions) without disarming it.</p>",
+      "fr": "<p><b>Test de compétence.</b> On effectue le test de Désamorçage/sabotage en secret, afin que le joueur ne sache pas si son personnage a réussi ou non. Le DD du test dépend de la complexité du mécanisme. Mettre hors service (ou coincer, etc.) un objet simple correspond à un DD de 10. Le DD augmente pour les mécanismes plus complexes. En cas de succès, le personnage mène l’opération à bien. En cas d’échec de 1 à 4 points, il peut réessayer. Si le test est raté d’au moins 5 points, un incident se produit : si le personnage tente de désamorcer un piège, il le déclenche accidentellement ; s’il se livre à une tentative de sabotage, il est persuadé d’avoir mis l’objet hors service, mais celui-ci continue de fonctionner parfaitement.</p><p>Il est aussi possible de saboter des objets simples comme une selle ou la roue d’un chariot de telle façon qu’ils fonctionnent normalement pendant un temps, puis se cassent ou tombent en panne un peu plus tard (généralement après 1d4 rounds ou minutes d’utilisation).</p><p>Une tentative de Désamorçage/sabotage sans outils de cambrioleur s’accompagne d’un malus de circonstances de –2 au test de compétence (ce malus existe toujours si l’on utilise un outil tout simple). À l’inverse, l’utilisation d’outils de cambrioleur de qualité supérieure garantit un bonus de circonstances de +2 au test.</p><p>1 Le DD augmente de +5 si le personnage fait en sorte que personne ne remarque que l’objet a été touché.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/disableDevice.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "disguise",
+    "name": {
+      "en": "Disguise",
+      "fr": "Déguisement"
+    },
+    "ability": "cha",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Your Disguise check result determines how good the disguise is, and it is opposed by others' Spot check results. If you don't draw any attention to yourself, others do not get to make Spot checks. If you come to the attention of people who are suspicious (such as a guard who is watching commoners walking through a city gate), it can be assumed that such observers are taking 10 on their Spot checks.</p><p>You get only one Disguise check per use of the skill, even if several people are making Spot checks against it. The Disguise check is made secretly, so that you can't be sure how good the result is.</p><p>The effectiveness of your disguise depends in part on how much you're attempting to change your appearance.</p><p><p/><p>If you are impersonating a particular individual, those who know what that person looks like get a bonus on their Spot checks according to the table below. Furthermore, they are automatically considered to be suspicious of you, so opposed checks are always called for.</p><p><p/><p>Usually, an individual makes a Spot check to see through your disguise immediately upon meeting you and each hour thereafter. If you casually meet many different creatures, each for a short time, check once per day or hour, using an average Spot modifier for the group.</p><p><b>Action:</b> Creating a disguise requires 1d3x10 minutes of work.</p>",
+      "fr": "<p><b>Test de compétence.</b> C’est le résultat du test de compétence qui décide si le déguisement est bon ou pas. Il est opposé au test de Détection des autres. Si l’aventurier ne fait rien pour attirer l’attention, les autres n’ont aucune raison de jouer un test de Détection. Par contre, s’il se fait remarquer par des individus soupçonneux (tel qu’un garde observant les gens qui entrent par la porte de la ville), on peut considérer que ces derniers vont “ faire 10 ” sur leur test de Détection.</p><p>Le personnage n’effectue qu’un seul test de Déguisement, même s’il se retrouve face à plusieurs individus (qui, eux, ont droit à un test de Détection chacun). On joue le test de compétence en secret pour que le joueur ignore si son personnage a réussi à se déguiser ou non.</p><p>L’utilisation d’une trousse de déguisement procure un bonus de circonstances de +2 au test de compétence.</p><p>L’efficacité du déguisement dépend en grande partie des modifications que le personnage apporte à son apparence normale.</p><p>1 Ces modificateurs se cumulent entre eux. Utilisez tous ceux qui s’appliquent.</p><p>2 Par catégorie de différence entre celle du personnage et celle dont il souhaite donner l’impression (jeune, adulte, âge mûr, grand âge, vénérable).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/disguise.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "escape-artist",
+    "name": {
+      "en": "Escape Artist",
+      "fr": "Évasion"
+    },
+    "ability": "dex",
+    "trainedOnly": false,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The table below gives the DCs to escape various forms of restraints.</p><p><i>Ropes:</i> Your Escape Artist check is opposed by the binder's Use Rope check. Since it's easier to tie someone up than to escape from being tied up, the binder gets a +10 bonus on his or her check.</p><p><i>Manacles and Masterwork Manacles:</i> The DC for manacles is set by their construction.</p><p><i>Tight Space:</i> The DC noted on the table is for getting through a space where your head fits but your shoulders don't. If the space is long you may need to make multiple checks. You can't get through a space that your head does not fit through.</p><p><i>Grappler:</i> You can make an Escape Artist check opposed by your enemy's grapple check to get out of a grapple or out of a pinned condition (so that you're only grappling).</p><p><p/> <p><b>Action:</b> Making an Escape Artist check to escape from rope bindings, manacles, or other restraints (except a grappler) requires 1 minute of work. Escaping from a net or an <i>animate rope</i>, <i>command plants</i>, <i>control plants</i>, or <i>entangle</i> spell is a full-round action. Escaping from a grapple or pin is a standard action. Squeezing through a tight space takes at least 1 minute, maybe longer, depending on how long the space is.</p>",
+      "fr": "<p><b>Test de compétence.</b> La table suivante indique le DD associés aux différentes formes d’entraves.</p><p>Cordes. Le test d’Évasion est opposé à celui de Maîtrise des cordes de l’individu qui a fait les nœuds. Comme il est plus facile de faire un nœud que de le défaire, l’adversaire du personnage bénéficie d’un bonus de +10.</p><p>Menottes et menottes de qualité supérieure. Le DD des menottes est déterminé par leur solidité.</p><p>Étroit conduit. Ce DD concerne les passages dans laquelle le personnage peut engager la tête, mais pas les épaules (il lui faut donc se faufiler pour pouvoir entrer). Si le passage est suffisamment long, comme dans le cas d’une cheminée, on peut exiger plusieurs tests de compétence. Il est impossible de se faufiler par un trou par lequel on ne peut pas passer la tête.</p><p>Situation de lutte. Le personnage joue un test d’Évasion opposé au test de lutte de son adversaire. En cas de succès, il n’est plus agrippé ou immobilisé (dans ce second cas, il devient juste agrippé).</p><p><b>Action.</b> Il faut 1 minute de travail pour faire un test d’Évasion afin de tenter de se soustraire à ses liens, menottes ou à toute autre entrave (à l’exception d’une lutte). Échapper à un filet ou un sort de contrôle des plantes, corde animée, empire végétal ou enchevêtrement constitue une action complexe. Tenter de se libérer d’une lutte est une action simple. Se faufiler par un étroit conduit prend au moins 1 minute, en fonction de la longueur du passage.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/escapeArtist.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "forgery",
+    "name": {
+      "en": "Forgery",
+      "fr": "Contrefaçon"
+    },
+    "ability": "int",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Forgery requires writing materials appropriate to the document being forged, enough light or sufficient visual acuity to see the details of what you're writing, wax for seals (if appropriate), and some time. To forge a document on which the handwriting is not specific to a person (military orders, a government decree, a business ledger, or the like), you need only to have seen a similar document before, and you gain a +8 bonus on your check. To forge a signature, you need an autograph of that person to copy, and you gain a +4 bonus on the check. To forge a longer document written in the hand of some particular person, a large sample of that person's handwriting is needed.</p><p>The Forgery check is made secretly, so that you're not sure how good your forgery is. As with Disguise, you don't even need to make a check until someone examines the work. Your Forgery check is opposed by the Forgery check of the person who examines the document to check its authenticity. The examiner gains modifiers on his or her check if any of the conditions on the table below exist.</p><p><p/><p>A document that contradicts procedure, orders, or previous knowledge, or one that requires sacrifice on the part of the person checking the document can increase that character's suspicion (and thus create favorable circumstances for the checker's opposing Forgery check).</p>",
+      "fr": "<p><b>Test de compétence.</b> L’art de la contrefaçon nécessite des matériaux et ingrédients correspondant à ceux utilisés pour obtenir le document à contrefaire, suffisamment de lumière pour y voir, de la cire à cacheter (le cas échéant) et du temps. Si le personnage cherche à contrefaire un document sur lequel l’écriture utilisée n’est pas spécifique à un individu donné (ordres militaires, décret gouvernemental, registre commercial, etc.), il lui suffit d’avoir déjà vu un tel document pour bénéficier d’un bonus de +8 au test de compétence. Pour reproduire une signature, il faut procéder à partir d’une copie (autographe, etc.) et le bonus se monte à +4. Pour contrefaire un long document écrit par un certain individu, il est nécessaire d’avoir accès à de longues pages manuscrites de sa main (plusieurs lettres, un journal intime, etc.).</p><p>On joue le test de compétence en secret, ce qui signifie que le personnage ne connaît jamais avec certitude la qualité de son faux. Tout comme pour Déguisement (voir plus loin), aucun test n’est nécessaire tant que personne n’examine le document. Lorsque cela se produit, les deux personnes impliquées (le faussaire et celle qui a le document en main) jouent un test de Contrefaçon. Le test de celui qui lit le document prend en compte les modificateurs suivants :</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/forgery.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "gather-information",
+    "name": {
+      "en": "Gather Information",
+      "fr": "Renseignements"
+    },
+    "ability": "cha",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>An evening's time, a few gold pieces for buying drinks and making friends, and a DC 10 Gather Information check get you a general idea of a city's major news items, assuming there are no obvious reasons why the information would be withheld. The higher your check result, the better the information.</p><p>If you want to find out about a specific rumor, or a specific item, or obtain a map, or do something else along those lines, the DC for the check is 15 to 25, or even higher.</p><p><b>Action:</b> A typical Gather Information check takes 1d4+1 hours.</p><p><b>Try Again:</b> Yes, but it takes time for each check. Furthermore, you may draw attention to yourself if you repeatedly pursue a certain type of information.</p><p><b>Special:</b> A half-elf has a +2 racial bonus on Gather Information checks.</p><p>If you have the Investigator feat, you get a +2 bonus on Gather Information checks.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (local), you get a +2 bonus on Gather Information checks.</p><p>The character can gather information without eliciting suspicion.</p><p><b>Avoid Suspicion:</b> By accepting a -20 penalty on his or her Gather Information check, a character can avoid any suspicions that might otherwise be aroused by someone pursuing sensitive information.</p>",
+      "fr": "<p><b>Test de compétence.</b> En dépensant quelques pièces d’or pour payer à boire dans une taverne et se faire quelques amis, et en réussissant un test de Renseignements (DD 10), le personnage apprend quelles sont les nouvelles en ville, à condition que ses interlocuteurs n’aient pas de raison de lui cacher quoi que ce soit. Les haines raciales sont une de ces raisons (comme un elfe cherchant à obtenir des renseignements dans une bourgade orque) et l’incapacité à parler la langue locale en est une autre. Plus le résultat du test est élevé, plus les informations sont détaillées.</p><p>Si le personnage s’intéresse à un point précis, un objet ou cherche à obtenir une carte ou quelque chose de ce genre, le DD peut passer à 15, 20, 25 ou même au-delà.</p><p><b>Action.</b> Un test de Renseignements prend en général 1d4+1 heures.</p><p><b>Nouvelles tentatives.</b> Oui, mais une nouvelle soirée est nécessaire pour retenter sa chance. De plus, le personnage va finir par attirer l’attention sur lui à force de poser les mêmes questions.</p><p><b>Spécial.</b> Les demi-elfes bénéficient d’un bonus racial de +2 sur leurs tests de Renseignements.</p><p>Un personnage possédant le don Fin limier obtient un bonus de +2 sur les tests de Renseignements.</p><p><b>Synergie.</b> Un degré de maîtrise de 5 en Connaissances (folklore local) confère un bonus de +2 aux tests de Renseignements.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/gatherInformation.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "handle-animal",
+    "name": {
+      "en": "Handle Animal",
+      "fr": "Dressage"
+    },
+    "ability": "cha",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The DC depends on what you are trying to do.</p><p><p/><p/><p><i>Handle an Animal:</i> This task involves commanding an animal to perform a task or trick that it knows. If the animal is wounded or has taken any nonlethal damage or ability score damage, the DC increases by 2. If your check succeeds, the animal performs the task or trick on its next action.</p><p>'<i>Push' an Animal:</i> To push an animal means to get it to perform a task or trick that it doesn't know but is physically capable of performing. This category also covers making an animal perform a forced march or forcing it to hustle for more than 1 hour between sleep cycles. If the animal is wounded or has taken any nonlethal damage or ability score damage, the DC increases by 2. If your check succeeds, the animal performs the task or trick on its next action.</p><p><i>Teach an Animal a Trick:</i> You can teach an animal a specific trick with one week of work and a successful Handle Animal check against the indicated DC. An animal with an Intelligence score of 1 can learn a maximum of three tricks, while an animal with an Intelligence score of 2 can learn a maximum of six tricks. Possible tricks (and their associated DCs) include, but are not necessarily limited to, the following.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le DD nécessaire pour obtenir l’effet désiré dépend de ce que l’on souhaite obtenir.</p><p>1 Voir les descriptions des tours.</p><p>Diriger un animal. Cette action consiste à ordonner à un animal d'effectuer l’une des tâches ou des tours de son répertoire. Par exemple, pour ordonner à un chien entraîné au combat d’attaquer un adversaire, il faut réussir un test de Dressage de DD 10. Si l’animal est blessé ou à subit des dégâts non-létaux ou un affaiblissement ou une diminution de caractéristique, le DD augmente de +2. Si le test réussit, l’animal exécute la tâche ou le tour lors de sa prochaine action.</p><p>Pousser un animal. Cette action permet de pousser un animal à effectuer une tâche ou un tour pour lequel il n’est pas entraîné, mais dont il est physiquement capable. Cela comprend aussi la marche forcée ou le footing pendant plus d’une heure entre deux cycles de sommeil. Si l’animal est blessé ou a subi des dégâts non-létaux ou un affaiblissement ou une diminution de caractéristique, le DD augmente de +2. Si le test réussit, l’animal exécute la tâche ou le tour lors de sa prochaine action.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/handleAnimal.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "heal",
+    "name": {
+      "en": "Heal",
+      "fr": "Premiers secours"
+    },
+    "ability": "wis",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The DC and effect depend on the task you attempt.</p><p><p/><p><i>First Aid:</i> You usually use first aid to save a dying character. If a character has negative hit points and is losing hit points (at the rate of 1 per round, 1 per hour, or 1 per day), you can make him or her stable. A stable character regains no hit points but stops losing them.</p><p><i>Long-Term Care:</i> Providing long-term care means treating a wounded person for a day or more. If your Heal check is successful, the patient recovers hit points or ability score points (lost to ability damage) at twice the normal rate: 2 hit points per level for a full 8 hours of rest in a day, or 4 hit points per level for each full day of complete rest; 2 ability score points for a full 8 hours of rest in a day, or 4 ability score points for each full day of complete rest.</p><p>You can tend as many as six patients at a time. You need a few items and supplies (bandages, salves, and so on) that are easy to come by in settled lands. Giving long-term care counts as light activity for the healer. You cannot give long-term care to yourself.</p><p><i>Treat Wound from Caltrop</i>, <i>Spike Growth</i>, <i>or Spike Stones:</i> A creature wounded by stepping on a caltrop moves at one-half normal speed. A successful Heal check removes this movement penalty.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le DD du test dépend de la tâche que l’on se fixe :</p><p>Premiers secours. Ce terme, qui donne son nom à la compétence, signifie généralement que le personnage intervient rapidement afin de sauver un compagnon mourant. Lorsque quelqu’un est tombé en dessous de 0 point de vie et continue de se vider de son sang (en perdant 1 point de vie par round, par heure ou par jour), le personnage peut stabiliser son état. Le blessé ne récupère aucun point de vie, mais il cesse au moins d’en perdre. Le test de compétence correspond à une action simple.</p><p>Soins suivis. Le personnage s’occupe de son patient pendant 1 jour ou plus. En cas de succès au test de compétence, le blessé récupère ses points de vie (et ses points de caractéristiques temporairement affaiblies) deux fois plus vite que la normale : 2 points de vie par niveau pour huit heures entières de repos dans une journée ou 4 points de vie par niveau pour chaque journée de repos complet au lit, ainsi que 2 points de caractéristique affaiblie pour huit heures entières de repos dans une journée ou 4 points de caractéristique affaiblie pour chaque journée de repos complet au lit. On peut soigner jusqu’à six patients à la fois. Le personnage a besoin d’un peu de matériel (bandages, pommades, etc.) qui se trouve aisément dans les contrées civilisées.</p><p>Assurer des soins suivis correspond à une activité réduite de la part du personnage (qui ne peut en aucun cas se soigner de la sorte lui-même).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/heal.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "hide",
+    "name": {
+      "en": "Hide",
+      "fr": "Discrétion"
+    },
+    "ability": "dex",
+    "trainedOnly": false,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Your Hide check is opposed by the Spot check of anyone who might see you. You can move up to one-half your normal speed and hide at no penalty. When moving at a speed greater than one-half but less than your normal speed, you take a -5 penalty. It's practically impossible (-20 penalty) to hide while attacking, running or charging.</p><p>A creature larger or smaller than Medium takes a size bonus or penalty on Hide checks depending on its size category: Fine +16, Diminutive +12, Tiny +8, Small +4, Large -4, Huge -8, Gargantuan -12, Colossal -16.</p><p>You need cover or concealment in order to attempt a Hide check. Total cover or total concealment usually (but not always; see Special, below) obviates the need for a Hide check, since nothing can see you anyway.</p><p>If people are observing you, even casually, you can't hide. You can run around a corner or behind cover so that you're out of sight and then hide, but the others then know at least where you went.</p><p>If your observers are momentarily distracted (such as by a Bluff check; see below), though, you can attempt to hide. While the others turn their attention from you, you can attempt a Hide check if you can get to a hiding place of some kind. (As a general guideline, the hiding place has to be within 1 foot per rank you have in Hide.) This check, however, is made at a -10 penalty because you have to move fast.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le test de Discrétion du personnage est opposé au test de Détection de quiconque se trouve en position de le repérer. S’il avance lentement (jusqu’à la moitié de sa vitesse de déplacement normale), l’aventurier effectue ce test sans malus. S’il tente d’aller plus vite, il a un malus de –5. Il est quasiment impossible de courir ou de charger en restant caché (malus de –20).</p><p>Les créatures d’une autre catégorie de taille que M voient leur test de Discrétion s’accompagner des modificateurs suivants : taille I : +16, taille Min : +12, taille TP : +8, taille P : +4, taille G : –4, taille TG : –8, taille Gig : –12, taille C : –16.</p><p>Un abri ou un camouflage est nécessaire pour pouvoir tenter un test de Discrétion. Un personnage bénéficiant d’un abri ou d’un camouflage total n’a généralement pas besoin de réussir un test de Discrétion, puisqu’il est de toute façon impossible de le voir (mais ce n’est pas toujours le cas, voir la section Spécial, ci-dessous).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/hide.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "intimidate",
+    "name": {
+      "en": "Intimidate",
+      "fr": "Intimidation"
+    },
+    "ability": "cha",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can change another's behavior with a successful check. Your Intimidate check is opposed by the target's modified level check (1d20 + character level or Hit Dice + target's Wisdom bonus [if any] + target's modifiers on saves against fear). If you beat your target's check result, you may treat the target as friendly, but only for the purpose of actions taken while it remains intimidated. (That is, the target retains its normal attitude, but will chat, advise, offer limited help, or advocate on your behalf while intimidated. See the Diplomacy skill, above, for additional details.) The effect lasts as long as the target remains in your presence, and for 1d6x10 minutes afterward. After this time, the target's default attitude toward you shifts to unfriendly (or, if normally unfriendly, to hostile).</p><p>If you fail the check by 5 or more, the target provides you with incorrect or useless information, or otherwise frustrates your efforts.</p><p><i>Demoralize Opponent:</i> You can also use Intimidate to weaken an opponent's resolve in combat. To do so, make an Intimidate check opposed by the target's modified level check (see above). If you win, the target becomes shaken for 1 round. A shaken character takes a -2 penalty on attack rolls, ability checks, and saving throws. You can intimidate only an opponent that you threaten in melee combat and that can see you.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le personnage peut modifier le comportement des autres à son égard. Le test d’Intimidation est opposé par un test de niveau ajusté joué par la cible (1d20 + niveau global ou dés de vie + bonus de Sagesse (s’il existe) + modificateur aux jets de sauvegarde contre la peur). Si le personnage remporte le test opposé, il peut considérer la cible comme étant amicale, mais uniquement pendant que celle-ci est intimidée. (C’est-à-dire que la cible conserve son attitude initiale, mais elle acceptera de discuter, de donner des conseils, d'offrir une aide limitée ou de soutenir verbalement le personnage tant qu’elle reste intimidée. Voir la compétence Diplomatie et Influencer l’attitude des PNJ.) Cet effet dure tant que la cible reste en votre présence et pendant 1d610 minutes après cela. Au terme de cette période, l’attitude de la cible envers le personnage change pour inamicale (ou hostile si elle était déjà inamicale ou hostile).</p><p>Lorsqu’un test d’Intimidation échoue de 5 points ou plus, la cible va fournir des informations erronées ou tenter de mettre des bâtons dans les roues du personnage.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/intimidate.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "jump",
+    "name": {
+      "en": "Jump",
+      "fr": "Saut"
+    },
+    "ability": "str",
+    "trainedOnly": false,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The DC and the distance you can cover vary according to the type of jump you are attempting (see below).</p><p>Your Jump check is modified by your speed. If your speed is 30 feet then no modifier based on speed applies to the check. If your speed is less than 30 feet, you take a -6 penalty for every 10 feet of speed less than 30 feet. If your speed is greater than 30 feet, you gain a +4 bonus for every 10 feet beyond 30 feet.</p><p>All Jump DCs given here assume that you get a running start, which requires that you move at least 20 feet in a straight line before attempting the jump. If you do not get a running start, the DC for the jump is doubled.</p><p>Distance moved by jumping is counted against your normal maximum movement in a round.</p><p>If you have ranks in Jump and you succeed on a Jump check, you land on your feet (when appropriate). If you attempt a Jump check untrained, you land prone unless you beat the DC by 5 or more.</p><p><i>Long Jump:</i> A long jump is a horizontal jump, made across a gap like a chasm or stream. At the midpoint of the jump, you attain a vertical height equal to one-quarter of the horizontal distance. The DC for the jump is equal to the distance jumped (in feet).</p>",
+      "fr": "<p><b>Test de compétence.</b> Le DD du test et la distance qu’on peut parcourir dépendent du type de saut, comme décrit ci-dessous.</p><p>Les tests de Saut sont modifiés par la vitesse. Aucun modificateur dû à la vitesse ne s’applique aux personnages dont la vitesse de déplacement est de 9 mètres (soit celle d’un humain ne portant aucune armure). Les tests de Saut subissent un malus de –6 pour chaque 3 mètres de vitesse en dessous de 9 mètres et bénéficient d’un bonus de +4 pour chaque 3 mètres de vitesse au-dessus de 9 mètres. (Par exemple, deux personnages dont les vitesses de déplacement sont de 6 et 15 mètres ont respectivement un malus de –6 et un bonus de +8.)</p><p>Tous les DD de Saut suivants supposent que le sauteur prenne un élan d’au moins 6 mètres en ligne droite avant de sauter. Un personnage qui saute sans prendre d’élan voit le DD du test doubler.</p><p>La distance parcourue pendant un saut est décomptée du déplacement autorisé dans un round. Par exemple, Krusk a une vitesse de déplacement de 12 mètres. S’il se déplace de 9 mètres, puis saute par-dessus un trou de 3 mètres de large, pour un total de 12 mètres ce qui termine son action de mouvement.</p><p>Lorsqu’un personnage possédant un degré de maîtrise non nul en Saut réussit un test de cette compétence, il atterrit sur ses pieds (si c’est possible). Un personnage qui tente un test inné de Saut finit ses sauts à terre, à moins de battre de DD d’au moins 5 points.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/jump.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-arcana",
+    "name": {
+      "en": "Knowledge (arcana)",
+      "fr": "Connaissances (mystères)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-architecture-and-engineering",
+    "name": {
+      "en": "Knowledge (architecture and engineering)",
+      "fr": "Connaissances (architecture et ingénierie)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-dungeoneering",
+    "name": {
+      "en": "Knowledge (dungeoneering)",
+      "fr": "Connaissances (exploration souterraine)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-geography",
+    "name": {
+      "en": "Knowledge (geography)",
+      "fr": "Connaissances (géographie)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-history",
+    "name": {
+      "en": "Knowledge (history)",
+      "fr": "Connaissances (histoire)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-local",
+    "name": {
+      "en": "Knowledge (local)",
+      "fr": "Connaissances (folklore local)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-nature",
+    "name": {
+      "en": "Knowledge (nature)",
+      "fr": "Connaissances (nature)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-nobility-and-royalty",
+    "name": {
+      "en": "Knowledge (nobility and royalty)",
+      "fr": "Connaissances (noblesse et royauté)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-religion",
+    "name": {
+      "en": "Knowledge (religion)",
+      "fr": "Connaissances (religion)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "knowledge-the-planes",
+    "name": {
+      "en": "Knowledge (the planes)",
+      "fr": "Connaissances (plans)"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills. Knowledge represents a study of some body of lore, possibly an academic or even scientific discipline.</p><p>Below are listed typical fields of study.</p><p>Answering a question within your field of study has a DC of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 (for really tough questions).</p><p>In many cases, you can use this skill to identify monsters and their special powers or vulnerabilities. In general, the DC of such a check equals 10 + the monster's HD. A successful check allows you to remember a bit of useful information about that monster.</p><p>For every 5 points by which your check result exceeds the DC, you recall another piece of useful information.</p><p><b>Action:</b> Usually none. In most cases, making a Knowledge check doesn't take an action-you simply know the answer or you don't.</p><p><b>Try Again:</b> No. The check represents what you know, and thinking about a topic a second time doesn't let you know something that you never learned in the first place.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Knowledge (architecture and engineering), you get a +2 bonus on Search checks made to find secret doors or hidden compartments.</p>",
+      "fr": "<p>Tout comme Artisanat, Profession et Représentation, cette compétence en regroupe en fait plusieurs. Elle représente l’étude poussée d’un domaine particulier, dont voici les plus courants. Vous pouvez en inventer d’autres.</p><p>• Architecture et ingénierie (bâtiments, aqueducs, ponts, fortifications)</p><p>• Exploration souterraine (aberrations, cavernes, vases, spéléologie)</p><p>• Folklore local (légendes, personnalités pittoresques, habitants, lois et traditions, coutumes, humanoïdes)</p><p>• Géographie (pays, types de terrain, climat, peuples)</p><p>• Histoire (dynasties, guerres, colonies, migrations, fondation des villes et des pays)</p><p>• Mystères (créatures artificielles, créatures magiques, dragons, mystères anciens, phrases incompréhensibles, symboles ésotériques, traditions magiques)</p><p>• Nature (animaux, climat, cycles et saisons, fées, géants, humanoïdes monstrueux, plantes, vermines)</p><p>• Noblesse et royauté (lignées, héraldique, coutumes, arbres généalogiques, devises, personnalités)</p><p>• Plans (plans extérieurs, plans intérieurs, plan Astral, plan Éthéré, Extérieurs, élémentaires, la magie et les plans)</p><p>• Religion (dieux et déesses, mythologie, tradition ecclésiastique, symboles sacrés, morts-vivants)</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/knowledge.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "listen",
+    "name": {
+      "en": "Listen",
+      "fr": "Perception auditive"
+    },
+    "ability": "wis",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Your Listen check is either made against a DC that reflects how quiet the noise is that you might hear, or it is opposed by your target's Move Silently check.</p><p><p/><p/><p>In the case of people trying to be quiet, the DCs given on the table could be replaced by Move Silently checks, in which case the indicated DC would be their average check result.</p><p><b>Action:</b> Varies. Every time you have a chance to hear something in a reactive manner (such as when someone makes a noise or you move into a new area), you can make a Listen check without using an action. Trying to hear something you failed to hear previously is a move action.</p><p><b>Try Again:</b> Yes. You can try to hear something that you failed to hear previously with no penalty.</p><p><b>Special:</b> When several characters are listening to the same thing, a single 1d20 roll can be used for all the individuals' Listen checks.</p><p>A fascinated creature takes a -4 penalty on Listen checks made as reactions.</p><p>If you have the Alertness feat, you get a +2 bonus on Listen checks.</p><p>A ranger gains a bonus on Listen checks when using this skill against a favored enemy.</p><p>An elf, gnome, or halfling has a +2 racial bonus on Listen checks.</p><p>A half-elf has a +1 racial bonus on Listen checks..</p><p>A sleeping character may make Listen checks at a -10 penalty. A successful check awakens the sleeper.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le test de Perception auditive se joue contre un DD reflétant le volume du bruit que l’on peut entendre, ou contre un test opposé de Déplacement silencieux.</p><p>On peut jouer lui-même le test s’il ne veut pas que le joueur sache si son personnage a raté son utilisation de compétence ou s’il n’y avait rien à entendre.</p><p>1 Si le test est réussi d’au moins 10 points, le personnage peut comprendre la conversation, à condition qu’il parle la langue employée.</p><p>Dans le cas d’individus cherchant à ne pas se faire repérer, le DD peut être remplacé par un test de Déplacement silencieux, ce qui devrait donner un résultat à peu près équivalent. On peut par exemple considérer que le chat mentionné sur la table bénéficie d’un modificateur de compétence de +9 en Déplacement silencieux (si on estime que 10 est un résultat moyen sur 1d20, cela donne bien un total de 19).</p><p><b>Action.</b> Variable. Le personnage peut faire un test de Perception auditive sans dépenser d’action chaque fois qu’il a l’occasion d’entendre un bruit de façon réactive (par exemple, en arrivant dans une nouvelle pièce ou lorsqu’un monstre lointain fait un bruit). Par contre, retenter d’écouter un bruit que l’on n’a pas réussi à entendre est une action de mouvement.</p><p><b>Nouvelles tentatives.</b> Oui. Un personnage peut essayer d’entendre un bruit autant de fois qu’il le souhaite.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/listen.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "move-silently",
+    "name": {
+      "en": "Move Silently",
+      "fr": "Déplacement silencieux"
+    },
+    "ability": "dex",
+    "trainedOnly": false,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Your Move Silently check is opposed by the Listen check of anyone who might hear you. You can move up to one-half your normal speed at no penalty. When moving at a speed greater than one-half but less than your full speed, you take a -5 penalty. It's practically impossible (-20 penalty) to move silently while running or charging.</p><p>Noisy surfaces, such as bogs or undergrowth, are tough to move silently across. When you try to sneak across such a surface, you take a penalty on your Move Silently check as indicated below.</p><p><p/> <p><b>Action:</b>None. A Move Silently check is included in your movement or other activity, so it is part of another action.</p><p><b>Special:</b> The master of a cat familiar gains a +3 bonus on Move Silently checks.</p><p>A halfling has a +2 racial bonus on Move Silently checks.</p><p>If you have the Stealthy feat, you get a +2 bonus on Move Silently checks.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le test de Déplacement silencieux du personnage est opposé au test de Perception auditive de quiconque peut l’entendre. S’il avance lentement (jusqu’à la moitié de sa vitesse de déplacement normale), l’aventurier effectue ce test sans malus. S’il tente d’aller plus vite, il a un malus de –5. Il est quasiment impossible de courir ou de charger en silence (malus de –20).</p><p>Il est difficile d’être silencieux en traversant une surface bruyante, comme un marécage ou des buissons. La table suivante indique le malus aux tests de Déplacement silencieux.</p><p><b>Action.</b> Aucune. Les tests de Déplacement silencieux sont inclus dans un déplacement ou une autre activité et font donc partie d’une autre action.</p><p><b>Spécial.</b> Un personnage ayant un chat pour familier obtient un bonus de +3 sur les tests de Déplacement silencieux.</p><p>Les halfelins bénéficient d’un bonus racial de +2 à leurs tests de Déplacement silencieux.</p><p>Un personnage possédant le don Discret obtient un bonus de +2 sur les tests de Déplacement silencieux.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/moveSilently.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "open-lock",
+    "name": {
+      "en": "Open Lock",
+      "fr": "Crochetage"
+    },
+    "ability": "dex",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Attempting an Open Lock check without a set of thieves' tools imposes a -2 circumstance penalty on the check, even if a simple tool is employed. If you use masterwork thieves' tools, you gain a +2 circumstance bonus on the check.</p><p>The DC for opening a lock varies from 20 to 40, depending on the quality of the lock, as given on the table below.</p><p><p/> <p><b>Action:</b> Opening a lock is a full-round action.</p><p><b>Special:</b> If you have the Nimble Fingers feat, you get a +2 bonus on Open Lock checks.</p><p><b>Untrained:</b> You cannot pick locks untrained, but you might successfully force them open.</p><p>The character can open locks more quickly than normal.</p>",
+      "fr": "<p><b>Test de compétence.</b> Le DD du test de Crochetage nécessaire pour forcer une serrure dépend de la qualité de celle-ci, selon la table suivante.</p><p><b>Action.</b> Crocheter une serrure est une action complexe.</p><p><b>Spécial.</b> Un personnage possédant le don Savoir-faire mécanique obtient un bonus de +2 sur les tests de Crochetage.</p><p>Une tentative de Crochetage sans outils de cambrioleur s’accompagne d’un malus de circonstances de –2 au test de compétence (ce malus existe encore si l’on utilise un outil tout simple). À l’inverse, l’utilisation d’outils de qualité supérieure garantit un bonus de circonstances de +2 au test.</p><p><b>Test inné.</b> Les personnages n’ayant pas reçu la formation adéquate n’ont pas la possibilité de crocheter les serrures, mais il leur reste la possibilité de les ouvrir en force.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/openLock.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "perform",
+    "name": {
+      "en": "Perform",
+      "fr": "Représentation"
+    },
+    "ability": "cha",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": true,
+    "text": {
+      "en": "<p>Like Craft, Knowledge, and Profession, Perform is actually a number of separate skills.</p><p>You could have several Perform skills, each with its own ranks, each purchased as a separate skill.</p><p>Each of the nine categories of the Perform skill includes a variety of methods, instruments, or techniques, a small list of which is provided for each category below.</p><p>You can impress audiences with your talent and skill.</p><p><p>A masterwork musical instrument gives you a +2 circumstance bonus on Perform checks that involve its use.</p><p><b>Action:</b> Varies. Trying to earn money by playing in public requires anywhere from an evening's work to a full day's performance. The bard's special Perform-based abilities are described in that class's description.</p><p><b>Try Again:</b> Yes. Retries are allowed, but they don't negate previous failures, and an audience that has been unimpressed in the past is likely to be prejudiced against future performances. (Increase the DC by 2 for each previous failure.)</p>",
+      "fr": "<p>Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.</p><p>Chacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.</p><p>• Chant (ballades, chorale, mélodie)</p><p>• Danse (ballet, gigue, valse)</p><p>• Déclamation (odes, sagas épiques, talent de conteur)</p><p>• Farce (bouffonnerie, boutades, humour)</p><p>• Instruments à clavier (clavecin, orgue, piano)</p><p>• Instruments à cordes (harpe, luth, mandoline, violon)</p><p>• Instruments à vent (bombardon, flûte, flûte à bec, flûte de Pan, trompette)</p><p>• Percussions (carillons, cloches, tambours, gong)</p><p>• Scène (comédie, drame, mime)</p><p><b>Test de compétence.</b> Le talent du personnage lui permet de divertir son public et d’en vivre.</p><p>Un instrument de musique de maître confère un bonus de circonstances de +2 sur les tests de Représentation chaque fois que le personnage l’utilise.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/perform.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "profession",
+    "name": {
+      "en": "Profession",
+      "fr": "Profession"
+    },
+    "ability": "wis",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": true,
+    "text": {
+      "en": "<p>Like Craft, Knowledge, and Perform, Profession is actually a number of separate skills. You could have several Profession skills, each with its own ranks, each purchased as a separate skill. While a Craft skill represents ability in creating or making an item, a Profession skill represents an aptitude in a vocation requiring a broader range of less specific knowledge.</p><p>You can practice your trade and make a decent living, earning about half your Profession check result in gold pieces per week of dedicated work. You know how to use the tools of your trade, how to perform the profession's daily tasks, how to supervise helpers, and how to handle common problems.</p><p><b>Action:</b> Not applicable. A single check generally represents a week of work.</p><p><b>Try Again:</b> Varies. An attempt to use a Profession skill to earn an income cannot be retried. You are stuck with whatever weekly wage your check result brought you. Another check may be made after a week to determine a new income for the next period of time. An attempt to accomplish some specific task can usually be retried.</p><p><b>Untrained:</b> Untrained laborers and assistants (that is, characters without any ranks in Profession) earn an average of 1 silver piece per day.</p>",
+      "fr": "<p>Tout comme Artisanat, Connaissances ou Représentation, Profession regroupe en fait de nombreuses compétences fort différentes. On peut avoir plusieurs professions, mais chacune doit avoir son degré de maîtrise et être achetée séparément. Tous les métiers regroupés sous la compétence Artisanat permettent de fabriquer quelque chose, tandis que ceux qui dépendent de Profession représentent une aptitude ou une vocation exigeant des connaissances plus étendues, mais moins spécialisées, dans un domaine précis.</p><p><b>Test de compétence.</b> Le personnage peut utiliser son métier pour vivre, auquel cas il gagne un nombre de pièces d’or égal à la moitié du résultat de son test de compétence pour une pleine semaine de travail. Il sait comment utiliser au mieux les outils de sa spécialité, accomplir les tâches habituelles, superviser le travail de la main d’œuvre et régler les problèmes ne sortant pas de l’ordinaire. Par exemple, un marin sait faire les nœuds les plus courants, réparer une voile déchirée et guetter l’horizon en haute mer.</p><p><b>Action.</b> Sans objet. Les tests de Profession se font à la semaine.</p><p><b>Nouvelles tentatives.</b> Variable. Lorsque le personnage utilise sa profession pour gagner sa vie, il ne peut pas retenter sa chance et doit se contenter du résultat indiqué par le dé. Il aura droit à un nouvel essai dès la semaine suivante. Il est généralement possible de réessayer d’accomplir une tâche spécialisée.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/profession.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "ride",
+    "name": {
+      "en": "Ride",
+      "fr": "Équitation"
+    },
+    "ability": "dex",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>If you attempt to ride a creature that is ill suited as a mount, you take a -5 penalty on your Ride checks.</p><p>Typical riding actions don't require checks. You can saddle, mount, ride, and dismount from a mount without a problem.</p><p>The following tasks do require checks.</p><p><p/><p><i>Guide with Knees:</i> You can react instantly to guide your mount with your knees so that you can use both hands in combat. Make your Ride check at the start of your turn. If you fail, you can use only one hand this round because you need to use the other to control your mount.</p><p><i>Stay in Saddle:</i> You can react instantly to try to avoid falling when your mount rears or bolts unexpectedly or when you take damage. This usage does not take an action.</p><p><i>Fight with Warhorse:</i> If you direct your war-trained mount to attack in battle, you can still make your own attack or attacks normally. This usage is a free action.</p><p><i>Cover:</i> You can react instantly to drop down and hang alongside your mount, using it as cover. You can't attack or cast spells while using your mount as cover. If you fail your Ride check, you don't get the cover benefit. This usage does not take an action.</p><p><i>Soft Fall:</i> You can react instantly to try to take no damage when you fall off a mount-when it is killed or when it falls, for example. If you fail your Ride check, you take 1d6 points of falling damage. This usage does not take an action.</p>",
+      "fr": "<p>Si le personnage tente de chevaucher une créature qui n’est faite pour cela (comme la plupart des bipèdes), il subit un malus de –5 sur ses tests d’Équitation.</p><p><b>Test de compétence.</b> Les actions d’équitation classiques n’exigent pas de test de compétence. Le personnage peut ainsi seller sa monture, monter en selle, aller au pas, trotter, galoper, et descendre sans le moindre problème. Monter ou descendre de selle correspond à une action de mouvement. Certaines tâches requièrent un test de compétence :</p><p>1 Le malus d'armure aux tests s’applique au test.</p><p>Guider sa monture avec les genoux. Le personnage sait guider sa monture à l’aide de ses seuls genoux, ce qui lui laisse les mains libres en cas de combat. Le test d’Équitation s’effectue au début de chaque tour de jeu. En cas d’échec, l’aventurier ne peut se servir que d’une main au cours du round, l’autre étant nécessaire pour contrôler sa monture.</p><p>Rester en selle. Quand le personnage est blessé ou quand sa monture s’affole, il réagit instantanément pour ne pas tomber. Utiliser cette option ne nécessite pas d'action.</p><p>Combattre sur un destrier. Le cavalier peut placer sa ou ses attaques, tout en faisant attaquer sa monture si elle est entraînée au combat. Utiliser cette option est une action libre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/ride.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "search",
+    "name": {
+      "en": "Search",
+      "fr": "Fouille"
+    },
+    "ability": "int",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You generally must be within 10 feet of the object or surface to be searched. The table below gives DCs for typical tasks involving the Search skill.</p><p><p/> <p><b>Action:</b> It takes a full-round action to search a 5-foot-by-5-foot area or a volume of goods 5 feet on a side.</p><p><b>Special:</b> An elf has a +2 racial bonus on Search checks, and a half-elf has a +1 racial bonus. An elf (but not a half-elf) who simply passes within 5 feet of a secret or concealed door can make a Search check to find that door.</p><p>If you have the Investigator feat, you get a +2 bonus on Search checks.</p><p>The spells <i>explosive runes</i>, <i>fire trap</i>, <i>glyph of warding</i>, <i>symbol</i>, and <i>teleportation circle</i> create magic traps that a rogue can find by making a successful Search check and then can attempt to disarm by using Disable Device. Identifying the location of a <i>snare</i> spell has a DC of 23. <i>spike growth</i> and <i>spike stones</i> create magic traps that can be found using Search, but against which Disable Device checks do not succeed. See the individual spell descriptions for details.</p><p>Active abjuration spells within 10 feet of each other for 24 hours or more create barely visible energy fluctuations. These fluctuations give you a +4 bonus on Search checks to locate such abjuration spells.</p><p><b>Synergy:</b> If you have 5 or more ranks in Search, you get a +2 bonus on Survival checks to find or follow tracks.</p>",
+      "fr": "<p><b>Test de compétence.</b> En règle générale, le personnage doit se trouver à moins de 3 mètres de l’endroit ou de la surface qu’il désire inspecter. La table suivante indique les DD pour quelques tâches courantes associées à la compétence Fouille.</p><p>1 Les nains (même s’ils ne sont pas roublards) peuvent utiliser Fouille pour repérer des pièges installés à même la pierre.</p><p>2 Un test de Fouille réussi permet de trouver des traces de pas ou d’autres signes du passage d’une créature. Par contre, cela ne permet pas de suivre une piste. Voir le don Pistage pour connaître le DD.</p><p><b>Action.</b> Il faut une action complexe pour fouiller une zone de 1,50 mètre de côté ou un volume de 1,50 mètre d’arête.</p><p><b>Spécial.</b> Les elfes bénéficient d’un bonus racial de +2 à tous les tests de Fouille, et les demi-elfes de +1. Tout elfe (mais pas demi-elfe) passant à moins de 1,50 mètre d’un passage secret ou d’une porte cachée a droit à un test de Fouille automatique pour voir s’il la remarque.</p><p>Un personnage possédant le don Fin limier obtient un bonus de +2 sur les tests de Fouille.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/search.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "sense-motive",
+    "name": {
+      "en": "Sense Motive",
+      "fr": "Psychologie"
+    },
+    "ability": "wis",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>A successful check lets you avoid being bluffed (see the Bluff skill). You can also use this skill to determine when 'something is up' (that is, something odd is going on) or to assess someone's trustworthiness.</p><p><p/><p><i>Hunch:</i> This use of the skill involves making a gut assessment of the social situation. You can get the feeling from another's behavior that something is wrong, such as when you're talking to an impostor. Alternatively, you can get the feeling that someone is trustworthy.</p><p><i>Sense Enchantment:</i> You can tell that someone's behavior is being influenced by an enchantment effect (by definition, a mind-affecting effect), even if that person isn't aware of it. The usual DC is 25, but if the target is dominated (see <i>dominate person</i>), the DC is only 15 because of the limited range of the target's activities.</p>",
+      "fr": "<p><b>Test de compétence.</b> Un test de Psychologie réussi permet de ne pas se faire bluffer (voir la compétence Bluff). Il est également possible de faire appel à cette compétence pour sentir quand quelque chose de louche se prépare ou pour déterminer si quelqu’un est digne de confiance. On peut décider de jouer le test de Psychologie en secret, afin que la sincérité de ses interlocuteurs reste toujours en doute.</p><p>Pressentiment. En analysant une situation, le personnage est capable de sentir que quelque chose cloche. Il peut par exemple éprouver une sensation de malaise lorsqu’il discute avec un imposteur. Cette utilisation de la compétence permet également de déterminer si quelqu’un est digne de confiance ou non.</p><p>Perception d’enchantement. Le personnage se rend compte que le comportement d’un individu qu’il observe est influencé par un effet d’enchantement (de type mental par définition), tel que charme-personne et ce même si la victime n’a pas elle-même conscience de son état. Le DD habituel est de 25, mais si la cible est dominée (voir le sort domination), le DD n’est que de 15 car son éventail d’activité est relativement réduit.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/senseMotive.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "sleight-of-hand",
+    "name": {
+      "en": "Sleight of Hand",
+      "fr": "Escamotage"
+    },
+    "ability": "dex",
+    "trainedOnly": true,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>A DC 10 Sleight of Hand check lets you palm a coin-sized, unattended object. Performing a minor feat of legerdemain, such as making a coin disappear, also has a DC of 10 unless an observer is determined to note where the item went.</p><p>When you use this skill under close observation, your skill check is opposed by the observer's Spot check. The observer's success doesn't prevent you from performing the action, just from doing it unnoticed.</p><p>You can hide a small object (including a light weapon or an easily concealed ranged weapon, such as a dart, sling, or hand crossbow) on your body. Your Sleight of Hand check is opposed by the Spot check of anyone observing you or the Search check of anyone frisking you. In the latter case, the searcher gains a +4 bonus on the Search check, since it's generally easier to find such an object than to hide it. A dagger is easier to hide than most light weapons, and grants you a +2 bonus on your Sleight of Hand check to conceal it. An extraordinarily small object, such as a coin, shuriken, or ring, grants you a +4 bonus on your Sleight of Hand check to conceal it, and heavy or baggy clothing (such as a cloak) grants you a +2 bonus on the check.</p><p>Drawing a hidden weapon is a standard action and doesn't provoke an attack of opportunity.</p>",
+      "fr": "<p><b>Test de compétence.</b> Un test d’Escamotage réussi contre un DD de 10 permet d’empocher discrètement un objet n’appartenant à personne et pas plus gros qu’une pièce de monnaie. Les tours de passe-passe mineurs (comme faire disparaître une pièce) s’accompagnent également d’un DD de 10, sauf si un observateur attentif suit le moindre geste du personnage.</p><p>Si l’aventurier fait l’objet d’une étroite surveillance, son test d’Escamotage doit l’emporter sur le test de Détection de l’observateur. Dans le cas où le personnage est battu, il exécute l’action normalement mais se fait remarquer.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/sleightOfHand.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "speak-language",
+    "name": {
+      "en": "Speak Language",
+      "fr": "Langue"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The Speak Language skill doesn't work like other skills. Languages work as follows.</p><p><p/> <p><b>Action:</b> Not applicable.</p><p><b>Try Again:</b> Not applicable. There are no Speak Language checks to fail.</p>",
+      "fr": "<p>Les langues les plus courantes, ainsi que leur alphabet, sont résumées sur la table suivante.</p><p><b>Action.</b> Sans objet.</p><p><b>Nouvelles tentatives.</b> Sans objet, puisqu’on n’effectue jamais de test de Langue.</p><p>Langue ne fonctionne pas comme les autres compétences, mais obéit aux règles suivantes.</p><p>• Dès le niveau 1, le personnage parle une ou deux langues (en fonction de sa race), plus une autre par point de bonus que lui confère son Intelligence.</p><p>• Le personnage dépense des points de compétence en Langues comme pour les autres compétences, mais au lieu d’acheter une augmentation de son degré de maîtrise en Langue, il choisit un nouveau langage.</p><p>• Il n’est jamais nécessaire de jouer un test de Langue. Soit on connaît un langage, soit on ne le connaît pas.</p><p>• Un personnage instruit (c’est-à-dire tout le monde sauf les barbares qui n’ont pas dépensé les points de compétence nécessaires pour apprendre à écrire) sait automatiquement lire et écrire les langues qu’il parle. Chaque langage s’accompagne de son alphabet (il arrive que plusieurs langues partagent le même).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/speakLanguage.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "spellcraft",
+    "name": {
+      "en": "Spellcraft",
+      "fr": "Art de la magie"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Use this skill to identify spells as they are cast or spells already in place.</p><p><p/> <p> You can identify spells and magic effects. The DCs for Spellcraft checks relating to various tasks are summarized on the table above.</p><p><b>Action:</b> Varies, as noted above.</p><p><b>Try Again:</b> See above.</p><p><b>Special:</b> If you are a specialist wizard, you get a +2 bonus on Spellcraft checks when dealing with a spell or effect from your specialty school. You take a -5 penalty when dealing with a spell or effect from a prohibited school (and some tasks, such as learning a prohibited spell, are just impossible).</p><p>If you have the Magical Aptitude feat, you get a +2 bonus on Spellcraft checks.</p><p><b>Synergy:</b> If you have 5 or more ranks in Knowledge (arcana), you get a +2 bonus on Spellcraft checks.</p><p>If you have 5 or more ranks in Use Magic Device, you get a +2 bonus on Spellcraft checks to decipher spells on scrolls.</p><p>If you have 5 or more ranks in Spellcraft, you get a +2 bonus on Use Magic Device checks related to scrolls.</p><p>Additionally, certain spells allow you to gain information about magic, provided that you make a successful Spellcraft check as detailed in the spell description.</p><p>The character can identify properties of a magic item.</p>",
+      "fr": "<p>Cette compétence sert à identifier les sorts actifs, mais aussi ceux que les autres personnages sont en train de lancer.</p><p><b>Test de compétence.</b> L’utilisation de cette compétence permet d’identifier sorts et effets magiques. Les DD des tests associés à différentes tâches sont indiqués sur la table suivante.</p><p><b>Action.</b> Variable, selon la table précédente.</p><p><b>Nouvelles tentatives.</b> Voir ci-dessus.</p><p><b>Spécial.</b> Les magiciens spécialisés bénéficient d’un bonus de +2 au test de compétence lorsqu’ils sont en présence d’un sort de leur école de prédilection. En revanche, ils subissent un malus de –5 si le sort provient d’une école qui leur est interdite (dans ce cas, certaines possibilités leur sont même refusées, comme apprendre le sort en question).</p><p>Un personnage possédant le don Affinité magique obtient un bonus de +2 sur les tests d’Art de la magie.</p><p>De plus, certains sorts permettent d’obtenir des informations supplémentaires sur la magie à condition de réussir un test d’Art de la magie Lorsque c’est le cas, ces indications sont données dans la description du sort (voir par exemple détection de la magie).</p><p><b>Synergie.</b> Un degré de maîtrise de 5 ou plus en Connaissances (mystères) confère un bonus de +2 sur les tests d’Art de la magie.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/spellcraft.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "spot",
+    "name": {
+      "en": "Spot",
+      "fr": "Détection"
+    },
+    "ability": "wis",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>The Spot skill is used primarily to detect characters or creatures who are hiding. Typically, your Spot check is opposed by the Hide check of the creature trying not to be seen. Sometimes a creature isn't intentionally hiding but is still difficult to see, so a successful Spot check is necessary to notice it.</p><p>A Spot check result higher than 20 generally lets you become aware of an invisible creature near you, though you can't actually see it.</p><p>Spot is also used to detect someone in disguise (see the Disguise skill), and to read lips when you can't hear or understand what someone is saying.</p><p>Spot checks may be called for to determine the distance at which an encounter begins. A penalty applies on such checks, depending on the distance between the two individuals or groups, and an additional penalty may apply if the character making the Spot check is distracted (not concentrating on being observant).</p><p><p/><p><i>Read Lips:</i> To understand what someone is saying by reading lips, you must be within 30 feet of the speaker, be able to see him or her speak, and understand the speaker's language. (This use of the skill is language-dependent.) The base DC is 15, but it increases for complex speech or an inarticulate speaker. You must maintain a line of sight to the lips being read.</p>",
+      "fr": "<p><b>Test de compétence.</b> Cette compétence sert principalement à remarquer les créatures ou les personnages cachés. En règle générale, le test de Détection est opposé au test de Discrétion de celui qui essaye de ne pas se faire voir. Il arrive que quelqu’un ne se cachant pas soit difficile à repérer (par exemple au sein d’une foule). Dans ce cas, on a également recours à cette compétence.</p><p>Un test de Détection de 20 ou plus permet généralement de prendre conscience de la présence d’une créature invisible à proximité, sans pour autant la voir réellement.</p><p>Cette compétence sert également à reconnaître les individus déguisés (voir Déguisement) et pour lire sur les lèvres lorsqu’on ne peut entendre ou comprendre les paroles de quelqu’un.</p><p>On peut demander des tests de Détection pour déterminer la distance initiale lors d’une rencontre. Un malus s’applique sur ces tests selon la distance entre les deux personnes, ainsi que si le personnage est distrait (c’est-à-dire qu’il ne se concentre pas uniquement sur sa surveillance).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/spot.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "survival",
+    "name": {
+      "en": "Survival",
+      "fr": "Survie"
+    },
+    "ability": "wis",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can keep yourself and others safe and fed in the wild. The table below gives the DCs for various tasks that require Survival checks.</p><p>Survival does not allow you to follow difficult tracks unless you are a ranger or have the Track feat (see the Restriction section below).</p><p><p/> <p><b>Action:</b> Varies. A single Survival check may represent activity over the course of hours or a full day. A Survival check made to find tracks is at least a full-round action, and it may take even longer.</p><p><b>Try Again:</b> Varies. For getting along in the wild or for gaining the Fortitude save bonus noted in the table above, you make a Survival check once every 24 hours. The result of that check applies until the next check is made. To avoid getting lost or avoid natural hazards, you make a Survival check whenever the situation calls for one. Retries to avoid getting lost in a specific situation or to avoid a specific natural hazard are not allowed. For finding tracks, you can retry a failed check after 1 hour (outdoors) or 10 minutes(indoors) of searching.</p><p><b>Restriction:</b> While anyone can use Survival to find tracks (regardless of the DC), or to follow tracks when the DC for the task is 10 or lower, only a ranger (or a character with the Track feat) can use Survival to follow tracks when the task has a higher DC.</p><p><b>Special:</b> If you have 5 or more ranks in Survival, you can automatically determine where true north lies in relation to yourself.</p>",
+      "fr": "<p><b>Test de compétence.</b> En pleine nature, le personnage est capable d’assurer sa propre sécurité et sa subsistance et celles de ses compagnons. La table suivante indique le DD des différentes tâches associées à la compétence Survie.</p><p><b>Action.</b> Variable. Un test de Survie représente soit plusieurs heures, soit une journée d’activité. Un test de Survie joué pour trouver une piste est toujours au moins une action complexe et peut être bien plus longue.</p><p><b>Nouvelles tentatives.</b> Variable. Pour se débrouiller dans les contrées sauvages ou obtenir le bonus aux jets de Vigueur, le personnage effectue un test de Survie toutes les 24 heures et le résultat s’applique à une journée entière (autrement dit jusqu’au prochain test). Pour ne pas se perdre ou pour repérer les dangers naturels, on joue un test chaque fois que c’est nécessaire (une tentative seulement pour éviter de se perdre dans un cas bien précis ou pour remarquer un certain péril). Pour trouver une piste, il faut chercher pendant une heure (dans la nature) ou 10 minutes (en intérieur) avant de pouvoir tenter un nouveau test.</p><p><b>Restriction.</b> Bien que n’importe qui puisse utiliser Survie pour trouver une piste (quel que soit le DD) ou pour les suivre si le DD est de 10 ou moins, seul un rôdeur (ou un autre personnage possédant le don Pistage) peut utiliser Survie pour suivre une piste dont le DD est plus élevé.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/survival.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "swim",
+    "name": {
+      "en": "Swim",
+      "fr": "Natation"
+    },
+    "ability": "str",
+    "trainedOnly": false,
+    "armorCheck": 2,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Make a Swim check once per round while you are in the water. Success means you may swim at up to one-half your speed (as a full-round action) or at one-quarter your speed (as a move action). If you fail by 4 or less, you make no progress through the water. If you fail by 5 or more, you go underwater.</p><p>If you are underwater, either because you failed a Swim check or because you are swimming underwater intentionally, you must hold your breath. You can hold your breath for a number of rounds equal to your Constitution score, but only if you do nothing other than take move actions or free actions. If you take a standard action or a full-round action (such as making an attack), the remainder of the duration for which you can hold your breath is reduced by 1 round. (Effectively, a character in combat can hold his or her breath only half as long as normal.) After that period of time, you must make a DC 10 Constitution check every round to continue holding your breath. Each round, the DC for that check increases by 1. If you fail the Constitution check, you begin to drown.</p><p>The DC for the Swim check depends on the water, as given on the table below.</p><p><p/><p/><p>Each hour that you swim, you must make a DC 20 Swim check or take 1d6 points of nonlethal damage from fatigue.</p><p><b>Action:</b> A successful Swim check allows you to swim one-quarter of your speed as a move action or one-half your speed as a full-round action.</p>",
+      "fr": "<p><b>Test de compétence.</b> Un personnage doit effectuer un test de Natation lors de chaque round qu’il passe dans l’eau. En cas de réussite, il peut nager sur une distance égale à la moitié de sa vitesse de déplacement normale (par une action complexe) ou à son quart (par une action de mouvement). En cas d’échec de 4 points ou moins, il barbote sans parvenir à avancer. En cas d’échec d’au moins 5 points, il coule.</p><p>Une fois qu’un personnage se trouve sous l’eau, soit parce qu’il a coulé, soit parce qu’il s'y trouve intentionnellement, il doit retenir sa respiration. Un personnage qui n’effectue que des actions de mouvement ou libres peut retenir sa respiration un nombre de rounds égal à sa valeur de Constitution. Lorsqu’un personnage entreprend une action simple ou complexe (comme une attaque), le temps pendant lequel il peut retenir sa respiration est réduit d’un round. (En fin de compte, un personnage qui combat peut retenir sa respiration deux fois moins longtemps.) Une fois arrivé au terme de cette période, le personnage doit jouer un test de Constitution de DD 10 pour savoir s’il arrive à retenir encore sa respiration. Chaque round, un autre test de Constitution est nécessaire, mais son DD augmente de +1. Dès qu’il rate un test de Constitution, le personnage commence à étouffer.</p><p>Le DD du test dépend du courant, selon la table suivante.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/swim.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "tumble",
+    "name": {
+      "en": "Tumble",
+      "fr": "Acrobaties"
+    },
+    "ability": "dex",
+    "trainedOnly": true,
+    "armorCheck": 1,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>You can't use this skill if your speed has been reduced by armor, excess equipment, or loot.</p><p>You can land softly when you fall or tumble past opponents. You can also tumble to entertain an audience (as though using the Perform skill). The DCs for various tasks involving the Tumble skill are given on the table below.</p><p><p/><p>Obstructed or otherwise treacherous surfaces, such as natural cavern floors or undergrowth, are tough to tumble through. The DC for any Tumble check made to tumble into such a square is modified as indicated below.</p><p><p/><p><i>Accelerated Tumbling:</i> You try to tumble past or through enemies more quickly than normal. By accepting a -10 penalty on your Tumble checks, you can move at your full speed instead of one-half your speed.</p><p><b>Action:</b> Not applicable. Tumbling is part of movement, so a Tumble check is part of a move action.</p><p><b>Try Again:</b> Usually no. An audience, once it has judged a tumbler as an uninteresting performer, is not receptive to repeat performances.</p><p>You can try to reduce damage from a fall as an instant reaction only once per fall.</p><p><b>Special:</b> If you have 5 or more ranks in Tumble, you gain a +3 dodge bonus to AC when fighting defensively instead of the usual +2 dodge bonus to AC.</p><p>If you have 5 or more ranks in Tumble, you gain a +6 dodge bonus to AC when executing the total defense standard action instead of the usual +4 dodge bonus to AC.</p>",
+      "fr": "<p>On ne peut pas faire appel à cette compétence si sa vitesse de déplacement est réduite par le poids de son armure, d’un équipement trop important ou d’un éventuel butin.</p><p><b>Test de compétence.</b> Le personnage atterrit sur ses pieds ou exécute un roulé-boulé lui permettant de se retrouver derrière l’ennemi. Il peut enchaîner les flips et autres sauts périlleux pour distraire un public (comme avec la compétence Représentation). Les DD des différentes tâches associées à la compétence Acrobatie sont donnés sur la table suivante.</p><p>Il est plus difficile de faire des acrobaties sur une surface encombrée ou dangereuse, comme le sol d’une caverne naturelle ou des taillis. Lorsque le personnage traverse un carré de ce type, le DD du test d’Acrobaties est alors modifié selon les données de la table suivante.</p><p>1 Il est impossible de réaliser des acrobaties dans un marais profond.</p><p>Enchaînement d’acrobaties accéléré. Un personnage peut enchaîner les acrobaties à côté ou à travers les rangs ennemis plus rapidement, mais au prix d’un malus de –10 sur son test d’Acrobaties. Il peut alors se déplacer à sa vitesse normale (au lieu de la moitié de cette vitesse).</p><p><b>Action.</b> Sans objet. Les acrobaties se font en même temps qu’un déplacement, et les tests d’Acrobaties font donc partie d’une action de mouvement.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/tumble.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "use-magic-device",
+    "name": {
+      "en": "Use Magic Device",
+      "fr": "Utilisation d’objets magiques"
+    },
+    "ability": "cha",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Use this skill to activate magic</p><p>You can use this skill to read a spell or to activate a magic item. Use Magic Device lets you use a magic item as if you had the spell ability or class features of another class, as if you were a different race, or as if you were of a different alignment.</p><p>You make a Use Magic Device check each time you activate a device such as a wand. If you are using the check to emulate an alignment or some other quality in an ongoing manner, you need to make the relevant Use Magic Device check once per hour.</p><p>You must consciously choose which requirement to emulate. That is, you must know what you are trying to emulate when you make a Use Magic Device check for that purpose. The DCs for various tasks involving Use Magic Device checks are summarized on the table below.</p>",
+      "fr": "<p><b>Test de compétence.</b> On peut faire appel à cette compétence pour lire un sort ou activer un objet magique. Elle permet d’utiliser l’objet comme si le personnage possédait les facultés de lanceur de sorts ou une aptitude d’une autre classe ou comme s’il était d’une race ou d’un alignement autres que les siens.</p><p>L’aventurier joue un test d’Utilisation d’objets magiques chaque fois qu’il active un objet tel qu’une baguette. S’il tente d’imiter un alignement ou un autre facteur de manière continue, il doit effectuer un test par heure.</p><p>Le personnage doit choisir sciemment le facteur qu’il souhaite imiter. Il doit donc être conscient de la nécessité de ce facteur avant d’effectuer ses tests d’Utilisation d’objets magiques. Le DD associé aux différents facteurs est indiqué sur la table ci-dessous.</p><p>Activer l’objet par chance. Certains objets magiques sont activés par la pensée, un mot de commande ou des gestes. Le personnage peut s’en servir comme s’il respectait la procédure à suivre, bien qu’il l’ignore. Pour obtenir un résultat, il doit agiter l’objet en tous sens et prononcer les formules magiques qui lui passent par la tête. Il bénéficie d’un bonus de +2 au test de compétence s’il a déjà réussi à activer l’objet au moins une fois.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/useMagicDevice.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  },
+  {
+    "id": "use-rope",
+    "name": {
+      "en": "Use Rope",
+      "fr": "Maîtrise des cordes"
+    },
+    "ability": "dex",
+    "trainedOnly": false,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Most tasks with a rope are relatively simple. The DCs for various tasks utilizing this skill are summarized on the table below.</p><p><p/><p><i>Secure a Grappling Hook:</i> Securing a grappling hook requires a Use Rope check (DC 10, +2 for every 10 feet of distance the grappling hook is thrown, to a maximum DC of 20 at 50 feet). Failure by 4 or less indicates that the hook fails to catch and falls, allowing you to try again. Failure by 5 or more indicates that the grappling hook initially holds, but comes loose after 1d4 rounds of supporting weight. This check is made secretly, so that you don't know whether the rope will hold your weight.</p><p><i>Bind a Character:</i> When you bind another character with a rope, any Escape Artist check that the bound character makes is opposed by your Use Rope check.</p><p>You get a +10 bonus on this check because it is easier to bind someone than to escape from bonds. You don't even make your Use Rope check until someone tries to escape.</p><p><b>Action:</b> Varies. Throwing a grappling hook is a standard action that provokes an attack of opportunity. Tying a knot, tying a special knot, or tying a rope around yourself one-handed is a full-round action that provokes an attack of opportunity. Splicing two ropes together takes 5 minutes. Binding a character takes 1 minute.</p>",
+      "fr": "<p>Cette compétence permet de faire des nœuds complexes (ou de les défaire) et de ligoter les prisonniers.</p><p><b>Test de compétence.</b> La plupart des tâches sont relativement aisées. Les DD des différentes tâches associées à cette compétence sont résumés sur la table suivante.</p><p>1 On ajoute +2 au DD pour chaque 3 mètres de hauteur ; voir la description.</p><p>Fixer un grappin. Lancer un grappin de façon à se qu’il se fixe solidement nécessite un test de Maîtrise des cordes de DD 10 + 2 par tranche de 3 mètres de distance à laquelle le grappin est lancé (jusqu’à un DD maximum de 20 pour 15 mètres). En cas d’échec de 4 points ou moins, le grappin ripe et tombe, ce qui permet de réessayer. Si l’échec est de 5 points ou plus, le grappin semble tenir, mais il se détache après 1d4 rounds d’utilisation. On doit faire ce test à la place du joueur, afin que ce dernier ne sache jamais si la corde pourra le tenir.</p><p>Ligoter quelqu’un. Lorsque le personnage ligote quelqu’un à l’aide de cette compétence, le test d’Évasion de la cible est opposé à celui de Maîtrise des cordes du personnage (ce dernier bénéficiant d’un bonus de +10, car il est plus facile d’attacher quelqu’un que de se libérer). On n’effectue le test de Maîtrise des cordes que quand le prisonnier tente de se défaire de ses liens.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/skills/useRope.htm",
+      "frRef": "DRS 04 (compétences)"
+    }
+  }
+]

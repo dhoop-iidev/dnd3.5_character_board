@@ -1,0 +1,45 @@
+{
+  "id": "weapon-master",
+  "name": { "en": "Weapon Master", "fr": "Maître d’armes" },
+  "prestige": true,
+  "hitDie": 10,
+  "skillPoints": 2,
+  "classSkills": ["intimidate", "listen", "sense-motive", "spot"],
+  "proficiencies": { "weapons": [], "armor": [] },
+  "requirements": {
+    "abilities": { "dex": 13 },
+    "bab": 5,
+    "skills": { "intimidate": 4 },
+    "feats": ["weapon-focus:$choice", "combat-reflexes", "combat-expertise", "dodge", "mobility", "whirlwind-attack"],
+    "proficiency": "$choice",
+    "masterworkWeapon": true
+  },
+  "table": [
+    { "level": 1, "bab": 1, "fort": 0, "ref": 2, "will": 0, "special": [
+      { "en": "Weapon of choice", "fr": "Arme de prédilection du maître (arme choisie)" },
+      { "en": "Ki damage 1/day per class level", "fr": "Dégâts ki 1/jour par niveau de classe" } ] },
+    { "level": 2, "bab": 2, "fort": 0, "ref": 3, "will": 0, "special": [
+      { "en": "Increased multiplier 1/day", "fr": "Multiplicateur accru 1/jour" } ] },
+    { "level": 3, "bab": 3, "fort": 1, "ref": 3, "will": 1, "special": [
+      { "en": "Superior Weapon Focus", "fr": "Arme de prédilection suprême" } ] },
+    { "level": 4, "bab": 4, "fort": 1, "ref": 4, "will": 1, "special": [
+      { "en": "Increased multiplier 2/day", "fr": "Multiplicateur accru 2/jour" } ] },
+    { "level": 5, "bab": 5, "fort": 1, "ref": 4, "will": 1, "special": [
+      { "en": "Superior Combat Reflexes", "fr": "Attaques réflexes suprêmes" } ] },
+    { "level": 6, "bab": 6, "fort": 2, "ref": 5, "will": 2, "special": [
+      { "en": "Increased multiplier 3/day", "fr": "Multiplicateur accru 3/jour" } ] },
+    { "level": 7, "bab": 7, "fort": 2, "ref": 5, "will": 2, "special": [
+      { "en": "Ki critical", "fr": "Critique ki" } ] },
+    { "level": 8, "bab": 8, "fort": 2, "ref": 6, "will": 2, "special": [
+      { "en": "Increased multiplier 4/day", "fr": "Multiplicateur accru 4/jour" } ] },
+    { "level": 9, "bab": 9, "fort": 3, "ref": 6, "will": 3, "special": [
+      { "en": "Ki Whirlwind Attack", "fr": "Attaque en rotation ki" } ] },
+    { "level": 10, "bab": 10, "fort": 3, "ref": 7, "will": 3, "special": [
+      { "en": "Increased multiplier 5/day", "fr": "Multiplicateur accru 5/jour" } ] }
+  ],
+  "text": {
+    "en": "<p>3.0 prestige class from <i>Sword and Fist</i>, allowed by house rule #1 (summary in our own words; see docs/rules/weapon-master.md).</p><p><b>Weapon of choice:</b> one melee weapon type, the one he has Weapon Focus with; the class features work only with a masterwork weapon of that type and the choice can't be changed.</p><p><b>Ki damage:</b> after a hit, deal the weapon's maximum normal damage instead of rolling; extra damage (Power Attack, sneak attack…) is added normally; not on a critical hit. Uses per day = class level.</p><p><b>Increased multiplier:</b> on a critical hit with the weapon of choice, the critical multiplier is +1 (declare before rolling damage); uses per day as in the table.</p><p><b>Superior Weapon Focus:</b> +1 more on attack rolls with the weapon of choice (stacks with Weapon Focus and Greater Weapon Focus).</p><p><b>Superior Combat Reflexes:</b> attacks of opportunity per round = Dex modifier + Wis modifier (house rule #12: use the better of this and Combat Reflexes).</p><p><b>Ki critical:</b> gains Improved Critical with the weapon of choice; if he already has it, +2 to the threat range instead, applied last.</p><p><b>Ki Whirlwind Attack:</b> Whirlwind Attack as a standard action instead of a full-round action, once per round.</p><p>Knowledge (weaponry), a class skill in the book, is not a 3.5 skill and is ignored (house rule #7).</p>",
+    "fr": "<p>Classe de prestige 3.0 de <i>De chair et d’acier</i> (<i>Sword and Fist</i>), autorisée par la règle maison n°1 (résumé avec nos propres mots ; voir docs/rules/weapon-master.md). Noms français des aptitudes : notre traduction, à vérifier dans <i>De chair et d’acier</i>.</p><p><b>Arme choisie :</b> un type d’arme de corps à corps, celui pour lequel il a le don Arme de prédilection ; les aptitudes ne fonctionnent qu’avec une arme de maître de ce type et le choix est définitif.</p><p><b>Dégâts ki :</b> après un coup réussi, inflige les dégâts normaux maximaux de l’arme au lieu de les lancer ; les dégâts supplémentaires (Attaque en puissance, attaque sournoise…) s’ajoutent normalement ; pas sur un coup critique. Utilisations par jour = niveau de classe.</p><p><b>Multiplicateur accru :</b> sur un coup critique avec l’arme choisie, le multiplicateur de critique augmente de 1 (à annoncer avant de lancer les dégâts) ; utilisations par jour selon la table.</p><p><b>Arme de prédilection suprême :</b> +1 supplémentaire aux jets d’attaque avec l’arme choisie (cumulable avec Arme de prédilection et Arme de prédilection supérieure).</p><p><b>Attaques réflexes suprêmes :</b> attaques d’opportunité par round = modificateur de Dex + modificateur de Sag (règle maison n°12 : garder le meilleur de ceci et d’Attaques réflexes).</p><p><b>Critique ki :</b> obtient Science du critique avec l’arme choisie ; s’il l’a déjà, +2 à la zone de critique, appliqué en dernier.</p><p><b>Attaque en rotation ki :</b> Attaque en rotation par une action simple au lieu d’une action complexe, une fois par round.</p><p>Connaissances (armes), compétence de classe dans le livre, n’existe pas en 3.5 et est ignorée (règle maison n°7).</p>"
+  },
+  "source": { "book": "Sword and Fist", "page": 38, "houseRule": 1 }
+}

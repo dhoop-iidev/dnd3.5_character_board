@@ -1,0 +1,1393 @@
+[
+  {
+    "id": "ability-damaged",
+    "name": {
+      "en": "Ability Damaged",
+      "fr": "Affaibli de façon temporaire"
+    },
+    "modifiers": [],
+    "flags": [
+      "userAmount",
+      "abilityDamage"
+    ],
+    "summary": {
+      "en": "Temporary loss of ability score points (enter them as ability damage); 1 point per ability returns per night of rest.",
+      "fr": "Perte temporaire de points de caractéristique (à saisir comme affaiblissement) ; 1 point par caractéristique revient par nuit de repos."
+    },
+    "text": {
+      "en": "<p><b>Ability Damaged:</b> The character has temporarily lost 1 or more ability score points. Lost points return at a rate of 1 per day unless noted otherwise by the condition dealing the damage. A character with Strength 0 falls to the ground and is helpless. A character with Dexterity 0 is paralyzed. A character with Constitution 0 is dead. A character with Intelligence, Wisdom, or Charisma 0 is unconscious. Ability damage is different from penalties to ability scores, which go away when the conditions causing them go away.</p>",
+      "fr": "<p><b>Affaibli de façon temporaire.</b> Le personnage a subi un affaiblissement temporaire de 1 ou plusieurs points de caractéristique. Il les récupère au rythme de 1 par jour et par caractéristique affaiblie, sauf indication contraire dans la source de l’effet. Un personnage se retrouvant à 0 en Force tombe au sol et est incapable de bouger. À 0 en Dextérité, il est paralysé. À 0 en Constitution, il meurt aussitôt. Enfin, à 0 en Intelligence, Sagesse ou Charisme, il sombre dans l’inconscience.</p><p>L’affaiblissement temporaire est différent d’un malus à une valeur de caractéristique, lequel disparaît dès que l’effet (fatigue, enchevêtrement, etc.) qui l’a provoqué s’achève.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#abilityDamaged",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "ability-drained",
+    "name": {
+      "en": "Ability Drained",
+      "fr": "Diminué de façon permanente"
+    },
+    "modifiers": [],
+    "flags": [
+      "userAmount",
+      "abilityDrain"
+    ],
+    "summary": {
+      "en": "Permanent loss of ability score points (enter them as ability drain); only magic restores them.",
+      "fr": "Perte permanente de points de caractéristique (à saisir comme diminution) ; seule la magie les rend."
+    },
+    "text": {
+      "en": "<p><b>Ability Drained:</b> The character has permanently lost 1 or more ability score points. The character can regain these points only through magical means. A character with Strength 0 falls to the ground and is helpless. A character with Dexterity 0 is paralyzed. A character with Constitution 0 is dead. A character with Intelligence, Wisdom, or Charisma 0 is unconscious.</p>",
+      "fr": "<p><b>Diminué de façon permanente.</b> Le personnage a subi une diminution permanente de 1 ou plusieurs points de caractéristique. Il ne peut les récupérer que par magie. S’il se retrouve à 0 en Force, il tombe au sol, incapable de bouger. À 0 en Dextérité, il est paralysé. À 0 en Constitution, il meurt aussitôt. Enfin, à 0 en Intelligence, Sagesse ou Charisme, il sombre dans l’inconscience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#abilityDrained",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "blinded",
+    "name": {
+      "en": "Blinded",
+      "fr": "Aveuglé"
+    },
+    "modifiers": [
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      },
+      {
+        "target": "speed.half",
+        "bonusType": "untyped",
+        "value": 1
+      },
+      {
+        "target": "skill.search",
+        "bonusType": "untyped",
+        "value": -4
+      },
+      {
+        "target": "skill.strdex",
+        "bonusType": "untyped",
+        "value": -4
+      }
+    ],
+    "flags": [
+      "loseDexToAc",
+      "halfSpeed",
+      "autoFailSight",
+      "opponentsTotalConcealment"
+    ],
+    "summary": {
+      "en": "−2 AC, loses Dex bonus to AC, half speed, −4 on Search and on Str/Dex-based skills (house rule #14), sight checks fail, everyone has total concealment (50% miss).",
+      "fr": "−2 à la CA, perd son bonus de Dex à la CA, vitesse réduite de moitié, −4 en Fouille et aux compétences de For/Dex (règle maison n°14), échec des tests liés à la vue, camouflage total de tous (50 % de ratés)."
+    },
+    "text": {
+      "en": "<p><b>Blinded:</b> The character cannot see. He takes a –2 penalty to Armor Class, loses his Dexterity bonus to AC (if any), moves at half speed, and takes a –4 penalty on Search checks and on most Strength- and Dexterity-based skill checks. All checks and activities that rely on vision (such as reading and Spot checks) automatically fail. All opponents are considered to have total concealment (50% miss chance) to the blinded character. Characters who remain blinded for a long time grow accustomed to these drawbacks and can overcome some of them.</p>",
+      "fr": "<p><b>Aveuglé.</b> Le personnage ne voit plus rien. Il subit un malus de –2 à la classe d’armure, perd son éventuel bonus de Dextérité à la CA, se déplace à la moitié de sa vitesse habituelle et subit un malus de –4 sur ses tests de Fouille et de la plupart des compétences associées à la Force et à la Dextérité. Il ne peut pas effectuer le moindre test de Détection, ni se livrer à une activité nécessitant d’y voir (lire, par exemple). Tous ses adversaires bénéficient d’un camouflage total à son égard (50% de risque de rater).</p><p>Un personnage aveuglé pendant suffisamment longtemps peut s’habituer partiellement à sa condition et circonvenir certains de ces désavantages.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#blinded",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)",
+      "houseRule": 14
+    }
+  },
+  {
+    "id": "blown-away",
+    "name": {
+      "en": "Blown Away",
+      "fr": "Emporté par le vent"
+    },
+    "modifiers": [],
+    "flags": [
+      "knockedDown",
+      "narrative"
+    ],
+    "summary": {
+      "en": "Knocked down and rolled by the wind (1d4 × 10 ft., 1d4 nonlethal per 10 ft.) or blown back if flying.",
+      "fr": "Renversé et emporté par le vent (1d4 × 3 m, 1d4 points de dégâts non létaux par 3 m), ou repoussé s’il vole."
+    },
+    "text": {
+      "en": "<p><b>Blown Away:</b> Depending on its size, a creature can be blown away by winds of high velocity. A creature on the ground that is blown away is knocked down and rolls 1d4 x 10 feet, taking 1d4 points of nonlethal damage per 10 feet. A flying creature that is blown away is blown back 2d6 x 10 feet and takes 2d6 points of nonlethal damage due to battering and buffering.</p>",
+      "fr": "<p><b>Emporté par le vent.</b> Selon leur taille, les créatures peuvent être emportées par un vent plus ou moins violent. Les créatures emportées alors qu’elles se trouvaient au sol sont renversées et charriées par le vent sur une distance égale à 1d4 x 3 mètres, ce qui leur inflige 1d4 points de dégâts non-létaux par tranche de 3 mètres. Les créatures en vol sont repoussées sur une distance de 2d6 x 3 mètres et les violentes bourrasques leur infligent 2d6 points de dégâts non-létaux.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#blownAway",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "checked",
+    "name": {
+      "en": "Checked",
+      "fr": "Stoppé"
+    },
+    "modifiers": [],
+    "flags": [
+      "cantMoveForward"
+    ],
+    "summary": {
+      "en": "Prevented from moving forward by a force such as wind.",
+      "fr": "Empêché d’avancer par une force contraire comme le vent."
+    },
+    "text": {
+      "en": "<p><b>Checked:</b> Prevented from achieving forward motion by an applied force, such as wind. Checked creatures on the ground merely stop. Checked flying creatures move back a distance specified in the description of the effect.</p>",
+      "fr": "<p><b>Stoppé.</b> Empêché d’avancer par une force contraire, exercée par le vent, par exemple. Si la créature avançait sur la terre ferme, elle s’arrête, tout simplement. Si elle évoluait dans les airs, elle est repoussée sur une distance spécifiée dans la description de l’effet.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#checked",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "confused",
+    "name": {
+      "en": "Confused",
+      "fr": "Confus"
+    },
+    "modifiers": [],
+    "flags": [
+      "randomActions",
+      "noAoO"
+    ],
+    "summary": {
+      "en": "Actions decided by d% each round; can't make attacks of opportunity except against a creature it is already attacking.",
+      "fr": "Actions déterminées chaque round par 1d100 ; pas d’attaque d’opportunité sauf contre une créature qu’il attaque déjà."
+    },
+    "text": {
+      "en": "<p><b>Confused:</b> A confused character’s actions are determined by rolling d% at the beginning of his turn: 01–10, attack caster with melee or ranged weapons (or close with caster if attacking is not possible); 11–20, act normally; 21–50, do nothing but babble incoherently; 51–70, flee away from caster at top possible speed; 71–100, attack nearest creature (for this purpose, a familiar counts as part of the subject’s self ). A confused character who can’t carry out the indicated action does nothing but babble incoherently. Attackers are not at any special advantage when attacking a confused character. Any confused character who is attacked automatically attacks its attackers on its next turn, as long as it is still confused when its turn comes. A confused character does not make attacks of opportunity against any creature that it is not already devoted to attacking (either because of its most recent action or because it has just been attacked).</p>",
+      "fr": "<p><b>Confus.</b> Les actions d’un personnage confus sont déterminées par 1d100, lancé à chaque round. Sur 01–10, il attaque la créature à l’origine de sa confusion avec des armes de corps à corps ou à distance (ou se rapproche de cette créature si elle est trop loin pour l’attaquer). Sur 11–20, il agit normalement. Sur 21–50, il ne fait rien d’autre que babiller. Sur 51–70, il fuit le plus rapidement possible la créature à l’origine de la confusion. Sur 71–100, il attaque la plus proche créature (à l’exception de son propre familier). Si un personnage confus est dans l’incapacité d’effectuer l’action tirée pour ce round, il se contente de babiller de façon incompréhensible. Si le personnage confus est attaqué, il riposte automatiquement en frappant son agresseur à son prochain tour de jeu (du moins s’il est encore confus). Un personnage confus ne porte pas d’attaque d’opportunité quand il en a l’occasion, sauf s’il est provoqué par une créature qu’il a décidé d’attaquer (par un jet de dé ou pour une riposte).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#confused",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "cowering",
+    "name": {
+      "en": "Cowering",
+      "fr": "Recroquevillé sur soi-même"
+    },
+    "modifiers": [
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "cantAct",
+      "loseDexToAc"
+    ],
+    "summary": {
+      "en": "Frozen in fear: no actions, −2 AC, loses Dex bonus to AC.",
+      "fr": "Paralysé par la peur : aucune action, −2 à la CA, perd son bonus de Dex à la CA."
+    },
+    "text": {
+      "en": "<p><b>Cowering:</b> The character is frozen in fear and can take no actions. A cowering character takes a –2 penalty to Armor Class and loses her Dexterity bonus (if any).</p>",
+      "fr": "<p><b>Recroquevillé sur soi-même.</b> Le personnage éprouve une telle terreur qu’il est incapable de faire quoi que ce soit. Il subit un malus de –2 à la CA et perd son éventuel bonus de Dextérité à la CA.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#cowering",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "dazed",
+    "name": {
+      "en": "Dazed",
+      "fr": "Hébété"
+    },
+    "modifiers": [],
+    "flags": [
+      "cantAct"
+    ],
+    "summary": {
+      "en": "Can take no actions (no AC penalty); usually lasts 1 round.",
+      "fr": "Ne peut entreprendre aucune action (pas de malus à la CA) ; dure généralement 1 round."
+    },
+    "text": {
+      "en": "<p><b>Dazed:</b> The creature is unable to act normally. A dazed creature can take no actions, but has no penalty to AC.</p><p>A dazed condition typically lasts 1 round.</p>",
+      "fr": "<p><b>Hébété.</b> Le personnage est incapable d’agir normalement. Il ne peut effectuer aucune action mais ne subit aucun malus à la CA.</p><p>Généralement, cet état ne dure pas plus de 1 round.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#dazed",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "dazzled",
+    "name": {
+      "en": "Dazzled",
+      "fr": "Ébloui"
+    },
+    "modifiers": [
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "skill.search",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "skill.spot",
+        "bonusType": "untyped",
+        "value": -1
+      }
+    ],
+    "flags": [],
+    "summary": {
+      "en": "−1 on attack rolls, Search and Spot checks.",
+      "fr": "−1 aux jets d’attaque et aux tests de Fouille et de Détection."
+    },
+    "text": {
+      "en": "<p><b>Dazzled:</b> The creature is unable to see well because of overstimulation of the eyes. A dazzled creature takes a –1 penalty on attack rolls, Search checks, and Spot checks.</p>",
+      "fr": "<p><b>Ébloui.</b> Le personnage est incapable de voir clairement suite à une trop vive stimulation de la rétine. Il subit un malus de –1 sur les jets d’attaque et les tests de Détection et de Fouille.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#dazzled",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "dead",
+    "name": {
+      "en": "Dead",
+      "fr": "Mort"
+    },
+    "modifiers": [],
+    "flags": [
+      "dead",
+      "cantAct"
+    ],
+    "summary": {
+      "en": "Hit points at −10 or lower, Constitution 0, or killed outright.",
+      "fr": "Points de vie à −10 ou moins, Constitution 0, ou tué sur le coup."
+    },
+    "text": {
+      "en": "<p><b>Dead:</b> The character’s hit points are reduced to –10, his Constitution drops to 0, or he is killed outright by a spell or effect. The character’s soul leaves his body. Dead characters cannot benefit from normal or magical healing, but they can be restored to life via magic. A dead body decays normally unless magically preserved, but magic that restores a dead character to life also restores the body either to full health or to its condition at the time of death (depending on the spell or device). Either way, resurrected characters need not worry about rigor mortis, decomposition, and other conditions that affect dead bodies.</p>",
+      "fr": "<p><b>Mort.</b> Le personnage a atteint un total de points de vie de –10 ou une valeur de Constitution de 0, ou a été tué directement par un sort, un effet ou des dégâts excessifs. L’âme du personnage quitte son corps. Un personnage mort ne peut plus être soigné par des moyens ordinaires ou magiques, mais peut être ramené à la vie par magie.</p><p>Un corps sans vie se décompose normalement si on ne le préserve pas magiquement, mais le sort qui le ramène à la vie lui rend sa pleine santé ou l’état dans lequel il se trouvait au moment de la mort (selon le sort utilisé).</p><p>Quel que soit le sort qui le ramène d’entre les morts, le personnage n’a pas à craindre la rigidité cadavérique, la décomposition et autres effets secondaires déplaisants de la mort.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#dead",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "deafened",
+    "name": {
+      "en": "Deafened",
+      "fr": "Assourdi"
+    },
+    "modifiers": [
+      {
+        "target": "initiative",
+        "bonusType": "untyped",
+        "value": -4
+      }
+    ],
+    "flags": [
+      "autoFailListen",
+      "verbalSpellFailure20"
+    ],
+    "summary": {
+      "en": "−4 on initiative, automatically fails Listen checks, 20% failure on spells with verbal components.",
+      "fr": "−4 à l’initiative, échec automatique des tests de Perception auditive, 20 % d’échec des sorts à composante verbale."
+    },
+    "text": {
+      "en": "<p><b>Deafened:</b> A deafened character cannot hear. She takes a –4 penalty on initiative checks, automatically fails Listen checks, and has a 20% chance of spell failure when casting spells with verbal components. Characters who remain deafened for a long time grow accustomed to these drawbacks and can overcome some of them.</p>",
+      "fr": "<p><b>Assourdi.</b> Le personnage n’entend rien. Il subit un malus de –4 à l’initiative, rate systématiquement ses test de Perception auditive et encourt 20% de chance de rater l’incantation de tout sort à composante verbale.</p><p>S’il reste sourd suffisamment longtemps, il peut arriver à s’y habituer plus ou moins.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#deafened",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "disabled",
+    "name": {
+      "en": "Disabled",
+      "fr": "Hors de combat"
+    },
+    "modifiers": [
+      {
+        "target": "speed.half",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "singleActionOnly",
+      "halfSpeed",
+      "strenuousActionDamage"
+    ],
+    "summary": {
+      "en": "At 0 hit points: only a single move or standard action each turn, half speed; a standard action deals 1 damage after it.",
+      "fr": "À 0 point de vie : une seule action de mouvement ou action simple par tour, vitesse réduite de moitié ; une action simple inflige ensuite 1 point de dégâts."
+    },
+    "text": {
+      "en": "<p><b>Disabled:</b> A character with 0 hit points, or one who has negative hit points but has become stable and conscious, is disabled. A disabled character may take a single move action or standard action each round (but not both, nor can she take full-round actions). She moves at half speed. Taking move actions doesn’t risk further injury, but performing any standard action (or any other action the DM deems strenuous, including some free actions such as casting a quickened spell) deals 1 point of damage after the completion of the act. Unless the action increased the disabled character’s hit points, she is now in negative hit points and dying.</p><p>A disabled character with negative hit points recovers hit points naturally if she is being helped. Otherwise, each day she has a 10% chance to start recovering hit points naturally (starting with that day); otherwise, she loses 1 hit point. Once an unaided character starts recovering hit points naturally, she is no longer in danger of losing hit points (even if her current hit points are negative).</p>",
+      "fr": "<p><b>Hors de combat.</b> Un personnage dont le total de points de vie est exactement de 0, ou dont le total est inférieur mais qui est stabilisé et conscient, est hors de combat. L’activité d’un personnage hors de combat est restreinte à une action simple ou une action de mouvement par round (mais pas une de chaque, ni une action complexe). Il se déplace à la moitié de sa vitesse habituelle. Il ne court aucun risque à effectuer des actions de mouvement, mais il subit 1 point de dégâts après chaque action simple (ainsi que d’autres actions fatigantes, comme lancer un sort à incantation rapide par une action libre). À moins que cette action ne lui ait permis de récupérer des points de vie, il est maintenant à un total de points de vie négatif et mourant.</p><p>Un personnage hors de combat dont le total de points de vie est négatif récupère des points de vie normalement si quelqu’un s’occupe de lui. S’il est seul, il a 10% de chances par jour de commencer à récupérer des points de vie normalement (en commençant par le jour où le jet de pourcentage est réussi). Dans le cas contraire, il subit 1 point de dégâts. Dès qu’il commence à récupérer des points de vie, il ne risque plus d’en perdre, même si son total est toujours négatif.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#disabled",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "dying",
+    "name": {
+      "en": "Dying",
+      "fr": "Mourant"
+    },
+    "modifiers": [],
+    "flags": [
+      "unconscious",
+      "helpless",
+      "cantAct",
+      "losesHpEachRound"
+    ],
+    "summary": {
+      "en": "−1 to −9 hit points: unconscious, no actions, loses 1 hp per round unless stabilized (10% chance each round).",
+      "fr": "Entre −1 et −9 points de vie : inconscient, aucune action, perd 1 pv par round sauf s’il se stabilise (10 % de chances par round)."
+    },
+    "text": {
+      "en": "<p><b>Dying:</b> A dying character is unconscious and near death. She has –1 to –9 current hit points. A dying character can take no actions and is unconscious. At the end of each round (starting with the round in which the character dropped below 0 hit points), the character rolls d% to see whether she becomes stable. She has a 10% chance to become stable. If she does not, she loses 1 hit point. If a dying character reaches –10 hit points, she is dead.</p>",
+      "fr": "<p><b>Mourant.</b> Le personnage est inconscient et en train de mourir. Son total de points de vie est compris entre –1 et –9. À la fin de chaque round (en commençant par celui où il est tombé en dessous de 0 pv), il a 10% de chances de voir son état devenir stationnaire. Dans le cas contraire, il perd 1 point de vie. Si un personnage mourant atteint –10 points de vie, il est mort.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#dying",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "energy-drained",
+    "name": {
+      "en": "Energy Drained",
+      "fr": "Vidé de son énergie"
+    },
+    "modifiers": [
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "save.all",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "skill.all",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "hp.max",
+        "bonusType": "untyped",
+        "value": -5
+      },
+      {
+        "target": "check.str",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "check.dex",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "check.con",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "check.int",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "check.wis",
+        "bonusType": "untyped",
+        "value": -1
+      },
+      {
+        "target": "check.cha",
+        "bonusType": "untyped",
+        "value": -1
+      }
+    ],
+    "flags": [
+      "perNegativeLevel",
+      "effectiveLevelMinus1"
+    ],
+    "summary": {
+      "en": "Per negative level: −1 on attacks, saves, skill and ability checks, −5 hp, −1 effective level (apply once per negative level).",
+      "fr": "Par niveau négatif : −1 aux attaques, jets de sauvegarde, tests de compétence et de caractéristique, −5 pv, −1 niveau effectif (à appliquer une fois par niveau négatif)."
+    },
+    "text": {
+      "en": "<p><b>Energy Drained:</b> The character gains one or more negative levels, which might permanently drain the character’s levels. If the subject has at least as many negative levels as Hit Dice, he dies. Each negative level gives a creature the following penalties: –1 penalty on attack rolls, saving throws, skill checks, ability checks; loss of 5 hit points; and –1 to effective level (for determining the power, duration, DC, and other details of spells or special abilities). In addition, a spellcaster loses one spell or spell slot from the highest spell level castable.</p>",
+      "fr": "<p><b>Vidé de son énergie.</b> Le personnage a contracté un ou plusieurs niveaux négatifs, qui peuvent se transformer en perte de niveau permanente.</p><p>S’il a au moins autant de niveaux négatifs que de niveaux normaux, il meurt instantanément. Chaque niveau négatif lui inflige les malus suivants : perte de 5 points de vie et malus de –1 aux jets d’attaque et de sauvegarde, aux tests de compétence et de caractéristique, ainsi qu’au niveau effectif (pour ce qui est de déterminer la puissance, la durée et le DD des sorts, entre autres). De plus, s’il s’agit d’un lanceur de sorts, il perd un sort de son plus haut niveau (ou la possibilité d’en apprendre un).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#energyDrained",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "entangled",
+    "name": {
+      "en": "Entangled",
+      "fr": "Enchevêtré"
+    },
+    "modifiers": [
+      {
+        "target": "speed.half",
+        "bonusType": "untyped",
+        "value": 1
+      },
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "ability.dex",
+        "bonusType": "untyped",
+        "value": -4
+      }
+    ],
+    "flags": [
+      "cantRun",
+      "cantCharge",
+      "halfSpeed",
+      "concentrationToCast"
+    ],
+    "summary": {
+      "en": "Half speed, can't run or charge, −2 on attack rolls, −4 Dex; casting needs a Concentration check (DC 15 + spell level).",
+      "fr": "Vitesse réduite de moitié, ne peut ni courir ni charger, −2 aux jets d’attaque, −4 en Dex ; lancer un sort exige un test de Concentration (DD 15 + niveau du sort)."
+    },
+    "text": {
+      "en": "<p><b>Entangled:</b> The character is ensnared. Being entangled impedes movement, but does not entirely prevent it unless the bonds are anchored to an immobile object or tethered by an opposing force. An entangled creature moves at half speed, cannot run or charge, and takes a –2 penalty on all attack rolls and a –4 penalty to Dexterity. An entangled character who attempts to cast a spell must make a Concentration check (DC 15 + the spell’s level) or lose the spell.</p>",
+      "fr": "<p><b>Enchevêtré.</b> Le personnage est comme ligoté. L’enchevêtrement handicape le mouvement mais ne l’empêche pas totalement, à moins que les liens soient fixés à un objet immobile ou retenus avec force. Un personnage enchevêtré se déplace à demi-vitesse et est incapable de courir ou de charger. Il subit un malus de –2 au jet d’attaque et un malus de –4 en Dextérité. S’il tente de lancer un sort, il le perd à moins de réussir un test de Concentration (DD 15 + niveau de sort).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#entangled",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "exhausted",
+    "name": {
+      "en": "Exhausted",
+      "fr": "Épuisé"
+    },
+    "modifiers": [
+      {
+        "target": "speed.half",
+        "bonusType": "untyped",
+        "value": 1
+      },
+      {
+        "target": "ability.str",
+        "bonusType": "untyped",
+        "value": -6
+      },
+      {
+        "target": "ability.dex",
+        "bonusType": "untyped",
+        "value": -6
+      }
+    ],
+    "flags": [
+      "cantRun",
+      "cantCharge",
+      "halfSpeed"
+    ],
+    "replaces": [
+      "fatigued"
+    ],
+    "summary": {
+      "en": "Half speed, −6 Str and Dex, can't run or charge (Rules Compendium); 1 hour of complete rest makes it fatigued. Replaces fatigued.",
+      "fr": "Vitesse réduite de moitié, −6 en For et Dex, ne peut ni courir ni charger (Rules Compendium) ; 1 heure de repos complet le rend fatigué. Remplace fatigué."
+    },
+    "text": {
+      "en": "<p><b>Exhausted:</b> An exhausted character moves at half speed and takes a –6 penalty to Strength and Dexterity. After 1 hour of complete rest, an exhausted character becomes fatigued. A fatigued character becomes exhausted by doing something else that would normally cause fatigue.</p>",
+      "fr": "<p><b>Épuisé.</b> Le personnage voit sa vitesse de déplacement réduite de moitié et il subit un malus de –6 en Force et en Dextérité. Un personnage épuisé redevient fatigué au bout d’une heure de repos total. Un individu fatigué devient épuisé dès qu’il fait quoi que ce soit de fatigant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#exhausted",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "fascinated",
+    "name": {
+      "en": "Fascinated",
+      "fr": "Fasciné"
+    },
+    "modifiers": [
+      {
+        "target": "skill.listen",
+        "bonusType": "untyped",
+        "value": -4
+      },
+      {
+        "target": "skill.spot",
+        "bonusType": "untyped",
+        "value": -4
+      }
+    ],
+    "flags": [
+      "cantAct"
+    ],
+    "summary": {
+      "en": "Only pays attention to the effect; −4 on Listen and Spot checks made as reactions. A potential threat allows a new save; an obvious threat breaks it.",
+      "fr": "Ne fait que prêter attention à l’effet ; −4 aux tests de Perception auditive et de Détection faits en réaction. Une menace potentielle donne droit à un nouveau jet ; une menace évidente rompt l’effet."
+    },
+    "text": {
+      "en": "<p><b>Fascinated:</b> A fascinated creature is entranced by a supernatural or spell effect. The creature stands or sits quietly, taking no actions other than to pay attention to the fascinating effect, for as long as the effect lasts. It takes a –4 penalty on skill checks made as reactions, such as Listen and Spot checks. Any potential threat, such as a hostile creature approaching, allows the fascinated creature a new saving throw against the fascinating effect. Any obvious threat, such as someone drawing a weapon, casting a spell, or aiming a ranged weapon at the fascinated creature, automatically breaks the effect. A fascinated creature’s ally may shake it free of the spell as a standard action.</p>",
+      "fr": "<p><b>Fasciné.</b> Une créature fascinée est distraite par un sort ou un effet surnaturel. Tant que l’effet reste en place, une créature fascinée reste assise ou debout, sans pouvoir effectuer d’autre action que se concentrer sur l’effet en question. Elle subit un malus de –4 sur les tests de compétence joués en réaction, comme les tests de Détection ou de Perception auditive. L’approche d’une menace potentielle (comme une créature hostile) donne droit à un nouveau jet de sauvegarde contre l’effet de fascination. Toute menace évidente, comme dégainer une arme, lancer un sort ou tirer sur la créature, rompt immédiatement la fascination. Par une action simple, il est possible de secouer une créature fascinée pour la faire revenir à soi.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#fascinated",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "fatigued",
+    "name": {
+      "en": "Fatigued",
+      "fr": "Fatigué"
+    },
+    "modifiers": [
+      {
+        "target": "ability.str",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "ability.dex",
+        "bonusType": "untyped",
+        "value": -2
+      }
+    ],
+    "flags": [
+      "cantRun",
+      "cantCharge"
+    ],
+    "summary": {
+      "en": "Can't run or charge, −2 Str and Dex; becomes exhausted if fatigued again; 8 hours of complete rest removes it.",
+      "fr": "Ne peut ni courir ni charger, −2 en For et Dex ; devient épuisé s’il est à nouveau fatigué ; 8 heures de repos complet l’en débarrassent."
+    },
+    "text": {
+      "en": "<p><b>Fatigued:</b> A fatigued character can neither run nor charge and takes a –2 penalty to Strength and Dexterity. Doing anything that would normally cause fatigue causes the fatigued character to become exhausted. After 8 hours of complete rest, fatigued characters are no longer fatigued.</p>",
+      "fr": "<p><b>Fatigué.</b> Un personnage fatigué est incapable de courir et de charger. Il subit un malus de –2 en Force et en Dextérité. La fatigue disparaît au bout de 8 heures de repos total. Un individu fatigué devient épuisé dès qu’il fait quoi que ce soit de fatigant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#fatigued",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "flat-footed",
+    "name": {
+      "en": "Flat-Footed",
+      "fr": "Pris au dépourvu"
+    },
+    "modifiers": [
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "loseDexToAc",
+      "noAoO"
+    ],
+    "summary": {
+      "en": "Hasn't acted yet in the combat: loses Dex bonus to AC and can't make attacks of opportunity (unless Combat Reflexes).",
+      "fr": "N’a pas encore agi au cours du combat : perd son bonus de Dex à la CA et ne peut pas faire d’attaque d’opportunité (sauf Attaques réflexes)."
+    },
+    "text": {
+      "en": "<p><b>Flat-Footed:</b> A character who has not yet acted during a combat is flat-footed, not yet reacting normally to the situation. A flat-footed character loses his Dexterity bonus to AC (if any) and cannot make attacks of opportunity.</p>",
+      "fr": "<p><b>Pris au dépourvu.</b> Tout personnage n’ayant pas encore agi au cours d’un combat est automatiquement pris au dépourvu. Il perd son éventuel bonus de Dextérité à la CA et ne peut porter d’attaque d’opportunité.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#flatFooted",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "frightened",
+    "name": {
+      "en": "Frightened",
+      "fr": "Effrayé"
+    },
+    "modifiers": [
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "save.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "skill.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.str",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.dex",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.con",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.int",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.wis",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.cha",
+        "bonusType": "untyped",
+        "value": -2
+      }
+    ],
+    "flags": [
+      "mustFlee",
+      "fear2"
+    ],
+    "replaces": [
+      "shaken"
+    ],
+    "summary": {
+      "en": "Flees from the source of fear; −2 on attack rolls, saves, skill and ability checks. Fear level 2 (shaken + shaken → frightened).",
+      "fr": "Fuit la source de sa peur ; −2 aux jets d’attaque, jets de sauvegarde, tests de compétence et de caractéristique. Niveau de terreur 2 (secoué + secoué → effrayé)."
+    },
+    "text": {
+      "en": "<p><b>Frightened:</b> A frightened creature flees from the source of its fear as best it can. If unable to flee, it may fight. A frightened creature takes a –2 penalty on all attack rolls, saving throws, skill checks, and ability checks. A frightened creature can use special abilities, including spells, to flee; indeed, the creature must use such means if they are the only way to escape.</p><p>Frightened is like shaken, except that the creature must flee if possible. Panicked is a more extreme state of fear.</p>",
+      "fr": "<p><b>Effrayé.</b> Un personnage effrayé fuit la source de sa peur aussi vite que possible. Si toute voie de repli lui est coupée, il peut combattre. Il subit un malus de –2 aux jets d’attaque et de sauvegarde, ainsi qu’aux tests de compétence et de caractéristique. Il peut utiliser ses pouvoirs et ses sorts pour s’enfuir, et le fait immanquablement si aucune autre solution ne lui est offerte.</p><p>Cet état est semblable au fait d’être secoué, sauf que le personnage fait tout pour s’enfuir. Paniqué est un état de terreur plus extrême encore.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#frightened",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "grappling",
+    "name": {
+      "en": "Grappling",
+      "fr": "Agrippé"
+    },
+    "modifiers": [
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1,
+        "condition": {
+          "en": "vs opponents you aren't grappling",
+          "fr": "contre les adversaires avec qui il ne lutte pas"
+        }
+      }
+    ],
+    "flags": [
+      "noThreaten",
+      "noNormalMove",
+      "lightWeaponsOnly"
+    ],
+    "summary": {
+      "en": "Doesn't threaten, loses Dex bonus to AC against opponents it isn't grappling, can't move normally; attacks only with unarmed, natural or light weapons (−4).",
+      "fr": "Ne contrôle aucune zone, perd son bonus de Dex à la CA contre ceux avec qui il ne lutte pas, ne peut pas se déplacer normalement ; n’attaque qu’à mains nues ou avec une arme naturelle ou légère (−4)."
+    },
+    "text": {
+      "en": "<p><b>Grappling:</b> Engaged in wrestling or some other form of hand-to-hand struggle with one or more attackers. A grappling character can undertake only a limited number of actions. He does not threaten any squares, and loses his Dexterity bonus to AC (if any) against opponents he isn’t grappling.</p>",
+      "fr": "<p><b>Agrippé.</b> En train de lutter avec un ou plusieurs adversaires. Un personnage agrippé est limité dans le choix des actions qu’il peut entreprendre. Dans le même temps, il ne contrôle plus aucune zone et il perd son éventuel bonus de Dextérité à la CA contre les adversaires autres que ceux avec lesquels il est en train de lutter.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#grappling",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "helpless",
+    "name": {
+      "en": "Helpless",
+      "fr": "Sans défense"
+    },
+    "modifiers": [
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": -4,
+        "condition": {
+          "en": "vs melee attacks",
+          "fr": "contre les attaques au corps à corps"
+        }
+      },
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "dexZeroForAc",
+      "coupDeGrace",
+      "loseDexToAc"
+    ],
+    "summary": {
+      "en": "Dex treated as 0 (−5) for AC; −4 AC against melee attacks (once, rulings R14); can be the target of a coup de grace.",
+      "fr": "Dex considérée comme 0 (−5) pour la CA ; −4 à la CA contre le corps à corps (une seule fois, règle R14) ; peut être achevé (coup de grâce)."
+    },
+    "text": {
+      "en": "<p><b>Helpless:</b> A helpless character is paralyzed, held, bound, sleeping, unconscious, or otherwise completely at an opponent’s mercy. A helpless target is treated as having a Dexterity of 0 (–5 modifier). Melee attacks against a helpless target get a +4 bonus (equivalent to attacking a prone target). Ranged attacks gets no special bonus against helpless targets. Rogues can sneak attack helpless targets.</p><p>As a full-round action, an enemy can use a melee weapon to deliver a coup de grace to a helpless foe. An enemy can also use a bow or crossbow, provided he is adjacent to the target. The attacker automatically hits and scores a critical hit. (A rogue also gets her sneak attack damage bonus against a helpless foe when delivering a coup de grace.) If the defender survives, he must make a Fortitude save (DC 10 + damage dealt) or die.</p><p>Delivering a coup de grace provokes attacks of opportunity.</p><p>Creatures that are immune to critical hits do not take critical damage, nor do they need to make Fortitude saves to avoid being killed by a coup de grace.</p>",
+      "fr": "<p><b>Sans défense.</b> Un personnage sans défense peut être paralysé, immobilisé par un sort, ligoté, endormi, inconscient ou à la merci de ses ennemis d’une façon ou d’une autre. Un personnage sans défense a une valeur effective de Dextérité de 0 (soit un modificateur de –5). Toute attaque de corps à corps portée contre le personnage s’effectue à +4 au jet (ce qui revient à attaquer un adversaire à terre). Les attaques à distance ne bénéficient d’aucun bonus. Un roublard peut tenter une attaque sournoise contre lui.</p><p>Au prix d’une action complexe, un ennemi peut tenter d’achever le personnage à l’aide d’une arme de corps à corps. On peut également porter un coup de grâce avec un arc ou une arbalète, à condition de se trouver à moins de 1,50 mètre de l’individu sans défense (c’est-à-dire d’occuper une position adjacente). L’agresseur touche automatiquement et l’attaque est comptée comme un coup critique. (Un roublard ajoute ses dégâts d’attaque sournoise quand il tente de délivrer un coup de grâce.) Même si la cible survit, elle doit réussir un jet de Vigueur (DD 10 + nombre de points de dégâts infligés) sous peine de succomber au choc.</p><p>Tenter d’achever un adversaire sans défense provoque une attaque d’opportunité.</p><p>Les créatures immunisées contre les coups critiques le sont également contre les tentatives de coup de grâce.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#helpless",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "incorporeal",
+    "name": {
+      "en": "Incorporeal",
+      "fr": "Intangible"
+    },
+    "modifiers": [],
+    "flags": [
+      "immuneNonmagical"
+    ],
+    "summary": {
+      "en": "Has no physical body; immune to nonmagical attacks, 50% miss chance from magic weapons and spells.",
+      "fr": "N’a pas de corps physique ; immunisé contre les attaques non magiques, 50 % de chances d’éviter armes et sorts magiques."
+    },
+    "text": {
+      "en": "<p><b>Incorporeal:</b> Having no physical body. Incorporeal creatures are immune to all nonmagical attack forms. They can be harmed only by other incorporeal creatures, +1 or better magic weapons, spells, spell-like effects, or supernatural effects.</p>",
+      "fr": "<p><b>Intangible.</b> Dénué de corps physique. Les créatures intangibles sont immunisées contre les attaques non magiques. Elles ne peuvent être touchées que par les autres créatures désincarnées, les armes magiques, les sorts et les effets magiques ou surnaturels (voir Intangibilité, dans la partie précédente).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#incorporeal",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "invisible",
+    "name": {
+      "en": "Invisible",
+      "fr": "Invisible"
+    },
+    "modifiers": [
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": 2,
+        "condition": {
+          "en": "vs sighted opponents",
+          "fr": "contre les adversaires qui voient"
+        }
+      }
+    ],
+    "flags": [
+      "targetLosesDexToAc",
+      "totalConcealment"
+    ],
+    "summary": {
+      "en": "+2 on attack rolls against sighted opponents, who lose their Dex bonus to AC against you; total concealment (50% miss).",
+      "fr": "+2 aux jets d’attaque contre les adversaires qui voient, lesquels perdent leur bonus de Dex à la CA ; camouflage total (50 % de ratés)."
+    },
+    "text": {
+      "en": "<p><b>Invisible:</b> Visually undetectable. An invisible creature gains a +2 bonus on attack rolls against sighted opponents, and ignores its opponents’ Dexterity bonuses to AC (if any). (See Invisibility, under Special Abilities.)</p>",
+      "fr": "<p><b>Invisible.</b> Indétectable à l’œil nu. Les créatures invisibles bénéficient d’un bonus de +2 aux jets d’attaque et leur cible perd son éventuel bonus de Dextérité à la CA (voir Invisibilité, dans la partie précédente). Ces avantages sont annulés si l’adversaire en question utilise un autre sens que la vue.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#invisible",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "knocked-down",
+    "name": {
+      "en": "Knocked Down",
+      "fr": "Renversé"
+    },
+    "modifiers": [],
+    "flags": [
+      "prone",
+      "narrative"
+    ],
+    "summary": {
+      "en": "Knocked prone by wind (or blown back 1d6 × 10 ft. if flying).",
+      "fr": "Jeté à terre par le vent (ou repoussé de 1d6 × 3 m s’il vole)."
+    },
+    "text": {
+      "en": "<p><b>Knocked Down:</b> Depending on their size, creatures can be knocked down by winds of high velocity. Creatures on the ground are knocked prone by the force of the wind. Flying creatures are instead blown back 1d6 x 10 feet.</p>",
+      "fr": "<p><b>Renversé.</b> Selon leur taille, les créatures peuvent être renversées par un vent plus ou moins violent. Si elles avançaient sur la terre ferme, elles se retrouvent par terre. Si elles évoluaient dans les airs, elles sont repoussées sur 1d6 x 3 mètres.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#knockedDown",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "nauseated",
+    "name": {
+      "en": "Nauseated",
+      "fr": "Nauséeux"
+    },
+    "modifiers": [],
+    "flags": [
+      "moveActionOnly",
+      "cantAttack",
+      "cantCast"
+    ],
+    "summary": {
+      "en": "Can't attack, cast spells, concentrate or do anything requiring attention; only a single move action per turn.",
+      "fr": "Ne peut ni attaquer, ni lancer de sort, ni se concentrer ; une seule action de mouvement par tour."
+    },
+    "text": {
+      "en": "<p><b>Nauseated:</b> Experiencing stomach distress. Nauseated creatures are unable to attack, cast spells, concentrate on spells, or do anything else requiring attention. The only action such a character can take is a single move action per turn.</p>",
+      "fr": "<p><b>Nauséeux.</b> Souffrant de violents maux d’estomac. Un personnage se trouvant dans cet état est incapable d’attaquer, de lancer le moindre sort ou de maintenir l’effet de ceux qu’il a jetés précédemment, bref de faire quoi que ce soit requérant un minimum de concentration. Ses possibilités d’action sont limitées à une action de mouvement par round.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#nauseated",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "panicked",
+    "name": {
+      "en": "Panicked",
+      "fr": "Paniqué"
+    },
+    "modifiers": [
+      {
+        "target": "save.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "skill.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.str",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.dex",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.con",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.int",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.wis",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.cha",
+        "bonusType": "untyped",
+        "value": -2
+      }
+    ],
+    "flags": [
+      "dropHeld",
+      "mustFlee",
+      "fear3"
+    ],
+    "replaces": [
+      "frightened",
+      "shaken"
+    ],
+    "summary": {
+      "en": "Drops what it holds and flees at top speed; −2 on saves, skill and ability checks; cowers if cornered. Fear level 3.",
+      "fr": "Lâche ce qu’il tient et fuit au plus vite ; −2 aux jets de sauvegarde, tests de compétence et de caractéristique ; se recroqueville s’il est acculé. Niveau de terreur 3."
+    },
+    "text": {
+      "en": "<p><b>Panicked:</b> A panicked creature must drop anything it holds and flee at top speed from the source of its fear, as well as any other dangers it encounters, along a random path. It can’t take any other actions. In addition, the creature takes a –2 penalty on all saving throws, skill checks, and ability checks. If cornered, a panicked creature cowers and does not attack, typically using the total defense action in combat. A panicked creature can use special abilities, including spells, to flee; indeed, the creature must use such means if they are the only way to escape.</p><p>Panicked is a more extreme state of fear than shaken or frightened.</p>",
+      "fr": "<p><b>Paniqué.</b> Un personnage paniqué lâche ce qu’il tient en main et s’enfuit au hasard en s’éloignant de la source de sa peur et sans s’approcher des autres sources de danger potentielles. Il ne peut effectuer aucune autre action. Il subit un malus de –2 aux jets d’attaque et de sauvegarde, ainsi qu’aux tests de compétence et de caractéristique. S’il se retrouve acculé, il se recroqueville sur lui-même sans pouvoir attaquer (il utilise alors généralement l’action de défense totale). Il peut se servir de ses pouvoirs ou de ses sorts pour s’enfuir (il y est même obligé si ceux-ci constituent la seule façon de s’enfuir).</p><p>Un individu paniqué est dans un état de terreur plus intense que s’il était secoué ou effrayé.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#panicked",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "paralyzed",
+    "name": {
+      "en": "Paralyzed",
+      "fr": "Paralysé"
+    },
+    "modifiers": [
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "strDexZero",
+      "helpless",
+      "mentalActionsOnly",
+      "loseDexToAc"
+    ],
+    "summary": {
+      "en": "Frozen: effective Str and Dex 0, helpless, can take only purely mental actions.",
+      "fr": "Figé : For et Dex effectives à 0, sans défense, ne peut entreprendre que des actions purement mentales."
+    },
+    "text": {
+      "en": "<p><b>Paralyzed:</b> A paralyzed character is frozen in place and unable to move or act. A paralyzed character has effective Dexterity and Strength scores of 0 and is helpless, but can take purely mental actions. A winged creature flying in the air at the time that it becomes paralyzed cannot flap its wings and falls. A paralyzed swimmer can’t swim and may drown. A creature can move through a space occupied by a paralyzed creature—ally or not. Each square occupied by a paralyzed creature, however, counts as 2 squares.</p>",
+      "fr": "<p><b>Paralysé.</b> Un personnage paralysé est immobile, incapable de bouger ou d’agir physiquement. Ses valeurs effectives de Force et de Dextérité tombent à 0. Il est sans défense mais peut accomplir des actions mentales. Une créature ailée se trouvant en l’air lorsqu’elle est paralysée ne peut plus battre des ailes et tombe. Un nageur paralysé ne peut plus nager et peut couler. Il est possible de traverser un espace occupé par une créature paralysée, qu’on en soit un allié ou pas. Cependant, chaque case de déplacement compte alors double.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#paralyzed",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "petrified",
+    "name": {
+      "en": "Petrified",
+      "fr": "Pétrifié"
+    },
+    "modifiers": [],
+    "flags": [
+      "unconscious",
+      "helpless",
+      "cantAct"
+    ],
+    "summary": {
+      "en": "Turned to stone; considered unconscious.",
+      "fr": "Transformé en pierre ; considéré comme inconscient."
+    },
+    "text": {
+      "en": "<p><b>Petrified:</b> A petrified character has been turned to stone and is considered unconscious. If a petrified character cracks or breaks, but the broken pieces are joined with the body as he returns to flesh, he is unharmed. If the character’s petrified body is incomplete when it returns to flesh, the body is likewise incomplete and there is some amount of permanent hit point loss and/or debilitation.</p>",
+      "fr": "<p><b>Pétrifié.</b> Un personnage pétrifié a été transformé en pierre. Il est considéré comme étant inconscient. Si la statue qu’il constitue n’est que fissurée ou si les morceaux cassés sont accolés à leur place quand on le retransforme en être de chair, son corps se reconstitue sans qu’il en souffre. Par contre, si la statue a été sévèrement endommagée (bras cassé et réduit en poussière ou oublié par terre, etc.), le personnage montre les mêmes blessures quand on le ramène dans le monde des vivants, dont on doit alors établir les conséquences en perte permanente de points de vie ou handicap.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#petrified",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "pinned",
+    "name": {
+      "en": "Pinned",
+      "fr": "Immobilisé (en situation de lutte)"
+    },
+    "modifiers": [
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": -4,
+        "condition": {
+          "en": "vs opponents other than the one pinning you",
+          "fr": "contre les adversaires autres que celui qui l’immobilise"
+        }
+      },
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "dexZeroForAc",
+      "immobile",
+      "loseDexToAc"
+    ],
+    "replaces": [
+      "grappling"
+    ],
+    "summary": {
+      "en": "Held immobile in a grapple (not helpless): Dex 0 for AC, −4 AC against everyone except the pinner (rulings R15).",
+      "fr": "Maintenu immobile en lutte (pas sans défense) : Dex 0 pour la CA, −4 à la CA contre tous sauf celui qui l’immobilise (règle R15)."
+    },
+    "text": {
+      "en": "<p><b>Pinned:</b> Held immobile (but not helpless) in a grapple.</p>",
+      "fr": "<p><b>Immobilisé (en situation de lutte).</b> Le personnage est maintenu par l’adversaire avec lequel il lutte (à noter qu’il n’est pas sans défense).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#pinned",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "prone",
+    "name": {
+      "en": "Prone",
+      "fr": "À terre"
+    },
+    "modifiers": [
+      {
+        "target": "attack.melee",
+        "bonusType": "untyped",
+        "value": -4
+      },
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": 4,
+        "condition": {
+          "en": "vs ranged attacks",
+          "fr": "contre les attaques à distance"
+        }
+      },
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": -4,
+        "condition": {
+          "en": "vs melee attacks",
+          "fr": "contre les attaques au corps à corps"
+        }
+      }
+    ],
+    "flags": [
+      "noRangedExceptCrossbow"
+    ],
+    "summary": {
+      "en": "−4 on melee attack rolls, can't use ranged weapons except crossbows; +4 AC vs ranged, −4 AC vs melee. Standing up is a move action that provokes.",
+      "fr": "−4 aux jets d’attaque au corps à corps, pas d’arme à distance sauf l’arbalète ; +4 à la CA contre le tir, −4 contre le corps à corps. Se relever est une action de mouvement qui provoque."
+    },
+    "text": {
+      "en": "<p><b>Prone:</b> The character is on the ground. An attacker who is prone has a –4 penalty on melee attack rolls and cannot use a ranged weapon (except for a crossbow). A defender who is prone gains a +4 bonus to Armor Class against ranged attacks, but takes a –4 penalty to AC against melee attacks.</p><p>Standing up is a move-equivalent action that provokes an attack of opportunity.</p>",
+      "fr": "<p><b>À terre.</b> Le personnage se trouve allongé au sol. Il subit un malus de –4 sur les jets d’attaque à l’aide d’une arme de corps à corps, et l’arbalète est la seule arme à distance dont il puisse se servir (il le fait sans malus). Il subit un malus de –4 à la CA contre les attaques au corps à corps, mais un bonus de +4 contre les attaques à distance.</p><p>Se relever est une action de mouvement qui provoque une attaque d’opportunité.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#prone",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "shaken",
+    "name": {
+      "en": "Shaken",
+      "fr": "Secoué"
+    },
+    "modifiers": [
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "save.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "skill.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.str",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.dex",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.con",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.int",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.wis",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.cha",
+        "bonusType": "untyped",
+        "value": -2
+      }
+    ],
+    "flags": [
+      "fear1"
+    ],
+    "summary": {
+      "en": "−2 on attack rolls, saving throws, skill checks and ability checks. Fear level 1.",
+      "fr": "−2 aux jets d’attaque, jets de sauvegarde, tests de compétence et de caractéristique. Niveau de terreur 1."
+    },
+    "text": {
+      "en": "<p><b>Shaken:</b> A shaken character takes a –2 penalty on attack rolls, saving throws, skill checks, and ability checks.</p><p>Shaken is a less severe state of fear than frightened or panicked.</p>",
+      "fr": "<p><b>Secoué.</b> Le personnage subit un malus de –2 aux jets d’attaque et de sauvegarde, ainsi qu’aux tests de compétence et de caractéristique.</p><p>Être secoué constitue un état de terreur moins avancé qu’être effrayé ou paniqué.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#shaken",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "sickened",
+    "name": {
+      "en": "Sickened",
+      "fr": "Fiévreux"
+    },
+    "modifiers": [
+      {
+        "target": "attack.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "damage.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "save.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "skill.all",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.str",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.dex",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.con",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.int",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.wis",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "check.cha",
+        "bonusType": "untyped",
+        "value": -2
+      }
+    ],
+    "flags": [],
+    "summary": {
+      "en": "−2 on attack rolls, weapon damage rolls, saving throws, skill checks and ability checks.",
+      "fr": "−2 aux jets d’attaque, de dégâts, de sauvegarde, et aux tests de compétence et de caractéristique."
+    },
+    "text": {
+      "en": "<p><b>Sickened:</b> The character takes a –2 penalty on all attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks.</p>",
+      "fr": "<p><b>Fiévreux.</b> Le personnage subit un malus de –2 aux jets d’attaque, de dégâts d’armes et de sauvegarde, ainsi qu’aux tests de compétence et de caractéristique.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#sickened",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "stable",
+    "name": {
+      "en": "Stable",
+      "fr": "Stable"
+    },
+    "modifiers": [],
+    "flags": [
+      "unconscious",
+      "helpless"
+    ],
+    "replaces": [
+      "dying"
+    ],
+    "summary": {
+      "en": "Negative hit points but no longer dying; unconscious.",
+      "fr": "Points de vie négatifs mais ne meurt plus ; inconscient."
+    },
+    "text": {
+      "en": "<p><b>Stable:</b> A character who was dying but who has stopped losing hit points and still has negative hit points is stable. The character is no longer dying, but is still unconscious. If the character has become stable because of aid from another character (such as a Heal check or magical healing), then the character no longer loses hit points. He has a 10% chance each hour of becoming conscious and disabled (even though his hit points are still negative).</p><p>If the character became stable on his own and hasn’t had help, he is still at risk of losing hit points. Each hour, he has a 10% chance of becoming conscious and disabled. Otherwise he loses 1 hit point.</p>",
+      "fr": "<p><b>Stable.</b> Un personnage qui était mourant mais qui a cessé de perdre des points de vie (et dont le total de pv est toujours négatif) est stable. Le personnage n’est plus mourant mais reste inconscient. S’il est devenu stable grâce à une assistance extérieure (par exemple, grâce à un sort curatif ou à la compétence Premiers secours), il ne perd plus de points de vie. Chaque heure qui passe, il a 10% de chances de reprendre ses esprits et de ne plus être que hors de combat (même si son total de points de vie reste négatif).</p><p>S’il est devenu stable sans aide extérieure, il risque de recommencer à perdre des points de vie. Chaque heure, il a 10% de chances de reprendre connaissance et de ne plus être que hors de combat. Dans le cas contraire, il perd 1 pv.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#stable",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "staggered",
+    "name": {
+      "en": "Staggered",
+      "fr": "Chancelant"
+    },
+    "modifiers": [],
+    "flags": [
+      "singleActionOnly"
+    ],
+    "summary": {
+      "en": "Nonlethal damage equals current hit points: only a single move or standard action each round.",
+      "fr": "Dégâts non létaux égaux aux points de vie actuels : une seule action de mouvement ou action simple par round."
+    },
+    "text": {
+      "en": "<p><b>Staggered:</b> A character whose nonlethal damage exactly equals his current hit points is staggered. A staggered character may take a single move action or standard action each round (but not both, nor can she take full-round actions).</p><p>A character whose current hit points exceed his nonlethal damage is no longer staggered; a character whose nonlethal damage exceeds his hit points becomes unconscious.</p>",
+      "fr": "<p><b>Chancelant.</b> Se dit d’un personnage ayant encaissé exactement autant de points de dégâts non-létaux qu’il a de points de vie. L’activité d’un personnage chancelant est restreinte à une action simple ou de mouvement chaque round (mais pas les deux, et pas une action complexe).</p><p>Dès que les points de vie excèdent à nouveau son total de points de dégâts non-létaux, le personnage n’est plus chancelant. Par contre, si son total de points de dégâts dépasse ses points de vie, il tombe inconscient.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#staggered",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "stunned",
+    "name": {
+      "en": "Stunned",
+      "fr": "Étourdi"
+    },
+    "modifiers": [
+      {
+        "target": "ac",
+        "bonusType": "untyped",
+        "value": -2
+      },
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "dropHeld",
+      "cantAct",
+      "loseDexToAc"
+    ],
+    "summary": {
+      "en": "Drops everything held, can't act, −2 AC, loses Dex bonus to AC.",
+      "fr": "Lâche tout ce qu’il tient, ne peut pas agir, −2 à la CA, perd son bonus de Dex à la CA."
+    },
+    "text": {
+      "en": "<p><b>Stunned:</b> A stunned creature drops everything held, can’t take actions, takes a –2 penalty to AC, and loses his Dexterity bonus to AC (if any).</p>",
+      "fr": "<p><b>Étourdi.</b> Un personnage étourdi lâche ce qu’il avait en main, ne peut pas agir, subit un malus de –2 à la CA et perd son éventuel bonus de Dextérité à la CA.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#stunned",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "turned",
+    "name": {
+      "en": "Turned",
+      "fr": "Renvoyé (ou repoussé)"
+    },
+    "modifiers": [],
+    "flags": [
+      "mustFlee",
+      "undeadOnly"
+    ],
+    "summary": {
+      "en": "Undead affected by turning: flees for 10 rounds; cowers if it can't flee.",
+      "fr": "Mort-vivant affecté par un renvoi : fuit pendant 10 rounds ; se recroqueville s’il ne peut pas fuir."
+    },
+    "text": {
+      "en": "<p><b>Turned:</b> Affected by a turn undead attempt. Turned undead flee for 10 rounds (1 minute) by the best and fastest means available to them. If they cannot flee, they cower.</p>",
+      "fr": "<p><b>Renvoyé (ou repoussé).</b> Affecté par une action de renvoi des morts-vivants. Les morts-vivants repoussés s’enfuient aussi vite que possible, pendant 10 rounds (1 minute). S’ils sont acculés, ils se recroquevillent sur eux-mêmes.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#turned",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  },
+  {
+    "id": "unconscious",
+    "name": {
+      "en": "Unconscious",
+      "fr": "Inconscient"
+    },
+    "modifiers": [
+      {
+        "target": "ac.noDex",
+        "bonusType": "untyped",
+        "value": 1
+      }
+    ],
+    "flags": [
+      "helpless",
+      "cantAct",
+      "loseDexToAc"
+    ],
+    "summary": {
+      "en": "Knocked out and helpless (−1 to −9 hp, or nonlethal damage above current hp).",
+      "fr": "Assommé et sans défense (entre −1 et −9 pv, ou dégâts non létaux supérieurs aux pv actuels)."
+    },
+    "text": {
+      "en": "<p><b>Unconscious:</b> Knocked out and helpless. Unconsciousness can result from having current hit points between –1 and –9, or from nonlethal damage in excess of current hit points.</p>",
+      "fr": "<p><b>Inconscient.</b> Sans connaissance et sans défense. Un personnage sombre dans l’inconscience quand son total de points de vie tombe entre –1 et –9, mais aussi quand il encaisse plus de points de dégâts non-létaux qu’il ne lui reste de points de vie.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/conditionSummary.htm#unconscious",
+      "frRef": "DRS 18 (pouvoirs et états préjudiciables)"
+    }
+  }
+]

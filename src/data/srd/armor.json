@@ -1,0 +1,560 @@
+[
+  {
+    "id": "banded-mail",
+    "name": {
+      "en": "Banded mail",
+      "fr": "Crevice"
+    },
+    "category": "heavy",
+    "armorBonus": 6,
+    "maxDex": 1,
+    "acp": -6,
+    "arcaneFailure": 35,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 35,
+      "kg": 17.5
+    },
+    "costGp": 250,
+    "text": {
+      "en": "<p>Heavy armor: armor bonus +6, maximum Dex bonus +1, armor check penalty -6, arcane spell failure 35%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets.</p>",
+      "fr": "<p>Armure lourde : bonus d’armure +6, bonus de Dex maximal +1, malus d’armure aux tests -6, risque d’échec des sorts profanes 35 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Crevice.</b> Des gantelets sont inclus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#bandedMail",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "breastplate",
+    "name": {
+      "en": "Breastplate",
+      "fr": "Cuirasse"
+    },
+    "category": "medium",
+    "armorBonus": 5,
+    "maxDex": 3,
+    "acp": -4,
+    "arcaneFailure": 25,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 30,
+      "kg": 15
+    },
+    "costGp": 200,
+    "text": {
+      "en": "<p>Medium armor: armor bonus +5, maximum Dex bonus +3, armor check penalty -4, arcane spell failure 25%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>It comes with a helmet and greaves.</p>",
+      "fr": "<p>Armure intermédiaire : bonus d’armure +5, bonus de Dex maximal +3, malus d’armure aux tests -4, risque d’échec des sorts profanes 25 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Cuirasse.</b> Elle s’accompagne d’un casque et de jambières.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#breastplate",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "buckler",
+    "name": {
+      "en": "Buckler",
+      "fr": "Targe"
+    },
+    "category": "shield",
+    "armorBonus": 1,
+    "maxDex": null,
+    "acp": -1,
+    "arcaneFailure": 5,
+    "speed30": null,
+    "speed20": null,
+    "weight": {
+      "lb": 5,
+      "kg": 2.5
+    },
+    "costGp": 15,
+    "text": {
+      "en": "<p>Shield: shield bonus +1, maximum Dex bonus —, armor check penalty -1, arcane spell failure 5%.</p><p>This small metal shield is worn strapped to your forearm. You can use a bow or crossbow without penalty while carrying it. You can also use your shield arm to wield a weapon (whether you are using an off-hand weapon or using your off hand to help wield a two-handed weapon), but you take a -1 penalty on attack rolls while doing so. This penalty stacks with those that may apply for fighting with your off hand and for fighting with two weapons. In any case, if you use a weapon in your off hand, you don't get the buckler's AC bonus for the rest of the round. You can't bash someone with a buckler.</p>",
+      "fr": "<p>Bouclier : bonus de bouclier +1, bonus de Dex maximal —, malus d’armure aux tests -1, risque d’échec des sorts profanes 5 %.</p><p><b>Targe.</b> Ce petit bouclier en acier se fixe à l’avant-bras, laissant la main est libre. On peut donc le porter et tirer à l’arc ou à l’arbalète sans malus. On peut aussi tenir une arme, que ce soit une arme secondaire ou la moitié d’une arme à deux mains, mais le poids supplémentaire au niveau de l’avant-bras impose un malus de –1 sur les jets d’attaque. Ce malus se cumule éventuellement à celui que cause le fait de combattre avec deux armes. Dans tous les cas, un personnage utilisant une arme dans la main de son bras de bouclier ne bénéficie pas du bonus de la targe à la CA.</p><p>Il est impossible de donner un coup de bouclier avec une targe.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#buckler",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "chain-shirt",
+    "name": {
+      "en": "Chain shirt",
+      "fr": "Chemise de mailles"
+    },
+    "category": "light",
+    "armorBonus": 4,
+    "maxDex": 4,
+    "acp": -2,
+    "arcaneFailure": 20,
+    "speed30": {
+      "ft": 30,
+      "m": 9
+    },
+    "speed20": {
+      "ft": 20,
+      "m": 6
+    },
+    "weight": {
+      "lb": 25,
+      "kg": 12.5
+    },
+    "costGp": 100,
+    "text": {
+      "en": "<p>Light armor: armor bonus +4, maximum Dex bonus +4, armor check penalty -2, arcane spell failure 20%, speed 30 ft. (base 30 ft.) / 20 ft. (base 20 ft.).</p><p>A chain shirt comes with a steel cap.</p>",
+      "fr": "<p>Armure légère : bonus d’armure +4, bonus de Dex maximal +4, malus d’armure aux tests -2, risque d’échec des sorts profanes 20 %, vitesse 9 m (base 9 m) / 6 m (base 6 m).</p><p><b>Chemise de mailles.</b> Un petit casque en fer est inclus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#chainShirt",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "chainmail",
+    "name": {
+      "en": "Chainmail",
+      "fr": "Cotte de mailles"
+    },
+    "category": "medium",
+    "armorBonus": 5,
+    "maxDex": 2,
+    "acp": -5,
+    "arcaneFailure": 30,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 40,
+      "kg": 20
+    },
+    "costGp": 150,
+    "text": {
+      "en": "<p>Medium armor: armor bonus +5, maximum Dex bonus +2, armor check penalty -5, arcane spell failure 30%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets.</p>",
+      "fr": "<p>Armure intermédiaire : bonus d’armure +5, bonus de Dex maximal +2, malus d’armure aux tests -5, risque d’échec des sorts profanes 30 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Cotte de mailles.</b> Des gantelets sont inclus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#chainmail",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "full-plate",
+    "name": {
+      "en": "Full plate",
+      "fr": "Harnois"
+    },
+    "category": "heavy",
+    "armorBonus": 8,
+    "maxDex": 1,
+    "acp": -6,
+    "arcaneFailure": 35,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 50,
+      "kg": 25
+    },
+    "costGp": 1500,
+    "text": {
+      "en": "<p>Heavy armor: armor bonus +8, maximum Dex bonus +1, armor check penalty -6, arcane spell failure 35%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets, heavy leather boots, a visored helmet, and a thick layer of padding that is worn underneath the armor. Each suit of full plate must be individually fitted to its owner by a master armorsmith, although a captured suit can be resized to fit a new owner at a cost of 200 to 800 (2d4x100) gold pieces.</p>",
+      "fr": "<p>Armure lourde : bonus d’armure +8, bonus de Dex maximal +1, malus d’armure aux tests -6, risque d’échec des sorts profanes 35 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Harnois.</b> Cette armure inclut des gantelets, des bottes en cuir épais, un heaume (casque à visière) et une épaisse tunique rembourrée sur laquelle elle se porte. Chaque harnois doit être adapté aux mensurations de son porteur par un maître artisan. Il est possible de modifier la taille d’un harnois trouvé ou pris à l’ennemi pour 200–800 po (2d4 100).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#fullPlate",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "half-plate",
+    "name": {
+      "en": "Half-plate",
+      "fr": "Armure à plaques"
+    },
+    "category": "heavy",
+    "armorBonus": 7,
+    "maxDex": 0,
+    "acp": -7,
+    "arcaneFailure": 40,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 50,
+      "kg": 25
+    },
+    "costGp": 600,
+    "text": {
+      "en": "<p>Heavy armor: armor bonus +7, maximum Dex bonus +0, armor check penalty -7, arcane spell failure 40%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets.</p>",
+      "fr": "<p>Armure lourde : bonus d’armure +7, bonus de Dex maximal +0, malus d’armure aux tests -7, risque d’échec des sorts profanes 40 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Armure à plaques.</b> Des gantelets sont inclus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#halfPlate",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "heavy-steel-shield",
+    "name": {
+      "en": "Heavy steel shield",
+      "fr": "Écu en acier"
+    },
+    "category": "shield",
+    "armorBonus": 2,
+    "maxDex": null,
+    "acp": -2,
+    "arcaneFailure": 15,
+    "speed30": null,
+    "speed20": null,
+    "weight": {
+      "lb": 15,
+      "kg": 7.5
+    },
+    "costGp": 20,
+    "text": {
+      "en": "<p>Shield: shield bonus +2, maximum Dex bonus —, armor check penalty -2, arcane spell failure 15%.</p><p>You strap a shield to your forearm and grip it with your hand. A heavy shield is so heavy that you can't use your shield hand for anything else. Wooden or Steel: Wooden and steel shields offer the same basic protection, though they respond differently to special attacks. Shield Bash Attacks: You can bash an opponent with a heavy shield, using it as an off-hand weapon. See Table: Weapons for the damage dealt by a shield bash. Used this way, a heavy shield is a martial bludgeoning weapon. For the purpose of penalties on attack rolls, treat a heavy shield as a one-handed weapon. If you use your shield as a weapon, you lose its AC bonus until your next action (usually until the next round). An enhancement bonus on a shield does not improve the effectiveness of a shield bash made with it, but the shield can be made into a magic weapon in its own right.</p>",
+      "fr": "<p>Bouclier : bonus de bouclier +2, bonus de Dex maximal —, malus d’armure aux tests -2, risque d’échec des sorts profanes 15 %.</p><p><b>Écu en bois ou en acier.</b> On fixe un écu à son avant-bras et on le maintient en place avec la main. Ce bouclier est trop lourd pour que la main occupée puisse tenir quoi que ce soit.</p><p>Bois ou acier. Qu’ils soient en bois ou en acier, les écus confèrent la même protection, mais ils réagissent différemment à certains types d’attaques.</p><p>Coup de bouclier. Il est possible de frapper ses adversaires à coups d’écu, auquel cas il est utilisé comme une arme secondaire. Les dégâts infligés sont indiqués sur la Table : armes. Utilisé de cette façon, l’écu est considéré comme une arme de guerre contondante, et compte comme une arme à une main. Quiconque se sert de son écu comme d’une arme perd le bonus qu’il confère à la CA jusqu’à son prochain tour de jeu. Le bonus d’altération d’un écu magique ne s’applique pas lors d’un coup de bouclier, mais il est possible de faire d’un écu une arme magique à part entière.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#shieldHeavyWoodenorSteel",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "heavy-wooden-shield",
+    "name": {
+      "en": "Heavy wooden shield",
+      "fr": "Écu en bois"
+    },
+    "category": "shield",
+    "armorBonus": 2,
+    "maxDex": null,
+    "acp": -2,
+    "arcaneFailure": 15,
+    "speed30": null,
+    "speed20": null,
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 7,
+    "text": {
+      "en": "<p>Shield: shield bonus +2, maximum Dex bonus —, armor check penalty -2, arcane spell failure 15%.</p><p>You strap a shield to your forearm and grip it with your hand. A heavy shield is so heavy that you can't use your shield hand for anything else. Wooden or Steel: Wooden and steel shields offer the same basic protection, though they respond differently to special attacks. Shield Bash Attacks: You can bash an opponent with a heavy shield, using it as an off-hand weapon. See Table: Weapons for the damage dealt by a shield bash. Used this way, a heavy shield is a martial bludgeoning weapon. For the purpose of penalties on attack rolls, treat a heavy shield as a one-handed weapon. If you use your shield as a weapon, you lose its AC bonus until your next action (usually until the next round). An enhancement bonus on a shield does not improve the effectiveness of a shield bash made with it, but the shield can be made into a magic weapon in its own right.</p>",
+      "fr": "<p>Bouclier : bonus de bouclier +2, bonus de Dex maximal —, malus d’armure aux tests -2, risque d’échec des sorts profanes 15 %.</p><p><b>Écu en bois ou en acier.</b> On fixe un écu à son avant-bras et on le maintient en place avec la main. Ce bouclier est trop lourd pour que la main occupée puisse tenir quoi que ce soit.</p><p>Bois ou acier. Qu’ils soient en bois ou en acier, les écus confèrent la même protection, mais ils réagissent différemment à certains types d’attaques.</p><p>Coup de bouclier. Il est possible de frapper ses adversaires à coups d’écu, auquel cas il est utilisé comme une arme secondaire. Les dégâts infligés sont indiqués sur la Table : armes. Utilisé de cette façon, l’écu est considéré comme une arme de guerre contondante, et compte comme une arme à une main. Quiconque se sert de son écu comme d’une arme perd le bonus qu’il confère à la CA jusqu’à son prochain tour de jeu. Le bonus d’altération d’un écu magique ne s’applique pas lors d’un coup de bouclier, mais il est possible de faire d’un écu une arme magique à part entière.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#shieldHeavyWoodenorSteel",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "hide",
+    "name": {
+      "en": "Hide",
+      "fr": "Armure de peau"
+    },
+    "category": "medium",
+    "armorBonus": 3,
+    "maxDex": 4,
+    "acp": -3,
+    "arcaneFailure": 20,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 25,
+      "kg": 12.5
+    },
+    "costGp": 15,
+    "text": {
+      "en": "<p>Medium armor: armor bonus +3, maximum Dex bonus +4, armor check penalty -3, arcane spell failure 20%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p>",
+      "fr": "<p>Armure intermédiaire : bonus d’armure +3, bonus de Dex maximal +4, malus d’armure aux tests -3, risque d’échec des sorts profanes 20 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#tableArmorandShields",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "leather",
+    "name": {
+      "en": "Leather",
+      "fr": "Armure de cuir"
+    },
+    "category": "light",
+    "armorBonus": 2,
+    "maxDex": 6,
+    "acp": 0,
+    "arcaneFailure": 10,
+    "speed30": {
+      "ft": 30,
+      "m": 9
+    },
+    "speed20": {
+      "ft": 20,
+      "m": 6
+    },
+    "weight": {
+      "lb": 15,
+      "kg": 7.5
+    },
+    "costGp": 10,
+    "text": {
+      "en": "<p>Light armor: armor bonus +2, maximum Dex bonus +6, armor check penalty 0, arcane spell failure 10%, speed 30 ft. (base 30 ft.) / 20 ft. (base 20 ft.).</p>",
+      "fr": "<p>Armure légère : bonus d’armure +2, bonus de Dex maximal +6, malus d’armure aux tests 0, risque d’échec des sorts profanes 10 %, vitesse 9 m (base 9 m) / 6 m (base 6 m).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#tableArmorandShields",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "light-steel-shield",
+    "name": {
+      "en": "Light steel shield",
+      "fr": "Rondache en acier"
+    },
+    "category": "shield",
+    "armorBonus": 1,
+    "maxDex": null,
+    "acp": -1,
+    "arcaneFailure": 5,
+    "speed30": null,
+    "speed20": null,
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 9,
+    "text": {
+      "en": "<p>Shield: shield bonus +1, maximum Dex bonus —, armor check penalty -1, arcane spell failure 5%.</p><p>You strap a shield to your forearm and grip it with your hand. A light shield's weight lets you carry other items in that hand, although you cannot use weapons with it. Wooden or Steel: Wooden and steel shields offer the same basic protection, though they respond differently to special attacks. Shield Bash Attacks: You can bash an opponent with a light shield, using it as an off-hand weapon. See Table: Weapons for the damage dealt by a shield bash. Used this way, a light shield is a martial bludgeoning weapon. For the purpose of penalties on attack rolls, treat a light shield as a light weapon. If you use your shield as a weapon, you lose its AC bonus until your next action (usually until the next round). An enhancement bonus on a shield does not improve the effectiveness of a shield bash made with it, but the shield can be made into a magic weapon in its own right.</p>",
+      "fr": "<p>Bouclier : bonus de bouclier +1, bonus de Dex maximal —, malus d’armure aux tests -1, risque d’échec des sorts profanes 5 %.</p><p><b>Rondache en bois ou en acier.</b> On fixe le bouclier à son avant-bras et on le maintient en place avec la main. Le poids raisonnable de ce bouclier rond permet de se servir de la main occupée pour tenir autre chose (mais pas pour utiliser une arme).</p><p>Bois ou acier. Qu’elles soient en bois ou en acier, les rondaches confèrent la même protection, mais elles réagissent différemment à certains types d’attaques.</p><p>Coup de bouclier. Il est possible de frapper ses adversaires à coups de rondache, auquel cas elle est utilisée comme une arme secondaire. Les dégâts infligés sont indiqués sur la Table : armes. Utilisée de cette façon, la rondache est considérée comme une arme de guerre contondante, et compte comme une arme légère. Quiconque se sert de sa rondache comme d’une arme perd le bonus qu’elle confère à la CA jusqu’à son prochain tour de jeu. Le bonus d’altération d’une rondache magique ne s’applique pas lors d’un coup de bouclier, mais il est possible de faire d’une rondache une arme magique à part entière.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#shieldLightWoodenorSteel",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "light-wooden-shield",
+    "name": {
+      "en": "Light wooden shield",
+      "fr": "Rondache en bois"
+    },
+    "category": "shield",
+    "armorBonus": 1,
+    "maxDex": null,
+    "acp": -1,
+    "arcaneFailure": 5,
+    "speed30": null,
+    "speed20": null,
+    "weight": {
+      "lb": 5,
+      "kg": 2.5
+    },
+    "costGp": 3,
+    "text": {
+      "en": "<p>Shield: shield bonus +1, maximum Dex bonus —, armor check penalty -1, arcane spell failure 5%.</p><p>You strap a shield to your forearm and grip it with your hand. A light shield's weight lets you carry other items in that hand, although you cannot use weapons with it. Wooden or Steel: Wooden and steel shields offer the same basic protection, though they respond differently to special attacks. Shield Bash Attacks: You can bash an opponent with a light shield, using it as an off-hand weapon. See Table: Weapons for the damage dealt by a shield bash. Used this way, a light shield is a martial bludgeoning weapon. For the purpose of penalties on attack rolls, treat a light shield as a light weapon. If you use your shield as a weapon, you lose its AC bonus until your next action (usually until the next round). An enhancement bonus on a shield does not improve the effectiveness of a shield bash made with it, but the shield can be made into a magic weapon in its own right.</p>",
+      "fr": "<p>Bouclier : bonus de bouclier +1, bonus de Dex maximal —, malus d’armure aux tests -1, risque d’échec des sorts profanes 5 %.</p><p><b>Rondache en bois ou en acier.</b> On fixe le bouclier à son avant-bras et on le maintient en place avec la main. Le poids raisonnable de ce bouclier rond permet de se servir de la main occupée pour tenir autre chose (mais pas pour utiliser une arme).</p><p>Bois ou acier. Qu’elles soient en bois ou en acier, les rondaches confèrent la même protection, mais elles réagissent différemment à certains types d’attaques.</p><p>Coup de bouclier. Il est possible de frapper ses adversaires à coups de rondache, auquel cas elle est utilisée comme une arme secondaire. Les dégâts infligés sont indiqués sur la Table : armes. Utilisée de cette façon, la rondache est considérée comme une arme de guerre contondante, et compte comme une arme légère. Quiconque se sert de sa rondache comme d’une arme perd le bonus qu’elle confère à la CA jusqu’à son prochain tour de jeu. Le bonus d’altération d’une rondache magique ne s’applique pas lors d’un coup de bouclier, mais il est possible de faire d’une rondache une arme magique à part entière.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#shieldLightWoodenorSteel",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "padded",
+    "name": {
+      "en": "Padded",
+      "fr": "Armure matelassée"
+    },
+    "category": "light",
+    "armorBonus": 1,
+    "maxDex": 8,
+    "acp": 0,
+    "arcaneFailure": 5,
+    "speed30": {
+      "ft": 30,
+      "m": 9
+    },
+    "speed20": {
+      "ft": 20,
+      "m": 6
+    },
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 5,
+    "text": {
+      "en": "<p>Light armor: armor bonus +1, maximum Dex bonus +8, armor check penalty 0, arcane spell failure 5%, speed 30 ft. (base 30 ft.) / 20 ft. (base 20 ft.).</p>",
+      "fr": "<p>Armure légère : bonus d’armure +1, bonus de Dex maximal +8, malus d’armure aux tests 0, risque d’échec des sorts profanes 5 %, vitesse 9 m (base 9 m) / 6 m (base 6 m).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#tableArmorandShields",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "scale-mail",
+    "name": {
+      "en": "Scale mail",
+      "fr": "Armure d’écailles"
+    },
+    "category": "medium",
+    "armorBonus": 4,
+    "maxDex": 3,
+    "acp": -4,
+    "arcaneFailure": 25,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 30,
+      "kg": 15
+    },
+    "costGp": 50,
+    "text": {
+      "en": "<p>Medium armor: armor bonus +4, maximum Dex bonus +3, armor check penalty -4, arcane spell failure 25%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets.</p>",
+      "fr": "<p>Armure intermédiaire : bonus d’armure +4, bonus de Dex maximal +3, malus d’armure aux tests -4, risque d’échec des sorts profanes 25 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Armure d’écailles.</b> Des gantelets sont inclus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#scaleMail",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "splint-mail",
+    "name": {
+      "en": "Splint mail",
+      "fr": "Clibanion"
+    },
+    "category": "heavy",
+    "armorBonus": 6,
+    "maxDex": 0,
+    "acp": -7,
+    "arcaneFailure": 40,
+    "speed30": {
+      "ft": 20,
+      "m": 6
+    },
+    "speed20": {
+      "ft": 15,
+      "m": 4.5
+    },
+    "weight": {
+      "lb": 45,
+      "kg": 22.5
+    },
+    "costGp": 200,
+    "text": {
+      "en": "<p>Heavy armor: armor bonus +6, maximum Dex bonus +0, armor check penalty -7, arcane spell failure 40%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets.</p>",
+      "fr": "<p>Armure lourde : bonus d’armure +6, bonus de Dex maximal +0, malus d’armure aux tests -7, risque d’échec des sorts profanes 40 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Clibanion.</b> Des gantelets sont inclus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#splintMail",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "studded-leather",
+    "name": {
+      "en": "Studded leather",
+      "fr": "Armure de cuir cloutée"
+    },
+    "category": "light",
+    "armorBonus": 3,
+    "maxDex": 5,
+    "acp": -1,
+    "arcaneFailure": 15,
+    "speed30": {
+      "ft": 30,
+      "m": 9
+    },
+    "speed20": {
+      "ft": 20,
+      "m": 6
+    },
+    "weight": {
+      "lb": 20,
+      "kg": 10
+    },
+    "costGp": 25,
+    "text": {
+      "en": "<p>Light armor: armor bonus +3, maximum Dex bonus +5, armor check penalty -1, arcane spell failure 15%, speed 30 ft. (base 30 ft.) / 20 ft. (base 20 ft.).</p>",
+      "fr": "<p>Armure légère : bonus d’armure +3, bonus de Dex maximal +5, malus d’armure aux tests -1, risque d’échec des sorts profanes 15 %, vitesse 9 m (base 9 m) / 6 m (base 6 m).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#tableArmorandShields",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "tower-shield",
+    "name": {
+      "en": "Tower shield",
+      "fr": "Pavois"
+    },
+    "category": "tower",
+    "armorBonus": 4,
+    "maxDex": 2,
+    "acp": -10,
+    "arcaneFailure": 50,
+    "speed30": null,
+    "speed20": null,
+    "weight": {
+      "lb": 45,
+      "kg": 22.5
+    },
+    "costGp": 30,
+    "text": {
+      "en": "<p>Shield (tower): shield bonus +4, maximum Dex bonus +2, armor check penalty -10, arcane spell failure 50%.</p><p>This massive wooden shield is nearly as tall as you are. In most situations, it provides the indicated shield bonus to your AC. However, you can instead use it as total cover, though you must give up your attacks to do so. The shield does not, however, provide cover against targeted spells; a spellcaster can cast a spell on you by targeting the shield you are holding. You cannot bash with a tower shield, nor can you use your shield hand for anything else. When employing a tower shield in combat, you take a -2 penalty on attack rolls because of the shield's encumbrance.</p>",
+      "fr": "<p>Bouclier (pavois) : bonus de bouclier +4, bonus de Dex maximal +2, malus d’armure aux tests -10, risque d’échec des sorts profanes 50 %.</p><p><b>Pavois.</b> Cet énorme bouclier en bois est presque aussi grand que son utilisateur. Dans la plupart des situations, il confère le bonus de bouclier indiqué à la CA. Il peut cependant aussi servir d’abri total, à condition de sacrifier toutes ses attaques. Le pavois ne protège pas contre les sorts ciblés, car le jeteur de sorts n’a qu’à viser le bouclier pour être sûr d’atteindre le personnage. On ne peut pas donner de coups de bouclier avec un pavois et la main qui le tient ne peut être utilisée pour autre chose.</p><p>L’utilisation d’un pavois en combat impose un malus de–2 sur les jets d’attaque à cause de l’encombrement du bouclier.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#shieldTower",
+      "frRef": "DRS 07 (équipement)"
+    }
+  }
+]

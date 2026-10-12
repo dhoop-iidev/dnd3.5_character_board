@@ -1,0 +1,322 @@
+[
+  {
+    "id": "fighter",
+    "name": {
+      "en": "Fighter",
+      "fr": "Guerrier"
+    },
+    "prestige": false,
+    "hitDie": 10,
+    "skillPoints": 2,
+    "classSkills": [
+      "climb",
+      "craft",
+      "handle-animal",
+      "intimidate",
+      "jump",
+      "ride",
+      "swim"
+    ],
+    "proficiencies": {
+      "weapons": [
+        "simple",
+        "martial"
+      ],
+      "armor": [
+        "light",
+        "medium",
+        "heavy",
+        "shield",
+        "tower"
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 1,
+        "fort": 2,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "fort": 3,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "fort": 3,
+        "ref": 1,
+        "will": 1,
+        "special": []
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": []
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": []
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "fort": 6,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "fort": 6,
+        "ref": 3,
+        "will": 3,
+        "special": []
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": []
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "fort": 8,
+        "ref": 4,
+        "will": 4,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "fort": 8,
+        "ref": 4,
+        "will": 4,
+        "special": []
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "fort": 9,
+        "ref": 4,
+        "will": 4,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "fort": 9,
+        "ref": 5,
+        "will": 5,
+        "special": []
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "fort": 10,
+        "ref": 5,
+        "will": 5,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "fort": 10,
+        "ref": 5,
+        "will": 5,
+        "special": []
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "fort": 11,
+        "ref": 6,
+        "will": 6,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "fort": 11,
+        "ref": 6,
+        "will": 6,
+        "special": []
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "fort": 12,
+        "ref": 6,
+        "will": 6,
+        "special": [
+          {
+            "en": "Bonus feat",
+            "fr": "Don supplémentaire"
+          }
+        ]
+      }
+    ],
+    "bonusFeatLevels": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "bonusFeatList": [
+      "blind-fight",
+      "cleave",
+      "combat-expertise",
+      "combat-reflexes",
+      "deflect-arrows",
+      "dodge",
+      "exotic-weapon-proficiency",
+      "far-shot",
+      "great-cleave",
+      "greater-two-weapon-fighting",
+      "greater-weapon-focus",
+      "greater-weapon-specialization",
+      "improved-bull-rush",
+      "improved-critical",
+      "improved-disarm",
+      "improved-feint",
+      "improved-grapple",
+      "improved-initiative",
+      "improved-overrun",
+      "improved-precise-shot",
+      "improved-shield-bash",
+      "improved-sunder",
+      "improved-trip",
+      "improved-two-weapon-fighting",
+      "improved-unarmed-strike",
+      "manyshot",
+      "mobility",
+      "mounted-archery",
+      "mounted-combat",
+      "point-blank-shot",
+      "power-attack",
+      "precise-shot",
+      "quick-draw",
+      "rapid-reload",
+      "rapid-shot",
+      "ride-by-attack",
+      "shot-on-the-run",
+      "snatch-arrows",
+      "spirited-charge",
+      "spring-attack",
+      "stunning-fist",
+      "trample",
+      "two-weapon-defense",
+      "two-weapon-fighting",
+      "weapon-finesse",
+      "weapon-focus",
+      "weapon-specialization",
+      "whirlwind-attack"
+    ],
+    "text": {
+      "en": "<p><b>Weapon and Armor Proficiency:</b> A fighter is proficient with all simple and martial weapons and with all armor (heavy, medium, and light) and shields (including tower shields).</p><p><b>Bonus Feats:</b> At 1st level, a fighter gets a bonus combat-oriented feat in addition to the feat that any 1st-level character gets and the bonus feat granted to a human character. The fighter gains an additional bonus feat at 2nd level and every two fighter levels thereafter (4th, 6th, 8th, 10th, 12th, 14th, 16th, 18th, and 20th). These bonus feats must be drawn from the feats noted as fighter bonus feats. A fighter must still meet all prerequisites for a bonus feat, including ability score and base attack bonus minimums.</p><p>These bonus feats are in addition to the feat that a character of any class gets from advancing levels. A fighter is not limited to the list of fighter bonus feats when choosing these feats.</p>",
+      "fr": "<p><b>Armes et armures.</b> Le guerrier est formé au maniement de toutes les armes courantes, des armes de guerre et des boucliers (y compris les pavois). Il est également formé au port de toutes les armures (légères, intermédiaires et lourdes).</p><p><b>Dons supplémentaires.</b> Au niveau 1, le guerrier peut choisir un don supplémentaire, en plus de celui auquel tout le monde a droit et de celui qui est offert aux humains. Par la suite, il en gagne un autre tous les niveaux pairs (2, 4, 6, 8, 10, 12, 14, 16, 18 et 20). Ses dons supplémentaires doivent forcément être choisis parmi ceux qui sont indiqués comme étant des dons de guerrier. Le personnage doit satisfaire à toutes les conditions requises pour chaque don, y compris les valeurs de caractéristiques et le bonus à l’attaque minimaux.</p><p>Ces dons sont obtenus en plus de ceux que n’importe quel personnage acquiert tous les trois niveaux (voir la Table : expérience et avantages liés au niveau). Lorsqu’il choisit un des dons auxquels tout le monde a droit, le guerrier n’est pas limité à la liste ci-dessus.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/classes/fighter.htm#tableTheFighter",
+      "frRef": "DRS 03a (classes I)"
+    }
+  }
+]

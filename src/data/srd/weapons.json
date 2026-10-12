@@ -1,0 +1,2274 @@
+[
+  {
+    "id": "bastard-sword",
+    "name": {
+      "en": "Bastard sword",
+      "fr": "Épée bâtarde"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 35,
+    "text": {
+      "en": "<p>Exotic weapon, one-handed melee weapon. Damage 1d10 (Medium), 1d8 (Small); critical 19–20/×2; slashing.</p><p>A bastard sword is too large to use in one hand without special training; thus, it is an exotic weapon. A character can use a bastard sword two-handed as a martial weapon.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à une main. Dégâts 1d10 (M), 1d8 (P) ; critique 19–20/×2 ; tranchant.</p><p><b>Épée bâtarde.</b> Elle est trop grande pour être utilisée à une main sans entraînement particulier, ce qui explique qu’elle soit rangée dans la catégorie des armes exotiques. Un personnage peut l’utiliser comme arme de guerre s’il la manie à deux mains.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#swordBastard",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "battleaxe",
+    "name": {
+      "en": "Battleaxe",
+      "fr": "Hache d’armes"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 10,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "bolas",
+    "name": {
+      "en": "Bolas",
+      "fr": "Bolas"
+    },
+    "category": "exotic",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 5,
+    "text": {
+      "en": "<p>Exotic weapon, ranged weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×2; bludgeoning; range increment 10 ft.</p><p>You can use this weapon to make a ranged trip attack against an opponent. You can't be tripped during your own trip attempt when using a set of bolas.</p>",
+      "fr": "<p>Arme exotique, arme à distance. Dégâts 1d4 (M), 1d3 (P) ; critique ×2 ; contondant ; facteur de portée 3 m.</p><p><b>Bolas.</b> Il est possible de les utiliser pour faire un croc-en-jambe à distance. Même si le personnage échoue dans sa tentative, le croc-en-jambe ne peut se retourner contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#bolas",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "club",
+    "name": {
+      "en": "Club",
+      "fr": "Gourdin"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 3,
+      "kg": 1.5
+    },
+    "costGp": 0,
+    "text": {
+      "en": "<p>Simple weapon, one-handed melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; bludgeoning; range increment 10 ft.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à une main. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; contondant ; facteur de portée 3 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "composite-longbow",
+    "name": {
+      "en": "Composite longbow",
+      "fr": "Arc long composite"
+    },
+    "category": "martial",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "rangeIncrement": {
+      "ft": 110,
+      "m": 33
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 3,
+      "kg": 1.5
+    },
+    "costGp": 100,
+    "text": {
+      "en": "<p>Martial weapon, ranged weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; piercing; range increment 110 ft.</p><p>You need at least two hands to use a bow, regardless of its size. You can use a composite longbow while mounted. All composite bows are made with a particular strength rating (that is, each requires a minimum Strength modifier to use with proficiency). If your Strength bonus is less than the strength rating of the composite bow, you can't effectively use it, so you take a -2 penalty on attacks with it. The default composite longbow requires a Strength modifier of +0 or higher to use with proficiency. A composite longbow can be made with a high strength rating to take advantage of an above-average Strength score; this feature allows you to add your Strength bonus to damage, up to the maximum bonus indicated for the bow. Each point of Strength bonus granted by the bow adds 100 gp to its cost. For purposes of weapon proficiency and similar feats, a composite longbow is treated as if it were a longbow.</p>",
+      "fr": "<p>Arme de guerre, arme à distance. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; perforant ; facteur de portée 33 m.</p><p><b>Arc long composite.</b> Un arc ne peut être utilisé qu’à deux mains. Un arc long composite peut être utilisé par un cavalier monté. Tous les arcs composites sont fabriqués pour une certaine valeur de Force (c’est-à-dire un modificateur de Force minimal pour l’utiliser correctement). Si le bonus de Force du personnage est inférieur à celui de l’arc composite, il ne peut l’utiliser efficacement et subit un malus de –2 sur les jets d’attaque. Un arc long composite ordinaire nécessite un modificateur de Force de +0 pour être utilisé avec compétence. Les arcs composites peuvent être fabriqués avec un rang de Force plus élevé pour tirer partie d’une valeur de Force au-dessus de la moyenne. Cela permet alors à un personnage d’appliquer son bonus de Force aux jets de dégâts, dans la limite du bonus indiqué pour l’arc. Chaque point de bonus de Force ajouté à un arc augmente son prix de +100 po.</p><p>Pour ce qui concerne la formation à leur maniement et les dons similaires, les arcs longs ordinaires et les arcs longs composites sont considérés comme étant la même arme.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#longbowComposite",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "composite-shortbow",
+    "name": {
+      "en": "Composite shortbow",
+      "fr": "Arc court composite"
+    },
+    "category": "martial",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "rangeIncrement": {
+      "ft": 70,
+      "m": 21
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 75,
+    "text": {
+      "en": "<p>Martial weapon, ranged weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×3; piercing; range increment 70 ft.</p><p>You need at least two hands to use a bow, regardless of its size. You can use a composite shortbow while mounted. All composite bows are made with a particular strength rating (that is, each requires a minimum Strength modifier to use with proficiency). If your Strength bonus is lower than the strength rating of the composite bow, you can't effectively use it, so you take a -2 penalty on attacks with it. The default composite shortbow requires a Strength modifier of +0 or higher to use with proficiency. A composite shortbow can be made with a high strength rating to take advantage of an above-average Strength score; this feature allows you to add your Strength bonus to damage, up to the maximum bonus indicated for the bow. Each point of Strength bonus granted by the bow adds 75 gp to its cost. For purposes of weapon proficiency and similar feats, a composite shortbow is treated as if it were a shortbow.</p>",
+      "fr": "<p>Arme de guerre, arme à distance. Dégâts 1d6 (M), 1d4 (P) ; critique ×3 ; perforant ; facteur de portée 21 m.</p><p><b>Arc court composite.</b> Un arc ne peut être utilisé qu’à deux mains, quelle que soit sa taille. On peut se servir d’un arc court à cheval. Tous les arcs composites sont fabriqués pour une certaine valeur de Force (c’est-à-dire un modificateur de Force minimal pour l’utiliser correctement). Si le bonus de Force du personnage est inférieur à celui de l’arc composite, il ne peut l’utiliser efficacement et subit un malus de –2 sur les jets d’attaque. Un arc court composite ordinaire nécessite un modificateur de Force de +0 pour être utilisé avec compétence. Les arcs composites peuvent être fabriqués avec un rang de Force plus élevé pour tirer partie d’une valeur de Force au-dessus de la moyenne. Cela permet alors à un personnage d’appliquer son bonus de Force aux jets de dégâts, dans la limite du bonus indiqué pour l’arc. Chaque point de bonus de Force ajouté à un arc augmente son prix de +75 po.</p><p>Pour ce qui concerne la formation à leur maniement et les dons similaires, les arcs courts ordinaires et les arcs courts composites sont considérés comme étant la même arme.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#shortbowComposite",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "dagger",
+    "name": {
+      "en": "Dagger",
+      "fr": "Dague"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "piercing",
+      "slashing"
+    ],
+    "weight": {
+      "lb": 1,
+      "kg": 0.5
+    },
+    "costGp": 2,
+    "text": {
+      "en": "<p>Simple weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical 19–20/×2; piercing or slashing; range increment 10 ft.</p><p>You get a +2 bonus on Sleight of Hand checks made to conceal a dagger on your body (see the Sleight of Hand skill).</p>",
+      "fr": "<p>Arme courante, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique 19–20/×2 ; perforant ou tranchant ; facteur de portée 3 m.</p><p><b>Dague.</b> Un personnage qui tente de dissimuler une dague sur sa personne bénéficie d’un bonus de +2 sur son test d’Escamotage (voir la description de cette compétence).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#dagger",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "dart",
+    "name": {
+      "en": "Dart",
+      "fr": "Dard"
+    },
+    "category": "simple",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 20,
+      "m": 6
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 0.5,
+      "kg": 0.25
+    },
+    "costGp": 0.5,
+    "text": {
+      "en": "<p>Simple weapon, ranged weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×2; piercing; range increment 20 ft.</p>",
+      "fr": "<p>Arme courante, arme à distance. Dégâts 1d4 (M), 1d3 (P) ; critique ×2 ; perforant ; facteur de portée 6 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "dire-flail",
+    "name": {
+      "en": "Dire flail",
+      "fr": "Fléau double"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6/1d6",
+      "M": "1d8/1d8"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 90,
+    "text": {
+      "en": "<p>Exotic weapon, two-handed melee weapon. Damage 1d8/1d8 (Medium), 1d6/1d6 (Small); critical ×2; bludgeoning.</p><p>A dire flail is a double weapon. You can fight with it as if fighting with two weapons, but if you do, you incur all the normal attack penalties associated with fighting with two weapons, just as if you were using a one-handed weapon and a light weapon. A creature wielding a dire flail in one hand can't use it as a double weapon- only one end of the weapon can be used in any given round. When using a dire flail, you get a +2 bonus on opposed attack rolls made to disarm an enemy (including the opposed attack roll to avoid being disarmed if such an attempt fails). You can also use this weapon to make trip attacks. If you are tripped during your own trip attempt, you can drop the dire flail to avoid being tripped.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à deux mains. Dégâts 1d8/1d8 (M), 1d6/1d6 (P) ; critique ×2 ; contondant.</p><p><b>Fléau double.</b> Comme son nom l’indique, ce fléau est une arme double. Il est possible de s’en servir comme si l’on se battait avec deux armes mais, dans ce cas, le personnage encourt les malus habituels du combat à deux armes, comme s’il utilisait une arme à une main et une arme légère. Une créature maniant cette arme à une main ne peut pas s’en servir comme d’une arme double, elle doit choisir l’une des deux têtes et s’y tenir pour le round.</p><p>Le fléau double confère un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p><p>Enfin, cette arme permet de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#flailDire",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "dwarven-urgrosh",
+    "name": {
+      "en": "Dwarven urgrosh",
+      "fr": "Urgrosh nain"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6/1d4",
+      "M": "1d8/1d6"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "piercing",
+      "slashing"
+    ],
+    "weight": {
+      "lb": 12,
+      "kg": 6
+    },
+    "costGp": 50,
+    "text": {
+      "en": "<p>Exotic weapon, two-handed melee weapon. Damage 1d8/1d6 (Medium), 1d6/1d4 (Small); critical ×3; slashing or piercing.</p><p>A dwarven urgrosh is a double weapon. You can fight with it as if fighting with two weapons, but if you do, you incur all the normal attack penalties associated with fighting with two weapons, just as if you were using a one-handed weapon and a light weapon. The urgrosh's axe head is a slashing weapon that deals 1d8 points of damage. Its spear head is a piercing weapon that deals 1d6 points of damage. You can use either head as the primary weapon. The other is the off-hand weapon. A creature wielding a dwarven urgrosh in one hand can't use it as a double weapon-only one end of the weapon can be used in any given round. If you use a ready action to set an urgrosh against a charge, you deal double damage if you score a hit against a charging character. If you use an urgrosh against a charging character, the spear head is the part of the weapon that deals damage. Dwarves treat dwarven urgroshes as martial weapons.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à deux mains. Dégâts 1d8/1d6 (M), 1d6/1d4 (P) ; critique ×3 ; perforant ou tranchant.</p><p><b>Urgrosh nain.</b> L’urgrosh nain est une arme double. Il est possible de s’en servir comme si l’on se battait avec deux armes mais, dans ce cas, le personnage encourt les malus habituels du combat à deux armes, comme s’il utilisait une arme à une main et une arme légère. Une créature maniant un urgrosh à une main ne peut pas s’en servir comme d’une arme double, elle doit choisir l’une des deux têtes et s’y tenir pour le round. La tête de hache de l’urgrosh est une arme tranchante (critique 3), tandis que sa pointe est une arme perforante (critique 3). L’utilisateur peut choisir la tête de son choix comme arme principale ; l’autre est alors l’équivalent de l’arme secondaire.</p><p>À condition d’utiliser une action pour préparer une réception de charge, l’urgrosh nain inflige des dégâts doublés à un adversaire qui charge. Quand on utilise un urgrosh pour une réception de charge, c’est la pointe de l’arme qui inflige les dégâts.</p><p>L’urgrosh est une arme martiale pour les nains et exotique pour toutes les autres races.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#urgroshDwarven",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "dwarven-waraxe",
+    "name": {
+      "en": "Dwarven waraxe",
+      "fr": "Hache de guerre naine"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 8,
+      "kg": 4
+    },
+    "costGp": 30,
+    "text": {
+      "en": "<p>Exotic weapon, one-handed melee weapon. Damage 1d10 (Medium), 1d8 (Small); critical ×3; slashing.</p><p>A dwarven waraxe is too large to use in one hand without special training; thus, it is an exotic weapon. A Medium character can use a dwarven waraxe two-handed as a martial weapon, or a Large creature can use it one-handed in the same way. A dwarf treats a dwarven waraxe as a martial weapon even when using it in one hand.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à une main. Dégâts 1d10 (M), 1d8 (P) ; critique ×3 ; tranchant.</p><p><b>Hache de guerre naine.</b> Cette lourde hache est trop volumineuse pour être utilisée à une main sans entraînement particulier. Pour les nains, qui connaissent bien cette arme, c’est une arme de guerre. Mais pour toutes les autres races, c’est une arme exotique si elle est maniée à une main, ou une arme de guerre si elle est maniée à deux mains.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#waraxeDwarven",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "falchion",
+    "name": {
+      "en": "Falchion",
+      "fr": "Cimeterre à deux mains"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "2d4"
+    },
+    "critRange": 18,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 8,
+      "kg": 4
+    },
+    "costGp": 75,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 2d4 (Medium), 1d6 (Small); critical 18–20/×2; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 2d4 (M), 1d6 (P) ; critique 18–20/×2 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "flail",
+    "name": {
+      "en": "Flail",
+      "fr": "Fléau d’armes léger"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 5,
+      "kg": 2.5
+    },
+    "costGp": 8,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×2; bludgeoning.</p><p>With a flail, you get a +2 bonus on opposed attack rolls made to disarm an enemy (including the roll to avoid being disarmed if such an attempt fails). You can also use this weapon to make trip attacks. If you are tripped during your own trip attempt, you can drop the flail to avoid being tripped.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique ×2 ; contondant.</p><p><b>Fléau d’armes, léger ou lourd.</b> Le fléau d’armes confère un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p><p>Cette arme permet également de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#flailorHeavyFlail",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "gauntlet",
+    "name": {
+      "en": "Gauntlet",
+      "fr": "Gantelet"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "unarmed",
+    "damage": {
+      "S": "1d2",
+      "M": "1d3"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 1,
+      "kg": 0.5
+    },
+    "costGp": 2,
+    "text": {
+      "en": "<p>Simple weapon, unarmed attack. Damage 1d3 (Medium), 1d2 (Small); critical ×2; bludgeoning.</p><p>This metal glove lets you deal lethal damage rather than nonlethal damage with unarmed strikes. A strike with a gauntlet is otherwise considered an unarmed attack. The cost and weight given are for a single gauntlet. Medium and heavy armors (except breastplate) come with gauntlets.</p>",
+      "fr": "<p>Arme courante, attaque à mains nues. Dégâts 1d3 (M), 1d2 (P) ; critique ×2 ; contondant.</p><p><b>Gantelet.</b> Ces épais gants de métal permettent d’infliger des dégâts létaux lorsqu’il se bat à coups de poings (au lieu de non-létaux). Un coup de gantelet est par ailleurs considéré comme une attaque à mains nues. Le prix et le poids indiqués concernent un seul gantelet, pas la paire. Les armures intermédiaires et lourdes sont toutes équipées de gantelets, à l’exception de la cuirasse.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#gauntlet",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "glaive",
+    "name": {
+      "en": "Glaive",
+      "fr": "Coutille"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 8,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 1d10 (Medium), 1d8 (Small); critical ×3; slashing.</p><p>A glaive has reach. You can strike opponents 10 feet away with it, but you can't use it against an adjacent foe.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 1d10 (M), 1d8 (P) ; critique ×3 ; tranchant.</p><p><b>Coutille.</b> La coutille est une arme à allonge, qui permet d’attaquer des adversaires distants de 3 mètres. Par contre, il est impossible de l’utiliser contre un ennemi adjacent.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#glaive",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "gnome-hooked-hammer",
+    "name": {
+      "en": "Gnome hooked hammer",
+      "fr": "Marteau-piolet gnome"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6/1d4",
+      "M": "1d8/1d6"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "bludgeoning",
+      "piercing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 20,
+    "text": {
+      "en": "<p>Exotic weapon, two-handed melee weapon. Damage 1d8/1d6 (Medium), 1d6/1d4 (Small); critical ×3/×4; bludgeoning and piercing.</p><p>A gnome hooked hammer is a double weapon. You can fight with it as if fighting with two weapons, but if you do, you incur all the normal attack penalties associated with fighting with two weapons, just as if you were using a one-handed weapon and a light weapon. The hammer's blunt head is a bludgeoning weapon that deals 1d6 points of damage (crit x3). Its hook is a piercing weapon that deals 1d4 points of damage (crit x4). You can use either head as the primary weapon. The other head is the offhand weapon. A creature wielding a gnome hooked hammer in one hand can't use it as a double weapon-only one end of the weapon can be used in any given round. You can use a gnome hooked hammer to make trip attacks. If you are tripped during your own trip attempt, you can drop the gnome hooked hammer to avoid being tripped. Gnomes treat gnome hooked hammers as martial weapons.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à deux mains. Dégâts 1d8/1d6 (M), 1d6/1d4 (P) ; critique ×3/×4 ; contondant et perforant.</p><p><b>Marteau-piolet gnome.</b> Le marteau-piolet est une arme double. Il est possible de s’en servir comme si l’on se battait avec deux armes mais, dans ce cas, le personnage encourt les malus habituels du combat à deux armes, comme s’il utilisait une arme à une main et une arme légère. Une créature maniant un marteau-piolet à une main ne peut pas s’en servir comme d’une arme double, elle doit choisir l’une des deux têtes et s’y tenir pour le round. La tête du marteau est une arme contondante (critique 3), tandis que le piolet est une arme perforante (critique 4). L’utilisateur peut choisir la tête de son choix comme arme principale, l’autre est alors l’équivalent de l’arme secondaire.</p><p>Le marteau-piolet gnome permet également de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p><p>Le marteau-piolet est une arme martiale pour les gnomes et exotique pour toutes les autres races.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#hammerGnomeHooked",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "greataxe",
+    "name": {
+      "en": "Greataxe",
+      "fr": "Grande hache"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d10",
+      "M": "1d12"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 12,
+      "kg": 6
+    },
+    "costGp": 20,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 1d12 (Medium), 1d10 (Small); critical ×3; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 1d12 (M), 1d10 (P) ; critique ×3 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "greatclub",
+    "name": {
+      "en": "Greatclub",
+      "fr": "Massue"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 8,
+      "kg": 4
+    },
+    "costGp": 5,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 1d10 (Medium), 1d8 (Small); critical ×2; bludgeoning.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 1d10 (M), 1d8 (P) ; critique ×2 ; contondant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "greatsword",
+    "name": {
+      "en": "Greatsword",
+      "fr": "Épée à deux mains"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d10",
+      "M": "2d6"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 8,
+      "kg": 4
+    },
+    "costGp": 50,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 2d6 (Medium), 1d10 (Small); critical 19–20/×2; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 2d6 (M), 1d10 (P) ; critique 19–20/×2 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "guisarme",
+    "name": {
+      "en": "Guisarme",
+      "fr": "Guisarme"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "2d4"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 12,
+      "kg": 6
+    },
+    "costGp": 9,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 2d4 (Medium), 1d6 (Small); critical ×3; slashing.</p><p>A guisarme has reach. You can strike opponents 10 feet away with it, but you can't use it against an adjacent foe. You can also use it to make trip attacks. If you are tripped during your own trip attempt, you can drop the guisarme to avoid being tripped.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 2d4 (M), 1d6 (P) ; critique ×3 ; tranchant.</p><p><b>Guisarme.</b> La guisarme est une arme à allonge, qui permet d’attaquer des adversaires distants de 3 mètres. Par contre, il est impossible de l’utiliser contre un ennemi adjacent.</p><p>La guisarme arme permet de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#guisarme",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "halberd",
+    "name": {
+      "en": "Halberd",
+      "fr": "Hallebarde"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "piercing",
+      "slashing"
+    ],
+    "weight": {
+      "lb": 12,
+      "kg": 6
+    },
+    "costGp": 10,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 1d10 (Medium), 1d8 (Small); critical ×3; piercing or slashing.</p><p>If you use a ready action to set a halberd against a charge, you deal double damage on a successful hit against a charging character. You can use a halberd to make trip attacks. If you are tripped during your own trip attempt, you can drop the halberd to avoid being tripped.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 1d10 (M), 1d8 (P) ; critique ×3 ; perforant ou tranchant.</p><p><b>Hallebarde.</b> À condition d’utiliser une action pour préparer une réception de charge, la hallebarde inflige des dégâts doublés à un adversaire qui charge.</p><p>La hallebarde permet de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#halberd",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "hand-crossbow",
+    "name": {
+      "en": "Hand crossbow",
+      "fr": "Arbalète de poing"
+    },
+    "category": "exotic",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 30,
+      "m": 9
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 100,
+    "text": {
+      "en": "<p>Exotic weapon, ranged weapon. Damage 1d4 (Medium), 1d3 (Small); critical 19–20/×2; piercing; range increment 30 ft.</p><p>You can draw a hand crossbow back by hand. Loading a hand crossbow is a move action that provokes attacks of opportunity. You can shoot, but not load, a hand crossbow with one hand at no penalty. You can shoot a hand crossbow with each hand, but you take a penalty on attack rolls as if attacking with two light weapons.</p>",
+      "fr": "<p>Arme exotique, arme à distance. Dégâts 1d4 (M), 1d3 (P) ; critique 19–20/×2 ; perforant ; facteur de portée 9 m.</p><p><b>Arbalète de poing.</b> Une arbalète de poing se tend à la main. Recharger une arbalète de poing est une action de mouvement qui provoque une attaque d’opportunité.</p><p>Une arbalète de poing peut être utilisée (mais pas rechargée) d’une seule main sans malus. On peut même utiliser une arbalète de poing dans chaque main, mais avec des malus correspondant au combat à deux armes légères.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#crossbowHand",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "handaxe",
+    "name": {
+      "en": "Handaxe",
+      "fr": "Hachette"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 3,
+      "kg": 1.5
+    },
+    "costGp": 6,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×3; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×3 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "heavy-crossbow",
+    "name": {
+      "en": "Heavy crossbow",
+      "fr": "Arbalète lourde"
+    },
+    "category": "simple",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 120,
+      "m": 36
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 8,
+      "kg": 4
+    },
+    "costGp": 50,
+    "text": {
+      "en": "<p>Simple weapon, ranged weapon. Damage 1d10 (Medium), 1d8 (Small); critical 19–20/×2; piercing; range increment 120 ft.</p><p>You draw a heavy crossbow back by turning a small winch. Loading a heavy crossbow is a full-round action that provokes attacks of opportunity. Normally, operating a heavy crossbow requires two hands. However, you can shoot, but not load, a heavy crossbow with one hand at a -4 penalty on attack rolls. You can shoot a heavy crossbow with each hand, but you take a penalty on attack rolls as if attacking with two one-handed weapons. This penalty is cumulative with the penalty for one-handed firing.</p>",
+      "fr": "<p>Arme courante, arme à distance. Dégâts 1d10 (M), 1d8 (P) ; critique 19–20/×2 ; perforant ; facteur de portée 36 m.</p><p><b>Arbalète lourde.</b> Une arbalète lourde se tend à l’aide d’une manivelle. Recharger une arbalète lourde est une action complexe provoquant une attaque d’opportunité.</p><p>Une arbalète lourde s’utilise habituellement à deux mains. Il est cependant possible de l’utiliser, mais pas de la recharger d’une seule main, avec un malus de –4 sur le jet d’attaque. On peut même utiliser une arbalète lourde dans chaque main, mais avec des malus correspondant au combat à deux armes à une mai. Ce malus se cumule avec celui encouru pour tirer à une main.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#crossbowHeavy",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "heavy-flail",
+    "name": {
+      "en": "Heavy flail",
+      "fr": "Fléau d’armes lourd"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 15,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 1d10 (Medium), 1d8 (Small); critical 19–20/×2; bludgeoning.</p><p>With a flail, you get a +2 bonus on opposed attack rolls made to disarm an enemy (including the roll to avoid being disarmed if such an attempt fails). You can also use this weapon to make trip attacks. If you are tripped during your own trip attempt, you can drop the flail to avoid being tripped.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 1d10 (M), 1d8 (P) ; critique 19–20/×2 ; contondant.</p><p><b>Fléau d’armes, léger ou lourd.</b> Le fléau d’armes confère un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p><p>Cette arme permet également de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#flailorHeavyFlail",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "heavy-mace",
+    "name": {
+      "en": "Heavy mace",
+      "fr": "Masse d’armes lourde"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 8,
+      "kg": 4
+    },
+    "costGp": 12,
+    "text": {
+      "en": "<p>Simple weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×2; bludgeoning.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique ×2 ; contondant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "heavy-pick",
+    "name": {
+      "en": "Heavy pick",
+      "fr": "Pic de guerre lourd"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 4,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 8,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×4; piercing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d6 (M), 1d4 (P) ; critique ×4 ; perforant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "javelin",
+    "name": {
+      "en": "Javelin",
+      "fr": "Javeline"
+    },
+    "category": "simple",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 30,
+      "m": 9
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Simple weapon, ranged weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; piercing; range increment 30 ft.</p><p>Since it is not designed for melee, you are treated as nonproficient with it and take a -4 penalty on attack rolls if you use a javelin as a melee weapon.</p>",
+      "fr": "<p>Arme courante, arme à distance. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; perforant ; facteur de portée 9 m.</p><p><b>Javeline.</b> On peut s’en servir au corps à corps, mais son efficacité est alors fortement réduite. On considère qu’un personnage l’utilisant de la sorte ne sait pas la manier (–4 au jet d’attaque).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#javelin",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "kama",
+    "name": {
+      "en": "Kama",
+      "fr": "Kama"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 2,
+    "text": {
+      "en": "<p>Exotic weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; slashing.</p><p>The kama is a special monk weapon. This designation gives a monk wielding a kama special options. You can use a kama to make trip attacks. If you are tripped during your own trip attempt, you can drop the kama to avoid being tripped.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; tranchant.</p><p><b>Kama.</b> Le kama est une arme de moine, ce qui lui permet d’utiliser certains de ses pouvoirs lorsqu’il combat à l’aide de cette arme.</p><p>Le kama permet de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#kama",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "kukri",
+    "name": {
+      "en": "Kukri",
+      "fr": "Kukri"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 18,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 8,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical 18–20/×2; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique 18–20/×2 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "lance",
+    "name": {
+      "en": "Lance",
+      "fr": "Lance d’arçon"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 10,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; piercing.</p><p>A lance deals double damage when used from the back of a charging mount. It has reach, so you can strike opponents 10 feet away with it, but you can't use it against an adjacent foe. While mounted, you can wield a lance with one hand.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; perforant.</p><p><b>Lance d’arçon.</b> Une lance d’arçon, ou de cavalier, cause des dégâts doublés lors d’une charge montée. La lance d’arçon est une arme à allonge, qui permet d’attaquer des adversaires distants de 3 mètres, mais pas ceux adjacents.</p><p>Un personnage monté peut tenir une lance à une main.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#lance",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "light-crossbow",
+    "name": {
+      "en": "Light crossbow",
+      "fr": "Arbalète légère"
+    },
+    "category": "simple",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 80,
+      "m": 24
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 4,
+      "kg": 2
+    },
+    "costGp": 35,
+    "text": {
+      "en": "<p>Simple weapon, ranged weapon. Damage 1d8 (Medium), 1d6 (Small); critical 19–20/×2; piercing; range increment 80 ft.</p><p>You draw a light crossbow back by pulling a lever. Loading a light crossbow is a move action that provokes attacks of opportunity. Normally, operating a light crossbow requires two hands. However, you can shoot, but not load, a light crossbow with one hand at a -2 penalty on attack rolls. You can shoot a light crossbow with each hand, but you take a penalty on attack rolls as if attacking with two light weapons. This penalty is cumulative with the penalty for one-handed firing.</p>",
+      "fr": "<p>Arme courante, arme à distance. Dégâts 1d8 (M), 1d6 (P) ; critique 19–20/×2 ; perforant ; facteur de portée 24 m.</p><p><b>Arbalète légère.</b> Une arbalète légère se tend à l’aide d’un levier. Recharger une arbalète légère est une action de mouvement provoquant une attaque d’opportunité.</p><p>Une arbalète légère s’utilise habituellement à deux mains. Il est cependant possible de l’utiliser (mais pas de la recharger) d’une seule main, avec un malus de –2 sur le jet d’attaque. On peut même utiliser une arbalète légère dans chaque main, mais avec des malus correspondant au combat à deux armes légères. Ce malus se cumule avec celui encouru pour tirer à une main.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#crossbowLight",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "light-hammer",
+    "name": {
+      "en": "Light hammer",
+      "fr": "Marteau léger"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 20,
+      "m": 6
+    },
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×2; bludgeoning; range increment 20 ft.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique ×2 ; contondant ; facteur de portée 6 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "light-mace",
+    "name": {
+      "en": "Light mace",
+      "fr": "Masse d’armes légère"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 4,
+      "kg": 2
+    },
+    "costGp": 5,
+    "text": {
+      "en": "<p>Simple weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; bludgeoning.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; contondant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "light-pick",
+    "name": {
+      "en": "Light pick",
+      "fr": "Pic de guerre léger"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 4,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 3,
+      "kg": 1.5
+    },
+    "costGp": 4,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×4; piercing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique ×4 ; perforant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "longbow",
+    "name": {
+      "en": "Longbow",
+      "fr": "Arc long"
+    },
+    "category": "martial",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "rangeIncrement": {
+      "ft": 100,
+      "m": 30
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 3,
+      "kg": 1.5
+    },
+    "costGp": 75,
+    "text": {
+      "en": "<p>Martial weapon, ranged weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; piercing; range increment 100 ft.</p><p>You need at least two hands to use a bow, regardless of its size. A longbow is too unwieldy to use while you are mounted. If you have a penalty for low Strength, apply it to damage rolls when you use a longbow. If you have a bonus for high Strength, you can apply it to damage rolls when you use a composite longbow (see below) but not a regular longbow.</p>",
+      "fr": "<p>Arme de guerre, arme à distance. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; perforant ; facteur de portée 30 m.</p><p><b>Arc long.</b> Quelle que soit sa taille, un arc ne peut être utilisé qu’à deux mains. L’arc long, ou grand arc, est trop peu maniable pour que l’on puisse s’en servir à cheval. Un malus de Force s’applique aux jets de dégâts des arcs longs, mais un bonus de Force ne s’applique pas avec un arc long ordinaire (il faut un arc long composite spécial, voir ci-dessous).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#longbow",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "longspear",
+    "name": {
+      "en": "Longspear",
+      "fr": "Pique"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 9,
+      "kg": 4.5
+    },
+    "costGp": 5,
+    "text": {
+      "en": "<p>Simple weapon, two-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; piercing.</p><p>A longspear has reach. You can strike opponents 10 feet away with it, but you can't use it against an adjacent foe. If you use a ready action to set a longspear against a charge, you deal double damage on a successful hit against a charging character.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à deux mains. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; perforant.</p><p><b>Pique.</b> La pique est une arme à allonge, qui permet d’attaquer des adversaires distants de 3 mètres, mais pas ceux adjacents. À condition d’utiliser une action pour préparer une réception de charge, la pique inflige des dégâts doublés à un adversaire qui charge.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#longspear",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "longsword",
+    "name": {
+      "en": "Longsword",
+      "fr": "Épée longue"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 4,
+      "kg": 2
+    },
+    "costGp": 15,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical 19–20/×2; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique 19–20/×2 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "morningstar",
+    "name": {
+      "en": "Morningstar",
+      "fr": "Morgenstern"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning",
+      "piercing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 8,
+    "text": {
+      "en": "<p>Simple weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×2; bludgeoning and piercing.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique ×2 ; contondant et perforant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "net",
+    "name": {
+      "en": "Net",
+      "fr": "Filet"
+    },
+    "category": "exotic",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "—",
+      "M": "—"
+    },
+    "critRange": 20,
+    "critMult": 1,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 20,
+    "text": {
+      "en": "<p>Exotic ranged weapon: entangles, deals no damage; range increment 10 ft. (maximum 10 ft.).</p><p>A net is used to entangle enemies. When you throw a net, you make a ranged touch attack against your target. A net's maximum range is 10 feet. If you hit, the target is entangled. An entangled creature takes a -2 penalty on attack rolls and a -4 penalty on Dexterity, can move at only half speed, and cannot charge or run. If you control the trailing rope by succeeding on an opposed Strength check while holding it, the entangled creature can move only within the limits that the rope allows. If the entangled creature attempts to cast a spell, it must make a DC 15 Concentration check or be unable to cast the spell. An entangled creature can escape with a DC 20 Escape Artist check (a full-round action). The net has 5 hit points and can be burst with a DC 25 Strength check (also a full-round action). A net is useful only against creatures within one size category of you. A net must be folded to be thrown effectively. The first time you throw your net in a fight, you make a normal ranged touch attack roll. After the net is unfolded, you take a -4 penalty on attack rolls with it. It takes 2 rounds for a proficient user to fold a net and twice that long for a nonproficient one to do so.</p>",
+      "fr": "<p>Arme exotique à distance : enchevêtre, n’inflige pas de dégâts ; facteur de portée 3 m (portée maximale 3 m).</p><p><b>Filet.</b> Le filet est utilisé pour enchevêtrer l’adversaire. Pour lancer un filet, on effectue un jet d’attaque de contact à distance. La portée maximale du filet est de 3 mètres. En cas de coup au but, la cible est enchevêtrée, ce qui a les effets suivants : malus de –2 aux jets d’attaque, malus de –4 à la Dextérité, vitesse de déplacement réduite de moitié, impossibilité de charger ou de courir. De plus, si le personnage tient solidement la corde, en remportant un test de Force opposé contre sa victime, cette dernière ne peut pas se déplacer en dehors du périmètre imposé par la longueur de la corde. Si elle tente de jeter un sort, il lui faut d’abord réussir un test de Concentration (DD 15).</p><p>La victime peut se libérer en réussissant un test d’Évasion (DD 20), ce qui correspond à une action complexe. Le filet a 5 points de résistance et un test de Force réussi permet de le déchirer (DD 25 ; là encore, il s’agit d’une action complexe).</p><p>Le filet ne peut immobiliser que des créatures dont la taille est comprise entre les catégories supérieure et inférieure à celle de son utilisateur.</p><p>Le filet doit d’abord être replié avant de pouvoir être jeté efficacement. À la première utilisation au cours d’un combat, le jet d’attaque est normal. Par la suite, si le personnage ramène le filet à lui pour le lancer de nouveau, il le fait à –4 au jet d’attaque. Il faut 2 rounds à un personnage formé à son maniement pour replier un filet (sinon 4 rounds).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#net",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "nunchaku",
+    "name": {
+      "en": "Nunchaku",
+      "fr": "Nunchaku"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 2,
+    "text": {
+      "en": "<p>Exotic weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; bludgeoning.</p><p>The nunchaku is a special monk weapon. This designation gives a monk wielding a nunchaku special options. With a nunchaku, you get a +2 bonus on opposed attack rolls made to disarm an enemy (including the roll to avoid being disarmed if such an attempt fails).</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; contondant.</p><p><b>Nunchaku.</b> Le nunchaku est une arme de moine, ce qui lui permet d'utiliser certains de ses pouvoirs lorsqu’il combat à l’aide de cette arme. Le nunchaku confère un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p><p>Le nunchaku est une arme de moine, ce qui lui permet d’utiliser certains de ses pouvoirs lorsqu’il combat à l’aide de cette arme.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#nunchaku",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "orc-double-axe",
+    "name": {
+      "en": "Orc double axe",
+      "fr": "Hache double orque"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6/1d6",
+      "M": "1d8/1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 15,
+      "kg": 7.5
+    },
+    "costGp": 60,
+    "text": {
+      "en": "<p>Exotic weapon, two-handed melee weapon. Damage 1d8/1d8 (Medium), 1d6/1d6 (Small); critical ×3; slashing.</p><p>An orc double axe is a double weapon. You can fight with it as if fighting with two weapons, but if you do, you incur all the normal attack penalties associated with fighting with two weapons, just as if you were using a one-handed weapon and a light weapon. A creature wielding an orc double axe in one hand can't use it as a double weapon-only one end of the weapon can be used in any given round.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à deux mains. Dégâts 1d8/1d8 (M), 1d6/1d6 (P) ; critique ×3 ; tranchant.</p><p><b>Hache double orque.</b> La hache double orque est une arme double. Il est possible de s’en servir comme si l’on se battait avec deux armes mais, dans ce cas, le personnage encourt les malus habituels du combat à deux armes, comme s’il utilisait une arme à une main et une arme légère. Une créature maniant une hache double orque à une main ne peut pas s’en servir comme d’une arme double, elle doit choisir l’une des deux têtes et s’y tenir pour le round.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#axeOrcDouble",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "punching-dagger",
+    "name": {
+      "en": "Punching dagger",
+      "fr": "Dague coup-de-poing"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 1,
+      "kg": 0.5
+    },
+    "costGp": 2,
+    "text": {
+      "en": "<p>Simple weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×3; piercing.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique ×3 ; perforant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "quarterstaff",
+    "name": {
+      "en": "Quarterstaff",
+      "fr": "Bâton"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d4/1d4",
+      "M": "1d6/1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 4,
+      "kg": 2
+    },
+    "costGp": 0,
+    "text": {
+      "en": "<p>Simple weapon, two-handed melee weapon. Damage 1d6/1d6 (Medium), 1d4/1d4 (Small); critical ×2; bludgeoning.</p><p>A quarterstaff is a double weapon. You can fight with it as if fighting with two weapons, but if you do, you incur all the normal attack penalties associated with fighting with two weapons, just as if you were using a one-handed weapon and a light weapon. A creature wielding a quarterstaff in one hand can't use it as a double weapon-only one end of the weapon can be used in any given round. The quarterstaff is a special monk weapon. This designation gives a monk wielding a quarterstaff special options.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à deux mains. Dégâts 1d6/1d6 (M), 1d4/1d4 (P) ; critique ×2 ; contondant.</p><p><b>Bâton.</b> Le bâton est une arme double. Il est possible de s’en servir comme si l’on se battait avec deux armes mais, dans ce cas, le personnage encourt les malus habituels du combat à deux armes, comme s’il utilisait une arme à une main et une arme légère. Une créature maniant cette arme à une main ne peut pas s’en servir comme d’une arme double, elle doit choisir l’une des deux têtes et s’y tenir pour le round.</p><p>Le bâton est une arme de moine, ce qui lui permet d'utiliser certains de ses pouvoirs lorsqu’il combat à l’aide de cette arme.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#quarterstaff",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "ranseur",
+    "name": {
+      "en": "Ranseur",
+      "fr": "Corsèque"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "2d4"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 12,
+      "kg": 6
+    },
+    "costGp": 10,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 2d4 (Medium), 1d6 (Small); critical ×3; piercing.</p><p>A ranseur has reach. You can strike opponents 10 feet away with it, but you can't use it against an adjacent foe. With a ranseur, you get a +2 bonus on opposed attack rolls made to disarm an opponent (including the roll to avoid being disarmed if such an attempt fails).</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 2d4 (M), 1d6 (P) ; critique ×3 ; perforant.</p><p><b>Corsèque.</b> La corsèque est une arme à allonge, qui permet d’attaquer des adversaires distants de 3 mètres. Par contre, il est impossible de l’utiliser contre un ennemi adjacent.</p><p>Il confère un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#ranseur",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "rapier",
+    "name": {
+      "en": "Rapier",
+      "fr": "Rapière"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 18,
+    "critMult": 2,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 20,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical 18–20/×2; piercing.</p><p>You can use the Weapon Finesse feat to apply your Dexterity modifier instead of your Strength modifier to attack rolls with a rapier sized for you, even though it isn't a light weapon for you. You can't wield a rapier in two hands in order to apply 1-1/2 times your Strength bonus to damage.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d6 (M), 1d4 (P) ; critique 18–20/×2 ; perforant.</p><p><b>Rapière.</b> Le don Attaque en finesse permet d’ajouter son bonus de Dextérité au jet d’attaque (à la place du bonus de Force) quand on utilise une rapière destinée à une créature de sa taille, bien que ce ne soit pas une arme légère. Il est impossible de tenir une rapière à deux mains pour multiplier par 1,5 son bonus de Force aux dégâts.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#rapier",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "repeating-heavy-crossbow",
+    "name": {
+      "en": "Repeating heavy crossbow",
+      "fr": "Arbalète lourde à répétition"
+    },
+    "category": "exotic",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d8",
+      "M": "1d10"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 120,
+      "m": 36
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 12,
+      "kg": 6
+    },
+    "costGp": 400,
+    "text": {
+      "en": "<p>Exotic weapon, ranged weapon. Damage 1d10 (Medium), 1d8 (Small); critical 19–20/×2; piercing; range increment 120 ft.</p>",
+      "fr": "<p>Arme exotique, arme à distance. Dégâts 1d10 (M), 1d8 (P) ; critique 19–20/×2 ; perforant ; facteur de portée 36 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#crossbowRepeating",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "repeating-light-crossbow",
+    "name": {
+      "en": "Repeating light crossbow",
+      "fr": "Arbalète légère à répétition"
+    },
+    "category": "exotic",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 80,
+      "m": 24
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 250,
+    "text": {
+      "en": "<p>Exotic weapon, ranged weapon. Damage 1d8 (Medium), 1d6 (Small); critical 19–20/×2; piercing; range increment 80 ft.</p>",
+      "fr": "<p>Arme exotique, arme à distance. Dégâts 1d8 (M), 1d6 (P) ; critique 19–20/×2 ; perforant ; facteur de portée 24 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#crossbowRepeating",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "sai",
+    "name": {
+      "en": "Sai",
+      "fr": "Sai"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 1,
+      "kg": 0.5
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Exotic weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×2; bludgeoning; range increment 10 ft.</p><p>With a sai, you get a +4 bonus on opposed attack rolls made to disarm an enemy (including the roll to avoid being disarmed if such an attempt fails). The sai is a special monk weapon. This designation gives a monk wielding a sai special options.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique ×2 ; contondant ; facteur de portée 3 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#sai",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "sap",
+    "name": {
+      "en": "Sap",
+      "fr": "Matraque"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; bludgeoning.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; contondant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "scimitar",
+    "name": {
+      "en": "Scimitar",
+      "fr": "Cimeterre"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 18,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 4,
+      "kg": 2
+    },
+    "costGp": 15,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical 18–20/×2; slashing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d6 (M), 1d4 (P) ; critique 18–20/×2 ; tranchant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "scythe",
+    "name": {
+      "en": "Scythe",
+      "fr": "Faux"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "2d4"
+    },
+    "critRange": 20,
+    "critMult": 4,
+    "damageTypes": [
+      "piercing",
+      "slashing"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 18,
+    "text": {
+      "en": "<p>Martial weapon, two-handed melee weapon. Damage 2d4 (Medium), 1d6 (Small); critical ×4; piercing or slashing.</p><p>A scythe can be used to make trip attacks. If you are tripped during your own trip attempt, you can drop the scythe to avoid being tripped.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à deux mains. Dégâts 2d4 (M), 1d6 (P) ; critique ×4 ; perforant ou tranchant.</p><p><b>Faux.</b> Une faux permet de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#scythe",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "short-sword",
+    "name": {
+      "en": "Short sword",
+      "fr": "Épée courte"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 10,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical 19–20/×2; piercing.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique 19–20/×2 ; perforant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "shortbow",
+    "name": {
+      "en": "Shortbow",
+      "fr": "Arc court"
+    },
+    "category": "martial",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "rangeIncrement": {
+      "ft": 60,
+      "m": 18
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 30,
+    "text": {
+      "en": "<p>Martial weapon, ranged weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×3; piercing; range increment 60 ft.</p><p>You need at least two hands to use a bow, regardless of its size. You can use a shortbow while mounted. If you have a penalty for low Strength, apply it to damage rolls when you use a shortbow. If you have a bonus for high Strength, you can apply it to damage rolls when you use a composite shortbow (see below) but not a regular shortbow.</p>",
+      "fr": "<p>Arme de guerre, arme à distance. Dégâts 1d6 (M), 1d4 (P) ; critique ×3 ; perforant ; facteur de portée 18 m.</p><p><b>Arc court.</b> Quelle que soit sa taille, un arc ne peut être utilisé qu’à deux mains. On peut se servir d’un arc court à cheval. Un malus de Force s’applique aux jets de dégâts des arcs courts, mais un bonus de Force ne s’applique pas avec un arc court ordinaire (il faut un arc court composite spécial, voir ci-dessous).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#shortbow",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "shortspear",
+    "name": {
+      "en": "Shortspear",
+      "fr": "Épieu"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 20,
+      "m": 6
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 3,
+      "kg": 1.5
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Simple weapon, one-handed melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; piercing; range increment 20 ft.</p><p>A shortspear is small enough to wield one-handed. It may also be thrown.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à une main. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; perforant ; facteur de portée 6 m.</p><p><b>Épieu.</b> Cette arme peut être jetée.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#shortspear",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "shuriken-5",
+    "name": {
+      "en": "Shuriken (5)",
+      "fr": "Shuriken (5)"
+    },
+    "category": "exotic",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1",
+      "M": "1d2"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 0.5,
+      "kg": 0.25
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Exotic weapon, ranged weapon. Damage 1d2 (Medium), 1 (Small); critical ×2; piercing; range increment 10 ft.</p><p>A shuriken is a special monk weapon. This designation gives a monk wielding shuriken special options. A shuriken can't be used as a melee weapon. Although they are thrown weapons, shuriken are treated as ammunition for the purposes of drawing them, crafting masterwork or otherwise special versions of them and what happens to them after they are thrown.</p>",
+      "fr": "<p>Arme exotique, arme à distance. Dégâts 1d2 (M), 1 (P) ; critique ×2 ; perforant ; facteur de portée 3 m.</p><p><b>Shuriken.</b> Le shuriken est une arme de moine, ce qui lui permet d'utiliser certains de ses pouvoirs lorsqu’il combat à l’aide de cette arme. Un shuriken ne peut servir au corps à corps.</p><p>Bien qu’ils soient des armes de jet, les shurikens sont considérés comme des munitions pour ce qui est de les dégainer, d’en fabriquer des versions de maîtres ou spéciales (voir Armes de maître, ci-dessous) et sur les chances de les perdre une fois lancés.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#shuriken",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "siangham",
+    "name": {
+      "en": "Siangham",
+      "fr": "Siangham"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 1,
+      "kg": 0.5
+    },
+    "costGp": 3,
+    "text": {
+      "en": "<p>Exotic weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; piercing.</p><p>The siangham is a special monk weapon. This designation gives a monk wielding a siangham special options.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; perforant.</p><p><b>Siangham.</b> Le siangham est une arme de moine, ce qui lui permet d'utiliser certains de ses pouvoirs lorsqu’il combat à l’aide de cette arme. Un siangham ne peut servir au corps à corps.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#siangham",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "sickle",
+    "name": {
+      "en": "Sickle",
+      "fr": "Serpe"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 6,
+    "text": {
+      "en": "<p>Simple weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; slashing.</p><p>A sickle can be used to make trip attacks. If you are tripped during your own trip attempt, you can drop the sickle to avoid being tripped.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; tranchant.</p><p><b>Serpe.</b> Une serpe permet de tenter des crocs-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#sickle",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "sling",
+    "name": {
+      "en": "Sling",
+      "fr": "Fronde"
+    },
+    "category": "simple",
+    "kind": "ranged",
+    "handedness": "ranged",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 50,
+      "m": 15
+    },
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 0,
+      "kg": 0
+    },
+    "costGp": 0,
+    "text": {
+      "en": "<p>Simple weapon, ranged weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×2; bludgeoning; range increment 50 ft.</p><p>Your Strength modifier applies to damage rolls when you use a sling, just as it does for thrown weapons. You can fire, but not load, a sling with one hand. Loading a sling is a move action that requires two hands and provokes attacks of opportunity. You can hurl ordinary stones with a sling, but stones are not as dense or as round as bullets. Thus, such an attack deals damage as if the weapon were designed for a creature one size category smaller than you and you take a -1 penalty on attack rolls.</p>",
+      "fr": "<p>Arme courante, arme à distance. Dégâts 1d4 (M), 1d3 (P) ; critique ×2 ; contondant ; facteur de portée 15 m.</p><p><b>Fronde.</b> Le modificateur de Force d’un personnage s’applique aux jets de dégâts d'une fronde, comme si elle était une arme de jet. Il est possible d’utiliser, mais pas de recharger, une fronde d’une seule main. Recharger une fronde est une action de mouvement qui nécessite deux mains et provoque une attaque d’opportunité.</p><p>Il est également possible de lancer des pierres ordinaires avec une fronde, mais ces projectiles sont moins denses et moins profilés que les billes, ce qui réduit leurs dégâts, comme si elles était destinées à des créatures d’une catégorie de taille inférieure et leur efficacité (malus de –1 au jet d’attaque).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#sling",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "spear",
+    "name": {
+      "en": "Spear",
+      "fr": "Lance"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "rangeIncrement": {
+      "ft": 20,
+      "m": 6
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 6,
+      "kg": 3
+    },
+    "costGp": 2,
+    "text": {
+      "en": "<p>Simple weapon, two-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; piercing; range increment 20 ft.</p><p>A spear can be thrown. If you use a ready action to set a spear against a charge, you deal double damage on a successful hit against a charging character.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps à deux mains. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; perforant ; facteur de portée 6 m.</p><p><b>Lance.</b> Cette arme peut être jetée. À condition d’utiliser une action pour préparer une réception de charge, la lance inflige des dégâts doublés à un adversaire qui charge.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#spear",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "spiked-chain",
+    "name": {
+      "en": "Spiked chain",
+      "fr": "Chaîne cloutée"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "2d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 25,
+    "text": {
+      "en": "<p>Exotic weapon, two-handed melee weapon. Damage 2d4 (Medium), 1d6 (Small); critical ×2; piercing.</p><p>A spiked chain has reach, so you can strike opponents 10 feet away with it. In addition, unlike most other weapons with reach, it can be used against an adjacent foe. You can make trip attacks with the chain. If you are tripped during your own trip attempt, you can drop the chain to avoid being tripped. When using a spiked chain, you get a +2 bonus on opposed attack rolls made to disarm an opponent (including the roll to avoid being disarmed if such an attempt fails). You can use the Weapon Finesse feat to apply your Dexterity modifier instead of your Strength modifier to attack rolls with a spiked chain sized for you, even though it isn't a light weapon for you.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à deux mains. Dégâts 2d4 (M), 1d6 (P) ; critique ×2 ; perforant.</p><p><b>Chaîne cloutée.</b> La chaîne cloutée est une arme à allonge, qui permet d’attaquer des adversaires se trouvant à 3 mètres de distance. De plus, contrairement aux autres armes de ce type, on peut s’en servir contre un ennemi adjacent.</p><p>Il est possible de l’utiliser pour faire un croc-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p><p>La chaîne cloutée confère également un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p><p>Le don Attaque en finesse permet d’ajouter son bonus de Dextérité au jet d’attaque (à la place du bonus de Force) quand on utilise une chaîne cloutée, et cela bien que ce ne soit pas une arme légère.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#chainSpiked",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "spiked-gauntlet",
+    "name": {
+      "en": "Spiked gauntlet",
+      "fr": "Gantelet clouté"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d3",
+      "M": "1d4"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 1,
+      "kg": 0.5
+    },
+    "costGp": 5,
+    "text": {
+      "en": "<p>Simple weapon, light melee weapon. Damage 1d4 (Medium), 1d3 (Small); critical ×2; piercing.</p><p>Your opponent cannot use a disarm action to disarm you of spiked gauntlets. The cost and weight given are for a single gauntlet. An attack with a spiked gauntlet is considered an armed attack.</p>",
+      "fr": "<p>Arme courante, arme de corps à corps légère. Dégâts 1d4 (M), 1d3 (P) ; critique ×2 ; perforant.</p><p><b>Gantelet clouté.</b> Il est impossible d’être désarmé lorsqu’on se bat à coups de gantelets cloutés. Le coût et le poids indiqué s’entendent à l’unité, pas à la paire. Un coup de gantelet clouté est considéré comme une attaque avec arme.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#gauntletSpiked",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "throwing-axe",
+    "name": {
+      "en": "Throwing axe",
+      "fr": "Hache de lancer"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "light",
+    "damage": {
+      "S": "1d4",
+      "M": "1d6"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 8,
+    "text": {
+      "en": "<p>Martial weapon, light melee weapon. Damage 1d6 (Medium), 1d4 (Small); critical ×2; slashing; range increment 10 ft.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps légère. Dégâts 1d6 (M), 1d4 (P) ; critique ×2 ; tranchant ; facteur de portée 3 m.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "trident",
+    "name": {
+      "en": "Trident",
+      "fr": "Trident"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "rangeIncrement": {
+      "ft": 10,
+      "m": 3
+    },
+    "damageTypes": [
+      "piercing"
+    ],
+    "weight": {
+      "lb": 4,
+      "kg": 2
+    },
+    "costGp": 15,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×2; piercing; range increment 10 ft.</p><p>This weapon can be thrown. If you use a ready action to set a trident against a charge, you deal double damage on a successful hit against a charging character.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique ×2 ; perforant ; facteur de portée 3 m.</p><p><b>Trident.</b> Cette arme peut être jetée. À condition d’utiliser une action pour préparer une réception de charge, le trident inflige des dégâts doublés à un adversaire qui charge.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#trident",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "two-bladed-sword",
+    "name": {
+      "en": "Two-bladed sword",
+      "fr": "Double-lame"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "twoHanded",
+    "damage": {
+      "S": "1d6/1d6",
+      "M": "1d8/1d8"
+    },
+    "critRange": 19,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 10,
+      "kg": 5
+    },
+    "costGp": 100,
+    "text": {
+      "en": "<p>Exotic weapon, two-handed melee weapon. Damage 1d8/1d8 (Medium), 1d6/1d6 (Small); critical 19–20/×2; slashing.</p><p>A two-bladed sword is a double weapon. You can fight with it as if fighting with two weapons, but if you do, you incur all the normal attack penalties associated with fighting with two weapons, just as if you were using a one-handed weapon and a light weapon. A creature wielding a two-bladed sword in one hand can't use it as a double weapon-only one end of the weapon can be used in any given round.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à deux mains. Dégâts 1d8/1d8 (M), 1d6/1d6 (P) ; critique 19–20/×2 ; tranchant.</p><p><b>Double-lame.</b> Cette arme étrange est une arme double. Il est possible de s’en servir comme si l’on se battait avec deux armes mais, dans ce cas, le personnage encourt les malus habituels du combat à deux armes comme s’il utilisait une arme à une main et une arme légère. Une créature maniant une double-lame à une main ne peut pas s’en servir comme d’une arme double, elle doit choisir l’une des deux têtes et s’y tenir pour le round.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#swordTwoBladed",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "unarmed-strike",
+    "name": {
+      "en": "Unarmed strike",
+      "fr": "Attaque à mains nues"
+    },
+    "category": "simple",
+    "kind": "melee",
+    "handedness": "unarmed",
+    "damage": {
+      "S": "1d2",
+      "M": "1d3"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 0,
+      "kg": 0
+    },
+    "costGp": 0,
+    "text": {
+      "en": "<p>Simple weapon, unarmed attack. Damage 1d3 (Medium), 1d2 (Small); critical ×2; bludgeoning.</p>",
+      "fr": "<p>Arme courante, attaque à mains nues. Dégâts 1d3 (M), 1d2 (P) ; critique ×2 ; contondant.</p><p><b>Attaque à mains nues.</b> Un personnage de taille M inflige 1d3 points de dégâts non-létaux à chaque attaque à mains nues, terme générique pouvant désigner un coup de poing, de pied, de tête, etc. Pour un personnage de taille P, ces dégâts ne sont que de 1d2 points. Un moine ou un personnage possédant le don Science du combat à mains nues peut choisir d’infliger des dégâts létaux ou non-létaux à mains nues, au choix du joueur. Les dégâts infligés par ce type d’attaque sont assimilés à ceux qu’occasionnent les armes pour ce qui est des effets donnant des bonus aux dégâts des armes.</p><p>Une attaque à mains nues est toujours considérée comme une arme légère. Le don Attaque en finesse permet donc d’ajouter son bonus de Dextérité au jet d’attaque (à la place du bonus de Force) quand on se bat à mains nues.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#unarmedStrike",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "warhammer",
+    "name": {
+      "en": "Warhammer",
+      "fr": "Marteau de guerre"
+    },
+    "category": "martial",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d6",
+      "M": "1d8"
+    },
+    "critRange": 20,
+    "critMult": 3,
+    "damageTypes": [
+      "bludgeoning"
+    ],
+    "weight": {
+      "lb": 5,
+      "kg": 2.5
+    },
+    "costGp": 12,
+    "text": {
+      "en": "<p>Martial weapon, one-handed melee weapon. Damage 1d8 (Medium), 1d6 (Small); critical ×3; bludgeoning.</p>",
+      "fr": "<p>Arme de guerre, arme de corps à corps à une main. Dégâts 1d8 (M), 1d6 (P) ; critique ×3 ; contondant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#tableWeapons",
+      "frRef": "DRS 07 (équipement)"
+    }
+  },
+  {
+    "id": "whip",
+    "name": {
+      "en": "Whip",
+      "fr": "Fouet"
+    },
+    "category": "exotic",
+    "kind": "melee",
+    "handedness": "oneHanded",
+    "damage": {
+      "S": "1d2",
+      "M": "1d3"
+    },
+    "critRange": 20,
+    "critMult": 2,
+    "damageTypes": [
+      "slashing"
+    ],
+    "weight": {
+      "lb": 2,
+      "kg": 1
+    },
+    "costGp": 1,
+    "text": {
+      "en": "<p>Exotic weapon, one-handed melee weapon. Damage 1d3 (Medium), 1d2 (Small); critical ×2; slashing.</p><p>A whip deals nonlethal damage. It deals no damage to any creature with an armor bonus of +1 or higher or a natural armor bonus of +3 or higher. The whip is treated as a melee weapon with 15-foot reach, though you don't threaten the area into which you can make an attack. In addition, unlike most other weapons with reach, you can use it against foes anywhere within your reach (including adjacent foes). Using a whip provokes an attack of opportunity, just as if you had used a ranged weapon. You can make trip attacks with a whip. If you are tripped during your own trip attempt, you can drop the whip to avoid being tripped. When using a whip, you get a +2 bonus on opposed attack rolls made to disarm an opponent (including the roll to keep from being disarmed if the attack fails). You can use the Weapon Finesse feat to apply your Dexterity modifier instead of your Strength modifier to attack rolls with a whip sized for you, even though it isn't a light weapon for you.</p>",
+      "fr": "<p>Arme exotique, arme de corps à corps à une main. Dégâts 1d3 (M), 1d2 (P) ; critique ×2 ; tranchant.</p><p><b>Fouet.</b> Le fouet inflige des dégâts non-létaux. Il est incapable de toucher la moindre créature bénéficiant d’un bonus d’armure de +1 ou plus, ou d’un bonus d’armure naturelle au moins égal à +3. Un fouet est considéré comme une arme à allonge procurant une allonge de 4,50 mètres, mais qui ne permet pas de menacer la zone dans laquelle il permet d’attaquer. De plus, contrairement aux autres armes de ce type, on peut s’en servir contre un ennemi adjacent ou situé à 3 mètres.</p><p>Attaquer avec un fouet provoque une attaque d’opportunité, comme pour une arme à distance.</p><p>Le fouet permet de tenter un croc-en-jambe. Si le personnage échoue dans sa tentative, il peut lâcher son arme pour éviter que le croc-en-jambe ne se retourne contre lui.</p><p>Le fouet confère également un bonus de +2 au jet d’attaque opposé lorsque l’on tente de désarmer son adversaire (ainsi qu’au jet permettant au personnage de ne pas se retrouver lui-même désarmé en cas d’échec de sa tentative).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/equipment/weapons.htm#whip",
+      "frRef": "DRS 07 (équipement)"
+    }
+  }
+]
