@@ -27,7 +27,8 @@
     { id: 'will', label: UI.will },
   ]
 
-  const skills = $derived(s.skills.filter((k) => showAllSkills || k.ranks > 0))
+  // Default view: skills with ranks + every class skill of the character's classes.
+  const skills = $derived(s.skills.filter((k) => showAllSkills || k.ranks > 0 || k.classSkill))
   const hpCurrent = $derived(s.hpMax.total - app.character.hp.damage)
 
   function adjustHp(delta: number) {
@@ -71,6 +72,20 @@
       html: line.def.text,
       source: line.def.source,
     })
+  }
+
+  // Class features gained so far (class tables, e.g. Weapon Master: ki damage, increased multiplier…).
+  const features = $derived(
+    Object.entries(s.classLevels).flatMap(([classId, n]) => {
+      const cls = rules.classes.get(classId)
+      return (cls?.table ?? [])
+        .filter((r) => r.level <= n)
+        .flatMap((r) => r.special.filter((f) => f.en !== 'Bonus feat').map((f) => ({ classId, level: r.level, name: f })))
+    }),
+  )
+  function classPopup(classId: string) {
+    const cls = rules.classes.get(classId)
+    if (cls) openPopup({ title: cls.name, html: cls.text, source: cls.source })
   }
 
   const unusable = (featId: string) => view.warnings.some((w) => w.id === `unusable-${featId}`)
@@ -146,7 +161,7 @@
       <dt>{tr(UI.armorPenalty)}</dt>
       <dd><StatValue stat={() => view.sheet.armorCheckPenalty} title={UI.armorPenalty} /></dd>
       <dt>{tr(UI.maxDex)}</dt>
-      <dd>{s.maxDex.value === null ? '—' : fmt(s.maxDex.value)} <small>({tr(s.maxDex.from)})</small></dd>
+      <dd>{s.maxDex.value === null ? '—' : fmt(s.maxDex.value)} <small>({tr(s.maxDex.from)} · {tr({ en: 'AC only', fr: 'CA uniquement' })})</small></dd>
     </dl>
   </section>
 
@@ -196,6 +211,20 @@
       {/each}
     </ul>
     <WarningList areas={['feats']} />
+  </section>
+
+  <section class="box">
+    <h3>{tr({ en: 'Class features', fr: 'Capacités de classe' })}</h3>
+    <ul class="feats">
+      {#each features as f (f.classId + f.level + f.name.en)}
+        <li>
+          <button class="link" onclick={() => classPopup(f.classId)}>{tr(f.name)}</button>
+          <small>{tr(rules.classes.get(f.classId)?.name)} {f.level}</small>
+        </li>
+      {:else}
+        <li><small>—</small></li>
+      {/each}
+    </ul>
   </section>
 
   <section class="box">
