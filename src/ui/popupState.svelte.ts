@@ -13,6 +13,8 @@ export interface PopupContent {
   source?: Source
   /** Extra lines (prerequisites, notes…). */
   lines?: I18n[]
+  /** Key of the campaign note attached to this popup (character.annotations), e.g. "feat:dodge". */
+  noteKey?: string
 }
 
 export const popup = $state<{ content: PopupContent | null }>({ content: null })

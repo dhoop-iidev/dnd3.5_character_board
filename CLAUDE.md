@@ -43,7 +43,9 @@ Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD
 ## UI
 - Panes: **General** (abilities, saves, HP, AC, BAB, skills), **Equipment** (items with description, price, weight, totals, load), **Combat** (attacks, combat feats, Weapon Master features), **Notes** (campaign notes).
 - Layout inspired by the official 3.5 character sheet; look of the 3.5 rulebooks (parchment, serif headings, dark-red accents). Values are clickable to open a breakdown and source popup. FR/EN toggle everywhere.
-- Later stage (not now): a 2D "paper-doll" picture of the character, built from layered SVG/PNG images per equipment slot; 3D optional and later still.
+- Images: the Equipment paper doll uses `public/images/fenrir-knight.webp` (user-provided illustration); the General pane shows a portrait and a coat of arms that the user uploads (resized, stored in the character JSON). The 3D viewer was removed at the user's request.
+- Every popup can carry a campaign note (`character.annotations`, keyed like `feat:<id>`, `item:<uid>`, `stat:<title>`).
+- Rules review: the project skill `/um_actually` (`.claude/skills/um_actually/SKILL.md`) audits the engine and data against the SRD; reports go to `docs/reviews/`.
 
 ## Data sources (3.5 only)
 - **Local copies in `sources/` — search these first, go online only for what they lack** (FAQ, errata, Rules Compendium):

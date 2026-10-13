@@ -305,6 +305,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     },
     { lb: 0, kg: 0 },
   )
+  // Coins: 50 coins weigh 1 lb (https://www.d20srd.org/srd/equipment/wealthAndMoney.htm).
+  const m = char.money
+  const coins = m ? m.cp + m.sp + m.gp + m.pp : 0
+  carried.lb += coins / 50
+  carried.kg += coins / 100
   const carriedLb = carried.lb
   const limits = capacity(rules, abilities.str.score.total)
   const band: LoadBand =

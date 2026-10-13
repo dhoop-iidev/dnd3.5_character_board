@@ -22,6 +22,12 @@
     s[p.toggleKey] = !s[p.toggleKey]
   }
 
+  function setNote(key: string, text: string) {
+    const notes = (app.character.annotations ??= {})
+    if (text.trim()) notes[key] = text
+    else delete notes[key]
+  }
+
   const reason = (p: Part) =>
     p.inactiveReason === 'notStacking'
       ? tr(UI.notStacking)
@@ -74,6 +80,17 @@
     {#each c.lines ?? [] as line}<p class="line">{tr(line)}</p>{/each}
     {#if c.html}<div class="rule-text">{@html tr(c.html)}</div>{/if}
     {#if c.source}<p><strong>{tr(UI.source)} :</strong> <SourceLink source={c.source} /></p>{/if}
+    {#if c.noteKey}
+      <label class="note">
+        <span>{tr({ en: 'Campaign note', fr: 'Note de campagne' })}</span>
+        <textarea
+          rows="3"
+          value={app.character.annotations?.[c.noteKey] ?? ''}
+          oninput={(e) => setNote(c.noteKey!, e.currentTarget.value)}
+          placeholder={tr({ en: 'Your own explanation for this campaign…', fr: 'Votre explication pour cette campagne…' })}
+        ></textarea>
+      </label>
+    {/if}
   {/if}
 </dialog>
 
@@ -189,5 +206,22 @@
     font-size: 0.95em;
     border-top: 1px solid var(--rule);
     margin-top: 0.75rem;
+  }
+  .note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-title);
+  }
+  .note textarea {
+    font: inherit;
+    font-family: var(--font-body);
+    padding: 0.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    background: var(--box);
+    color: var(--ink);
+    resize: vertical;
   }
 </style>

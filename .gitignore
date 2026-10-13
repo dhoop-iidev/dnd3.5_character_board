@@ -28,3 +28,6 @@ tools/.cache/
 
 # reference images from the web (not ours to publish)
 design inspiration/
+
+# personal exported saves
+character_saves/

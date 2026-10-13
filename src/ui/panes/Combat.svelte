@@ -18,6 +18,16 @@
   const maxPa = $derived(s.bab.total)
   const maxCe = $derived(Math.min(5, s.bab.total))
 
+  const DAMAGE_TYPES: Record<string, I18n> = {
+    slashing: { en: 'slashing', fr: 'tranchant' },
+    piercing: { en: 'piercing', fr: 'perforant' },
+    bludgeoning: { en: 'bludgeoning', fr: 'contondant' },
+  }
+  const hpCurrent = $derived(s.hpMax.total - c.hp.damage)
+  function adjustHp(delta: number) {
+    app.character.hp.damage = Math.max(0, app.character.hp.damage - delta)
+  }
+
   const crit = (range: number, mult: number) => `${range < 20 ? `${range}–20` : '20'}/×${mult}`
 
   // ---- Weapon Master daily uses (Sword and Fist p.39)
@@ -55,10 +65,10 @@
   function effectPopup(e: (typeof c.activeEffects)[number]) {
     if (e.kind === 'condition') {
       const d = rules.conditions.get(e.refId ?? '')
-      if (d) openPopup({ title: d.name, summary: d.summary, html: d.text, source: d.source })
+      if (d) openPopup({ title: d.name, summary: d.summary, html: d.text, source: d.source, noteKey: `condition:${d.id}` })
     } else if (e.kind === 'magic') {
       const d = rules.magicItems.get(e.refId ?? '')
-      if (d) openPopup({ title: d.name, summary: d.duration, html: d.text, source: d.source })
+      if (d) openPopup({ title: d.name, summary: d.duration, html: d.text, source: d.source, noteKey: `magic:${d.id}` })
     }
   }
   function removeEffect(uid: string) {
@@ -97,6 +107,34 @@
   }
 </script>
 
+<!-- Quick reference: the combat numbers of the main sheet in one strip. -->
+<section class="box summary">
+  <h3>{tr({ en: 'At a glance', fr: "En un coup d'œil" })}</h3>
+  <div class="strip">
+    <div class="cell hp">
+      <span>{tr(UI.hpShort)}</span>
+      <strong class:low={hpCurrent <= s.hpMax.total / 4}>{hpCurrent}</strong>
+      <small>/ {s.hpMax.total}{c.hp.nonlethal ? ` · ${c.hp.nonlethal} NL` : ''}{c.hp.temp ? ` · +${c.hp.temp} temp` : ''}</small>
+      <div class="hpbtn">
+        <button onclick={() => adjustHp(-5)}>−5</button><button onclick={() => adjustHp(-1)}>−1</button>
+        <button onclick={() => adjustHp(1)}>+1</button><button onclick={() => adjustHp(5)}>+5</button>
+      </div>
+    </div>
+    <div class="cell"><span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big /></div>
+    <div class="cell"><span>{tr(UI.touch)}</span><StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} /></div>
+    <div class="cell"><span>{tr({ en: 'Flat-footed', fr: 'Dépourvu' })}</span><StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} /></div>
+    <div class="cell"><span>{tr(UI.initiative)}</span><StatValue stat={() => view.sheet.initiative} title={UI.initiative} /></div>
+    <div class="cell"><span>{tr(UI.fort)}</span><StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></div>
+    <div class="cell"><span>{tr(UI.ref)}</span><StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></div>
+    <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
+    <div class="cell"><span>{tr({ en: 'BAB', fr: 'BBA' })}</span><StatValue stat={() => view.sheet.bab} title={UI.bab} /></div>
+    <div class="cell"><span>{tr(UI.grapple)}</span><StatValue stat={() => view.sheet.grapple} title={UI.grapple} /></div>
+    <div class="cell"><span>{tr({ en: 'AoO / round', fr: 'AO / round' })}</span><StatValue stat={() => view.sheet.attacksOfOpportunity} title={UI.aoo} signed={false} /></div>
+    <div class="cell"><span>{tr(UI.speed)}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong></div>
+  </div>
+  {#if s.flags.some((f) => FLAGS[f])}<p class="flags">{[...new Set(s.flags)].filter((f) => FLAGS[f]).map((f) => tr(FLAGS[f])).join(' · ')}</p>{/if}
+</section>
+
 <div class="grid">
   <section class="box">
     <h3>{tr({ en: 'Combat options', fr: 'Options de combat' })}</h3>
@@ -127,22 +165,16 @@
   </section>
 
   <section class="box">
-    <h3>{tr({ en: 'Defense', fr: 'Défense' })}</h3>
-    <div class="row">
-      <label>{tr(UI.acShort)} <StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big /></label>
-      <label>{tr(UI.touch)} <StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} /></label>
-      <label>{tr(UI.flatFooted)} <StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} /></label>
+    <h3>{tr({ en: 'Resistances & conditional modifiers', fr: 'Résistances et modificateurs conditionnels' })}</h3>
+    <div class="fields">
+      <label>{tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}<input bind:value={app.character.defenses.dr} placeholder="—" /></label>
+      <label>{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input bind:value={app.character.defenses.sr} placeholder="—" /></label>
+      <label class="wide">{tr({ en: 'Energy resistances', fr: "Résistances aux énergies" })}<input bind:value={app.character.defenses.resistances} placeholder="—" /></label>
+      <label class="wide">
+        {tr({ en: 'Conditional modifiers (e.g. +2 vs fear)', fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)' })}
+        <textarea rows="3" bind:value={app.character.conditionalModifiers}></textarea>
+      </label>
     </div>
-    <div class="row">
-      <label>{tr(UI.fort)} <StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></label>
-      <label>{tr(UI.ref)} <StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></label>
-      <label>{tr(UI.will)} <StatValue stat={() => view.sheet.saves.will} title={UI.will} /></label>
-    </div>
-    <p>
-      {tr(UI.aoo)} : <StatValue stat={() => view.sheet.attacksOfOpportunity} title={UI.aoo} signed={false} />
-      · {tr(UI.speed)} : {fmtDistance(s.speed.current, lang())}
-    </p>
-    {#if s.flags.some((f) => FLAGS[f])}<p class="flags">{[...new Set(s.flags)].filter((f) => FLAGS[f]).map((f) => tr(FLAGS[f])).join(' · ')}</p>{/if}
   </section>
 
   <section class="box wide">
@@ -160,6 +192,7 @@
             <span>{tr({ en: 'Damage', fr: 'Dégâts' })}</span>
             <strong>{a.damageDice}</strong>
             <StatValue stat={() => view.sheet.attacks.find((x) => x.itemUid === a.itemUid)!.damage} title={a.name} />
+            <small>{a.weapon.damageTypes.map((d) => tr(DAMAGE_TYPES[d] ?? { en: d, fr: d })).join(' / ')}</small>
           </div>
           <div class="line">
             <span>{tr({ en: 'Critical', fr: 'Critique' })}</span>
@@ -311,24 +344,6 @@
     width: 1.2rem;
     height: 1.2rem;
     accent-color: var(--ink);
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--rule);
-  }
-  .row label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-    font-family: var(--font-title);
-    letter-spacing: 0.04em;
-    font-size: 0.9em;
-    color: var(--ink-soft);
   }
   .flags {
     color: var(--danger);
@@ -531,5 +546,78 @@
   }
   summary::-webkit-details-marker {
     display: none;
+  }
+  .summary {
+    margin-bottom: 1rem;
+  }
+  .strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.1rem;
+    align-items: flex-end;
+  }
+  .cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+  }
+  .cell > span {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .cell.hp strong {
+    font-family: var(--font-num);
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+  .cell.hp strong.low {
+    color: var(--danger);
+  }
+  .cell .plain {
+    font-family: var(--font-num);
+    min-height: 2.75rem;
+    display: grid;
+    place-items: center;
+  }
+  .hpbtn {
+    display: flex;
+    gap: 0.2rem;
+  }
+  .hpbtn button {
+    min-width: 2.6rem;
+    min-height: 2.4rem;
+    padding: 0;
+  }
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.8rem;
+  }
+  .fields label {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .fields .wide {
+    grid-column: 1 / -1;
+  }
+  .fields input,
+  .fields textarea {
+    width: 100%;
+    min-width: 0;
+    font: inherit;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    min-height: 2.5rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    background: var(--box);
   }
 </style>

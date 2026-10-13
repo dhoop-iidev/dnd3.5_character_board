@@ -16,7 +16,7 @@
   const hasSituational = $derived(stat().parts.some((p) => p.condition))
 </script>
 
-<button class="stat" class:big onclick={() => openPopup({ title, stat, signed })}>
+<button class="stat" class:big onclick={() => openPopup({ title, stat, signed, noteKey: `stat:${title.en}` })}>
   {signed ? fmt(value) : value}{suffix}{#if hasSituational}<sup>*</sup>{/if}
 </button>
 

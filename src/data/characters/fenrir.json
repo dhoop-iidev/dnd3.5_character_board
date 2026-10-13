@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "identity": {
     "name": "Fenrir Ykiyuk",
     "player": "Gaspard",
@@ -16,7 +16,12 @@
     },
     "eyes": "noirs",
     "hair": "noirs, sauvages",
-    "homeland": ""
+    "homeland": "",
+    "languages": [
+      "Commun"
+    ],
+    "campaign": "",
+    "skin": ""
   },
   "xp": 36000,
   "baseAbilities": {
@@ -326,5 +331,20 @@
   "notes": [],
   "settings": {
     "lang": "fr"
-  }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "gp": 0,
+    "pp": 0,
+    "other": ""
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {}
 }

@@ -14,5 +14,15 @@ export function migrate(raw: unknown): Character {
     c.xp = c.xp ?? (1000 * n * (n - 1)) / 2
     c.schemaVersion = 2
   }
+  // v2 -> v3: money, defenses, conditional modifiers, popup annotations, images, languages.
+  if (c.schemaVersion < 3) {
+    c.money ??= { cp: 0, sp: 0, gp: 0, pp: 0, other: '' }
+    c.defenses ??= { dr: '', sr: '', resistances: '' }
+    c.conditionalModifiers ??= ''
+    c.annotations ??= {}
+    c.images ??= {}
+    c.identity.languages ??= ['Commun']
+    c.schemaVersion = 3
+  }
   return c
 }

@@ -75,7 +75,7 @@ describe('save migration', () => {
     const v1 = { ...clone(), schemaVersion: 1 } as Partial<Character>
     delete v1.xp
     const c = migrate(v1)
-    expect(c.schemaVersion).toBe(2)
+    expect(c.schemaVersion).toBe(3)
     expect(c.xp).toBe(36000)
   })
 })

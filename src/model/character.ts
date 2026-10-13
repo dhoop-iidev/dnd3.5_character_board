@@ -1,6 +1,6 @@
-import type { AbilityId, I18n, Lang, ModifierSpec } from '../data/types'
+import type { AbilityId, I18n, Lang, ModifierSpec, Slot } from '../data/types'
 
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3
 
 /** Feat slot that granted the feat (docs/rules/advancement.md, house rule #3 for 'deity'). */
 export type FeatSlot = 'general' | 'human' | 'fighter' | 'deity'
@@ -38,7 +38,7 @@ export interface ItemInstance {
   /** Magic enhancement bonus (+1..+5) of a weapon, armor or shield. Implies masterwork. */
   enhancement?: number
   /** Custom items only. */
-  custom?: { weightLb: number; costGp: number; text: I18n; modifiers?: ModifierSpec[] }
+  custom?: { weightLb: number; costGp: number; text: I18n; modifiers?: ModifierSpec[]; slot?: Slot }
   note?: string
 }
 
@@ -93,6 +93,9 @@ export interface Character {
     eyes: string
     hair: string
     homeland: string
+    skin?: string
+    campaign?: string
+    languages?: string[]
   }
   /** Experience points; reaching the next threshold offers a level-up (https://www.d20srd.org/srd/xp.htm). */
   xp: number
@@ -112,5 +115,15 @@ export interface Character {
   dailyUsesSpent: Record<string, number>
   toggles: CombatToggles
   notes: Note[]
+  /** Coins carried (50 coins = 1 lb) and other wealth (gems, art…) as text. */
+  money: { cp: number; sp: number; gp: number; pp: number; other: string }
+  /** Defenses the engine doesn't compute yet (damage reduction, spell resistance, energy resistances), as text. */
+  defenses: { dr: string; sr: string; resistances: string }
+  /** Free-text conditional modifiers (e.g. "+2 vs fear"), as on the official sheet. */
+  conditionalModifiers: string
+  /** Campaign notes attached to any popup (key: "feat:dodge", "item:<uid>", "stat:AC"…). */
+  annotations: Record<string, string>
+  /** Coat of arms and face drawing, as resized data URLs (exported with the character). */
+  images: { coatOfArms?: string; face?: string }
   settings: { lang: Lang }
 }

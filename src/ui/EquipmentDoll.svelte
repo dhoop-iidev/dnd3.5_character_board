@@ -8,7 +8,6 @@
   import { app, tr, view } from '../state.svelte'
   import { itemInfo, newUid, norm } from './items'
   import { openPopup } from './popupState.svelte'
-  import CharacterViewer from './viewer/CharacterViewer.svelte'
 
   /** Slot boxes; rings has two places. `hint` lists what fits (as on the official sheet). */
   interface SlotBox {
@@ -41,6 +40,7 @@
       return cat === 'shield' || cat === 'tower' ? undefined : 'body'
     }
     if (item.kind === 'gear' && item.refId.endsWith('outfit')) return 'torso'
+    if (item.kind === 'custom') return item.custom?.slot
     return undefined
   }
 
@@ -71,7 +71,7 @@
     const item = itemsIn(box)
     if (item) {
       const info = itemInfo(item)
-      openPopup({ title: info.name, summary: info.stats, html: info.text, source: info.source })
+      openPopup({ title: info.name, summary: info.stats, html: info.text, source: info.source, noteKey: `item:${item.uid}` })
     } else {
       picking = box
       query = ''
@@ -122,7 +122,11 @@
       {#each LEFT as b (b.id)}{@render slotBox(b, 'left')}{/each}
     </div>
     <div class="figure">
-      <CharacterViewer height="clamp(24rem, 48vw, 36rem)" />
+      <img
+        class="knight"
+        src={`${import.meta.env.BASE_URL}images/fenrir-knight.webp`}
+        alt={tr({ en: 'Fenrir in his golden full plate', fr: 'Fenrir en harnois doré' })}
+      />
     </div>
     <div class="side">
       {#each RIGHT as b (b.id)}{@render slotBox(b, 'right')}{/each}
@@ -136,7 +140,7 @@
         {@const info = itemInfo(item)}
         <button
           class="frame weapon"
-          onclick={() => openPopup({ title: info.name, summary: info.stats, html: info.text, source: info.source })}
+          onclick={() => openPopup({ title: info.name, summary: info.stats, html: info.text, source: info.source, noteKey: `item:${item.uid}` })}
         >
           <span class="name">{tr(info.name)}</span>
           {#if info.stats}<small>{tr(info.stats)}</small>{/if}
@@ -376,5 +380,14 @@
     .layout {
       grid-template-columns: 1fr;
     }
+  }
+  .figure {
+    display: grid;
+    place-items: center;
+  }
+  .knight {
+    width: 100%;
+    max-height: 38rem;
+    object-fit: contain;
   }
 </style>

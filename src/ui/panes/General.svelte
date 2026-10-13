@@ -11,7 +11,8 @@
   import WarningList from '../WarningList.svelte'
   import LevelEditor from '../LevelEditor.svelte'
   import Medallion from '../Medallion.svelte'
-  import CharacterViewer from '../viewer/CharacterViewer.svelte'
+  import Portraits from '../Portraits.svelte'
+  import IdentityCard from '../IdentityCard.svelte'
 
   const s = $derived(view.sheet)
   let showAllSkills = $state(false)
@@ -68,6 +69,7 @@
       ],
       html: def.text,
       source: def.source,
+      noteKey: `feat:${featId}`,
     })
   }
 
@@ -82,6 +84,7 @@
       ],
       html: line.def.text,
       source: line.def.source,
+      noteKey: `skill:${key}`,
     })
   }
 
@@ -96,7 +99,7 @@
   )
   function classPopup(classId: string) {
     const cls = rules.classes.get(classId)
-    if (cls) openPopup({ title: cls.name, html: cls.text, source: cls.source })
+    if (cls) openPopup({ title: cls.name, html: cls.text, source: cls.source, noteKey: `class:${classId}` })
   }
 
   const unusable = (featId: string) => view.warnings.some((w) => w.id === `unusable-${featId}`)
@@ -116,7 +119,7 @@
   </div>
 
   <div class="portrait">
-    <CharacterViewer height="clamp(22rem, 52vw, 34rem)" />
+    <Portraits />
   </div>
 
   <div class="col vitals">
@@ -145,10 +148,29 @@
         {#each [-10, -5, -1] as d (d)}<button onclick={() => adjustHp(d)}>{d}</button>{/each}
         {#each [1, 5, 10] as d (d)}<button onclick={() => adjustHp(d)}>+{d}</button>{/each}
       </div>
+      <div class="hp-extra">
+        <label>
+          {tr({ en: 'Nonlethal', fr: 'Non létaux' })}
+          <input type="number" min="0" bind:value={app.character.hp.nonlethal} />
+        </label>
+        <label>
+          {tr({ en: 'Temporary HP', fr: 'PV temporaires' })}
+          <input type="number" min="0" bind:value={app.character.hp.temp} />
+        </label>
+      </div>
+      {#if app.character.hp.nonlethal > 0 && app.character.hp.nonlethal >= hpCurrent}
+        <p class="hp-state">
+          {app.character.hp.nonlethal === hpCurrent
+            ? tr({ en: 'Staggered (nonlethal = current HP)', fr: 'Chancelant (non létaux = PV actuels)' })
+            : tr({ en: 'Unconscious (nonlethal > current HP)', fr: 'Inconscient (non létaux > PV actuels)' })}
+        </p>
+      {/if}
     </div>
   </div>
 </section>
 <WarningList areas={['abilities']} />
+
+<IdentityCard />
 
 <div class="grid">
   <section class="box">
@@ -471,5 +493,36 @@
   }
   small {
     font-size: 0.82em;
+  }
+  .hp-extra {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 0.4rem;
+  }
+  .hp-extra label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .hp-extra input {
+    width: 5rem;
+    font: inherit;
+    font-size: 1rem;
+    min-height: 2.4rem;
+    text-align: center;
+    color: var(--ink);
+    background: var(--box);
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+  }
+  .hp-state {
+    margin: 0.3rem 0 0;
+    color: var(--danger);
+    font-size: 0.9rem;
+  }
+  :global(.identity) {
+    margin: 1rem 0;
   }
 </style>

@@ -111,6 +111,24 @@ describe('effects', () => {
   })
 })
 
+describe('money and custom items', () => {
+  it('coins weigh 50 per lb (100 gp + 50 sp = +3 lb)', () => {
+    const rich = compute({ ...fenrir, money: { cp: 0, sp: 50, gp: 100, pp: 0, other: '' } }, rules, { level: 8 })
+    expect(rich.load.carried.lb).toBeCloseTo(97.6 + 3, 5)
+  })
+  it('a worn custom item applies its bonuses (ring +1 deflection)', () => {
+    const ring = {
+      uid: 'r',
+      kind: 'custom' as const,
+      refId: '',
+      quantity: 1,
+      location: 'worn' as const,
+      custom: { weightLb: 0, costGp: 0, text: { en: '', fr: '' }, slot: 'ring' as const, modifiers: [{ target: 'ac', bonusType: 'deflection' as const, value: 1 }] },
+    }
+    expect(compute({ ...fenrir, inventory: [...fenrir.inventory, ring] }, rules, { level: 8 }).ac.total).toBe(22)
+  })
+})
+
 describe('conditions', () => {
   const withEffects = (...ids: string[]) =>
     compute(

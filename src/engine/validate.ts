@@ -207,6 +207,8 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     const slot =
       it.kind === 'magic'
         ? rules.magicItems.get(it.refId)?.slot
+        : it.kind === 'custom'
+          ? it.custom?.slot
         : armorCat && armorCat !== 'shield' && armorCat !== 'tower'
           ? 'body' // a suit of armor occupies the body slot
           : undefined

@@ -7,6 +7,7 @@
   import { catalog, itemInfo, newUid, norm } from '../items'
   import { openPopup } from '../popupState.svelte'
   import WarningList from '../WarningList.svelte'
+  import CustomItemForm from '../CustomItemForm.svelte'
   import EquipmentDoll from '../EquipmentDoll.svelte'
 
   const LOCATIONS: { id: ItemLocation; label: I18n }[] = [
@@ -65,6 +66,7 @@
       ],
       html: info.text,
       source: info.source,
+      noteKey: `item:${item.uid}`,
     })
   }
 
@@ -90,7 +92,13 @@
       <div class="mark" style="left: {(load.limits.light.lb / load.limits.heavy.lb) * 100}%"></div>
       <div class="mark" style="left: {(load.limits.medium.lb / load.limits.heavy.lb) * 100}%"></div>
     </div>
-    <p class="total">{tr({ en: 'Total value', fr: 'Valeur totale' })} : {fmtGp(totalGp)}</p>
+    <p class="total">
+      {tr({ en: 'Lift over head', fr: 'Soulever au-dessus de la tête' })} {fmtWeight(load.limits.heavy, lang())} ·
+      {tr({ en: 'lift off the ground', fr: 'soulever du sol' })} {fmtWeight({ lb: load.limits.heavy.lb * 2, kg: load.limits.heavy.kg * 2 }, lang())} ·
+      {tr({ en: 'push or drag', fr: 'pousser ou tirer' })} {fmtWeight({ lb: load.limits.heavy.lb * 5, kg: load.limits.heavy.kg * 5 }, lang())}
+      <a href="https://www.d20srd.org/srd/carryingCapacity.htm#liftingandDragging" target="_blank" rel="noopener">d20srd</a>
+    </p>
+    <p class="total">{tr({ en: 'Total value of items', fr: 'Valeur totale des objets' })} : {fmtGp(totalGp)}</p>
     <WarningList areas={['inventory']} />
   </section>
 
@@ -108,6 +116,24 @@
         {/each}
       </ul>
     {/if}
+    <CustomItemForm />
+  </section>
+
+  <section class="box wide">
+    <h3>{tr({ en: 'Money', fr: 'Argent' })}</h3>
+    <div class="money">
+      {#each [['pp', 'pp', 'pp'], ['gp', 'gp', 'po'], ['sp', 'sp', "pa"], ['cp', 'cp', 'pc']] as const as [key, en, fr] (key)}
+        <label>{tr({ en, fr })}<input type="number" min="0" bind:value={app.character.money[key]} /></label>
+      {/each}
+      <p class="total">
+        = {fmtGp(app.character.money.pp * 10 + app.character.money.gp + app.character.money.sp / 10 + app.character.money.cp / 100)}
+        · {tr({ en: 'coins weigh 50 per lb (counted in the load)', fr: 'les pièces pèsent 100 au kg (comptées dans la charge)' })}
+      </p>
+      <label class="other">
+        {tr({ en: 'Gems, art and other wealth', fr: 'Gemmes, objets d’art et autres richesses' })}
+        <textarea rows="2" bind:value={app.character.money.other}></textarea>
+      </label>
+    </div>
   </section>
 
   {#each LOCATIONS as loc (loc.id)}
@@ -335,5 +361,37 @@
   .del {
     color: var(--danger) !important;
     border-color: transparent !important;
+  }
+  .money {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    align-items: flex-end;
+  }
+  .money label {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-title);
+  }
+  .money input {
+    width: 6.5rem;
+    font: inherit;
+    min-height: 2.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    background: var(--box);
+    color: var(--ink);
+  }
+  .money .other {
+    flex-basis: 100%;
+  }
+  .money textarea {
+    font: inherit;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    background: var(--box);
+    color: var(--ink);
   }
 </style>
