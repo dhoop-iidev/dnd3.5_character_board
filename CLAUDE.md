@@ -15,7 +15,7 @@ Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD
 - The only homebrew rules are those in `docs/house-rules.md`; everything else follows the 3.5 books as written. When a rule seems ambiguous, **research it online first**, in this order of authority: SRD (d20srd.org), PHB/DMG 3.5 + official errata, official 3.5 FAQ, *Rules Compendium*. Record the answer with sources in `docs/rules/rulings-*.md`.
 - **Never implement a rule assumption that the books don't back without asking the user first.** Only if the books genuinely don't answer: stop, explain the options (with links), and add a `pending` entry to `docs/house-rules.md`. Questions about the character's own facts (gear, build history) always go to the user.
 - Every rule, feat, item, class feature and computed formula carries a source: a d20srd.org URL (https://www.d20srd.org/index.htm) for SRD content, or book + page for non-SRD content. Popups show it as a clickable "Source" link, so the user can show the DM proof.
-- Weights and load thresholds store both units (`lb` and `kg`, kg as in the French books); show lb in English and kg in French.
+- Weights and load thresholds store both units (`lb` and `kg`, kg = lb ÷ 2, house rule #5); distances ft and m (1 square = 1,50 m, #11). Show lb/ft in English and kg/m in French.
 - Every piece of user-facing text is bilingual: `{ en, fr }`, never one language hard-coded. Use the official French 3.5 terms (e.g. "don", "compétence", "classe d'armure", "bonus de base à l'attaque").
 
 ## Platform & stack
@@ -42,7 +42,7 @@ Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD
 
 ## UI
 - Panes: **General** (abilities, saves, HP, AC, BAB, skills), **Equipment** (items with description, price, weight, totals, load), **Combat** (attacks, combat feats, Weapon Master features), **Notes** (campaign notes).
-- Layout inspired by the official 3.5 character sheet; look of the 3.5 rulebooks (parchment, serif headings, dark-red accents). Values are clickable to open a breakdown and source popup. FR/EN toggle everywhere.
+- Layout inspired by the official 3.5 character sheet, sober and modern: black-and-white with one red accent, black small-caps panel tags, no gradients or textures (the user rejected the parchment/gold look as tacky). Values are clickable to open a breakdown and source popup. FR/EN toggle everywhere.
 - Images: the Equipment paper doll uses `public/images/fenrir-knight.webp` (user-provided illustration); the General pane shows a portrait and a coat of arms that the user uploads (resized, stored in the character JSON). The 3D viewer was removed at the user's request.
 - Every popup can carry a campaign note (`character.annotations`, keyed like `feat:<id>`, `item:<uid>`, `stat:<title>`).
 - Rules review: the project skill `/um_actually` (`.claude/skills/um_actually/SKILL.md`) audits the engine and data against the SRD; reports go to `docs/reviews/`.
