@@ -27,6 +27,12 @@ export function unmetPrereqs(
       out.push({ en: `${name.en}${wanted ? ` (${wanted})` : ''}`, fr: `${name.fr}${wanted ? ` (${wanted})` : ''}` })
     }
   }
+  if (prereq.proficiency === '$choice' && choice) {
+    const weapon = rules.weapons.get(choice)
+    const profs = new Set(Object.keys(sheet.classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.weapons ?? []))
+    if (weapon && !profs.has(weapon.category) && !profs.has(weapon.id))
+      out.push({ en: `proficiency with ${weapon.name.en}`, fr: `maniement de ${weapon.name.fr}` })
+  }
   if (prereq.fighterLevel && (sheet.classLevels['fighter'] ?? 0) < prereq.fighterLevel)
     out.push({ en: `Fighter level ${prereq.fighterLevel}`, fr: `Guerrier niveau ${prereq.fighterLevel}` })
   if (prereq.characterLevel && sheet.characterLevel < prereq.characterLevel)

@@ -44,6 +44,11 @@
   const shields = $derived(
     c.inventory.filter((i) => i.kind === 'armor' && ['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? '')),
   )
+  function toggleGrip(uid: string) {
+    const l = app.character.loadouts.find((x) => x.id === loadout.id)!
+    const grip = l.twoHanded ?? []
+    l.twoHanded = grip.includes(uid) ? grip.filter((w) => w !== uid) : [...grip, uid]
+  }
   function toggleWeapon(uid: string) {
     const l = app.character.loadouts.find((x) => x.id === loadout.id)!
     l.weapons = l.weapons.includes(uid) ? l.weapons.filter((w) => w !== uid) : [...l.weapons, uid]
@@ -220,6 +225,14 @@
   {#if s.weaponMaster.level > 0}
     <section class="box">
       <h3>{tr({ en: 'Weapon Master', fr: "Maître d'armes" })} {s.weaponMaster.level}</h3>
+      {#if !s.weaponMaster.active}
+        <p class="inactive">
+          {tr({
+            en: 'Class features suspended: requirements no longer met (Complete Warrior p.16).',
+            fr: "Pouvoirs suspendus : conditions de la classe plus remplies (Complete Warrior p.16).",
+          })}
+        </p>
+      {/if}
       <div class="uses">
         <span>{tr({ en: 'Ki damage', fr: 'Dégâts ki' })}</span>
         <button onclick={() => spend('ki-damage', -1, s.weaponMaster.kiDamagePerDay)}>−</button>
@@ -290,6 +303,12 @@
         <input type="checkbox" checked={loadout.weapons.includes(w.uid)} onchange={() => toggleWeapon(w.uid)} />
         {tr(itemInfo(w).name)}
       </label>
+      {#if loadout.weapons.includes(w.uid) && rules.weapons.get(w.refId)?.handedness === 'oneHanded'}
+        <label class="check grip">
+          <input type="checkbox" checked={(loadout.twoHanded ?? []).includes(w.uid)} onchange={() => toggleGrip(w.uid)} />
+          {tr({ en: 'held in two hands (Str ×1.5)', fr: 'tenue à deux mains (For ×1,5)' })}
+        </label>
+      {/if}
     {/each}
     <label class="field">
       {tr({ en: 'Shield strapped on', fr: 'Bouclier au bras' })}
@@ -619,5 +638,12 @@
     border: 1px solid var(--rule-strong);
     border-radius: 3px;
     background: var(--box);
+  }
+  .grip {
+    margin-left: 1.8rem;
+    font-size: 0.9em;
+  }
+  .inactive {
+    color: var(--danger);
   }
 </style>

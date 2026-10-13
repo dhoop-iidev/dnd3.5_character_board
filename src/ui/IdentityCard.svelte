@@ -22,9 +22,11 @@
 <section class="box identity">
   <h3>{tr({ en: 'Identity', fr: 'Identité' })}</h3>
   <div class="fields">
+    <label class="half">{tr({ en: 'Name', fr: 'Nom' })}<input class="name" bind:value={app.character.identity.name} /></label>
+    <label class="half">{tr({ en: 'Title', fr: 'Titre' })}<input bind:value={app.character.identity.title} placeholder={tr({ en: 'e.g. Champion of Scorpio', fr: 'ex. Champion de Scorpio' })} /></label>
     <label>{tr({ en: 'Player', fr: 'Joueur' })}<input bind:value={app.character.identity.player} /></label>
     <label>{tr({ en: 'Race', fr: 'Race' })}<input value={tr({ en: 'Human', fr: 'Humain' })} disabled /></label>
-    <label>{tr({ en: 'Size', fr: 'Taille' })}<input value={tr({ en: 'Medium (+0)', fr: 'Moyenne (+0)' })} disabled /></label>
+    <label>{tr({ en: 'Size', fr: 'Catégorie de taille' })}<input value={tr({ en: 'Medium (+0)', fr: 'Moyenne (+0)' })} disabled /></label>
     <label>{tr({ en: 'Alignment', fr: 'Alignement' })}<input bind:value={app.character.identity.alignment} /></label>
     <label>{tr({ en: 'Deity', fr: 'Dieu' })}<input bind:value={app.character.identity.deity} /></label>
     <label>{tr({ en: 'Gender', fr: 'Sexe' })}<input bind:value={app.character.identity.gender} /></label>
@@ -68,6 +70,13 @@
   }
   .wide {
     grid-column: 1 / -1;
+  }
+  .half {
+    grid-column: span 2;
+  }
+  .name {
+    font-family: var(--font-num);
+    font-weight: 700;
   }
   input {
     font: inherit;

@@ -50,6 +50,8 @@ export interface Loadout {
   weapons: string[]
   /** Shield item uid strapped on the arm, if any. */
   shield?: string
+  /** One-handed weapons (uids) gripped with two hands: Str ×1.5, Power Attack ×2. */
+  twoHanded?: string[]
 }
 
 export interface ActiveEffect {
@@ -95,6 +97,10 @@ export interface Character {
     homeland: string
     skin?: string
     campaign?: string
+    /** Title shown under the name (e.g. "Champion of Scorpio"). */
+    title?: string
+    /** Motto written under the coat of arms. */
+    motto?: string
     languages?: string[]
   }
   /** Experience points; reaching the next threshold offers a level-up (https://www.d20srd.org/srd/xp.htm). */

@@ -55,7 +55,7 @@ describe('Fenrir, level 8 (Fighter 6 / Weapon Master 2)', () => {
     expect(skill(at8, 'ride')).toBe(4)
     expect(skill(at8, 'climb')).toBe(3)
     expect(skill(at8, 'handle-animal')).toBe(2)
-    expect(skill(at8, 'jump')).toBe(1)
+    expect(skill(at8, 'jump')).toBe(-5) // 2 + Str 4 − ACP 5 − 6 (speed 20 ft, SRD Jump)
   })
   it('light load', () => expect(at8.load.band).toBe('light'))
   it('attacks of opportunity: 1 + Dex 3 = 4 (Combat Reflexes)', () => expect(at8.attacksOfOpportunity.total).toBe(4))
@@ -63,10 +63,10 @@ describe('Fenrir, level 8 (Fighter 6 / Weapon Master 2)', () => {
 
 describe('Fenrir, tank mode (heavy steel shield + short sword)', () => {
   const tank = compute({ ...fenrir, activeLoadout: 'tank' }, rules, { level: 8 })
-  it('AC 23, Climb +1, Jump −1', () => {
+  it('AC 23, Climb +1, Jump −7', () => {
     expect(tank.ac.total).toBe(23)
     expect(skill(tank, 'climb')).toBe(1)
-    expect(skill(tank, 'jump')).toBe(-1)
+    expect(skill(tank, 'jump')).toBe(-7)
   })
   it('short sword: no Weapon Master features, Str ×1', () => {
     const ss = tank.attacks.find((a) => a.itemUid === 'short-sword')!

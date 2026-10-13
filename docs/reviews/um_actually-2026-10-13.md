@@ -122,3 +122,24 @@ Counts: **1 Meaningful, 10 Minor, 4 Nitpicks.**
 ## Verdict
 
 For Fenrir as built (greatsword loadout, no conditions), every number at the table is right except **Jump, which should be −5 (−7 in tank mode)**. The engine's weak spots are the less common situations: conditions that zero Dex or penalize ability checks, thrown and crossbow damage, Power Attack with light weapons, fighting defensively at range, and *haste*. Check those by hand until they are fixed.
+
+
+---
+
+## Resolution (2026-10-13)
+
+All findings fixed on the user's request; each has a test in `src/engine/__tests__/review-fixes.test.ts`.
+
+- **M1** Jump speed modifier added (SRD reading confirmed by the user). Fenrir: Jump −5 (tank −7). Steps counted per full 10 ft.
+- **m1** initiative includes ability-check modifiers (`check.dex`).
+- **m2** helpless/pinned: Dex 0 (−5) for AC; paralyzed: Str and Dex 0.
+- **m3** Str on damage by family: thrown and sling full, bow penalty only (composite ratings still not modeled), crossbow none.
+- **m4** Power Attack penalty on every melee attack; damage only for non-light weapons and unarmed strikes; new two-hands grip option for one-handed weapons (loadout editor).
+- **m5** fighting defensively −4 on all attacks; Tumble 5 ranks → +3 / +6 dodge.
+- **m6** speed bonuses stacked by type, haste capped at twice the normal speed; haste's extra attack shown (`attack.extra`).
+- **m7** worn items count for prerequisites; enhancement bonuses to Int give no skill points.
+- **m8** nonproficient weapon −4, nonproficient armor/shield ACP on attacks, tower shield −2 applied to totals.
+- **m9** Weapon Master features suspended while its ability requirements are unmet.
+- **m10** French labels: "Arme de prédilection suprême", "Attaques réflexes suprêmes".
+- **n1** Combat Expertise needs the feat; **n2** Greater Spell Focus requires Spell Focus (same school); **n3** Speak Language has no key ability; **n4** weapon proficiency checked in prerequisites.
+- Open question "worn clothing": counted in the load (user's decision).

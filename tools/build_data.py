@@ -115,9 +115,10 @@ def build_skills():
         if r["armor_check"] == "Yes":
             armor = 2 if en == "Swim" else 1
         ability = ABIL.get(r["key_ability"], "int")
-        if en == "Speak Language":
-            NOTES.append("speak-language: key ability 'None' in the SRD; stored as 'int' (AbilityId has no 'none').")
         common = dict(ability=ability, trainedOnly=r["trained"] == "Yes", armorCheck=armor)
+        if en == "Speak Language":
+            # SRD key ability "None": no ability modifier applies (SkillDef.noAbility).
+            common["noAbility"] = True
         url = srd_urls.skill_url(en)
         if en == "Knowledge":
             for field, field_fr in KNOWLEDGE_FR.items():
@@ -377,6 +378,9 @@ def build_feats(skill_ids: set[str]):
             else:
                 choice = "other"
         prereq = parse_prereq(r["prerequisite"], ids_by_norm, cond_line or "")
+        if fid == "greater-spell-focus":
+            # SRD: "Choose a school of magic to which you already have applied the Spell Focus feat."
+            prereq.setdefault("feats", []).append("spell-focus:$choice")
         if choice == "weapon" and fid in ("weapon-focus", "greater-weapon-focus", "weapon-specialization",
                                           "greater-weapon-specialization", "improved-critical", "rapid-reload"):
             prereq["proficiency"] = "$choice"

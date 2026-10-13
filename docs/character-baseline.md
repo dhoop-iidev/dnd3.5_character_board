@@ -3,7 +3,7 @@
 Human, Fighter 6 / Weapon Master (Sword and Fist, 3.0) 3 = character level 9.
 The choices below are the user's plan **up to level 8** (Fighter 6 / Weapon Master 2). The level-9 choices (Weapon Master 3) are not decided yet: the app must show the resulting warnings (unspent skill points, 1 unchosen general feat), and the user will correct them in the app.
 
-Ability increases: level 4 → Strength (Str 18 at level 7), level 8 → Constitution (planned, changed 2026-10-12). Climb +3 and Jump +1 match Str +4 with the −5 armor check penalty of full plate +2 (magic armor is masterwork). 
+Ability increases: level 4 → Strength (Str 18 at level 7), level 8 → Constitution (planned, changed 2026-10-12). Climb +3 matches Str +4 with the −5 armor check penalty of full plate +2 (magic armor is masterwork). Jump is **−5**, not the +1 of the 2017 sheet: the SRD Jump rule adds −6 for a speed of 20 ft (full plate) — corrected 2026-10-13 (um_actually review M1, SRD applied at the user's request). 
 
 ## Ability scores (from the Excel sheet, level 7, confirmed by the user 2026-10-12)
 | Ability | Score | Mod | Note |
@@ -15,7 +15,7 @@ Ability increases: level 4 → Strength (Str 18 at level 7), level 8 → Constit
 | Wis | 9 | −1 | |
 | Cha | 13 | +1 | |
 
-Consistency check: all skill totals above match these modifiers (Intimidate 7+1, Spot 6−1, Ride 1+3, Handle Animal 1+1, Craft 3+1, Climb 4+4−5, Jump 2+4−5). Feat and Weapon Master prerequisites met: Dex 13, Int 13 (Combat Expertise, Whirlwind Attack), Str 13 (Power Attack).
+Consistency check: all skill totals above match these modifiers (Intimidate 7+1, Spot 6−1, Ride 1+3, Handle Animal 1+1, Craft 3+1, Climb 4+4−5; Jump 2+4−5−6 = −5 with the speed modifier). Feat and Weapon Master prerequisites met: Dex 13, Int 13 (Combat Expertise, Whirlwind Attack), Str 13 (Power Attack).
 
 Deity: Scorpio, homebrew god of war.
 
@@ -30,7 +30,7 @@ Deity: Scorpio, homebrew god of war.
 | Équitation | Ride | 1 | +4 |
 | Escalade | Climb | 4 | +3 (incl. armor check penalty) |
 | Dressage | Handle Animal | 1 | +2 |
-| Saut | Jump | 2 | +1 (incl. armor check penalty) |
+| Saut | Jump | 2 | −5 (incl. armor check penalty −5 and speed 20 ft −6; the 2017 sheet said +1) |
 
 ## Feats (provided 2026-10-12): 9 = 4 general (levels 1, 3, 6 + human) + 4 Fighter bonus (levels 1, 2, 4, 6) + 1 deity
 1. Weapon Focus (greatsword) / Arme de prédilection (épée à deux mains): the deity feat (Scorpio)
@@ -60,7 +60,7 @@ Level 9 gives one more general feat (not chosen yet).
 ## Combat loadouts
 The app needs switchable loadouts, since they change AC, attacks and skill totals:
 1. **Greatsword (default):** greatsword +2 two-handed; shield in the pack (counts toward load only). Weapon Master features apply.
-2. **Tank mode:** heavy steel shield strapped + short sword one-handed. +2 shield AC; shield armor check penalty −2 adds to skills (Climb +1, Jump −1); Weapon Master features don't apply (not the weapon of choice). Switching costs actions (see rulings-combat-equipment.md R27).
+2. **Tank mode:** heavy steel shield strapped + short sword one-handed. +2 shield AC; shield armor check penalty −2 adds to skills (Climb +1, Jump −7); Weapon Master features don't apply (not the weapon of choice). Switching costs actions (see rulings-combat-equipment.md R27).
 
 ## Build history (best-guess legal order, user may correct in the app)
 | Level | Class | Feats | Skill ranks bought (points) | Other |

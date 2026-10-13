@@ -56,7 +56,7 @@ export type BonusType =
  * - speed (ft, may be negative) | speed.half (value 1 = halve) ; hp.temp ; hp.max
  * - attack.choice | damage.choice | skill.choice: the feat's chosen weapon/skill (Weapon Focus, Skill Focus…)
  * - attack.weapon | damage.weapon | ac.armor | ac.shield: enhancement of that specific weapon/armor/shield
- * - ac.noDex (value 1): loses Dex bonus to AC ; grapple
+ * - ac.noDex (value 1): loses Dex bonus to AC ; grapple ; attack.extra (extra attack at full BAB, haste)
  */
 export type Target = string
 
@@ -93,6 +93,8 @@ export interface SkillDef {
   armorCheck: 0 | 1 | 2
   /** True for skills taken per specialty: Craft, Knowledge, Perform, Profession. */
   hasSubtypes: boolean
+  /** No key ability (Speak Language): no ability modifier applies. */
+  noAbility?: boolean
   text: I18n
   source: Source
   homebrew?: boolean

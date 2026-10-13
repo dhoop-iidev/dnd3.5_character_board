@@ -132,7 +132,7 @@ URL shorthands (full URLs, used below):
 
 ## 14. Character consistency checks (from `docs/character-baseline.md`)
 - CHECK: BAB +9 → two attacks (+9/+4). — CS#baseAttackBonus
-- CHECK: full plate +2 → armor check penalty −5 (−6 + 1 masterwork), matches Climb +3 / Jump +1 in the baseline. — armor.htm#masterworkArmor
+- CHECK: full plate +2 → armor check penalty −5 (−6 + 1 masterwork), matches Climb +3 in the baseline; Jump is −5 once the speed modifier (20 ft in full plate) is applied (um_actually review M1). — armor.htm#masterworkArmor
 - CHECK: Dex +3 limited to +1 in full plate (max Dex +1). — armor.htm#maximumDexBonus
 - CHECK: Spring Attack can't be used in full plate (heavy armor). — feats.htm#springAttack (Q10)
 - CHECK: Improved Critical needs BAB +8 (met at level 9 if chosen later). — feats.htm#improvedCritical

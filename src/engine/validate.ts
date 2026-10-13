@@ -31,14 +31,16 @@ const w = (
   extra: Partial<RuleWarning> = {},
 ): RuleWarning => ({ id, severity, area, message: { en, fr }, ...extra })
 
-/** The character without temporary state: used to check build legality (prerequisites, skill points). */
+/**
+ * The character without temporary state (effects, ability damage, combat toggles), used to check build legality.
+ * Worn magic items stay: an item bonus may be used to qualify for a feat (3.5 FAQ, rulings-character.md#q6).
+ */
 function permanent(char: Character): Character {
   return {
     ...char,
     activeEffects: [],
     abilityDamage: {},
     toggles: { ...char.toggles, powerAttack: 0, combatExpertise: 0, fightingDefensively: false, totalDefense: false },
-    inventory: char.inventory.filter((i) => i.kind !== 'magic'),
   }
 }
 

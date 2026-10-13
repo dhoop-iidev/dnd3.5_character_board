@@ -56,6 +56,14 @@
           </svg>
         {/if}
       </div>
+      {#if kind === 'coatOfArms'}
+        <input
+          class="motto"
+          bind:value={app.character.identity.motto}
+          placeholder={tr({ en: 'Motto…', fr: 'Devise…' })}
+          aria-label={tr({ en: 'Motto', fr: 'Devise' })}
+        />
+      {/if}
       <figcaption>
         <span>{tr(LABEL[kind])}</span>
         <label class="btn">
@@ -128,5 +136,17 @@
     background: var(--box);
     color: var(--ink);
     cursor: pointer;
+  }
+  .motto {
+    width: 100%;
+    font: inherit;
+    font-style: italic;
+    font-size: 1.05rem;
+    text-align: center;
+    min-height: 2.4rem;
+    border: none;
+    border-bottom: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--ink);
   }
 </style>

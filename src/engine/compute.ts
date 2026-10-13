@@ -100,7 +100,7 @@ export interface Sheet {
   attacks: AttackLine[]
   /** Flags from conditions (cantRun, loseDexToAc…). */
   flags: string[]
-  weaponMaster: { level: number; kiDamagePerDay: number; increasedMultiplierPerDay: number }
+  weaponMaster: { level: number; active: boolean; kiDamagePerDay: number; increasedMultiplierPerDay: number }
   armor?: { item: ItemInstance; def: ArmorDef }
   shield?: { item: ItemInstance; def: ArmorDef }
 }
@@ -239,6 +239,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     score.total = Math.max(0, score.total)
     abilities[a] = { score, mod: abilityMod(score.total), damage, drain }
   }
+  // Paralyzed (and similar): Str and Dex are 0 (https://www.d20srd.org/srd/conditionSummary.htm#paralyzed).
+  if (flags.includes('strDexZero'))
+    for (const a of ['str', 'dex'] as AbilityId[]) {
+      const blk = abilities[a]
+      blk.score.parts.push({ sourceId: 'condition-zero', label: i18n('Paralyzed: score 0', 'Paralysé : valeur 0'), value: -blk.score.total, bonusType: 'base', active: true, source: src('conditionSummary.htm#paralyzed') })
+      blk.score.total = 0
+      blk.mod = abilityMod(0)
+    }
   const mod = (a: AbilityId) => abilities[a].mod
   const abilityPart = (a: AbilityId, value = mod(a)): Part => ({
     sourceId: `ability:${a}`,
@@ -261,6 +269,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         source: cls?.source,
       }
     })
+
+  // ---- proficiencies (union of the classes' lists)
+  const profWeapons = new Set(Object.keys(classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.weapons ?? []))
+  const profArmor = new Set(Object.keys(classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.armor ?? []))
 
   // ---- hit points (house rule #9: max hit die every level; Con retroactive)
   const hpParts: Part[] = levels.map((l, i) => {
@@ -354,13 +366,18 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     speedFt = loadFx.speed30
     speedFrom = i18n(`${band} load`, `charge ${band === 'medium' ? 'intermédiaire' : 'lourde'}`)
   }
-  speedFt += sumTarget('speed')
+  // Speed bonuses follow the stacking rules; haste-like enhancement bonuses cap at twice the normal speed
+  // (https://www.d20srd.org/srd/spells/haste.htm).
+  const speedBonus = resolve(partsFor(['speed'])).total
+  speedFt += speedBonus > 0 ? Math.min(speedBonus, speedFt) : speedBonus
   if (sumTarget('speed.half') > 0) speedFt = Math.floor(speedFt / 2 / 5) * 5
   if (band === 'overloaded') speedFt = 5
 
   // ---- AC
   const loseDex = flags.includes('loseDexToAc') || sumTarget('ac.noDex') > 0 || toggles.situational['flatFooted'] === true
-  const dexToAc = maxDex.value === null ? mod('dex') : Math.min(mod('dex'), maxDex.value)
+  // Helpless / pinned: treated as Dex 0 (−5) for AC (rulings R14, R15).
+  const dexZero = flags.includes('dexZeroForAc') || flags.includes('helpless')
+  const dexToAc = dexZero ? abilityMod(0) : maxDex.value === null ? mod('dex') : Math.min(mod('dex'), maxDex.value)
   const acParts: Part[] = [{ sourceId: 'base10', label: i18n('Base', 'Base'), value: 10, bonusType: 'base', source: src('combat/combatStatistics.htm#armorClass') }]
   if (armor) {
     const enh = armor.item.enhancement ?? 0
@@ -384,37 +401,49 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
   acParts.push({
     ...abilityPart('dex', dexToAc),
-    label: maxDex.value !== null && mod('dex') > maxDex.value
+    label: dexZero
+      ? i18n('Dexterity treated as 0 (helpless/pinned)', 'Dextérité considérée comme 0 (sans défense/immobilisé)')
+      : maxDex.value !== null && mod('dex') > maxDex.value
       ? { en: `Dexterity (capped at +${maxDex.value} by ${maxDex.from.en})`, fr: `Dextérité (limitée à +${maxDex.value} par ${maxDex.from.fr})` }
       : ABILITY_NAMES.dex,
   })
-  if (toggles.combatExpertise > 0)
+  // Tumble 5+ ranks: +3 dodge when fighting defensively, +6 in total defense (https://www.d20srd.org/srd/skills/tumble.htm).
+  const tumbleRanks = levels.reduce((n, l) => n + (l.skillRanks['tumble'] ?? 0), 0)
+  const tumble5 = tumbleRanks >= 5
+  if (hasFeat('combat-expertise') && toggles.combatExpertise > 0)
     acParts.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: toggles.combatExpertise, bonusType: 'dodge', source: src('feats.htm#combatExpertise') })
   if (toggles.fightingDefensively)
-    acParts.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: 2, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#fightDefensively') })
+    acParts.push({ sourceId: 'fighting-defensively', label: tumble5 ? i18n('Fighting defensively (Tumble 5 ranks)', 'Combat sur la défensive (Acrobaties 5 degrés)') : i18n('Fighting defensively', 'Combat sur la défensive'), value: tumble5 ? 3 : 2, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#fightDefensively') })
   if (toggles.totalDefense)
-    acParts.push({ sourceId: 'total-defense', label: i18n('Total defense', 'Défense totale'), value: 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
+    acParts.push({ sourceId: 'total-defense', label: tumble5 ? i18n('Total defense (Tumble 5 ranks)', 'Défense totale (Acrobaties 5 degrés)') : i18n('Total defense', 'Défense totale'), value: tumble5 ? 6 : 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
   acParts.push(...partsFor(['ac']))
   const stripDex = (parts: Part[]) =>
-    parts.filter((p) => !(p.sourceId === 'ability:dex' && p.value > 0) && p.bonusType !== 'dodge')
+    parts.filter((p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero) && p.bonusType !== 'dodge')
   const ac = resolve(loseDex ? stripDex(acParts) : acParts)
   const touchAc = resolve((loseDex ? stripDex(acParts) : acParts).filter((p) => !['armor', 'shield', 'naturalArmor'].includes(p.bonusType)))
   const flatFootedAc = resolve(stripDex(acParts))
 
   // ---- initiative, grapple
-  const initiative = resolve([abilityPart('dex'), ...partsFor(['initiative'])])
+  // An initiative check is a Dexterity check: ability-check modifiers apply (https://www.d20srd.org/srd/combat/initiative.htm).
+  const initiative = resolve([abilityPart('dex'), ...partsFor(['initiative', 'check.dex'])])
   const grapple = resolve([...tableSum('bab'), abilityPart('str'), ...partsFor(['grapple'])])
+
+  // ---- Weapon Master features need the class requirements to stay met (Complete Warrior p.16, rulings q6):
+  // current ability scores and a masterwork weapon of choice.
+  const wmReq = rules.classes.get('weapon-master')?.requirements
+  const wmAbilitiesOk = Object.entries(wmReq?.abilities ?? {}).every(([a, min]) => abilities[a as AbilityId].score.total >= (min ?? 0))
+  const wmActive = wmLevel > 0 && wmAbilitiesOk
 
   // ---- attacks of opportunity (Combat Reflexes; Superior Combat Reflexes = better of the two, house rule #12)
   const aooParts: Part[] = [{ sourceId: 'base', label: i18n('Base', 'Base'), value: 1, bonusType: 'base', source: src('combat/attacksOfOpportunity.htm') }]
   let aooBest = 1
   if (hasFeat('combat-reflexes')) aooBest = Math.max(aooBest, 1 + Math.max(0, mod('dex')))
-  if (wmLevel >= 5) aooBest = Math.max(aooBest, mod('dex') + mod('wis'))
+  if (wmActive && wmLevel >= 5) aooBest = Math.max(aooBest, mod('dex') + mod('wis'))
   if (aooBest > 1)
     aooParts.push({
       sourceId: 'combat-reflexes',
-      label: wmLevel >= 5 && mod('dex') + mod('wis') >= 1 + mod('dex')
-        ? i18n('Superior Combat Reflexes (Dex + Wis)', 'Attaques réflexes supérieures (Dex + Sag)')
+      label: wmActive && wmLevel >= 5 && mod('dex') + mod('wis') >= 1 + mod('dex')
+        ? i18n('Superior Combat Reflexes (Dex + Wis)', 'Attaques réflexes suprêmes (Dex + Sag)')
         : i18n('Combat Reflexes (Dex)', 'Attaques réflexes (Dex)'),
       value: aooBest - 1,
       bonusType: 'untyped',
@@ -438,7 +467,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const ranks = ranksByKey[key] ?? 0
     const parts: Part[] = []
     if (ranks) parts.push({ sourceId: 'ranks', label: i18n('Ranks', 'Degrés de maîtrise'), value: Math.floor(ranks), bonusType: 'base', source: src('skills/skillsSummary.htm') })
-    parts.push(abilityPart(def.ability))
+    if (!def.noAbility) parts.push(abilityPart(def.ability))
+    // Jump: −6 per 10 ft of speed below 30 ft, +4 per 10 ft above (armor, load and spells count:
+    // https://www.d20srd.org/srd/skills/jump.htm). Counted per full 10 ft.
+    if (id === 'jump' && speedFt !== 30) {
+      const steps = Math.floor(Math.abs(speedFt - 30) / 10)
+      const value = speedFt < 30 ? -6 * steps : 4 * steps
+      if (value)
+        parts.push({ sourceId: 'jump-speed', label: { en: `Speed ${speedFt} ft`, fr: `Vitesse ${(speedFt / 5) * 1.5} m` }, value, bonusType: 'base', source: src('skills/jump.htm') })
+    }
     if (def.armorCheck && armorCheckPenalty.total)
       parts.push({ sourceId: 'acp', label: i18n('Armor check penalty', "Malus d'armure aux tests"), value: armorCheckPenalty.total * def.armorCheck, bonusType: 'base', source: src('equipment/armor.htm#armorCheckPenalty') })
     for (const syn of rules.synergies) {
@@ -477,11 +514,24 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const weapon = item && rules.weapons.get(item.refId)
     if (!item || !weapon) continue
     const melee = weapon.kind === 'melee'
+    // Ranged families (https://www.d20srd.org/srd/combat/combatStatistics.htm#strengthBonus): thrown weapons and slings
+    // add Str to damage; bows take only a Str penalty (composite ratings not modeled); crossbows ignore Str.
+    const family = /crossbow/.test(weapon.id)
+      ? 'crossbow'
+      : /bow/.test(weapon.id)
+        ? 'bow'
+        : weapon.id === 'sling'
+          ? 'sling'
+          : melee
+            ? 'melee'
+            : 'thrown'
     const enh = item.enhancement ?? 0
     const masterwork = item.masterwork || enh > 0
     const choiceFeat = (id: string) => feats.find((f) => f.featId === id && f.choice === weapon.id)
-    const weaponOfChoice = wmLevel > 0 && char.weaponOfChoice === weapon.id && masterwork
+    const weaponOfChoice = wmActive && char.weaponOfChoice === weapon.id && masterwork
     const name: I18n = item.name ?? { en: `${weapon.name.en}${enh ? ` +${enh}` : ''}`, fr: `${weapon.name.fr}${enh ? ` +${enh}` : ''}` }
+    // A one-handed weapon can be gripped two-handed (Str x1.5, Power Attack x2).
+    const twoHands = weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid))
 
     const atk: Part[] = [...tableSum('bab'), abilityPart(melee ? 'str' : 'dex')]
     if (enh > 0) atk.push({ sourceId: `enh:${uid}`, label: i18n(`Enhancement +${enh}`, `Altération +${enh}`), value: enh, bonusType: 'enhancement', source: src('magicItems/magicWeapons.htm') })
@@ -492,37 +542,53 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       if (f && def) atk.push({ sourceId: `feat:${featId}`, label: def.name, value: 1, bonusType: 'untyped', source: def.source })
     }
     if (weaponOfChoice && wmLevel >= 3)
-      atk.push({ sourceId: 'wm:superior-weapon-focus', label: i18n('Superior Weapon Focus', 'Arme de prédilection supérieure'), value: 1, bonusType: 'untyped', source: { book: 'Sword and Fist', page: 39 } })
-    const powerAttackAllowed = melee && weapon.handedness !== 'light' && weapon.handedness !== 'unarmed' && hasFeat('power-attack')
-    if (powerAttackAllowed && toggles.powerAttack > 0)
+      atk.push({ sourceId: 'wm:superior-weapon-focus', label: i18n('Superior Weapon Focus', 'Arme de prédilection suprême'), value: 1, bonusType: 'untyped', source: { book: 'Sword and Fist', page: 39 } })
+    // Nonproficient weapon: -4 (https://www.d20srd.org/srd/combat/combatModifiers.htm).
+    if (!profWeapons.has(weapon.category) && !profWeapons.has(weapon.id))
+      atk.push({ sourceId: 'nonproficient-weapon', label: i18n('Not proficient with the weapon', 'Arme non maîtrisée'), value: -4, bonusType: 'untyped', source: src('equipment/weapons.htm#weaponCategories') })
+    // Nonproficient armor or shield: its armor check penalty applies to attack rolls (rulings R24).
+    for (const x of [armor, shield])
+      if (x && !profArmor.has(x.def.category) && itemAcp(x))
+        atk.push({ sourceId: `nonproficient:${x.item.uid}`, label: { en: `Not proficient: ${x.def.name.en}`, fr: `Non maîtrisé : ${x.def.name.fr}` }, value: itemAcp(x), bonusType: 'untyped', source: src('equipment/armor.htm#armorProficiency') })
+    // Tower shield: -2 on attack rolls (https://www.d20srd.org/srd/equipment/armor.htm#towerShield).
+    if (shield?.def.category === 'tower')
+      atk.push({ sourceId: 'tower-shield', label: i18n('Tower shield', 'Pavois'), value: -2, bonusType: 'untyped', source: src('equipment/armor.htm#towerShield') })
+    // Power Attack: the attack penalty applies to every melee attack; the damage bonus doesn't apply to light
+    // weapons, except unarmed strikes (https://www.d20srd.org/srd/feats.htm#powerAttack).
+    const powerAttackOn = melee && hasFeat('power-attack') && toggles.powerAttack > 0
+    const powerAttackAllowed = melee && hasFeat('power-attack') && (weapon.handedness !== 'light' || weapon.id.startsWith('unarmed'))
+    if (powerAttackOn)
       atk.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: -toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
-    if (melee && toggles.combatExpertise > 0)
+    if (melee && hasFeat('combat-expertise') && toggles.combatExpertise > 0)
       atk.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: -toggles.combatExpertise, bonusType: 'untyped', source: src('feats.htm#combatExpertise') })
-    if (melee && toggles.fightingDefensively)
+    // Fighting defensively: -4 on all attacks (https://www.d20srd.org/srd/combat/actionsInCombat.htm#fightDefensively).
+    if (toggles.fightingDefensively)
       atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
-    atk.push(...partsFor([melee ? 'attack.melee' : 'attack.ranged', 'attack.all']))
+    atk.push(...partsFor([melee ? 'attack.melee' : 'attack.ranged', 'attack.all', 'attack.weapon']))
     const attack = resolve(atk)
-    const iterative = iterativeBab.map((b) => attack.total - (bab.total - b))
+    // Full attack: iteratives, plus one extra attack at full BAB from haste-like effects.
+    const extra = sumTarget('attack.extra') > 0 ? [attack.total] : []
+    const iterative = [...extra, ...iterativeBab.map((b) => attack.total - (bab.total - b))]
 
-    // Damage: Str ×1.5 two-handed (bonus only), full Str penalty; bows: penalty only.
     const dmg: Part[] = []
     const strMod = mod('str')
     let strDmg = strMod
-    if (melee && weapon.handedness === 'twoHanded' && strMod > 0) strDmg = Math.floor(strMod * 1.5)
-    if (!melee && strMod > 0) strDmg = 0
+    if (family === 'melee' && twoHands && strMod > 0) strDmg = Math.floor(strMod * 1.5)
+    if (family === 'bow') strDmg = Math.min(0, strMod)
+    if (family === 'crossbow') strDmg = 0
     if (strDmg !== 0)
-      dmg.push({ ...abilityPart('str', strDmg), label: weapon.handedness === 'twoHanded' && strMod > 0 ? i18n('Strength ×1.5 (two-handed)', 'Force ×1,5 (à deux mains)') : ABILITY_NAMES.str })
+      dmg.push({ ...abilityPart('str', strDmg), label: family === 'melee' && twoHands && strMod > 0 ? i18n('Strength ×1.5 (two hands)', 'Force ×1,5 (à deux mains)') : ABILITY_NAMES.str })
     if (enh > 0) dmg.push({ sourceId: `enh:${uid}`, label: i18n(`Enhancement +${enh}`, `Altération +${enh}`), value: enh, bonusType: 'enhancement', source: src('magicItems/magicWeapons.htm') })
     for (const [featId, value] of [['weapon-specialization', 2], ['greater-weapon-specialization', 2]] as const) {
       const def = rules.feats.get(featId)
       if (choiceFeat(featId) && def) dmg.push({ sourceId: `feat:${featId}`, label: def.name, value, bonusType: 'untyped', source: def.source })
     }
     const staticBeforePa = resolve(dmg).total
-    if (powerAttackAllowed && toggles.powerAttack > 0) {
-      const factor = weapon.handedness === 'twoHanded' ? 2 : 1
+    if (powerAttackOn && powerAttackAllowed) {
+      const factor = twoHands ? 2 : 1
       dmg.push({ sourceId: 'power-attack', label: i18n(`Power Attack (×${factor})`, `Attaque en puissance (×${factor})`), value: toggles.powerAttack * factor, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
     }
-    dmg.push(...partsFor([melee ? 'damage.melee' : 'damage.ranged', 'damage.all']))
+    dmg.push(...partsFor([melee ? 'damage.melee' : 'damage.ranged', 'damage.all', 'damage.weapon']))
     const damage = resolve(dmg)
 
     // Critical: Improved Critical doubles the range; Ki critical adds +2 after it (Sword and Fist p.39).
@@ -573,8 +639,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     flags,
     weaponMaster: {
       level: wmLevel,
-      kiDamagePerDay: wmLevel,
-      increasedMultiplierPerDay: wmRow && wmLevel >= 2 ? Math.floor(wmLevel / 2) : 0,
+      active: wmActive,
+      kiDamagePerDay: wmActive ? wmLevel : 0,
+      increasedMultiplierPerDay: wmActive && wmRow && wmLevel >= 2 ? Math.floor(wmLevel / 2) : 0,
     },
     armor,
     shield,

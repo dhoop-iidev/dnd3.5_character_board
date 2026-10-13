@@ -49,8 +49,15 @@ export interface SkillBudget {
 export function skillBudget(char: Character, rules: Rules, level: number): SkillBudget {
   const entry = char.levels[level - 1]
   const cls = rules.classes.get(entry.classId)
-  // Int from permanent scores: temporary effects and ability damage never change skill points (rulings q3).
-  const sheet = compute({ ...char, activeEffects: [], abilityDamage: {} }, rules, { level })
+  // Int from permanent scores: temporary effects, ability damage and enhancement bonuses (headband of intellect)
+  // never give skill points; inherent bonuses and drain do (rulings q3,
+  // https://www.d20srd.org/srd/magicItems/wondrousItems.htm#headbandofIntellect).
+  const intEnhancement = (item: Character['inventory'][number]) => {
+    const mods = item.kind === 'magic' ? rules.magicItems.get(item.refId)?.modifiers : item.custom?.modifiers
+    return (mods ?? []).some((m) => m.target === 'ability.int' && m.bonusType === 'enhancement')
+  }
+  const base = { ...char, activeEffects: [], abilityDamage: {}, inventory: char.inventory.filter((i) => !intEnhancement(i)) }
+  const sheet = compute(base, rules, { level })
   const intMod = sheet.abilities.int.mod
   let available = Math.max(1, (cls?.skillPoints ?? 0) + intMod) * (level === 1 ? 4 : 1)
   if (char.identity.race === 'human') available += level === 1 ? 4 : 1

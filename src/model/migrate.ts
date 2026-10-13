@@ -22,6 +22,8 @@ export function migrate(raw: unknown): Character {
     c.annotations ??= {}
     c.images ??= {}
     c.identity.languages ??= ['Commun']
+    c.identity.title ??= ''
+    c.identity.motto ??= ''
     c.schemaVersion = 3
   }
   return c

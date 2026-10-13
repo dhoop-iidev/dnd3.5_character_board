@@ -94,7 +94,9 @@ Source: https://www.d20srd.org/srd/equipment/weapons.htm#lightOneHandedandTwoHan
 | One-handed, off hand | ×½ | |
 | One-handed, two hands | ×1½ | |
 | Two-handed | ×1½ | arme à deux mains |
-| Bow (non-composite), sling | penalty only (bonus never; sling: see SRD) | |
+| Bow (non-composite) | penalty only (bonus never) | |
+| Sling, thrown weapons | full Str modifier ("melee or thrown weapon, including a sling", combatStatistics.htm#strengthBonus) | corrected 2026-10-13 (review m3) |
+| Crossbow | no Str modifier | |
 
 Fractions round down (https://www.d20srd.org/srd/theBasics.htm#roundingFractions). Example: Str 18 (+4) with the greatsword → +6 damage; Str 22 (+6, bull's strength) → +9.
 

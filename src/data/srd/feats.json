@@ -1091,7 +1091,11 @@
     "fighterBonus": false,
     "multiple": true,
     "choice": "school",
-    "prereq": {},
+    "prereq": {
+      "feats": [
+        "spell-focus:$choice"
+      ]
+    },
     "summary": {
       "en": "Add +1 to the Difficulty Class for all saving throws against spells from the school of magic you select.",
       "fr": "Le degré de difficulté (DD) des jets de sauvegarde contre les sorts de l’école choisie lancés par le personnage augmente de +1."

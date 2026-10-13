@@ -711,6 +711,7 @@
     "ability": "int",
     "trainedOnly": true,
     "armorCheck": 0,
+    "noAbility": true,
     "hasSubtypes": false,
     "text": {
       "en": "<p>The Speak Language skill doesn't work like other skills. Languages work as follows.</p><p><p/> <p><b>Action:</b> Not applicable.</p><p><b>Try Again:</b> Not applicable. There are no Speak Language checks to fail.</p>",

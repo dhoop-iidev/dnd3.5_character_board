@@ -63,6 +63,7 @@
 <header class="top">
   <div class="who">
     <h1>{c.identity.name}</h1>
+    {#if c.identity.title}<p class="title">{c.identity.title}</p>{/if}
     <p>
       {tr({ en: 'Human', fr: 'Humain' })} · {classSummary} · {tr(UI.level)} {view.sheet.characterLevel}
       · {c.identity.deity}
@@ -285,5 +286,10 @@
       padding: 0 0.6rem;
       font-size: 1.05rem;
     }
+  }
+  .title {
+    margin: 0.1rem 0 0;
+    font-style: italic;
+    font-size: 1.05rem;
   }
 </style>

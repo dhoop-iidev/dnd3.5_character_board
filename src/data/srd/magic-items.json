@@ -6332,6 +6332,11 @@
         "target": "speed",
         "bonusType": "enhancement",
         "value": 30
+      },
+      {
+        "target": "attack.extra",
+        "bonusType": "untyped",
+        "value": 1
       }
     ],
     "duration": {

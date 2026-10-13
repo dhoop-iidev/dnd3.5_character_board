@@ -431,7 +431,8 @@ POTION_MODS = {
     "foxs-cunning": [("ability.int", "enhancement", 4)], "owls-wisdom": [("ability.wis", "enhancement", 4)],
     "mage-armor": [("ac", "armor", 4)], "heroism": [("attack.all", "morale", 2), ("save.all", "morale", 2), ("skill.all", "morale", 2)],
     "jump": [("skill.jump", "enhancement", 10)],
-    "haste": [("attack.all", "untyped", 1), ("ac", "dodge", 1), ("save.ref", "dodge", 1), ("speed", "enhancement", 30)],
+    # attack.extra: one extra attack at full BAB on a full attack (haste, https://www.d20srd.org/srd/spells/haste.htm).
+    "haste": [("attack.all", "untyped", 1), ("ac", "dodge", 1), ("save.ref", "dodge", 1), ("speed", "enhancement", 30), ("attack.extra", "untyped", 1)],
 }
 UNIT_FR = {"round": ("round", "rounds"), "minute": ("minute", "minutes"), "hour": ("heure", "heures"), "day": ("jour", "jours")}
 

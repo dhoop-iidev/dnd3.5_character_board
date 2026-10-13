@@ -91,7 +91,7 @@ CHECK (display): a trained-only skill with 0 ranks shows "not usable untrained" 
 - Each skill header shows "Armor Check Penalty" when it applies. — https://www.d20srd.org/srd/skills/skillDescriptions.htm#armorCheckPenalty
 
 CHECK (formula): `ACP = armorACP + shieldACP` (how load and armor penalties combine: see the equipment/load docs) applied to the 8 skills; ×2 for Swim — https://www.d20srd.org/srd/equipment/armor.htm#armorCheckPenalty
-Baseline: full plate −5 (magic = masterwork, −1 better) → Climb 4 + 4 − 5 = +3, Jump 2 + 4 − 5 = +1.
+Baseline: full plate −5 (magic = masterwork, −1 better) → Climb 4 + 4 − 5 = +3, Jump 2 + 4 − 5 − 6 (speed 20 ft: −6 per 10 ft below 30, https://www.d20srd.org/srd/skills/jump.htm) = **−5** (corrected 2026-10-13, um_actually review M1).
 
 ## 7. Synergy (synergie)
 

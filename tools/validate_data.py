@@ -80,7 +80,7 @@ def source(where, s):
 
 TARGET_RE = re.compile(
     r"^(ability\.(str|dex|con|int|wis|cha)|abilityDamage\.\w+|abilityDrain\.\w+|attack\.(melee|ranged|all|choice|weapon)"
-    r"|damage\.(melee|ranged|all|choice|weapon)|ac|ac\.noDex|ac\.armor|ac\.shield|save\.(fort|ref|will|all)|initiative"
+    r"|attack\.extra|damage\.(melee|ranged|all|choice|weapon)|ac|ac\.noDex|ac\.armor|ac\.shield|save\.(fort|ref|will|all)|initiative"
     r"|skill\.[a-z-]+|check\.(str|dex|con|int|wis|cha)|speed|speed\.half|hp\.temp|hp\.max)$")
 EXTENDED_TARGETS = {"attack.choice", "damage.choice", "attack.weapon", "damage.weapon", "ac.armor", "ac.shield", "skill.choice"}
 
@@ -156,7 +156,7 @@ def main():
     for s in skills:
         w = f"skill {s['id']}"
         req = {"id", "name", "ability", "trainedOnly", "armorCheck", "hasSubtypes", "text", "source"}
-        if not req <= set(s) or set(s) - req - {"homebrew"}:
+        if not req <= set(s) or set(s) - req - {"homebrew", "noAbility"}:
             err(w, f"keys {set(s) ^ req}")
         i18n(w + ".name", s["name"]); i18n(w + ".text", s["text"], True); source(w, s["source"])
         if s["ability"] not in ABILITIES or s["armorCheck"] not in (0, 1, 2):
