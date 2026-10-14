@@ -37,6 +37,10 @@ export interface ItemInstance {
   masterwork?: boolean
   /** Magic enhancement bonus (+1..+5) of a weapon, armor or shield. Implies masterwork. */
   enhancement?: number
+  /** Special material id (src/data/custom/materials.json), e.g. "adamantine". */
+  material?: string
+  /** Magic special abilities ids (src/data/srd/item-properties.json), e.g. ["keen", "flaming"]. */
+  properties?: string[]
   /** Custom items only. */
   custom?: { weightLb: number; costGp: number; text: I18n; modifiers?: ModifierSpec[]; slot?: Slot }
   note?: string
@@ -130,6 +134,7 @@ export interface Character {
   /** Campaign notes attached to any popup (key: "feat:dodge", "item:<uid>", "stat:AC"…). */
   annotations: Record<string, string>
   /** Coat of arms and face drawing, as resized data URLs (exported with the character). */
-  images: { coatOfArms?: string; face?: string }
+  /** doll: paper-doll picture (undefined = built-in knight illustration, null = removed). */
+  images: { coatOfArms?: string; face?: string; doll?: string | null }
   settings: { lang: Lang }
 }

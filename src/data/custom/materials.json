@@ -1,0 +1,120 @@
+[
+  {
+    "id": "adamantine",
+    "name": { "en": "Adamantine", "fr": "Adamantium" },
+    "appliesTo": ["weapon", "ammunition", "armor", "shield"],
+    "price": { "weapon": 3000, "ammunition": 60, "light": 5000, "medium": 10000, "heavy": 15000 },
+    "effects": {
+      "bypassDR": "adamantine",
+      "armorDR": { "light": "1/—", "medium": "2/—", "heavy": "3/—" },
+      "masterwork": true,
+      "notes": {
+        "en": "Weapons ignore hardness below 20 when sundering or attacking objects. Always masterwork (cost included): weapons and ammunition get +1 on attack rolls, armor check penalty 1 lower. Ammunition price is per missile. Only items normally made of metal (an arrow yes, a quarterstaff no). Shields: the English SRD gives no price and no special benefit (the French SRD prices them as a weapon, +3,000 gp). Hardness 20, 40 hp per inch; steel items made of adamantine get one-third more hit points.",
+        "fr": "Les armes ignorent une solidité inférieure à 20 pour briser une arme ou un objet. Toujours de maître (coût inclus) : armes et munitions +1 aux jets d’attaque, malus d’armure aux tests réduit de 1. Prix des munitions à la pièce. Seulement pour les objets normalement métalliques (une flèche oui, un bâton non). Boucliers : aucun avantage particulier ; le DRS les facture comme une arme (+3 000 po), le SRD anglais ne donne pas de prix. Solidité 20, 40 pr par 2,5 cm ; les objets en acier faits en adamantium ont un tiers de points de résistance en plus."
+      }
+    },
+    "text": {
+      "en": "<p><b>Adamantine.</b> An ultrahard metal. Adamantine weapons bypass hardness under 20 and the damage reduction of creatures vulnerable to adamantine (DR x/adamantine). Adamantine armor grants damage reduction 1/— (light), 2/— (medium) or 3/— (heavy).</p><p>Cost: ammunition +60 gp each, weapon +3,000 gp, light armor +5,000 gp, medium +10,000 gp, heavy +15,000 gp. Always masterwork, cost included.</p>",
+      "fr": "<p><b>Adamantium.</b> Métal d’une dureté exceptionnelle. Les armes en adamantium ignorent une solidité inférieure à 20 et la réduction des dégâts des créatures vulnérables à l’adamantium (RD x/adamantium). Une armure en adamantium confère une réduction des dégâts de 1/– (légère), 2/– (intermédiaire) ou 3/– (lourde).</p><p>Coût : munitions +60 po pièce, arme +3 000 po, armure légère +5 000 po, intermédiaire +10 000 po, lourde +15 000 po. Toujours de maître, coût inclus.</p>"
+    },
+    "source": { "srdUrl": "https://www.d20srd.org/srd/specialMaterials.htm#adamantine", "frRef": "DRS 17 (matériaux spéciaux)" }
+  },
+  {
+    "id": "alchemical-silver",
+    "name": { "en": "Alchemical silver", "fr": "Argent alchimique" },
+    "appliesTo": ["weapon", "ammunition"],
+    "price": { "weapon": 90, "ammunition": 2 },
+    "effects": {
+      "damage": -1,
+      "bypassDR": "silver",
+      "notes": {
+        "en": "−1 on damage rolls (minimum 1 damage). Price by weapon: ammunition +2 gp, light weapon +20 gp, one-handed weapon (or one head of a double weapon) +90 gp, two-handed weapon (or both heads) +180 gp. Only on steel weapons; not on rare metals (adamantine, cold iron, mithral). Hardness 8, 10 hp per inch.",
+        "fr": "−1 aux jets de dégâts (minimum 1 point de dégâts). Prix selon l’arme : munitions +2 po, arme légère +20 po, arme à une main (ou une tête d’une arme double) +90 po, arme à deux mains (ou les deux têtes) +180 po. Seulement sur les armes en acier ; pas sur les métaux rares (adamantium, fer froid, mithral). Solidité 8, 10 pr par 2,5 cm."
+      }
+    },
+    "text": {
+      "en": "<p><b>Alchemical silver.</b> Silver bonded to a steel weapon by metallurgy and alchemy, so that it overcomes the damage reduction of creatures such as lycanthropes (DR x/silver). A silvered weapon takes a −1 penalty on damage rolls (minimum 1).</p><p>Cost: ammunition +2 gp, light weapon +20 gp, one-handed weapon +90 gp, two-handed weapon +180 gp.</p>",
+      "fr": "<p><b>Argent alchimique.</b> Argent lié à une arme en acier par un procédé mêlant métallurgie et alchimie, pour ignorer la réduction des dégâts de créatures comme les lycanthropes (RD x/argent). L’arme subit un malus de −1 aux jets de dégâts (minimum 1).</p><p>Coût : munitions +2 po, arme légère +20 po, arme à une main +90 po, arme à deux mains +180 po.</p>"
+    },
+    "source": { "srdUrl": "https://www.d20srd.org/srd/specialMaterials.htm#silverAlchemical", "frRef": "DRS 17 (matériaux spéciaux)" }
+  },
+  {
+    "id": "cold-iron",
+    "name": { "en": "Cold iron", "fr": "Fer froid" },
+    "appliesTo": ["weapon", "ammunition"],
+    "price": { "weaponMultiplier": 2 },
+    "effects": {
+      "bypassDR": "cold iron",
+      "notes": {
+        "en": "Weapon costs twice the normal price; any magical enhancement costs 2,000 gp more. A double weapon with only one head of cold iron costs +50%. Only items with metal parts (an arrow yes, a quarterstaff no). Hardness 10, 30 hp per inch.",
+        "fr": "L’arme coûte deux fois le prix normal ; tout enchantement magique coûte 2 000 po de plus. Une arme double dont une seule tête est en fer froid coûte +50 %. Seulement pour les objets à parties métalliques (une flèche oui, un bâton non). Solidité 10, 30 pr par 2,5 cm."
+      }
+    },
+    "text": {
+      "en": "<p><b>Cold iron.</b> Iron mined deep underground and forged at a low temperature, effective against fey: cold iron weapons overcome DR x/cold iron.</p><p>Cost: twice the price of the normal weapon, and +2,000 gp to any magical enhancement.</p>",
+      "fr": "<p><b>Fer froid.</b> Fer extrait des profondeurs et forgé à basse température, efficace contre les fées : les armes en fer froid ignorent la RD x/fer froid.</p><p>Coût : deux fois le prix de l’arme normale, et +2 000 po pour tout enchantement magique.</p>"
+    },
+    "source": { "srdUrl": "https://www.d20srd.org/srd/specialMaterials.htm#ironCold", "frRef": "DRS 17 (matériaux spéciaux)" }
+  },
+  {
+    "id": "darkwood",
+    "name": { "en": "Darkwood", "fr": "Ébénite" },
+    "appliesTo": ["weapon", "ammunition", "shield"],
+    "price": { "perLb": 10 },
+    "effects": {
+      "acpReduction": 2,
+      "weightMultiplier": 0.5,
+      "masterwork": true,
+      "notes": {
+        "en": "Price = masterwork version + 10 gp per pound of the normal item's weight. Shields only: armor check penalty 2 lower than an ordinary shield of that type (this includes the masterwork reduction). Only items made wholly or mostly of wood (bow, arrow, spear); a battleaxe or a mace gains nothing. Hardness 5, 10 hp per inch.",
+        "fr": "Prix = version de maître + 10 po par livre (500 g) du poids de l’objet normal. Boucliers seulement : malus d’armure aux tests réduit de 2 par rapport à un bouclier ordinaire du même type (réduction de maître comprise). Seulement pour les objets entièrement ou surtout en bois (arc, flèche, lance) ; une hache d’armes ou une masse n’y gagne rien. Solidité 5, 10 pr par 2,5 cm."
+      }
+    },
+    "text": {
+      "en": "<p><b>Darkwood.</b> A rare magic wood, as hard as normal wood but very light. A darkwood item is masterwork and weighs half as much as a normal wooden item of that type. A darkwood shield's armor check penalty is 2 lower than an ordinary shield's.</p><p>Cost: masterwork price + 10 gp per pound of the original weight.</p>",
+      "fr": "<p><b>Ébénite.</b> Bois magique rare, aussi dur que le bois normal mais très léger. Un objet en ébénite est de maître et pèse deux fois moins qu’un objet en bois du même type. Le malus d’armure aux tests d’un bouclier en ébénite est réduit de 2 par rapport à un bouclier ordinaire.</p><p>Coût : prix de maître + 10 po par livre (500 g) du poids d’origine.</p>"
+    },
+    "source": { "srdUrl": "https://www.d20srd.org/srd/specialMaterials.htm#darkwood", "frRef": "DRS 17 (matériaux spéciaux)" }
+  },
+  {
+    "id": "dragonhide",
+    "name": { "en": "Dragonhide", "fr": "Peau de dragon" },
+    "appliesTo": ["armor", "shield"],
+    "price": {},
+    "effects": {
+      "masterwork": true,
+      "notes": {
+        "en": "Costs double the price of masterwork armor of that type (it takes no longer to make). Not metal: druids can wear it without penalty. One dragon yields one suit of hide armor for a creature one size smaller, or banded mail (two sizes smaller), half-plate (three) or breastplate / full plate (four), plus a shield if the dragon is Large or larger. Hardness 10, 10 hp per inch.",
+        "fr": "Coûte deux fois le prix de l’armure de maître du même type (pas plus longue à fabriquer). Non métallique : les druides peuvent la porter sans pénalité. Un dragon fournit une armure de peau pour une créature d’une taille de moins, ou une crevice (deux tailles de moins), une armure à plaques (trois) ou une cuirasse / un harnois (quatre), plus un bouclier si le dragon est de taille G ou plus. Solidité 10, 10 pr par 2,5 cm."
+      }
+    },
+    "text": {
+      "en": "<p><b>Dragonhide.</b> Armorsmiths can make masterwork armor or shields from a dragon's hide. Dragonhide armor is not metal, so druids can wear it.</p><p>Cost: double the price of masterwork armor of that type.</p>",
+      "fr": "<p><b>Peau de dragon.</b> Les forgerons peuvent fabriquer des armures ou des boucliers de maître en peau de dragon. Ces armures ne sont pas métalliques : les druides peuvent les porter.</p><p>Coût : deux fois le prix d’une armure de maître du même type.</p>"
+    },
+    "source": { "srdUrl": "https://www.d20srd.org/srd/specialMaterials.htm#dragonhide", "frRef": "DRS 17 (matériaux spéciaux)" }
+  },
+  {
+    "id": "mithral",
+    "name": { "en": "Mithral", "fr": "Mithral" },
+    "appliesTo": ["weapon", "armor", "shield"],
+    "price": { "light": 1000, "medium": 4000, "heavy": 9000, "shield": 1000, "perLb": 500 },
+    "effects": {
+      "armorCategoryShift": 1,
+      "maxDexBonus": 2,
+      "acpReduction": 3,
+      "arcaneFailureReduction": 10,
+      "weightMultiplier": 0.5,
+      "masterwork": true,
+      "notes": {
+        "en": "Armor counts one category lighter for movement and other limitations (heavy → medium, medium → light, light stays light), not for proficiency. Armor and shields: arcane spell failure −10%, max Dex bonus +2, armor check penalty −3 (minimum 0). Weighs half. Weapons and other items: +500 gp per pound; a mithral weapon keeps its size category and handedness. Always masterwork (cost included). Only items primarily of metal (a longsword yes, a scythe no). Hardness 15, 30 hp per inch.",
+        "fr": "L’armure compte comme d’une catégorie plus légère pour le déplacement et les autres limitations (lourde → intermédiaire, intermédiaire → légère, légère reste légère), pas pour la formation. Armures et boucliers : échec des sorts profanes −10 %, bonus de Dextérité maximal +2, malus d’armure aux tests −3 (minimum 0). Pèse moitié moins. Armes et autres objets : +500 po par livre (+1 000 po/kg) ; une arme en mithral garde sa catégorie de taille et son maniement. Toujours de maître (coût inclus). Seulement pour les objets surtout métalliques (une épée longue oui, une faux non). Solidité 15, 30 pr par 2,5 cm."
+      }
+    },
+    "text": {
+      "en": "<p><b>Mithral.</b> A very rare silvery metal, lighter than iron but just as hard. Mithral armor is one category lighter for movement and other limitations; armor and shields made of mithral have arcane spell failure −10%, maximum Dex bonus +2 and armor check penalty −3 (minimum 0). Mithral items weigh half as much.</p><p>Cost: light armor +1,000 gp, medium +4,000 gp, heavy +9,000 gp, shield +1,000 gp, other items +500 gp per pound. Always masterwork, cost included.</p>",
+      "fr": "<p><b>Mithral.</b> Métal argenté très rare, plus léger que le fer mais aussi dur. Une armure en mithral compte comme d’une catégorie plus légère pour le déplacement et les autres limitations ; armures et boucliers en mithral : échec des sorts profanes −10 %, bonus de Dextérité maximal +2, malus d’armure aux tests −3 (minimum 0). Les objets en mithral pèsent deux fois moins.</p><p>Coût : armure légère +1 000 po, intermédiaire +4 000 po, lourde +9 000 po, bouclier +1 000 po, autre objet +1 000 po/kg. Toujours de maître, coût inclus.</p>"
+    },
+    "source": { "srdUrl": "https://www.d20srd.org/srd/specialMaterials.htm#mithral", "frRef": "DRS 17 (matériaux spéciaux)" }
+  }
+]

@@ -452,6 +452,7 @@ def build_classes(feats):
 def main() -> None:
     import build_equipment
     import build_magic
+    import build_properties
 
     print("Building SRD data into", OUT_SRD)
     counts = {}
@@ -468,6 +469,7 @@ def main() -> None:
     counts["armor.json"] = len(armor)
     counts["gear.json"] = len(build_equipment.build_gear(ammo, extras))
     counts["magic-items.json"] = len(build_magic.build_magic_items())
+    counts["item-properties.json"] = len(build_properties.build_item_properties())
     counts["carrying-capacity.json"] = len(build_magic.build_carrying_capacity())
 
     FR.write()

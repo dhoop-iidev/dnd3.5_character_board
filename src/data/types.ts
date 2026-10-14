@@ -248,3 +248,63 @@ export interface CarryingCapacityRow {
   medium: Weight
   heavy: Weight
 }
+
+/** Magic weapon / armor special ability (flaming, keen, vorpal, fortification…), from the SRD magic weapons/armor tables. */
+export interface ItemPropertyDef {
+  id: string
+  name: I18n
+  appliesTo: ('melee' | 'ranged' | 'ammunition' | 'armor' | 'shield')[]
+  /** Price as an enhancement-bonus equivalent (+1…+5); 0 when the price is a flat amount. */
+  bonusEquivalent: number
+  flatPriceGp?: number
+  /** The item must have at least a +1 enhancement bonus (SRD rule for special abilities). */
+  requiresEnhancement: boolean
+  effects: {
+    /** Extra damage dice on every hit (flaming 1d6 fire) or only under a condition (holy vs evil). */
+    extraDamage?: { dice: string; type: I18n; condition?: I18n }[]
+    /** Burst: extra dice on a confirmed critical, per point of multiplier above ×1 (flaming burst +1d10 fire). */
+    critExtraDamage?: { dice: string; type: I18n }
+    /** Doubles the threat range (does not stack with Improved Critical). */
+    keen?: boolean
+    /** One extra attack at full BAB on a full attack (speed). */
+    extraAttack?: boolean
+    /** Situational attack/damage bonus (bane: +2 vs the chosen type). */
+    attackBonus?: { value: number; condition: I18n }
+    damageBonus?: { value: number; condition: I18n }
+    /** Modifiers applied while the armor/shield is worn (rare). */
+    modifiers?: ModifierSpec[]
+    /** Effects that are only described (vorpal, defending, spell storing…). */
+    notes?: I18n
+  }
+  text: I18n
+  source: Source
+}
+
+/** Special material (adamantine, mithral, cold iron, alchemical silver, darkwood…), SRD "Special Materials". */
+export interface MaterialDef {
+  id: string
+  name: I18n
+  appliesTo: ('weapon' | 'ammunition' | 'armor' | 'shield')[]
+  /** Extra cost in gp; for armor by category. `weaponMultiplier`: base price multiplier (cold iron ×2). */
+  price: { weapon?: number; ammunition?: number; light?: number; medium?: number; heavy?: number; shield?: number; weaponMultiplier?: number; perLb?: number }
+  effects: {
+    /** Weapon damage modifier (alchemical silver −1, minimum 1). */
+    damage?: number
+    /** Damage reduction this material overcomes, e.g. "adamantine", "cold iron", "silver". */
+    bypassDR?: string
+    /** Armor: number of categories lighter (mithral: 1) — for movement and other limitations, not proficiency. */
+    armorCategoryShift?: number
+    maxDexBonus?: number
+    /** Armor check penalty reduced by this amount (positive number). */
+    acpReduction?: number
+    arcaneFailureReduction?: number
+    weightMultiplier?: number
+    /** Armor gains damage reduction by category (adamantine: 1/—, 2/—, 3/—). */
+    armorDR?: { light?: string; medium?: string; heavy?: string }
+    /** Always masterwork (adamantine, mithral, darkwood). */
+    masterwork?: boolean
+    notes?: I18n
+  }
+  text: I18n
+  source: Source
+}

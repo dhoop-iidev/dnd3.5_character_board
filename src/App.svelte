@@ -1,6 +1,7 @@
 <script lang="ts">
   import { rules } from './data/rules'
   import { UI } from './i18n/ui'
+  import { levelForXp } from './engine/progression'
   import { app, tr, view } from './state.svelte'
   import Combat from './ui/panes/Combat.svelte'
   import Equipment from './ui/panes/Equipment.svelte'
@@ -55,7 +56,10 @@
   const nextTheme: Record<Theme, Theme> = { auto: 'light', light: 'dark', dark: 'auto' }
   const themeIcon: Record<Theme, string> = { auto: '◐', light: '☀', dark: '☾' }
 
-  const errors = $derived(view.warnings.filter((w) => w.severity !== 'info').length)
+  // Badge: only choices the player has to make (pending level-up included), not informative warnings.
+  const errors = $derived(
+    view.warnings.filter((w) => w.actionable).length + (levelForXp(app.character.xp) > app.character.levels.length ? 1 : 0),
+  )
 </script>
 
 <svelte:window onhashchange={() => (tab = fromHash())} />
@@ -88,7 +92,7 @@
   {#each TABS as t (t.id)}
     <button class:active={tab === t.id} onclick={() => (tab = t.id)}>
       {tr(t.label)}
-      {#if t.id === 'general' && errors}<span class="count">{errors}</span>{/if}
+      {#if t.id === 'general' && errors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{errors}</span>{/if}
     </button>
   {/each}
 </nav>

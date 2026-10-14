@@ -119,3 +119,49 @@ describe('nitpicks', () => {
     expect(validate(c, rules).some((w) => w.id === 'prereq-weapon-focus-9')).toBe(true)
   })
 })
+
+describe('actionable warnings (header badge)', () => {
+  it('Fenrir: 3 levels with unspent points + 1 feat to choose; Spring Attack unusable is informative', () => {
+    const w = validate(fenrir, rules)
+    expect(w.filter((x) => x.actionable).map((x) => x.id).sort()).toEqual(['feat-missing-general-9', 'skill-points-5', 'skill-points-6', 'skill-points-9'])
+    expect(w.find((x) => x.id === 'unusable-spring-attack')!.actionable).toBe(false)
+  })
+})
+
+describe('special materials and abilities', () => {
+  const withArmor = (patch: Partial<ItemInstance>) => ({
+    inventory: fenrir.inventory.map((i) => (i.uid === 'full-plate' ? { ...i, ...patch } : i)),
+  })
+  const withSword = (patch: Partial<ItemInstance>) => ({
+    inventory: fenrir.inventory.map((i) => (i.uid === 'greatsword' ? { ...i, ...patch } : i)),
+  })
+  it('mithral full plate: ACP −3 (masterwork included), max Dex +3, half weight, medium for Spring Attack', () => {
+    const c = { ...fenrir, ...withArmor({ material: 'mithral' }) }
+    const s = compute(c, rules, { level: 8 })
+    expect(s.armorCheckPenalty.total).toBe(-3)
+    expect(s.maxDex.value).toBe(3)
+    expect(s.load.carried.lb).toBeCloseTo(97.6 - 25, 5)
+    expect(s.armor!.category).toBe('medium')
+    expect(validate(c, rules).some((w) => w.id === 'unusable-spring-attack')).toBe(false)
+  })
+  it('adamantine full plate: DR 3/—', () => {
+    expect(at8(withArmor({ material: 'adamantine' })).damageReduction.map((d) => d.value)).toEqual(['3/—'])
+  })
+  it('keen greatsword: 17–20; flaming burst: +1d6 fire and +1d10 on a ×2 crit; adamantine bypasses DR', () => {
+    const s = at8(withSword({ properties: ['keen', 'flaming-burst'], material: 'adamantine' }))
+    const gs = atk(s, 'greatsword')
+    expect(gs.critRange).toBe(17)
+    expect(gs.extraDamage.map((x) => x.dice)).toEqual(['1d6'])
+    expect(gs.critExtraDamage.map((x) => x.dice)).toEqual(['1d10'])
+    expect(gs.bypassDR).toContain('adamantine')
+  })
+  it('speed weapon and haste: one extra attack only (not cumulative)', () => {
+    const s = at8({ ...withSword({ properties: ['speed'] }), activeEffects: [{ uid: 'h', kind: 'magic', refId: 'potion-of-haste', enabled: true }] })
+    expect(atk(s, 'greatsword').iterative).toEqual([16, 16, 11])
+  })
+  it('alchemical silver: −1 damage', () => expect(atk(at8(withSword({ material: 'alchemical-silver' })), 'greatsword').damage.total).toBe(7))
+  it('special ability on a non-magic weapon is flagged; total over +10 too', () => {
+    const c1 = { ...fenrir, inventory: [...fenrir.inventory, { uid: 'k', kind: 'weapon' as const, refId: 'longsword', quantity: 1, location: 'carried' as const, properties: ['keen'] }] }
+    expect(validate(c1, rules).some((w) => w.id === 'props-need-enh-k')).toBe(true)
+  })
+})

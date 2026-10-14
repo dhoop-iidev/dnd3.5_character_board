@@ -6,7 +6,9 @@ import type {
   ConditionDef,
   FeatDef,
   GearDef,
+  ItemPropertyDef,
   MagicItemDef,
+  MaterialDef,
   SkillDef,
   SynergyDef,
   WeaponDef,
@@ -25,6 +27,8 @@ import weaponMaster from './custom/weapon-master.json'
 import homebrewSkills from './custom/homebrew-skills.json'
 import conditions from './custom/conditions.json'
 import classSkillOverrides from './custom/class-skill-overrides.json'
+import itemProperties from './srd/item-properties.json'
+import materials from './custom/materials.json'
 
 export interface Rules {
   skills: Map<string, SkillDef>
@@ -37,6 +41,8 @@ export interface Rules {
   magicItems: Map<string, MagicItemDef>
   conditions: Map<string, ConditionDef>
   carryingCapacity: CarryingCapacityRow[]
+  itemProperties: Map<string, ItemPropertyDef>
+  materials: Map<string, MaterialDef>
 }
 
 function index<T extends { id: string }>(list: T[]): Map<string, T> {
@@ -60,6 +66,8 @@ export function buildRules(): Rules {
     magicItems: index(magicItems as MagicItemDef[]),
     conditions: index(conditions as ConditionDef[]),
     carryingCapacity: carryingCapacity as CarryingCapacityRow[],
+    itemProperties: index(itemProperties as ItemPropertyDef[]),
+    materials: index(materials as MaterialDef[]),
   }
 }
 

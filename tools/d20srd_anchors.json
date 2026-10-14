@@ -1057,5 +1057,27 @@
   "siteSearch",
   "skillCheck",
   "skillRanks"
+ ],
+ "specialMaterials.htm": [
+  "adamantine",
+  "adamantineCostModifiers",
+  "alchemicalSilverCostModifiers",
+  "bolsMenu",
+  "d20SystemMenu",
+  "darkwood",
+  "dragonhide",
+  "extrasMenu",
+  "hd20srdMenu",
+  "header",
+  "ironCold",
+  "mithral",
+  "mithralCostModifiers",
+  "path",
+  "rollovermenu",
+  "searchIndex",
+  "silverAlchemical",
+  "siteLogo",
+  "siteSearch",
+  "specialWeaponsMaterials"
  ]
 }

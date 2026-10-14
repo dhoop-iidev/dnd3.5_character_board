@@ -8,6 +8,7 @@
   import { openPopup } from '../popupState.svelte'
   import WarningList from '../WarningList.svelte'
   import CustomItemForm from '../CustomItemForm.svelte'
+  import ItemUpgrades from '../ItemUpgrades.svelte'
   import EquipmentDoll from '../EquipmentDoll.svelte'
 
   const LOCATIONS: { id: ItemLocation; label: I18n }[] = [
@@ -160,21 +161,7 @@
                   <button class="link" onclick={() => details(item)}>{tr(info.name)}</button>
                   {#if info.stats}<small>{tr(info.stats)}</small>{/if}
                   {#if info.slot}<small class="slot">{tr(SLOTS[info.slot]) || info.slot}</small>{/if}
-                  {#if item.kind === 'weapon' || item.kind === 'armor'}
-                    <select
-                      class="quality"
-                      value={item.enhancement ? `+${item.enhancement}` : item.masterwork ? 'mw' : ''}
-                      onchange={(e) => {
-                        const v = e.currentTarget.value
-                        item.masterwork = v !== ''
-                        item.enhancement = v.startsWith('+') ? Number(v.slice(1)) : undefined
-                      }}
-                    >
-                      <option value="">{tr({ en: 'normal', fr: 'normal' })}</option>
-                      <option value="mw">{tr({ en: 'masterwork', fr: 'de maître' })}</option>
-                      {#each [1, 2, 3, 4, 5] as n (n)}<option value={`+${n}`}>+{n}</option>{/each}
-                    </select>
-                  {/if}
+                  {#if item.kind === 'weapon' || item.kind === 'armor'}<ItemUpgrades {item} />{/if}
                 </td>
                 <td class="num qty">
                   <button onclick={() => setQty(item, -1)} aria-label="−1">−</button>

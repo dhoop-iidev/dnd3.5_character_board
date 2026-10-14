@@ -23,6 +23,12 @@
     piercing: { en: 'piercing', fr: 'perforant' },
     bludgeoning: { en: 'bludgeoning', fr: 'contondant' },
   }
+  const DR_TYPES: Record<string, I18n> = {
+    adamantine: { en: 'adamantine', fr: 'adamantium' },
+    'cold iron': { en: 'cold iron', fr: 'fer froid' },
+    silver: { en: 'silver', fr: 'argent' },
+    magic: { en: 'magic', fr: 'magie' },
+  }
   const hpCurrent = $derived(s.hpMax.total - c.hp.damage)
   function adjustHp(delta: number) {
     app.character.hp.damage = Math.max(0, app.character.hp.damage - delta)
@@ -172,7 +178,11 @@
   <section class="box">
     <h3>{tr({ en: 'Resistances & conditional modifiers', fr: 'Résistances et modificateurs conditionnels' })}</h3>
     <div class="fields">
-      <label>{tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}<input bind:value={app.character.defenses.dr} placeholder="—" /></label>
+      <label>
+        {tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}
+        {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong>{/each}
+        <input bind:value={app.character.defenses.dr} placeholder="—" />
+      </label>
       <label>{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input bind:value={app.character.defenses.sr} placeholder="—" /></label>
       <label class="wide">{tr({ en: 'Energy resistances', fr: "Résistances aux énergies" })}<input bind:value={app.character.defenses.resistances} placeholder="—" /></label>
       <label class="wide">
@@ -206,6 +216,27 @@
               <small>({tr({ en: 'increased multiplier', fr: 'multiplicateur accru' })} : ×{a.critMult.total + 1})</small>
             {/if}
           </div>
+          {#each a.extraDamage as x, i (i)}
+            <div class="line extra">
+              <span>+ {x.dice}</span>
+              <span>{tr(x.type)}{#if x.condition} <em>({tr(x.condition)})</em>{/if} <small>— {tr(x.source)}</small></span>
+            </div>
+          {/each}
+          {#each a.critExtraDamage as x, i (i)}
+            <div class="line extra">
+              <span>{tr({ en: 'On crit', fr: 'Sur critique' })}</span>
+              <span>+ {x.dice} {tr(x.type)} <small>— {tr(x.source)}</small></span>
+            </div>
+          {/each}
+          {#if a.bypassDR.length}
+            <div class="line extra">
+              <span>{tr({ en: 'Overcomes DR', fr: 'Ignore la RD' })}</span>
+              <span>{a.bypassDR.map((t) => tr(DR_TYPES[t] ?? { en: t, fr: t })).join(', ')}</span>
+            </div>
+          {/if}
+          {#each a.notes as n, i (i)}
+            <div class="line extra"><span>{tr(n.name)}</span><span class="note">{tr(n.text)}</span></div>
+          {/each}
           {#if a.weapon.rangeIncrement}
             <div class="line"><span>{tr({ en: 'Range increment', fr: 'Facteur de portée' })}</span> {fmtDistance(a.weapon.rangeIncrement, lang())}</div>
           {/if}
@@ -645,5 +676,21 @@
   }
   .inactive {
     color: var(--danger);
+  }
+  .line.extra {
+    min-height: 2rem;
+    font-size: 0.95em;
+  }
+  .line.extra small,
+  .line.extra em {
+    color: var(--ink-soft);
+  }
+  .line .note {
+    flex: 1;
+    font-size: 0.9em;
+  }
+  .dr {
+    font-family: var(--font-num);
+    color: var(--ink);
   }
 </style>

@@ -18,6 +18,26 @@ export interface ItemInfo {
 
 const plus = (n?: number) => (n ? ` +${n}` : '')
 
+/** Name suffix for material and special abilities: "Greatsword +2 (adamantine, keen)". */
+function extras(item: ItemInstance): I18n {
+  const parts = [
+    ...(item.material ? [rules.materials.get(item.material)?.name] : []),
+    ...(item.properties ?? []).map((id) => rules.itemProperties.get(id)?.name),
+  ].filter((x): x is I18n => !!x)
+  return parts.length
+    ? { en: ` (${parts.map((p) => p.en).join(', ')})`, fr: ` (${parts.map((p) => p.fr).join(', ')})` }
+    : { en: '', fr: '' }
+}
+
+/** Enhancement bonus plus the bonus-equivalent of special abilities, and their flat prices. */
+function magicBonus(item: ItemInstance): { bonus: number; flat: number } {
+  const props = (item.properties ?? []).map((id) => rules.itemProperties.get(id)).filter((p) => !!p)
+  return {
+    bonus: (item.enhancement ?? 0) + props.reduce((s, p) => s + p.bonusEquivalent, 0),
+    flat: props.reduce((s, p) => s + (p.flatPriceGp ?? 0), 0),
+  }
+}
+
 export function itemInfo(item: ItemInstance): ItemInfo {
   const enh = item.enhancement
   if (item.kind === 'weapon') {
@@ -25,10 +45,16 @@ export function itemInfo(item: ItemInstance): ItemInfo {
     if (d) {
       const crit = `${d.critRange < 20 ? `${d.critRange}–20` : '20'}/×${d.critMult}`
       const range = d.rangeIncrement ? ` · ${d.rangeIncrement.ft} ft / ${d.rangeIncrement.m} m` : ''
+      const x = extras(item)
+      const { bonus, flat } = magicBonus(item)
+      const mat = item.material ? rules.materials.get(item.material) : undefined
+      const base = d.costGp * (mat?.price.weaponMultiplier ?? 1) + (mat?.price.weapon ?? 0)
+      // Magic weapon price: masterwork 300 gp + bonus² × 2,000 gp (https://www.d20srd.org/srd/magicItems/magicWeapons.htm).
+      const magic = bonus ? bonus * bonus * 2000 + 300 + flat : item.masterwork || mat?.effects.masterwork ? 300 : 0
       return {
-        name: item.name ?? { en: d.name.en + plus(enh), fr: d.name.fr + plus(enh) },
+        name: item.name ?? { en: d.name.en + plus(enh) + x.en, fr: d.name.fr + plus(enh) + x.fr },
         weight: d.weight,
-        costGp: d.costGp + (enh ? enh * enh * 2000 + 300 : item.masterwork ? 300 : 0),
+        costGp: base + magic,
         text: d.text,
         source: d.source,
         stats: { en: `${d.damage.M} · ${crit}${range}`, fr: `${d.damage.M} · ${crit}${range}` },
@@ -39,19 +65,26 @@ export function itemInfo(item: ItemInstance): ItemInfo {
   if (item.kind === 'armor') {
     const d = rules.armor.get(item.refId)
     if (d) {
-      const bonus = d.armorBonus + (enh ?? 0)
-      const maxDex = d.maxDex === null ? '—' : `+${d.maxDex}`
-      // Masterwork (and every magic armor) reduces the armor check penalty by 1.
-      const acp = item.masterwork || enh ? Math.min(0, d.acp + 1) : d.acp
+      const acBonus = d.armorBonus + (enh ?? 0)
+      const mat = item.material ? rules.materials.get(item.material) : undefined
+      const maxDex = d.maxDex === null ? '—' : `+${d.maxDex + (mat?.effects.maxDexBonus ?? 0)}`
+      // Masterwork (and every magic armor) reduces the armor check penalty by 1; mithral by 3 in total.
+      const mw = item.masterwork || enh || mat?.effects.masterwork
+      const acp = Math.min(0, d.acp + (mat?.effects.acpReduction ?? (mw ? 1 : 0)))
+      const x = extras(item)
+      const { bonus, flat } = magicBonus(item)
+      const catPrice = d.category === 'shield' || d.category === 'tower' ? mat?.price.shield : mat?.price[d.category]
+      // Magic armor price: masterwork 150 gp + bonus² × 1,000 gp (https://www.d20srd.org/srd/magicItems/magicArmor.htm).
+      const magic = bonus ? bonus * bonus * 1000 + 150 + flat : item.masterwork || mat?.effects.masterwork ? 150 : 0
       return {
-        name: item.name ?? { en: d.name.en + plus(enh), fr: d.name.fr + plus(enh) },
+        name: item.name ?? { en: d.name.en + plus(enh) + x.en, fr: d.name.fr + plus(enh) + x.fr },
         weight: d.weight,
-        costGp: d.costGp + (enh ? enh * enh * 1000 + 150 : item.masterwork ? 150 : 0),
+        costGp: d.costGp + (catPrice ?? 0) + magic,
         text: d.text,
         source: d.source,
         stats: {
-          en: `+${bonus} AC · max Dex ${maxDex} · ACP ${acp} · ASF ${d.arcaneFailure}%`,
-          fr: `+${bonus} CA · Dex max ${maxDex} · malus ${acp} · échec ${d.arcaneFailure} %`,
+          en: `+${acBonus} AC · max Dex ${maxDex} · ACP ${acp} · ASF ${d.arcaneFailure - (mat?.effects.arcaneFailureReduction ?? 0)}%`,
+          fr: `+${acBonus} CA · Dex max ${maxDex} · malus ${acp} · échec ${d.arcaneFailure - (mat?.effects.arcaneFailureReduction ?? 0)} %`,
         },
         isPotion: false,
       }

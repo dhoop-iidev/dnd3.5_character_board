@@ -32,6 +32,7 @@ PAGES = [
     "magicItems/creatingMagicItems.htm",
     "conditionSummary.htm",
     "carryingCapacity.htm",
+    "specialMaterials.htm",
     "classes/fighter.htm",
     "skills/usingSkills.htm",
     "skills/skillsSummary.htm",

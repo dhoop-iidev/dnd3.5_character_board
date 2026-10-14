@@ -108,6 +108,106 @@ def modifiers(where, mods, skill_ids, used_ext):
             i18n(where + ".condition", m["condition"])
 
 
+DICE_RE = re.compile(r"^\d+d\d+$")
+PROPERTY_APPLIES = {"melee", "ranged", "ammunition", "armor", "shield"}
+MATERIAL_APPLIES = {"weapon", "ammunition", "armor", "shield"}
+
+
+def num_ok(v, lo=None):
+    return isinstance(v, (int, float)) and not isinstance(v, bool) and (lo is None or v >= lo)
+
+
+def item_property(where, x, skill_ids, used_ext):
+    """ItemPropertyDef (types.ts)."""
+    req = {"id", "name", "appliesTo", "bonusEquivalent", "requiresEnhancement", "effects", "text", "source"}
+    if not req <= set(x) or set(x) - req - {"flatPriceGp"}:
+        err(where, f"keys {set(x) ^ req}")
+        return
+    i18n(where + ".name", x["name"]); i18n(where + ".text", x["text"], True); source(where, x["source"])
+    if any(not v.startswith("<p>") or len(v) > 1200 for v in x["text"].values()):
+        err(where, "text must be <p> HTML of at most 1200 chars")
+    ap = x["appliesTo"]
+    if not isinstance(ap, list) or not ap or set(ap) - PROPERTY_APPLIES or len(ap) != len(set(ap)):
+        err(where, f"bad appliesTo {ap}")
+    elif ({"melee", "ranged", "ammunition"} & set(ap)) and ({"armor", "shield"} & set(ap)):
+        err(where, "appliesTo mixes weapon and armor kinds")
+    if not (isinstance(x["bonusEquivalent"], int) and 0 <= x["bonusEquivalent"] <= 5):
+        err(where, f"bad bonusEquivalent {x['bonusEquivalent']}")
+    if x["bonusEquivalent"] == 0 and not num_ok(x.get("flatPriceGp"), 1):
+        err(where, "bonusEquivalent 0 needs a flatPriceGp")
+    if x["bonusEquivalent"] > 0 and "flatPriceGp" in x:
+        err(where, "both bonusEquivalent and flatPriceGp")
+    if not isinstance(x["requiresEnhancement"], bool):
+        err(where, "requiresEnhancement not a boolean")
+    e = x["effects"]
+    allowed = {"extraDamage", "critExtraDamage", "keen", "extraAttack", "attackBonus", "damageBonus", "modifiers", "notes"}
+    if not isinstance(e, dict) or not e or set(e) - allowed:
+        err(where, f"bad effects {e}")
+        return
+    for d in e.get("extraDamage", []):
+        if set(d) - {"dice", "type", "condition"} or not DICE_RE.match(str(d.get("dice"))):
+            err(where, f"bad extraDamage {d}")
+            continue
+        i18n(where + ".extraDamage.type", d["type"])
+        if "condition" in d:
+            i18n(where + ".extraDamage.condition", d["condition"])
+    if "critExtraDamage" in e:
+        d = e["critExtraDamage"]
+        if set(d) != {"dice", "type"} or not DICE_RE.match(str(d["dice"])):
+            err(where, f"bad critExtraDamage {d}")
+        else:
+            i18n(where + ".critExtraDamage.type", d["type"])
+    for k in ("keen", "extraAttack"):
+        if k in e and e[k] is not True:
+            err(where, f"{k} must be true when present")
+    for k in ("attackBonus", "damageBonus"):
+        if k in e:
+            if set(e[k]) != {"value", "condition"} or not num_ok(e[k]["value"]):
+                err(where, f"bad {k} {e[k]}")
+            else:
+                i18n(f"{where}.{k}.condition", e[k]["condition"])
+    if "modifiers" in e:
+        modifiers(where, e["modifiers"], skill_ids, used_ext)
+    if "notes" in e:
+        i18n(where + ".notes", e["notes"])
+
+
+def material(where, x):
+    """MaterialDef (types.ts)."""
+    req = {"id", "name", "appliesTo", "price", "effects", "text", "source"}
+    if set(x) != req:
+        err(where, f"keys {set(x) ^ req}")
+        return
+    i18n(where + ".name", x["name"]); i18n(where + ".text", x["text"], True); source(where, x["source"])
+    ap = x["appliesTo"]
+    if not isinstance(ap, list) or not ap or set(ap) - MATERIAL_APPLIES or len(ap) != len(set(ap)):
+        err(where, f"bad appliesTo {ap}")
+    pk = {"weapon", "ammunition", "light", "medium", "heavy", "shield", "weaponMultiplier", "perLb"}
+    if not isinstance(x["price"], dict) or set(x["price"]) - pk or not all(num_ok(v, 0) for v in x["price"].values()):
+        err(where, f"bad price {x['price']}")
+    e = x["effects"]
+    ek = {"damage", "bypassDR", "armorCategoryShift", "maxDexBonus", "acpReduction", "arcaneFailureReduction",
+          "weightMultiplier", "armorDR", "masterwork", "notes"}
+    if not isinstance(e, dict) or set(e) - ek:
+        err(where, f"bad effects {e}")
+        return
+    for k in ("damage", "armorCategoryShift", "maxDexBonus", "acpReduction", "arcaneFailureReduction", "weightMultiplier"):
+        if k in e and not num_ok(e[k]):
+            err(where, f"bad {k} {e[k]}")
+    for k in ("acpReduction", "arcaneFailureReduction", "maxDexBonus", "armorCategoryShift"):
+        if k in e and num_ok(e[k]) and e[k] < 0:
+            err(where, f"{k} must be positive")
+    if "bypassDR" in e and not (isinstance(e["bypassDR"], str) and e["bypassDR"]):
+        err(where, "bad bypassDR")
+    if "armorDR" in e and (not isinstance(e["armorDR"], dict) or set(e["armorDR"]) - {"light", "medium", "heavy"}
+                           or not all(isinstance(v, str) and re.match(r"^\d+/.+$", v) for v in e["armorDR"].values())):
+        err(where, f"bad armorDR {e['armorDR']}")
+    if "masterwork" in e and not isinstance(e["masterwork"], bool):
+        err(where, "masterwork not a boolean")
+    if "notes" in e:
+        i18n(where + ".notes", e["notes"])
+
+
 def prereq(where, p, feat_ids, skill_ids):
     allowed = {"abilities", "bab", "feats", "fighterLevel", "characterLevel", "skills", "proficiency", "masterworkWeapon", "other"}
     if set(p) - allowed:
@@ -255,6 +355,14 @@ def main():
         if "modifiers" in x:
             modifiers(w, x["modifiers"], skill_ids, used_ext)
 
+    check_ids("item-properties.json", files["item-properties.json"])
+    for x in files["item-properties.json"]:
+        item_property(f"property {x['id']}", x, skill_ids, used_ext)
+
+    check_ids("materials.json", custom["materials.json"])
+    for x in custom["materials.json"]:
+        material(f"material {x['id']}", x)
+
     rows = files["carrying-capacity.json"]
     if [r["str"] for r in rows] != list(range(1, 30)):
         err("carrying-capacity", "Str 1–29 expected")
@@ -319,6 +427,29 @@ def spot_checks(files, custom):
                     ("mobility", "Souplesse du serpent"), ("spring-attack", "Attaque éclair")):
         expect(f"{fid} FR = {fr}", by["feats.json"][fid]["name"]["fr"] == fr)
     expect("amulet of health FR", ah["name"]["fr"].startswith("Amulette de Constitution"))
+    ip = by["item-properties.json"]
+    fb = ip["flaming-burst"]["effects"]
+    expect("flaming burst +2: 1d6 fire, crit +1d10 fire",
+           ip["flaming-burst"]["bonusEquivalent"] == 2 and fb["extraDamage"][0]["dice"] == "1d6"
+           and fb["critExtraDamage"]["dice"] == "1d10" and fb["critExtraDamage"]["type"]["en"] == "fire")
+    expect("keen +1 melee only, keen flag, FR Acérée",
+           ip["keen"]["bonusEquivalent"] == 1 and ip["keen"]["appliesTo"] == ["melee"] and ip["keen"]["effects"].get("keen") is True
+           and ip["keen"]["name"]["fr"] == "Acérée")
+    expect("speed +3 extra attack", ip["speed"]["bonusEquivalent"] == 3 and ip["speed"]["effects"].get("extraAttack") is True)
+    expect("vorpal +5, FR Vorpale", ip["vorpal"]["bonusEquivalent"] == 5 and ip["vorpal"]["name"]["fr"] == "Vorpale")
+    expect("fortification light/moderate/heavy +1/+3/+5",
+           [ip[f"{k}-fortification"]["bonusEquivalent"] for k in ("light", "moderate", "heavy")] == [1, 3, 5])
+    expect("glamered +2,700 gp flat", ip["glamered"]["bonusEquivalent"] == 0 and ip["glamered"]["flatPriceGp"] == 2700)
+    expect("all properties require +1 enhancement", all(x["requiresEnhancement"] for x in files["item-properties.json"]))
+    mat = {x["id"]: x for x in custom["materials.json"]}
+    mi = mat["mithral"]
+    expect("mithral +1,000/+4,000/+9,000, shield +1,000, Dex +2, ACP -3, ASF -10%, half weight",
+           (mi["price"]["light"], mi["price"]["medium"], mi["price"]["heavy"], mi["price"]["shield"]) == (1000, 4000, 9000, 1000)
+           and mi["effects"]["maxDexBonus"] == 2 and mi["effects"]["acpReduction"] == 3
+           and mi["effects"]["arcaneFailureReduction"] == 10 and mi["effects"]["weightMultiplier"] == 0.5)
+    ad = mat["adamantine"]
+    expect("adamantine weapon +3,000, armor DR 1/2/3", ad["price"]["weapon"] == 3000
+           and ad["effects"]["armorDR"] == {"light": "1/—", "medium": "2/—", "heavy": "3/—"})
 
 
 def finish():

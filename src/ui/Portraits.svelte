@@ -2,26 +2,14 @@
   // Coat of arms and face drawing. Images are resized in the browser and stored in the character
   // (so they travel with the JSON export), kept small to fit the browser's storage.
   import { app, tr } from '../state.svelte'
+  import { imageToDataUrl } from './images'
 
   type Kind = 'coatOfArms' | 'face'
-  const MAX = 900
-
-  async function toDataUrl(file: File): Promise<string> {
-    const bitmap = await createImageBitmap(file)
-    const scale = Math.min(1, MAX / Math.max(bitmap.width, bitmap.height))
-    const canvas = document.createElement('canvas')
-    canvas.width = Math.round(bitmap.width * scale)
-    canvas.height = Math.round(bitmap.height * scale)
-    canvas.getContext('2d')!.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
-    // WebP keeps transparency (cut-out drawings) and stays small.
-    return canvas.toDataURL('image/webp', 0.85)
-  }
-
   async function pick(kind: Kind, e: Event) {
     const input = e.currentTarget as HTMLInputElement
     const file = input.files?.[0]
     if (!file) return
-    ;(app.character.images ??= {})[kind] = await toDataUrl(file)
+    ;(app.character.images ??= {})[kind] = await imageToDataUrl(file)
     input.value = ''
   }
 

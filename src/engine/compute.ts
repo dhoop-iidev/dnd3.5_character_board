@@ -73,6 +73,14 @@ export interface AttackLine {
   weaponOfChoice: boolean
   kiDamageMax?: number
   powerAttackAllowed: boolean
+  /** Extra damage dice from special abilities (flaming 1d6 fire, holy 2d6 vs evil…). */
+  extraDamage: { dice: string; type: I18n; condition?: I18n; source: I18n }[]
+  /** Extra dice on a confirmed critical (bursts, thundering), already multiplied. */
+  critExtraDamage: { dice: string; type: I18n; source: I18n }[]
+  /** Damage reduction types this weapon overcomes (adamantine, cold iron, silver, magic…). */
+  bypassDR: string[]
+  /** Described-only effects (vorpal, wounding…). */
+  notes: { name: I18n; text: I18n }[]
 }
 
 export type LoadBand = 'light' | 'medium' | 'heavy' | 'overloaded'
@@ -101,8 +109,10 @@ export interface Sheet {
   /** Flags from conditions (cantRun, loseDexToAc…). */
   flags: string[]
   weaponMaster: { level: number; active: boolean; kiDamagePerDay: number; increasedMultiplierPerDay: number }
-  armor?: { item: ItemInstance; def: ArmorDef }
+  armor?: { item: ItemInstance; def: ArmorDef; category: ArmorDef['category'] }
   shield?: { item: ItemInstance; def: ArmorDef }
+  /** Damage reduction from equipment (adamantine armor…). */
+  damageReduction: { value: string; source: I18n }[]
 }
 
 export interface ComputeOptions {
@@ -125,7 +135,8 @@ function itemWeight(rules: Rules, item: ItemInstance): Weight {
   else if (item.kind === 'gear') w = rules.gear.get(item.refId)?.weight
   else if (item.kind === 'magic') w = rules.magicItems.get(item.refId)?.weight
   else if (item.custom) w = lbToWeight(item.custom.weightLb)
-  return { lb: (w?.lb ?? 0) * item.quantity, kg: (w?.kg ?? 0) * item.quantity }
+  const factor = (item.material && rules.materials.get(item.material)?.effects.weightMultiplier) || 1
+  return { lb: (w?.lb ?? 0) * item.quantity * factor, kg: (w?.kg ?? 0) * item.quantity * factor }
 }
 
 /** Carrying capacity for any Strength (×4 per +10 above 29). */
@@ -306,7 +317,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const armorItem = char.inventory.find(
     (i) => i.kind === 'armor' && i.location === 'worn' && !['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? ''),
   )
-  const armor = armorItem ? { item: armorItem, def: rules.armor.get(armorItem.refId)! } : undefined
+  const armorDef = armorItem && rules.armor.get(armorItem.refId)
+  const armorMat = armorItem?.material ? rules.materials.get(armorItem.material) : undefined
+  // Mithral: one category lighter for movement and other limitations (https://www.d20srd.org/srd/specialMaterials.htm#mithral).
+  const CATS = ['light', 'medium', 'heavy'] as const
+  const shiftCat = (cat: ArmorDef['category']) => {
+    const i = CATS.indexOf(cat as (typeof CATS)[number])
+    return i < 0 || !armorMat?.effects.armorCategoryShift ? cat : CATS[Math.max(0, i - armorMat.effects.armorCategoryShift)]
+  }
+  const armor = armorItem && armorDef ? { item: armorItem, def: armorDef, category: shiftCat(armorDef.category) } : undefined
   const shieldItem = loadout?.shield ? char.inventory.find((i) => i.uid === loadout.shield) : undefined
   const shield = shieldItem ? { item: shieldItem, def: rules.armor.get(shieldItem.refId)! } : undefined
 
@@ -330,7 +349,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   // Max Dex: the most restrictive of armor, shield, load.
   const dexCaps: { value: number; from: I18n }[] = []
-  if (armor && armor.def.maxDex !== null) dexCaps.push({ value: armor.def.maxDex, from: armor.def.name })
+  if (armor && armor.def.maxDex !== null) dexCaps.push({ value: armor.def.maxDex + (armorMat?.effects.maxDexBonus ?? 0), from: armor.def.name })
   if (shield && shield.def.maxDex !== null) dexCaps.push({ value: shield.def.maxDex, from: shield.def.name })
   if (loadFx) dexCaps.push({ value: loadFx.maxDex, from: i18n(`${band} load`, `charge ${band === 'medium' ? 'intermédiaire' : 'lourde'}`) })
   const cap = dexCaps.length ? dexCaps.reduce((a, b) => (b.value < a.value ? b : a)) : undefined
@@ -339,8 +358,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Armor check penalty: (armor + strapped shield) vs load, the worse applies (house rule #13).
   const itemAcp = (x?: { item: ItemInstance; def: ArmorDef }) => {
     if (!x) return 0
-    const mw = x.item.masterwork || (x.item.enhancement ?? 0) > 0
-    return mw ? Math.min(0, x.def.acp + 1) : x.def.acp
+    const mat = x.item.material ? rules.materials.get(x.item.material) : undefined
+    const mw = x.item.masterwork || (x.item.enhancement ?? 0) > 0 || !!mat?.effects.masterwork
+    // Masterwork −1; mithral −3 in total, masterwork included (SRD elven chain: chainmail −5 → −2).
+    // A penalty never becomes a bonus (rulings R25).
+    return Math.min(0, x.def.acp + (mat?.effects.acpReduction ?? (mw ? 1 : 0)))
   }
   const gearAcp = itemAcp(armor) + itemAcp(shield)
   const acpParts: Part[] = []
@@ -358,7 +380,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const baseFt = 30
   let speedFt = baseFt
   let speedFrom = i18n('base', 'base')
-  if (armor && ['medium', 'heavy'].includes(armor.def.category) && armor.def.speed30) {
+  if (armor && ['medium', 'heavy'].includes(armor.category) && armor.def.speed30) {
     speedFt = armor.def.speed30.ft
     speedFrom = armor.def.name
   }
@@ -526,7 +548,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
             ? 'melee'
             : 'thrown'
     const enh = item.enhancement ?? 0
-    const masterwork = item.masterwork || enh > 0
+    const mat = item.material ? rules.materials.get(item.material) : undefined
+    const props = (item.properties ?? []).map((id) => rules.itemProperties.get(id)).filter((d) => !!d)
+    const masterwork = item.masterwork || enh > 0 || !!mat?.effects.masterwork
     const choiceFeat = (id: string) => feats.find((f) => f.featId === id && f.choice === weapon.id)
     const weaponOfChoice = wmActive && char.weaponOfChoice === weapon.id && masterwork
     const name: I18n = item.name ?? { en: `${weapon.name.en}${enh ? ` +${enh}` : ''}`, fr: `${weapon.name.fr}${enh ? ` +${enh}` : ''}` }
@@ -564,10 +588,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     // Fighting defensively: -4 on all attacks (https://www.d20srd.org/srd/combat/actionsInCombat.htm#fightDefensively).
     if (toggles.fightingDefensively)
       atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
+    for (const pr of props)
+      if (pr.effects.attackBonus)
+        atk.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: pr.effects.attackBonus.value, bonusType: 'enhancement', source: pr.source, condition: pr.effects.attackBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
     atk.push(...partsFor([melee ? 'attack.melee' : 'attack.ranged', 'attack.all', 'attack.weapon']))
     const attack = resolve(atk)
-    // Full attack: iteratives, plus one extra attack at full BAB from haste-like effects.
-    const extra = sumTarget('attack.extra') > 0 ? [attack.total] : []
+    // Full attack: iteratives, plus one extra attack at full BAB from haste or a speed weapon (not cumulative:
+    // https://www.d20srd.org/srd/magicItems/magicWeapons.htm#speed).
+    const extra = sumTarget('attack.extra') > 0 || props.some((pr) => pr.effects.extraAttack) ? [attack.total] : []
     const iterative = [...extra, ...iterativeBab.map((b) => attack.total - (bab.total - b))]
 
     const dmg: Part[] = []
@@ -583,6 +611,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       const def = rules.feats.get(featId)
       if (choiceFeat(featId) && def) dmg.push({ sourceId: `feat:${featId}`, label: def.name, value, bonusType: 'untyped', source: def.source })
     }
+    // Alchemical silver: −1 damage (minimum 1 per hit).
+    if (mat?.effects.damage)
+      dmg.push({ sourceId: `material:${mat.id}`, label: mat.name, value: mat.effects.damage, bonusType: 'untyped', source: mat.source })
+    for (const pr of props)
+      if (pr.effects.damageBonus)
+        dmg.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: pr.effects.damageBonus.value, bonusType: 'enhancement', source: pr.source, condition: pr.effects.damageBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
     const staticBeforePa = resolve(dmg).total
     if (powerAttackOn && powerAttackAllowed) {
       const factor = twoHands ? 2 : 1
@@ -594,7 +628,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     // Critical: Improved Critical doubles the range; Ki critical adds +2 after it (Sword and Fist p.39).
     let span = 21 - weapon.critRange
     const improvedCrit = !!choiceFeat('improved-critical')
-    if (improvedCrit || (weaponOfChoice && wmLevel >= 7)) span *= 2
+    const keen = props.some((pr) => pr.effects.keen)
+    // Keen and Improved Critical don't stack (https://www.d20srd.org/srd/magicItems/magicWeapons.htm#keen).
+    if (improvedCrit || keen || (weaponOfChoice && wmLevel >= 7)) span *= 2
     if (weaponOfChoice && wmLevel >= 7 && improvedCrit) span += 2
     const critMult = resolve([{ sourceId: 'weapon', label: weapon.name, value: weapon.critMult, bonusType: 'base', source: weapon.source }])
 
@@ -611,6 +647,16 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       weaponOfChoice,
       kiDamageMax: weaponOfChoice ? maxDice(weapon.damage.M) + staticBeforePa : undefined,
       powerAttackAllowed,
+      extraDamage: props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
+      critExtraDamage: props
+        .filter((pr) => pr.effects.critExtraDamage)
+        .map((pr) => {
+          // Bursts: +1d10 per multiplier step above ×1 (×2 → 1d10, ×3 → 2d10, ×4 → 3d10).
+          const [n, die] = pr.effects.critExtraDamage!.dice.split('d')
+          return { dice: `${Number(n) * (weapon.critMult - 1)}d${die}`, type: pr.effects.critExtraDamage!.type, source: pr.name }
+        }),
+      bypassDR: [...(mat?.effects.bypassDR ? [mat.effects.bypassDR] : []), ...(enh > 0 ? ['magic'] : [])],
+      notes: props.filter((pr) => pr.effects.notes).map((pr) => ({ name: pr.name, text: pr.effects.notes! })),
     })
   }
 
@@ -645,6 +691,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     },
     armor,
     shield,
+    damageReduction:
+      armor && armorMat?.effects.armorDR
+        ? [{ value: armorMat.effects.armorDR[armor.def.category as 'light' | 'medium' | 'heavy'] ?? '', source: armorMat.name }].filter((d) => d.value)
+        : [],
   }
 }
 

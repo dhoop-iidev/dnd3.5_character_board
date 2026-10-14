@@ -19,6 +19,8 @@ export interface RuleWarning {
   message: I18n
   srdUrl?: string
   book?: string
+  /** Needs a choice from the player (missing/extra feat, skill points, ability increase, illegal pick). */
+  actionable?: boolean
 }
 
 const SRD = 'https://www.d20srd.org/srd/'
@@ -162,7 +164,7 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     const def = rules.feats.get(id)
     out.push(w(`unusable-${id}`, 'warning', 'feats', `${def?.name.en ?? id} can't be used: ${why.en}`, `${def?.name.fr ?? id} inutilisable : ${why.fr}`, { srdUrl: def?.source.srdUrl }))
   }
-  if (now.feats.some((f) => f.featId === 'spring-attack') && now.armor?.def.category === 'heavy')
+  if (now.feats.some((f) => f.featId === 'spring-attack') && now.armor?.category === 'heavy')
     loseFeat('spring-attack', { en: 'wearing heavy armor (still counts as a prerequisite)', fr: 'armure lourde portée (compte toujours comme condition)' })
   for (const f of now.feats) {
     const def = rules.feats.get(f.featId)
@@ -202,6 +204,18 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       `Dex bonus to AC capped at +${now.maxDex.value} by ${now.maxDex.from.en} (Dex mod +${now.abilities.dex.mod})`,
       `Bonus de Dex à la CA limité à +${now.maxDex.value} par ${now.maxDex.from.fr} (mod. Dex +${now.abilities.dex.mod})`,
       { srdUrl: `${SRD}equipment/armor.htm#maximumDexBonus` }))
+  // Special abilities need at least +1, and the total bonus (enhancement + abilities) is at most +10
+  // (https://www.d20srd.org/srd/magicItems/magicWeapons.htm, magicArmor.htm).
+  for (const it of char.inventory) {
+    const props = (it.properties ?? []).map((id) => rules.itemProperties.get(id)).filter((d) => !!d)
+    if (!props.length) continue
+    const enh = it.enhancement ?? 0
+    const total = enh + props.reduce((s, p) => s + p.bonusEquivalent, 0)
+    if (enh < 1)
+      out.push(w(`props-need-enh-${it.uid}`, 'error', 'inventory', 'Special abilities need at least a +1 enhancement bonus', 'Les propriétés spéciales exigent au moins un bonus d’altération de +1', { srdUrl: `${SRD}magicItems/magicWeapons.htm` }))
+    if (total > 10)
+      out.push(w(`props-over-10-${it.uid}`, 'error', 'inventory', `Total bonus +${total} exceeds +10`, `Bonus total +${total} supérieur à +10`, { srdUrl: `${SRD}magicItems/magicWeapons.htm` }))
+  }
   const slots: Record<string, number> = {}
   for (const it of char.inventory) {
     if (it.location !== 'worn') continue
@@ -220,5 +234,9 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     if (n > (slot === 'ring' ? 2 : 1))
       out.push(w(`slot-${slot}`, 'error', 'inventory', `Too many items worn on slot "${slot}": only the first works`, `Trop d'objets sur l'emplacement « ${slot} » : seul le premier fonctionne`, { srdUrl: `${SRD}magicItems/magicItemBasics.htm` }))
 
+  // Build choices the player must make or fix; situational warnings (unusable feat, load, max Dex, slots,
+  // suspended class features) are informative only.
+  const INFORMATIVE = /^(unusable-|weapon-master-lost|load$|max-dex$|slot-|armor-prof-|weapon-prof-)/
+  for (const x of out) x.actionable = ['skills', 'feats', 'abilities', 'levels'].includes(x.area) && !INFORMATIVE.test(x.id)
   return out
 }

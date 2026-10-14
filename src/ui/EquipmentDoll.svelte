@@ -8,6 +8,7 @@
   import { app, tr, view } from '../state.svelte'
   import { itemInfo, newUid, norm } from './items'
   import { openPopup } from './popupState.svelte'
+  import { imageToDataUrl } from './images'
 
   /** Slot boxes; rings has two places. `hint` lists what fits (as on the official sheet). */
   interface SlotBox {
@@ -96,6 +97,22 @@
       .map((uid) => app.character.inventory.find((i) => i.uid === uid))
       .filter((i): i is ItemInstance => !!i),
   )
+  // Paper-doll picture: the built-in illustration unless the player changed or removed it.
+  const DEFAULT_DOLL = `${import.meta.env.BASE_URL}images/fenrir-knight.webp`
+  const dollSrc = $derived(app.character.images?.doll === null ? null : (app.character.images?.doll ?? DEFAULT_DOLL))
+  async function pickDoll(e: Event) {
+    const input = e.currentTarget as HTMLInputElement
+    const file = input.files?.[0]
+    if (!file) return
+    ;(app.character.images ??= {}).doll = await imageToDataUrl(file, 1200)
+    input.value = ''
+  }
+  function setDoll(value: string | null | undefined) {
+    const images = (app.character.images ??= {})
+    if (value === undefined) delete images.doll
+    else images.doll = value
+  }
+
   const slotWarnings = $derived(view.warnings.filter((w) => w.id.startsWith('slot-')))
 </script>
 
@@ -122,11 +139,27 @@
       {#each LEFT as b (b.id)}{@render slotBox(b, 'left')}{/each}
     </div>
     <div class="figure">
-      <img
-        class="knight"
-        src={`${import.meta.env.BASE_URL}images/fenrir-knight.webp`}
-        alt={tr({ en: 'Fenrir in his golden full plate', fr: 'Fenrir en harnois doré' })}
-      />
+      {#if dollSrc}
+        <img class="knight" src={dollSrc} alt={tr({ en: 'The character with his equipment', fr: 'Le personnage et son équipement' })} />
+      {:else}
+        <!-- Placeholder silhouette -->
+        <svg class="silhouette" viewBox="0 0 100 200" aria-hidden="true">
+          <ellipse cx="50" cy="22" rx="13" ry="16" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M28 52 C28 42 72 42 72 52 L78 110 L68 112 L64 70 L62 120 L66 192 L54 192 L50 128 L46 192 L34 192 L38 120 L36 70 L32 112 L22 110 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+        </svg>
+      {/if}
+      <div class="doll-actions">
+        <label class="doll-btn">
+          {dollSrc ? tr({ en: 'Change picture', fr: "Changer l'image" }) : tr({ en: 'Add a picture', fr: 'Ajouter une image' })}
+          <input type="file" accept="image/*" onchange={pickDoll} hidden />
+        </label>
+        {#if dollSrc}
+          <button class="doll-btn" onclick={() => setDoll(null)}>{tr({ en: 'Remove', fr: 'Retirer' })}</button>
+        {/if}
+        {#if app.character.images?.doll !== undefined}
+          <button class="doll-btn" onclick={() => setDoll(undefined)}>{tr({ en: 'Default picture', fr: 'Image par défaut' })}</button>
+        {/if}
+      </div>
     </div>
     <div class="side">
       {#each RIGHT as b (b.id)}{@render slotBox(b, 'right')}{/each}
@@ -389,5 +422,32 @@
     width: 100%;
     max-height: 38rem;
     object-fit: contain;
+  }
+  .figure {
+    gap: 0.5rem;
+  }
+  .silhouette {
+    width: 45%;
+    max-height: 32rem;
+    color: var(--rule-strong);
+  }
+  .doll-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+  .doll-btn {
+    font: inherit;
+    font-size: 0.9rem;
+    min-height: 2.5rem;
+    padding: 0 0.7rem;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    background: var(--box);
+    color: var(--ink);
+    cursor: pointer;
   }
 </style>

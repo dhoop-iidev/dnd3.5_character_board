@@ -30,9 +30,10 @@ lb / 2, and notes about modelling choices. It also copies `sources/OGL.txt` to `
 | `src/data/srd/armor.json` | Armors and shields. |
 | `src/data/srd/gear.json` | Goods and services that are items, **plus ammunition** (arrows, bolts, sling bullets: they have no damage of their own) and armor add-ons (spikes, locked gauntlet). |
 | `src/data/srd/magic-items.json` | All SRD wondrous items, rings, potions and oils, weapon/armor/shield enhancement +1…+5. |
+| `src/data/srd/item-properties.json` | SRD weapon / armor / shield special abilities (flaming, keen, fortification…): price as bonus equivalent or flat gp, `appliesTo` from the SRD tables, `effects` written by hand from the SRD text. Fortification split into light/moderate/heavy, ghost touch into weapon/armor entries. |
 | `src/data/srd/carrying-capacity.json` | Str 1–29, lb from the SRD, kg as printed in the French SRD (house rule #5). |
 
-Hand-authored (not touched by the build): `src/data/custom/weapon-master.json`, `homebrew-skills.json`,
+Hand-authored (not touched by the build): `src/data/custom/weapon-master.json`, `homebrew-skills.json`, `materials.json` (SRD special materials),
 `conditions.json` (texts from the EN/FR SRD, modifiers by hand from `docs/rules/conditions.md`),
 `class-skill-overrides.json`.
 
@@ -56,6 +57,7 @@ To correct one: edit `fr_guess`, set `status` to `ok`, and rebuild. Rows with `o
 | `build_data.py` | Entry point; skills, synergies, feats, classes |
 | `build_equipment.py` | weapons, armor, gear |
 | `build_magic.py` | magic items, carrying capacity |
+| `build_properties.py` | item-properties.json (special abilities; French headings from DRS 24/25, a few French SRD errors corrected in `FR_ERRATA`) |
 | `rtf_fr.py` | Minimal RTF reader for the DRS files (paragraphs, bold runs, table rows). `python tools/rtf_fr.py "DRS 05"` dumps a file. |
 | `glossary_fr.py` | EN → FR glossary from the DD-3e PDF (decodes the PDF text itself; cached in `tools/.cache/`) |
 | `srd_urls.py` | d20srd.org URLs. Anchors are checked against `d20srd_anchors.json`; refresh it with `python tools/srd_urls.py --refresh` (needs internet) |
