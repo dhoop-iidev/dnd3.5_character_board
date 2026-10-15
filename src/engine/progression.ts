@@ -115,7 +115,7 @@ export function featOptions(
 ): { def: FeatDef; unmet: string[] }[] {
   const sheet = compute({ ...char, activeEffects: [], abilityDamage: {} }, rules, { level })
   // Feats granted by class features (ranger Track, Endurance…) count as owned.
-  const owned = [...featsBefore(char, level, pick), ...sheet.feats.filter((f) => f.slot === 'granted')]
+  const owned = [...featsBefore(char, level, pick), ...sheet.feats.filter((f) => f.slot === 'granted'), ...sheet.inactiveStyleFeats]
   // Class bonus feats: fighter list for fighters, the class's own list otherwise (warblade, ToB p. 23).
   const cls = rules.classes.get(char.levels[level - 1]?.classId ?? '')
   const list = classBonusFeatList(char, rules, level)

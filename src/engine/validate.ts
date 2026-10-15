@@ -144,7 +144,7 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
           `Level ${L}: ${def.name.en} is not a ${cls.name.en} bonus feat`, `Niveau ${L} : ${def.name.fr} n'est pas un don supplémentaire de ${cls.name.fr}`,
           { level: L, srdUrl: cls.source.srdUrl ?? `${SRD}classes/fighter.htm` }))
       // Feats granted by class features at this level count too (ranger Endurance → Diehard).
-      const granted = after.feats.filter((f) => f.slot === 'granted')
+      const granted = [...after.feats.filter((f) => f.slot === 'granted'), ...after.inactiveStyleFeats]
       const unmet =
         pick.slot === 'class' && cls.bonusFeatIgnorePrereqs ? [] : unmetPrereqs(def.prereq, after, rules, [...feats, ...granted], pick.choice)
       if (unmet.length)
@@ -280,6 +280,11 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     const def = rules.feats.get(id)
     out.push(w(`unusable-${id}`, 'warning', 'feats', `${def?.name.en ?? id} can't be used: ${why.en}`, `${def?.name.fr ?? id} inutilisable : ${why.fr}`, { srdUrl: def?.source.srdUrl }))
   }
+  for (const id of now.unusableFeats)
+    loseFeat(id, {
+      en: 'its prerequisite comes from the ranger combat style, lost in medium or heavy armor',
+      fr: 'sa condition vient du style de combat du rôdeur, perdu en armure intermédiaire ou lourde',
+    })
   if (now.feats.some((f) => f.featId === 'spring-attack') && now.armor?.category === 'heavy')
     loseFeat('spring-attack', { en: 'wearing heavy armor (still counts as a prerequisite)', fr: 'armure lourde portée (compte toujours comme condition)' })
   for (const f of now.feats) {

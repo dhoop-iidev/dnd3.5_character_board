@@ -56,7 +56,13 @@ Each bug was reproduced with a temporary Vitest file, deleted afterwards. The fi
 - **Wizard:** prohibited schools, and the specialist slot isn't restricted to the specialty school.
 - **Spell components:** shown only in English (V, S, DF).
 
-## Open questions (for the user / DM)
+## Open questions — researched 2026-10-16 (docs/rules/rulings-classes.md)
+
+- **Q1 → C1:** wild empathy levels don't stack; the app uses the higher class level.
+- **Q2 → C2:** combat-style feats count for picking feats; in medium or heavy armor the dependent feats stop working, with a warning.
+- **Q3 → C3:** pending house rule #23 (dwarf +2 or +4).
+
+## Original open questions
 
 1. **Wild empathy for a druid/ranger multiclass:** the app adds both class levels. The SRD doesn't say.
 2. **Combat-style feats in medium armor:** do they still count as feat prerequisites while the style is inactive? The app counts them only while the style is active.

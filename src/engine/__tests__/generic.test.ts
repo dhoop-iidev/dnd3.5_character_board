@@ -196,3 +196,31 @@ describe('um_actually 2026-10-15 (races & classes) fixes', () => {
     expect(compute(r, rules).featureStats[0].stat.total).toBe(1 + 0 + 2)
   })
 })
+
+describe('rulings 2026-10-16 (docs/rules/rulings-classes.md)', () => {
+  const ids = (c: Character) => validate(c, rules).map((w) => w.id)
+  it('C1: druid/ranger wild empathy uses the better class level, not the sum', () => {
+    const c = fresh('human', 'druid')
+    c.levels = [
+      { classId: 'druid', skillRanks: {}, feats: [] },
+      { classId: 'druid', skillRanks: {}, feats: [] },
+      { classId: 'ranger', skillRanks: {}, feats: [], classChoices: { favoredEnemy: 'animal' } },
+    ]
+    expect(compute(c, rules).featureStats[0].stat.total).toBe(2) // druid 2, Cha +0
+  })
+  it('C2: Two-Weapon Defense from the combat style is legal, but unusable in medium armor', () => {
+    const c = fresh('human', 'ranger', { ...ABIL, dex: 15 })
+    c.levels = [
+      { classId: 'ranger', skillRanks: {}, feats: [], classChoices: { favoredEnemy: 'animal' } },
+      { classId: 'ranger', skillRanks: {}, feats: [], classChoices: { combatStyle: 'two-weapon' } },
+      { classId: 'ranger', skillRanks: {}, feats: [{ featId: 'two-weapon-defense', slot: 'general' }] },
+    ]
+    c.inventory = [{ uid: 'arm', kind: 'armor', refId: 'chain-shirt', quantity: 1, location: 'worn' }]
+    expect(compute(c, rules).feats.some((f) => f.featId === 'two-weapon-defense')).toBe(true)
+    c.inventory = [{ uid: 'arm', kind: 'armor', refId: 'breastplate', quantity: 1, location: 'worn' }]
+    const s = compute(c, rules)
+    expect(s.feats.some((f) => f.featId === 'two-weapon-defense')).toBe(false)
+    expect(ids(c).some((i) => i.startsWith('prereq-two-weapon-defense'))).toBe(false)
+    expect(ids(c)).toContain('unusable-two-weapon-defense')
+  })
+})

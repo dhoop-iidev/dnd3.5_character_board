@@ -132,6 +132,10 @@ export interface Sheet {
   featureStats: { id: string; name: I18n; stat: Stat }[]
   /** Ranger favored enemies: creature type -> bonus. */
   favoredEnemies: { id: string; name: I18n; bonus: number }[]
+  /** Combat-style feats the ranger still has for feat selection while the style is inactive (medium/heavy armor). */
+  inactiveStyleFeats: FeatPick[]
+  /** Chosen feats unusable now because a prerequisite only came from the inactive combat style. */
+  unusableFeats: string[]
   /** Ranger combat style and whether it works now (light or no armor, https://www.d20srd.org/srd/classes/ranger.htm). */
   combatStyle?: { id: string; name: I18n; active: boolean }
   /** Tome of Battle: caps, known maneuvers/stances, current stance and running maneuvers. */
@@ -215,9 +219,32 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     archery: [[2, 'rapid-shot'], [6, 'manyshot'], [11, 'improved-precise-shot']],
     'two-weapon': [[2, 'two-weapon-fighting'], [6, 'improved-two-weapon-fighting'], [11, 'greater-two-weapon-fighting']],
   }
-  if (rangerLevel >= 2 && styleId && styleActive)
-    for (const [lvl, featId] of STYLE_FEATS[styleId] ?? []) if (rangerLevel >= lvl) granted.push({ featId, slot: 'granted' })
-  const feats = [...chosenFeats, ...granted.filter((g) => !chosenFeats.some((c) => c.featId === g.featId && !c.choice))]
+  // In medium or heavy armor the ranger is no longer treated as having these feats, and a feat that needs one of them
+  // as a prerequisite can't be used either (https://www.d20srd.org/srd/feats.htm#prerequisites; 3.5 FAQ p. 87;
+  // docs/rules/rulings-classes.md C2). Picking such feats stays legal.
+  const styleFeats: FeatPick[] = []
+  if (rangerLevel >= 2 && styleId)
+    for (const [lvl, featId] of STYLE_FEATS[styleId] ?? []) if (rangerLevel >= lvl) styleFeats.push({ featId, slot: 'granted' })
+  if (styleActive) granted.push(...styleFeats)
+  const ownsChosen = (id: string) => chosenFeats.some((c) => c.featId === id)
+  const lostStyle = styleActive ? [] : styleFeats.filter((f) => !ownsChosen(f.featId)).map((f) => f.featId)
+  // Chosen feats whose prerequisite is only provided by the (inactive) combat style, followed down the chain.
+  const unusableFeats = new Set<string>()
+  for (let changed = true; changed; ) {
+    changed = false
+    for (const c of chosenFeats) {
+      if (unusableFeats.has(c.featId)) continue
+      const needs = (rules.feats.get(c.featId)?.prereq.feats ?? []).map((x) => x.split(':')[0])
+      if (needs.some((id) => lostStyle.includes(id) || unusableFeats.has(id))) {
+        unusableFeats.add(c.featId)
+        changed = true
+      }
+    }
+  }
+  const feats = [
+    ...chosenFeats.filter((c) => !unusableFeats.has(c.featId)),
+    ...granted.filter((g) => !chosenFeats.some((c) => c.featId === g.featId && !c.choice)),
+  ]
   const hasFeat = (id: string, choice?: string) =>
     feats.some((f) => f.featId === id && (choice === undefined || f.choice === choice))
   const wmLevel = classLevels['weapon-master'] ?? 0
@@ -953,6 +980,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     rules.classes.get(id)?.features?.some((f) => f.id === 'wild-empathy'),
   )
   if (empathyClasses.length) {
+    // Druid and ranger wild empathy don't stack: two abilities of the same name, use the better one (no stacking
+    // clause, unlike the animal companion; 3.5 FAQ pp. 9-10; docs/rules/rulings-classes.md C1).
+    empathyClasses.sort((a, b) => b[1] - a[1])
+    empathyClasses.splice(1)
     const f = rules.classes.get(empathyClasses[0][0])!.features!.find((x) => x.id === 'wild-empathy')!
     featureStats.push({
       id: 'wild-empathy',
@@ -978,6 +1009,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))),
     featureStats,
     favoredEnemies,
+    inactiveStyleFeats: styleActive ? [] : styleFeats,
+    unusableFeats: [...unusableFeats],
     combatStyle: rangerStyle && rangerLevel >= 2 ? { id: rangerStyle.id, name: rangerStyle.name, active: styleActive } : undefined,
     abilities,
     hpMax,
