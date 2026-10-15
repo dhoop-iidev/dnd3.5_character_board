@@ -16,7 +16,7 @@ import type {
 import { ABILITIES } from '../data/types'
 import type { Character, FeatPick, ItemInstance } from '../model/character'
 import { i18n, resolve, type Part, type Stat } from './stacking'
-import { knownManeuvers, martialCaps, type MartialCaps } from './martial'
+import { effectLive, knownManeuvers, martialCaps, type MartialCaps } from './martial'
 import type { ManeuverDef } from '../data/types'
 
 const SRD = 'https://www.d20srd.org/srd/'
@@ -198,12 +198,18 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const caps = martialCaps(char, rules, characterLevel)
   const known = caps ? knownManeuvers(char, rules, characterLevel) : []
   const stance = known.find((k) => k.type === 'stance' && k.id === char.martial?.stance)
-  const runningManeuvers = (char.martial?.active ?? [])
-    .map((a) => rules.maneuvers.get(a.id))
-    .filter((d): d is ManeuverDef => !!d)
-  for (const def of [...(stance ? [stance] : []), ...runningManeuvers]) {
+  // Each running maneuver has a turn stage; each of its effects ends at its own stage (engine/martial.ts).
+  const running = (char.martial?.active ?? [])
+    .map((a) => ({ def: rules.maneuvers.get(a.id), stage: a.stage ?? 0 }))
+    .filter((r): r is { def: ManeuverDef; stage: number } => !!r.def)
+  const runningManeuvers = running.map((r) => r.def)
+  // Strike dice apply to the strike only (your turn); DR "for 1 round" lasts until your next turn (p. 84).
+  const strikeDice = running.filter((r) => r.stage < 1).map((r) => r.def)
+  const maneuverDR = running.filter((r) => r.stage < 2 && r.def.damageReduction).map((r) => r.def)
+  for (const { def, stage } of [...(stance ? [{ def: stance, stage: 0 }] : []), ...running]) {
     for (const eff of def.effects ?? []) {
       if (eff.appliesTo === 'allies' || eff.appliesTo === 'target') continue
+      if (!effectLive(eff, stage)) continue
       const il = caps?.initiatorLevel ?? 0
       const value =
         eff.valueFrom === 'initiatorLevel'
@@ -214,8 +220,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
               ? (char.martial?.crits ?? 0) * eff.spec.value
               : eff.spec.value
       if (value === 0) continue
-      // Maneuver and stance bonuses don't stack with each other (Tome of Battle p. 40): one shared source id.
-      mods.push({ spec: { ...eff.spec, value }, sourceId: 'martial', label: def.name, source: def.source })
+      // Maneuver and stance bonuses don't stack with each other (Tome of Battle p. 40): one shared source id
+      // (unless the bonus comes from elsewhere, e.g. the normal charge bonus of Pouncing Charge).
+      mods.push({ spec: { ...eff.spec, value }, sourceId: eff.stacksAs ?? 'martial', label: def.name, source: def.source })
     }
   }
 
@@ -225,11 +232,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       .filter((e) => e.enabled && e.kind === 'condition')
       .flatMap((e) => rules.conditions.get(e.refId ?? '')?.replaces ?? []),
   )
+  const activeConditions: string[] = []
   for (const eff of char.activeEffects) {
     if (!eff.enabled) continue
     if (eff.kind === 'condition') {
       const def = rules.conditions.get(eff.refId ?? '')
       if (!def || replaced.has(def.id)) continue
+      activeConditions.push(def.id)
       flags.push(...def.flags)
       for (const spec of def.modifiers) mods.push({ spec, sourceId: `condition:${def.id}`, label: def.name, source: def.source })
     } else if (eff.kind === 'magic') {
@@ -247,7 +256,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     mods
       .filter((m) => targets.includes(m.spec.target))
       .map((m) => ({
-        sourceId: m.spec.condition ? `${m.sourceId}|${m.spec.condition.en}` : m.sourceId,
+        // Situational parts get their own source (prone vs melee / vs ranged…), except maneuver bonuses, which
+        // never stack with each other whatever the situation (Tome of Battle p. 40).
+        sourceId: m.spec.condition && m.sourceId !== 'martial' ? `${m.sourceId}|${m.spec.condition.en}` : m.sourceId,
         label: m.label,
         value: m.spec.value,
         bonusType: m.spec.bonusType,
@@ -345,7 +356,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- saves
   const saveAbility: Record<SaveId, AbilityId> = { fort: 'con', ref: 'dex', will: 'wis' }
   const saves = {} as Record<SaveId, Stat>
-  const flatFootedNow = flags.includes('loseDexToAc') || sumTarget('ac.noDex') > 0 || toggles.situational['flatFooted'] === true
+  // Flat-footed proper (the condition or the combat toggle), not every loss of Dex to AC (stunned, blinded…).
+  const flatFootedNow = activeConditions.includes('flat-footed') || toggles.situational['flatFooted'] === true
   for (const s of ['fort', 'ref', 'will'] as SaveId[]) {
     const extra: Part[] = []
     // Warblade battle clarity (Tome of Battle p. 22): insight bonus = Int bonus (max warblade level) on Reflex
@@ -488,8 +500,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   if (toggles.totalDefense)
     acParts.push({ sourceId: 'total-defense', label: tumble5 ? i18n('Total defense (Tumble 5 ranks)', 'Défense totale (Acrobaties 5 degrés)') : i18n('Total defense', 'Défense totale'), value: tumble5 ? 6 : 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
   acParts.push(...partsFor(['ac']))
-  // Uncanny dodge (warblade 2, Tome of Battle p. 22): keeps the Dex bonus when flat-footed, not when immobilized.
-  const uncannyDodge = !!caps && caps.classLevel >= 2 && !flags.some((f) => ['immobile', 'helpless', 'dexZeroForAc', 'strDexZero'].includes(f))
+  // Uncanny dodge (warblade 2, Tome of Battle p. 22): keeps the Dex bonus when caught flat-footed (or by an invisible
+  // attacker), not when it is lost for another reason (stunned, blinded, cowering, pinned…).
+  const otherDexLoss =
+    activeConditions.some((id) => id !== 'flat-footed' && rules.conditions.get(id)?.flags.includes('loseDexToAc')) ||
+    sumTarget('ac.noDex') > 0
+  const uncannyDodge = !!caps && caps.classLevel >= 2 && !otherDexLoss
   const stripDex = (parts: Part[]) =>
     parts.filter(
       (p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero && !uncannyDodge) && p.bonusType !== 'dodge',
@@ -500,7 +516,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   // ---- initiative, grapple
   // An initiative check is a Dexterity check: ability-check modifiers apply (https://www.d20srd.org/srd/combat/initiative.htm).
-  const initiative = resolve([abilityPart('dex'), ...partsFor(['initiative', 'check.dex'])])
+  // Situational Dex-check bonuses (e.g. "to resist a trip") are not initiative bonuses.
+  const initiative = resolve([abilityPart('dex'), ...partsFor(['initiative']), ...partsFor(['check.dex']).filter((p) => !p.condition)])
   const grapple = resolve([...tableSum('bab'), abilityPart('str'), ...partsFor(['grapple'])])
 
   // ---- Weapon Master features need the class requirements to stay met (Complete Warrior p.16, rulings q6):
@@ -715,7 +732,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         ...props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
         // Strikes/boosts/stances add dice to melee attacks (not multiplied on a critical, Tome of Battle p. 43).
         ...(melee
-          ? [...(stance ? [stance] : []), ...runningManeuvers].flatMap((d) =>
+          ? [...(stance ? [stance] : []), ...strikeDice].flatMap((d) =>
               (d.extraDamage ?? []).map((x) => ({ dice: x.dice, type: x.type ?? i18n('maneuver', 'manœuvre'), condition: x.condition, source: d.name })),
             )
           : []),
@@ -767,9 +784,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     shield,
     martial: { caps, known, stance, active: runningManeuvers },
     damageReduction: [
-      ...[...(stance ? [stance] : []), ...runningManeuvers]
+      ...[...(stance ? [stance] : []), ...maneuverDR]
         .filter((d) => d.damageReduction)
-        .map((d) => ({ value: d.damageReduction!, source: d.name })),
+        .map((d) => ({
+          value: d.damageReduction!,
+          source: d.type === 'stance' ? d.name : i18n(`${d.name.en} (if the strike hit)`, `${d.name.fr} (si la frappe a touché)`),
+        })),
       ...(armor && armorMat?.effects.armorDR
         ? [{ value: armorMat.effects.armorDR[armor.def.category as 'light' | 'medium' | 'heavy'] ?? '', source: armorMat.name }].filter((d) => d.value)
         : []),

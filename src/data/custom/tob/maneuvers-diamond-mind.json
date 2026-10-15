@@ -345,7 +345,7 @@
     },
     "source": {
       "book": "Tome of Battle",
-      "page": 64,
+      "page": 63,
       "frRef": "traduction maison"
     }
   },
@@ -457,7 +457,7 @@
     },
     "source": {
       "book": "Tome of Battle",
-      "page": 65,
+      "page": 64,
       "frRef": "traduction maison"
     }
   },
@@ -861,21 +861,7 @@
       "en": "<p>Your initiative count improves by <b>20</b> for the rest of the current encounter. The change takes effect at the end of the round: you move to your new place in the initiative order starting next round.</p>",
       "fr": "<p>Votre rang d’initiative augmente de <b>20</b> pour le reste de la rencontre. Le changement prend effet à la fin du round : vous prenez votre nouvelle place dans l’ordre d’initiative à partir du round suivant.</p>"
     },
-    "effects": [
-      {
-        "spec": {
-          "target": "initiative",
-          "bonusType": "untyped",
-          "value": 20,
-          "condition": {
-            "en": "from the next round on",
-            "fr": "à partir du round suivant"
-          }
-        },
-        "duration": "encounter",
-        "appliesTo": "self"
-      }
-    ],
+    "effects": null,
     "notes": {
       "en": "The +20 changes your current initiative count (your place in the order) from the next round, not your initiative modifier (pp. 45, 64; rulings-tob T8).",
       "fr": "Le +20 modifie votre rang d'initiative (votre place dans l'ordre) à partir du round suivant, pas votre modificateur d'initiative (p. 45, 64 ; rulings-tob T8)."
@@ -968,7 +954,7 @@
     },
     "text": {
       "en": "<p>After initiating this boost you get a free <b>move action</b> (any move-action option), then act normally: e.g. move next to a foe and still make a full attack, or move and then charge. The move provokes attacks of opportunity as usual.</p>",
-      "fr": "<p>Après cette amélioration, vous bénéficiez d’une <b>action de mouvement</b> gratuite (n’importe quelle option d’action de mouvement), puis vous agissez normalement : par ex. vous approcher d’un ennemi puis faire une attaque à outrance, ou vous déplacer puis charger. Ce déplacement provoque des attaques d’opportunité comme d’habitude.</p>"
+      "fr": "<p>Après cette stimulation, vous bénéficiez d’une <b>action de mouvement</b> gratuite (n’importe quelle option d’action de mouvement), puis vous agissez normalement : par ex. vous approcher d’un ennemi puis faire une attaque à outrance, ou vous déplacer puis charger. Ce déplacement provoque des attaques d’opportunité comme d’habitude.</p>"
     },
     "source": {
       "book": "Tome of Battle",
@@ -1123,11 +1109,11 @@
     "supernatural": false,
     "summary": {
       "en": "Once per round, initiate a counter without spending an immediate action.",
-      "fr": "Une fois par round, initier un contre sans dépenser d’action immédiate."
+      "fr": "Une fois par round, initier une riposte sans dépenser d’action immédiate."
     },
     "text": {
       "en": "<p>While in this stance, one counter per round does not cost an immediate action. You can’t use the same counter twice in a round. You can use this even if you already took an immediate action since your last turn.</p>",
-      "fr": "<p>Tant que vous êtes dans cette posture, un contre par round ne vous coûte pas d’action immédiate. Vous ne pouvez pas utiliser le même contre deux fois dans le round. Cela fonctionne même si vous avez déjà pris une action immédiate depuis votre dernier tour.</p>"
+      "fr": "<p>Tant que vous êtes dans cette posture, une riposte par round ne vous coûte pas d’action immédiate. Vous ne pouvez pas utiliser la même riposte deux fois dans le round. Cela fonctionne même si vous avez déjà pris une action immédiate depuis votre dernier tour.</p>"
     },
     "source": {
       "book": "Tome of Battle",
@@ -1173,8 +1159,8 @@
       "fr": "<p>Vous effectuez une attaque à outrance, la résolvez entièrement, puis effectuez une seconde attaque à outrance. Les deux sont résolues séparément et dans l’ordre ; vous ne pouvez pas mélanger leurs attaques.</p>"
     },
     "notes": {
-      "en": "Unofficial WotC customer-service answer: each full attack keeps its own extra attacks (haste, etc.).",
-      "fr": "Réponse non officielle du service client WotC : chaque attaque à outrance conserve ses attaques supplémentaires (rapidité, etc.)."
+      "en": "Open question: a strike can't benefit from extra attacks such as haste (p. 43); an unofficial customer-service answer says each full attack keeps them. Ask the DM.",
+      "fr": "Question ouverte : une frappe ne profite pas des attaques supplémentaires comme rapidité (p. 43) ; une réponse non officielle du service client dit que chaque attaque à outrance les garde. À voir avec le MJ."
     },
     "source": {
       "book": "Tome of Battle",

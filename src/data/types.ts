@@ -339,6 +339,8 @@ export interface ManeuverEffect {
   appliesTo?: 'self' | 'strikeAttack' | 'allies' | 'target'
   /** Value computed from the initiator level instead of spec.value (e.g. Diamond Defense). */
   valueFrom?: 'initiatorLevel' | 'halfInitiatorLevel' | 'critCount'
+  /** Stacking source when the bonus doesn't come from the maneuver itself (e.g. 'charge'); default: shared 'martial'. */
+  stacksAs?: string
 }
 
 export interface ManeuverDef {

@@ -1,7 +1,6 @@
 // Shared helpers for the Maneuvers pane and the Combat block (Tome of Battle, house rule #15).
 import { rules } from '../data/rules'
 import type { I18n, ManeuverDef } from '../data/types'
-import type { ActiveManeuver } from '../model/character'
 import { app, tr } from '../state.svelte'
 import { openPopup } from './popupState.svelte'
 
@@ -54,12 +53,4 @@ export function maneuverPopup(def: ManeuverDef) {
     source: def.source,
     noteKey: `maneuver:${def.id}`,
   })
-}
-
-/** How long a just-initiated maneuver keeps affecting the sheet. */
-export function runningUntil(def: ManeuverDef): ActiveManeuver['until'] {
-  const durations = (def.effects ?? []).map((e) => e.duration)
-  if (durations.includes('encounter') || durations.includes('minute')) return 'encounter'
-  if (durations.includes('round') || durations.includes('rounds')) return 'round'
-  return 'endOfTurn'
 }

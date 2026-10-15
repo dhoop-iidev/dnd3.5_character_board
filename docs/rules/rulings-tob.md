@@ -55,3 +55,16 @@ Questions found while encoding the maneuvers. Researched 2026-10-15. Summaries i
 
 ## T9. Steely Strike (Iron Heart 1, p. 69) — **resolved**
 - +4 on that one melee attack; for 1 round (until just before your next action, p. 45) every opponent **except the one you struck** gets +4 on attack rolls against you. It is not an AC change: the app shows it as a situational −4 AC because, against those opponents, the result is the same.
+
+## T10. Extra damage dice from a stance and a strike — **decided: house rule #20 (they add up)**
+- ToB p. 40 says maneuver and stance *bonuses* on attack, damage, saves… don't stack. Strikes and stances that add dice say "extra … damage".
+- Wizards customer service (unofficial, compiled at https://drammelsnotes.wikidot.com/the-unofficial-official-errata): Punishing Stance + Mountain Hammer dice stack, "additional damage die aren't considered bonuses". The official FAQ (p. 75) also calls Punishing Stance's +1d6 "extra damage". Community consensus agrees.
+- App: extra dice from the stance and the strike are both listed; flat maneuver bonuses share one stacking source.
+
+## T11. Maneuvers learned at the same level as prerequisites — **decided: house rule #21 (yes)**
+- The book is silent. Customer service (unofficial, same compilation) answered "yes" to a warblade 1 picking, in one go, a maneuver with no prerequisite, one needing 1, one needing 2 and a stance needing 3. Same as the official FAQ ruling for feats gained at one level. A maneuver never counts toward itself.
+- App: validated in pick order within the level.
+
+## T12. Bolstering Voice / Leading the Attack and the initiator — **decided: house rule #22 (allies only)**
+- Book: both name "your allies"; Lion's Roar says "you and allies" when it means both. FAQ p. 75 describes Leading the Attack as "your allies still gain the +4 morale bonus", and says White Raven Tactics doesn't work on the initiator.
+- A customer-service answer said Bolstering Voice includes the user (reasoning from the bard, whose text explicitly says "including himself"). 3.5 has no general rule that you are your own ally.

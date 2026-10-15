@@ -33,8 +33,8 @@
       "fr": "Une attaque au contact ; si elle touche, vous gagnez RD 20/adamantium pendant 1 round."
     },
     "text": {
-      "en": "<p>Make one melee attack. If it hits, you gain <strong>damage reduction 20/adamantine</strong> for 1 round.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous gagnez une <strong>réduction des dégâts de 20/adamantium</strong> pendant 1 round.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. If it hits, you gain <strong>damage reduction 20/adamantine</strong> for 1 round.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous gagnez une <strong>réduction des dégâts de 20/adamantium</strong> pendant 1 round.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "DR 20/adamantine for 1 round if the attack hits (the app does not track damage reduction).",
@@ -81,8 +81,8 @@
       "fr": "Attaque au contact à +12d6 dégâts, qui ignore RD et solidité."
     },
     "text": {
-      "en": "<p>Make one melee attack. It deals <strong>+12d6</strong> damage and automatically overcomes damage reduction and hardness.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Elle inflige <strong>+12d6</strong> points de dégâts et passe automatiquement la réduction des dégâts et la solidité.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. It deals <strong>+12d6</strong> damage and automatically overcomes damage reduction and hardness.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Elle inflige <strong>+12d6</strong> points de dégâts et passe automatiquement la réduction des dégâts et la solidité.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -133,8 +133,8 @@
       "fr": "Attaque au contact ; si elle touche, la cible subit aussi 2 points d’affaiblissement temporaire de Con."
     },
     "text": {
-      "en": "<p>Make one melee attack. On a hit it deals normal damage plus <strong>2 points of Constitution damage</strong>. No save.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige ses dégâts normaux plus <strong>2 points d’affaiblissement temporaire de Constitution</strong>. Pas de jet de sauvegarde.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. On a hit it deals normal damage plus <strong>2 points of Constitution damage</strong>. No save.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige ses dégâts normaux plus <strong>2 points d’affaiblissement temporaire de Constitution</strong>. Pas de jet de sauvegarde.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "Target takes 2 Con damage (ability damage, not hit points).",
@@ -180,8 +180,8 @@
       "fr": "Attaque au contact +4d6 ; Vigueur ratée : +10 aux jets de confirmation de critique contre elle jusqu’à guérison complète."
     },
     "text": {
-      "en": "<p>Make one melee attack. On a hit it deals <strong>+4d6</strong> damage, and the target makes a <strong>Fortitude save (DC 13 + your Str modifier)</strong>. On a failure its skeleton is weakened: every roll to confirm a critical hit against it gets <strong>+10</strong>, until its hit points are back to full (by any healing). The extra damage applies even on a success. Creatures immune to critical hits or with no discernible anatomy ignore the bone effect but still take the extra damage.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige <strong>+4d6</strong> points de dégâts et la cible fait un <strong>jet de Vigueur (DD 13 + mod. de For)</strong>. En cas d’échec, son squelette est fragilisé : tout jet de confirmation de critique contre elle gagne <strong>+10</strong>, jusqu’à ce qu’elle retrouve tous ses points de vie (soins de toute nature). Les dégâts supplémentaires s’appliquent même si le jet est réussi. Les créatures immunisées contre les critiques ou sans anatomie discernable ignorent l’effet sur les os mais subissent les dégâts.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. On a hit it deals <strong>+4d6</strong> damage, and the target makes a <strong>Fortitude save (DC 13 + your Str modifier)</strong>. On a failure its skeleton is weakened: every roll to confirm a critical hit against it gets <strong>+10</strong>, until its hit points are back to full (by any healing). The extra damage applies even on a success. Creatures immune to critical hits or with no discernible anatomy ignore the bone effect but still take the extra damage.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige <strong>+4d6</strong> points de dégâts et la cible fait un <strong>jet de Vigueur (DD 13 + mod. de For)</strong>. En cas d’échec, son squelette est fragilisé : tout jet de confirmation de critique contre elle gagne <strong>+10</strong>, jusqu’à ce qu’elle retrouve tous ses points de vie (soins de toute nature). Les dégâts supplémentaires s’appliquent même si le jet est réussi. Les créatures immunisées contre les critiques ou sans anatomie discernable ignorent l’effet sur les os mais subissent les dégâts.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -194,7 +194,7 @@
     },
     "source": {
       "book": "Tome of Battle",
-      "page": 82,
+      "page": 81,
       "frRef": "traduction maison"
     }
   },
@@ -232,8 +232,8 @@
       "fr": "Lors d’un renversement : +4 au test de For, vous ne pouvez pas être mis à terre, pas d’attaques d’opportunité."
     },
     "text": {
-      "en": "<p>Initiate this when you make an overrun (PH 157). You get <strong>+4 on the Strength check</strong> to overrun. If the check fails, the defender can't knock you prone: you just stop in the last legal space you occupied. Neither your movement nor your overrun attempts provoke attacks of opportunity.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>À utiliser lors d’un renversement (Manuel des Joueurs p. 157). Vous gagnez <strong>+4 au test de Force</strong> de renversement. Si le test échoue, la cible ne peut pas vous mettre à terre : vous vous arrêtez dans la dernière case légale occupée. Ni votre déplacement ni vos tentatives de renversement ne provoquent d’attaques d’opportunité.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Initiate this when you make an overrun (PH 157). You get <strong>+4 on the Strength check</strong> to overrun. If the check fails, the defender can't knock you prone: you just stop in the last legal space you occupied. Neither your movement nor your overrun attempts provoke attacks of opportunity.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>À utiliser lors d’un renversement (Manuel des Joueurs p. 157). Vous gagnez <strong>+4 au test de Force</strong> de renversement. Si le test échoue, la cible ne peut pas vous mettre à terre : vous vous arrêtez dans la dernière case légale occupée. Ni votre déplacement ni vos tentatives de renversement ne provoquent d’attaques d’opportunité.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "effects": [
       {
@@ -251,7 +251,7 @@
     ],
     "notes": {
       "en": "No attacks of opportunity for the movement or the overruns; a failed overrun does not leave you prone. Listed as a boost but uses a full-round action (as printed).",
-      "fr": "Pas d’attaques d’opportunité pour le déplacement ni les renversements ; un renversement raté ne vous met pas à terre. Classée « boost » mais demande une action complexe (tel qu’imprimé)."
+      "fr": "Pas d’attaques d’opportunité pour le déplacement ni les renversements ; un renversement raté ne vous met pas à terre. Classée « stimulation » mais demande une action complexe (tel qu’imprimé)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -293,8 +293,8 @@
       "fr": "Bousculade en charge sans attaques d’opportunité ; si vous l’emportez, 2d6 + mod. de For dégâts contondants."
     },
     "text": {
-      "en": "<p>Make a bull rush (PH 154) as part of a charge. Neither the move nor the bull rush provokes attacks of opportunity. Resolve the bull rush normally; if your Strength check beats the defender's, it takes <strong>2d6 + your Str modifier</strong> bludgeoning damage and is pushed back as usual. You can push it more than 5 ft. without having to follow it.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous effectuez une bousculade (Manuel des Joueurs p. 154) au cours d’une charge. Ni le déplacement ni la bousculade ne provoquent d’attaques d’opportunité. Résolvez la bousculade normalement ; si votre test de Force bat celui de la cible, elle subit <strong>2d6 + mod. de For</strong> points de dégâts contondants et recule normalement. Vous pouvez la repousser de plus de 1,50 m sans devoir la suivre.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make a bull rush (PH 154) as part of a charge. Neither the move nor the bull rush provokes attacks of opportunity. Resolve the bull rush normally; if your Strength check beats the defender's, it takes <strong>2d6 + your Str modifier</strong> bludgeoning damage and is pushed back as usual. You can push it more than 5 ft. without having to follow it.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous effectuez une bousculade (Manuel des Joueurs p. 154) au cours d’une charge. Ni le déplacement ni la bousculade ne provoquent d’attaques d’opportunité. Résolvez la bousculade normalement ; si votre test de Force bat celui de la cible, elle subit <strong>2d6 + mod. de For</strong> points de dégâts contondants et recule normalement. Vous pouvez la repousser de plus de 1,50 m sans devoir la suivre.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -353,8 +353,8 @@
       "fr": "Attaque au contact +6d6 ; Vigueur ratée : projetée à 1d4 cases et à terre."
     },
     "text": {
-      "en": "<p>Make one melee attack dealing <strong>+6d6</strong> damage. The target makes a <strong>Fortitude save (DC 17 + your Str modifier)</strong> or is thrown <strong>1d4 squares</strong> away from you and lands prone. It gets −2 on the save if smaller than you, +2 if larger. Its movement provokes no attacks of opportunity; an obstacle stops it in the first unoccupied square.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+6d6</strong> points de dégâts. La cible fait un <strong>jet de Vigueur (DD 17 + mod. de For)</strong> ou est projetée à <strong>1d4 cases</strong> de vous et tombe à terre. Elle a −2 au jet si elle est plus petite que vous, +2 si elle est plus grande. Ce déplacement ne provoque pas d’attaques d’opportunité ; un obstacle l’arrête dans la première case libre.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack dealing <strong>+6d6</strong> damage. The target makes a <strong>Fortitude save (DC 17 + your Str modifier)</strong> or is thrown <strong>1d4 squares</strong> away from you and lands prone. It gets −2 on the save if smaller than you, +2 if larger. Its movement provokes no attacks of opportunity; an obstacle stops it in the first unoccupied square.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+6d6</strong> points de dégâts. La cible fait un <strong>jet de Vigueur (DD 17 + mod. de For)</strong> ou est projetée à <strong>1d4 cases</strong> de vous et tombe à terre. Elle a −2 au jet si elle est plus petite que vous, +2 si elle est plus grande. Ce déplacement ne provoque pas d’attaques d’opportunité ; un obstacle l’arrête dans la première case libre.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -405,8 +405,8 @@
       "fr": "Attaque au contact +4d6 ; une cible au sol a une vitesse de 0 pendant 1 round (pas de JS)."
     },
     "text": {
-      "en": "<p>Make one melee attack dealing <strong>+4d6</strong> damage. If the target is standing on the ground, all its speeds drop to <strong>0 ft. for 1 round</strong>; it can still act otherwise. No save. Flying or levitating targets ignore the speed effect but take the extra damage.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+4d6</strong> points de dégâts. Si la cible se tient au sol, toutes ses vitesses tombent à <strong>0 m pendant 1 round</strong> ; elle peut agir normalement par ailleurs. Pas de jet de sauvegarde. Une cible qui vole ou lévite ignore l’effet sur la vitesse mais subit les dégâts.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack dealing <strong>+4d6</strong> damage. If the target is standing on the ground, all its speeds drop to <strong>0 ft. for 1 round</strong>; it can still act otherwise. No save. Flying or levitating targets ignore the speed effect but take the extra damage.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+4d6</strong> points de dégâts. Si la cible se tient au sol, toutes ses vitesses tombent à <strong>0 m pendant 1 round</strong> ; elle peut agir normalement par ailleurs. Pas de jet de sauvegarde. Une cible qui vole ou lévite ignore l’effet sur la vitesse mais subit les dégâts.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -457,8 +457,8 @@
       "fr": "Posture : constriction sur un adversaire agrippé, 2d6 + 1,5 × bonus de For, sur un test de lutte réussi."
     },
     "text": {
-      "en": "<p>While in this stance you have the <strong>constrict</strong> ability: with a successful grapple check against a foe you are grappling, you deal <strong>2d6 + 1½ × your Str bonus</strong> (if positive).</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Tant que vous êtes dans cette posture, vous possédez la <strong>constriction</strong> : sur un test de lutte réussi contre un adversaire que vous agrippez, vous infligez <strong>2d6 + 1,5 × votre bonus de For</strong> (s’il est positif).</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>While in this stance you have the <strong>constrict</strong> ability: with a successful grapple check against a foe you are grappling, you deal <strong>2d6 + 1½ × your Str bonus</strong> (if positive).</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Tant que vous êtes dans cette posture, vous possédez la <strong>constriction</strong> : sur un test de lutte réussi contre un adversaire que vous agrippez, vous infligez <strong>2d6 + 1,5 × votre bonus de For</strong> (s’il est positif).</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "Constrict damage 2d6 + 1.5 × Str bonus on a successful grapple check.",
@@ -487,8 +487,8 @@
       "fr": "6 m"
     },
     "target": {
-      "en": "20-ft.-radius burst centered on you",
-      "fr": "Explosion de 6 m de rayon centrée sur vous"
+      "en": "",
+      "fr": ""
     },
     "duration": {
       "en": "Instantaneous",
@@ -504,8 +504,8 @@
       "fr": "Secousse : tous ceux au sol à 6 m tombent à terre (Réflexes DD 18 + For) ; les lanceurs peuvent perdre leur sort."
     },
     "text": {
-      "en": "<p>You strike the ground. Every creature standing on the ground in a <strong>20-ft.-radius burst</strong> centered on you must make a <strong>Reflex save (DC 18 + your Str modifier)</strong> or fall prone. A creature on the ground there that is casting a spell must make a <strong>Concentration check (DC 20 + spell level)</strong> or lose it. You are immune; allies are not. Walls and similar barriers don't block it.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous frappez le sol. Toute créature au sol dans une <strong>explosion de 6 m de rayon</strong> centrée sur vous fait un <strong>jet de Réflexes (DD 18 + mod. de For)</strong> ou tombe à terre. Une créature au sol dans la zone qui lance un sort fait un <strong>test de Concentration (DD 20 + niveau du sort)</strong> ou perd le sort. Vous êtes immunisé ; vos alliés non. Les murs et barrières similaires ne bloquent pas l’effet.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>You strike the ground. Every creature standing on the ground in a <strong>20-ft.-radius burst</strong> centered on you must make a <strong>Reflex save (DC 18 + your Str modifier)</strong> or fall prone. A creature on the ground there that is casting a spell must make a <strong>Concentration check (DC 20 + spell level)</strong> or lose it. You are immune; allies are not. Walls and similar barriers don't block it.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous frappez le sol. Toute créature au sol dans une <strong>explosion de 6 m de rayon</strong> centrée sur vous fait un <strong>jet de Réflexes (DD 18 + mod. de For)</strong> ou tombe à terre. Une créature au sol dans la zone qui lance un sort fait un <strong>test de Concentration (DD 20 + niveau du sort)</strong> ou perd le sort. Vous êtes immunisé ; vos alliés non. Les murs et barrières similaires ne bloquent pas l’effet.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "Area effect, no attack roll. Affects allies too.",
@@ -515,6 +515,10 @@
       "book": "Tome of Battle",
       "page": 82,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "20-ft.-radius burst centered on you",
+      "fr": "Explosion de 6 m de rayon centrée sur vous"
     }
   },
   {
@@ -551,8 +555,8 @@
       "fr": "Attaque au contact à +6d6 dégâts, qui ignore RD et solidité."
     },
     "text": {
-      "en": "<p>Make one melee attack. It deals <strong>+6d6</strong> damage and automatically overcomes damage reduction and hardness.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Elle inflige <strong>+6d6</strong> points de dégâts et passe automatiquement la réduction des dégâts et la solidité.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. It deals <strong>+6d6</strong> damage and automatically overcomes damage reduction and hardness.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Elle inflige <strong>+6d6</strong> points de dégâts et passe automatiquement la réduction des dégâts et la solidité.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -603,8 +607,8 @@
       "fr": "Posture : dégâts d’arme et à mains nues comme pour une taille de plus (max. G)."
     },
     "text": {
-      "en": "<p>While in this stance, your weapon and unarmed strike damage is rolled <strong>as if you were one size category larger</strong>, up to a maximum of Large. No other effect of a size change (no ability, AC or reach change). The stance ends at once if you move more than 5 ft. for any reason (including being bull rushed or moved by magic).</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Dans cette posture, vos dégâts d’arme et à mains nues sont lancés <strong>comme si vous aviez une catégorie de taille de plus</strong>, jusqu’à Grande (G) au maximum. Aucun autre effet de changement de taille (ni caractéristiques, ni CA, ni allonge). La posture prend fin dès que vous vous déplacez de plus de 1,50 m pour quelque raison que ce soit (bousculade, magie…).</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>While in this stance, your weapon and unarmed strike damage is rolled <strong>as if you were one size category larger</strong>, up to a maximum of Large. No other effect of a size change (no ability, AC or reach change). The stance ends at once if you move more than 5 ft. for any reason (including being bull rushed or moved by magic).</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Dans cette posture, vos dégâts d’arme et à mains nues sont lancés <strong>comme si vous aviez une catégorie de taille de plus</strong>, jusqu’à Grande (G) au maximum. Aucun autre effet de changement de taille (ni caractéristiques, ni CA, ni allonge). La posture prend fin dès que vous vous déplacez de plus de 1,50 m pour quelque raison que ce soit (bousculade, magie…).</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "Damage dice one size step up (e.g. Medium greatsword 2d6 → 3d6). Ends if you move more than 5 ft. Stacking with other size increases is left to the DM (WotC Customer Service, not errata).",
@@ -650,8 +654,8 @@
       "fr": "Une attaque au contact ; si elle touche, vous gagnez RD 10/adamantium pendant 1 round."
     },
     "text": {
-      "en": "<p>Make one melee attack. If it hits, you gain <strong>damage reduction 10/adamantine</strong> for 1 round.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous gagnez une <strong>réduction des dégâts de 10/adamantium</strong> pendant 1 round.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. If it hits, you gain <strong>damage reduction 10/adamantine</strong> for 1 round.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous gagnez une <strong>réduction des dégâts de 10/adamantium</strong> pendant 1 round.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "DR 10/adamantine for 1 round if the attack hits (the app does not track damage reduction).",
@@ -698,8 +702,8 @@
       "fr": "Attaque au contact +4d6 ; Vigueur ratée : pas d’action simple pendant 1 round."
     },
     "text": {
-      "en": "<p>Make one melee attack dealing <strong>+4d6</strong> damage. The target makes a <strong>Fortitude save (DC 16 + your Str modifier)</strong> or cannot take a <strong>standard action</strong> for 1 round (it can otherwise act). The extra damage applies even on a success. Flying or levitating targets don't have to save against the action loss.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+4d6</strong> points de dégâts. La cible fait un <strong>jet de Vigueur (DD 16 + mod. de For)</strong> ou ne peut pas entreprendre d’<strong>action simple</strong> pendant 1 round (elle agit normalement par ailleurs). Les dégâts supplémentaires s’appliquent même si le jet est réussi. Une cible qui vole ou lévite n’a pas à faire le jet contre la perte d’action.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack dealing <strong>+4d6</strong> damage. The target makes a <strong>Fortitude save (DC 16 + your Str modifier)</strong> or cannot take a <strong>standard action</strong> for 1 round (it can otherwise act). The extra damage applies even on a success. Flying or levitating targets don't have to save against the action loss.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+4d6</strong> points de dégâts. La cible fait un <strong>jet de Vigueur (DD 16 + mod. de For)</strong> ou ne peut pas entreprendre d’<strong>action simple</strong> pendant 1 round (elle agit normalement par ailleurs). Les dégâts supplémentaires s’appliquent même si le jet est réussi. Une cible qui vole ou lévite n’a pas à faire le jet contre la perte d’action.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -750,15 +754,15 @@
       "fr": "Déplacement jusqu’au double de la vitesse en piétinant les adversaires de votre taille ou plus petits : 2d6 + 1,5 × bonus de For."
     },
     "text": {
-      "en": "<p>Move up to <strong>twice your speed</strong>, entering the space of creatures of your size or smaller. A creature whose whole space you enter takes <strong>2d6 + 1½ × your Str bonus</strong> (trample), at most once per round per creature. If you cross only part of its space, it may either make an attack of opportunity against you or a <strong>Reflex save (DC 15 + your Str modifier)</strong> for half damage.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous vous déplacez jusqu’à <strong>deux fois votre vitesse</strong> en entrant dans l’espace des créatures de votre taille ou plus petites. Une créature dont vous occupez tout l’espace subit <strong>2d6 + 1,5 × bonus de For</strong> (piétinement), une seule fois par round. Si vous ne traversez qu’une partie de son espace, elle choisit entre une attaque d’opportunité contre vous et un <strong>jet de Réflexes (DD 15 + mod. de For)</strong> pour réduire les dégâts de moitié.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Move up to <strong>twice your speed</strong>, entering the space of creatures of your size or smaller. A creature whose whole space you enter takes <strong>2d6 + 1½ × your Str bonus</strong> (trample), at most once per round per creature. If you cross only part of its space, it may either make an attack of opportunity against you or a <strong>Reflex save (DC 15 + your Str modifier)</strong> for half damage.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous vous déplacez jusqu’à <strong>deux fois votre vitesse</strong> en entrant dans l’espace des créatures de votre taille ou plus petites. Une créature dont vous occupez tout l’espace subit <strong>2d6 + 1,5 × bonus de For</strong> (piétinement), une seule fois par round. Si vous ne traversez qu’une partie de son espace, elle choisit entre une attaque d’opportunité contre vous et un <strong>jet de Réflexes (DD 15 + mod. de For)</strong> pour réduire les dégâts de moitié.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
         "dice": "2d6",
         "condition": {
-          "en": "Trample damage per creature, + 1.5 × Str bonus",
-          "fr": "Dégâts de piétinement par créature, + 1,5 × bonus de For"
+          "en": "Trample damage per creature of your size or smaller, + 1.5 × Str bonus",
+          "fr": "Dégâts de piétinement par créature de votre taille ou plus petite, + 1,5 × bonus de For"
         }
       }
     ],
@@ -806,8 +810,8 @@
       "fr": "Attaque au contact à +2d6 dégâts, qui ignore RD et solidité."
     },
     "text": {
-      "en": "<p>Make one melee attack. It deals <strong>+2d6</strong> damage and automatically overcomes damage reduction and hardness.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Elle inflige <strong>+2d6</strong> points de dégâts et passe automatiquement la réduction des dégâts et la solidité.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. It deals <strong>+2d6</strong> damage and automatically overcomes damage reduction and hardness.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Elle inflige <strong>+2d6</strong> points de dégâts et passe automatiquement la réduction des dégâts et la solidité.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -858,8 +862,8 @@
       "fr": "Attaque au contact ; si elle touche, la cible subit aussi 2d6 points d’affaiblissement temporaire de Con."
     },
     "text": {
-      "en": "<p>Make one melee attack. On a hit it deals normal damage plus <strong>2d6 points of Constitution damage</strong>. No save.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige ses dégâts normaux plus <strong>2d6 points d’affaiblissement temporaire de Constitution</strong>. Pas de jet de sauvegarde.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. On a hit it deals normal damage plus <strong>2d6 points of Constitution damage</strong>. No save.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige ses dégâts normaux plus <strong>2d6 points d’affaiblissement temporaire de Constitution</strong>. Pas de jet de sauvegarde.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "2d6 Con damage (ability damage, not hit points). No prerequisite, as printed; WotC customer service said this is intended (rulings-tob T4).",
@@ -905,8 +909,8 @@
       "fr": "Attaque au contact +2d6 ; Vigueur ratée : une cible au sol perd son action de mouvement pendant 1 round."
     },
     "text": {
-      "en": "<p>Make one melee attack dealing <strong>+2d6</strong> damage. If the target stands on the ground, it cannot take a <strong>move action</strong> for 1 round unless it succeeds on a <strong>Fortitude save (DC 14 + your Str modifier)</strong>; the extra damage applies either way. Flying or levitating targets don't have to save.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+2d6</strong> points de dégâts. Si la cible se tient au sol, elle ne peut pas entreprendre d’<strong>action de mouvement</strong> pendant 1 round, sauf <strong>jet de Vigueur (DD 14 + mod. de For)</strong> réussi ; les dégâts supplémentaires s’appliquent dans tous les cas. Une cible qui vole ou lévite n’a pas à faire le jet.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack dealing <strong>+2d6</strong> damage. If the target stands on the ground, it cannot take a <strong>move action</strong> for 1 round unless it succeeds on a <strong>Fortitude save (DC 14 + your Str modifier)</strong>; the extra damage applies either way. Flying or levitating targets don't have to save.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+2d6</strong> points de dégâts. Si la cible se tient au sol, elle ne peut pas entreprendre d’<strong>action de mouvement</strong> pendant 1 round, sauf <strong>jet de Vigueur (DD 14 + mod. de For)</strong> réussi ; les dégâts supplémentaires s’appliquent dans tous les cas. Une cible qui vole ou lévite n’a pas à faire le jet.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -957,8 +961,8 @@
       "fr": "Posture : +10 pour résister à la bousculade, au renversement, au croc-en-jambe et à la lutte ; RD 2/— ; −10 en Acrobaties pour les adversaires qui vous contournent."
     },
     "text": {
-      "en": "<p>While in this stance you get <strong>+10</strong> on checks to resist bull rush, overrun and trip, and on grapple checks to resist being grappled. Creatures moving through your threatened area or your space take <strong>−10 on Tumble checks</strong>. You also gain <strong>damage reduction 2/—</strong>. The stance ends at once if you move more than 5 ft. for any reason.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Dans cette posture, vous gagnez <strong>+10</strong> aux tests pour résister à une bousculade, un renversement ou un croc-en-jambe, et aux tests de lutte pour résister à une tentative de lutte. Les créatures qui traversent votre zone contrôlée ou votre case subissent <strong>−10 aux tests d’Acrobaties</strong>. Vous gagnez aussi une <strong>réduction des dégâts de 2/—</strong>. La posture prend fin dès que vous vous déplacez de plus de 1,50 m.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>While in this stance you get <strong>+10</strong> on checks to resist bull rush, overrun and trip, and on grapple checks to resist being grappled. Creatures moving through your threatened area or your space take <strong>−10 on Tumble checks</strong>. You also gain <strong>damage reduction 2/—</strong>. The stance ends at once if you move more than 5 ft. for any reason.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Dans cette posture, vous gagnez <strong>+10</strong> aux tests pour résister à une bousculade, un renversement ou un croc-en-jambe, et aux tests de lutte pour résister à une tentative de lutte. Les créatures qui traversent votre zone contrôlée ou votre case subissent <strong>−10 aux tests d’Acrobaties</strong>. Vous gagnez aussi une <strong>réduction des dégâts de 2/—</strong>. La posture prend fin dès que vous vous déplacez de plus de 1,50 m.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "effects": [
       {
@@ -979,8 +983,8 @@
           "bonusType": "untyped",
           "value": 10,
           "condition": {
-            "en": "Only to resist a trip (if you use Dex)",
-            "fr": "Seulement pour résister à un croc-en-jambe (si vous utilisez la Dex)"
+            "en": "Only to resist a trip or an overrun (if you use Dex)",
+            "fr": "Seulement pour résister à un croc-en-jambe ou un renversement (si vous utilisez la Dex)"
           }
         },
         "duration": "stance"
@@ -1043,8 +1047,8 @@
       "fr": "Une attaque au contact ; si elle touche, vous gagnez RD 5/adamantium pendant 1 round."
     },
     "text": {
-      "en": "<p>Make one melee attack. If it hits, you gain <strong>damage reduction 5/adamantine</strong> for 1 round.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous gagnez une <strong>réduction des dégâts de 5/adamantium</strong> pendant 1 round.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. If it hits, you gain <strong>damage reduction 5/adamantine</strong> for 1 round.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous gagnez une <strong>réduction des dégâts de 5/adamantium</strong> pendant 1 round.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "DR 5/adamantine for 1 round if the attack hits (the app does not track damage reduction).",
@@ -1091,8 +1095,8 @@
       "fr": "Attaque au contact à +4d6 dégâts contre une créature artificielle ou un objet ; compatible avec la destruction d’arme."
     },
     "text": {
-      "en": "<p>Make one melee attack. If it hits a <strong>construct or an object</strong>, it deals <strong>+4d6</strong> damage. You can combine it with a sunder attempt (PH 158) to hit held or carried objects. Against any other target it gives no benefit.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche une <strong>créature artificielle ou un objet</strong>, elle inflige <strong>+4d6</strong> points de dégâts. Vous pouvez l’associer à une destruction d’arme (Manuel des Joueurs p. 158) contre un objet tenu ou porté. Contre toute autre cible, elle n’apporte rien.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack. If it hits a <strong>construct or an object</strong>, it deals <strong>+4d6</strong> damage. You can combine it with a sunder attempt (PH 158) to hit held or carried objects. Against any other target it gives no benefit.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche une <strong>créature artificielle ou un objet</strong>, elle inflige <strong>+4d6</strong> points de dégâts. Vous pouvez l’associer à une destruction d’arme (Manuel des Joueurs p. 158) contre un objet tenu ou porté. Contre toute autre cible, elle n’apporte rien.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -1143,8 +1147,8 @@
       "fr": "Attaque au contact +1d6 ; Vigueur ratée : une cible au sol a une vitesse de 0 pendant 1 round."
     },
     "text": {
-      "en": "<p>Make one melee attack dealing <strong>+1d6</strong> damage. If the target stands on the ground, all its speeds drop to <strong>0 ft. for 1 round</strong> (it can still act) unless it succeeds on a <strong>Fortitude save (DC 12 + your Str modifier)</strong>; the extra damage applies either way. Flying or levitating targets don't have to save.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+1d6</strong> points de dégâts. Si la cible se tient au sol, toutes ses vitesses tombent à <strong>0 m pendant 1 round</strong> (elle peut encore agir), sauf <strong>jet de Vigueur (DD 12 + mod. de For)</strong> réussi ; les dégâts supplémentaires s’appliquent dans tous les cas. Une cible qui vole ou lévite n’a pas à faire le jet.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>Make one melee attack dealing <strong>+1d6</strong> damage. If the target stands on the ground, all its speeds drop to <strong>0 ft. for 1 round</strong> (it can still act) unless it succeeds on a <strong>Fortitude save (DC 12 + your Str modifier)</strong>; the extra damage applies either way. Flying or levitating targets don't have to save.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Vous portez une attaque au corps à corps à <strong>+1d6</strong> points de dégâts. Si la cible se tient au sol, toutes ses vitesses tombent à <strong>0 m pendant 1 round</strong> (elle peut encore agir), sauf <strong>jet de Vigueur (DD 12 + mod. de For)</strong> réussi ; les dégâts supplémentaires s’appliquent dans tous les cas. Une cible qui vole ou lévite n’a pas à faire le jet.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "extraDamage": [
       {
@@ -1195,8 +1199,8 @@
       "fr": "Posture : +2 aux tests de Force et +2 à la CA contre les créatures plus grandes."
     },
     "text": {
-      "en": "<p>While in this stance you get <strong>+2 on Strength checks</strong> and <strong>+2 to AC</strong> against creatures of a larger size category than yours. The stance ends at once if you move more than 5 ft. for any reason.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Dans cette posture, vous gagnez <strong>+2 aux tests de Force</strong> et <strong>+2 à la CA</strong> contre les créatures d’une catégorie de taille supérieure à la vôtre. La posture prend fin dès que vous vous déplacez de plus de 1,50 m pour quelque raison que ce soit.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>While in this stance you get <strong>+2 on Strength checks</strong> and <strong>+2 to AC</strong> against creatures of a larger size category than yours. The stance ends at once if you move more than 5 ft. for any reason.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Dans cette posture, vous gagnez <strong>+2 aux tests de Force</strong> et <strong>+2 à la CA</strong> contre les créatures d’une catégorie de taille supérieure à la vôtre. La posture prend fin dès que vous vous déplacez de plus de 1,50 m pour quelque raison que ce soit.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "effects": [
       {
@@ -1264,8 +1268,8 @@
       "fr": "Posture : immunité contre les coups critiques."
     },
     "text": {
-      "en": "<p>While in this stance you are <strong>immune to critical hits</strong>. The stance ends at once if you move more than 5 ft. for any reason.</p> <em>Stone Dragon: usable only while you touch the ground.</em>",
-      "fr": "<p>Dans cette posture, vous êtes <strong>immunisé contre les coups critiques</strong>. La posture prend fin dès que vous vous déplacez de plus de 1,50 m pour quelque raison que ce soit.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
+      "en": "<p>While in this stance you are <strong>immune to critical hits</strong>. The stance ends at once if you move more than 5 ft. for any reason.</p> <em>Stone Dragon: can be initiated only while you touch the ground.</em>",
+      "fr": "<p>Dans cette posture, vous êtes <strong>immunisé contre les coups critiques</strong>. La posture prend fin dès que vous vous déplacez de plus de 1,50 m pour quelque raison que ce soit.</p> <em>Dragon de pierre : ne peut être initiée qu’au contact du sol.</em>"
     },
     "notes": {
       "en": "Immune to critical hits; ends if you move more than 5 ft.",

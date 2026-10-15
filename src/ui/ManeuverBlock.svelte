@@ -3,38 +3,31 @@
   // Tome of Battle pp. 22, 38–40 (house rule #15).
   import { rules } from '../data/rules'
   import type { ManeuverDef } from '../data/types'
-  import { WARBLADE_RECOVERY } from '../engine/martial'
+  import { maneuverEnd, setStance, WARBLADE_RECOVERY } from '../engine/martial'
   import { app, tr, view } from '../state.svelte'
-  import { ACTION_LABEL, maneuverName, maneuverPopup, runningUntil, TYPE_LABEL } from './maneuvers'
+  import { ACTION_LABEL, maneuverName, maneuverPopup, TYPE_LABEL } from './maneuvers'
 
   const s = $derived(view.sheet)
   const martial = $derived(app.character.martial)
   const stances = $derived(s.martial.known.filter((k) => k.type === 'stance'))
   const readied = $derived(martial.readied.map((id) => rules.maneuvers.get(id)).filter((m): m is ManeuverDef => !!m))
-  const UNTIL = {
-    endOfTurn: { en: 'until end of turn', fr: 'jusqu’à la fin du tour' },
-    round: { en: 'until your next turn', fr: 'jusqu’à votre prochain tour' },
-    encounter: { en: 'this encounter', fr: 'pour la rencontre' },
+  /** When a running maneuver stops, from its current turn stage (engine/martial.ts). */
+  function untilLabel(def: ManeuverDef, stage: number) {
+    const end = maneuverEnd(def)
+    if (end === Infinity) return { en: 'this encounter', fr: 'pour la rencontre' }
+    if (end - stage <= 1 && stage % 2 === 0) return { en: 'until the end of your turn', fr: 'jusqu’à la fin de votre tour' }
+    if (end - stage <= 1) return { en: 'until your next turn', fr: 'jusqu’à votre prochain tour' }
+    return { en: 'until the end of your next turn', fr: 'jusqu’à la fin de votre prochain tour' }
   }
 
   function initiate(m: ManeuverDef) {
     const st = app.character.martial
     if (st.expended.includes(m.id)) return
     st.expended = [...st.expended, m.id]
-    st.active = [...st.active.filter((a) => a.id !== m.id), { id: m.id, until: runningUntil(m) }]
-  }
-  function endTurn() {
-    app.character.martial.active = app.character.martial.active.filter((a) => a.until !== 'endOfTurn')
-  }
-  function startOfTurn() {
-    app.character.martial.active = app.character.martial.active.filter((a) => a.until === 'encounter')
+    st.active = [...st.active.filter((a) => a.id !== m.id), { id: m.id, stage: 0 }]
   }
   function recover() {
     app.character.martial.expended = []
-  }
-  function endEncounter() {
-    app.character.martial.expended = []
-    app.character.martial.active = []
   }
 </script>
 
@@ -47,11 +40,7 @@
       <select
         value={martial.stance ?? ''}
         onchange={(e) => {
-          const v = e.currentTarget.value
-          // Changing or ending a stance loses its accumulated bonuses (ToB p. 43).
-          delete app.character.martial.crits
-          if (v) app.character.martial.stance = v
-          else delete app.character.martial.stance
+          setStance(app.character.martial, e.currentTarget.value || undefined)
         }}
       >
         <option value="">— {tr({ en: 'none', fr: 'aucune' })} —</option>
@@ -94,7 +83,7 @@
         {@const def = rules.maneuvers.get(a.id)}
         {#if def}
           <span class="chip">
-            {maneuverName(def)} <small>({tr(UNTIL[a.until])})</small>
+            {maneuverName(def)} <small>({tr(untilLabel(def, a.stage))})</small>
             <button
               aria-label={tr({ en: 'End', fr: 'Terminer' })}
               onclick={() => (app.character.martial.active = martial.active.filter((x) => x.id !== a.id))}>✕</button
@@ -106,10 +95,7 @@
   {/if}
 
   <div class="actions">
-    <button onclick={endTurn}>{tr({ en: 'End of my turn', fr: 'Fin de mon tour' })}</button>
-    <button onclick={startOfTurn}>{tr({ en: 'Start of my next turn', fr: 'Début de mon tour suivant' })}</button>
     <button onclick={recover} disabled={!martial.expended.length}>⟳ {tr({ en: 'Recover maneuvers', fr: 'Récupérer les manœuvres' })}</button>
-    <button onclick={endEncounter}>{tr({ en: 'End of encounter', fr: 'Fin de la rencontre' })}</button>
   </div>
   <p class="note">{tr(WARBLADE_RECOVERY)} <small>Tome of Battle p. 22, 40</small></p>
   <p class="note">

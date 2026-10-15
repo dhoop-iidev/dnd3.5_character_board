@@ -24,3 +24,6 @@ Everything the playboard uses that is **not** plain 3.5 SRD. Only `confirmed` en
 | 17 | Bounding Assault (ToB p. 62) | +2 on the attack from the maneuver only (no second charge bonus), no −2 AC; counts as a charge for charge feats | rulings-tob.md T1 | confirmed | 2026-10-15 |
 | 18 | Leaping Dragon Stance (ToB p. 88) | +10 enhancement bonus on Jump checks (book summary p. 49), not +10 ft of distance; every jump counts as a running jump | rulings-tob.md T2 | confirmed | 2026-10-15 |
 | 19 | Iron Heart Endurance (ToB p. 68) "2 × your level" | Warblade level (user's ruling): heal 2 × warblade level | rulings-tob.md T6 | confirmed | 2026-10-15 |
+| 20 | ToB extra damage dice (stance + strike) | They add up (e.g. Punishing Stance +1d6 with Mountain Hammer +2d6): extra dice are not "bonuses" under p. 40; flat bonuses from two maneuvers still don't stack | rulings-tob.md T10 | confirmed | 2026-10-15 |
+| 21 | ToB maneuvers learned at the same level | Each one counts toward the prerequisite of the next one picked at that level (never toward itself) | rulings-tob.md T11 | confirmed | 2026-10-15 |
+| 22 | Bolstering Voice / Leading the Attack | Allies only: the initiator gets no bonus | rulings-tob.md T12 | confirmed | 2026-10-15 |

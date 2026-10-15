@@ -2,7 +2,7 @@
   // Tome of Battle: what the warblade knows, readies and can learn (house rule #15).
   import { rules } from '../../data/rules'
   import type { ManeuverDef } from '../../data/types'
-  import { knownManeuvers, learnBlockers, martialCaps, WARBLADE_RECOVERY } from '../../engine/martial'
+  import { WARBLADE_RECOVERY, knownManeuvers, learnBlockers, martialCaps, setStance } from '../../engine/martial'
   import { app, tr, view } from '../../state.svelte'
   import WarningList from '../WarningList.svelte'
   import { ACTION_LABEL, disciplineName, maneuverName, maneuverPopup, TYPE_LABEL } from '../maneuvers'
@@ -88,7 +88,7 @@
       </div>
       <p class="note">
         {tr({ en: 'Initiator level = warblade level + ½ other class levels (rounded down).', fr: "Niveau d'initiateur = niveau de lame de bataille + ½ niveaux des autres classes (arrondi à l'inférieur)." })}
-        {tr(WARBLADE_RECOVERY)} <small>Tome of Battle p. 22, 39</small>
+        {tr(WARBLADE_RECOVERY)} <small>Tome of Battle p. 22, 40</small>
       </p>
       <WarningList areas={['maneuvers']} />
     </section>
@@ -100,7 +100,7 @@
         {#each knownStances as m (m.id)}
           <li>
             <label class="radio">
-              <input type="radio" name="stance" checked={martial.stance === m.id} onchange={() => (app.character.martial.stance = m.id)} />
+              <input type="radio" name="stance" checked={martial.stance === m.id} onchange={() => setStance(app.character.martial, m.id)} />
             </label>
             <button class="link" onclick={() => maneuverPopup(m)}>{maneuverName(m)}</button>
             <small>{disciplineName(m.discipline)} · {tr({ en: 'level', fr: 'niv.' })} {m.level} · {tr({ en: 'learned at', fr: 'appris au niv.' })} {learnedAt(m.id)}</small>
@@ -110,7 +110,7 @@
           <li class="none">{tr({ en: 'No stance known.', fr: 'Aucune posture connue.' })}</li>
         {/each}
         {#if martial.stance}
-          <li><button class="plain" onclick={() => delete app.character.martial.stance}>{tr({ en: 'Leave the stance', fr: 'Quitter la posture' })}</button></li>
+          <li><button class="plain" onclick={() => setStance(app.character.martial, undefined)}>{tr({ en: 'Leave the stance', fr: 'Quitter la posture' })}</button></li>
         {/if}
       </ul>
     </section>

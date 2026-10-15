@@ -31,5 +31,10 @@ export function migrate(raw: unknown): Character {
     c.martial ??= { readied: [], expended: [], active: [] }
     c.schemaVersion = 4
   }
+  // v4 -> v5: running maneuvers track a turn stage per effect (old "until" entries restart at stage 0).
+  if (c.schemaVersion < 5) {
+    c.martial.active = (c.martial.active ?? []).map((a) => ({ id: a.id, stage: 0 }))
+    c.schemaVersion = 5
+  }
   return c
 }

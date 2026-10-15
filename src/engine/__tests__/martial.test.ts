@@ -5,6 +5,7 @@ import seedJson from './fixtures/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { compute } from '../compute'
 import { validate } from '../validate'
+import { advanceManeuvers } from '../martial'
 
 const seed = seedJson as unknown as Character
 /** Level 9 = Warblade 1 with 3 maneuvers + 1 stance learned. */
@@ -52,14 +53,14 @@ describe('stances and running maneuvers', () => {
     expect(compute(learned(['steel-wind'], { stance: 'stonefoot-stance' }), rules).ac.total).toBe(21)
   })
   it('Mountain Hammer running: +2d6 on the strike', () => {
-    const s = compute(learned(base, { active: [{ id: 'mountain-hammer', until: 'endOfTurn' }] }), rules)
+    const s = compute(learned(base, { active: [{ id: 'mountain-hammer', stage: 0 }] }), rules)
     expect(gs(s).extraDamage.map((x) => x.dice)).toContain('2d6')
   })
   it('maneuver bonuses do not stack with each other (ToB p. 40): Steely Strike +4 and Iron Heart Surge +2 → +4', () => {
     const c = learned(base, {
       active: [
-        { id: 'steely-strike', until: 'endOfTurn' },
-        { id: 'iron-heart-surge', until: 'round' },
+        { id: 'steely-strike', stage: 0 },
+        { id: 'iron-heart-surge', stage: 0 },
       ],
     })
     expect(gs(compute(c, rules)).attack.total).toBe(16 + 4)
@@ -76,5 +77,53 @@ describe('stances and running maneuvers', () => {
     const tc = ['wolf-fang-strike', 'steel-wind', 'steely-strike', 'leaping-dragon-stance']
     const off = compute(learned(tc), rules).skills.find((k) => k.key === 'jump')!.total.total
     expect(compute(learned(tc, { stance: 'leaping-dragon-stance' }), rules).skills.find((k) => k.key === 'jump')!.total.total).toBe(off + 10)
+  })
+})
+
+describe('running maneuvers end at their own time (ToB p. 45)', () => {
+  const base = ['steel-wind', 'mountain-hammer', 'steely-strike', 'punishing-stance']
+  const after = (c: Character, ...events: ('endOfTurn' | 'startOfTurn')[]) => {
+    for (const ev of events) advanceManeuvers(c.martial, rules, ev)
+    return c
+  }
+  it('Iron Heart Surge: +2 morale until the end of your NEXT turn', () => {
+    const c = learned(base, { active: [{ id: 'iron-heart-surge', stage: 0 }] })
+    expect(gs(compute(after(structuredClone(c), 'endOfTurn', 'startOfTurn'), rules)).attack.total).toBe(18)
+    expect(gs(compute(after(structuredClone(c), 'endOfTurn', 'startOfTurn', 'endOfTurn'), rules)).attack.total).toBe(16)
+  })
+  it('Steely Strike: the +4 is for the strike only', () => {
+    const c = learned(base, { active: [{ id: 'steely-strike', stage: 0 }] })
+    expect(gs(compute(c, rules)).attack.total).toBe(20)
+    const later = after(c, 'endOfTurn')
+    expect(gs(compute(later, rules)).attack.total).toBe(16)
+    expect(later.martial.active).toHaveLength(1) // its −4 AC part still runs until your next turn
+  })
+  it('Mountain Hammer: extra dice gone once the turn ends', () => {
+    const c = after(learned(base, { active: [{ id: 'mountain-hammer', stage: 0 }] }), 'endOfTurn')
+    expect(gs(compute(c, rules)).extraDamage.map((x) => x.dice)).not.toContain('2d6')
+    expect(c.martial.active).toEqual([])
+  })
+  it('Stone Bones: DR 5/adamantine through enemy turns, gone at your next turn', () => {
+    const c = learned(['stone-bones', 'steel-wind', 'steely-strike', 'punishing-stance'], { active: [{ id: 'stone-bones', stage: 0 }] })
+    expect(compute(after(structuredClone(c), 'endOfTurn'), rules).damageReduction.map((d) => d.value)).toContain('5/adamantine')
+    expect(compute(after(structuredClone(c), 'endOfTurn', 'startOfTurn'), rules).damageReduction).toEqual([])
+  })
+  it('situational maneuver bonuses do not stack with other maneuver bonuses either (p. 40)', () => {
+    const c = learned(base, { active: [{ id: 'steely-strike', stage: 0 }, { id: 'lightning-recovery', stage: 0 }] })
+    const atk = gs(compute(c, rules)).attack
+    const key = atk.parts.find((p) => p.toggleKey && p.condition)?.toggleKey
+    if (key) c.toggles.situational[key] = true
+    expect(gs(compute(c, rules)).attack.total).toBe(20)
+  })
+})
+
+describe('warblade class features: only the right situations', () => {
+  it('battle clarity stays when stunned (not flat-footed), goes when flat-footed', () => {
+    const stunned = learned([])
+    stunned.activeEffects = [{ uid: 's', kind: 'condition', refId: 'stunned', enabled: true }]
+    expect(compute(stunned, rules).saves.ref.total).toBe(9)
+    const ff = learned([])
+    ff.activeEffects = [{ uid: 'f', kind: 'condition', refId: 'flat-footed', enabled: true }]
+    expect(compute(ff, rules).saves.ref.total).toBe(8)
   })
 })

@@ -205,7 +205,7 @@
     },
     {
       "minInitiatorLevel": 17,
-      "maxInitiatorLevel": null,
+      "maxInitiatorLevel": 99,
       "maneuverLevel": 9
     }
   ],

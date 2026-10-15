@@ -366,8 +366,8 @@
       "fr": "9 m"
     },
     "target": {
-      "en": "30-ft.-radius burst centered on you",
-      "fr": "Explosion de 9 m de rayon centrée sur vous"
+      "en": "",
+      "fr": ""
     },
     "duration": {
       "en": "1 minute",
@@ -403,6 +403,10 @@
       "book": "Tome of Battle",
       "page": 87,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "30-ft.-radius burst centered on you",
+      "fr": "Explosion de 9 m de rayon centrée sur vous"
     }
   },
   {
@@ -588,8 +592,8 @@
       "fr": "<p>Dans cette posture, vous possédez la capacité spéciale <strong>odorat</strong> (Manuel des Monstres p. 314).</p>"
     },
     "notes": {
-      "en": "Scent: detect creatures by smell (30 ft., more downwind). Prerequisite of one Tiger Claw maneuver at level 1 is as printed.",
-      "fr": "Odorat : détection des créatures à l’odeur (9 m, plus sous le vent). Le prérequis d’une manœuvre de Griffe du tigre au niveau 1 est tel qu’imprimé."
+      "en": "Scent: detect creatures by smell within 30 ft.; 60 ft. if the creature is upwind, 15 ft. if downwind (SRD Scent). Prerequisite of one Tiger Claw maneuver at level 1 is as printed.",
+      "fr": "Odorat : détection des créatures à l’odeur à 9 m ; 18 m si la créature est dans le sens du vent, 4,50 m si elle est sous le vent (DRS, Odorat). Le prérequis d’une manœuvre de Griffe du tigre au niveau 1 est tel qu’imprimé."
     },
     "source": {
       "book": "Tome of Battle",
@@ -637,8 +641,8 @@
     "skillCheck": {
       "skill": "jump",
       "note": {
-        "en": "+10 ft. enhancement bonus; every jump counts as a running jump.",
-        "fr": "Bonus d’altération de +3 m ; chaque saut compte comme un saut avec élan."
+        "en": "+10 enhancement bonus on Jump checks; every jump counts as a running jump.",
+        "fr": "Bonus d’altération de +10 aux tests de Saut ; chaque saut compte comme un saut avec élan."
       }
     },
     "notes": {
@@ -704,30 +708,24 @@
         "spec": {
           "target": "attack.melee",
           "bonusType": "untyped",
-          "value": 2,
-          "condition": {
-            "en": "Charge bonus, applied to every attack of the full attack",
-            "fr": "Bonus de charge, appliqué à toutes les attaques de l’attaque à outrance"
-          }
+          "value": 2
         },
-        "duration": "endOfTurn"
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
       },
       {
         "spec": {
           "target": "ac",
           "bonusType": "untyped",
-          "value": -2,
-          "condition": {
-            "en": "Standard charge penalty until your next turn",
-            "fr": "Malus normal de charge jusqu’à votre prochain tour"
-          }
+          "value": -2
         },
-        "duration": "round"
+        "duration": "round",
+        "stacksAs": "charge"
       }
     ],
     "notes": {
-      "en": "The +2 and −2 are the normal charge modifiers (PH 154), not extra bonuses from the maneuver.",
-      "fr": "Le +2 et le −2 sont les modificateurs normaux de charge (Manuel des Joueurs p. 154), pas des bonus propres à la manœuvre."
+      "en": "The +2 attack (every attack of the full attack) and −2 AC until your next turn are the normal charge modifiers (PH p. 154): they stack with maneuver bonuses.",
+      "fr": "Le +2 à l’attaque (toutes les attaques de l’attaque à outrance) et le −2 à la CA jusqu’à votre prochain tour sont les modificateurs normaux de charge (Manuel des Joueurs p. 154) : ils se cumulent avec les bonus de manœuvre."
     },
     "source": {
       "book": "Tome of Battle",

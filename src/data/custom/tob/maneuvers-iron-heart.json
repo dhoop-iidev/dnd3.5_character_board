@@ -265,8 +265,8 @@
       "fr": "<p>Quand un ennemi vous porte une attaque au corps à corps ou à distance, faites un jet d’attaque avec une arme de corps à corps que vous tenez ; votre CA contre cette attaque est la plus haute entre votre CA et ce jet. Vous pouvez décider après avoir connu le résultat de l’attaque. Impossible si vous perdez votre bonus de Dex à la CA contre cet attaquant.</p>"
     },
     "notes": {
-      "en": "Unofficial WotC customer-service answer: also works against touch attacks.",
-      "fr": "Réponse non officielle du service client WotC : fonctionne aussi contre les attaques de contact."
+      "en": "Official 3.5 FAQ (p. 75): works equally against touch attacks and normal attacks, whatever their source.",
+      "fr": "FAQ officielle 3.5 (p. 75) : fonctionne aussi bien contre les attaques de contact que contre les attaques normales, quelle qu’en soit la source."
     },
     "source": {
       "book": "Tome of Battle",
@@ -422,7 +422,7 @@
       "fr": "Met fin à un effet de 1 round ou plus qui vous affecte ; +2 de moral à l’attaque jusqu’à la fin de votre prochain tour."
     },
     "text": {
-      "en": "<p>Choose one spell, effect or other condition currently affecting you that has a duration of 1 round or more: it ends at once. You also gain a +2 morale bonus on attack rolls until the end of your next turn.</p>",
+      "en": "<p>Choose one spell, effect or other condition currently affecting you that has a duration of 1 round or more: it ends at once. Your attack rolls also get +2 (morale) up to the end of your following turn.</p>",
       "fr": "<p>Choisissez un sort, effet ou autre état qui vous affecte actuellement et dont la durée est d’au moins 1 round : il prend fin immédiatement. Vous gagnez aussi un bonus de moral de +2 aux jets d’attaque jusqu’à la fin de votre prochain tour.</p>"
     },
     "effects": [
@@ -442,8 +442,8 @@
       }
     ],
     "notes": {
-      "en": "No type is printed (neither boost, counter, strike nor stance); the level list calls it simply “remove effect”. Unofficial WotC customer-service answer: it cannot remove instantaneous effects or ability damage/drain.",
-      "fr": "Aucun type n’est imprimé (ni amélioration, ni contre, ni frappe, ni posture) ; la liste par niveau dit simplement « retire un effet ». Réponse non officielle du service client WotC : pas contre les effets instantanés ni l’affaiblissement/la diminution de caractéristique."
+      "en": "No type is printed (neither boost, counter, strike nor stance). Official 3.5 FAQ (p. 75): it can't end instantaneous effects, but it can end permanent-duration effects, the negative levels of a single effect, one poison or one disease.",
+      "fr": "Aucun type n’est imprimé (ni stimulation, ni riposte, ni frappe, ni posture). FAQ officielle 3.5 (p. 75) : elle ne met pas fin aux effets instantanés, mais peut mettre fin à un effet de durée permanente, aux niveaux négatifs d’un seul effet, à un poison ou à une maladie."
     },
     "source": {
       "book": "Tome of Battle",
@@ -486,7 +486,7 @@
     },
     "text": {
       "en": "<p>When one of your melee attacks misses, initiate this counter to reroll that attack roll with a +2 bonus.</p>",
-      "fr": "<p>Quand l’une de vos attaques au corps à corps rate, initiez ce contre pour relancer ce jet d’attaque avec un bonus de +2.</p>"
+      "fr": "<p>Quand l’une de vos attaques au corps à corps rate, initiez cette riposte pour relancer ce jet d’attaque avec un bonus de +2.</p>"
     },
     "effects": [
       {
@@ -974,8 +974,8 @@
       "fr": "9 m"
     },
     "target": {
-      "en": "30-ft. line (area)",
-      "fr": "Ligne de 9 m (zone)"
+      "en": "",
+      "fr": ""
     },
     "duration": {
       "en": "Instantaneous",
@@ -1007,6 +1007,10 @@
       "book": "Tome of Battle",
       "page": 68,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "30-ft. line",
+      "fr": "Ligne de 9 m"
     }
   },
   {

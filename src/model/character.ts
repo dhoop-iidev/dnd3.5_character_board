@@ -1,6 +1,6 @@
 import type { AbilityId, I18n, Lang, ModifierSpec, Slot } from '../data/types'
 
-export const SCHEMA_VERSION = 4
+export const SCHEMA_VERSION = 5
 
 /** Feat slot that granted the feat (docs/rules/advancement.md, house rule #3 for 'deity'). */
 export type FeatSlot = 'general' | 'human' | 'fighter' | 'deity'
@@ -25,11 +25,17 @@ export interface LevelEntry {
   maneuverSwap?: { from: string; to: string }
 }
 
+/**
+ * Turn stage of a running effect, counted from the turn it started (Tome of Battle p. 45, durations):
+ * 0 = your turn, 1 = after your turn ended, 2 = your next turn started, 3 = your next turn ended, …
+ */
+export type TurnStage = number
+
 /** A maneuver initiated during combat whose effect is still running. */
 export interface ActiveManeuver {
   id: string
-  /** endOfTurn: boosts and strikes (cleared by "end of turn"); round: until your next turn; encounter. */
-  until: 'endOfTurn' | 'round' | 'encounter'
+  /** How far the turn has advanced since it was initiated; each effect ends at its own stage (engine/martial.ts). */
+  stage: TurnStage
 }
 
 /** Tome of Battle state of a martial adept (warblade). */
@@ -90,6 +96,8 @@ export interface ActiveEffect {
   refId?: string
   custom?: { name: I18n; modifiers: ModifierSpec[] }
   enabled: boolean
+  /** Rounds left (counted down at the end of each of your turns); undefined = no set duration. */
+  rounds?: number
   note?: string
 }
 
@@ -145,6 +153,8 @@ export interface Character {
   loadouts: Loadout[]
   activeLoadout: string
   activeEffects: ActiveEffect[]
+  /** Combat round counter (1 = first round of the encounter). */
+  round?: number
   hp: { damage: number; nonlethal: number; temp: number }
   /** Daily uses spent (key = feature id, e.g. "ki-damage"). */
   dailyUsesSpent: Record<string, number>

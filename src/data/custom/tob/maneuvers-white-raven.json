@@ -16,8 +16,8 @@
       "fr": "18 m (60 ft.)"
     },
     "target": {
-      "en": "Area: 60-ft.-radius (18 m) emanation centered on you",
-      "fr": "Zone : émanation de 18 m (60 ft.) de rayon centrée sur vous"
+      "en": "",
+      "fr": ""
     },
     "duration": {
       "en": "Stance",
@@ -68,6 +68,10 @@
       "book": "Tome of Battle",
       "page": 90,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "60-ft.-radius (18 m) emanation centered on you",
+      "fr": "émanation de 18 m (60 ft.) de rayon centrée sur vous"
     }
   },
   {
@@ -84,7 +88,7 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
@@ -131,7 +135,7 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
@@ -192,8 +196,8 @@
       "fr": "18 m (60 ft.)"
     },
     "target": {
-      "en": "Area: 60-ft.-radius (18 m) emanation centered on you",
-      "fr": "Zone : émanation de 18 m (60 ft.) de rayon centrée sur vous"
+      "en": "",
+      "fr": ""
     },
     "duration": {
       "en": "Stance",
@@ -220,6 +224,10 @@
       "book": "Tome of Battle",
       "page": 92,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "60-ft.-radius (18 m) emanation centered on you",
+      "fr": "émanation de 18 m (60 ft.) de rayon centrée sur vous"
     }
   },
   {
@@ -236,15 +244,15 @@
     "action": "fullRound",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
       "fr": "Une créature"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -288,15 +296,15 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
       "fr": "Une créature"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -361,7 +369,7 @@
     },
     "text": {
       "en": "<p>You can initiate this boost only after you have reduced an opponent to fewer than 0 hit points. You and every ally within 60 ft. (18 m) gain a +5 morale bonus on damage rolls for 1 round.</p>",
-      "fr": "<p>Vous ne pouvez initier cette manœuvre de soutien qu’après avoir réduit un adversaire à moins de 0 point de vie. Vous et chaque allié situé à 18 m (60 ft.) ou moins gagnez un bonus de moral de +5 aux jets de dégâts pendant 1 round.</p>"
+      "fr": "<p>Vous ne pouvez initier cette stimulation qu’après avoir réduit un adversaire à moins de 0 point de vie. Vous et chaque allié situé à 18 m (60 ft.) ou moins gagnez un bonus de moral de +5 aux jets de dégâts pendant 1 round.</p>"
     },
     "effects": [
       {
@@ -427,8 +435,8 @@
       "fr": "<p>Tant que vous tenez cette posture et prenez un adversaire en tenaille, vous et chaque allié qui le prend en tenaille avec vous gagnez contre lui un bonus aux jets de dégâts égal à la moitié de votre niveau d’initiateur (sans type).</p>"
     },
     "notes": {
-      "en": "Damage bonus = 1/2 initiator level against a foe you flank (not computed; rounding not stated, normally rounded down).",
-      "fr": "Bonus aux dégâts = 1/2 niveau d’initiateur contre un adversaire pris en tenaille (non calculé ; arrondi non précisé, en principe à l’entier inférieur)."
+      "en": "Damage bonus = ½ initiator level, rounded down (+2 at initiator level 5), against a foe you flank: tick it in the damage breakdown when it applies.",
+      "fr": "Bonus aux dégâts = ½ niveau d’initiateur, arrondi à l’inférieur (+2 au niveau d’initiateur 5), contre un adversaire pris en tenaille : cochez-le dans le détail des dégâts quand il s’applique."
     },
     "source": {
       "book": "Tome of Battle",
@@ -472,8 +480,8 @@
       "fr": "Un allié"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -533,7 +541,7 @@
     },
     "text": {
       "en": "<p>After initiating this boost you attack normally. Each foe you hit afterward this turn takes normal damage and cannot make attacks of opportunity for 3 rounds (it still threatens its area). A given creature can be affected by only one covering strike per encounter.</p>",
-      "fr": "<p>Après avoir initié cette manœuvre de soutien, vous attaquez normalement. Chaque adversaire que vous touchez ensuite ce tour-ci subit les dégâts normaux et ne peut porter aucune attaque d’opportunité pendant 3 rounds (il continue de menacer sa zone). Une même créature ne peut subir qu’une frappe de couverture par rencontre.</p>"
+      "fr": "<p>Après avoir initié cette stimulation, vous attaquez normalement. Chaque adversaire que vous touchez ensuite ce tour-ci subit les dégâts normaux et ne peut porter aucune attaque d’opportunité pendant 3 rounds (il continue de menacer sa zone). Une même créature ne peut subir qu’une frappe de couverture par rencontre.</p>"
     },
     "notes": {
       "en": "Foes hit: no attacks of opportunity for 3 rounds; once per creature per encounter.",
@@ -559,15 +567,15 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
       "fr": "Une créature"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -611,15 +619,15 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
       "fr": "Une créature"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -712,8 +720,8 @@
       "fr": "Créatures alliées à 9 m (30 ft.) ou moins"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -726,7 +734,7 @@
     },
     "text": {
       "en": "<p>When you initiate this maneuver, each ally within 30 ft. (9 m) can immediately take one move action to move up to its speed. That movement provokes attacks of opportunity normally and does not count toward minimum-movement requirements of feats or abilities (such as a scout's skirmish).</p><p>The book gives this maneuver no type (not a boost, counter, strike or stance).</p>",
-      "fr": "<p>Quand vous initiez cette manœuvre, chaque allié situé à 9 m (30 ft.) ou moins peut immédiatement effectuer une action de mouvement pour se déplacer jusqu’à sa vitesse. Ce déplacement provoque normalement des attaques d’opportunité et ne compte pas pour les déplacements minimums exigés par des dons ou aptitudes (comme l’escarmouche de l’éclaireur).</p><p>Le livre ne donne aucun type à cette manœuvre (ni soutien, ni contre, ni frappe, ni posture).</p>"
+      "fr": "<p>Quand vous initiez cette manœuvre, chaque allié situé à 9 m (30 ft.) ou moins peut immédiatement effectuer une action de mouvement pour se déplacer jusqu’à sa vitesse. Ce déplacement provoque normalement des attaques d’opportunité et ne compte pas pour les déplacements minimums exigés par des dons ou aptitudes (comme l’escarmouche de l’éclaireur).</p><p>Le livre ne donne aucun type à cette manœuvre (ni stimulation, ni riposte, ni frappe, ni posture).</p>"
     },
     "notes": {
       "en": "Allies within 30 ft.: one immediate move action each (provokes normally).",
@@ -752,15 +760,15 @@
     "action": "fullRound",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
       "fr": "Une créature"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -807,12 +815,12 @@
       "fr": "18 m (60 ft.)"
     },
     "target": {
-      "en": "Area: 60-ft.-radius (18 m) burst centered on you",
-      "fr": "Zone : explosion de 18 m (60 ft.) de rayon centrée sur vous"
+      "en": "",
+      "fr": ""
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -835,6 +843,10 @@
       "book": "Tome of Battle",
       "page": 91,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "60-ft.-radius (18 m) burst centered on you",
+      "fr": "explosion de 18 m (60 ft.) de rayon centrée sur vous"
     }
   },
   {
@@ -851,15 +863,15 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
       "fr": "Une créature"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",
@@ -901,8 +913,8 @@
       "fr": "18 m (60 ft.)"
     },
     "target": {
-      "en": "Area: 60-ft.-radius (18 m) emanation centered on you",
-      "fr": "Zone : émanation de 18 m (60 ft.) de rayon centrée sur vous"
+      "en": "",
+      "fr": ""
     },
     "duration": {
       "en": "Stance",
@@ -940,6 +952,10 @@
       "book": "Tome of Battle",
       "page": 93,
       "frRef": "traduction maison"
+    },
+    "area": {
+      "en": "60-ft.-radius (18 m) emanation centered on you",
+      "fr": "émanation de 18 m (60 ft.) de rayon centrée sur vous"
     }
   },
   {
@@ -956,7 +972,7 @@
     "action": "standard",
     "range": {
       "en": "Melee attack",
-      "fr": "Attaque de corps à corps"
+      "fr": "Attaque au corps à corps"
     },
     "target": {
       "en": "One creature",
@@ -1008,15 +1024,15 @@
     "action": "fullRound",
     "range": {
       "en": "Melee attack; see text",
-      "fr": "Attaque de corps à corps ; voir texte"
+      "fr": "Attaque au corps à corps ; voir texte"
     },
     "target": {
       "en": "One creature; see text",
       "fr": "Une créature ; voir texte"
     },
     "duration": {
-      "en": "Instantaneous",
-      "fr": "Instantanée"
+      "en": "",
+      "fr": ""
     },
     "save": {
       "en": "",

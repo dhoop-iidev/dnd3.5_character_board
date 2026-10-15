@@ -10,6 +10,8 @@
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
   import ManeuverBlock from '../ManeuverBlock.svelte'
+  import TurnBar from '../TurnBar.svelte'
+  import { effectName } from '../effects'
 
   const s = $derived(view.sheet)
   const c = $derived(app.character)
@@ -69,11 +71,6 @@
     app.character.activeEffects.push({ uid: newUid(), kind: 'condition', refId: conditionToAdd, enabled: true })
     conditionToAdd = ''
   }
-  function effectName(e: (typeof c.activeEffects)[number]): I18n {
-    if (e.kind === 'condition') return rules.conditions.get(e.refId ?? '')?.name ?? { en: '?', fr: '?' }
-    if (e.kind === 'magic') return rules.magicItems.get(e.refId ?? '')?.name ?? { en: '?', fr: '?' }
-    return e.custom?.name ?? { en: '?', fr: '?' }
-  }
   function effectPopup(e: (typeof c.activeEffects)[number]) {
     if (e.kind === 'condition') {
       const d = rules.conditions.get(e.refId ?? '')
@@ -82,6 +79,12 @@
       const d = rules.magicItems.get(e.refId ?? '')
       if (d) openPopup({ title: d.name, summary: d.duration, html: d.text, source: d.source, noteKey: `magic:${d.id}` })
     }
+  }
+  /** Set or clear an effect's remaining rounds (blank = no set duration). */
+  function setRounds(e: (typeof c.activeEffects)[number], v: string) {
+    const n = Math.floor(Number(v))
+    if (v === '' || !(n > 0)) delete e.rounds
+    else e.rounds = n
   }
   function removeEffect(uid: string) {
     app.character.activeEffects = app.character.activeEffects.filter((e) => e.uid !== uid)
@@ -146,6 +149,9 @@
   </div>
   {#if s.flags.some((f) => FLAGS[f])}<p class="flags">{[...new Set(s.flags)].filter((f) => FLAGS[f]).map((f) => tr(FLAGS[f])).join(' · ')}</p>{/if}
 </section>
+
+<TurnBar />
+
 
 <div class="grid">
   <section class="box">
@@ -301,6 +307,19 @@
           <input type="checkbox" bind:checked={e.enabled} aria-label={tr(effectName(e))} />
           <button class="link" onclick={() => effectPopup(e)}>{tr(effectName(e))}</button>
           {#if e.kind === 'custom'}<small>{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small>{/if}
+          <span class="rounds" title={tr({ en: 'Rounds left (blank = no set duration)', fr: 'Rounds restants (vide = pas de durée fixée)' })}>
+            {#if e.rounds !== undefined}<button aria-label="−1" onclick={() => setRounds(e, String(e.rounds! - 1))}>−</button>{/if}
+            <input
+              type="number"
+              min="1"
+              inputmode="numeric"
+              placeholder="∞"
+              value={e.rounds ?? ''}
+              onchange={(ev) => setRounds(e, ev.currentTarget.value)}
+              aria-label={tr({ en: 'Rounds left', fr: 'Rounds restants' })}
+            />
+            <small>{tr({ en: 'rd', fr: 'rd' })}</small>
+          </span>
           <button class="del" onclick={() => removeEffect(e.uid)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}>✕</button>
         </li>
       {:else}
@@ -514,6 +533,21 @@
   }
   .effects li input {
     accent-color: var(--ink);
+  }
+  .rounds {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .rounds input {
+    width: 3.6rem;
+    min-height: 2.4rem;
+    text-align: center;
+  }
+  .rounds button {
+    min-width: 2.4rem;
+    min-height: 2.4rem;
   }
   .effects li.off {
     opacity: 0.6;
