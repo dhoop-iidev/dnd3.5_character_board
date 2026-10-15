@@ -2,7 +2,7 @@
   import { rules } from './data/rules'
   import { UI } from './i18n/ui'
   import { levelForXp } from './engine/progression'
-  import { app, tr, view } from './state.svelte'
+  import { app, leaveShared, tr, view } from './state.svelte'
   import Combat from './ui/panes/Combat.svelte'
   import Equipment from './ui/panes/Equipment.svelte'
   import General from './ui/panes/General.svelte'
@@ -63,6 +63,16 @@
 </script>
 
 <svelte:window onhashchange={() => (tab = fromHash())} />
+
+{#if app.shared}
+  <div class="shared-banner" role="status">
+    {tr({
+      en: `Read-only view of ${app.shared.name}'s sheet, shared by link. Changes here are not saved.`,
+      fr: `Fiche de ${app.shared.name} partagée par lien, en lecture seule. Les changements ici ne sont pas enregistrés.`,
+    })}
+    <button onclick={leaveShared}>{tr({ en: 'Back to my sheet', fr: 'Revenir à ma fiche' })}</button>
+  </div>
+{/if}
 
 <header class="top">
   <div class="who">
@@ -295,5 +305,25 @@
     margin: 0.1rem 0 0;
     font-style: italic;
     font-size: 1.05rem;
+  }
+  .shared-banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: var(--frame);
+    color: var(--on-frame);
+  }
+  .shared-banner button {
+    font: inherit;
+    min-height: 2.4rem;
+    padding: 0 0.8rem;
+    border: 1px solid var(--on-frame);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--on-frame);
+    cursor: pointer;
   }
 </style>

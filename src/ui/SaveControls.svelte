@@ -1,7 +1,32 @@
 <script lang="ts">
   // Move the character between PC and tablet as a JSON file (CLAUDE.md: no backend).
   import { migrate } from '../model/migrate'
+  import { encodeShare } from '../model/share'
   import { app, resetToSeed, tr } from '../state.svelte'
+
+  // ---- read-only link for the DM (character compressed in the URL, without pictures)
+  let shareOpen = $state(false)
+  let includeNotes = $state(false)
+  let shareUrl = $state('')
+  async function makeLink() {
+    const data = await encodeShare(app.character, { includeNotes })
+    shareUrl = `${location.origin}${location.pathname}?share=${data}#/general`
+  }
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      message = tr({ en: 'Link copied.', fr: 'Lien copié.' })
+    } catch {
+      message = tr({ en: 'Copy the link by hand.', fr: 'Copiez le lien à la main.' })
+    }
+  }
+  async function sendLink() {
+    try {
+      await navigator.share({ title: app.character.identity.name, url: shareUrl })
+    } catch {
+      // cancelled or unsupported: the copy button still works
+    }
+  }
 
   let fileInput: HTMLInputElement | undefined = $state()
   let message = $state('')
@@ -43,8 +68,31 @@
   <button onclick={() => fileInput?.click()}>⭱ {tr({ en: 'Import', fr: 'Importer' })}</button>
   <input bind:this={fileInput} type="file" accept="application/json,.json" onchange={importJson} hidden />
   <button onclick={reset}>↺ {tr({ en: 'Reset', fr: 'Réinitialiser' })}</button>
+  <button class="dm" onclick={() => ((shareOpen = !shareOpen), (shareUrl = ''))}>⚑ {tr({ en: 'Share with the DM', fr: 'Partager avec le MJ' })}</button>
   {#if message}<span>{message}</span>{/if}
 </div>
+
+{#if shareOpen}
+  <div class="share">
+    <p>
+      {tr({
+        en: 'Creates a read-only link to your current sheet (without pictures). Your DM opens it in a browser; nothing is saved on their side. Make a new link after each change.',
+        fr: 'Crée un lien en lecture seule vers votre fiche actuelle (sans les images). Votre MJ l’ouvre dans un navigateur ; rien n’est enregistré chez lui. Refaites un lien après chaque changement.',
+      })}
+    </p>
+    <label><input type="checkbox" bind:checked={includeNotes} onchange={() => (shareUrl = '')} /> {tr({ en: 'Include my notes (Notes pane and popup notes)', fr: 'Inclure mes notes (onglet Notes et notes des popups)' })}</label>
+    {#if !shareUrl}
+      <button onclick={makeLink}>{tr({ en: 'Create the link', fr: 'Créer le lien' })}</button>
+    {:else}
+      <input class="url" readonly value={shareUrl} onfocus={(e) => e.currentTarget.select()} />
+      <div class="row">
+        <button onclick={copyLink}>{tr({ en: 'Copy', fr: 'Copier' })}</button>
+        {#if 'share' in navigator}<button onclick={sendLink}>{tr({ en: 'Send…', fr: 'Envoyer…' })}</button>{/if}
+        <small>{Math.round(shareUrl.length / 100) / 10} k {tr({ en: 'characters', fr: 'caractères' })}</small>
+      </div>
+    {/if}
+  </div>
+{/if}
 
 <style>
   .save {
@@ -68,5 +116,43 @@
   button:hover {
     border-color: var(--frame);
     background: var(--paper-2);
+  }
+  .dm {
+    border-color: var(--frame);
+  }
+  .share {
+    max-width: 40rem;
+    margin: 0 auto 0.9rem;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--frame);
+    border-radius: 3px;
+    background: var(--box);
+    text-align: left;
+  }
+  .share p {
+    margin: 0 0 0.5rem;
+  }
+  .share label {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    min-height: 2.4rem;
+  }
+  .url {
+    width: 100%;
+    font: inherit;
+    font-size: 0.85rem;
+    min-height: 2.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
   }
 </style>

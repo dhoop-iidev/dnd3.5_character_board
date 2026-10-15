@@ -4,6 +4,7 @@ import seed from './data/characters/fenrir.json'
 import type { I18n, Lang } from './data/types'
 import type { Character } from './model/character'
 import { migrate } from './model/migrate'
+import { decodeShare } from './model/share'
 import { compute } from './engine/compute'
 import { validate } from './engine/validate'
 
@@ -23,7 +24,22 @@ function load(): Character {
   return seedCopy()
 }
 
-export const app = $state({ character: load() })
+export const app = $state<{ character: Character; shared: { name: string } | null }>({ character: load(), shared: null })
+
+// Read-only view of a character shared by link (?share=…): shown, never saved over the local character.
+const shareParam = new URLSearchParams(location.search).get('share')
+if (shareParam)
+  decodeShare(shareParam)
+    .then((character) => {
+      app.shared = { name: character.identity.name }
+      app.character = character
+    })
+    .catch(() => alert('Lien de partage invalide / invalid share link'))
+
+/** Leave the shared view and go back to the local character. */
+export function leaveShared() {
+  location.href = location.pathname + location.hash
+}
 
 const sheetState = $derived(compute(app.character, rules))
 const warningState = $derived(validate(app.character, rules))
@@ -49,6 +65,7 @@ export function tr(text: I18n | undefined): string {
 }
 
 export function save() {
+  if (app.shared) return // shared view: never overwrite the local character
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(app.character))
   } catch {
