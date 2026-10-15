@@ -205,7 +205,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const eff of def.effects ?? []) {
       if (eff.appliesTo === 'allies' || eff.appliesTo === 'target') continue
       const il = caps?.initiatorLevel ?? 0
-      const value = eff.valueFrom === 'initiatorLevel' ? il : eff.valueFrom === 'halfInitiatorLevel' ? Math.floor(il / 2) : eff.spec.value
+      const value =
+        eff.valueFrom === 'initiatorLevel'
+          ? il
+          : eff.valueFrom === 'halfInitiatorLevel'
+            ? Math.floor(il / 2)
+            : eff.valueFrom === 'critCount' // Blood in the Water: +1 per critical hit scored (ToB p. 86)
+              ? (char.martial?.crits ?? 0) * eff.spec.value
+              : eff.spec.value
+      if (value === 0) continue
       // Maneuver and stance bonuses don't stack with each other (Tome of Battle p. 40): one shared source id.
       mods.push({ spec: { ...eff.spec, value }, sourceId: 'martial', label: def.name, source: def.source })
     }

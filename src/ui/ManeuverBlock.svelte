@@ -48,6 +48,8 @@
         value={martial.stance ?? ''}
         onchange={(e) => {
           const v = e.currentTarget.value
+          // Changing or ending a stance loses its accumulated bonuses (ToB p. 43).
+          delete app.character.martial.crits
           if (v) app.character.martial.stance = v
           else delete app.character.martial.stance
         }}
@@ -58,6 +60,17 @@
     </label>
     {#if s.martial.stance}<button class="link" onclick={() => maneuverPopup(s.martial.stance!)}>ⓘ {tr(s.martial.stance.summary)}</button>{/if}
   </div>
+  {#if s.martial.stance?.effects?.some((e) => e.valueFrom === 'critCount')}
+    {@const n = martial.crits ?? 0}
+    <div class="crits">
+      <span>{tr({ en: 'Critical hits scored', fr: 'Coups critiques portés' })} : <strong>{n}</strong> (+{n})</span>
+      <button aria-label="−" disabled={!n} onclick={() => (app.character.martial.crits = n - 1)}>−</button>
+      <button aria-label="+" onclick={() => (app.character.martial.crits = n + 1)}>+</button>
+      <button disabled={!n} onclick={() => delete app.character.martial.crits}>
+        {tr({ en: '1 minute without a critical: reset', fr: '1 minute sans critique : remise à zéro' })}
+      </button>
+    </div>
+  {/if}
 
   <ul class="readied">
     {#each readied as m (m.id)}
@@ -129,6 +142,16 @@
     background: var(--box);
     color: var(--ink);
   }
+  .crits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  .crits button {
+    min-width: 2.6rem;
+  }
   .readied {
     list-style: none;
     margin: 0;
@@ -170,6 +193,7 @@
   }
   button.go,
   .actions button,
+  .crits button,
   .chip button {
     font: inherit;
     min-height: 2.6rem;

@@ -175,8 +175,8 @@
       }
     ],
     "notes": {
-      "en": "The book gives the other foes +4 on attacks against you; the app shows it as a situational –4 AC, which is equivalent.",
-      "fr": "Le livre donne +4 à l’attaque des autres ennemis contre vous ; l’appli l’affiche comme –4 à la CA situationnel, ce qui revient au même."
+      "en": "The book gives every opponent except the one you struck +4 on attacks against you until your next turn; the app shows it as a situational −4 AC, which gives the same result against them (rulings-tob T9).",
+      "fr": "Le livre donne +4 à l'attaque contre vous à tous les adversaires sauf celui que vous avez frappé, jusqu'à votre prochain tour ; l'appli l'affiche comme un −4 CA situationnel, ce qui revient au même contre eux (rulings-tob T9)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -738,8 +738,8 @@
       "fr": "<p>Utilisable seulement s’il vous reste la moitié ou moins de votre maximum de pv normal : vous récupérez un nombre de pv égal à <b>2 × votre niveau</b>.</p>"
     },
     "notes": {
-      "en": "The book says “your level” (character level, not initiator level). No duration line is printed.",
-      "fr": "Le livre dit « votre niveau » (niveau de personnage, pas niveau d’initiateur). Aucune ligne de durée n’est imprimée."
+      "en": "\"Your level\" read as character level (recommended, pending DM: house rule #19; alternatives initiator or warblade level). No duration line is printed.",
+      "fr": "« Votre niveau » lu comme le niveau de personnage (recommandé, MJ à confirmer : règle maison n° 19 ; autres lectures : niveau d'initiateur ou de lame de bataille). Aucune ligne de durée n'est imprimée."
     },
     "source": {
       "book": "Tome of Battle",
@@ -1000,8 +1000,8 @@
       }
     ],
     "notes": {
-      "en": "Prerequisite printed as two Iron Heart maneuvers although it is an 8th-level maneuver (other 7th–8th-level ones require three).",
-      "fr": "La condition imprimée est de deux manœuvres Cœur de fer, bien que ce soit une manœuvre de niveau 8 (les autres de niveau 7–8 en demandent trois)."
+      "en": "Prerequisite two Iron Heart maneuvers, as printed in the book and on the official card; not a known misprint (rulings-tob T5).",
+      "fr": "Prérequis : deux manœuvres Cœur de fer, tel qu'imprimé dans le livre et sur la carte officielle ; pas une coquille connue (rulings-tob T5)."
     },
     "source": {
       "book": "Tome of Battle",

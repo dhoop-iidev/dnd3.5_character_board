@@ -41,30 +41,24 @@
         "spec": {
           "target": "attack.all",
           "bonusType": "untyped",
-          "value": 1,
-          "condition": {
-            "en": "Per critical hit scored in this stance (stacks); lost after 1 minute without a critical",
-            "fr": "Par coup critique porté dans cette posture (cumulable) ; perdu après 1 minute sans critique"
-          }
+          "value": 1
         },
-        "duration": "stance"
+        "duration": "stance",
+        "valueFrom": "critCount"
       },
       {
         "spec": {
           "target": "damage.all",
           "bonusType": "untyped",
-          "value": 1,
-          "condition": {
-            "en": "Per critical hit scored in this stance (stacks); lost after 1 minute without a critical",
-            "fr": "Par coup critique porté dans cette posture (cumulable) ; perdu après 1 minute sans critique"
-          }
+          "value": 1
         },
-        "duration": "stance"
+        "duration": "stance",
+        "valueFrom": "critCount"
       }
     ],
     "notes": {
-      "en": "The app shows +1 once; multiply by the number of critical hits scored. Prerequisite of one Tiger Claw maneuver at level 1 is as printed.",
-      "fr": "L’application affiche +1 une fois : multipliez par le nombre de critiques portés. Le prérequis d’une manœuvre de Griffe du tigre au niveau 1 est tel qu’imprimé."
+      "en": "Count your critical hits with the counter in the Combat block: +1 per critical. The bonus is lost after 1 minute without a critical hit, or when you change or end the stance (pp. 43, 45; rulings-tob T7).",
+      "fr": "Comptez vos critiques avec le compteur du bloc Combat : +1 par critique. Le bonus est perdu après 1 minute sans critique, ou quand vous changez ou quittez la posture (p. 43, 45 ; rulings-tob T7)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -648,8 +642,8 @@
       }
     },
     "notes": {
-      "en": "Printed as a bonus in feet, not a check bonus: whether it adds +10 to the check result or 10 ft. to the distance is ambiguous, so it is not applied to the Jump modifier.",
-      "fr": "Imprimé comme un bonus en pieds et non au test : ajouter +10 au résultat ou 3 m à la distance est ambigu, il n’est donc pas appliqué au modificateur de Saut."
+      "en": "The full entry says \"+10-foot\" but the book's summary list (p. 49) says +10 on Jump checks; recommended reading +10 on the check (pending DM, house rule #18). Not applied to the Jump modifier until decided.",
+      "fr": "L'entrée complète dit « +10 pieds » mais la liste résumée du livre (p. 49) dit +10 aux tests de Saut ; lecture recommandée : +10 au test (MJ à confirmer, règle maison n° 18). Non appliqué au modificateur de Saut en attendant."
     },
     "source": {
       "book": "Tome of Battle",
@@ -1246,8 +1240,8 @@
       }
     ],
     "notes": {
-      "en": "The text does not say whether normal two-weapon fighting penalties also apply; only the −2 is encoded.",
-      "fr": "Le texte ne dit pas si les malus normaux du combat à deux armes s’appliquent aussi ; seul le −2 est codé."
+      "en": "The −2 replaces the normal two-weapon fighting penalties (no feat or light off-hand weapon needed); off-hand damage still uses ½ Str (rulings-tob T3).",
+      "fr": "Le −2 remplace les malus normaux du combat à deux armes (pas besoin du don ni d'une arme légère) ; les dégâts de la main non directrice utilisent toujours ½ For (rulings-tob T3)."
     },
     "source": {
       "book": "Tome of Battle",

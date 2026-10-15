@@ -64,4 +64,12 @@ describe('stances and running maneuvers', () => {
     })
     expect(gs(compute(c, rules)).attack.total).toBe(16 + 4)
   })
+  it('Blood in the Water: +1 attack and damage per critical hit scored (ToB p. 86), nothing at 0', () => {
+    const tc = ['wolf-fang-strike', 'steel-wind', 'steely-strike', 'blood-in-the-water']
+    const zero = gs(compute(learned(tc, { stance: 'blood-in-the-water' }), rules))
+    expect(zero.attack.total).toBe(16)
+    const three = gs(compute(learned(tc, { stance: 'blood-in-the-water', crits: 3 }), rules))
+    expect(three.attack.total).toBe(19)
+    expect(three.damage.total).toBe(zero.damage.total + 3)
+  })
 })

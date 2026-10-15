@@ -338,7 +338,7 @@ export interface ManeuverEffect {
   /** Applies only to the attack of the strike / to the next attack, etc. */
   appliesTo?: 'self' | 'strikeAttack' | 'allies' | 'target'
   /** Value computed from the initiator level instead of spec.value (e.g. Diamond Defense). */
-  valueFrom?: 'initiatorLevel' | 'halfInitiatorLevel'
+  valueFrom?: 'initiatorLevel' | 'halfInitiatorLevel' | 'critCount'
 }
 
 export interface ManeuverDef {

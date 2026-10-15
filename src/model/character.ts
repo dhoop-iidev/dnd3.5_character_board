@@ -42,6 +42,8 @@ export interface MartialState {
   stance?: string
   /** Maneuvers whose effect is running (applied to the sheet until cleared). */
   active: ActiveManeuver[]
+  /** Critical hits scored in the current stance (Blood in the Water, ToB p. 86). */
+  crits?: number
 }
 
 export type ItemKind = 'weapon' | 'armor' | 'gear' | 'magic' | 'custom'

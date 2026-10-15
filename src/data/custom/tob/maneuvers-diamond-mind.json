@@ -340,8 +340,8 @@
       }
     },
     "notes": {
-      "en": "No prerequisite line is printed in our copy (page break p. 63–64), so prereqCount is 0. Unofficial WotC customer-service answer: it can score a critical hit (the check result is multiplied; extra damage is not).",
-      "fr": "Aucune ligne de condition n’est imprimée dans notre exemplaire (saut de page p. 63–64), donc prereqCount = 0. Réponse non officielle du service client WotC : elle peut faire un critique (le résultat du test est multiplié, pas les dégâts supplémentaires)."
+      "en": "No prerequisite: none is printed in the book or on the official maneuver cards (rulings-tob T4). Unofficial WotC customer-service answer: it can score a critical hit (the check result is multiplied).",
+      "fr": "Pas de prérequis : aucun n'est imprimé dans le livre ni sur les cartes de manœuvres officielles (rulings-tob T4). Réponse non officielle du service client WotC : elle peut faire un critique (le résultat du test est multiplié)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -510,8 +510,8 @@
       }
     ],
     "notes": {
-      "en": "The book only says the attack counts as a charge for feats and abilities; it does not say whether the normal charge +2 attack / –2 AC also apply (ask the DM).",
-      "fr": "Le livre dit seulement que l’attaque compte comme une charge pour les dons et aptitudes ; il ne précise pas si le +2 à l’attaque / –2 CA normal de la charge s’applique aussi (voir avec le MJ)."
+      "en": "Only the maneuver's +2 applies (no second charge bonus) and no −2 AC under the book's wording; counts as a charge for charge feats. Pending DM confirmation (house rule #17, rulings-tob T1).",
+      "fr": "Seul le +2 de la manœuvre s'applique (pas de second bonus de charge) et pas de −2 CA selon le texte ; compte comme une charge pour les dons de charge. À confirmer par le MJ (règle maison n° 17, rulings-tob T1)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -877,8 +877,8 @@
       }
     ],
     "notes": {
-      "en": "The +20 changes your current initiative count, not your initiative modifier; the book’s header says “Class:” instead of “Level:” (typo).",
-      "fr": "Le +20 modifie votre rang d’initiative en cours, pas votre modificateur d’initiative ; l’en-tête du livre dit « Class: » au lieu de « Level: » (coquille)."
+      "en": "The +20 changes your current initiative count (your place in the order) from the next round, not your initiative modifier (pp. 45, 64; rulings-tob T8).",
+      "fr": "Le +20 modifie votre rang d'initiative (votre place dans l'ordre) à partir du round suivant, pas votre modificateur d'initiative (p. 45, 64 ; rulings-tob T8)."
     },
     "source": {
       "book": "Tome of Battle",

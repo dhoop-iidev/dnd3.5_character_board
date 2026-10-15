@@ -414,8 +414,8 @@
       }
     ],
     "notes": {
-      "en": "Grounded target: speed 0 for 1 round. No save line and no prerequisite printed.",
-      "fr": "Cible au sol : vitesse 0 pendant 1 round. Aucun jet de sauvegarde ni prérequis imprimé."
+      "en": "Grounded target: speed 0 for 1 round, no save. No prerequisite: none in the book or on the official maneuver cards (rulings-tob T4).",
+      "fr": "Cible au sol : vitesse 0 pendant 1 round, pas de JS. Pas de prérequis : aucun dans le livre ni sur les cartes officielles (rulings-tob T4)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -707,8 +707,8 @@
       }
     ],
     "notes": {
-      "en": "Failed save: target loses its standard action for 1 round. No prerequisite printed.",
-      "fr": "Jet raté : la cible perd son action simple pendant 1 round. Aucun prérequis imprimé."
+      "en": "Failed save: target loses its standard action for 1 round. No prerequisite: none in the book or on the official cards; the \"1 maneuver\" seen on tob-tools comes from a fan errata (rulings-tob T4).",
+      "fr": "Jet raté : la cible perd son action simple pendant 1 round. Pas de prérequis : aucun dans le livre ni sur les cartes officielles ; le « 1 manœuvre » de tob-tools vient d'un errata de fans (rulings-tob T4)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -862,8 +862,8 @@
       "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige ses dégâts normaux plus <strong>2d6 points d’affaiblissement temporaire de Constitution</strong>. Pas de jet de sauvegarde.</p> <em>Dragon de pierre : utilisable seulement si vous touchez le sol.</em>"
     },
     "notes": {
-      "en": "2d6 Con damage (ability damage, not hit points). No prerequisite printed; WotC Customer Service said this is intended (not official errata).",
-      "fr": "2d6 points d’affaiblissement temporaire de Con (pas des points de vie). Aucun prérequis imprimé ; le service client WotC a confirmé que c’est voulu (pas un erratum officiel)."
+      "en": "2d6 Con damage (ability damage, not hit points). No prerequisite, as printed; WotC customer service said this is intended (rulings-tob T4).",
+      "fr": "2d6 points d'affaiblissement temporaire de Con (pas des points de vie). Pas de prérequis, tel qu'imprimé ; le service client WotC a confirmé que c'est voulu (rulings-tob T4)."
     },
     "source": {
       "book": "Tome of Battle",
