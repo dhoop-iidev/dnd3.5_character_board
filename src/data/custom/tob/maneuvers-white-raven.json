@@ -1,0 +1,1053 @@
+[
+  {
+    "id": "bolstering-voice",
+    "name": {
+      "en": "Bolstering Voice",
+      "fr": "Voix galvanisante"
+    },
+    "discipline": "white-raven",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "60 ft. (18 m)",
+      "fr": "18 m (60 ft.)"
+    },
+    "target": {
+      "en": "Area: 60-ft.-radius (18 m) emanation centered on you",
+      "fr": "Zone : émanation de 18 m (60 ft.) de rayon centrée sur vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: allies within 60 ft. get +2 morale on Will saves (+4 against fear).",
+      "fr": "Posture : les alliés à 18 m ou moins gagnent +2 de moral aux jets de Volonté (+4 contre la terreur)."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, every ally within 60 ft. (18 m) who can hear you gains a +2 morale bonus on Will saves. Against fear effects the bonus is +4 instead.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, chaque allié situé à 18 m (60 ft.) ou moins qui vous entend gagne un bonus de moral de +2 aux jets de Volonté, porté à +4 contre les effets de terreur.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "save.will",
+          "bonusType": "morale",
+          "value": 2
+        },
+        "duration": "stance",
+        "appliesTo": "allies"
+      },
+      {
+        "spec": {
+          "target": "save.will",
+          "bonusType": "morale",
+          "value": 4,
+          "condition": {
+            "en": "against fear effects (replaces the +2)",
+            "fr": "contre les effets de terreur (remplace le +2)"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "allies"
+      }
+    ],
+    "notes": {
+      "en": "Affects allies only, not you.",
+      "fr": "Ne concerne que les alliés, pas vous."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 90,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "douse-the-flames",
+    "name": {
+      "en": "Douse the Flames",
+      "fr": "Étouffer les flammes"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit the target can't make attacks of opportunity for 1 round.",
+      "fr": "Attaque au corps à corps ; si elle touche, la cible ne peut plus porter d’attaques d’opportunité pendant 1 round."
+    },
+    "text": {
+      "en": "<p>Make one melee attack against a foe you threaten. On a hit it takes normal damage and cannot make attacks of opportunity for 1 round. It still threatens the squares around it; it just can't use that threat.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps contre un adversaire que vous menacez. Si elle touche, il subit les dégâts normaux et ne peut porter aucune attaque d’opportunité pendant 1 round. Il continue de menacer les cases autour de lui, mais ne peut pas en profiter.</p>"
+    },
+    "notes": {
+      "en": "Target: no attacks of opportunity for 1 round.",
+      "fr": "Cible : aucune attaque d’opportunité pendant 1 round."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 91,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "leading-the-attack",
+    "name": {
+      "en": "Leading the Attack",
+      "fr": "Mener l’attaque"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit allies get +4 morale on attacks against that foe for 1 round.",
+      "fr": "Attaque au corps à corps ; si elle touche, les alliés gagnent +4 de moral à l’attaque contre cet adversaire pendant 1 round."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, your allies gain a +4 morale bonus on attack rolls against the creature you hit for 1 round. You do not get the bonus yourself.</p><p>FAQ: the bonus applies even if damage reduction absorbs all the damage (a hit is enough).</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vos alliés gagnent un bonus de moral de +4 aux jets d’attaque contre la créature touchée pendant 1 round. Vous-même n’en bénéficiez pas.</p><p>FAQ : le bonus s’applique même si la réduction des dégâts annule tous les dégâts (il suffit de toucher).</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.all",
+          "bonusType": "morale",
+          "value": 4,
+          "condition": {
+            "en": "against the creature you hit",
+            "fr": "contre la créature que vous avez touchée"
+          }
+        },
+        "duration": "round",
+        "appliesTo": "allies"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 91,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "leading-the-charge",
+    "name": {
+      "en": "Leading the Charge",
+      "fr": "Mener la charge"
+    },
+    "discipline": "white-raven",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "60 ft. (18 m)",
+      "fr": "18 m (60 ft.)"
+    },
+    "target": {
+      "en": "Area: 60-ft.-radius (18 m) emanation centered on you",
+      "fr": "Zone : émanation de 18 m (60 ft.) de rayon centrée sur vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: allies who charge within 60 ft. add your initiator level to damage.",
+      "fr": "Posture : les alliés qui chargent dans un rayon de 18 m ajoutent votre niveau d’initiateur aux dégâts."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, any ally who can hear you and makes a charge attack inside the 60-ft. (18 m) emanation adds a bonus equal to your initiator level to the damage roll of that charge. The bonus is untyped. You do not benefit yourself.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, tout allié qui vous entend et effectue une attaque de charge dans l’émanation de 18 m (60 ft.) ajoute un bonus égal à votre niveau d’initiateur au jet de dégâts de cette charge. Le bonus n’a pas de type. Vous-même n’en bénéficiez pas.</p>"
+    },
+    "notes": {
+      "en": "Allies' charge damage bonus = your initiator level (not computed).",
+      "fr": "Bonus aux dégâts des charges des alliés = votre niveau d’initiateur (non calculé)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 92,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "battle-leaders-charge",
+    "name": {
+      "en": "Battle Leader’s Charge",
+      "fr": "Charge du meneur"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Charge without provoking for movement; +10 damage on a hit.",
+      "fr": "Charge sans provoquer d’attaque d’opportunité par le déplacement ; +10 dégâts si elle touche."
+    },
+    "text": {
+      "en": "<p>As part of this maneuver you charge a foe. Your movement during this charge does not provoke attacks of opportunity. If the charge attack hits, it deals 10 extra points of damage. Extra damage is not multiplied on a critical hit (p. 43).</p><p>Normal charge rules still apply (+2 attack, −2 AC).</p>",
+      "fr": "<p>Dans le cadre de cette manœuvre, vous chargez un adversaire. Votre déplacement pendant cette charge ne provoque pas d’attaque d’opportunité. Si l’attaque de charge touche, elle inflige 10 points de dégâts supplémentaires. Les dégâts supplémentaires ne sont pas multipliés en cas de coup critique (p. 43).</p><p>Les règles normales de la charge s’appliquent (+2 à l’attaque, −2 à la CA).</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "10",
+        "condition": {
+          "en": "charge attack hits",
+          "fr": "l’attaque de charge touche"
+        }
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 90,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "tactical-strike",
+    "name": {
+      "en": "Tactical Strike",
+      "fr": "Frappe tactique"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack, +2d6 damage; allies adjacent to the target may take a free 5-ft. step.",
+      "fr": "Attaque au corps à corps, +2d6 dégâts ; les alliés adjacents à la cible peuvent faire un pas de placement."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit it deals 2d6 extra damage, and each ally adjacent to the target may immediately take a 5-ft. (1,50 m) step that does not provoke attacks of opportunity. Extra damage is not multiplied on a critical hit (p. 43).</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige 2d6 points de dégâts supplémentaires et chaque allié adjacent à la cible peut immédiatement faire un pas de placement de 1,50 m (5 ft.) qui ne provoque pas d’attaque d’opportunité. Les dégâts supplémentaires ne sont pas multipliés en cas de coup critique (p. 43).</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6"
+      }
+    ],
+    "notes": {
+      "en": "Allies adjacent to the target: immediate 5-ft. step, no attacks of opportunity.",
+      "fr": "Alliés adjacents à la cible : pas de placement immédiat, sans attaque d’opportunité."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 93,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "lions-roar",
+    "name": {
+      "en": "Lion’s Roar",
+      "fr": "Rugissement du lion"
+    },
+    "discipline": "white-raven",
+    "type": "boost",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "60 ft. (18 m)",
+      "fr": "18 m (60 ft.)"
+    },
+    "target": {
+      "en": "You and allies within 60 ft. (18 m)",
+      "fr": "Vous et les alliés à 18 m (60 ft.) ou moins"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "After you drop a foe below 0 hp: you and allies within 60 ft. get +5 morale on damage for 1 round.",
+      "fr": "Après avoir fait tomber un adversaire sous 0 pv : vous et vos alliés à 18 m gagnez +5 de moral aux dégâts pendant 1 round."
+    },
+    "text": {
+      "en": "<p>You can initiate this boost only after you have reduced an opponent to fewer than 0 hit points. You and every ally within 60 ft. (18 m) gain a +5 morale bonus on damage rolls for 1 round.</p>",
+      "fr": "<p>Vous ne pouvez initier cette manœuvre de soutien qu’après avoir réduit un adversaire à moins de 0 point de vie. Vous et chaque allié situé à 18 m (60 ft.) ou moins gagnez un bonus de moral de +5 aux jets de dégâts pendant 1 round.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "damage.all",
+          "bonusType": "morale",
+          "value": 5
+        },
+        "duration": "round",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "damage.all",
+          "bonusType": "morale",
+          "value": 5
+        },
+        "duration": "round",
+        "appliesTo": "allies"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 92,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "tactics-of-the-wolf",
+    "name": {
+      "en": "Tactics of the Wolf",
+      "fr": "Tactique du loup"
+    },
+    "discipline": "white-raven",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: when you flank a foe, you and your flanking allies add 1/2 your initiator level to damage against it.",
+      "fr": "Posture : quand vous prenez un adversaire en tenaille, vous et vos alliés qui le prennent en tenaille avec vous ajoutez la moitié de votre niveau d’initiateur aux dégâts contre lui."
+    },
+    "text": {
+      "en": "<p>While you hold this stance and flank an opponent, you and each ally flanking that opponent with you gain a bonus on damage rolls against it equal to 1/2 your initiator level (untyped).</p>",
+      "fr": "<p>Tant que vous tenez cette posture et prenez un adversaire en tenaille, vous et chaque allié qui le prend en tenaille avec vous gagnez contre lui un bonus aux jets de dégâts égal à la moitié de votre niveau d’initiateur (sans type).</p>"
+    },
+    "notes": {
+      "en": "Damage bonus = 1/2 initiator level against a foe you flank (not computed; rounding not stated, normally rounded down).",
+      "fr": "Bonus aux dégâts = 1/2 niveau d’initiateur contre un adversaire pris en tenaille (non calculé ; arrondi non précisé, en principe à l’entier inférieur)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 93,
+      "frRef": "traduction maison"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "damage.melee",
+          "bonusType": "untyped",
+          "value": 0,
+          "condition": {
+            "en": "against a foe you flank",
+            "fr": "contre un adversaire que vous prenez en tenaille"
+          }
+        },
+        "duration": "stance",
+        "valueFrom": "halfInitiatorLevel"
+      }
+    ]
+  },
+  {
+    "id": "white-raven-tactics",
+    "name": {
+      "en": "White Raven Tactics",
+      "fr": "Tactique du corbeau blanc"
+    },
+    "discipline": "white-raven",
+    "type": "boost",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "10 ft. (3 m)",
+      "fr": "3 m (10 ft.)"
+    },
+    "target": {
+      "en": "One ally",
+      "fr": "Un allié"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "An ally within 10 ft. moves to your initiative count −1 and can act again this round.",
+      "fr": "Un allié à 3 m ou moins passe à votre initiative −1 et peut agir de nouveau ce round."
+    },
+    "text": {
+      "en": "<p>Choose an ally within 10 ft. (3 m). Her initiative count becomes yours minus 1 and she acts on that count. If she already acted this round, she acts again; if she hasn't acted yet, she acts only on the new count, not on her old one. If her count would not change, nothing happens.</p><p>FAQ: you cannot target yourself.</p>",
+      "fr": "<p>Choisissez un allié situé à 3 m (10 ft.) ou moins. Son rang d’initiative devient le vôtre moins 1 et il agit à ce rang. S’il a déjà agi ce round, il agit de nouveau ; s’il n’a pas encore agi, il agit seulement au nouveau rang, pas à l’ancien. Si son rang ne change pas, la manœuvre n’a aucun effet.</p><p>FAQ : vous ne pouvez pas vous cibler vous-même.</p>"
+    },
+    "notes": {
+      "en": "Initiative change for one ally; not usable on yourself (D&D FAQ 3.5, p. 75).",
+      "fr": "Changement d’initiative d’un allié ; inutilisable sur soi-même (FAQ D&D 3.5, p. 75)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 94,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "covering-strike",
+    "name": {
+      "en": "Covering Strike",
+      "fr": "Frappe de couverture"
+    },
+    "discipline": "white-raven",
+    "type": "boost",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "3 rounds",
+      "fr": "3 rounds"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Foes you hit this turn can't make attacks of opportunity for 3 rounds.",
+      "fr": "Les adversaires que vous touchez ce tour ne peuvent plus porter d’attaques d’opportunité pendant 3 rounds."
+    },
+    "text": {
+      "en": "<p>After initiating this boost you attack normally. Each foe you hit afterward this turn takes normal damage and cannot make attacks of opportunity for 3 rounds (it still threatens its area). A given creature can be affected by only one covering strike per encounter.</p>",
+      "fr": "<p>Après avoir initié cette manœuvre de soutien, vous attaquez normalement. Chaque adversaire que vous touchez ensuite ce tour-ci subit les dégâts normaux et ne peut porter aucune attaque d’opportunité pendant 3 rounds (il continue de menacer sa zone). Une même créature ne peut subir qu’une frappe de couverture par rencontre.</p>"
+    },
+    "notes": {
+      "en": "Foes hit: no attacks of opportunity for 3 rounds; once per creature per encounter.",
+      "fr": "Adversaires touchés : aucune attaque d’opportunité pendant 3 rounds ; une fois par créature et par rencontre."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 91,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "white-raven-strike",
+    "name": {
+      "en": "White Raven Strike",
+      "fr": "Frappe du corbeau blanc"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack, +4d6 damage; the target is flat-footed until the start of its next turn.",
+      "fr": "Attaque au corps à corps, +4d6 dégâts ; la cible est prise au dépourvu jusqu’au début de son prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit it deals 4d6 extra damage and the target counts as flat-footed until the start of its next turn. Extra damage is not multiplied on a critical hit (p. 43).</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige 4d6 points de dégâts supplémentaires et la cible est considérée comme prise au dépourvu jusqu’au début de son prochain tour. Les dégâts supplémentaires ne sont pas multipliés en cas de coup critique (p. 43).</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "4d6"
+      }
+    ],
+    "notes": {
+      "en": "Target flat-footed until the start of its next turn.",
+      "fr": "Cible prise au dépourvu jusqu’au début de son prochain tour."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 94,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "flanking-maneuver",
+    "name": {
+      "en": "Flanking Maneuver",
+      "fr": "Manœuvre de prise en tenaille"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Against a foe you flank: melee attack; on a hit every flanking ally gets one free melee attack.",
+      "fr": "Contre un adversaire pris en tenaille : attaque au corps à corps ; si elle touche, chaque allié qui le prend en tenaille porte une attaque gratuite."
+    },
+    "text": {
+      "en": "<p>Usable when you and one or more allies flank an opponent you designate. Make one melee attack against it. If you hit, each ally flanking that foe can immediately make one melee attack against it; these are not attacks of opportunity. Allies must be able to see you (they need not hear you).</p>",
+      "fr": "<p>Utilisable quand vous et un ou plusieurs alliés prenez en tenaille un adversaire que vous désignez. Vous portez une attaque au corps à corps contre lui. Si elle touche, chaque allié qui le prend en tenaille peut immédiatement lui porter une attaque au corps à corps ; ce ne sont pas des attaques d’opportunité. Les alliés doivent pouvoir vous voir (pas forcément vous entendre).</p>"
+    },
+    "notes": {
+      "en": "Flanking allies: one immediate melee attack each.",
+      "fr": "Alliés en tenaille : une attaque immédiate au corps à corps chacun."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 91,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "press-the-advantage",
+    "name": {
+      "en": "Press the Advantage",
+      "fr": "Pousser l’avantage"
+    },
+    "discipline": "white-raven",
+    "type": "stance",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: take a second 5-ft. step right after your first one each round.",
+      "fr": "Posture : vous pouvez faire un second pas de placement juste après le premier, chaque round."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, right after taking your 5-ft. (1,50 m) step for the round you may take a second one, which also does not provoke attacks of opportunity. If you take a 5-ft. step into difficult terrain, you lose the second step.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, juste après votre pas de placement de 1,50 m (5 ft.) du round, vous pouvez en faire un second, qui ne provoque pas non plus d’attaque d’opportunité. Si vous faites un pas de placement en terrain difficile, vous perdez le second.</p>"
+    },
+    "notes": {
+      "en": "Two 5-ft. steps per round (only one if into difficult terrain).",
+      "fr": "Deux pas de placement par round (un seul en terrain difficile)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 93,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "order-forged-from-chaos",
+    "name": {
+      "en": "Order Forged from Chaos",
+      "fr": "L’ordre né du chaos"
+    },
+    "discipline": "white-raven",
+    "type": "other",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "move",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "Allied creatures within 30 ft. (9 m)",
+      "fr": "Créatures alliées à 9 m (30 ft.) ou moins"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Every ally within 30 ft. immediately takes a move action to move up to its speed.",
+      "fr": "Chaque allié à 9 m ou moins effectue immédiatement une action de mouvement pour se déplacer jusqu’à sa vitesse."
+    },
+    "text": {
+      "en": "<p>When you initiate this maneuver, each ally within 30 ft. (9 m) can immediately take one move action to move up to its speed. That movement provokes attacks of opportunity normally and does not count toward minimum-movement requirements of feats or abilities (such as a scout's skirmish).</p><p>The book gives this maneuver no type (not a boost, counter, strike or stance).</p>",
+      "fr": "<p>Quand vous initiez cette manœuvre, chaque allié situé à 9 m (30 ft.) ou moins peut immédiatement effectuer une action de mouvement pour se déplacer jusqu’à sa vitesse. Ce déplacement provoque normalement des attaques d’opportunité et ne compte pas pour les déplacements minimums exigés par des dons ou aptitudes (comme l’escarmouche de l’éclaireur).</p><p>Le livre ne donne aucun type à cette manœuvre (ni soutien, ni contre, ni frappe, ni posture).</p>"
+    },
+    "notes": {
+      "en": "Allies within 30 ft.: one immediate move action each (provokes normally).",
+      "fr": "Alliés à 9 m : une action de mouvement immédiate chacun (provoque normalement)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 92,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "war-leaders-charge",
+    "name": {
+      "en": "War Leader’s Charge",
+      "fr": "Charge du seigneur de guerre"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Charge without provoking for movement; +35 damage on a hit.",
+      "fr": "Charge sans provoquer d’attaque d’opportunité par le déplacement ; +35 dégâts si elle touche."
+    },
+    "text": {
+      "en": "<p>As part of this maneuver you charge a foe. Your movement during this charge does not provoke attacks of opportunity. If the charge attack hits, it deals 35 extra points of damage. Extra damage is not multiplied on a critical hit (p. 43).</p><p>Normal charge rules still apply (+2 attack, −2 AC).</p>",
+      "fr": "<p>Dans le cadre de cette manœuvre, vous chargez un adversaire. Votre déplacement pendant cette charge ne provoque pas d’attaque d’opportunité. Si l’attaque de charge touche, elle inflige 35 points de dégâts supplémentaires. Les dégâts supplémentaires ne sont pas multipliés en cas de coup critique (p. 43).</p><p>Les règles normales de la charge s’appliquent (+2 à l’attaque, −2 à la CA).</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "35",
+        "condition": {
+          "en": "charge attack hits",
+          "fr": "l’attaque de charge touche"
+        }
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 93,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "clarion-call",
+    "name": {
+      "en": "Clarion Call",
+      "fr": "Appel du clairon"
+    },
+    "discipline": "white-raven",
+    "type": "boost",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "60 ft. (18 m)",
+      "fr": "18 m (60 ft.)"
+    },
+    "target": {
+      "en": "Area: 60-ft.-radius (18 m) burst centered on you",
+      "fr": "Zone : explosion de 18 m (60 ft.) de rayon centrée sur vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "After your melee attack drops a foe below 0 hp: each ally within 60 ft. gets one melee attack or one move action.",
+      "fr": "Après qu’une de vos attaques au corps à corps a fait tomber un adversaire sous 0 pv : chaque allié à 18 m obtient une attaque au corps à corps ou une action de mouvement."
+    },
+    "text": {
+      "en": "<p>Usable when, during your turn, one of your melee attacks reduces an opponent to fewer than 0 hit points. Every ally within 60 ft. (18 m) who can see and hear you may immediately either make one melee attack at its highest attack bonus or take one move action. These attacks are not attacks of opportunity.</p>",
+      "fr": "<p>Utilisable lorsque, pendant votre tour, une de vos attaques au corps à corps réduit un adversaire à moins de 0 point de vie. Chaque allié situé à 18 m (60 ft.) ou moins qui peut vous voir et vous entendre peut immédiatement soit porter une attaque au corps à corps avec son meilleur bonus d’attaque, soit effectuer une action de mouvement. Ces attaques ne sont pas des attaques d’opportunité.</p>"
+    },
+    "notes": {
+      "en": "Allies within 60 ft.: one melee attack (highest bonus) or one move action.",
+      "fr": "Alliés à 18 m : une attaque au corps à corps (meilleur bonus) ou une action de mouvement."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 91,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "swarming-assault",
+    "name": {
+      "en": "Swarming Assault",
+      "fr": "Assaut de la nuée"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit every ally threatening the target gets one immediate attack against it.",
+      "fr": "Attaque au corps à corps ; si elle touche, chaque allié qui menace la cible lui porte immédiatement une attaque."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit you deal normal damage, and every ally who threatens the target may immediately make one attack against it. You decide the order in which these attacks are resolved.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, vous infligez les dégâts normaux et chaque allié qui menace la cible peut immédiatement lui porter une attaque. Vous choisissez l’ordre de résolution de ces attaques.</p>"
+    },
+    "notes": {
+      "en": "Allies threatening the target: one immediate attack each, in the order you choose.",
+      "fr": "Alliés qui menacent la cible : une attaque immédiate chacun, dans l’ordre de votre choix."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 93,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "swarm-tactics",
+    "name": {
+      "en": "Swarm Tactics",
+      "fr": "Tactique de la nuée"
+    },
+    "discipline": "white-raven",
+    "type": "stance",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "60 ft. (18 m)",
+      "fr": "18 m (60 ft.)"
+    },
+    "target": {
+      "en": "Area: 60-ft.-radius (18 m) emanation centered on you",
+      "fr": "Zone : émanation de 18 m (60 ft.) de rayon centrée sur vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: allies get +5 on attack rolls against foes adjacent to you.",
+      "fr": "Posture : les alliés gagnent +5 aux jets d’attaque contre les adversaires qui vous sont adjacents."
+    },
+    "text": {
+      "en": "<p>While you hold this stance and are adjacent to one or more opponents, your allies gain a +5 bonus (untyped) on attack rolls against any of those opponents. You do not gain the bonus yourself.</p>",
+      "fr": "<p>Tant que vous tenez cette posture et êtes adjacent à un ou plusieurs adversaires, vos alliés gagnent un bonus de +5 (sans type) aux jets d’attaque contre n’importe lequel de ces adversaires. Vous-même n’en bénéficiez pas.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.all",
+          "bonusType": "untyped",
+          "value": 5,
+          "condition": {
+            "en": "against a foe adjacent to the initiator",
+            "fr": "contre un adversaire adjacent à l’initiateur"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "allies"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 93,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "white-raven-hammer",
+    "name": {
+      "en": "White Raven Hammer",
+      "fr": "Marteau du corbeau blanc"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque de corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack, +6d6 damage and the target is stunned for 1 round (no save).",
+      "fr": "Attaque au corps à corps, +6d6 dégâts et la cible est étourdie 1 round (sans jet de sauvegarde)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit it deals 6d6 extra damage and the target is stunned for 1 round. No saving throw is allowed. Extra damage is not multiplied on a critical hit (p. 43).</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige 6d6 points de dégâts supplémentaires et la cible est étourdie pendant 1 round. Aucun jet de sauvegarde n’est permis. Les dégâts supplémentaires ne sont pas multipliés en cas de coup critique (p. 43).</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "6d6"
+      }
+    ],
+    "notes": {
+      "en": "Target stunned for 1 round, no save.",
+      "fr": "Cible étourdie 1 round, sans jet de sauvegarde."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 94,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "war-masters-charge",
+    "name": {
+      "en": "War Master’s Charge",
+      "fr": "Charge du maître de guerre"
+    },
+    "discipline": "white-raven",
+    "type": "strike",
+    "descriptors": [],
+    "level": 9,
+    "prereqCount": 4,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack; see text",
+      "fr": "Attaque de corps à corps ; voir texte"
+    },
+    "target": {
+      "en": "One creature; see text",
+      "fr": "Une créature ; voir texte"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "You charge and allies within 30 ft. may charge too: +50 damage for you, +25 per ally, +2 attack per charger; a foe hit twice is stunned.",
+      "fr": "Vous chargez et les alliés à 9 m peuvent charger aussi : +50 dégâts pour vous, +25 par allié, +2 à l’attaque par chargeur ; un adversaire touché deux fois est étourdi."
+    },
+    "text": {
+      "en": "<p>You charge a foe. Allies within 30 ft. (9 m) of you at the start of your turn may charge the same target as an immediate action; you and your allies do not block each other's charge path, and nobody provokes attacks of opportunity for this movement. Your hit deals 50 extra damage, each ally's hit 25. Every charge gets a cumulative +2 on the attack roll per creature charging (you included), on top of the normal charge +2. A foe hit by you and at least one ally is stunned for 1 round. Extra damage is not multiplied on a critical hit (p. 43).</p>",
+      "fr": "<p>Vous chargez un adversaire. Les alliés situés à 9 m (30 ft.) ou moins de vous au début de votre tour peuvent charger la même cible par une action immédiate ; vous ne vous gênez pas mutuellement pour charger et personne ne provoque d’attaque d’opportunité par ce déplacement. Votre attaque inflige 50 dégâts supplémentaires, celle de chaque allié 25. Chaque charge reçoit +2 cumulatif à l’attaque par créature qui charge (vous compris), en plus du +2 normal de la charge. Un adversaire touché par vous et au moins un allié est étourdi 1 round. Les dégâts supplémentaires ne sont pas multipliés en cas de coup critique (p. 43).</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "50",
+        "condition": {
+          "en": "your charge attack hits",
+          "fr": "votre attaque de charge touche"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Attack bonus +2 × number of chargers (you included), not computed. Allies' hits: +25 damage. Foe hit by you and an ally: stunned 1 round.",
+      "fr": "Bonus d’attaque +2 × nombre de chargeurs (vous compris), non calculé. Attaques des alliés : +25 dégâts. Adversaire touché par vous et un allié : étourdi 1 round."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 94,
+      "frRef": "traduction maison"
+    }
+  }
+]

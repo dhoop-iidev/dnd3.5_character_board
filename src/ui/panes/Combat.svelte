@@ -9,6 +9,7 @@
   import { openPopup } from '../popupState.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
+  import ManeuverBlock from '../ManeuverBlock.svelte'
 
   const s = $derived(view.sheet)
   const c = $derived(app.character)
@@ -192,6 +193,8 @@
     </div>
   </section>
 
+  {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
+
   <section class="box wide">
     <h3>{tr({ en: 'Attacks', fr: 'Attaques' })} — {tr(loadout.name)}</h3>
     <div class="attacks">
@@ -212,6 +215,7 @@
           <div class="line">
             <span>{tr({ en: 'Critical', fr: 'Critique' })}</span>
             <strong>{crit(a.critRange, a.critMult.total)}</strong>
+            {#if a.critConfirmBonus}<small>({tr({ en: 'confirm', fr: 'confirmation' })} +{a.critConfirmBonus} {tr({ en: 'battle ardor', fr: 'ardeur au combat' })})</small>{/if}
             {#if a.weaponOfChoice && s.weaponMaster.increasedMultiplierPerDay}
               <small>({tr({ en: 'increased multiplier', fr: 'multiplicateur accru' })} : ×{a.critMult.total + 1})</small>
             {/if}
@@ -680,6 +684,11 @@
   .line.extra {
     min-height: 2rem;
     font-size: 0.95em;
+    flex-wrap: nowrap;
+  }
+  .line.extra > span:last-child {
+    flex: 1;
+    min-width: 0;
   }
   .line.extra small,
   .line.extra em {

@@ -16,6 +16,8 @@ import type {
 import { ABILITIES } from '../data/types'
 import type { Character, FeatPick, ItemInstance } from '../model/character'
 import { i18n, resolve, type Part, type Stat } from './stacking'
+import { knownManeuvers, martialCaps, type MartialCaps } from './martial'
+import type { ManeuverDef } from '../data/types'
 
 const SRD = 'https://www.d20srd.org/srd/'
 const src = (path: string): Source => ({ srdUrl: SRD + path })
@@ -81,6 +83,8 @@ export interface AttackLine {
   bypassDR: string[]
   /** Described-only effects (vorpal, wounding…). */
   notes: { name: I18n; text: I18n }[]
+  /** Bonus on rolls to confirm a critical hit (warblade battle ardor). */
+  critConfirmBonus: number
 }
 
 export type LoadBand = 'light' | 'medium' | 'heavy' | 'overloaded'
@@ -111,8 +115,15 @@ export interface Sheet {
   weaponMaster: { level: number; active: boolean; kiDamagePerDay: number; increasedMultiplierPerDay: number }
   armor?: { item: ItemInstance; def: ArmorDef; category: ArmorDef['category'] }
   shield?: { item: ItemInstance; def: ArmorDef }
-  /** Damage reduction from equipment (adamantine armor…). */
+  /** Damage reduction from equipment (adamantine armor…) and maneuvers (Stone Bones…). */
   damageReduction: { value: string; source: I18n }[]
+  /** Tome of Battle: caps, known maneuvers/stances, current stance and running maneuvers. */
+  martial: {
+    caps: MartialCaps | null
+    known: ManeuverDef[]
+    stance?: ManeuverDef
+    active: ManeuverDef[]
+  }
 }
 
 export interface ComputeOptions {
@@ -183,6 +194,23 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const spec of def?.modifiers ?? item.custom?.modifiers ?? [])
       mods.push({ spec, sourceId: `item:${item.uid}`, label: item.name ?? def?.name ?? i18n(item.refId), source: def?.source })
   }
+  // ---- Tome of Battle: stance and running maneuvers (house rule #15)
+  const caps = martialCaps(char, rules, characterLevel)
+  const known = caps ? knownManeuvers(char, rules, characterLevel) : []
+  const stance = known.find((k) => k.type === 'stance' && k.id === char.martial?.stance)
+  const runningManeuvers = (char.martial?.active ?? [])
+    .map((a) => rules.maneuvers.get(a.id))
+    .filter((d): d is ManeuverDef => !!d)
+  for (const def of [...(stance ? [stance] : []), ...runningManeuvers]) {
+    for (const eff of def.effects ?? []) {
+      if (eff.appliesTo === 'allies' || eff.appliesTo === 'target') continue
+      const il = caps?.initiatorLevel ?? 0
+      const value = eff.valueFrom === 'initiatorLevel' ? il : eff.valueFrom === 'halfInitiatorLevel' ? Math.floor(il / 2) : eff.spec.value
+      // Maneuver and stance bonuses don't stack with each other (Tome of Battle p. 40): one shared source id.
+      mods.push({ spec: { ...eff.spec, value }, sourceId: 'martial', label: def.name, source: def.source })
+    }
+  }
+
   // A condition replaced by a stronger active one (e.g. fatigued by exhausted) is ignored.
   const replaced = new Set(
     char.activeEffects
@@ -309,8 +337,21 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- saves
   const saveAbility: Record<SaveId, AbilityId> = { fort: 'con', ref: 'dex', will: 'wis' }
   const saves = {} as Record<SaveId, Stat>
-  for (const s of ['fort', 'ref', 'will'] as SaveId[])
-    saves[s] = resolve([...tableSum(s), abilityPart(saveAbility[s]), ...partsFor([`save.${s}`, 'save.all'])])
+  const flatFootedNow = flags.includes('loseDexToAc') || sumTarget('ac.noDex') > 0 || toggles.situational['flatFooted'] === true
+  for (const s of ['fort', 'ref', 'will'] as SaveId[]) {
+    const extra: Part[] = []
+    // Warblade battle clarity (Tome of Battle p. 22): insight bonus = Int bonus (max warblade level) on Reflex
+    // saves, as long as you're not flat-footed.
+    if (s === 'ref' && caps && mod('int') > 0)
+      extra.push({
+        sourceId: 'battle-clarity',
+        label: i18n('Battle clarity', 'Clarté au combat'),
+        value: flatFootedNow ? 0 : Math.min(mod('int'), caps.classLevel),
+        bonusType: 'insight',
+        source: { book: 'Tome of Battle', page: 22 },
+      })
+    saves[s] = resolve([...tableSum(s), abilityPart(saveAbility[s]), ...extra, ...partsFor([`save.${s}`, 'save.all'])])
+  }
 
   // ---- armor, shield, load
   const loadout = char.loadouts.find((l) => l.id === char.activeLoadout) ?? char.loadouts[0]
@@ -439,8 +480,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   if (toggles.totalDefense)
     acParts.push({ sourceId: 'total-defense', label: tumble5 ? i18n('Total defense (Tumble 5 ranks)', 'Défense totale (Acrobaties 5 degrés)') : i18n('Total defense', 'Défense totale'), value: tumble5 ? 6 : 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
   acParts.push(...partsFor(['ac']))
+  // Uncanny dodge (warblade 2, Tome of Battle p. 22): keeps the Dex bonus when flat-footed, not when immobilized.
+  const uncannyDodge = !!caps && caps.classLevel >= 2 && !flags.some((f) => ['immobile', 'helpless', 'dexZeroForAc', 'strDexZero'].includes(f))
   const stripDex = (parts: Part[]) =>
-    parts.filter((p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero) && p.bonusType !== 'dodge')
+    parts.filter(
+      (p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero && !uncannyDodge) && p.bonusType !== 'dodge',
+    )
   const ac = resolve(loseDex ? stripDex(acParts) : acParts)
   const touchAc = resolve((loseDex ? stripDex(acParts) : acParts).filter((p) => !['armor', 'shield', 'naturalArmor'].includes(p.bonusType)))
   const flatFootedAc = resolve(stripDex(acParts))
@@ -622,6 +667,17 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       const factor = twoHands ? 2 : 1
       dmg.push({ sourceId: 'power-attack', label: i18n(`Power Attack (×${factor})`, `Attaque en puissance (×${factor})`), value: toggles.powerAttack * factor, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
     }
+    if (melee && caps && caps.classLevel >= 7 && mod('int') > 0)
+      dmg.push({
+        sourceId: 'battle-cunning',
+        label: i18n('Battle cunning', 'Ruse au combat'),
+        value: mod('int'),
+        bonusType: 'insight',
+        source: { book: 'Tome of Battle', page: 23 },
+        condition: i18n('vs a flat-footed or flanked foe', 'contre un adversaire pris au dépourvu ou pris en tenaille'),
+        situationalOn: toggles.situational[`battle-cunning|${uid}`] ?? false,
+        toggleKey: `battle-cunning|${uid}`,
+      })
     dmg.push(...partsFor([melee ? 'damage.melee' : 'damage.ranged', 'damage.all', 'damage.weapon']))
     const damage = resolve(dmg)
 
@@ -647,7 +703,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       weaponOfChoice,
       kiDamageMax: weaponOfChoice ? maxDice(weapon.damage.M) + staticBeforePa : undefined,
       powerAttackAllowed,
-      extraDamage: props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
+      extraDamage: [
+        ...props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
+        // Strikes/boosts/stances add dice to melee attacks (not multiplied on a critical, Tome of Battle p. 43).
+        ...(melee
+          ? [...(stance ? [stance] : []), ...runningManeuvers].flatMap((d) =>
+              (d.extraDamage ?? []).map((x) => ({ dice: x.dice, type: x.type ?? i18n('maneuver', 'manœuvre'), condition: x.condition, source: d.name })),
+            )
+          : []),
+      ],
       critExtraDamage: props
         .filter((pr) => pr.effects.critExtraDamage)
         .map((pr) => {
@@ -657,6 +721,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         }),
       bypassDR: [...(mat?.effects.bypassDR ? [mat.effects.bypassDR] : []), ...(enh > 0 ? ['magic'] : [])],
       notes: props.filter((pr) => pr.effects.notes).map((pr) => ({ name: pr.name, text: pr.effects.notes! })),
+      // Battle ardor (warblade 3, Tome of Battle p. 22): insight = Int bonus on critical confirmation rolls.
+      critConfirmBonus: caps && caps.classLevel >= 3 ? Math.max(0, mod('int')) : 0,
     })
   }
 
@@ -691,10 +757,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     },
     armor,
     shield,
-    damageReduction:
-      armor && armorMat?.effects.armorDR
+    martial: { caps, known, stance, active: runningManeuvers },
+    damageReduction: [
+      ...[...(stance ? [stance] : []), ...runningManeuvers]
+        .filter((d) => d.damageReduction)
+        .map((d) => ({ value: d.damageReduction!, source: d.name })),
+      ...(armor && armorMat?.effects.armorDR
         ? [{ value: armorMat.effects.armorDR[armor.def.category as 'light' | 'medium' | 'heavy'] ?? '', source: armorMat.name }].filter((d) => d.value)
-        : [],
+        : []),
+    ],
   }
 }
 

@@ -99,8 +99,11 @@ export function featOptions(
 ): { def: FeatDef; unmet: string[] }[] {
   const sheet = compute({ ...char, activeEffects: [], abilityDamage: {} }, rules, { level })
   const owned = featsBefore(char, level, pick)
+  // Class bonus feats: fighter list for fighters, the class's own list otherwise (warblade, ToB p. 23).
+  const cls = rules.classes.get(char.levels[level - 1]?.classId ?? '')
+  const bonusOk = (d: FeatDef) => (cls?.id === 'fighter' || !cls?.bonusFeatList ? d.fighterBonus : cls.bonusFeatList.includes(d.id))
   return [...rules.feats.values()]
-    .filter((d) => slot !== 'fighter' || d.fighterBonus)
+    .filter((d) => slot !== 'fighter' || bonusOk(d))
     .filter((d) => d.type === 'general' || slot === 'general' || slot === 'human' || slot === 'deity')
     .map((def) => ({
       def,

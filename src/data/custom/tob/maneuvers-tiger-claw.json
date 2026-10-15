@@ -1,0 +1,1366 @@
+[
+  {
+    "id": "blood-in-the-water",
+    "name": {
+      "en": "Blood in the Water",
+      "fr": "Du sang dans l’eau"
+    },
+    "discipline": "tiger-claw",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: each critical hit you score gives a stacking +1 on attack and damage rolls.",
+      "fr": "Posture : chaque coup critique que vous portez donne +1 cumulable aux jets d’attaque et de dégâts."
+    },
+    "text": {
+      "en": "<p>While in this stance, every <strong>critical hit</strong> you score against a foe gives you <strong>+1 on attack and damage rolls</strong>. The bonus is untyped, so each further critical hit adds another +1. If you go more than <strong>1 minute</strong> without a critical hit, you lose the accumulated bonus.</p>",
+      "fr": "<p>Dans cette posture, chaque <strong>coup critique</strong> que vous portez vous donne <strong>+1 aux jets d’attaque et de dégâts</strong>. Ce bonus n’a pas de type : chaque nouveau critique ajoute +1. Si vous passez plus d’<strong>1 minute</strong> sans critique, vous perdez le bonus accumulé.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.all",
+          "bonusType": "untyped",
+          "value": 1,
+          "condition": {
+            "en": "Per critical hit scored in this stance (stacks); lost after 1 minute without a critical",
+            "fr": "Par coup critique porté dans cette posture (cumulable) ; perdu après 1 minute sans critique"
+          }
+        },
+        "duration": "stance"
+      },
+      {
+        "spec": {
+          "target": "damage.all",
+          "bonusType": "untyped",
+          "value": 1,
+          "condition": {
+            "en": "Per critical hit scored in this stance (stacks); lost after 1 minute without a critical",
+            "fr": "Par coup critique porté dans cette posture (cumulable) ; perdu après 1 minute sans critique"
+          }
+        },
+        "duration": "stance"
+      }
+    ],
+    "notes": {
+      "en": "The app shows +1 once; multiply by the number of critical hits scored. Prerequisite of one Tiger Claw maneuver at level 1 is as printed.",
+      "fr": "L’application affiche +1 une fois : multipliez par le nombre de critiques portés. Le prérequis d’une manœuvre de Griffe du tigre au niveau 1 est tel qu’imprimé."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 86,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "claw-at-the-moon",
+    "name": {
+      "en": "Claw at the Moon",
+      "fr": "Griffer la lune"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Jump check vs target's AC, then melee attack: +2d6 damage and +4 to confirm a critical if the jump succeeds.",
+      "fr": "Test de Saut contre la CA de la cible puis attaque au contact : +2d6 dégâts et +4 pour confirmer un critique si le saut réussit."
+    },
+    "text": {
+      "en": "<p>Make a <strong>Jump check (DC = target's AC)</strong>, then one melee attack. If the check succeeds, the attack deals <strong>+2d6</strong> damage and you get <strong>+4 on the roll to confirm</strong> a critical hit. If it fails, you still attack normally without these benefits, and the maneuver is expended.</p>",
+      "fr": "<p>Vous faites un <strong>test de Saut (DD = CA de la cible)</strong>, puis une attaque au corps à corps. Si le test réussit, l’attaque inflige <strong>+2d6</strong> points de dégâts et vous gagnez <strong>+4 au jet de confirmation</strong> d’un critique. En cas d’échec, vous attaquez normalement sans ces avantages et la manœuvre est dépensée.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6",
+        "condition": {
+          "en": "Only if the Jump check succeeds",
+          "fr": "Seulement si le test de Saut réussit"
+        }
+      }
+    ],
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "DC = target's AC; success gives +2d6 and +4 to confirm a critical hit.",
+        "fr": "DD = CA de la cible ; la réussite donne +2d6 et +4 pour confirmer un critique."
+      }
+    },
+    "notes": {
+      "en": "+4 on the critical confirmation roll if the Jump succeeds (no app target for confirmation rolls).",
+      "fr": "+4 au jet de confirmation de critique si le saut réussit (pas de cible dans l’application pour les jets de confirmation)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 86,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "dancing-mongoose",
+    "name": {
+      "en": "Dancing Mongoose",
+      "fr": "Mangouste dansante"
+    },
+    "discipline": "tiger-claw",
+    "type": "boost",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "One extra attack per weapon wielded (max 2) at your highest bonus, all against the same foe.",
+      "fr": "Une attaque supplémentaire par arme maniée (max. 2) à votre meilleur bonus, toutes contre le même adversaire."
+    },
+    "text": {
+      "en": "<p>This turn you can make <strong>one extra attack with each weapon</strong> you wield (at most <strong>two extra attacks</strong> with two or more weapons), each at that weapon's <strong>highest attack bonus</strong>. All your attacks must target the same opponent.</p>",
+      "fr": "<p>Ce tour-ci, vous pouvez porter <strong>une attaque supplémentaire avec chaque arme</strong> maniée (au plus <strong>deux attaques supplémentaires</strong> avec deux armes ou plus), chacune à son <strong>meilleur bonus d’attaque</strong>. Toutes vos attaques doivent viser le même adversaire.</p>"
+    },
+    "notes": {
+      "en": "Extra attacks (not a numeric bonus). WotC Customer Service read the extra attacks as applying during a full attack (not errata).",
+      "fr": "Attaques supplémentaires (pas un bonus chiffré). Le service client WotC les rattache à une attaque à outrance (pas un erratum)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 86,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "death-from-above",
+    "name": {
+      "en": "Death from Above",
+      "fr": "La mort venue d’en haut"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "DC 20 Jump, then a melee attack from the air: +4d6 damage, target flat-footed.",
+      "fr": "Saut DD 20 puis attaque au contact en l’air : +4d6 dégâts, cible prise au dépourvu."
+    },
+    "text": {
+      "en": "<p>You must be adjacent to a foe. Make a <strong>DC 20 Jump check</strong>; on a success you make one melee attack in mid-air against a foe you were adjacent to. It deals <strong>+4d6</strong> damage and the target is <strong>flat-footed</strong> against it. You land in any square adjacent to the target, no more than 20 ft. from your start. On a failed check you stay in place and make one normal attack; the maneuver is expended.</p>",
+      "fr": "<p>Vous devez être adjacent à un adversaire. Faites un <strong>test de Saut DD 20</strong> ; en cas de réussite, vous portez une attaque au corps à corps en l’air contre un adversaire adjacent au départ. Elle inflige <strong>+4d6</strong> points de dégâts et la cible est <strong>prise au dépourvu</strong> contre elle. Vous atterrissez dans une case adjacente à la cible, à 6 m au plus du départ. En cas d’échec, vous restez sur place et portez une attaque normale ; la manœuvre est dépensée.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "4d6",
+        "condition": {
+          "en": "Only if the Jump check succeeds",
+          "fr": "Seulement si le test de Saut réussit"
+        }
+      }
+    ],
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "DC 20; success: +4d6 and the target is flat-footed.",
+        "fr": "DD 20 ; réussite : +4d6 et cible prise au dépourvu."
+      }
+    },
+    "notes": {
+      "en": "Target flat-footed against the attack; you land adjacent to it, within 20 ft. of your start.",
+      "fr": "Cible prise au dépourvu contre l’attaque ; vous atterrissez à côté d’elle, à 6 m au plus du départ."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 86,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "feral-death-blow",
+    "name": {
+      "en": "Feral Death Blow",
+      "fr": "Coup mortel sauvage"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 9,
+    "prereqCount": 4,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude partial, DC 19 + Str mod",
+      "fr": "Vigueur partiel, DD 19 + mod. de For"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Jump vs AC, then a flat-footed attack: failed Fort save = slain; success = +20d6 damage.",
+      "fr": "Saut contre la CA puis attaque sur une cible prise au dépourvu : Vigueur ratée = mort ; réussie = +20d6 dégâts."
+    },
+    "text": {
+      "en": "<p>You must be adjacent to the target. Make a <strong>Jump check (DC = target's AC)</strong>; on a success make one melee attack against it, and it is <strong>flat-footed</strong>. If the attack deals damage, the target makes a <strong>Fortitude save (DC 19 + your Str modifier)</strong>: on a failure it dies (drops to −10 hp); on a success it takes <strong>+20d6</strong> damage. Creatures immune to critical hits are immune to the death effect. On a failed Jump you make one normal attack; the maneuver is expended.</p>",
+      "fr": "<p>Vous devez être adjacent à la cible. Faites un <strong>test de Saut (DD = CA de la cible)</strong> ; en cas de réussite, portez une attaque au corps à corps contre elle, <strong>prise au dépourvu</strong>. Si l’attaque inflige des dégâts, la cible fait un <strong>jet de Vigueur (DD 19 + mod. de For)</strong> : en cas d’échec elle meurt (−10 pv) ; en cas de réussite elle subit <strong>+20d6</strong> points de dégâts. Les créatures immunisées contre les critiques ignorent l’effet de mort. Si le saut échoue, vous portez une attaque normale ; la manœuvre est dépensée.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "20d6",
+        "condition": {
+          "en": "Only if the target succeeds on its Fortitude save (a failure kills it)",
+          "fr": "Seulement si la cible réussit son jet de Vigueur (un échec la tue)"
+        }
+      }
+    ],
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "DC = target's AC; success allows the deadly attack against a flat-footed target.",
+        "fr": "DD = CA de la cible ; la réussite permet l’attaque mortelle contre une cible prise au dépourvu."
+      }
+    },
+    "notes": {
+      "en": "Death effect (−10 hp) on a failed save; creatures immune to critical hits ignore it.",
+      "fr": "Effet de mort (−10 pv) si le jet est raté ; les créatures immunisées contre les critiques y échappent."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 87,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "flesh-ripper",
+    "name": {
+      "en": "Flesh Ripper",
+      "fr": "Déchire-chair"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round or more; see text",
+      "fr": "1 round ou plus ; voir texte"
+    },
+    "save": {
+      "en": "Fortitude negates, DC 13 + Str mod",
+      "fr": "Vigueur annule, DD 13 + mod. de For"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; failed Fort save: target takes −4 on attacks and AC for 1 round (crit: rounds = multiplier).",
+      "fr": "Attaque au contact ; Vigueur ratée : la cible subit −4 à l’attaque et à la CA pendant 1 round (critique : rounds = multiplicateur)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit the target makes a <strong>Fortitude save (DC 13 + your Str modifier)</strong> or takes <strong>−4 on attack rolls and to AC</strong> for 1 round. On a critical hit the penalties last a number of rounds equal to your weapon's critical multiplier. The target takes normal damage either way. Only works against creatures vulnerable to critical hits.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, la cible fait un <strong>jet de Vigueur (DD 13 + mod. de For)</strong> ou subit <strong>−4 aux jets d’attaque et à la CA</strong> pendant 1 round. Sur un coup critique, les malus durent autant de rounds que le multiplicateur de critique de l’arme. La cible subit les dégâts normaux dans tous les cas. Sans effet contre les créatures immunisées contre les critiques.</p>"
+    },
+    "notes": {
+      "en": "Penalties apply to the foe (−4 attacks and AC), not to you.",
+      "fr": "Les malus s’appliquent à l’adversaire (−4 attaque et CA), pas à vous."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 87,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "fountain-of-blood",
+    "name": {
+      "en": "Fountain of Blood",
+      "fr": "Fontaine de sang"
+    },
+    "discipline": "tiger-claw",
+    "type": "boost",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "30-ft.-radius burst centered on you",
+      "fr": "Explosion de 9 m de rayon centrée sur vous"
+    },
+    "duration": {
+      "en": "1 minute",
+      "fr": "1 minute"
+    },
+    "save": {
+      "en": "Will partial, DC 14 + Str mod; see text",
+      "fr": "Volonté partiel, DD 14 + mod. de For ; voir texte"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "After dropping a foe: +1d6 damage to it and enemies within 30 ft. must save (Will) or be shaken for 1 minute.",
+      "fr": "Après avoir abattu un adversaire : +1d6 dégâts sur lui et les ennemis à 9 m doivent réussir un jet de Volonté ou être secoués 1 minute."
+    },
+    "text": {
+      "en": "<p>Usable when you drop a living foe within your threatened area to <strong>−1 hp or fewer</strong> during your turn. It takes <strong>+1d6</strong> damage, and all your enemies within <strong>30 ft.</strong> make a <strong>Will save (DC 14 + your Str modifier)</strong> or are <strong>shaken for 1 minute</strong>. The DC rises by <strong>+1</strong> for each foe you dropped earlier this turn before initiating it.</p>",
+      "fr": "<p>Utilisable quand vous amenez à <strong>−1 pv ou moins</strong> un adversaire vivant dans votre zone contrôlée pendant votre tour. Il subit <strong>+1d6</strong> points de dégâts, et tous vos ennemis dans un rayon de <strong>9 m</strong> font un <strong>jet de Volonté (DD 14 + mod. de For)</strong> ou sont <strong>secoués pendant 1 minute</strong>. Le DD augmente de <strong>+1</strong> par adversaire abattu plus tôt dans le tour.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "1d6",
+        "condition": {
+          "en": "To the foe you just dropped",
+          "fr": "À l’adversaire que vous venez d’abattre"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Enemies shaken for 1 minute on a failed save; DC +1 per foe dropped earlier this turn. No fear descriptor printed.",
+      "fr": "Ennemis secoués pendant 1 minute en cas d’échec ; DD +1 par adversaire abattu plus tôt dans le tour. Aucun registre (terreur) imprimé."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 87,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "girallon-windmill-flesh-rip",
+    "name": {
+      "en": "Girallon Windmill Flesh Rip",
+      "fr": "Moulinet déchire-chair du girallon"
+    },
+    "discipline": "tiger-claw",
+    "type": "boost",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One or more creatures",
+      "fr": "Une ou plusieurs créatures"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "With two or more weapons: rend damage on each foe hit 2+ times this turn (8d6 for 2 hits up to 20d6 for 8+).",
+      "fr": "Avec deux armes ou plus : dégâts d’éventration contre chaque adversaire touché 2+ fois ce tour (8d6 pour 2 coups jusqu’à 20d6 pour 8+)."
+    },
+    "text": {
+      "en": "<p>You must wield two or more weapons and initiate this before any attack this round. After your last attack of the turn, each creature you hit <strong>at least twice</strong> takes rend damage by the number of hits on it: <strong>2: 8d6, 3: 10d6, 4: 12d6, 5: 14d6, 6: 16d6, 7: 18d6, 8+: 20d6</strong>. Count hits per creature separately.</p>",
+      "fr": "<p>Vous devez manier deux armes ou plus et l’initier avant toute attaque du round. Après votre dernière attaque du tour, chaque créature touchée <strong>au moins deux fois</strong> subit des dégâts d’éventration selon le nombre de coups reçus : <strong>2 : 8d6, 3 : 10d6, 4 : 12d6, 5 : 14d6, 6 : 16d6, 7 : 18d6, 8+ : 20d6</strong>. Les coups sont comptés séparément pour chaque créature.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "8d6",
+        "condition": {
+          "en": "Rend: 2 hits on the same creature this turn",
+          "fr": "Éventration : 2 coups sur la même créature ce tour"
+        }
+      },
+      {
+        "dice": "10d6",
+        "condition": {
+          "en": "Rend: 3 hits on the same creature this turn",
+          "fr": "Éventration : 3 coups sur la même créature ce tour"
+        }
+      },
+      {
+        "dice": "12d6",
+        "condition": {
+          "en": "Rend: 4 hits on the same creature this turn",
+          "fr": "Éventration : 4 coups sur la même créature ce tour"
+        }
+      },
+      {
+        "dice": "14d6",
+        "condition": {
+          "en": "Rend: 5 hits on the same creature this turn",
+          "fr": "Éventration : 5 coups sur la même créature ce tour"
+        }
+      },
+      {
+        "dice": "16d6",
+        "condition": {
+          "en": "Rend: 6 hits on the same creature this turn",
+          "fr": "Éventration : 6 coups sur la même créature ce tour"
+        }
+      },
+      {
+        "dice": "18d6",
+        "condition": {
+          "en": "Rend: 7 hits on the same creature this turn",
+          "fr": "Éventration : 7 coups sur la même créature ce tour"
+        }
+      },
+      {
+        "dice": "20d6",
+        "condition": {
+          "en": "Rend: 8+ hits on the same creature this turn",
+          "fr": "Éventration : 8+ coups sur la même créature ce tour"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Requires two or more weapons; initiate before your first attack of the round; pick one rend line per creature.",
+      "fr": "Nécessite deux armes ou plus ; à initier avant la première attaque du round ; une seule ligne d’éventration par créature."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 87,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "hamstring-attack",
+    "name": {
+      "en": "Hamstring Attack",
+      "fr": "Attaque au jarret"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 minute",
+      "fr": "1 minute"
+    },
+    "save": {
+      "en": "Fortitude half, DC 17 + Str mod",
+      "fr": "Vigueur 1/2, DD 17 + mod. de For"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack: target takes 1d8 Dex damage and −10 ft. speed for 1 minute (Fort halves both).",
+      "fr": "Attaque au contact : la cible subit 1d8 d’affaiblissement de Dex et −3 m de vitesse pendant 1 minute (Vigueur divise les deux par 2)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit it deals normal damage, and the target takes <strong>1d8 points of Dexterity damage</strong> and a <strong>−10 ft. penalty to speed</strong> for 1 minute. A <strong>Fortitude save (DC 17 + your Str modifier)</strong> halves both the Dexterity damage and the speed penalty.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche, elle inflige ses dégâts normaux, et la cible subit <strong>1d8 points d’affaiblissement temporaire de Dextérité</strong> et un <strong>malus de −3 m à sa vitesse</strong> pendant 1 minute. Un <strong>jet de Vigueur (DD 17 + mod. de For)</strong> divise par deux l’affaiblissement et le malus de vitesse.</p>"
+    },
+    "notes": {
+      "en": "Foe: 1d8 Dex damage and −10 ft. speed for 1 minute (halved on a save).",
+      "fr": "Adversaire : 1d8 d’affaiblissement de Dex et −3 m de vitesse pendant 1 minute (moitié si jet réussi)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "hunters-sense",
+    "name": {
+      "en": "Hunter’s Sense",
+      "fr": "Sens du chasseur"
+    },
+    "discipline": "tiger-claw",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: you gain the scent ability.",
+      "fr": "Posture : vous gagnez l’odorat."
+    },
+    "text": {
+      "en": "<p>While in this stance you have the <strong>scent</strong> special ability (MM 314).</p>",
+      "fr": "<p>Dans cette posture, vous possédez la capacité spéciale <strong>odorat</strong> (Manuel des Monstres p. 314).</p>"
+    },
+    "notes": {
+      "en": "Scent: detect creatures by smell (30 ft., more downwind). Prerequisite of one Tiger Claw maneuver at level 1 is as printed.",
+      "fr": "Odorat : détection des créatures à l’odeur (9 m, plus sous le vent). Le prérequis d’une manœuvre de Griffe du tigre au niveau 1 est tel qu’imprimé."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "leaping-dragon-stance",
+    "name": {
+      "en": "Leaping Dragon Stance",
+      "fr": "Posture du dragon bondissant"
+    },
+    "discipline": "tiger-claw",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: +10 ft. enhancement bonus on Jump checks; all your jumps count as running jumps.",
+      "fr": "Posture : bonus d’altération de +3 m aux tests de Saut ; tous vos sauts comptent comme des sauts avec élan."
+    },
+    "text": {
+      "en": "<p>While in this stance you gain a <strong>+10-foot enhancement bonus on Jump checks</strong>, and every jump you make counts as a <strong>running jump</strong> (no 20-ft. run-up needed).</p>",
+      "fr": "<p>Dans cette posture, vous gagnez un <strong>bonus d’altération de +3 m aux tests de Saut</strong>, et tous vos sauts comptent comme des <strong>sauts avec élan</strong> (sans les 6 m de course préalable).</p>"
+    },
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "+10 ft. enhancement bonus; every jump counts as a running jump.",
+        "fr": "Bonus d’altération de +3 m ; chaque saut compte comme un saut avec élan."
+      }
+    },
+    "notes": {
+      "en": "Printed as a bonus in feet, not a check bonus: whether it adds +10 to the check result or 10 ft. to the distance is ambiguous, so it is not applied to the Jump modifier.",
+      "fr": "Imprimé comme un bonus en pieds et non au test : ajouter +10 au résultat ou 3 m à la distance est ambigu, il n’est donc pas appliqué au modificateur de Saut."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "pouncing-charge",
+    "name": {
+      "en": "Pouncing Charge",
+      "fr": "Charge bondissante"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Charge and make a full attack at the end; the +2 charge bonus applies to every attack.",
+      "fr": "Charge suivie d’une attaque à outrance ; le bonus de +2 de charge s’applique à toutes les attaques."
+    },
+    "text": {
+      "en": "<p>Make a charge. At the end of it you can make a <strong>full attack</strong> instead of a single attack, and the <strong>charge bonus on attack rolls (+2)</strong> applies to all of these attacks. Normal charge rules otherwise apply (−2 AC until your next turn).</p>",
+      "fr": "<p>Vous chargez. À la fin de la charge, vous pouvez porter une <strong>attaque à outrance</strong> au lieu d’une seule attaque, et le <strong>bonus de charge aux jets d’attaque (+2)</strong> s’applique à toutes ces attaques. Les règles normales de charge s’appliquent par ailleurs (−2 à la CA jusqu’à votre prochain tour).</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2,
+          "condition": {
+            "en": "Charge bonus, applied to every attack of the full attack",
+            "fr": "Bonus de charge, appliqué à toutes les attaques de l’attaque à outrance"
+          }
+        },
+        "duration": "endOfTurn"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2,
+          "condition": {
+            "en": "Standard charge penalty until your next turn",
+            "fr": "Malus normal de charge jusqu’à votre prochain tour"
+          }
+        },
+        "duration": "round"
+      }
+    ],
+    "notes": {
+      "en": "The +2 and −2 are the normal charge modifiers (PH 154), not extra bonuses from the maneuver.",
+      "fr": "Le +2 et le −2 sont les modificateurs normaux de charge (Manuel des Joueurs p. 154), pas des bonus propres à la manœuvre."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "prey-on-the-weak",
+    "name": {
+      "en": "Prey on the Weak",
+      "fr": "S’attaquer aux faibles"
+    },
+    "discipline": "tiger-claw",
+    "type": "stance",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: when any foe within 10 ft. drops to −1 hp or fewer, you get an attack of opportunity on an enemy you threaten.",
+      "fr": "Posture : quand un adversaire à 3 m ou moins tombe à −1 pv ou moins, vous gagnez une attaque d’opportunité contre un ennemi que vous menacez."
+    },
+    "text": {
+      "en": "<p>While in this stance, whenever an opponent <strong>within 10 ft.</strong> of you falls to <strong>−1 hp or fewer</strong> (by your attack, an ally's, or anything else), you can at once make an <strong>attack of opportunity</strong> against any opponent in your threatened area.</p>",
+      "fr": "<p>Dans cette posture, chaque fois qu’un adversaire <strong>à 3 m ou moins</strong> de vous tombe à <strong>−1 pv ou moins</strong> (par votre attaque, celle d’un allié ou toute autre cause), vous pouvez aussitôt porter une <strong>attaque d’opportunité</strong> contre n’importe quel adversaire de votre zone contrôlée.</p>"
+    },
+    "notes": {
+      "en": "Extra attacks of opportunity (uses your normal AoO count).",
+      "fr": "Attaques d’opportunité supplémentaires (décomptées normalement)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "rabid-bear-strike",
+    "name": {
+      "en": "Rabid Bear Strike",
+      "fr": "Frappe de l’ours enragé"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack at +4 with +10d6 damage; then −4 AC until your next turn.",
+      "fr": "Attaque au contact à +4 et +10d6 dégâts ; puis −4 à la CA jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack with a <strong>+4 bonus</strong> on the attack roll; it deals <strong>+10d6</strong> damage. Afterwards you take a <strong>−4 penalty to AC</strong> until the start of your next turn.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps avec un <strong>bonus de +4</strong> au jet d’attaque ; elle inflige <strong>+10d6</strong> points de dégâts. Ensuite, vous subissez un <strong>malus de −4 à la CA</strong> jusqu’au début de votre prochain tour.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 4
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -4
+        },
+        "duration": "round"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "10d6"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "rabid-wolf-strike",
+    "name": {
+      "en": "Rabid Wolf Strike",
+      "fr": "Frappe du loup enragé"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack at +4 with +2d6 damage; then −4 AC until your next turn.",
+      "fr": "Attaque au contact à +4 et +2d6 dégâts ; puis −4 à la CA jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack with a <strong>+4 bonus</strong> on the attack roll; it deals <strong>+2d6</strong> damage. You take a <strong>−4 penalty to AC</strong> until the start of your next turn.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps avec un <strong>bonus de +4</strong> au jet d’attaque ; elle inflige <strong>+2d6</strong> points de dégâts. Vous subissez un <strong>malus de −4 à la CA</strong> jusqu’au début de votre prochain tour.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 4
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -4
+        },
+        "duration": "round"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "2d6"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 88,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "raging-mongoose",
+    "name": {
+      "en": "Raging Mongoose",
+      "fr": "Mangouste furieuse"
+    },
+    "discipline": "tiger-claw",
+    "type": "boost",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Two extra attacks per weapon wielded (max 4) at your highest bonus, against any foes.",
+      "fr": "Deux attaques supplémentaires par arme maniée (max. 4) à votre meilleur bonus, contre n’importe quels adversaires."
+    },
+    "text": {
+      "en": "<p>This turn you can make <strong>two extra attacks with each weapon</strong> you wield (at most <strong>four extra attacks</strong> with two or more weapons), each at that weapon's <strong>highest attack bonus</strong>. You may split them among as many foes as you like.</p>",
+      "fr": "<p>Ce tour-ci, vous pouvez porter <strong>deux attaques supplémentaires avec chaque arme</strong> maniée (au plus <strong>quatre attaques supplémentaires</strong> avec deux armes ou plus), chacune à son <strong>meilleur bonus d’attaque</strong>. Vous les répartissez entre autant d’adversaires que vous voulez.</p>"
+    },
+    "notes": {
+      "en": "Extra attacks (not a numeric bonus). WotC Customer Service read the extra attacks as applying during a full attack (not errata).",
+      "fr": "Attaques supplémentaires (pas un bonus chiffré). Le service client WotC les rattache à une attaque à outrance (pas un erratum)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 89,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "soaring-raptor-strike",
+    "name": {
+      "en": "Soaring Raptor Strike",
+      "fr": "Frappe du rapace planant"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Against a larger foe: Jump vs its AC, then a melee attack at +4 with +6d6 damage.",
+      "fr": "Contre un adversaire plus grand : Saut contre sa CA, puis attaque au contact à +4 et +6d6 dégâts."
+    },
+    "text": {
+      "en": "<p>Only against a foe of a <strong>larger size category</strong> than yours. Make a <strong>Jump check (DC = its AC)</strong>. On a success you make one melee attack with <strong>+4</strong> on the attack roll, dealing <strong>+6d6</strong> damage on a hit. On a failure you make no attack and the maneuver is expended.</p>",
+      "fr": "<p>Seulement contre un adversaire d’une <strong>catégorie de taille supérieure</strong> à la vôtre. Faites un <strong>test de Saut (DD = sa CA)</strong>. En cas de réussite, vous portez une attaque au corps à corps à <strong>+4</strong> au jet d’attaque, qui inflige <strong>+6d6</strong> points de dégâts si elle touche. En cas d’échec, pas d’attaque et la manœuvre est dépensée.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 4,
+          "condition": {
+            "en": "Only after a successful Jump check, against a larger foe",
+            "fr": "Seulement après un test de Saut réussi, contre un adversaire plus grand"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "6d6"
+      }
+    ],
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "DC = target's AC; failure means no attack.",
+        "fr": "DD = CA de la cible ; un échec annule l’attaque."
+      }
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 89,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "sudden-leap",
+    "name": {
+      "en": "Sudden Leap",
+      "fr": "Bond soudain"
+    },
+    "discipline": "tiger-claw",
+    "type": "boost",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Make a Jump check as a swift action and move that distance in a straight line.",
+      "fr": "Test de Saut par une action rapide et déplacement de la distance obtenue en ligne droite."
+    },
+    "text": {
+      "en": "<p>As a swift action, make a <strong>Jump check</strong> and move the distance it allows, in a <strong>straight line</strong>. This movement provokes attacks of opportunity as usual; you can use Tumble to avoid them, and you can't pass through enemies without the appropriate Tumble check.</p>",
+      "fr": "<p>Par une action rapide, faites un <strong>test de Saut</strong> et déplacez-vous de la distance obtenue, en <strong>ligne droite</strong>. Ce déplacement provoque normalement des attaques d’opportunité ; vous pouvez utiliser Acrobaties pour les éviter, et vous ne traversez pas les ennemis sans le test d’Acrobaties approprié.</p>"
+    },
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "Distance moved = Jump result; straight line; provokes attacks of opportunity.",
+        "fr": "Distance = résultat du test de Saut ; ligne droite ; provoque des attaques d’opportunité."
+      }
+    },
+    "notes": {
+      "en": "Prerequisite of one Tiger Claw maneuver at level 1 is as printed.",
+      "fr": "Le prérequis d’une manœuvre de Griffe du tigre au niveau 1 est tel qu’imprimé."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 89,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "swooping-dragon-strike",
+    "name": {
+      "en": "Swooping Dragon Strike",
+      "fr": "Frappe du dragon plongeant"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude partial, DC = your Jump check result",
+      "fr": "Vigueur partiel, DD = résultat de votre test de Saut"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Jump over the foe: it loses its Dex bonus to AC, takes +10d6, and is stunned 1 round on a failed Fort save (DC = Jump result).",
+      "fr": "Saut par-dessus l’adversaire : il perd son bonus de Dex à la CA, subit +10d6 et est étourdi 1 round s’il rate son jet de Vigueur (DD = résultat du Saut)."
+    },
+    "text": {
+      "en": "<p>Make a <strong>Jump check</strong> high enough to pass through and over the target's space. On a success you provoke no attacks of opportunity for leaving threatened squares, the foe <strong>loses its Dex bonus to AC</strong> against your melee attack, which deals <strong>+10d6</strong>; it must make a <strong>Fortitude save (DC = your Jump result)</strong> or be <strong>stunned 1 round</strong>. On a failure you provoke as usual, land adjacent if short, and may make one normal attack if it is in reach.</p>",
+      "fr": "<p>Faites un <strong>test de Saut</strong> suffisant pour passer par-dessus l’espace de la cible. En cas de réussite, vous ne provoquez pas d’attaques d’opportunité en quittant les cases contrôlées, l’adversaire <strong>perd son bonus de Dex à la CA</strong> contre votre attaque, qui inflige <strong>+10d6</strong> ; il fait un <strong>jet de Vigueur (DD = résultat du Saut)</strong> ou est <strong>étourdi 1 round</strong>. En cas d’échec, vous provoquez normalement, atterrissez à côté s’il le faut, et pouvez porter une attaque normale si elle est à portée.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "10d6",
+        "condition": {
+          "en": "Only if the Jump check clears the target",
+          "fr": "Seulement si le saut passe par-dessus la cible"
+        }
+      }
+    ],
+    "skillCheck": {
+      "skill": "jump",
+      "note": {
+        "en": "Must be enough to jump over the target; the result is also the Fortitude DC.",
+        "fr": "Doit suffire à sauter par-dessus la cible ; le résultat sert aussi de DD de Vigueur."
+      }
+    },
+    "notes": {
+      "en": "Foe loses its Dex bonus to AC against the attack; stunned 1 round on a failed save.",
+      "fr": "L’adversaire perd son bonus de Dex à la CA contre l’attaque ; étourdi 1 round si le jet est raté."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 89,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "wolf-climbs-the-mountain",
+    "name": {
+      "en": "Wolf Climbs the Mountain",
+      "fr": "Le loup gravit la montagne"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Against a larger foe: enter its space without provoking, attack for +5d6, and keep cover while inside.",
+      "fr": "Contre un adversaire plus grand : entrer dans son espace sans provoquer, attaquer à +5d6, et garder un abri tant que vous y restez."
+    },
+    "text": {
+      "en": "<p>Only against a foe of a <strong>larger size category</strong>. You enter its square without provoking an attack of opportunity and attack it, dealing <strong>+5d6</strong> damage. You stay in its space afterwards and have <strong>cover against all attacks</strong> (including the target's) while there. If it moves away, it leaves you behind and provokes an attack of opportunity from you.</p>",
+      "fr": "<p>Seulement contre un adversaire d’une <strong>catégorie de taille supérieure</strong>. Vous entrez dans sa case sans provoquer d’attaque d’opportunité et l’attaquez, à <strong>+5d6</strong> points de dégâts. Vous restez ensuite dans son espace et bénéficiez d’un <strong>abri contre toutes les attaques</strong> (y compris les siennes) tant que vous y êtes. S’il s’éloigne, il vous laisse sur place et provoque une attaque d’opportunité de votre part.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "5d6"
+      }
+    ],
+    "notes": {
+      "en": "Cover (+4 AC, +2 Reflex under the normal cover rules) while you stay in the target's space; not encoded because its duration is open-ended.",
+      "fr": "Abri (+4 CA, +2 Réflexes selon les règles normales d’abri) tant que vous restez dans l’espace de la cible ; non codé car sa durée est indéterminée."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 89,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "wolf-fang-strike",
+    "name": {
+      "en": "Wolf Fang Strike",
+      "fr": "Frappe du croc de loup"
+    },
+    "discipline": "tiger-claw",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Attack the same foe once with each of two weapons, each at −2.",
+      "fr": "Une attaque avec chacune de deux armes contre le même adversaire, chacune à −2."
+    },
+    "text": {
+      "en": "<p>You must fight with two weapons (with one weapon, your off hand may make an unarmed strike). Attack <strong>one opponent once with each weapon</strong>, at <strong>−2 on each attack roll</strong>. If the first attack drops the foe to −1 hp or fewer, you don't make the second.</p>",
+      "fr": "<p>Vous devez combattre à deux armes (avec une seule arme, la main non directrice peut porter une attaque à mains nues). Portez <strong>une attaque avec chaque arme contre le même adversaire</strong>, à <strong>−2 à chaque jet d’attaque</strong>. Si la première attaque l’amène à −1 pv ou moins, vous ne portez pas la seconde.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "notes": {
+      "en": "The text does not say whether normal two-weapon fighting penalties also apply; only the −2 is encoded.",
+      "fr": "Le texte ne dit pas si les malus normaux du combat à deux armes s’appliquent aussi ; seul le −2 est codé."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 90,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "wolf-pack-tactics",
+    "name": {
+      "en": "Wolf Pack Tactics",
+      "fr": "Tactique de la meute"
+    },
+    "discipline": "tiger-claw",
+    "type": "stance",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: each successful melee attack lets you move 5 ft. without provoking from the creature struck.",
+      "fr": "Posture : chaque attaque au contact réussie vous permet de vous déplacer de 1,50 m sans provoquer la créature frappée."
+    },
+    "text": {
+      "en": "<p>While in this stance, each time you <strong>hit with a melee attack</strong> you can <strong>move 5 ft.</strong> This movement provokes no attack of opportunity from the creature you hit. You can't move more than your speed in a round this way.</p>",
+      "fr": "<p>Dans cette posture, chaque fois que vous <strong>touchez avec une attaque au corps à corps</strong>, vous pouvez vous <strong>déplacer de 1,50 m</strong>. Ce déplacement ne provoque pas d’attaque d’opportunité de la part de la créature touchée. Vous ne pouvez pas parcourir ainsi plus que votre vitesse par round.</p>"
+    },
+    "notes": {
+      "en": "Movement only.",
+      "fr": "Déplacement uniquement."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 90,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "wolverine-stance",
+    "name": {
+      "en": "Wolverine Stance",
+      "fr": "Posture du glouton"
+    },
+    "discipline": "tiger-claw",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: attack a grappler with any one-handed weapon, no −4 grapple penalty; +4 damage against a larger grappler.",
+      "fr": "Posture : attaquer celui qui vous agrippe avec toute arme à une main, sans le −4 de lutte ; +4 aux dégâts contre un agrippeur plus grand."
+    },
+    "text": {
+      "en": "<p>While in this stance you can attack a foe grappling you with <strong>any one-handed weapon</strong>, and you don't take the <strong>−4 penalty</strong> for attacking while grappled. If that foe is of a larger size category, you get <strong>+4 on damage rolls</strong> against it while it keeps grappling you.</p>",
+      "fr": "<p>Dans cette posture, vous pouvez attaquer un adversaire qui vous agrippe avec <strong>n’importe quelle arme à une main</strong>, sans subir le <strong>malus de −4</strong> pour attaquer en situation de lutte. S’il est d’une catégorie de taille supérieure, vous gagnez <strong>+4 aux jets de dégâts</strong> contre lui tant qu’il vous agrippe.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "damage.melee",
+          "bonusType": "untyped",
+          "value": 4,
+          "condition": {
+            "en": "Only against a larger creature that is grappling you",
+            "fr": "Seulement contre une créature plus grande qui vous agrippe"
+          }
+        },
+        "duration": "stance"
+      }
+    ],
+    "notes": {
+      "en": "Ignores the −4 attack penalty while grappled (the app does not model grappling penalties).",
+      "fr": "Ignore le malus de −4 à l’attaque en situation de lutte (l’application ne gère pas ces malus)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 90,
+      "frRef": "traduction maison"
+    }
+  }
+]

@@ -1,0 +1,224 @@
+{
+  "classId": "warblade",
+  "levels": [
+    {
+      "level": 1,
+      "maneuversKnown": 3,
+      "maneuversReadied": 3,
+      "stancesKnown": 1,
+      "highestManeuverLevel": 1,
+      "maneuverSwap": false
+    },
+    {
+      "level": 2,
+      "maneuversKnown": 4,
+      "maneuversReadied": 3,
+      "stancesKnown": 1,
+      "highestManeuverLevel": 1,
+      "maneuverSwap": false
+    },
+    {
+      "level": 3,
+      "maneuversKnown": 5,
+      "maneuversReadied": 3,
+      "stancesKnown": 1,
+      "highestManeuverLevel": 2,
+      "maneuverSwap": false
+    },
+    {
+      "level": 4,
+      "maneuversKnown": 5,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 2,
+      "maneuverSwap": true
+    },
+    {
+      "level": 5,
+      "maneuversKnown": 6,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 3,
+      "maneuverSwap": false
+    },
+    {
+      "level": 6,
+      "maneuversKnown": 6,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 3,
+      "maneuverSwap": true
+    },
+    {
+      "level": 7,
+      "maneuversKnown": 7,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 4,
+      "maneuverSwap": false
+    },
+    {
+      "level": 8,
+      "maneuversKnown": 7,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 4,
+      "maneuverSwap": true
+    },
+    {
+      "level": 9,
+      "maneuversKnown": 8,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 5,
+      "maneuverSwap": false
+    },
+    {
+      "level": 10,
+      "maneuversKnown": 8,
+      "maneuversReadied": 5,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 5,
+      "maneuverSwap": true
+    },
+    {
+      "level": 11,
+      "maneuversKnown": 9,
+      "maneuversReadied": 5,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 6,
+      "maneuverSwap": false
+    },
+    {
+      "level": 12,
+      "maneuversKnown": 9,
+      "maneuversReadied": 5,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 6,
+      "maneuverSwap": true
+    },
+    {
+      "level": 13,
+      "maneuversKnown": 10,
+      "maneuversReadied": 5,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 7,
+      "maneuverSwap": false
+    },
+    {
+      "level": 14,
+      "maneuversKnown": 10,
+      "maneuversReadied": 5,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 7,
+      "maneuverSwap": true
+    },
+    {
+      "level": 15,
+      "maneuversKnown": 11,
+      "maneuversReadied": 6,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 8,
+      "maneuverSwap": false
+    },
+    {
+      "level": 16,
+      "maneuversKnown": 11,
+      "maneuversReadied": 6,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 8,
+      "maneuverSwap": true
+    },
+    {
+      "level": 17,
+      "maneuversKnown": 12,
+      "maneuversReadied": 6,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": false
+    },
+    {
+      "level": 18,
+      "maneuversKnown": 12,
+      "maneuversReadied": 6,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": true
+    },
+    {
+      "level": 19,
+      "maneuversKnown": 13,
+      "maneuversReadied": 6,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": false
+    },
+    {
+      "level": 20,
+      "maneuversKnown": 13,
+      "maneuversReadied": 7,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": true
+    }
+  ],
+  "highestManeuverLevelByInitiatorLevel": [
+    {
+      "minInitiatorLevel": 1,
+      "maxInitiatorLevel": 2,
+      "maneuverLevel": 1
+    },
+    {
+      "minInitiatorLevel": 3,
+      "maxInitiatorLevel": 4,
+      "maneuverLevel": 2
+    },
+    {
+      "minInitiatorLevel": 5,
+      "maxInitiatorLevel": 6,
+      "maneuverLevel": 3
+    },
+    {
+      "minInitiatorLevel": 7,
+      "maxInitiatorLevel": 8,
+      "maneuverLevel": 4
+    },
+    {
+      "minInitiatorLevel": 9,
+      "maxInitiatorLevel": 10,
+      "maneuverLevel": 5
+    },
+    {
+      "minInitiatorLevel": 11,
+      "maxInitiatorLevel": 12,
+      "maneuverLevel": 6
+    },
+    {
+      "minInitiatorLevel": 13,
+      "maxInitiatorLevel": 14,
+      "maneuverLevel": 7
+    },
+    {
+      "minInitiatorLevel": 15,
+      "maxInitiatorLevel": 16,
+      "maneuverLevel": 8
+    },
+    {
+      "minInitiatorLevel": 17,
+      "maxInitiatorLevel": null,
+      "maneuverLevel": 9
+    }
+  ],
+  "initiatorLevel": {
+    "en": "Initiator level for the warblade = warblade level + 1/2 of all other class levels (rounded down, minimum 1st); without any martial adept level it is 1/2 character level (p. 39; rounding down is the general 3.5 rule, also given in WotC customer-service answers). highestManeuverLevel above assumes a single-class warblade (initiator level = warblade level).",
+    "fr": "Niveau d’initiateur de lame de bataille = niveau de lame de bataille + 1/2 des niveaux des autres classes (arrondi à l’inférieur, minimum 1) ; sans niveau de classe martiale, il vaut 1/2 niveau global (p. 39 ; arrondi à l’inférieur selon la règle générale 3.5, confirmé par le service client de WotC). Le champ highestManeuverLevel suppose une lame de bataille monoclassée (niveau d’initiateur = niveau de classe)."
+  },
+  "source": {
+    "book": "Tome of Battle",
+    "page": 21
+  },
+  "sourceInitiatorTable": {
+    "book": "Tome of Battle",
+    "page": 39
+  }
+}

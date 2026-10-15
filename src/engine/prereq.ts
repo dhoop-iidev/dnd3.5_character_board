@@ -33,7 +33,9 @@ export function unmetPrereqs(
     if (weapon && !profs.has(weapon.category) && !profs.has(weapon.id))
       out.push({ en: `proficiency with ${weapon.name.en}`, fr: `maniement de ${weapon.name.fr}` })
   }
-  if (prereq.fighterLevel && (sheet.classLevels['fighter'] ?? 0) < prereq.fighterLevel)
+  // Weapon aptitude (Tome of Battle p. 22): warblade level − 2 stacks with fighter levels for feat prerequisites.
+  const fighterLevel = (sheet.classLevels['fighter'] ?? 0) + Math.max(0, (sheet.classLevels['warblade'] ?? 0) - 2)
+  if (prereq.fighterLevel && fighterLevel < prereq.fighterLevel)
     out.push({ en: `Fighter level ${prereq.fighterLevel}`, fr: `Guerrier niveau ${prereq.fighterLevel}` })
   if (prereq.characterLevel && sheet.characterLevel < prereq.characterLevel)
     out.push({ en: `Character level ${prereq.characterLevel}`, fr: `Niveau global ${prereq.characterLevel}` })

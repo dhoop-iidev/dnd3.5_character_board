@@ -5,11 +5,12 @@ import type { Character } from '../model/character'
 import { compute } from './compute'
 import { unmetPrereqs } from './prereq'
 import { featSlotsAt, isAbilityIncreaseLevel, skillBudget } from './progression'
+import { knownManeuvers, learnBlockers, martialCaps } from './martial'
 
 export { unmetPrereqs }
 
 export type Severity = 'error' | 'warning' | 'info'
-export type WarningArea = 'abilities' | 'skills' | 'feats' | 'levels' | 'inventory' | 'combat'
+export type WarningArea = 'abilities' | 'skills' | 'feats' | 'levels' | 'inventory' | 'combat' | 'maneuvers'
 
 export interface RuleWarning {
   id: string
@@ -133,7 +134,8 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
         out.push(w(`unknown-feat-${pick.featId}`, 'error', 'feats', `Unknown feat "${pick.featId}"`, `Don inconnu « ${pick.featId} »`, { level: L }))
         continue
       }
-      if (pick.slot === 'fighter' && !def.fighterBonus)
+      const bonusList = cls.bonusFeatList
+      if (pick.slot === 'fighter' && !(cls.id === 'fighter' ? def.fighterBonus : bonusList?.includes(def.id)))
         out.push(w(`feat-not-fighter-${pick.featId}`, 'error', 'feats',
           `Level ${L}: ${def.name.en} is not a fighter bonus feat`, `Niveau ${L} : ${def.name.fr} n'est pas un don supplémentaire de guerrier`,
           { level: L, srdUrl: `${SRD}classes/fighter.htm` }))
@@ -154,6 +156,76 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     if (!isAbilityIncreaseLevel(L) && lvl.abilityIncrease)
       out.push(w(`ability-increase-extra-${L}`, 'error', 'abilities', `Level ${L}: no ability increase at this level`, `Niveau ${L} : pas d'augmentation de caractéristique à ce niveau`, { level: L, srdUrl: `${SRD}theBasics.htm#abilityScores` }))
   })
+
+  // ---- Tome of Battle: maneuvers learned per warblade level (pp. 21–22, 39, 44)
+  const TOB = 'Tome of Battle'
+  char.levels.forEach((lvl, i) => {
+    const L = i + 1
+    const learned = (lvl.maneuversLearned ?? []).map((id) => rules.maneuvers.get(id))
+    if (lvl.classId !== 'warblade') {
+      if (learned.length || lvl.maneuverSwap)
+        out.push(w(`maneuvers-not-warblade-${L}`, 'error', 'maneuvers', `Level ${L}: maneuvers are learned at warblade levels`, `Niveau ${L} : les manœuvres s’apprennent aux niveaux de lame de bataille`, { level: L, book: TOB }))
+      return
+    }
+    const caps = martialCaps(char, rules, L)!
+    const prev = martialCaps(char, rules, L - 1)
+    const newManeuvers = caps.maneuversKnown - (prev?.maneuversKnown ?? 0)
+    const newStances = caps.stancesKnown - (prev?.stancesKnown ?? 0)
+    const gotManeuvers = learned.filter((m) => m && m.type !== 'stance').length
+    const gotStances = learned.filter((m) => m && m.type === 'stance').length
+    for (const [got, want, kind, fr] of [
+      [gotManeuvers, newManeuvers, 'maneuver', 'manœuvre'],
+      [gotStances, newStances, 'stance', 'posture'],
+    ] as const) {
+      if (got < want)
+        out.push(w(`${kind}s-missing-${L}`, 'warning', 'maneuvers', `Level ${L}: ${want - got} ${kind}(s) to learn`, `Niveau ${L} : ${want - got} ${fr}(s) à apprendre`, { level: L, book: `${TOB} p. 21` }))
+      if (got > want)
+        out.push(w(`${kind}s-extra-${L}`, 'error', 'maneuvers', `Level ${L}: ${got - want} ${kind}(s) too many (allowed ${want})`, `Niveau ${L} : ${got - want} ${fr}(s) en trop (autorisé ${want})`, { level: L, book: `${TOB} p. 21` }))
+    }
+    // Level and prerequisite at the time of learning (earlier picks of the same level count, like feats).
+    const before = knownManeuvers(char, rules, L - 1)
+    learned.forEach((m, j) => {
+      if (!m) {
+        out.push(w(`maneuver-unknown-${L}-${j}`, 'error', 'maneuvers', `Level ${L}: unknown maneuver "${lvl.maneuversLearned![j]}"`, `Niveau ${L} : manœuvre inconnue « ${lvl.maneuversLearned![j]} »`, { level: L }))
+        return
+      }
+      const soFar = [...before, ...learned.slice(0, j).filter((x) => !!x)]
+      const blockers = learnBlockers(m, soFar, caps, rules)
+      if (blockers.length)
+        out.push(w(`maneuver-illegal-${m.id}-${L}`, 'error', 'maneuvers', `Level ${L}: ${m.name.en} can't be learned: ${blockers.join(', ')}`, `Niveau ${L} : ${m.name.fr} ne peut pas être appris : ${blockers.join(', ')}`, { level: L, book: `${TOB} p. 39` }))
+    })
+    // Swap: warblade 4, 6, 8…; one maneuver (not a stance) for another of a level you can learn (p. 21).
+    const swap = lvl.maneuverSwap
+    if (swap) {
+      const from = rules.maneuvers.get(swap.from)
+      const to = rules.maneuvers.get(swap.to)
+      const problems: string[] = []
+      if (caps.classLevel < 4 || caps.classLevel % 2 !== 0) problems.push('only at warblade levels 4, 6, 8…')
+      if (!from || !before.some((k) => k.id === from.id)) problems.push('the replaced maneuver must be known')
+      if (from?.type === 'stance' || to?.type === 'stance') problems.push('stances cannot be swapped')
+      if (to) problems.push(...learnBlockers(to, [...before, ...learned.filter((x) => !!x)].filter((k) => k.id !== from?.id), caps, rules))
+      if (problems.length)
+        out.push(w(`maneuver-swap-${L}`, 'error', 'maneuvers', `Level ${L}: maneuver swap not allowed: ${problems.join(', ')}`, `Niveau ${L} : échange de manœuvre impossible : ${problems.join(', ')}`, { level: L, book: `${TOB} p. 21` }))
+    }
+  })
+  // Current readied maneuvers and stance (pp. 21–22, 38: no readied slot can be left empty).
+  const capsNow = martialCaps(char, rules)
+  if (capsNow) {
+    const knownNow = knownManeuvers(char, rules)
+    const readied = char.martial?.readied ?? []
+    const knownNonStance = knownNow.filter((k) => k.type !== 'stance')
+    const wantReadied = Math.min(capsNow.maneuversReadied, knownNonStance.length)
+    if (readied.length < wantReadied)
+      out.push(w('maneuvers-readied-missing', 'warning', 'maneuvers', `${wantReadied - readied.length} readied maneuver slot(s) empty`, `${wantReadied - readied.length} emplacement(s) de manœuvre préparée vide(s)`, { book: `${TOB} p. 38` }))
+    if (readied.length > capsNow.maneuversReadied)
+      out.push(w('maneuvers-readied-extra', 'error', 'maneuvers', `Too many readied maneuvers (${readied.length}/${capsNow.maneuversReadied})`, `Trop de manœuvres préparées (${readied.length}/${capsNow.maneuversReadied})`, { book: `${TOB} p. 21` }))
+    for (const id of readied)
+      if (!knownNonStance.some((k) => k.id === id))
+        out.push(w(`maneuver-readied-unknown-${id}`, 'error', 'maneuvers', `Readied maneuver not known: ${rules.maneuvers.get(id)?.name.en ?? id}`, `Manœuvre préparée non connue : ${rules.maneuvers.get(id)?.name.fr ?? id}`, { book: TOB }))
+    const st = char.martial?.stance
+    if (st && !knownNow.some((k) => k.id === st && k.type === 'stance'))
+      out.push(w('stance-unknown', 'error', 'maneuvers', 'Current stance is not a known stance', 'La posture active n’est pas une posture connue', { book: TOB }))
+  }
 
   if (deityFeats > 1)
     out.push(w('deity-feats', 'error', 'feats', `Only one deity bonus feat (house rule #3), found ${deityFeats}`, `Un seul don accordé par le dieu (règle maison n°3), trouvé ${deityFeats}`))
@@ -237,6 +309,6 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
   // Build choices the player must make or fix; situational warnings (unusable feat, load, max Dex, slots,
   // suspended class features) are informative only.
   const INFORMATIVE = /^(unusable-|weapon-master-lost|load$|max-dex$|slot-|armor-prof-|weapon-prof-)/
-  for (const x of out) x.actionable = ['skills', 'feats', 'abilities', 'levels'].includes(x.area) && !INFORMATIVE.test(x.id)
+  for (const x of out) x.actionable = ['skills', 'feats', 'abilities', 'levels', 'maneuvers'].includes(x.area) && !INFORMATIVE.test(x.id)
   return out
 }

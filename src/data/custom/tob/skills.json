@@ -1,0 +1,22 @@
+[
+  {
+    "id": "martial-lore",
+    "name": {
+      "en": "Martial Lore",
+      "fr": "Savoir martial"
+    },
+    "ability": "int",
+    "trainedOnly": true,
+    "armorCheck": 0,
+    "hasSubtypes": false,
+    "text": {
+      "en": "<p>Identifies martial maneuvers and disciplines (non-SRD skill, summary in our own words).</p><ul><li><b>DC 10 + maneuver level:</b> name a maneuver you see someone initiate. No action, no retry.</li><li><b>DC 10 + maneuver level:</b> identify a maneuver written in a martial script. Full-round action, one try per day.</li><li><b>DC 20 + the creature's initiator level:</b> after watching it initiate at least one maneuver, learn every discipline it knows. No action; retry only when it initiates another maneuver.</li></ul><p>A swordsage gets +2 on checks about a discipline in which he has discipline focus.</p>",
+      "fr": "<p>Permet d’identifier les manœuvres et disciplines martiales (compétence hors DRS, résumé avec nos propres mots ; nom français : traduction maison).</p><ul><li><b>DD 10 + niveau de la manœuvre :</b> reconnaître une manœuvre que vous voyez quelqu’un initier. Aucune action, pas de nouvel essai.</li><li><b>DD 10 + niveau de la manœuvre :</b> identifier une manœuvre consignée dans un écrit martial. Action complexe, un essai par jour.</li><li><b>DD 20 + niveau d’initiateur de la créature :</b> après l’avoir vue initier au moins une manœuvre, connaître toutes les disciplines qu’elle maîtrise. Aucune action ; nouvel essai seulement quand elle initie une autre manœuvre.</li></ul><p>Le maître des lames (swordsage) gagne +2 pour une discipline dans laquelle il a la focalisation de discipline.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 28,
+      "frRef": "traduction maison"
+    }
+  }
+]

@@ -1,6 +1,6 @@
 // App state: the current character (autosaved in the browser), derived sheet and rule warnings.
 import { rules } from './data/rules'
-import seed from './data/characters/fenrir.json'
+import seed from './data/characters/chikibidouille.json'
 import type { I18n, Lang } from './data/types'
 import type { Character } from './model/character'
 import { migrate } from './model/migrate'

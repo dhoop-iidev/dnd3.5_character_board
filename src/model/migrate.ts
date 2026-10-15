@@ -26,5 +26,10 @@ export function migrate(raw: unknown): Character {
     c.identity.motto ??= ''
     c.schemaVersion = 3
   }
+  // v3 -> v4: Tome of Battle martial state.
+  if (c.schemaVersion < 4) {
+    c.martial ??= { readied: [], expended: [], active: [] }
+    c.schemaVersion = 4
+  }
   return c
 }

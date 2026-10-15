@@ -1,7 +1,7 @@
 // One test per finding of docs/reviews/um_actually-2026-10-13.md (inputs are the reviewer's repros).
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import fenrirJson from '../../data/characters/fenrir.json'
+import fenrirJson from '../../data/characters/chikibidouille.json'
 import type { ActiveEffect, Character, ItemInstance } from '../../model/character'
 import { compute } from '../compute'
 import { skillBudget } from '../progression'
@@ -77,7 +77,7 @@ describe('m6 haste', () => {
 describe('m7 items and prerequisites / skill points', () => {
   it('a headband of intellect gives no skill points', () => {
     const c = { ...fenrir, inventory: [...fenrir.inventory, { uid: 'hb', kind: 'magic' as const, refId: 'headband-of-intellect-2', quantity: 1, location: 'worn' as const }] }
-    expect(skillBudget(c, rules, 9).available).toBe(4)
+    expect(skillBudget(c, rules, 9).available).toBe(6) // warblade 4 + Int 1 + human 1; the headband adds nothing
   })
 })
 
@@ -99,7 +99,9 @@ describe('m9 Weapon Master requirements lost', () => {
 
 describe('m10 French label', () => {
   it('Superior Weapon Focus is "suprême", not Greater Weapon Focus', () => {
-    const s = compute(fenrir, rules)
+    const wm3 = structuredClone(fenrir)
+    wm3.levels[8].classId = 'weapon-master'
+    const s = compute(wm3, rules)
     expect(atk(s, 'greatsword').attack.parts.find((p) => p.sourceId === 'wm:superior-weapon-focus')!.label.fr).toBe('Arme de prédilection suprême')
   })
 })
@@ -123,7 +125,14 @@ describe('nitpicks', () => {
 describe('actionable warnings (header badge)', () => {
   it('Fenrir: 3 levels with unspent points + 1 feat to choose; Spring Attack unusable is informative', () => {
     const w = validate(fenrir, rules)
-    expect(w.filter((x) => x.actionable).map((x) => x.id).sort()).toEqual(['feat-missing-general-9', 'skill-points-5', 'skill-points-6', 'skill-points-9'])
+    expect(w.filter((x) => x.actionable).map((x) => x.id).sort()).toEqual([
+      'feat-missing-general-9',
+      'maneuvers-missing-9',
+      'skill-points-5',
+      'skill-points-6',
+      'skill-points-9',
+      'stances-missing-9',
+    ])
     expect(w.find((x) => x.id === 'unusable-spring-attack')!.actionable).toBe(false)
   })
 })

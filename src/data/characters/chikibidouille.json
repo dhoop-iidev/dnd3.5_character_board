@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "identity": {
-    "name": "Fenrir Ykiyuk",
+    "name": "Chikibidouille",
     "player": "Gaspard",
     "race": "human",
     "deity": "Scorpio",
@@ -150,9 +150,10 @@
       "abilityIncrease": "con"
     },
     {
-      "classId": "weapon-master",
+      "classId": "warblade",
       "skillRanks": {},
-      "feats": []
+      "feats": [],
+      "maneuversLearned": []
     }
   ],
   "weaponOfChoice": "greatsword",
@@ -348,5 +349,10 @@
   },
   "conditionalModifiers": "",
   "annotations": {},
-  "images": {}
+  "images": {},
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  }
 }

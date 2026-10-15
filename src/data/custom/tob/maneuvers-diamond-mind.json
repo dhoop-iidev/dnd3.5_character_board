@@ -1,0 +1,1185 @@
+[
+  {
+    "id": "moment-of-perfect-mind",
+    "name": {
+      "en": "Moment of Perfect Mind",
+      "fr": "Instant d’esprit parfait"
+    },
+    "discipline": "diamond-mind",
+    "type": "counter",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Replace a Will save with a Concentration check.",
+      "fr": "Remplace un jet de Volonté par un test de Concentration."
+    },
+    "text": {
+      "en": "<p>Initiate when you must attempt a Will save, <b>before</b> rolling it. You roll a Concentration check instead and its result counts as your save result. A natural 1 on that check is not an automatic failure.</p>",
+      "fr": "<p>À initier quand vous devez faire un jet de Volonté, <b>avant</b> de le lancer. Vous faites un test de Concentration à la place, dont le résultat sert de résultat de sauvegarde. Un 1 naturel sur ce test n’est pas un échec automatique.</p>"
+    },
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "Concentration check result replaces the Will save.",
+        "fr": "Le résultat du test de Concentration remplace le jet de Volonté."
+      }
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 64,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "sapphire-nightmare-blade",
+    "name": {
+      "en": "Sapphire Nightmare Blade",
+      "fr": "Lame cauchemar de saphir"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Concentration vs target’s AC: success = foe flat-footed, +1d6 damage; failure = –2 attack.",
+      "fr": "Concentration contre la CA de la cible : réussite = ennemi pris au dépourvu, +1d6 dégâts ; échec = –2 à l’attaque."
+    },
+    "text": {
+      "en": "<p>As part of the strike, make a Concentration check against a DC equal to the target’s AC, then one melee attack. On a successful check the target is <b>flat-footed</b> against that attack and you deal an extra <b>1d6</b> damage. On a failed check the attack takes a –2 penalty and deals normal damage.</p>",
+      "fr": "<p>Dans le cadre de la frappe, faites un test de Concentration (DD = CA de la cible), puis une attaque au corps à corps. Si le test réussit, la cible est <b>prise au dépourvu</b> contre cette attaque et vous infligez <b>1d6</b> dégâts supplémentaires. S’il échoue, l’attaque subit un malus de –2 et inflige les dégâts normaux.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": -2,
+          "condition": {
+            "en": "Concentration check failed",
+            "fr": "test de Concentration raté"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "1d6",
+        "condition": {
+          "en": "Concentration check succeeded",
+          "fr": "test de Concentration réussi"
+        }
+      }
+    ],
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "DC = target’s AC; success makes the target flat-footed vs the attack and adds 1d6.",
+        "fr": "DD = CA de la cible ; la réussite rend la cible prise au dépourvu contre l’attaque et ajoute 1d6."
+      }
+    },
+    "notes": {
+      "en": "On success the target loses its Dex bonus to AC against this attack.",
+      "fr": "En cas de réussite, la cible perd son bonus de Dex à la CA contre cette attaque."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 65,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "stance-of-clarity",
+    "name": {
+      "en": "Stance of Clarity",
+      "fr": "Posture de clarté"
+    },
+    "discipline": "diamond-mind",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "+2 insight to AC against one chosen foe, –2 AC against all others.",
+      "fr": "+2 d’intuition à la CA contre un ennemi choisi, –2 à la CA contre tous les autres."
+    },
+    "text": {
+      "en": "<p>At the start of each of your turns in this stance, choose one opponent. You gain a +2 insight bonus to AC against that opponent until you change the target, and take a –2 penalty to AC against all other opponents.</p>",
+      "fr": "<p>Au début de chacun de vos tours dans cette posture, choisissez un adversaire. Vous gagnez un bonus d’intuition de +2 à la CA contre lui jusqu’à ce que vous changiez de cible, et subissez un malus de –2 à la CA contre tous les autres adversaires.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "insight",
+          "value": 2,
+          "condition": {
+            "en": "against the chosen opponent only",
+            "fr": "contre l’adversaire choisi uniquement"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2,
+          "condition": {
+            "en": "against all opponents other than the chosen one",
+            "fr": "contre tous les adversaires sauf celui choisi"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 66,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "action-before-thought",
+    "name": {
+      "en": "Action Before Thought",
+      "fr": "L’action précède la pensée"
+    },
+    "discipline": "diamond-mind",
+    "type": "counter",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Replace a Reflex save with a Concentration check.",
+      "fr": "Remplace un jet de Réflexes par un test de Concentration."
+    },
+    "text": {
+      "en": "<p>Initiate when you must attempt a Reflex save, <b>before</b> rolling it. You roll a Concentration check instead and its result counts as your save result. A natural 1 on that check is not an automatic failure.</p>",
+      "fr": "<p>À initier quand vous devez faire un jet de Réflexes, <b>avant</b> de le lancer. Vous faites un test de Concentration à la place, dont le résultat sert de résultat de sauvegarde. Un 1 naturel sur ce test n’est pas un échec automatique.</p>"
+    },
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "Concentration check result replaces the Reflex save.",
+        "fr": "Le résultat du test de Concentration remplace le jet de Réflexes."
+      }
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 62,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "emerald-razor",
+    "name": {
+      "en": "Emerald Razor",
+      "fr": "Rasoir d’émeraude"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "One melee attack resolved as a touch attack.",
+      "fr": "Une attaque au corps à corps résolue comme une attaque de contact."
+    },
+    "text": {
+      "en": "<p>Make one melee attack against a foe; it is resolved as a <b>touch attack</b> (against touch AC). On a hit it deals normal melee damage.</p>",
+      "fr": "<p>Faites une attaque au corps à corps contre un ennemi ; elle est résolue comme une <b>attaque de contact</b> (contre la CA de contact). Si elle touche, elle inflige les dégâts normaux au corps à corps.</p>"
+    },
+    "notes": {
+      "en": "Compare the attack to the target’s touch AC.",
+      "fr": "Comparer l’attaque à la CA de contact de la cible."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 63,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "insightful-strike",
+    "name": {
+      "en": "Insightful Strike",
+      "fr": "Frappe intuitive"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "On a hit, damage = your Concentration check result.",
+      "fr": "Si l’attaque touche, dégâts = résultat d’un test de Concentration."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit you do not deal normal damage: instead roll a Concentration check and deal damage equal to its result. Strength modifier, the weapon’s magical properties and any other extra damage (class features, feats, spells) do not add to this.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, vous n’infligez pas les dégâts normaux : faites un test de Concentration et infligez des dégâts égaux à son résultat. Le mod. de For, les propriétés magiques de l’arme et tout autre dégât supplémentaire (aptitudes de classe, dons, sorts) ne s’y ajoutent pas.</p>"
+    },
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "Damage = Concentration check result (replaces normal damage).",
+        "fr": "Dégâts = résultat du test de Concentration (remplace les dégâts normaux)."
+      }
+    },
+    "notes": {
+      "en": "No prerequisite line is printed in our copy (page break p. 63–64), so prereqCount is 0. Unofficial WotC customer-service answer: it can score a critical hit (the check result is multiplied; extra damage is not).",
+      "fr": "Aucune ligne de condition n’est imprimée dans notre exemplaire (saut de page p. 63–64), donc prereqCount = 0. Réponse non officielle du service client WotC : elle peut faire un critique (le résultat du test est multiplié, pas les dégâts supplémentaires)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 64,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "mind-over-body",
+    "name": {
+      "en": "Mind over Body",
+      "fr": "L’esprit domine le corps"
+    },
+    "discipline": "diamond-mind",
+    "type": "counter",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Replace a Fortitude save with a Concentration check.",
+      "fr": "Remplace un jet de Vigueur par un test de Concentration."
+    },
+    "text": {
+      "en": "<p>Initiate when you must attempt a Fortitude save, <b>before</b> rolling it. You roll a Concentration check instead and its result counts as your save result. A natural 1 on that check is not an automatic failure.</p>",
+      "fr": "<p>À initier quand vous devez faire un jet de Vigueur, <b>avant</b> de le lancer. Vous faites un test de Concentration à la place, dont le résultat sert de résultat de sauvegarde. Un 1 naturel sur ce test n’est pas un échec automatique.</p>"
+    },
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "Concentration check result replaces the Fortitude save.",
+        "fr": "Le résultat du test de Concentration remplace le jet de Vigueur."
+      }
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 64,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "pearl-of-black-doubt",
+    "name": {
+      "en": "Pearl of Black Doubt",
+      "fr": "Perle de doute noir"
+    },
+    "discipline": "diamond-mind",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "+2 dodge bonus to AC for each melee attack that misses you, cumulative until your next turn.",
+      "fr": "+2 d’esquive à la CA pour chaque attaque au corps à corps qui vous rate, cumulatif jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Each time an opponent misses you with a melee attack, you gain a +2 dodge bonus to AC. These bonuses add up during the round and apply against all opponents’ attacks until the start of your next turn.</p>",
+      "fr": "<p>Chaque fois qu’un adversaire vous rate avec une attaque au corps à corps, vous gagnez un bonus d’esquive de +2 à la CA. Ces bonus s’additionnent au cours du round et s’appliquent contre les attaques de tous les adversaires jusqu’au début de votre prochain tour.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "dodge",
+          "value": 2,
+          "condition": {
+            "en": "per melee attack that missed you since your last turn (add +2 per miss)",
+            "fr": "par attaque au corps à corps qui vous a raté depuis votre dernier tour (+2 par raté)"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      }
+    ],
+    "notes": {
+      "en": "The bonus is cumulative (+2 per miss) and resets at the start of your turn; the app shows a single +2 step.",
+      "fr": "Le bonus est cumulatif (+2 par raté) et se réinitialise au début de votre tour ; l’appli n’affiche qu’un palier de +2."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 65,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "bounding-assault",
+    "name": {
+      "en": "Bounding Assault",
+      "fr": "Assaut bondissant"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Double move, then one melee attack at +2 (counts as a charge for feats).",
+      "fr": "Double déplacement puis une attaque au corps à corps à +2 (compte comme une charge pour les dons)."
+    },
+    "text": {
+      "en": "<p>Make a double move, then one melee attack with a +2 bonus. For feats and other abilities, this attack counts as a charge.</p>",
+      "fr": "<p>Effectuez un double déplacement, puis une attaque au corps à corps avec un bonus de +2. Pour les dons et autres aptitudes, cette attaque compte comme une charge.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "notes": {
+      "en": "The book only says the attack counts as a charge for feats and abilities; it does not say whether the normal charge +2 attack / –2 AC also apply (ask the DM).",
+      "fr": "Le livre dit seulement que l’attaque compte comme une charge pour les dons et aptitudes ; il ne précise pas si le +2 à l’attaque / –2 CA normal de la charge s’applique aussi (voir avec le MJ)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 62,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "mind-strike",
+    "name": {
+      "en": "Mind Strike",
+      "fr": "Frappe mentale"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Will negates, DC 14 + Str mod",
+      "fr": "Volonté annule, DD 14 + mod. de For"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "On a hit, 1d4 Wisdom damage (Will negates).",
+      "fr": "Si l’attaque touche, 1d4 points d’affaiblissement temporaire de Sagesse (Volonté annule)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit, the target takes normal weapon damage and must succeed on a Will save (DC 14 + your Str modifier) or take <b>1d4 points of Wisdom damage</b>. A successful save only avoids the Wisdom damage.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux de l’arme et doit réussir un jet de Volonté (DD 14 + votre mod. de For) sous peine de subir <b>1d4 points d’affaiblissement temporaire de Sagesse</b>. Un jet réussi n’évite que la perte de Sagesse.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 64,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "ruby-nightmare-blade",
+    "name": {
+      "en": "Ruby Nightmare Blade",
+      "fr": "Lame cauchemar de rubis"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Concentration vs target’s AC: success = double damage; failure = –2 attack.",
+      "fr": "Concentration contre la CA de la cible : réussite = dégâts doublés ; échec = –2 à l’attaque."
+    },
+    "text": {
+      "en": "<p>As part of the strike, make a Concentration check against a DC equal to the target’s AC, then one melee attack. On a successful check the attack deals <b>double</b> normal melee damage. On a failed check the attack takes a –2 penalty and deals normal damage. On a critical hit, combine the multipliers as usual (PH 304).</p>",
+      "fr": "<p>Dans le cadre de la frappe, faites un test de Concentration (DD = CA de la cible), puis une attaque au corps à corps. Si le test réussit, l’attaque inflige le <b>double</b> des dégâts normaux. S’il échoue, l’attaque subit un malus de –2 et inflige les dégâts normaux. En cas de coup critique, cumulez les multiplicateurs comme d’habitude (Manuel des Joueurs p. 304).</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": -2,
+          "condition": {
+            "en": "Concentration check failed",
+            "fr": "test de Concentration raté"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "DC = target’s AC; success doubles melee damage.",
+        "fr": "DD = CA de la cible ; la réussite double les dégâts."
+      }
+    },
+    "notes": {
+      "en": "Damage ×2 on a successful check (combines with a critical: ×2 and ×2 = ×3).",
+      "fr": "Dégâts ×2 si le test réussit (se combine avec un critique : ×2 et ×2 = ×3)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 65,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "disrupting-blow",
+    "name": {
+      "en": "Disrupting Blow",
+      "fr": "Coup perturbateur"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "Will negates, DC 15 + Str mod",
+      "fr": "Volonté annule, DD 15 + mod. de For"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "On a hit, the foe can take no actions for 1 round (Will negates).",
+      "fr": "Si l’attaque touche, l’ennemi ne peut pas agir pendant 1 round (Volonté annule)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit, the target takes normal damage and must succeed on a Will save (DC 15 + your Str modifier) or be unable to take actions for 1 round. It suffers no other penalty: it can still make attacks of opportunity, but cannot take immediate actions until its next turn.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux et doit réussir un jet de Volonté (DD 15 + votre mod. de For) sous peine de ne pouvoir entreprendre aucune action pendant 1 round. Elle ne subit aucun autre malus : elle peut toujours porter des attaques d’opportunité, mais pas d’action immédiate avant son prochain tour.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 63,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "hearing-the-air",
+    "name": {
+      "en": "Hearing the Air",
+      "fr": "Entendre l’air"
+    },
+    "discipline": "diamond-mind",
+    "type": "stance",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Blindsense 30 ft. and +5 insight on Listen checks.",
+      "fr": "Perception aveugle 9 m et +5 d’intuition en Perception auditive."
+    },
+    "text": {
+      "en": "<p>While in this stance you have <b>blindsense</b> out to 30 ft. and a +5 insight bonus on Listen checks.</p>",
+      "fr": "<p>Tant que vous êtes dans cette posture, vous avez la <b>perception aveugle</b> dans un rayon de 9 m et un bonus d’intuition de +5 aux tests de Perception auditive.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "skill.listen",
+          "bonusType": "insight",
+          "value": 5
+        },
+        "duration": "stance"
+      }
+    ],
+    "notes": {
+      "en": "Blindsense 30 ft. (9 m) is a sense, not a modifier.",
+      "fr": "Perception aveugle 9 m : c’est un sens, pas un modificateur."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 63,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "rapid-counter",
+    "name": {
+      "en": "Rapid Counter",
+      "fr": "Riposte rapide"
+    },
+    "discipline": "diamond-mind",
+    "type": "counter",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Extra melee attack against a foe that provokes an attack of opportunity from you.",
+      "fr": "Attaque supplémentaire contre un ennemi qui provoque une attaque d’opportunité de votre part."
+    },
+    "text": {
+      "en": "<p>When a foe provokes an attack of opportunity from you, you can make one melee attack against it. This is not an attack of opportunity and does not use one: make it before, after, in addition to or instead of your attack of opportunity (keeping that one for later in the round).</p>",
+      "fr": "<p>Quand un ennemi provoque une attaque d’opportunité de votre part, vous pouvez lui porter une attaque au corps à corps. Ce n’est pas une attaque d’opportunité et elle n’en consomme pas : faites-la avant, après, en plus ou à la place de votre attaque d’opportunité (que vous gardez alors pour plus tard dans le round).</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 65,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "greater-insightful-strike",
+    "name": {
+      "en": "Insightful Strike, Greater",
+      "fr": "Frappe intuitive supérieure"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "As insightful strike, but damage = 2 × the Concentration check result.",
+      "fr": "Comme frappe intuitive, mais dégâts = 2 × le résultat du test de Concentration."
+    },
+    "text": {
+      "en": "<p>Works like <i>insightful strike</i>: one melee attack; on a hit, instead of normal damage you deal damage equal to <b>twice</b> your Concentration check result. Strength, weapon magic and other extra damage do not apply.</p>",
+      "fr": "<p>Fonctionne comme <i>frappe intuitive</i> : une attaque au corps à corps ; si elle touche, au lieu des dégâts normaux vous infligez <b>deux fois</b> le résultat d’un test de Concentration. Le mod. de For, la magie de l’arme et les autres dégâts supplémentaires ne s’appliquent pas.</p>"
+    },
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "Damage = 2 × Concentration check result.",
+        "fr": "Dégâts = 2 × résultat du test de Concentration."
+      }
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 64,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "moment-of-alacrity",
+    "name": {
+      "en": "Moment of Alacrity",
+      "fr": "Instant d’alacrité"
+    },
+    "discipline": "diamond-mind",
+    "type": "boost",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Your initiative count improves by 20 for the rest of the encounter.",
+      "fr": "Votre rang d’initiative augmente de 20 pour le reste de la rencontre."
+    },
+    "text": {
+      "en": "<p>Your initiative count improves by <b>20</b> for the rest of the current encounter. The change takes effect at the end of the round: you move to your new place in the initiative order starting next round.</p>",
+      "fr": "<p>Votre rang d’initiative augmente de <b>20</b> pour le reste de la rencontre. Le changement prend effet à la fin du round : vous prenez votre nouvelle place dans l’ordre d’initiative à partir du round suivant.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "initiative",
+          "bonusType": "untyped",
+          "value": 20,
+          "condition": {
+            "en": "from the next round on",
+            "fr": "à partir du round suivant"
+          }
+        },
+        "duration": "encounter",
+        "appliesTo": "self"
+      }
+    ],
+    "notes": {
+      "en": "The +20 changes your current initiative count, not your initiative modifier; the book’s header says “Class:” instead of “Level:” (typo).",
+      "fr": "Le +20 modifie votre rang d’initiative en cours, pas votre modificateur d’initiative ; l’en-tête du livre dit « Class: » au lieu de « Level: » (coquille)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 64,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "avalanche-of-blades",
+    "name": {
+      "en": "Avalanche of Blades",
+      "fr": "Avalanche de lames"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Keep attacking one foe at a cumulative –4 until you miss.",
+      "fr": "Attaques répétées contre un ennemi, –4 cumulatif, jusqu’au premier raté."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, deal damage normally and attack the same foe again at –4; if that hits, again at –8, and so on (each new attack an extra –4). The chain stops when you miss or the foe drops to –1 hp or lower. All attacks must target that single creature.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, infligez les dégâts normalement puis attaquez de nouveau le même ennemi à –4 ; si elle touche, encore à –8, et ainsi de suite (–4 de plus à chaque attaque). La série s’arrête au premier raté ou quand l’ennemi tombe à –1 pv ou moins. Toutes les attaques visent cette seule créature.</p>"
+    },
+    "notes": {
+      "en": "Successive attack penalties (–4, –8, –12…) are applied by hand at the table.",
+      "fr": "Les malus successifs (–4, –8, –12…) se gèrent à la main."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 62,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "quicksilver-motion",
+    "name": {
+      "en": "Quicksilver Motion",
+      "fr": "Mouvement de vif-argent"
+    },
+    "discipline": "diamond-mind",
+    "type": "boost",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Gain an extra move action this turn.",
+      "fr": "Vous gagnez une action de mouvement supplémentaire ce tour-ci."
+    },
+    "text": {
+      "en": "<p>After initiating this boost you get a free <b>move action</b> (any move-action option), then act normally: e.g. move next to a foe and still make a full attack, or move and then charge. The move provokes attacks of opportunity as usual.</p>",
+      "fr": "<p>Après cette amélioration, vous bénéficiez d’une <b>action de mouvement</b> gratuite (n’importe quelle option d’action de mouvement), puis vous agissez normalement : par ex. vous approcher d’un ennemi puis faire une attaque à outrance, ou vous déplacer puis charger. Ce déplacement provoque des attaques d’opportunité comme d’habitude.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 65,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "diamond-defense",
+    "name": {
+      "en": "Diamond Defense",
+      "fr": "Défense de diamant"
+    },
+    "discipline": "diamond-mind",
+    "type": "counter",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Add your initiator level to one saving throw.",
+      "fr": "Ajoute votre niveau d’initiateur à un jet de sauvegarde."
+    },
+    "text": {
+      "en": "<p>Initiate when you must attempt any saving throw, <b>before</b> rolling it: you add a bonus equal to your initiator level to that save.</p>",
+      "fr": "<p>À initier quand vous devez faire un jet de sauvegarde, <b>avant</b> de le lancer : vous ajoutez à ce jet un bonus égal à votre niveau d’initiateur.</p>"
+    },
+    "notes": {
+      "en": "Bonus = initiator level (variable), one save only; not encoded as a fixed modifier.",
+      "fr": "Bonus = niveau d’initiateur (variable), sur un seul jet ; pas encodé comme modificateur fixe."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 62,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "diamond-nightmare-blade",
+    "name": {
+      "en": "Diamond Nightmare Blade",
+      "fr": "Lame cauchemar de diamant"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Concentration vs target’s AC: success = ×4 melee damage; failure = –2 attack.",
+      "fr": "Concentration contre la CA de la cible : réussite = dégâts ×4 ; échec = –2 à l’attaque."
+    },
+    "text": {
+      "en": "<p>As part of the strike, make a Concentration check against a DC equal to the target’s AC, then one melee attack. On a successful check the attack deals <b>four times</b> your normal melee damage. On a failed check the attack takes a –2 penalty and deals only normal damage. On a critical hit, combine the multipliers as usual (PH 304).</p>",
+      "fr": "<p>Dans le cadre de la frappe, faites un test de Concentration (DD = CA de la cible), puis une attaque au corps à corps. Si le test réussit, l’attaque inflige <b>quatre fois</b> vos dégâts normaux au corps à corps. S’il échoue, l’attaque subit un malus de –2 et n’inflige que les dégâts normaux. En cas de coup critique, cumulez les multiplicateurs comme d’habitude (Manuel des Joueurs p. 304).</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": -2,
+          "condition": {
+            "en": "Concentration check failed",
+            "fr": "test de Concentration raté"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "skillCheck": {
+      "skill": "concentration",
+      "note": {
+        "en": "DC = target’s AC; success multiplies melee damage by 4.",
+        "fr": "DD = CA de la cible ; la réussite multiplie les dégâts par 4."
+      }
+    },
+    "notes": {
+      "en": "Damage ×4 on a successful check (multipliers combine with a critical: ×4 and ×2 = ×5).",
+      "fr": "Dégâts ×4 si le test réussit (les multiplicateurs se combinent avec un critique : ×4 et ×2 = ×5)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 62,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "stance-of-alacrity",
+    "name": {
+      "en": "Stance of Alacrity",
+      "fr": "Posture d’alacrité"
+    },
+    "discipline": "diamond-mind",
+    "type": "stance",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Once per round, initiate a counter without spending an immediate action.",
+      "fr": "Une fois par round, initier un contre sans dépenser d’action immédiate."
+    },
+    "text": {
+      "en": "<p>While in this stance, one counter per round does not cost an immediate action. You can’t use the same counter twice in a round. You can use this even if you already took an immediate action since your last turn.</p>",
+      "fr": "<p>Tant que vous êtes dans cette posture, un contre par round ne vous coûte pas d’action immédiate. Vous ne pouvez pas utiliser le même contre deux fois dans le round. Cela fonctionne même si vous avez déjà pris une action immédiate depuis votre dernier tour.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 65,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "time-stands-still",
+    "name": {
+      "en": "Time Stands Still",
+      "fr": "Le temps suspendu"
+    },
+    "discipline": "diamond-mind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 9,
+    "prereqCount": 4,
+    "action": "fullRound",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Take two full attack actions in a row.",
+      "fr": "Deux attaques à outrance d’affilée."
+    },
+    "text": {
+      "en": "<p>You take a full attack action, resolve it completely, then take a second full attack action. The two are resolved separately and in order; you cannot mix their attacks.</p>",
+      "fr": "<p>Vous effectuez une attaque à outrance, la résolvez entièrement, puis effectuez une seconde attaque à outrance. Les deux sont résolues séparément et dans l’ordre ; vous ne pouvez pas mélanger leurs attaques.</p>"
+    },
+    "notes": {
+      "en": "Unofficial WotC customer-service answer: each full attack keeps its own extra attacks (haste, etc.).",
+      "fr": "Réponse non officielle du service client WotC : chaque attaque à outrance conserve ses attaques supplémentaires (rapidité, etc.)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 66,
+      "frRef": "traduction maison"
+    }
+  }
+]

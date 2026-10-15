@@ -1,7 +1,7 @@
 # Character baseline (user-provided)
 
-Human, Fighter 6 / Weapon Master (Sword and Fist, 3.0) 3 = character level 9.
-The choices below are the user's plan **up to level 8** (Fighter 6 / Weapon Master 2). The level-9 choices (Weapon Master 3) are not decided yet: the app must show the resulting warnings (unspent skill points, 1 unchosen general feat), and the user will correct them in the app.
+Character: **Chikibidouille** (formerly Fenrir Ykiyuk). Human, Fighter 6 / Weapon Master (Sword and Fist, 3.0) 2 / Warblade (Tome of Battle) 1 = character level 9. Level 9 became Warblade 1 instead of Weapon Master 3 (decided 2026-10-15, house rule #15).
+The choices below are the user's plan **up to level 8** (Fighter 6 / Weapon Master 2). The level-9 choices (Warblade 1: skill points, general feat, 3 maneuvers + 1 stance) are not decided yet: the app must show the resulting warnings (unspent skill points, 1 unchosen general feat), and the user will correct them in the app.
 
 Ability increases: level 4 → Strength (Str 18 at level 7), level 8 → Constitution (planned, changed 2026-10-12). Climb +3 matches Str +4 with the −5 armor check penalty of full plate +2 (magic armor is masterwork). Jump is **−5**, not the +1 of the 2017 sheet: the SRD Jump rule adds −6 for a speed of 20 ft (full plate) — corrected 2026-10-13 (um_actually review M1, SRD applied at the user's request). 
 
@@ -73,6 +73,6 @@ The app needs switchable loadouts, since they change AC, attacks and skill total
 | 6 | Fighter 6 | Whirlwind Attack (general), Combat Reflexes (fighter) | (0/4) → **4 unspent** | |
 | 7 | Weapon Master 1 | — | Spot +2, Listen +2 (4/4) | |
 | 8 | Weapon Master 2 | — | Spot +2, Listen +2 (4/4) | Con 15 → 16 |
-| 9 | Weapon Master 3 | **1 general feat to choose** | **4 to spend** | |
+| 9 | Warblade 1 | **1 general feat to choose**; **3 maneuvers + 1 stance to learn** | **6 to spend** (4 + Int 1 + human 1) | d12 max = 12 + Con 4 → HP 128; Ref +9 with battle clarity |
 
 Final ranks at level 8 match the skills table above. The 6 unspent points (levels 5–6) come from the user's skill list and will show as warnings.

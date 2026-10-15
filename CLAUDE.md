@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Goal
 A personal digital "playboard" for playing one D&D **3.5** character at the table: stats in panes, quick rules reference, live temporary effects, and rule checks that flag an illegal or inconsistent build. It is a living spec; update this file as decisions are made.
 
-Character: Human, Fighter 6 / Weapon Master 3. Weapon Master (FR: maître d'armes) = the **3.0 prestige class from *Sword and Fist*** (FR: *De chair et d'acier*), not the 3.5 Exotic Weapon Master. It is the **only** 3.0 content allowed. Its data is in `docs/rules/weapon-master.md`. Store only numbers and short summaries in our own words, never the copyrighted book text.
+Character: **Chikibidouille** (formerly Fenrir Ykiyuk), Human, Fighter 6 / Weapon Master 2 / Warblade 1 (level 9 = Warblade 1, decided 2026-10-15). Weapon Master (FR: maître d'armes) = the **3.0 prestige class from *Sword and Fist*** (FR: *De chair et d'acier*), not the 3.5 Exotic Weapon Master. It is the **only** 3.0 content allowed. Its data is in `docs/rules/weapon-master.md`. Store only numbers and short summaries in our own words, never the copyrighted book text. The warblade and its maneuvers come from *Tome of Battle* (3.5, non-SRD, house rule #15; book in `books/`, never committed). Its data is in `src/data/custom/tob/`.
 
 Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD3.5_chikibidouille_23122017.xls` is an old 2017 sheet that mixes 3.0 and 3.5 by mistake: use it at most for identity and equipment names, never for skills, feats, formulas or rules.
 

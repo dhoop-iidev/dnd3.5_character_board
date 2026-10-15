@@ -9,6 +9,9 @@ import type {
   ItemPropertyDef,
   MagicItemDef,
   MaterialDef,
+  DisciplineDef,
+  ManeuverDef,
+  MartialProgression,
   SkillDef,
   SynergyDef,
   WeaponDef,
@@ -29,6 +32,15 @@ import conditions from './custom/conditions.json'
 import classSkillOverrides from './custom/class-skill-overrides.json'
 import itemProperties from './srd/item-properties.json'
 import materials from './custom/materials.json'
+import warblade from './custom/tob/warblade.json'
+import warbladeProgression from './custom/tob/warblade-progression.json'
+import disciplines from './custom/tob/disciplines.json'
+import tobSkills from './custom/tob/skills.json'
+import diamondMind from './custom/tob/maneuvers-diamond-mind.json'
+import ironHeart from './custom/tob/maneuvers-iron-heart.json'
+import stoneDragon from './custom/tob/maneuvers-stone-dragon.json'
+import tigerClaw from './custom/tob/maneuvers-tiger-claw.json'
+import whiteRaven from './custom/tob/maneuvers-white-raven.json'
 
 export interface Rules {
   skills: Map<string, SkillDef>
@@ -43,6 +55,10 @@ export interface Rules {
   carryingCapacity: CarryingCapacityRow[]
   itemProperties: Map<string, ItemPropertyDef>
   materials: Map<string, MaterialDef>
+  /** Tome of Battle (house rule #15). */
+  disciplines: Map<string, DisciplineDef>
+  maneuvers: Map<string, ManeuverDef>
+  martialProgression: Map<string, MartialProgression>
 }
 
 function index<T extends { id: string }>(list: T[]): Map<string, T> {
@@ -50,13 +66,13 @@ function index<T extends { id: string }>(list: T[]): Map<string, T> {
 }
 
 export function buildRules(): Rules {
-  const classList = [...(classes as ClassDef[]), weaponMaster as ClassDef].map((c) => {
+  const classList = [...(classes as ClassDef[]), weaponMaster as ClassDef, warblade as unknown as ClassDef].map((c) => {
     // House rule #4: homebrew class skills added to some classes.
     const extra = (classSkillOverrides as Record<string, string[]>)[c.id] ?? []
     return { ...c, classSkills: [...new Set([...c.classSkills, ...extra])] }
   })
   return {
-    skills: index([...(skills as SkillDef[]), ...(homebrewSkills as SkillDef[])]),
+    skills: index([...(skills as SkillDef[]), ...(homebrewSkills as SkillDef[]), ...(tobSkills as SkillDef[])]),
     synergies: synergies as SynergyDef[],
     feats: index(feats as FeatDef[]),
     classes: index(classList),
@@ -68,6 +84,11 @@ export function buildRules(): Rules {
     carryingCapacity: carryingCapacity as CarryingCapacityRow[],
     itemProperties: index(itemProperties as ItemPropertyDef[]),
     materials: index(materials as MaterialDef[]),
+    disciplines: index(disciplines as DisciplineDef[]),
+    maneuvers: index(
+      [...diamondMind, ...ironHeart, ...stoneDragon, ...tigerClaw, ...whiteRaven] as unknown as ManeuverDef[],
+    ),
+    martialProgression: new Map([['warblade', warbladeProgression as unknown as MartialProgression]]),
   }
 }
 

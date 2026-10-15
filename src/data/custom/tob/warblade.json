@@ -1,0 +1,329 @@
+{
+  "id": "warblade",
+  "name": {
+    "en": "Warblade",
+    "fr": "Lame de bataille"
+  },
+  "prestige": false,
+  "hitDie": 12,
+  "skillPoints": 4,
+  "classSkills": [
+    "balance",
+    "climb",
+    "concentration",
+    "craft",
+    "diplomacy",
+    "intimidate",
+    "jump",
+    "knowledge-history",
+    "knowledge-local",
+    "martial-lore",
+    "swim",
+    "tumble"
+  ],
+  "proficiencies": {
+    "weapons": [
+      "battleaxe",
+      "club",
+      "dagger",
+      "falchion",
+      "flail",
+      "gauntlet",
+      "glaive",
+      "greataxe",
+      "greatclub",
+      "greatsword",
+      "guisarme",
+      "halberd",
+      "handaxe",
+      "heavy-flail",
+      "heavy-mace",
+      "heavy-pick",
+      "kukri",
+      "lance",
+      "light-hammer",
+      "light-mace",
+      "light-pick",
+      "longspear",
+      "longsword",
+      "morningstar",
+      "punching-dagger",
+      "quarterstaff",
+      "ranseur",
+      "rapier",
+      "sap",
+      "scimitar",
+      "scythe",
+      "short-sword",
+      "shortspear",
+      "sickle",
+      "spear",
+      "spiked-gauntlet",
+      "throwing-axe",
+      "trident",
+      "unarmed-strike",
+      "warhammer"
+    ],
+    "armor": [
+      "light",
+      "medium",
+      "shield"
+    ]
+  },
+  "table": [
+    {
+      "level": 1,
+      "bab": 1,
+      "fort": 2,
+      "ref": 0,
+      "will": 0,
+      "special": [
+        {
+          "en": "Battle clarity (Reflex saves)",
+          "fr": "Clarté au combat (jets de Réflexes)"
+        },
+        {
+          "en": "Weapon aptitude",
+          "fr": "Aptitude martiale"
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "bab": 2,
+      "fort": 3,
+      "ref": 0,
+      "will": 0,
+      "special": [
+        {
+          "en": "Uncanny dodge",
+          "fr": "Esquive instinctive"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "bab": 3,
+      "fort": 3,
+      "ref": 1,
+      "will": 1,
+      "special": [
+        {
+          "en": "Battle ardor (critical confirmation)",
+          "fr": "Ardeur au combat (confirmation des critiques)"
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "bab": 4,
+      "fort": 4,
+      "ref": 1,
+      "will": 1,
+      "special": []
+    },
+    {
+      "level": 5,
+      "bab": 5,
+      "fort": 4,
+      "ref": 1,
+      "will": 1,
+      "special": [
+        {
+          "en": "Bonus feat",
+          "fr": "Don supplémentaire"
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "bab": 6,
+      "fort": 5,
+      "ref": 2,
+      "will": 2,
+      "special": [
+        {
+          "en": "Improved uncanny dodge",
+          "fr": "Esquive instinctive supérieure"
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "bab": 7,
+      "fort": 5,
+      "ref": 2,
+      "will": 2,
+      "special": [
+        {
+          "en": "Battle cunning (damage)",
+          "fr": "Ruse au combat (dégâts)"
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "bab": 8,
+      "fort": 6,
+      "ref": 2,
+      "will": 2,
+      "special": []
+    },
+    {
+      "level": 9,
+      "bab": 9,
+      "fort": 6,
+      "ref": 3,
+      "will": 3,
+      "special": [
+        {
+          "en": "Bonus feat",
+          "fr": "Don supplémentaire"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "bab": 10,
+      "fort": 7,
+      "ref": 3,
+      "will": 3,
+      "special": []
+    },
+    {
+      "level": 11,
+      "bab": 11,
+      "fort": 7,
+      "ref": 3,
+      "will": 3,
+      "special": [
+        {
+          "en": "Battle skill (opposed checks)",
+          "fr": "Talent au combat (tests opposés)"
+        }
+      ]
+    },
+    {
+      "level": 12,
+      "bab": 12,
+      "fort": 8,
+      "ref": 4,
+      "will": 4,
+      "special": []
+    },
+    {
+      "level": 13,
+      "bab": 13,
+      "fort": 8,
+      "ref": 4,
+      "will": 4,
+      "special": [
+        {
+          "en": "Bonus feat",
+          "fr": "Don supplémentaire"
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "bab": 14,
+      "fort": 9,
+      "ref": 4,
+      "will": 4,
+      "special": []
+    },
+    {
+      "level": 15,
+      "bab": 15,
+      "fort": 9,
+      "ref": 5,
+      "will": 5,
+      "special": [
+        {
+          "en": "Battle mastery (attacks of opportunity)",
+          "fr": "Maîtrise du combat (attaques d’opportunité)"
+        }
+      ]
+    },
+    {
+      "level": 16,
+      "bab": 16,
+      "fort": 10,
+      "ref": 5,
+      "will": 5,
+      "special": []
+    },
+    {
+      "level": 17,
+      "bab": 17,
+      "fort": 10,
+      "ref": 5,
+      "will": 5,
+      "special": [
+        {
+          "en": "Bonus feat",
+          "fr": "Don supplémentaire"
+        }
+      ]
+    },
+    {
+      "level": 18,
+      "bab": 18,
+      "fort": 11,
+      "ref": 6,
+      "will": 6,
+      "special": []
+    },
+    {
+      "level": 19,
+      "bab": 19,
+      "fort": 11,
+      "ref": 6,
+      "will": 6,
+      "special": []
+    },
+    {
+      "level": 20,
+      "bab": 20,
+      "fort": 12,
+      "ref": 6,
+      "will": 6,
+      "special": [
+        {
+          "en": "Stance mastery",
+          "fr": "Maîtrise des postures"
+        }
+      ]
+    }
+  ],
+  "bonusFeatLevels": [
+    5,
+    9,
+    13,
+    17
+  ],
+  "bonusFeatList": [
+    "acrobatic",
+    "agile",
+    "athletic",
+    "blind-fight",
+    "combat-reflexes",
+    "diehard",
+    "endurance",
+    "great-fortitude",
+    "improved-initiative",
+    "iron-will",
+    "lightning-reflexes",
+    "quick-draw",
+    "run"
+  ],
+  "text": {
+    "en": "<p>Non-SRD base class from <i>Tome of Battle</i> pp. 20–26, allowed by house rule #15 (summary in our own words).</p><p><b>Proficiencies:</b> simple and martial <i>melee</i> weapons (including those that can be thrown), light and medium armor, all shields except tower shields. Ranged-only weapons (bows, crossbows, sling, dart, javelin) are not included.</p><p><b>Maneuvers:</b> Diamond Mind, Iron Heart, Stone Dragon, Tiger Claw, White Raven. Known, readied and stances per Table 1–3; highest maneuver level per initiator level (Table 3–1, p. 39). Maneuvers are extraordinary unless noted, ignore spell resistance and never provoke when initiated. At 4th level and every even level after, you may swap one known maneuver (not a stance) for another of any level you can learn. <b>Readying:</b> 5 minutes of exercise; readied maneuvers start each encounter unexpended and each can be used once per encounter. <b>Recovery:</b> a swift action followed in the same round by a melee attack, or by a standard action spent doing nothing else, recovers all expended maneuvers; you can't initiate a maneuver or change stance that round, but you keep the stance you started the turn in. All maneuvers also come back at the end of an encounter (or after 1 minute without attacking or being attacked). <b>Stances:</b> one 1st-level stance at 1st, more at 4th, 10th and 16th; never expended, changed as a swift action, never swapped.</p><p><b>Battle clarity (1st):</b> insight bonus on Reflex saves = Int bonus (max warblade level), unless flat-footed.</p><p><b>Weapon aptitude (1st):</b> for feats needing fighter levels (e.g. Weapon Specialization), warblade level −2 counts as fighter level, stacking with real fighter levels. Each morning, 1 hour of practice with the new weapon in hand lets you re-assign single-weapon feats (Weapon Focus…), as long as every other feat's prerequisites stay met.</p><p><b>Uncanny dodge (2nd):</b> keep Dex bonus to AC when flat-footed or vs invisible attackers (not when immobilized); if you already have it, you get improved uncanny dodge instead.</p><p><b>Battle ardor (3rd):</b> insight bonus = Int bonus on critical confirmation rolls.</p><p><b>Bonus feats (5th, 9th, 13th, 17th):</b> from the warblade list, prerequisites required.</p><p><b>Improved uncanny dodge (6th):</b> can't be flanked (as barbarian, PH 26).</p><p><b>Battle cunning (7th):</b> insight bonus = Int bonus on melee damage vs flat-footed or flanked foes.</p><p><b>Battle skill (11th):</b> insight bonus = Int bonus on checks to resist bull rush, disarm, feint, overrun, sunder or trip.</p><p><b>Battle mastery (15th):</b> insight bonus = Int bonus on melee attack and damage rolls of attacks of opportunity.</p><p><b>Stance mastery (20th):</b> two stances active at once; one swift action starts or changes either or both.</p>",
+    "fr": "<p>Classe de base hors DRS du <i>Tome of Battle</i> p. 20–26, autorisée par la règle maison n°15 (résumé avec nos propres mots ; noms français : traduction maison, le livre n’a pas été traduit).</p><p><b>Armes et armures :</b> armes courantes et de guerre <i>de corps à corps</i> (y compris celles qui peuvent être lancées), armures légères et intermédiaires, tous les boucliers sauf les pavois. Les armes uniquement à distance (arcs, arbalètes, fronde, fléchette, javeline) ne sont pas incluses.</p><p><b>Manœuvres :</b> Esprit de diamant, Cœur de fer, Dragon de pierre, Griffe du tigre, Corbeau blanc. Connues, préparées et postures selon la table 1–3 ; niveau maximal de manœuvre selon le niveau d’initiateur (table 3–1, p. 39). Les manœuvres sont extraordinaires sauf mention contraire, ignorent la résistance à la magie et ne provoquent jamais d’attaque d’opportunité quand on les initie. Au niveau 4 puis à chaque niveau pair, vous pouvez échanger une manœuvre connue (pas une posture) contre une autre de n’importe quel niveau accessible. <b>Préparation :</b> 5 minutes d’exercice ; les manœuvres préparées sont disponibles au début de chaque rencontre et chacune s’utilise une fois par rencontre. <b>Récupération :</b> une action rapide suivie dans le même round d’une attaque au corps à corps, ou d’une action simple sans rien faire d’autre, récupère toutes les manœuvres utilisées ; ce round-là, impossible d’initier une manœuvre ou de changer de posture, mais vous gardez la posture du début du tour. Tout revient aussi en fin de rencontre (ou après 1 minute sans attaquer ni être attaqué). <b>Postures :</b> une posture du niveau 1 au niveau 1, d’autres aux niveaux 4, 10 et 16 ; jamais dépensées, changées par une action rapide, jamais échangées.</p><p><b>Clarté au combat (1) :</b> bonus d’intuition aux jets de Réflexes = bonus d’Int (max. niveau de lame de bataille), sauf si pris au dépourvu.</p><p><b>Aptitude martiale (1) :</b> pour les dons exigeant des niveaux de guerrier (ex. Spécialisation martiale), niveau de lame de bataille −2 compte comme niveau de guerrier, cumulable avec les vrais niveaux de guerrier. Chaque matin, 1 heure d’entraînement avec la nouvelle arme permet de réaffecter les dons liés à une seule arme (Arme de prédilection…), tant que les conditions des autres dons restent remplies.</p><p><b>Esquive instinctive (2) :</b> conserve le bonus de Dex à la CA si pris au dépourvu ou face à un attaquant invisible (pas si immobilisé) ; si vous l’avez déjà, vous obtenez l’esquive instinctive supérieure.</p><p><b>Ardeur au combat (3) :</b> bonus d’intuition = bonus d’Int aux jets de confirmation de critique.</p><p><b>Dons supplémentaires (5, 9, 13, 17) :</b> pris dans la liste de la lame de bataille, conditions requises.</p><p><b>Esquive instinctive supérieure (6) :</b> ne peut pas être pris en tenaille (comme le barbare, MdJ p. 26).</p><p><b>Ruse au combat (7) :</b> bonus d’intuition = bonus d’Int aux dégâts au corps à corps contre un adversaire pris au dépourvu ou pris en tenaille.</p><p><b>Talent au combat (11) :</b> bonus d’intuition = bonus d’Int aux tests pour résister à une bousculade, un désarmement, une feinte, un renversement, une destruction d’arme ou un croc-en-jambe.</p><p><b>Maîtrise du combat (15) :</b> bonus d’intuition = bonus d’Int à l’attaque et aux dégâts des attaques d’opportunité au corps à corps.</p><p><b>Maîtrise des postures (20) :</b> deux postures actives à la fois ; une action rapide lance ou change l’une ou les deux.</p>"
+  },
+  "source": {
+    "book": "Tome of Battle",
+    "page": 21,
+    "frRef": "traduction maison"
+  }
+}

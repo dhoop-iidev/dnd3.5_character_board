@@ -308,3 +308,83 @@ export interface MaterialDef {
   text: I18n
   source: Source
 }
+
+// ---------------------------------------------------------------------------------------------------------------
+// Tome of Battle (non-SRD, allowed by house rules): martial disciplines, maneuvers and stances.
+// Only numbers and short summaries in our own words, with book page references (never the book text).
+
+export type DisciplineId = 'diamond-mind' | 'iron-heart' | 'stone-dragon' | 'tiger-claw' | 'white-raven'
+export type ManeuverType = 'boost' | 'counter' | 'strike' | 'stance' | 'other'
+export type InitiationAction = 'swift' | 'immediate' | 'move' | 'standard' | 'fullRound' | 'other'
+
+export interface DisciplineDef {
+  id: DisciplineId
+  name: I18n
+  /** Key skill of the discipline (skill id), e.g. Iron Heart → balance. */
+  keySkill: string
+  associatedWeapons: string[]
+  summary: I18n
+  source: Source
+}
+
+/** A modifier a maneuver applies, with how long it lasts. */
+export interface ManeuverEffect {
+  spec: ModifierSpec
+  /** endOfTurn (boosts), round (until your next turn), encounter, while the stance is active, or the attack itself. */
+  duration: 'attack' | 'endOfTurn' | 'round' | 'rounds' | 'minute' | 'encounter' | 'stance'
+  /** For 'rounds': number of rounds (may reference initiator level in `roundsText`). */
+  rounds?: number
+  roundsText?: I18n
+  /** Applies only to the attack of the strike / to the next attack, etc. */
+  appliesTo?: 'self' | 'strikeAttack' | 'allies' | 'target'
+  /** Value computed from the initiator level instead of spec.value (e.g. Diamond Defense). */
+  valueFrom?: 'initiatorLevel' | 'halfInitiatorLevel'
+}
+
+export interface ManeuverDef {
+  id: string
+  name: I18n
+  discipline: DisciplineId
+  type: ManeuverType
+  /** Descriptors such as fear, mind-affecting, sonic. */
+  descriptors: string[]
+  level: number
+  /** Number of maneuvers (stances count) of the same discipline required to learn it. */
+  prereqCount: number
+  action: InitiationAction
+  /** Book wording kept short, e.g. "Melee attack", "Personal", "30 ft." */
+  range: I18n
+  target: I18n
+  duration: I18n
+  /** e.g. "Fortitude partial", with the DC formula (e.g. "DC 13 + Str mod"), or "" if none. */
+  save: I18n
+  /** Supernatural instead of extraordinary. */
+  supernatural: boolean
+  /** Area of effect (bursts, emanations) when the book gives one instead of a target. */
+  area?: I18n
+  /** Damage reduction gained while the effect runs, e.g. "5/adamantine" (Stone Bones). */
+  damageReduction?: string
+  /** One-line headline for lists. */
+  summary: I18n
+  /** Rules summary in our own words (HTML, ≤ 900 chars). */
+  text: I18n
+  /** Machine-readable effects the app can apply automatically (bonuses to attack, damage, AC, saves, skills…). */
+  effects?: ManeuverEffect[]
+  /** Extra damage dice of a strike/boost (not multiplied on a critical), e.g. "4d6". */
+  extraDamage?: { dice: string; type?: I18n; condition?: I18n }[]
+  /** Martial skill check involved (skill id) and what it does, e.g. concentration for Moment of Perfect Mind. */
+  skillCheck?: { skill: string; note: I18n }
+  /** Things the app cannot compute (conditions inflicted on foes, movement…), shown in the popup. */
+  notes?: I18n
+  source: Source
+}
+
+/** Per-level progression of a martial adept class (Tome of Battle Table 1–3) and Table 3–1. */
+export interface MartialProgression {
+  classId: string
+  levels: { level: number; maneuversKnown: number; maneuversReadied: number; stancesKnown: number; highestManeuverLevel: number; maneuverSwap: boolean }[]
+  highestManeuverLevelByInitiatorLevel: { minInitiatorLevel: number; maxInitiatorLevel: number; maneuverLevel: number }[]
+  initiatorLevel: I18n
+  source: Source
+  sourceInitiatorTable: Source
+}

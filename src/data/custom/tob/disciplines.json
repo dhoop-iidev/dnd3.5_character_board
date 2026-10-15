@@ -1,0 +1,119 @@
+[
+  {
+    "id": "diamond-mind",
+    "name": {
+      "en": "Diamond Mind",
+      "fr": "Esprit de diamant"
+    },
+    "keySkill": "concentration",
+    "associatedWeapons": [
+      "rapier",
+      "shortspear",
+      "bastard-sword",
+      "trident"
+    ],
+    "summary": {
+      "en": "Speed of thought: acting faster than foes can react, and treating the mind as the real battlefield. Key skill Concentration. Weapons: rapier, shortspear, bastard sword (katana), trident.",
+      "fr": "Vitesse de la pensée : agir plus vite que l’adversaire ne peut réagir, l’esprit étant le vrai champ de bataille. Compétence clé : Concentration. Armes : rapière, épieu, épée bâtarde (katana), trident."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 41,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "iron-heart",
+    "name": {
+      "en": "Iron Heart",
+      "fr": "Cœur de fer"
+    },
+    "keySkill": "balance",
+    "associatedWeapons": [
+      "bastard-sword",
+      "dwarven-waraxe",
+      "longsword",
+      "two-bladed-sword"
+    ],
+    "summary": {
+      "en": "Absolute mastery of the blade through endless practice: displays of pure weapon skill. Key skill Balance. Weapons: bastard sword, dwarven waraxe, longsword, two-bladed sword.",
+      "fr": "Maîtrise absolue de la lame par un entraînement sans fin : démonstrations de pure virtuosité martiale. Compétence clé : Équilibre. Armes : épée bâtarde, hache de guerre naine, épée longue, double-lame."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 41,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "stone-dragon",
+    "name": {
+      "en": "Stone Dragon",
+      "fr": "Dragon de pierre"
+    },
+    "keySkill": "balance",
+    "associatedWeapons": [
+      "greatsword",
+      "greataxe",
+      "heavy-mace",
+      "unarmed-strike"
+    ],
+    "summary": {
+      "en": "Strength and endurance of the mountain: relentless, overwhelming force. Key skill Balance. Weapons: greatsword, greataxe, heavy mace, unarmed strike.",
+      "fr": "Force et endurance de la montagne : une puissance méthodique et implacable. Compétence clé : Équilibre. Armes : épée à deux mains, grande hache, masse d’armes lourde, attaque à mains nues."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 42,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "tiger-claw",
+    "name": {
+      "en": "Tiger Claw",
+      "fr": "Griffe du tigre"
+    },
+    "keySkill": "jump",
+    "associatedWeapons": [
+      "kukri",
+      "kama",
+      "handaxe",
+      "greataxe",
+      "unarmed-strike"
+    ],
+    "summary": {
+      "en": "Instinct over thought: leaps, pounces and savage strikes in the manner of beasts. Key skill Jump. Weapons: kukri, kama, claw (natural weapon, not in our weapon list), handaxe, greataxe, unarmed strike.",
+      "fr": "L’instinct plutôt que la réflexion : bonds, sauts et frappes sauvages à la manière des bêtes. Compétence clé : Saut. Armes : kukri, kama, griffe (arme naturelle, absente de notre liste d’armes), hachette, grande hache, attaque à mains nues."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 42,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "white-raven",
+    "name": {
+      "en": "White Raven",
+      "fr": "Corbeau blanc"
+    },
+    "keySkill": "diplomacy",
+    "associatedWeapons": [
+      "longsword",
+      "battleaxe",
+      "warhammer",
+      "greatsword",
+      "halberd"
+    ],
+    "summary": {
+      "en": "Leadership and teamwork: battle cries and tactics that let allies fight as one. Key skill Diplomacy. Weapons: longsword, battleaxe, warhammer, greatsword, halberd.",
+      "fr": "Commandement et travail d’équipe : cris de guerre et tactiques qui font combattre les alliés comme un seul homme. Compétence clé : Diplomatie. Armes : épée longue, hache d’armes, marteau de guerre, épée à deux mains, hallebarde."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 42,
+      "frRef": "traduction maison"
+    }
+  }
+]

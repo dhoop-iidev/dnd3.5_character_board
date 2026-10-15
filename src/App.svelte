@@ -4,17 +4,19 @@
   import { levelForXp } from './engine/progression'
   import { app, leaveShared, tr, view } from './state.svelte'
   import Combat from './ui/panes/Combat.svelte'
+  import Maneuvers from './ui/panes/Maneuvers.svelte'
   import Equipment from './ui/panes/Equipment.svelte'
   import General from './ui/panes/General.svelte'
   import Notes from './ui/panes/Notes.svelte'
   import SaveControls from './ui/SaveControls.svelte'
   import Popup from './ui/Popup.svelte'
 
-  type Tab = 'general' | 'equipment' | 'combat' | 'notes'
+  type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'notes'
   const TABS: { id: Tab; label: typeof UI.tabGeneral }[] = [
     { id: 'general', label: UI.tabGeneral },
     { id: 'equipment', label: UI.tabEquipment },
     { id: 'combat', label: UI.tabCombat },
+    { id: 'maneuvers', label: { en: 'Maneuvers', fr: 'Manœuvres' } },
     { id: 'notes', label: UI.tabNotes },
   ]
 
@@ -58,8 +60,12 @@
 
   // Badge: only choices the player has to make (pending level-up included), not informative warnings.
   const errors = $derived(
-    view.warnings.filter((w) => w.actionable).length + (levelForXp(app.character.xp) > app.character.levels.length ? 1 : 0),
+    view.warnings.filter((w) => w.actionable && w.area !== 'maneuvers').length +
+      (levelForXp(app.character.xp) > app.character.levels.length ? 1 : 0),
   )
+  const maneuverErrors = $derived(view.warnings.filter((w) => w.actionable && w.area === 'maneuvers').length)
+  // The Maneuvers tab only exists once the character has a warblade level.
+  const tabs = $derived(TABS.filter((t) => t.id !== 'maneuvers' || view.sheet.martial.caps))
 </script>
 
 <svelte:window onhashchange={() => (tab = fromHash())} />
@@ -99,9 +105,10 @@
 </header>
 
 <nav class="tabs">
-  {#each TABS as t (t.id)}
+  {#each tabs as t (t.id)}
     <button class:active={tab === t.id} onclick={() => (tab = t.id)}>
       {tr(t.label)}
+      {#if t.id === 'maneuvers' && maneuverErrors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{maneuverErrors}</span>{/if}
       {#if t.id === 'general' && errors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{errors}</span>{/if}
     </button>
   {/each}
@@ -114,6 +121,8 @@
     <Equipment />
   {:else if tab === 'combat'}
     <Combat />
+  {:else if tab === 'maneuvers'}
+    <Maneuvers />
   {:else}
     <Notes />
   {/if}

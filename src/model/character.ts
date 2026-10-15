@@ -1,6 +1,6 @@
 import type { AbilityId, I18n, Lang, ModifierSpec, Slot } from '../data/types'
 
-export const SCHEMA_VERSION = 3
+export const SCHEMA_VERSION = 4
 
 /** Feat slot that granted the feat (docs/rules/advancement.md, house rule #3 for 'deity'). */
 export type FeatSlot = 'general' | 'human' | 'fighter' | 'deity'
@@ -19,6 +19,29 @@ export interface LevelEntry {
   skillRanks: Record<string, number>
   feats: FeatPick[]
   abilityIncrease?: AbilityId
+  /** Tome of Battle: maneuvers and stances learned at this level (ids). */
+  maneuversLearned?: string[]
+  /** Warblade 4th, 6th, 8th… level: one known maneuver (not a stance) exchanged for another (ToB p. 21). */
+  maneuverSwap?: { from: string; to: string }
+}
+
+/** A maneuver initiated during combat whose effect is still running. */
+export interface ActiveManeuver {
+  id: string
+  /** endOfTurn: boosts and strikes (cleared by "end of turn"); round: until your next turn; encounter. */
+  until: 'endOfTurn' | 'round' | 'encounter'
+}
+
+/** Tome of Battle state of a martial adept (warblade). */
+export interface MartialState {
+  /** Readied maneuvers (stances are never readied: all known stances are available). */
+  readied: string[]
+  /** Readied maneuvers already used this encounter. */
+  expended: string[]
+  /** Current stance (one at a time until stance mastery at warblade 20). */
+  stance?: string
+  /** Maneuvers whose effect is running (applied to the sheet until cleared). */
+  active: ActiveManeuver[]
 }
 
 export type ItemKind = 'weapon' | 'armor' | 'gear' | 'magic' | 'custom'
@@ -136,5 +159,7 @@ export interface Character {
   /** Coat of arms and face drawing, as resized data URLs (exported with the character). */
   /** doll: paper-doll picture (undefined = built-in knight illustration, null = removed). */
   images: { coatOfArms?: string; face?: string; doll?: string | null }
+  /** Tome of Battle: readied/expended maneuvers, stance, active effects. */
+  martial: MartialState
   settings: { lang: Lang }
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import fenrirJson from '../../data/characters/fenrir.json'
+import fenrirJson from '../../data/characters/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { decodeShare, encodeShare } from '../../model/share'
 
@@ -17,7 +17,7 @@ describe('DM share link', () => {
     expect(data).toMatch(/^[A-Za-z0-9_-]+$/)
     expect(data.length).toBeLessThan(6000)
     const back = await decodeShare(data)
-    expect(back.identity.name).toBe('Fenrir Ykiyuk')
+    expect(back.identity.name).toBe('Chikibidouille')
     expect(back.levels).toEqual(fenrir.levels)
     expect(back.images).toEqual({})
     expect(back.notes).toEqual([])

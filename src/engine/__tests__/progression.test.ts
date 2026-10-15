@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import fenrirJson from '../../data/characters/fenrir.json'
+import fenrirJson from '../../data/characters/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { migrate } from '../../model/migrate'
 import { classOptions, featOptions, featSlotsAt, levelForXp, skillBudget, xpForLevel } from '../progression'
@@ -26,13 +26,14 @@ describe('skill budget', () => {
   it('level 1 fighter (Int 13, human): (2+1)×4 + 4 = 16', () => {
     expect(skillBudget(fenrir, rules, 1).available).toBe(16)
   })
-  it('level 9 Weapon Master: 2 + 1 + 1 = 4, Spot is a class skill (cost 1), Climb is not (cost 2)', () => {
+  it('level 9 Warblade: 4 + Int 1 + human 1 = 6; Climb is a warblade class skill, Spot is not', () => {
     const b = skillBudget(fenrir, rules, 9)
-    expect(b.available).toBe(4)
-    expect(b.costPerRank('spot')).toBe(1)
-    expect(b.costPerRank('climb')).toBe(2)
-    expect(b.maxRanks('climb')).toBe(12) // class skill of the fighter: level + 3
-    expect(b.maxRanks('diplomacy')).toBe(6) // cross-class for both: (9 + 3) / 2
+    expect(b.available).toBe(6)
+    expect(b.costPerRank('climb')).toBe(1)
+    expect(b.costPerRank('spot')).toBe(2)
+    expect(b.costPerRank('knowledge-monsters')).toBe(1) // house rule #4
+    expect(b.maxRanks('diplomacy')).toBe(12) // warblade class skill: level + 3
+    expect(b.maxRanks('heal')).toBe(6) // cross-class for all: (9 + 3) / 2
   })
 })
 
@@ -75,7 +76,7 @@ describe('save migration', () => {
     const v1 = { ...clone(), schemaVersion: 1 } as Partial<Character>
     delete v1.xp
     const c = migrate(v1)
-    expect(c.schemaVersion).toBe(3)
+    expect(c.schemaVersion).toBe(4)
     expect(c.xp).toBe(36000)
   })
 })

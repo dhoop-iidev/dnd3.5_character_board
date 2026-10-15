@@ -1,4 +1,11 @@
 {
-  "fighter": ["knowledge-monsters"],
-  "weapon-master": ["knowledge-monsters"]
+  "fighter": [
+    "knowledge-monsters"
+  ],
+  "weapon-master": [
+    "knowledge-monsters"
+  ],
+  "warblade": [
+    "knowledge-monsters"
+  ]
 }

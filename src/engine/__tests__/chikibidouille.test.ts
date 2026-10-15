@@ -1,7 +1,7 @@
-// Reference values for Fenrir, checked by hand against docs/rules (see the plan's verification table).
+// Reference values for Chikibidouille (formerly Fenrir), checked by hand against docs/rules (see the plan's verification table).
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import fenrirJson from '../../data/characters/fenrir.json'
+import fenrirJson from '../../data/characters/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { compute } from '../compute'
 import { validate } from '../validate'
@@ -10,7 +10,7 @@ const fenrir = fenrirJson as unknown as Character
 const at8 = compute(fenrir, rules, { level: 8 })
 const skill = (sheet: ReturnType<typeof compute>, key: string) => sheet.skills.find((s) => s.key === key)!.total.total
 
-describe('Fenrir, level 8 (Fighter 6 / Weapon Master 2)', () => {
+describe('Chikibidouille, level 8 (Fighter 6 / Weapon Master 2)', () => {
   it('abilities: Str 18, Con 18 (16 + amulet +2)', () => {
     expect(at8.abilities.str.score.total).toBe(18)
     expect(at8.abilities.con.score.total).toBe(18)
@@ -61,7 +61,7 @@ describe('Fenrir, level 8 (Fighter 6 / Weapon Master 2)', () => {
   it('attacks of opportunity: 1 + Dex 3 = 4 (Combat Reflexes)', () => expect(at8.attacksOfOpportunity.total).toBe(4))
 })
 
-describe('Fenrir, tank mode (heavy steel shield + short sword)', () => {
+describe('Chikibidouille, tank mode (heavy steel shield + short sword)', () => {
   const tank = compute({ ...fenrir, activeLoadout: 'tank' }, rules, { level: 8 })
   it('AC 23, Climb +1, Jump −7', () => {
     expect(tank.ac.total).toBe(23)
@@ -76,11 +76,35 @@ describe('Fenrir, tank mode (heavy steel shield + short sword)', () => {
   })
 })
 
-describe('Fenrir, level 9 (Weapon Master 3)', () => {
+describe('Chikibidouille, level 9 (Fighter 6 / Weapon Master 2 / Warblade 1)', () => {
   const at9 = compute(fenrir, rules)
-  it('HP 126, BAB +9/+4, Fort +10', () => {
-    expect(at9.hpMax.total).toBe(126)
+  it('HP 128 (d12 max at warblade 1), BAB +9/+4', () => {
+    expect(at9.hpMax.total).toBe(128)
     expect(at9.iterativeBab).toEqual([9, 4])
+  })
+  it('saves: Fort +11, Ref +9 (battle clarity +1 insight), Will +1', () => {
+    expect(at9.saves.fort.total).toBe(11)
+    expect(at9.saves.ref.total).toBe(9)
+    expect(at9.saves.will.total).toBe(1)
+  })
+  it('battle clarity is lost when flat-footed', () => {
+    const ff = compute({ ...fenrir, toggles: { ...fenrir.toggles, situational: { flatFooted: true } } }, rules)
+    expect(ff.saves.ref.total).toBe(8)
+  })
+  it('greatsword +16/+11 (no Superior Weapon Focus: Weapon Master stays at 2)', () => {
+    expect(at9.attacks.find((a) => a.itemUid === 'greatsword')!.iterative).toEqual([16, 11])
+  })
+  it('initiator level 5 = warblade 1 + ½ × 8 → 3rd-level maneuvers; 3 known, 3 readied, 1 stance', () => {
+    expect(at9.martial.caps).toMatchObject({ classLevel: 1, initiatorLevel: 5, maxManeuverLevel: 3, maneuversKnown: 3, maneuversReadied: 3, stancesKnown: 1 })
+  })
+})
+
+describe('Weapon Master 3 variant (level 9 = Weapon Master 3)', () => {
+  const wm3 = structuredClone(fenrir)
+  wm3.levels[8].classId = 'weapon-master'
+  const at9 = compute(wm3, rules)
+  it('HP 126, Fort +10', () => {
+    expect(at9.hpMax.total).toBe(126)
     expect(at9.saves.fort.total).toBe(10)
   })
   it('Superior Weapon Focus: greatsword +17/+12', () => {

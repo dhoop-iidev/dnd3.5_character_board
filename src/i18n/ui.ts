@@ -58,7 +58,7 @@ export const UI = {
   slot: {
     general: L('general', 'général'),
     human: L('human', 'humain'),
-    fighter: L('fighter bonus', 'bonus de guerrier'),
+    fighter: L('class bonus', 'bonus de classe'),
     deity: L('deity (Scorpio)', 'dieu (Scorpio)'),
   },
   prerequisites: L('Prerequisites', 'Conditions'),
