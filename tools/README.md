@@ -25,7 +25,9 @@ lb / 2, and notes about modelling choices. It also copies `sources/OGL.txt` to `
 | `src/data/srd/skills.json` | 3.5 SRD skills (psionic ones excluded). Craft, Perform, Profession: one entry with `hasSubtypes: true`. Knowledge: one entry per field (`knowledge-arcana`…). |
 | `src/data/srd/synergies.json` | SRD Table: Skill Synergies (5 ranks → +2), conditional ones with `condition`. |
 | `src/data/srd/feats.json` | The 110 core SRD feats (no monster, epic, psionic or divine feats). Parsed `prereq`, `fighterBonus`, always-on `modifiers`. |
-| `src/data/srd/classes.json` | Fighter, table 1–20, bonus-feat levels and list. |
+| `src/data/srd/classes.json` | The 11 core classes (`build_classes.py`): tables 1–20 (BAB, saves, Special column EN/FR, `spellsPerDay` / `spellsKnown` with 10 slots, `null` = —), class skills, proficiencies, `spellcasting`, `features` (one entry per feature per level gained or improved, SRD paragraph EN + DRS 03 paragraph FR, d20srd anchor), `choices` (ranger favored enemies and combat styles, rogue special abilities, wizard schools). The fighter's fields are unchanged (tests); it only gains `features`. Only the ranger features the engine computes carry `computed: true`. |
+| `src/data/srd/races.json` | The 7 SRD races (`build_races.py`): numbers and modifiers by hand from the SRD bullets (situational ones with `condition`; Small-size modifiers are left to the engine), trait and race texts = the EN SRD (03_Races) and DRS 02 bullets. |
+| `src/data/srd/spells.json` | Every spell of the ranger list (`build_spells.py`), with its level on each core list (bard, cleric, druid, paladin, ranger, sorcerer-wizard). French entry from DRS 22a–d matched by (core levels, school, subschool), ties in `HAND_FR`; summaries from DRS 21; entries that say "semblable à X" inherit X's header lines; misprints fixed in `FR_ERRATA`. |
 | `src/data/srd/weapons.json` | SRD weapons (shield bash / armor spikes rows excluded). |
 | `src/data/srd/armor.json` | Armors and shields. |
 | `src/data/srd/gear.json` | Goods and services that are items, **plus ammunition** (arrows, bolts, sling bullets: they have no damage of their own) and armor add-ons (spikes, locked gauntlet). |
@@ -54,13 +56,16 @@ To correct one: edit `fr_guess`, set `status` to `ok`, and rebuild. Rows with `o
 
 | Module | Role |
 |---|---|
-| `build_data.py` | Entry point; skills, synergies, feats, classes |
+| `build_data.py` | Entry point; skills, synergies, feats, fighter |
+| `build_classes.py` | classes.json: catalog `CLASSES` (per class: proficiencies, spellcasting, features with their EN/FR paragraph starts, d20srd anchor and the regexes that pair the EN/FR Special-column items). Asserts that every Special item is paired, that the DRS tables give the same spells per day as the database, and that every favored-enemy French name is in DRS 03b. |
+| `build_races.py` | races.json (hand data + SRD/DRS 02 bullets, checked: speed, darkvision, weapon ids, skill ids) |
+| `build_spells.py` | spells.json (ranger list, levels 1–4) |
 | `build_equipment.py` | weapons, armor, gear |
 | `build_magic.py` | magic items, carrying capacity |
 | `build_properties.py` | item-properties.json (special abilities; French headings from DRS 24/25, a few French SRD errors corrected in `FR_ERRATA`) |
 | `rtf_fr.py` | Minimal RTF reader for the DRS files (paragraphs, bold runs, table rows). `python tools/rtf_fr.py "DRS 05"` dumps a file. |
 | `glossary_fr.py` | EN → FR glossary from the DD-3e PDF (decodes the PDF text itself; cached in `tools/.cache/`) |
-| `srd_urls.py` | d20srd.org URLs. Anchors are checked against `d20srd_anchors.json`; refresh it with `python tools/srd_urls.py --refresh` (needs internet) |
+| `srd_urls.py` | d20srd.org URLs (class pages, races.htm and spellDescriptions are in `PAGES`; spell pages are `spells/<camelCase>.htm`, checked once online). Anchors are checked against `d20srd_anchors.json`; refresh it with `python tools/srd_urls.py --refresh` (needs internet) |
 | `fr_match.py`, `ctx.py`, `common.py` | French-name registry + overrides CSV, shared state, helpers |
 | `validate_data.py` | Checks the JSON against `types.ts` and the spot values (greatsword, full plate, fighter 6, …) |
 

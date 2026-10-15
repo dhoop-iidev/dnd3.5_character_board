@@ -138,6 +138,47 @@ export interface ClassLevelRow {
   ref: number
   will: number
   special: I18n[]
+  /** Spells per day by spell level (index 0 = level 0); null = none at that level, 0 = only bonus spells. */
+  spellsPerDay?: (number | null)[]
+  /** Spontaneous casters (bard, sorcerer): spells known by spell level. */
+  spellsKnown?: (number | null)[]
+}
+
+/** A class feature gained at a class level. Mechanics the engine applies are in `modifiers` / `grantsFeats`. */
+export interface ClassFeatureDef {
+  id: string
+  /** Class level at which it is gained. */
+  level: number
+  name: I18n
+  /** Short summary in our own words (SRD is OGL: SRD wording is allowed too). */
+  text: I18n
+  source: Source
+  /** Always-on modifiers (situational ones carry a `condition`). */
+  modifiers?: ModifierSpec[]
+  /** Feats granted for free (ids), e.g. ranger Track (1st), Endurance (3rd). */
+  grantsFeats?: string[]
+  /** true when the engine computes it; false/absent = described only (shown as text). */
+  computed?: boolean
+}
+
+/** Spellcasting of a class (https://www.d20srd.org/srd/magicOverview/castingSpells.htm). */
+export interface SpellcastingDef {
+  ability: AbilityId
+  kind: 'arcane' | 'divine'
+  /** prepared (cleric, druid, paladin, ranger, wizard) or spontaneous (bard, sorcerer). */
+  style: 'prepared' | 'spontaneous'
+  /** Spell list id used in SpellDef.level (e.g. "ranger", "sorcerer-wizard"). */
+  list: string
+  /** Caster level: full class level, or half (paladin, ranger: ½ class level from 4th). */
+  casterLevel: 'full' | 'half'
+  /** Highest spell level of the class (ranger 4). */
+  maxSpellLevel: number
+}
+
+/** Ranger favored enemy types and similar choice lists. */
+export interface ChoiceOption {
+  id: string
+  name: I18n
 }
 
 export interface ClassDef {
@@ -153,6 +194,65 @@ export interface ClassDef {
   bonusFeatLevels?: number[]
   bonusFeatList?: string[]
   requirements?: Prereq
+  /** Class features by level (generic class model; mechanics flagged with `computed`). */
+  features?: ClassFeatureDef[]
+  spellcasting?: SpellcastingDef
+  /** Choice lists used by features (e.g. ranger "favoredEnemy" creature types, "combatStyle"). */
+  choices?: Record<string, ChoiceOption[]>
+  text: I18n
+  source: Source
+}
+
+/** A playable race (https://www.d20srd.org/srd/races.htm). */
+export interface RaceDef {
+  id: string
+  name: I18n
+  size: 'small' | 'medium'
+  /** Base land speed in feet. */
+  speed: number
+  /** Dwarf: speed not reduced by medium/heavy armor or load. */
+  speedNotReducedByArmor?: boolean
+  abilityAdjustments: Partial<Record<AbilityId, number>>
+  /** Human: 1 extra feat at 1st level. */
+  bonusFeat?: boolean
+  /** Human: extra skill points per level (×4 at 1st level). */
+  extraSkillPoints?: number
+  /** Class id, or "any" (human, half-elf: highest class). */
+  favoredClass: string
+  vision: 'normal' | 'lowLight' | 'darkvision'
+  /** Darkvision range in feet. */
+  darkvision?: number
+  automaticLanguages: I18n[]
+  bonusLanguages: I18n[]
+  /** Racial bonuses the engine applies (situational ones carry a `condition`). */
+  modifiers: ModifierSpec[]
+  /** Weapons the race is proficient with for free (elf: longsword, rapier, bows). */
+  weaponProficiencies?: string[]
+  /** Exotic weapons treated as martial (weapon familiarity: dwarven waraxe, gnome hooked hammer…). */
+  weaponFamiliarity?: string[]
+  /** Other traits, described. */
+  traits: { name: I18n; text: I18n }[]
+  text: I18n
+  source: Source
+}
+
+/** A spell (SRD, OGL). */
+export interface SpellDef {
+  id: string
+  name: I18n
+  school: I18n
+  /** Spell level per spell list id, e.g. { "ranger": 1, "druid": 1 }. */
+  level: Record<string, number>
+  components: string
+  castingTime: I18n
+  range: I18n
+  target?: I18n
+  area?: I18n
+  effect?: I18n
+  duration: I18n
+  save: I18n
+  spellResistance: I18n
+  summary: I18n
   text: I18n
   source: Source
 }

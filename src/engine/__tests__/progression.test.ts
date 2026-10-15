@@ -39,7 +39,7 @@ describe('skill budget', () => {
 
 describe('feat slots and options', () => {
   it('level 9: one general feat, no fighter bonus feat (Weapon Master level)', () => {
-    expect(featSlotsAt(fenrir, rules, 9)).toEqual({ general: 1, human: 0, fighter: 0 })
+    expect(featSlotsAt(fenrir, rules, 9)).toEqual({ general: 1, race: 0, class: 0 })
   })
   it('options exclude feats already owned and flag unmet prerequisites', () => {
     const opts = featOptions(fenrir, rules, 9, 'general')
@@ -50,7 +50,7 @@ describe('feat slots and options', () => {
     expect(gwf.unmet.some((u) => u.includes('Fighter level 8'))).toBe(true)
   })
   it('fighter slot only offers fighter bonus feats', () => {
-    expect(featOptions(fenrir, rules, 2, 'fighter').every((o) => o.def.fighterBonus)).toBe(true)
+    expect(featOptions(fenrir, rules, 2, 'class').every((o) => o.def.fighterBonus)).toBe(true)
   })
 })
 
@@ -59,15 +59,15 @@ describe('level up', () => {
     const c = clone()
     expect(classOptions(c, rules).find((o) => o.id === 'weapon-master')!.unmet).toEqual([])
     c.levels.push({ classId: 'weapon-master', skillRanks: {}, feats: [] })
-    expect(featSlotsAt(c, rules, 10)).toEqual({ general: 0, human: 0, fighter: 0 })
+    expect(featSlotsAt(c, rules, 10)).toEqual({ general: 0, race: 0, class: 0 })
     expect(skillBudget(c, rules, 10).available).toBe(4)
   })
   it('fighter 7 would grant no bonus feat; fighter 8 would', () => {
     const c = clone()
     c.levels.push({ classId: 'fighter', skillRanks: {}, feats: [] })
-    expect(featSlotsAt(c, rules, 10).fighter).toBe(0) // fighter level 7
+    expect(featSlotsAt(c, rules, 10).class).toBe(0) // fighter level 7
     c.levels.push({ classId: 'fighter', skillRanks: {}, feats: [] })
-    expect(featSlotsAt(c, rules, 11).fighter).toBe(1) // fighter level 8
+    expect(featSlotsAt(c, rules, 11).class).toBe(1) // fighter level 8
   })
 })
 
@@ -76,7 +76,7 @@ describe('save migration', () => {
     const v1 = { ...clone(), schemaVersion: 1 } as Partial<Character>
     delete v1.xp
     const c = migrate(v1)
-    expect(c.schemaVersion).toBe(5)
+    expect(c.schemaVersion).toBe(6)
     expect(c.xp).toBe(36000)
   })
 })

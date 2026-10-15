@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 6,
   "identity": {
     "name": "Chikibidouille",
     "player": "Gaspard",
@@ -55,11 +55,11 @@
         },
         {
           "featId": "combat-expertise",
-          "slot": "human"
+          "slot": "race"
         },
         {
           "featId": "power-attack",
-          "slot": "fighter"
+          "slot": "class"
         },
         {
           "featId": "weapon-focus",
@@ -78,7 +78,7 @@
       "feats": [
         {
           "featId": "mobility",
-          "slot": "fighter"
+          "slot": "class"
         }
       ]
     },
@@ -106,7 +106,7 @@
       "feats": [
         {
           "featId": "spring-attack",
-          "slot": "fighter"
+          "slot": "class"
         }
       ],
       "abilityIncrease": "str"
@@ -128,7 +128,7 @@
         },
         {
           "featId": "combat-reflexes",
-          "slot": "fighter"
+          "slot": "class"
         }
       ]
     },

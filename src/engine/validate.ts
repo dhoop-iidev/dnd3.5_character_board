@@ -6,6 +6,8 @@ import { compute } from './compute'
 import { unmetPrereqs } from './prereq'
 import { featSlotsAt, isAbilityIncreaseLevel, skillBudget } from './progression'
 import { knownManeuvers, learnBlockers, martialCaps } from './martial'
+import { choicesAt } from './classChoices'
+import { raceOf } from './race'
 
 export { unmetPrereqs }
 
@@ -114,11 +116,12 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
 
     // Feat slots (docs/rules/feats.md; house rule #3 for the deity feat).
     const expected = featSlotsAt(perm, rules, L)
-    for (const slot of ['general', 'human', 'fighter'] as const) {
+    for (const slot of ['general', 'race', 'class'] as const) {
       const n = lvl.feats.filter((f) => f.slot === slot).length
+      const label = { general: ['general', 'général'], race: ['racial bonus', 'racial'], class: ['class bonus', 'supplémentaire de classe'] }[slot]
       if (n < expected[slot])
         out.push(w(`feat-missing-${slot}-${L}`, 'warning', 'feats',
-          `Level ${L}: ${slot} feat not chosen yet`, `Niveau ${L} : don ${slot === 'general' ? 'général' : slot === 'human' ? "d'humain" : 'de guerrier'} pas encore choisi`,
+          `Level ${L}: ${label[0]} feat not chosen yet`, `Niveau ${L} : don ${label[1]} pas encore choisi`,
           { level: L, srdUrl: `${SRD}feats.htm` }))
       if (n > expected[slot])
         out.push(w(`feat-extra-${slot}-${L}`, 'error', 'feats',
@@ -135,10 +138,10 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
         continue
       }
       const bonusList = cls.bonusFeatList
-      if (pick.slot === 'fighter' && !(cls.id === 'fighter' ? def.fighterBonus : bonusList?.includes(def.id)))
-        out.push(w(`feat-not-fighter-${pick.featId}`, 'error', 'feats',
-          `Level ${L}: ${def.name.en} is not a fighter bonus feat`, `Niveau ${L} : ${def.name.fr} n'est pas un don supplémentaire de guerrier`,
-          { level: L, srdUrl: `${SRD}classes/fighter.htm` }))
+      if (pick.slot === 'class' && !(cls.id === 'fighter' ? def.fighterBonus : bonusList?.includes(def.id)))
+        out.push(w(`feat-not-class-${pick.featId}`, 'error', 'feats',
+          `Level ${L}: ${def.name.en} is not a ${cls.name.en} bonus feat`, `Niveau ${L} : ${def.name.fr} n'est pas un don supplémentaire de ${cls.name.fr}`,
+          { level: L, srdUrl: cls.source.srdUrl ?? `${SRD}classes/fighter.htm` }))
       const unmet = unmetPrereqs(def.prereq, after, rules, feats, pick.choice)
       if (unmet.length)
         out.push(w(`prereq-${pick.featId}-${L}`, 'error', 'feats',
@@ -227,11 +230,42 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       out.push(w('stance-unknown', 'error', 'maneuvers', 'Current stance is not a known stance', 'La posture active n’est pas une posture connue', { book: TOB }))
   }
 
+  // ---- class-feature choices (ranger favored enemy, combat style)
+  char.levels.forEach((lvl, i) => {
+    const L = i + 1
+    for (const ch of choicesAt(char, rules, L)) {
+      const v = lvl.classChoices?.[ch.key]
+      if (!v)
+        out.push(w(`choice-missing-${ch.key}-${L}`, 'warning', 'levels', `Level ${L}: ${ch.label.en} not chosen yet`, `Niveau ${L} : ${ch.label.fr} pas encore choisi`, { level: L, srdUrl: ch.srdUrl }))
+      else if (!ch.options.some((o) => o.id === v))
+        out.push(w(`choice-invalid-${ch.key}-${L}`, 'error', 'levels', `Level ${L}: ${ch.label.en} "${v}" is not allowed here`, `Niveau ${L} : ${ch.label.fr} « ${v} » n'est pas permis ici`, { level: L, srdUrl: ch.srdUrl }))
+    }
+  })
+
+  // ---- multiclass XP penalty (https://www.d20srd.org/srd/xp.htm#multiclassCharactersAndExperiencePoints): −20% for
+  // each base class more than one level apart from the highest, ignoring the favored class and prestige classes.
+  {
+    const favored = raceOf(char, rules).favoredClass
+    const base = Object.entries(classCount).filter(([id]) => !rules.classes.get(id)?.prestige)
+    const highest = base.reduce<[string, number] | undefined>((a, b) => (!a || b[1] > a[1] ? b : a), undefined)
+    const counted = base.filter(([id]) => id !== (favored === 'any' ? highest?.[0] : favored))
+    const top = Math.max(0, ...counted.map(([, n]) => n))
+    const behind = counted.filter(([, n]) => top - n > 1)
+    if (behind.length)
+      out.push(w('multiclass-xp-penalty', 'info', 'levels',
+        `Multiclass XP penalty: −${20 * behind.length}% (classes more than one level apart)`,
+        `Pénalité d'XP de multiclassage : −${20 * behind.length} % (classes à plus d'un niveau d'écart)`,
+        { srdUrl: `${SRD}xp.htm` }))
+  }
+
   if (deityFeats > 1)
     out.push(w('deity-feats', 'error', 'feats', `Only one deity bonus feat (house rule #3), found ${deityFeats}`, `Un seul don accordé par le dieu (règle maison n°3), trouvé ${deityFeats}`))
 
   // Current state checks (with temporary effects).
   const now = compute(char, rules)
+  // Ranger combat style works only in light or no armor (https://www.d20srd.org/srd/classes/ranger.htm#combatStyle).
+  if (now.combatStyle && !now.combatStyle.active)
+    out.push(w('combat-style-inactive', 'warning', 'combat', `${now.combatStyle.name.en} combat style unusable: medium or heavy armor worn`, `Style de combat (${now.combatStyle.name.fr}) inutilisable : armure intermédiaire ou lourde portée`, { srdUrl: `${SRD}classes/ranger.htm#combatStyle` }))
   const loseFeat = (id: string, why: I18n) => {
     const def = rules.feats.get(id)
     out.push(w(`unusable-${id}`, 'warning', 'feats', `${def?.name.en ?? id} can't be used: ${why.en}`, `${def?.name.fr ?? id} inutilisable : ${why.fr}`, { srdUrl: def?.source.srdUrl }))
@@ -308,7 +342,7 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
 
   // Build choices the player must make or fix; situational warnings (unusable feat, load, max Dex, slots,
   // suspended class features) are informative only.
-  const INFORMATIVE = /^(unusable-|weapon-master-lost|load$|max-dex$|slot-|armor-prof-|weapon-prof-)/
+  const INFORMATIVE = /^(unusable-|weapon-master-lost|multiclass-xp-penalty|load$|max-dex$|slot-|armor-prof-|weapon-prof-)/
   for (const x of out) x.actionable = ['skills', 'feats', 'abilities', 'levels', 'maneuvers'].includes(x.area) && !INFORMATIVE.test(x.id)
   return out
 }

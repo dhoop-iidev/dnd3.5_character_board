@@ -1,0 +1,795 @@
+[
+  {
+    "id": "dwarf",
+    "name": {
+      "en": "Dwarf",
+      "fr": "Nain"
+    },
+    "size": "medium",
+    "speed": 20,
+    "speedNotReducedByArmor": true,
+    "abilityAdjustments": {
+      "con": 2,
+      "cha": -2
+    },
+    "favoredClass": "fighter",
+    "vision": "darkvision",
+    "darkvision": 60,
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      },
+      {
+        "en": "Dwarven",
+        "fr": "Nain"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Giant",
+        "fr": "Géant"
+      },
+      {
+        "en": "Gnome",
+        "fr": "Gnome"
+      },
+      {
+        "en": "Goblin",
+        "fr": "Gobelin"
+      },
+      {
+        "en": "Orc",
+        "fr": "Orque"
+      },
+      {
+        "en": "Terran",
+        "fr": "Terreux"
+      },
+      {
+        "en": "Undercommon",
+        "fr": "Commun des Profondeurs"
+      }
+    ],
+    "modifiers": [
+      {
+        "target": "skill.search",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "to notice unusual stonework (stonecunning)",
+          "fr": "pour remarquer une maçonnerie inhabituelle (connaissance de la pierre)"
+        }
+      },
+      {
+        "target": "check.str",
+        "bonusType": "untyped",
+        "value": 4,
+        "condition": {
+          "en": "to resist being bull rushed or tripped while standing on the ground (stability)",
+          "fr": "pour résister à une bousculade ou un croc-en-jambe, debout sur le sol (stabilité)"
+        }
+      },
+      {
+        "target": "check.dex",
+        "bonusType": "untyped",
+        "value": 4,
+        "condition": {
+          "en": "to resist being bull rushed or tripped while standing on the ground (stability)",
+          "fr": "pour résister à une bousculade ou un croc-en-jambe, debout sur le sol (stabilité)"
+        }
+      },
+      {
+        "target": "save.all",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "vs poison",
+          "fr": "contre le poison"
+        }
+      },
+      {
+        "target": "save.all",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "vs spells and spell-like effects",
+          "fr": "contre les sorts et pouvoirs magiques"
+        }
+      },
+      {
+        "target": "attack.all",
+        "bonusType": "racial",
+        "value": 1,
+        "condition": {
+          "en": "vs orcs and goblinoids",
+          "fr": "contre les orques et les gobelinoïdes"
+        }
+      },
+      {
+        "target": "ac",
+        "bonusType": "dodge",
+        "value": 4,
+        "condition": {
+          "en": "vs monsters of the giant type (lost when denied Dex bonus to AC)",
+          "fr": "contre les créatures du type géant (perdu sans bonus de Dex à la CA)"
+        }
+      },
+      {
+        "target": "skill.appraise",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "for items related to stone or metal",
+          "fr": "pour les objets en pierre ou en métal"
+        }
+      },
+      {
+        "target": "skill.craft",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "for Craft related to stone or metal",
+          "fr": "pour l’Artisanat lié à la pierre ou aux métaux"
+        }
+      }
+    ],
+    "weaponFamiliarity": [
+      "dwarven-urgrosh",
+      "dwarven-waraxe"
+    ],
+    "traits": [
+      {
+        "name": {
+          "en": "Darkvision",
+          "fr": "Vision dans le noir"
+        },
+        "text": {
+          "en": "Darkvision: Dwarves can see in the dark up to 60 feet. Darkvision is black and white only, but it is otherwise like normal sight, and dwarves can function just fine with no light at all.",
+          "fr": "Vision dans le noir. Les nains voient à 18 mètres de distance dans le noir le plus complet. Ils perdent alors tout sens des couleurs (et voient juste en noir et blanc) mais leurs perceptions n’en souffrent pas pour autant. Ils peuvent agir normalement sans la moindre lumière."
+        }
+      },
+      {
+        "name": {
+          "en": "Stonecunning",
+          "fr": "Connaissance de la pierre"
+        },
+        "text": {
+          "en": "Stonecunning: This ability grants a dwarf a +2 racial bonus on Search checks to notice unusual stonework, such as sliding walls, stonework traps, new construction (even when built to match the old), unsafe stone surfaces, shaky stone ceilings, and the like. Something that isn’t stone but that is disguised as stone also counts as unusual stonework. A dwarf who merely comes within 10 feet of unusual stonework can make a Search check as if he were actively searching, and a dwarf can use the Search skill to find stonework traps as a rogue can. A dwarf can also intuit depth, sensing his approximate depth underground as naturally as a human can sense which way is up.",
+          "fr": "Connaissance de la pierre. Cette faculté leur confère un bonus racial de +2 à tous les tests de Fouille visant à remarquer que la roche a été travaillée de manière inhabituelle, ce qui leur permet entre autres de repérer les murs coulissants, les pièges à base de pierre, les constructions récentes (même si celles-ci ont été conçues pour se mêler à l’ancien), les planchers et plafonds dangereux, etc. Elle fonctionne également si la surface travaillée n’est pas en pierre, pour peu qu’elle en ait l’aspect. Un nain approchant à moins de 3 mètres de l’endroit travaillé a droit à un test de Fouille automatique, et il peut utiliser cette compétence comme un roublard pour détecter les pièges intégrés à la roche. Il sait également à tout instant à quelle profondeur il se trouve sous terre, de même qu’un humain distingue sans réfléchir le haut du bas."
+        }
+      },
+      {
+        "name": {
+          "en": "Stability",
+          "fr": "Stabilité"
+        },
+        "text": {
+          "en": "Stability: A dwarf gains a +4 bonus on ability checks made to resist being bull rushed or tripped when standing on the ground (but not when climbing, flying, riding, or otherwise not standing firmly on the ground).",
+          "fr": "Stabilité. Les nains sont exceptionnellement stables. Ils bénéficient d’un bonus de +4 sur les tests de caractéristique joués pour résister à une bousculade ou un croc-en-jambe, à condition d’être debout sur le sol (et pas en train de grimper, de voler ou sur une monture)."
+        }
+      },
+      {
+        "name": {
+          "en": "Speed in armor",
+          "fr": "Vitesse en armure"
+        },
+        "text": {
+          "en": "Dwarf base land speed is 20 feet. However, dwarves can move at this speed even when wearing medium or heavy armor or when carrying a medium or heavy load (unlike other creatures, whose speed is reduced in such situations).",
+          "fr": "Leur vitesse de déplacement de base au sol est de 6 mètres. De plus, ils peuvent se déplacer à cette vitesse même lorsqu’ils portent une armure intermédiaire ou lourde, ou une charge intermédiaire ou lourde (contrairement aux autres créatures, dont la vitesse est réduite dans cette situation)."
+        }
+      }
+    ],
+    "text": {
+      "en": "<p>+2 Constitution, –2 Charisma.</p><p>Medium: As Medium creatures, dwarves have no special bonuses or penalties due to their size.</p><p>Dwarf base land speed is 20 feet. However, dwarves can move at this speed even when wearing medium or heavy armor or when carrying a medium or heavy load (unlike other creatures, whose speed is reduced in such situations).</p><p>Darkvision: Dwarves can see in the dark up to 60 feet. Darkvision is black and white only, but it is otherwise like normal sight, and dwarves can function just fine with no light at all.</p><p>Stonecunning: This ability grants a dwarf a +2 racial bonus on Search checks to notice unusual stonework, such as sliding walls, stonework traps, new construction (even when built to match the old), unsafe stone surfaces, shaky stone ceilings, and the like. Something that isn’t stone but that is disguised as stone also counts as unusual stonework. A dwarf who merely comes within 10 feet of unusual stonework can make a Search check as if he were actively searching, and a dwarf can use the Search skill to find stonework traps as a rogue can. A dwarf can also intuit depth, sensing his approximate depth underground as naturally as a human can sense which way is up.</p><p>Weapon Familiarity: Dwarves may treat dwarven waraxes and dwarven urgroshes as martial weapons, rather than exotic weapons.</p><p>Stability: A dwarf gains a +4 bonus on ability checks made to resist being bull rushed or tripped when standing on the ground (but not when climbing, flying, riding, or otherwise not standing firmly on the ground).</p><p>+2 racial bonus on saving throws against poison.</p><p>+2 racial bonus on saving throws against spells and spell-like effects.</p><p>+1 racial bonus on attack rolls against orcs and goblinoids.</p><p>+4 dodge bonus to Armor Class against monsters of the giant type. Any time a creature loses its Dexterity bonus (if any) to Armor Class, such as when it’s caught flat-footed, it loses its dodge bonus, too.</p><p>+2 racial bonus on Appraise checks that are related to stone or metal items.</p><p>+2 racial bonus on Craft checks that are related to stone or metal.</p><p>Automatic Languages: Common and Dwarven. Bonus Languages: Giant, Gnome, Goblin, Orc, Terran, and Undercommon.</p><p>Favored Class: Fighter. A multiclass dwarf ’s fighter class does not count when determining whether he takes an experience point penalty for multiclassing</p>",
+      "fr": "<p>+2 en Constitution, –2 en Charisme.</p><p>Taille moyenne. En tant que créatures de taille M, les nains n’ont aucun bonus ou malus en rapport avec leur taille.</p><p>Leur vitesse de déplacement de base au sol est de 6 mètres. De plus, ils peuvent se déplacer à cette vitesse même lorsqu’ils portent une armure intermédiaire ou lourde, ou une charge intermédiaire ou lourde (contrairement aux autres créatures, dont la vitesse est réduite dans cette situation).</p><p>Vision dans le noir. Les nains voient à 18 mètres de distance dans le noir le plus complet. Ils perdent alors tout sens des couleurs (et voient juste en noir et blanc) mais leurs perceptions n’en souffrent pas pour autant. Ils peuvent agir normalement sans la moindre lumière.</p><p>Connaissance de la pierre. Cette faculté leur confère un bonus racial de +2 à tous les tests de Fouille visant à remarquer que la roche a été travaillée de manière inhabituelle, ce qui leur permet entre autres de repérer les murs coulissants, les pièges à base de pierre, les constructions récentes (même si celles-ci ont été conçues pour se mêler à l’ancien), les planchers et plafonds dangereux, etc. Elle fonctionne également si la surface travaillée n’est pas en pierre, pour peu qu’elle en ait l’aspect. Un nain approchant à moins de 3 mètres de l’endroit travaillé a droit à un test de Fouille automatique, et il peut utiliser cette compétence comme un roublard pour détecter les pièges intégrés à la roche. Il sait également à tout instant à quelle profondeur il se trouve sous terre, de même qu’un humain distingue sans réfléchir le haut du bas.</p><p>Armes familières. Les nains peuvent considérer la hache de guerre naine et l’urgrosh nain comme des armes de guerre plutôt que comme des armes exotiques.</p><p>Stabilité. Les nains sont exceptionnellement stables. Ils bénéficient d’un bonus de +4 sur les tests de caractéristique joués pour résister à une bousculade ou un croc-en-jambe, à condition d’être debout sur le sol (et pas en train de grimper, de voler ou sur une monture).</p><p>Bonus racial de +2 aux jets de sauvegarde contre le poison.</p><p>Bonus racial de +2 aux jets de sauvegarde contre tous les sorts et pouvoirs magiques.</p><p>Bonus racial de +1 aux jets d’attaque contre les orques (y compris les demi-orques) et les gobelinoïdes (gobelins, hobgobelins et gobelours).</p><p>Bonus d’esquive de +4 contre les créatures appartenant au type géant. Notez que lorsque le personnage perd son bonus de Dextérité à la CA (par exemple, quand il est pris au dépourvu), il perd également ce bonus d’esquive.</p><p>Bonus racial de +2 aux tests d’Estimation liés aux objets métalliques ou en pierre.</p><p>Bonus racial de +2 aux tests d’Artisanat liés à la pierre ou aux métaux.</p><p>Langues. D’office : commun et nain. Supplémentaires : commun des Profondeurs, géant, gnome, gobelin, orque et terreux.</p><p>Classe de prédilection. Guerrier. La classe de guerrier d’un nain multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#dwarves",
+      "frRef": "DRS 02 (races)"
+    }
+  },
+  {
+    "id": "elf",
+    "name": {
+      "en": "Elf",
+      "fr": "Elfe"
+    },
+    "size": "medium",
+    "speed": 30,
+    "abilityAdjustments": {
+      "dex": 2,
+      "con": -2
+    },
+    "favoredClass": "wizard",
+    "vision": "lowLight",
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      },
+      {
+        "en": "Elven",
+        "fr": "Elfe"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Draconic",
+        "fr": "Draconien"
+      },
+      {
+        "en": "Gnoll",
+        "fr": "Gnoll"
+      },
+      {
+        "en": "Gnome",
+        "fr": "Gnome"
+      },
+      {
+        "en": "Goblin",
+        "fr": "Gobelin"
+      },
+      {
+        "en": "Orc",
+        "fr": "Orque"
+      },
+      {
+        "en": "Sylvan",
+        "fr": "Sylvestre"
+      }
+    ],
+    "modifiers": [
+      {
+        "target": "save.all",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "vs enchantment spells or effects",
+          "fr": "contre les sorts et effets de l’école des enchantements"
+        }
+      },
+      {
+        "target": "skill.listen",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "skill.search",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "skill.spot",
+        "bonusType": "racial",
+        "value": 2
+      }
+    ],
+    "weaponProficiencies": [
+      "composite-longbow",
+      "composite-shortbow",
+      "longbow",
+      "longsword",
+      "rapier",
+      "shortbow"
+    ],
+    "traits": [
+      {
+        "name": {
+          "en": "Sleep immunity",
+          "fr": "Immunité contre le sommeil"
+        },
+        "text": {
+          "en": "Immunity to magic sleep effects, and a +2 racial saving throw bonus against enchantment spells or effects.",
+          "fr": "Immunité contre les sorts et effets magiques de type sommeil ; bonus racial de +2 aux jets de sauvegarde contre les sorts et effets magiques de l’école des enchantements."
+        }
+      },
+      {
+        "name": {
+          "en": "Low-light vision",
+          "fr": "Vision nocturne"
+        },
+        "text": {
+          "en": "Low-Light Vision: An elf can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. She retains the ability to distinguish color and detail under these conditions.",
+          "fr": "Vision nocturne. Les elfes voient deux fois plus loin que les humains dans des conditions de faible éclairage (clarté de la lune ou des étoiles, torche, etc.). Dans ces conditions, ils distinguent toujours parfaitement les couleurs et les détails."
+        }
+      },
+      {
+        "name": {
+          "en": "Secret doors",
+          "fr": "Portes secrètes"
+        },
+        "text": {
+          "en": "+2 racial bonus on Listen, Search, and Spot checks. An elf who merely passes within 5 feet of a secret or concealed door is entitled to a Search check to notice it as if she were actively looking for it.",
+          "fr": "Bonus racial de +2 aux tests de Détection, Fouille et Perception auditive. Lorsqu’ils passent à moins de 1,50 mètre d’une porte dissimulée ou d’un passage secret, ils ont droit à un test de Fouille automatique afin de voir s’ils le remarquent."
+        }
+      }
+    ],
+    "text": {
+      "en": "<p>+2 Dexterity, –2 Constitution.</p><p>Medium: As Medium creatures, elves have no special bonuses or penalties due to their size.</p><p>Elf base land speed is 30 feet.</p><p>Immunity to magic sleep effects, and a +2 racial saving throw bonus against enchantment spells or effects.</p><p>Low-Light Vision: An elf can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. She retains the ability to distinguish color and detail under these conditions.</p><p>Weapon Proficiency: Elves receive the Martial Weapon Proficiency feats for the longsword, rapier, longbow (including composite longbow), and shortbow (including composite shortbow) as bonus feats.</p><p>+2 racial bonus on Listen, Search, and Spot checks. An elf who merely passes within 5 feet of a secret or concealed door is entitled to a Search check to notice it as if she were actively looking for it.</p><p>Automatic Languages: Common and Elven. Bonus Languages: Draconic, Gnoll, Gnome, Goblin, Orc, and Sylvan.</p><p>Favored Class: Wizard. A multiclass elf ’s wizard class does not count when determining whether she takes an experience point penalty for multiclassing.</p>",
+      "fr": "<p>+2 en Dextérité, –2 en Constitution.</p><p>Taille moyenne. En tant que créatures de taille M, les elfes n’ont aucun bonus ou malus en rapport avec leur taille.</p><p>Leur vitesse de déplacement de base au sol est de 9 mètres.</p><p>Immunité contre les sorts et effets magiques de type sommeil ; bonus racial de +2 aux jets de sauvegarde contre les sorts et effets magiques de l’école des enchantements.</p><p>Vision nocturne. Les elfes voient deux fois plus loin que les humains dans des conditions de faible éclairage (clarté de la lune ou des étoiles, torche, etc.). Dans ces conditions, ils distinguent toujours parfaitement les couleurs et les détails.</p><p>Maniement des armes. Tous les elfes possèdent les dons Maniement d’une arme de guerre pour l’épée longue, la rapière, l’arc long (y compris les arcs longs composites) et l’arc court (y compris les arcs courts composites).</p><p>Bonus racial de +2 aux tests de Détection, Fouille et Perception auditive. Lorsqu’ils passent à moins de 1,50 mètre d’une porte dissimulée ou d’un passage secret, ils ont droit à un test de Fouille automatique afin de voir s’ils le remarquent.</p><p>Langues. D’office : commun et elfe. Supplémentaires : draconien, gnoll, gnome, gobelin, orque et sylvestre.</p><p>Classe de prédilection. Magicien. La classe de magicien d’un elfe multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#elves",
+      "frRef": "DRS 02 (races)"
+    }
+  },
+  {
+    "id": "gnome",
+    "name": {
+      "en": "Gnome",
+      "fr": "Gnome"
+    },
+    "size": "small",
+    "speed": 20,
+    "abilityAdjustments": {
+      "con": 2,
+      "str": -2
+    },
+    "favoredClass": "bard",
+    "vision": "lowLight",
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      },
+      {
+        "en": "Gnome",
+        "fr": "Gnome"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Draconic",
+        "fr": "Draconien"
+      },
+      {
+        "en": "Dwarven",
+        "fr": "Nain"
+      },
+      {
+        "en": "Elven",
+        "fr": "Elfe"
+      },
+      {
+        "en": "Giant",
+        "fr": "Géant"
+      },
+      {
+        "en": "Goblin",
+        "fr": "Gobelin"
+      },
+      {
+        "en": "Orc",
+        "fr": "Orque"
+      }
+    ],
+    "modifiers": [
+      {
+        "target": "save.all",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "vs illusions",
+          "fr": "contre les illusions"
+        }
+      },
+      {
+        "target": "attack.all",
+        "bonusType": "racial",
+        "value": 1,
+        "condition": {
+          "en": "vs kobolds and goblinoids",
+          "fr": "contre les kobolds et les gobelinoïdes"
+        }
+      },
+      {
+        "target": "ac",
+        "bonusType": "dodge",
+        "value": 4,
+        "condition": {
+          "en": "vs monsters of the giant type (lost when denied Dex bonus to AC)",
+          "fr": "contre les créatures du type géant (perdu sans bonus de Dex à la CA)"
+        }
+      },
+      {
+        "target": "skill.listen",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "skill.craft",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "Craft (alchemy) only",
+          "fr": "Artisanat (alchimie) seulement"
+        }
+      }
+    ],
+    "weaponFamiliarity": [
+      "gnome-hooked-hammer"
+    ],
+    "traits": [
+      {
+        "name": {
+          "en": "Low-light vision",
+          "fr": "Vision nocturne"
+        },
+        "text": {
+          "en": "Low-Light Vision: A gnome can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. He retains the ability to distinguish color and detail under these conditions.",
+          "fr": "Vision nocturne. Les gnomes voient deux fois plus loin que les humains dans des conditions de faible éclairage (clarté de la lune ou des étoiles, torche, etc.). Dans ces conditions, ils distinguent toujours parfaitement les couleurs et les détails."
+        }
+      },
+      {
+        "name": {
+          "en": "Illusion spells",
+          "fr": "Sorts d’illusion"
+        },
+        "text": {
+          "en": "Add +1 to the Difficulty Class for all saving throws against illusion spells cast by gnomes. This adjustment stacks with those from similar effects.",
+          "fr": "Bonus de +1 au DD du jet de sauvegarde contre tous les sorts de l’école des illusions lancés par un gnome. Ce bonus se cumule avec les autres bonus du même genre, comme celui d’École de prédilection."
+        }
+      },
+      {
+        "name": {
+          "en": "Speak with burrowing mammals",
+          "fr": "Communication avec les animaux fouisseurs"
+        },
+        "text": {
+          "en": "Automatic Languages: Common and Gnome. Bonus Languages: Draconic, Dwarven, Elven, Giant, Goblin, and Orc. In addition, a gnome can speak with a burrowing mammal (a badger, fox, rabbit, or the like, see below). This ability is innate to gnomes. See the speak with animals spell description.",
+          "fr": "Langues. D’office : commun et gnome. Supplémentaires : draconien, elfe, géant, gobelin, nain et orque. De plus, une fois par jour, ils peuvent s’entretenir avec un animal vivant dans un terrier (blaireau, lapin, renard, etc.). Il s’agit d’un talent naturel pour les gnomes. Voir la description du sort communication avec les animaux."
+        }
+      },
+      {
+        "name": {
+          "en": "Spell-like abilities",
+          "fr": "Pouvoirs magiques"
+        },
+        "text": {
+          "en": "Spell-Like Abilities: 1/day—speak with animals (burrowing mammal only, duration 1 minute). A gnome with a Charisma score of at least 10 also has the following spell-like abilities: 1/day—dancing lights, ghost sound, prestidigitation. Caster level 1st; save DC 10 + gnome’s Cha modifier + spell level.",
+          "fr": "Pouvoirs magiques. Communication avec les animaux (animaux fouisseurs uniquement) 1 fois par jour. Les gnomes ayant au moins 10 en Charisme ont aussi les pouvoirs magiques suivants : lumières dansantes, prestidigitation et son imaginaire 1 fois par jour. Niveau de lanceur de sorts de 1, DD des jets de sauvegarde de 10 + le modificateur de Cha du gnome + le niveau du sort."
+        }
+      }
+    ],
+    "text": {
+      "en": "<p>+2 Constitution, –2 Strength.</p><p>Small: As a Small creature, a gnome gains a +1 size bonus to Armor Class, a +1 size bonus on attack rolls, and a +4 size bonus on Hide checks, but he uses smaller weapons than humans use, and his lifting and carrying limits are three-quarters of those of a Medium character.</p><p>Gnome base land speed is 20 feet.</p><p>Low-Light Vision: A gnome can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. He retains the ability to distinguish color and detail under these conditions.</p><p>Weapon Familiarity: Gnomes may treat gnome hooked hammers as martial weapons rather than exotic weapons.</p><p>+2 racial bonus on saving throws against illusions.</p><p>Add +1 to the Difficulty Class for all saving throws against illusion spells cast by gnomes. This adjustment stacks with those from similar effects.</p><p>+1 racial bonus on attack rolls against kobolds and goblinoids.</p><p>+4 dodge bonus to Armor Class against monsters of the giant type. Any time a creature loses its Dexterity bonus (if any) to Armor Class, such as when it’s caught flat-footed, it loses its dodge bonus, too.</p><p>+2 racial bonus on Listen checks.</p><p>+2 racial bonus on Craft (alchemy) checks.</p><p>Automatic Languages: Common and Gnome. Bonus Languages: Draconic, Dwarven, Elven, Giant, Goblin, and Orc. In addition, a gnome can speak with a burrowing mammal (a badger, fox, rabbit, or the like, see below). This ability is innate to gnomes. See the speak with animals spell description.</p><p>Spell-Like Abilities: 1/day—speak with animals (burrowing mammal only, duration 1 minute). A gnome with a Charisma score of at least 10 also has the following spell-like abilities: 1/day—dancing lights, ghost sound, prestidigitation. Caster level 1st; save DC 10 + gnome’s Cha modifier + spell level.</p><p>Favored Class: Bard. A multiclass gnome’s bard class does not count when determining whether he takes an experience point penalty.</p>",
+      "fr": "<p>+2 en Constitution, –2 en Force.</p><p>Petite taille. En tant que créatures de taille P, les gnomes ont un bonus de taille de +1 à la CA, un bonus de taille de +1 aux jets d’attaque et un de +4 aux tests de Discrétion. Par contre, ils sont limités à des armes plus petites que celles utilisées par les humains, et la charge qu’ils peuvent soulever est plus modeste (75 % du poids porté par les créatures de taille M).</p><p>Leur vitesse de déplacement de base au sol est de 6 mètres.</p><p>Vision nocturne. Les gnomes voient deux fois plus loin que les humains dans des conditions de faible éclairage (clarté de la lune ou des étoiles, torche, etc.). Dans ces conditions, ils distinguent toujours parfaitement les couleurs et les détails.</p><p>Armes familières. Les gnomes peuvent considérer le marteau-piolet gnome comme une arme de guerre plutôt que comme une arme exotique.</p><p>Bonus racial de +2 aux jets de sauvegarde contre les illusions.</p><p>Bonus de +1 au DD du jet de sauvegarde contre tous les sorts de l’école des illusions lancés par un gnome. Ce bonus se cumule avec les autres bonus du même genre, comme celui d’École de prédilection.</p><p>Bonus racial de +1 aux jets d’attaque contre les kobolds et les gobelinoïdes (gobelins, hobgobelins et gobelours).</p><p>Bonus d’esquive de +4 contre les créatures appartenant au type géant. Notez que lorsque le personnage perd son bonus de Dextérité à la CA (par exemple, quand il est pris au dépourvu), il perd également ce bonus d’esquive.</p><p>Bonus racial de +2 aux tests de Perception auditive.</p><p>Bonus racial de +2 aux tests d’Artisanat (alchimie).</p><p>Langues. D’office : commun et gnome. Supplémentaires : draconien, elfe, géant, gobelin, nain et orque. De plus, une fois par jour, ils peuvent s’entretenir avec un animal vivant dans un terrier (blaireau, lapin, renard, etc.). Il s’agit d’un talent naturel pour les gnomes. Voir la description du sort communication avec les animaux.</p><p>Pouvoirs magiques. Communication avec les animaux (animaux fouisseurs uniquement) 1 fois par jour. Les gnomes ayant au moins 10 en Charisme ont aussi les pouvoirs magiques suivants : lumières dansantes, prestidigitation et son imaginaire 1 fois par jour. Niveau de lanceur de sorts de 1, DD des jets de sauvegarde de 10 + le modificateur de Cha du gnome + le niveau du sort.</p><p>Classe de prédilection. Barde. La classe de barde d’un gnome multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#gnomes",
+      "frRef": "DRS 02 (races)"
+    }
+  },
+  {
+    "id": "half-elf",
+    "name": {
+      "en": "Half-elf",
+      "fr": "Demi-elfe"
+    },
+    "size": "medium",
+    "speed": 30,
+    "abilityAdjustments": {},
+    "favoredClass": "any",
+    "vision": "lowLight",
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      },
+      {
+        "en": "Elven",
+        "fr": "Elfe"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Any (other than secret languages, such as Druidic)",
+        "fr": "Au choix (à l’exception des langages secrets, tels que la langue des druides)"
+      }
+    ],
+    "modifiers": [
+      {
+        "target": "save.all",
+        "bonusType": "racial",
+        "value": 2,
+        "condition": {
+          "en": "vs enchantment spells or effects",
+          "fr": "contre les sorts et effets de l’école des enchantements"
+        }
+      },
+      {
+        "target": "skill.listen",
+        "bonusType": "racial",
+        "value": 1
+      },
+      {
+        "target": "skill.search",
+        "bonusType": "racial",
+        "value": 1
+      },
+      {
+        "target": "skill.spot",
+        "bonusType": "racial",
+        "value": 1
+      },
+      {
+        "target": "skill.diplomacy",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "skill.gather-information",
+        "bonusType": "racial",
+        "value": 2
+      }
+    ],
+    "traits": [
+      {
+        "name": {
+          "en": "Sleep immunity",
+          "fr": "Immunité contre le sommeil"
+        },
+        "text": {
+          "en": "Immunity to sleep spells and similar magical effects, and a +2 racial bonus on saving throws against enchantment spells or effects.",
+          "fr": "Immunité contre les sorts et effets magiques de type sommeil ; bonus racial de +2 aux jets de sauvegarde contre les sorts et effets magiques de l’école des enchantements."
+        }
+      },
+      {
+        "name": {
+          "en": "Low-light vision",
+          "fr": "Vision nocturne"
+        },
+        "text": {
+          "en": "Low-Light Vision: A half-elf can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. She retains the ability to distinguish color and detail under these conditions.",
+          "fr": "Vision nocturne. Les demi-elfes voient deux fois plus loin que les humains dans des conditions de faible éclairage (clarté de la lune ou des étoiles, torche, etc.). Dans ces conditions, ils distinguent toujours parfaitement les couleurs et les détails."
+        }
+      },
+      {
+        "name": {
+          "en": "Elven blood",
+          "fr": "Sang elfique"
+        },
+        "text": {
+          "en": "Elven Blood: For all effects related to race, a half-elf is considered an elf.",
+          "fr": "Sang elfique. Ils sont considérés comme des elfes à part entière pour tous les effets dépendant de la race. Les demi-elfes sont aussi vulnérables aux attaques qui ciblent les elfes que leurs ancêtres, et ils peuvent utiliser les objets magiques réservés aux elfes."
+        }
+      }
+    ],
+    "text": {
+      "en": "<p>Medium: As Medium creatures, half-elves have no special bonuses or penalties due to their size.</p><p>Half-elf base land speed is 30 feet.</p><p>Immunity to sleep spells and similar magical effects, and a +2 racial bonus on saving throws against enchantment spells or effects.</p><p>Low-Light Vision: A half-elf can see twice as far as a human in starlight, moonlight, torchlight, and similar conditions of poor illumination. She retains the ability to distinguish color and detail under these conditions.</p><p>+1 racial bonus on Listen, Search, and Spot checks.</p><p>+2 racial bonus on Diplomacy and Gather Information checks.</p><p>Elven Blood: For all effects related to race, a half-elf is considered an elf.</p><p>Automatic Languages: Common and Elven. Bonus Languages: Any (other than secret languages, such as Druidic).</p><p>Favored Class: Any. When determining whether a multiclass half-elf takes an experience point penalty, her highest-level class does not count.</p>",
+      "fr": "<p>Taille moyenne. En tant que créatures de taille M, les demi-elfes n’ont aucun bonus ou malus en rapport avec leur taille.</p><p>Leur vitesse de déplacement de base au sol est de 9 mètres.</p><p>Immunité contre les sorts et effets magiques de type sommeil ; bonus racial de +2 aux jets de sauvegarde contre les sorts et effets magiques de l’école des enchantements.</p><p>Vision nocturne. Les demi-elfes voient deux fois plus loin que les humains dans des conditions de faible éclairage (clarté de la lune ou des étoiles, torche, etc.). Dans ces conditions, ils distinguent toujours parfaitement les couleurs et les détails.</p><p>Bonus racial de +1 aux tests de Détection, Fouille et Perception auditive.</p><p>Bonus racial de +2 aux tests de Diplomatie et Renseignements.</p><p>Sang elfique. Ils sont considérés comme des elfes à part entière pour tous les effets dépendant de la race. Les demi-elfes sont aussi vulnérables aux attaques qui ciblent les elfes que leurs ancêtres, et ils peuvent utiliser les objets magiques réservés aux elfes.</p><p>Langues. D’office : commun et elfe. Supplémentaires : au choix (à l’exception des langages secrets, tels que la langue des druides). Voir la compétence Langue.</p><p>Classe de prédilection. Spécial. La classe la plus élevée d’un demi-elfe multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#halfElves",
+      "frRef": "DRS 02 (races)"
+    }
+  },
+  {
+    "id": "half-orc",
+    "name": {
+      "en": "Half-orc",
+      "fr": "Demi-orque"
+    },
+    "size": "medium",
+    "speed": 30,
+    "abilityAdjustments": {
+      "str": 2,
+      "int": -2,
+      "cha": -2
+    },
+    "favoredClass": "barbarian",
+    "vision": "darkvision",
+    "darkvision": 60,
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      },
+      {
+        "en": "Orc",
+        "fr": "Orque"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Abyssal",
+        "fr": "Abyssal"
+      },
+      {
+        "en": "Draconic",
+        "fr": "Draconien"
+      },
+      {
+        "en": "Giant",
+        "fr": "Géant"
+      },
+      {
+        "en": "Gnoll",
+        "fr": "Gnoll"
+      },
+      {
+        "en": "Goblin",
+        "fr": "Gobelin"
+      }
+    ],
+    "modifiers": [],
+    "traits": [
+      {
+        "name": {
+          "en": "Minimum Intelligence",
+          "fr": "Intelligence minimale"
+        },
+        "text": {
+          "en": "A half-orc’s starting Intelligence score is always at least 3. If this adjustment would lower the character’s score to 1 or 2, his score is nevertheless 3.",
+          "fr": "La valeur d’Intelligence de départ d’un demi-orque est toujours d’au moins 3 : si cet ajustement la réduit à 1 ou 2, elle est malgré tout de 3. (Traduction de la phrase du SRD anglais, absente du SRD français.)"
+        }
+      },
+      {
+        "name": {
+          "en": "Darkvision",
+          "fr": "Vision dans le noir"
+        },
+        "text": {
+          "en": "Darkvision: Half-orcs (and orcs) can see in the dark up to 60 feet. Darkvision is black and white only, but it is otherwise like normal sight, and half-orcs can function just fine with no light at all.",
+          "fr": "Vision dans le noir. Orques et demi-orques voient à 18 mètres de distance dans le noir le plus complet. Ils perdent alors tout sens des couleurs (et voient juste en noir et blanc) mais leurs perceptions n’en souffrent pas pour autant. Ils peuvent agir normalement sans la moindre lumière."
+        }
+      },
+      {
+        "name": {
+          "en": "Orc blood",
+          "fr": "Sang orque"
+        },
+        "text": {
+          "en": "Orc Blood: For all effects related to race, a half-orc is considered an orc.",
+          "fr": "Sang orque. Les demi-orques sont considérés comme des orques à part entière pour tous les effets liés à la race. Les demi-orques sont aussi vulnérables aux attaques qui ciblent les orques que leurs ancêtres, et ils peuvent utiliser les objets magiques réservés aux orques."
+        }
+      }
+    ],
+    "text": {
+      "en": "<p>+2 Strength, –2 Intelligence, –2 Charisma.</p><p>A half-orc’s starting Intelligence score is always at least 3. If this adjustment would lower the character’s score to 1 or 2, his score is nevertheless 3.</p><p>Medium: As Medium creatures, half-orcs have no special bonuses or penalties due to their size.</p><p>Half-orc base land speed is 30 feet.</p><p>Darkvision: Half-orcs (and orcs) can see in the dark up to 60 feet. Darkvision is black and white only, but it is otherwise like normal sight, and half-orcs can function just fine with no light at all.</p><p>Orc Blood: For all effects related to race, a half-orc is considered an orc.</p><p>Automatic Languages: Common and Orc. Bonus Languages: Draconic, Giant, Gnoll, Goblin, and Abyssal.</p><p>Favored Class: Barbarian. A multiclass half-orc’s barbarian class does not count when determining whether he takes an experience point penalty.</p>",
+      "fr": "<p>+2 en Force, –2 en Intelligence, –2 en Charisme.</p><p>Taille moyenne. En tant que créatures de taille M, les demi-orques n’ont aucun bonus ou malus en rapport avec leur taille.</p><p>Leur vitesse de déplacement de base au sol est de 9 mètres.</p><p>Vision dans le noir. Orques et demi-orques voient à 18 mètres de distance dans le noir le plus complet. Ils perdent alors tout sens des couleurs (et voient juste en noir et blanc) mais leurs perceptions n’en souffrent pas pour autant. Ils peuvent agir normalement sans la moindre lumière.</p><p>Sang orque. Les demi-orques sont considérés comme des orques à part entière pour tous les effets liés à la race. Les demi-orques sont aussi vulnérables aux attaques qui ciblent les orques que leurs ancêtres, et ils peuvent utiliser les objets magiques réservés aux orques.</p><p>Langues. D’office : commun et orque. Supplémentaires : abyssal, draconien, géant, gnoll et gobelin.</p><p>Classe de prédilection. Barbare. La classe de barbare d’un demi-orque multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#halfOrcs",
+      "frRef": "DRS 02 (races)"
+    }
+  },
+  {
+    "id": "halfling",
+    "name": {
+      "en": "Halfling",
+      "fr": "Halfelin"
+    },
+    "size": "small",
+    "speed": 20,
+    "abilityAdjustments": {
+      "dex": 2,
+      "str": -2
+    },
+    "favoredClass": "rogue",
+    "vision": "normal",
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      },
+      {
+        "en": "Halfling",
+        "fr": "Halfelin"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Dwarven",
+        "fr": "Nain"
+      },
+      {
+        "en": "Elven",
+        "fr": "Elfe"
+      },
+      {
+        "en": "Gnome",
+        "fr": "Gnome"
+      },
+      {
+        "en": "Goblin",
+        "fr": "Gobelin"
+      },
+      {
+        "en": "Orc",
+        "fr": "Orque"
+      }
+    ],
+    "modifiers": [
+      {
+        "target": "skill.climb",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "skill.jump",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "skill.move-silently",
+        "bonusType": "racial",
+        "value": 2
+      },
+      {
+        "target": "save.all",
+        "bonusType": "racial",
+        "value": 1
+      },
+      {
+        "target": "save.all",
+        "bonusType": "morale",
+        "value": 2,
+        "condition": {
+          "en": "vs fear",
+          "fr": "contre la terreur"
+        }
+      },
+      {
+        "target": "attack.ranged",
+        "bonusType": "racial",
+        "value": 1,
+        "condition": {
+          "en": "with thrown weapons and slings",
+          "fr": "avec les armes de jet et les frondes"
+        }
+      },
+      {
+        "target": "skill.listen",
+        "bonusType": "racial",
+        "value": 2
+      }
+    ],
+    "traits": [],
+    "text": {
+      "en": "<p>+2 Dexterity, –2 Strength.</p><p>Small: As a Small creature, a halfling gains a +1 size bonus to Armor Class, a +1 size bonus on attack rolls, and a +4 size bonus on Hide checks, but she uses smaller weapons than humans use, and her lifting and carrying limits are three-quarters of those of a Medium character.</p><p>Halfling base land speed is 20 feet.</p><p>+2 racial bonus on Climb, Jump, and Move Silently checks.</p><p>+1 racial bonus on all saving throws.</p><p>+2 morale bonus on saving throws against fear: This bonus stacks with the halfling’s +1 bonus on saving throws in general.</p><p>+1 racial bonus on attack rolls with thrown weapons and slings.</p><p>+2 racial bonus on Listen checks.</p><p>Automatic Languages: Common and Halfling. Bonus Languages: Dwarven, Elven, Gnome, Goblin, and Orc.</p><p>Favored Class: Rogue. A multiclass halfling’s rogue class does not count when determining whether she takes an experience point penalty for multiclassing.</p>",
+      "fr": "<p>+2 en Dextérité, –2 en Force.</p><p>Petite taille. En tant que créatures de taille P, les halfelins ont un bonus de taille de +1 à la CA, un bonus de taille de +1 aux jets d’attaque et un de +4 aux tests de Discrétion. Par contre, ils sont limités à des armes plus petites que celles utilisées par les humains, et la charge qu’ils peuvent soulever est plus modeste (75 % du poids porté par les créatures de taille M).</p><p>Leur vitesse de déplacement de base au sol est de 6 mètres.</p><p>Bonus racial de +2 aux tests de Déplacement silencieux, Escalade et Saut.</p><p>Bonus racial de +1 à tous les jets de sauvegarde.</p><p>Bonus de moral de +2 aux jets de sauvegarde contre la terreur (qui vient s’ajouter au bonus de +1 mentionné ci-dessus).</p><p>Bonus racial de +1 aux jets d’attaque avec les armes de jet et les frondes.</p><p>Bonus racial de +2 aux tests de Perception auditive.</p><p>Langues. D’office : commun et halfelin. Supplémentaires : elfe, gnome, gobelin, nain et orque.</p><p>Classe de prédilection. Roublard. La classe de roublard d’un halfelin multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#halflings",
+      "frRef": "DRS 02 (races)"
+    }
+  },
+  {
+    "id": "human",
+    "name": {
+      "en": "Human",
+      "fr": "Humain"
+    },
+    "size": "medium",
+    "speed": 30,
+    "abilityAdjustments": {},
+    "bonusFeat": true,
+    "extraSkillPoints": 1,
+    "favoredClass": "any",
+    "vision": "normal",
+    "automaticLanguages": [
+      {
+        "en": "Common",
+        "fr": "Commun"
+      }
+    ],
+    "bonusLanguages": [
+      {
+        "en": "Any (other than secret languages, such as Druidic)",
+        "fr": "Au choix (à l’exception des langages secrets, tels que la langue des druides)"
+      }
+    ],
+    "modifiers": [],
+    "traits": [],
+    "text": {
+      "en": "<p>Medium: As Medium creatures, humans have no special bonuses or penalties due to their size.</p><p>Human base land speed is 30 feet.</p><p>1 extra feat at 1st level.</p><p>4 extra skill points at 1st level and 1 extra skill point at each additional level.</p><p>Automatic Language: Common. Bonus Languages: Any (other than secret languages, such as Druidic). See the Speak Language skill.</p><p>Favored Class: Any. When determining whether a multiclass human takes an experience point penalty, his or her highest-level class does not count.</p>",
+      "fr": "<p>Taille moyenne. En tant que créatures de taille M, les humains n’ont aucun bonus ou malus en rapport avec leur taille.</p><p>Leur vitesse de déplacement de base au sol est de 9 mètres.</p><p>1 don supplémentaire au niveau 1.</p><p>4 points de compétence supplémentaires au niveau 1, et 1 point de compétence supplémentaire à chaque niveau additionnel.</p><p>Langues parlées. D’office : commun. Supplémentaires : au choix (à l’exception des langages secrets, tels que la langue des druides). Voir la compétence Langue.</p><p>Classe de prédilection. Spécial. La classe la plus élevée d’un humain multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/races.htm#humans",
+      "frRef": "DRS 02 (races)"
+    }
+  }
+]

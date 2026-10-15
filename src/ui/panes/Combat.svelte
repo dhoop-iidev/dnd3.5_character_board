@@ -58,6 +58,12 @@
     const grip = l.twoHanded ?? []
     l.twoHanded = grip.includes(uid) ? grip.filter((w) => w !== uid) : [...grip, uid]
   }
+  const meleeInHand = $derived(
+    loadout.weapons.filter((uid) => {
+      const it = c.inventory.find((i) => i.uid === uid)
+      return it && rules.weapons.get(it.refId)?.kind === 'melee'
+    }).length,
+  )
   function toggleWeapon(uid: string) {
     const l = app.character.loadouts.find((x) => x.id === loadout.id)!
     l.weapons = l.weapons.includes(uid) ? l.weapons.filter((w) => w !== uid) : [...l.weapons, uid]
@@ -180,6 +186,12 @@
       <input type="checkbox" bind:checked={app.character.toggles.situational['flatFooted']} />
       {tr(UI.flatFooted)}
     </label>
+    {#if s.feats.some((f) => f.featId === 'rapid-shot')}
+      <label class="check">
+        <input type="checkbox" bind:checked={app.character.toggles.rapidShot} />
+        {tr({ en: 'Rapid Shot (extra ranged attack, −2 on all)', fr: 'Tir rapide (attaque à distance supplémentaire, −2 à toutes)' })}
+      </label>
+    {/if}
   </section>
 
   <section class="box">
@@ -206,7 +218,11 @@
     <div class="attacks">
       {#each s.attacks as a (a.itemUid)}
         <article class="attack" class:choice={a.weaponOfChoice}>
-          <h4>{tr(a.name)} {#if a.weaponOfChoice}<small>★ {tr({ en: 'weapon of choice', fr: 'arme de prédilection' })}</small>{/if}</h4>
+          <h4>
+            {tr(a.name)}
+            {#if a.weaponOfChoice}<small>★ {tr({ en: 'weapon of choice', fr: 'arme de prédilection' })}</small>{/if}
+            {#if a.hand}<small>{a.hand === 'primary' ? tr({ en: 'primary hand', fr: 'main directrice' }) : tr({ en: 'off hand', fr: 'main non directrice' })}</small>{/if}
+          </h4>
           <div class="line">
             <span>{tr({ en: 'Attack', fr: 'Attaque' })}</span>
             <StatValue stat={() => view.sheet.attacks.find((x) => x.itemUid === a.itemUid)!.attack} title={a.name} big />
@@ -364,6 +380,16 @@
         </label>
       {/if}
     {/each}
+    {#if meleeInHand >= 2}
+      <label class="check">
+        <input
+          type="checkbox"
+          checked={!!loadout.twoWeapon}
+          onchange={(e) => (app.character.loadouts.find((x) => x.id === loadout.id)!.twoWeapon = e.currentTarget.checked)}
+        />
+        {tr({ en: 'Fight with two weapons (first ticked = primary hand)', fr: 'Combattre à deux armes (la première cochée = main directrice)' })}
+      </label>
+    {/if}
     <label class="field">
       {tr({ en: 'Shield strapped on', fr: 'Bouclier au bras' })}
       <select

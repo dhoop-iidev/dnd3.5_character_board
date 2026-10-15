@@ -226,6 +226,119 @@ def prereq(where, p, feat_ids, skill_ids):
         i18n(where + ".other", o)
 
 
+ARMOR_PROF = {"light", "medium", "heavy", "shield", "tower"}
+LISTS = {"bard", "cleric", "druid", "paladin", "ranger", "sorcerer-wizard"}
+
+
+def class_extras(w, c, skill_ids, feat_ids, weapon_ids, used_ext):
+    """ClassDef.features / spellcasting / choices / proficiencies (types.ts)."""
+    pr = c["proficiencies"]
+    for x in pr["weapons"]:
+        if x not in ("simple", "martial", "exotic") and x not in weapon_ids:
+            err(w, f"unknown weapon proficiency {x}")
+    if set(pr["armor"]) - ARMOR_PROF:
+        err(w, f"bad armor proficiency {pr['armor']}")
+    if "spellcasting" in c:
+        sc = c["spellcasting"]
+        if set(sc) != {"ability", "kind", "style", "list", "casterLevel", "maxSpellLevel"} or sc["ability"] not in ABILITIES \
+                or sc["kind"] not in ("arcane", "divine") or sc["style"] not in ("prepared", "spontaneous") \
+                or sc["list"] not in LISTS or sc["casterLevel"] not in ("full", "half") or not 1 <= sc["maxSpellLevel"] <= 9:
+            err(w, f"bad spellcasting {sc}")
+        if not all("spellsPerDay" in r for r in c["table"]):
+            err(w, "caster without spellsPerDay on every level")
+        if (sc["style"] == "spontaneous") != all("spellsKnown" in r for r in c["table"]):
+            err(w, "spellsKnown must be present exactly for spontaneous casters")
+    fids = []
+    for f in c.get("features", []):
+        fw = f"{w}.feature {f.get('id')}"
+        req = {"id", "level", "name", "text", "source"}
+        if not req <= set(f) or set(f) - req - {"modifiers", "grantsFeats", "computed"}:
+            err(fw, f"keys {set(f) ^ req}")
+            continue
+        fids.append(f["id"])
+        if not ID_RE.match(f["id"]):
+            err(fw, "bad id")
+        if not (isinstance(f["level"], int) and 1 <= f["level"] <= len(c["table"])):
+            err(fw, f"bad level {f['level']}")
+        i18n(fw + ".name", f["name"]); i18n(fw + ".text", f["text"]); source(fw, f["source"])
+        for g in f.get("grantsFeats", []):
+            if g not in feat_ids:
+                err(fw, f"unknown granted feat {g}")
+        if "computed" in f and not isinstance(f["computed"], bool):
+            err(fw, "computed not a boolean")
+        if "modifiers" in f:
+            modifiers(fw, f["modifiers"], skill_ids, used_ext)
+    if len(fids) != len(set(fids)):
+        err(w, "duplicate feature ids")
+    for key, opts in c.get("choices", {}).items():
+        ids = [o.get("id") for o in opts]
+        if not opts or len(ids) != len(set(ids)) or not all(isinstance(i, str) and ID_RE.match(i) for i in ids):
+            err(w, f"bad choices.{key}")
+        for o in opts:
+            if set(o) != {"id", "name"}:
+                err(w, f"bad choice option {o}")
+            else:
+                i18n(f"{w}.choices.{key}", o["name"])
+
+
+def race(w, x, class_ids, skill_ids, weapon_ids, used_ext):
+    """RaceDef (types.ts)."""
+    req = {"id", "name", "size", "speed", "abilityAdjustments", "favoredClass", "vision", "automaticLanguages", "bonusLanguages",
+           "modifiers", "traits", "text", "source"}
+    opt = {"speedNotReducedByArmor", "bonusFeat", "extraSkillPoints", "darkvision", "weaponProficiencies", "weaponFamiliarity"}
+    if not req <= set(x) or set(x) - req - opt:
+        err(w, f"keys {set(x) ^ req}")
+        return
+    i18n(w + ".name", x["name"]); i18n(w + ".text", x["text"]); source(w, x["source"])
+    if x["size"] not in ("small", "medium") or x["vision"] not in ("normal", "lowLight", "darkvision"):
+        err(w, "bad size/vision")
+    if not (isinstance(x["speed"], int) and x["speed"] > 0 and x["speed"] % 5 == 0):
+        err(w, f"bad speed {x['speed']}")
+    if set(x["abilityAdjustments"]) - ABILITIES or not all(isinstance(v, int) for v in x["abilityAdjustments"].values()):
+        err(w, "bad abilityAdjustments")
+    if x["favoredClass"] != "any" and x["favoredClass"] not in class_ids:
+        err(w, f"unknown favoredClass {x['favoredClass']}")
+    if (x["vision"] == "darkvision") != ("darkvision" in x):
+        err(w, "darkvision range must be given exactly for darkvision")
+    for k in ("automaticLanguages", "bonusLanguages"):
+        if not x[k]:
+            err(w, f"empty {k}")
+        for lang in x[k]:
+            i18n(f"{w}.{k}", lang)
+    for k in ("weaponProficiencies", "weaponFamiliarity"):
+        for wid in x.get(k, []):
+            if wid not in weapon_ids:
+                err(w, f"unknown weapon {wid} in {k}")
+    modifiers(w, x["modifiers"], skill_ids, used_ext)
+    for t in x["traits"]:
+        if set(t) != {"name", "text"}:
+            err(w, f"bad trait {t}")
+        else:
+            i18n(w + ".trait", t["name"]); i18n(w + ".trait", t["text"])
+
+
+def spell(w, x):
+    """SpellDef (types.ts)."""
+    req = {"id", "name", "school", "level", "components", "castingTime", "range", "duration", "save", "spellResistance",
+           "summary", "text", "source"}
+    if not req <= set(x) or set(x) - req - {"target", "area", "effect"}:
+        err(w, f"keys {set(x) ^ req}")
+        return
+    for k in (req - {"id", "level", "components", "source"}) | ({"target", "area", "effect"} & set(x)):
+        i18n(f"{w}.{k}", x[k])
+    if not any(k in x for k in ("target", "area", "effect")):
+        err(w, "no target, area or effect")
+    if not (isinstance(x["components"], str) and x["components"]):
+        err(w, "bad components")
+    if not x["level"] or set(x["level"]) - LISTS or not all(isinstance(v, int) and 0 <= v <= 9 for v in x["level"].values()):
+        err(w, f"bad level {x['level']}")
+    if any(not v.startswith("<p>") or len(v) > 6100 for v in x["text"].values()):
+        err(w, "text must be <p> HTML of at most ~6000 chars")
+    source(w, x["source"])
+    if not x["source"].get("srdUrl", "").startswith("https://www.d20srd.org/srd/spells/"):
+        err(w, "srdUrl must be the d20srd spell page")
+
+
 def check_ids(name, items):
     ids = [x.get("id") for x in items]
     for i in ids:
@@ -246,9 +359,11 @@ def main():
     skill_ids = {s["id"] for s in skills}
     feats = files["feats.json"]
     feat_ids = {f["id"] for f in feats}
+    weapon_ids = {x["id"] for x in files["weapons.json"]}
     used_ext: set = set()
 
-    for name in ("skills.json", "feats.json", "classes.json", "weapons.json", "armor.json", "gear.json", "magic-items.json"):
+    for name in ("skills.json", "feats.json", "classes.json", "weapons.json", "armor.json", "gear.json", "magic-items.json",
+                 "races.json", "spells.json"):
         check_ids(name, files[name])
     check_ids("homebrew-skills.json", custom["homebrew-skills.json"])
     check_ids("conditions.json", custom["conditions.json"])
@@ -290,8 +405,9 @@ def main():
     for c in files["classes.json"] + [custom["weapon-master.json"]]:
         w = f"class {c['id']}"
         req = {"id", "name", "prestige", "hitDie", "skillPoints", "classSkills", "proficiencies", "table", "text", "source"}
-        if not req <= set(c) or set(c) - req - {"bonusFeatLevels", "bonusFeatList", "requirements"}:
+        if not req <= set(c) or set(c) - req - {"bonusFeatLevels", "bonusFeatList", "requirements", "features", "spellcasting", "choices"}:
             err(w, f"keys {set(c) ^ req}")
+        class_extras(w, c, skill_ids, feat_ids, weapon_ids, used_ext)
         i18n(w + ".name", c["name"]); i18n(w + ".text", c["text"]); source(w, c["source"])
         for s in c["classSkills"] + overrides.get(c["id"], []):
             if s not in skill_ids:
@@ -304,10 +420,21 @@ def main():
         for r in c["table"]:
             for sp in r["special"]:
                 i18n(w + ".special", sp)
+            for k in ("spellsPerDay", "spellsKnown"):
+                if k in r:
+                    v = r[k]
+                    if not (isinstance(v, list) and len(v) == 10 and all(x is None or (isinstance(x, int) and x >= 0) for x in v)):
+                        err(w, f"level {r['level']}: bad {k} {v}")
+                    elif "spellcasting" not in c:
+                        err(w, f"{k} without spellcasting")
+                    elif any(x is not None for x in v[c["spellcasting"]["maxSpellLevel"] + 1:]):
+                        err(w, f"level {r['level']}: {k} above maxSpellLevel")
         if "requirements" in c:
             prereq(w, c["requirements"], feat_ids, skill_ids)
     for cid in overrides:
-        if cid not in {"fighter", "weapon-master"}:
+        known = {c["id"] for c in files["classes.json"]} | {"weapon-master"} | {
+            json.loads(f.read_text(encoding="utf-8")).get("id") for f in (CUSTOM / "tob").glob("warblade.json")}
+        if cid not in known:
             err("class-skill-overrides", f"unknown class {cid}")
 
     for x in files["weapons.json"]:
@@ -354,6 +481,24 @@ def main():
             i18n(w + ".duration", x["duration"])
         if "modifiers" in x:
             modifiers(w, x["modifiers"], skill_ids, used_ext)
+
+    class_ids = {c["id"] for c in files["classes.json"]}
+    for x in files["races.json"]:
+        race(f"race {x['id']}", x, class_ids, skill_ids, weapon_ids, used_ext)
+    for x in files["spells.json"]:
+        spell(f"spell {x['id']}", x)
+    spell_lists = {c["spellcasting"]["list"]: c for c in files["classes.json"] if "spellcasting" in c}
+    for x in files["spells.json"]:
+        for lst, lv in x["level"].items():
+            if lst not in spell_lists:
+                err(f"spell {x['id']}", f"unknown spell list {lst}")
+            elif not 0 <= lv <= spell_lists[lst]["spellcasting"]["maxSpellLevel"]:
+                err(f"spell {x['id']}", f"level {lv} out of range for {lst}")
+    for lst, c in spell_lists.items():
+        if lst == "ranger":
+            for lv in range(1, c["spellcasting"]["maxSpellLevel"] + 1):
+                if not any(x["level"].get("ranger") == lv for x in files["spells.json"]):
+                    err("spells.json", f"no ranger spell of level {lv}")
 
     check_ids("item-properties.json", files["item-properties.json"])
     for x in files["item-properties.json"]:
@@ -411,6 +556,66 @@ def spot_checks(files, custom):
            and set(wa.get("feats", [])) == {"combat-expertise", "dodge", "mobility", "spring-attack"})
     f6 = by["classes.json"]["fighter"]["table"][5]
     expect("fighter 6: BAB 6, Fort 5, Ref 2, Will 2", (f6["bab"], f6["fort"], f6["ref"], f6["will"]) == (6, 5, 2, 2))
+    cl = by["classes.json"]
+    expect("fighter output keeps its fields (features added only)",
+           set(cl["fighter"]) == {"id", "name", "prestige", "hitDie", "skillPoints", "classSkills", "proficiencies", "table",
+                                  "bonusFeatLevels", "bonusFeatList", "text", "source", "features"})
+    expect("11 core classes", set(cl) == {"barbarian", "bard", "cleric", "druid", "fighter", "monk", "paladin", "ranger", "rogue",
+                                          "sorcerer", "wizard"})
+    expect("French class names", [cl[i]["name"]["fr"] for i in ("barbarian", "bard", "cleric", "druid", "fighter", "monk", "paladin",
+                                                               "ranger", "rogue", "sorcerer", "wizard")]
+           == ["Barbare", "Barde", "Prêtre", "Druide", "Guerrier", "Moine", "Paladin", "Rôdeur", "Roublard", "Ensorceleur", "Magicien"])
+    rg = cl["ranger"]
+    r9 = rg["table"][8]
+    expect("ranger 9: BAB 9, Fort 6, Ref 6, Will 3, spells/day 1st 1 2nd 0",
+           (r9["bab"], r9["fort"], r9["ref"], r9["will"]) == (9, 6, 6, 3) and r9["spellsPerDay"][:3] == [None, 1, 0])
+    expect("ranger d8, 6 skill points, wis/divine/prepared/half/4",
+           rg["hitDie"] == 8 and rg["skillPoints"] == 6 and rg["spellcasting"] == {
+               "ability": "wis", "kind": "divine", "style": "prepared", "list": "ranger", "casterLevel": "half", "maxSpellLevel": 4})
+    rf = {f["id"]: f for f in rg["features"]}
+    expect("ranger features and levels", all(rf.get(i, {}).get("level") == lv for i, lv in (
+        ("favored-enemy", 1), ("track", 1), ("wild-empathy", 1), ("combat-style", 2), ("endurance", 3), ("animal-companion", 4),
+        ("favored-enemy-5", 5), ("improved-combat-style", 6), ("woodland-stride", 7), ("swift-tracker", 8), ("evasion", 9),
+        ("favored-enemy-10", 10), ("combat-style-mastery", 11), ("camouflage", 13), ("favored-enemy-15", 15),
+        ("hide-in-plain-sight", 17), ("favored-enemy-20", 20))))
+    expect("ranger computed features", sorted(i for i, f in rf.items() if f.get("computed")) == sorted(
+        ["favored-enemy", "favored-enemy-5", "favored-enemy-10", "favored-enemy-15", "favored-enemy-20", "track", "combat-style",
+         "endurance", "improved-combat-style", "combat-style-mastery"]))
+    expect("ranger Track / Endurance granted feats", rf["track"].get("grantsFeats") == ["track"]
+           and rf["endurance"].get("grantsFeats") == ["endurance"])
+    fe = rg["choices"]["favoredEnemy"]
+    expect("ranger favored enemies: 32 (Humanoid (goblinoid) = Humanoïde (goblinoïde))", len(fe) == 32 and any(
+        o["id"] == "humanoid-goblinoid" and o["name"]["fr"] == "Humanoïde (goblinoïde)" for o in fe))
+    expect("ranger combat styles archery / two-weapon", [o["id"] for o in rg["choices"]["combatStyle"]] == ["archery", "two-weapon"])
+    for fid in ("track", "endurance", "rapid-shot", "manyshot", "improved-precise-shot", "two-weapon-fighting",
+                "improved-two-weapon-fighting", "greater-two-weapon-fighting"):
+        expect(f"feat {fid} present (ranger)", fid in by["feats.json"])
+    expect("cleric 1: spells/day 3, 1 (+1 domain)", cl["cleric"]["table"][0]["spellsPerDay"][:2] == [3, 1])
+    expect("sorcerer 20: 6 per day at every spell level, 9/5/5/4/4/4/3/3/3/3 known",
+           cl["sorcerer"]["table"][19]["spellsPerDay"] == [6] * 10
+           and cl["sorcerer"]["table"][19]["spellsKnown"] == [9, 5, 5, 4, 4, 4, 3, 3, 3, 3])
+    rc = by["races.json"]
+    expect("7 races with French names", {i: x["name"]["fr"] for i, x in rc.items()} == {
+        "human": "Humain", "dwarf": "Nain", "elf": "Elfe", "gnome": "Gnome", "half-elf": "Demi-elfe", "half-orc": "Demi-orque",
+        "halfling": "Halfelin"})
+    expect("human: bonus feat, +1 skill point, any favored class",
+           rc["human"].get("bonusFeat") is True and rc["human"].get("extraSkillPoints") == 1 and rc["human"]["favoredClass"] == "any")
+    expect("dwarf: 20 ft not reduced by armor, darkvision 60, Con +2 Cha -2, waraxe/urgrosh familiarity",
+           rc["dwarf"]["speed"] == 20 and rc["dwarf"].get("speedNotReducedByArmor") is True and rc["dwarf"].get("darkvision") == 60
+           and rc["dwarf"]["abilityAdjustments"] == {"con": 2, "cha": -2}
+           and set(rc["dwarf"]["weaponFamiliarity"]) == {"dwarven-waraxe", "dwarven-urgrosh"})
+    expect("elf: +2 racial Listen/Search/Spot", all({"target": f"skill.{s}", "bonusType": "racial", "value": 2} in rc["elf"]["modifiers"]
+                                                    for s in ("listen", "search", "spot")))
+    expect("halfling: small, +1 racial all saves", rc["halfling"]["size"] == "small"
+           and {"target": "save.all", "bonusType": "racial", "value": 1} in rc["halfling"]["modifiers"])
+    sp = by["spells.json"]
+    rl = [x for x in sp.values() if "ranger" in x["level"]]
+    expect("51 ranger spells (19/12/13/7 by level 1-4)", len(sp) == 51 and len(rl) == 51 and [
+        sum(1 for x in rl if x["level"]["ranger"] == lv) for lv in (1, 2, 3, 4)] == [19, 12, 13, 7])
+    expect("entangle: druid 1 / ranger 1, Enchevêtrement",
+           sp["entangle"]["level"] == {"druid": 1, "ranger": 1} and sp["entangle"]["name"]["fr"] == "Enchevêtrement")
+    expect("cure light wounds: ranger 2, Soins légers", sp["cure-light-wounds"]["level"]["ranger"] == 2
+           and sp["cure-light-wounds"]["name"]["fr"] == "Soins légers")
     ah = by["magic-items.json"]["amulet-of-health-2"]
     expect("amulet-of-health-2 neck, enhancement +2 Con, 4000 gp",
            ah["slot"] == "neck" and ah["priceGp"] == 4000

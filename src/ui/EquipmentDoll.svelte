@@ -140,7 +140,7 @@
     </div>
     <div class="figure">
       {#if dollSrc}
-        <img class="knight" src={dollSrc} alt={tr({ en: 'The character with his equipment', fr: 'Le personnage et son équipement' })} />
+        <img class="knight" src={dollSrc} alt={tr({ en: 'The character and their equipment', fr: 'Le personnage et son équipement' })} />
       {:else}
         <!-- Placeholder silhouette -->
         <svg class="silhouette" viewBox="0 0 100 200" aria-hidden="true">

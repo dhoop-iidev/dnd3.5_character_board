@@ -4,6 +4,7 @@ import type { FeatDef } from '../data/types'
 import type { Character, FeatPick, FeatSlot } from '../model/character'
 import { compute } from './compute'
 import { unmetPrereqs } from './prereq'
+import { raceOf } from './race'
 
 /** XP needed to reach a character level: 1000 × n(n−1)/2 (https://www.d20srd.org/srd/xp.htm). */
 export const xpForLevel = (level: number) => (1000 * level * (level - 1)) / 2
@@ -25,14 +26,18 @@ export function classLevelAt(char: Character, level: number): number {
   return char.levels.slice(0, level).filter((l) => l.classId === char.levels[level - 1]?.classId).length
 }
 
-/** Feat slots granted at a character level (excluding the deity feat, house rule #3). */
-export function featSlotsAt(char: Character, rules: Rules, level: number): Record<Exclude<FeatSlot, 'deity'>, number> {
+/** Feat slots chosen at a character level (the deity feat, house rule #3, and granted feats are not counted here). */
+export type ChosenSlot = 'general' | 'race' | 'class'
+export const CHOSEN_SLOTS: ChosenSlot[] = ['race', 'general', 'class']
+export function featSlotsAt(char: Character, rules: Rules, level: number): Record<ChosenSlot, number> {
   const entry = char.levels[level - 1]
   const cls = entry && rules.classes.get(entry.classId)
   return {
     general: isGeneralFeatLevel(level) ? 1 : 0,
-    human: level === 1 && char.identity.race === 'human' ? 1 : 0,
-    fighter: cls?.bonusFeatLevels?.includes(classLevelAt(char, level)) ? 1 : 0,
+    // Human bonus feat at 1st level (https://www.d20srd.org/srd/races.htm#humans).
+    race: level === 1 && raceOf(char, rules).bonusFeat ? 1 : 0,
+    // Class bonus feats (fighter, warblade…).
+    class: cls?.bonusFeatLevels?.includes(classLevelAt(char, level)) ? 1 : 0,
   }
 }
 
@@ -45,7 +50,7 @@ export interface SkillBudget {
   maxRanks: (skillId: string) => number
 }
 
-/** Skill points for one level: (class points + Int) ×4 at level 1, +1 per level for humans (×4 at level 1). */
+/** Skill points for one level: (class points + Int) ×4 at level 1, + racial extra points (human +1, ×4 at level 1). */
 export function skillBudget(char: Character, rules: Rules, level: number): SkillBudget {
   const entry = char.levels[level - 1]
   const cls = rules.classes.get(entry.classId)
@@ -60,7 +65,8 @@ export function skillBudget(char: Character, rules: Rules, level: number): Skill
   const sheet = compute(base, rules, { level })
   const intMod = sheet.abilities.int.mod
   let available = Math.max(1, (cls?.skillPoints ?? 0) + intMod) * (level === 1 ? 4 : 1)
-  if (char.identity.race === 'human') available += level === 1 ? 4 : 1
+  const extra = raceOf(char, rules).extraSkillPoints ?? 0
+  available += extra * (level === 1 ? 4 : 1)
   const inClass = (skillId: string) => cls?.classSkills.includes(skillId) ?? false
   const anyClass = (skillId: string) =>
     Object.keys(sheet.classLevels).some((c) => rules.classes.get(c)?.classSkills.includes(skillId))
@@ -103,8 +109,8 @@ export function featOptions(
   const cls = rules.classes.get(char.levels[level - 1]?.classId ?? '')
   const bonusOk = (d: FeatDef) => (cls?.id === 'fighter' || !cls?.bonusFeatList ? d.fighterBonus : cls.bonusFeatList.includes(d.id))
   return [...rules.feats.values()]
-    .filter((d) => slot !== 'fighter' || bonusOk(d))
-    .filter((d) => d.type === 'general' || slot === 'general' || slot === 'human' || slot === 'deity')
+    .filter((d) => slot !== 'class' || bonusOk(d))
+    .filter((d) => d.type === 'general' || slot === 'general' || slot === 'race' || slot === 'deity')
     .map((def) => ({
       def,
       unmet: unmetPrereqs(def.prereq, sheet, rules, owned, pick?.featId === def.id ? pick.choice : undefined).map(

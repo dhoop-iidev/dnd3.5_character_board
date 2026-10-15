@@ -14,6 +14,7 @@
     skillBudget,
     xpForLevel,
   } from '../engine/progression'
+  import { choicesAt } from '../engine/classChoices'
   import { SUBTYPES, UI } from '../i18n/ui'
   import { app, lang, tr } from '../state.svelte'
   import WarningList from './WarningList.svelte'
@@ -26,7 +27,7 @@
     wis: { en: 'WIS', fr: 'SAG' },
     cha: { en: 'CHA', fr: 'CHA' },
   }
-  const SLOT_ORDER: FeatSlot[] = ['human', 'general', 'fighter', 'deity']
+  const SLOT_ORDER: FeatSlot[] = ['race', 'general', 'class', 'deity']
 
   const c = $derived(app.character)
   const level = $derived(c.levels.length)
@@ -86,7 +87,7 @@
   // ---- feats of one level
   function slotPicks(L: number, slot: FeatSlot): (FeatPick | undefined)[] {
     const picks = c.levels[L - 1].feats.filter((f) => f.slot === slot)
-    const expected = slot === 'deity' ? picks.length : featSlotsAt(c, rules, L)[slot]
+    const expected = slot === 'deity' || slot === 'granted' ? picks.length : featSlotsAt(c, rules, L)[slot]
     return Array.from({ length: Math.max(expected, picks.length) }, (_, i) => picks[i])
   }
   function setFeat(L: number, slot: FeatSlot, current: FeatPick | undefined, featId: string) {
@@ -165,7 +166,7 @@
       {@const L = i + 1}
       {@const budget = skillBudget(c, rules, L)}
       {@const slots = featSlotsAt(c, rules, L)}
-      {@const missingFeats = slots.general + slots.human + slots.fighter - entry.feats.filter((f) => f.slot !== 'deity').length}
+      {@const missingFeats = slots.general + slots.race + slots.class - entry.feats.filter((f) => f.slot !== 'deity').length}
       <li class:open={open === L}>
         <button class="row" onclick={() => (open = open === L ? null : L)} aria-expanded={open === L}>
           <span class="lvl">{L}</span>
@@ -174,6 +175,7 @@
           <span class="status">
             {#if budget.spent !== budget.available}<span class="todo">{budget.available - budget.spent} pts</span>{/if}
             {#if missingFeats > 0}<span class="todo">{tr({ en: 'feat', fr: 'don' })}</span>{/if}
+            {#if choicesAt(c, rules, L).some((ch) => !entry.classChoices?.[ch.key])}<span class="todo">{tr({ en: 'choice', fr: 'choix' })}</span>{/if}
             {#if (isAbilityIncreaseLevel(L) && !entry.abilityIncrease)}<span class="todo">+1</span>{/if}
             {#if budget.spent === budget.available && missingFeats <= 0 && (!isAbilityIncreaseLevel(L) || entry.abilityIncrease)}✓{/if}
           </span>
@@ -237,6 +239,29 @@
                   {/if}
                 </div>
               {/each}
+            {/each}
+
+            {#each choicesAt(c, rules, L) as ch (ch.key)}
+              <div class="feat">
+                <span class="slot">{tr({ en: 'class feature', fr: 'aptitude de classe' })}</span>
+                <label class="choice">
+                  {tr(ch.label)}
+                  <select
+                    value={entry.classChoices?.[ch.key] ?? ''}
+                    onchange={(e) => {
+                      const v = e.currentTarget.value
+                      const lvl = app.character.levels[i]
+                      lvl.classChoices ??= {}
+                      if (v) lvl.classChoices[ch.key] = v
+                      else delete lvl.classChoices[ch.key]
+                    }}
+                  >
+                    <option value="">— {tr({ en: 'choose', fr: 'choisir' })} —</option>
+                    {#each ch.options as o (o.id)}<option value={o.id}>{tr(o.name)}</option>{/each}
+                  </select>
+                </label>
+                <a href={ch.srdUrl} target="_blank" rel="noopener">d20srd</a>
+              </div>
             {/each}
 
             <h4>
@@ -439,6 +464,12 @@
     gap: 0.4rem;
     align-items: center;
     margin-bottom: 0.3rem;
+  }
+  .choice {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
   }
   .feat .slot {
     width: 9rem;

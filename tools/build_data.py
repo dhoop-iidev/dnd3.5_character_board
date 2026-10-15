@@ -407,10 +407,11 @@ def build_feats(skill_ids: set[str]):
 
 
 # =============================================================================================
-# Classes (fighter)
+# Classes: the fighter is built here (its fields are fixed by tests); build_classes.py adds its
+# features and the 10 other core classes, then writes classes.json.
 # =============================================================================================
 
-def build_classes(feats):
+def build_fighter(feats):
     c = db()
     rows = c.execute("select * from class_table where name='Fighter' order by cast(level as int)").fetchall()
     fr_paras = rtf_fr.load("DRS 03a")
@@ -441,8 +442,7 @@ def build_classes(feats):
         source=srd_source(srd_urls.anchor_url("classes/fighter.htm", "tableTheFighter"), rtf_fr.file_label("DRS 03a")),
     )
     assert fighter["bonusFeatLevels"] == [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-    write_json(OUT_SRD / "classes.json", [fighter])
-    return [fighter]
+    return fighter
 
 
 # =============================================================================================
@@ -450,8 +450,11 @@ def build_classes(feats):
 # =============================================================================================
 
 def main() -> None:
+    import build_classes
     import build_equipment
     import build_magic
+    import build_races
+    import build_spells
     import build_properties
 
     print("Building SRD data into", OUT_SRD)
@@ -462,9 +465,13 @@ def main() -> None:
     counts["synergies.json"] = len(build_synergies(skill_ids))
     feats = build_feats(skill_ids)
     counts["feats.json"] = len(feats)
-    counts["classes.json"] = len(build_classes(feats))
     weapons, ammo = build_equipment.build_weapons()
     counts["weapons.json"] = len(weapons)
+    weapon_ids = {w["id"] for w in weapons}
+    feat_ids = {f["id"] for f in feats}
+    counts["classes.json"] = len(build_classes.build_all(build_fighter(feats), skill_ids, feat_ids, weapon_ids))
+    counts["races.json"] = len(build_races.build_races(skill_ids, weapon_ids))
+    counts["spells.json"] = len(build_spells.build_spells())
     armor, extras = build_equipment.build_armor()
     counts["armor.json"] = len(armor)
     counts["gear.json"] = len(build_equipment.build_gear(ammo, extras))

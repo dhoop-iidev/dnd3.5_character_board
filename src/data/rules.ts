@@ -12,7 +12,9 @@ import type {
   DisciplineDef,
   ManeuverDef,
   MartialProgression,
+  RaceDef,
   SkillDef,
+  SpellDef,
   SynergyDef,
   WeaponDef,
 } from './types'
@@ -21,6 +23,8 @@ import skills from './srd/skills.json'
 import synergies from './srd/synergies.json'
 import feats from './srd/feats.json'
 import classes from './srd/classes.json'
+import races from './srd/races.json'
+import spells from './srd/spells.json'
 import weapons from './srd/weapons.json'
 import armor from './srd/armor.json'
 import gear from './srd/gear.json'
@@ -59,6 +63,8 @@ export interface Rules {
   disciplines: Map<string, DisciplineDef>
   maneuvers: Map<string, ManeuverDef>
   martialProgression: Map<string, MartialProgression>
+  races: Map<string, RaceDef>
+  spells: Map<string, SpellDef>
 }
 
 function index<T extends { id: string }>(list: T[]): Map<string, T> {
@@ -66,7 +72,7 @@ function index<T extends { id: string }>(list: T[]): Map<string, T> {
 }
 
 export function buildRules(): Rules {
-  const classList = [...(classes as ClassDef[]), weaponMaster as ClassDef, warblade as unknown as ClassDef].map((c) => {
+  const classList = [...(classes as unknown as ClassDef[]), weaponMaster as ClassDef, warblade as unknown as ClassDef].map((c) => {
     // House rule #4: homebrew class skills added to some classes.
     const extra = (classSkillOverrides as Record<string, string[]>)[c.id] ?? []
     return { ...c, classSkills: [...new Set([...c.classSkills, ...extra])] }
@@ -89,6 +95,8 @@ export function buildRules(): Rules {
       [...diamondMind, ...ironHeart, ...stoneDragon, ...tigerClaw, ...whiteRaven] as unknown as ManeuverDef[],
     ),
     martialProgression: new Map([['warblade', warbladeProgression as unknown as MartialProgression]]),
+    races: index(races as unknown as RaceDef[]),
+    spells: index(spells as unknown as SpellDef[]),
   }
 }
 

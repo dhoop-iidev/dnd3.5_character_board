@@ -1,5 +1,6 @@
 <script lang="ts">
   // Identity block of the official sheet: editable in place.
+  import { rules } from '../data/rules'
   import { levelForXp, xpForLevel } from '../engine/progression'
   import { app, lang, tr, view } from '../state.svelte'
 
@@ -23,10 +24,19 @@
   <h3>{tr({ en: 'Identity', fr: 'Identité' })}</h3>
   <div class="fields">
     <label class="half">{tr({ en: 'Name', fr: 'Nom' })}<input class="name" bind:value={app.character.identity.name} /></label>
-    <label class="half">{tr({ en: 'Title', fr: 'Titre' })}<input bind:value={app.character.identity.title} placeholder={tr({ en: 'e.g. Champion of Scorpio', fr: 'ex. Champion de Scorpio' })} /></label>
+    <label class="half">{tr({ en: 'Title', fr: 'Titre' })}<input bind:value={app.character.identity.title} placeholder={tr({ en: 'e.g. Knight of the Realm', fr: 'ex. Chevalier du royaume' })} /></label>
     <label>{tr({ en: 'Player', fr: 'Joueur' })}<input bind:value={app.character.identity.player} /></label>
-    <label>{tr({ en: 'Race', fr: 'Race' })}<input value={tr({ en: 'Human', fr: 'Humain' })} disabled /></label>
-    <label>{tr({ en: 'Size', fr: 'Catégorie de taille' })}<input value={tr({ en: 'Medium (+0)', fr: 'Moyenne (+0)' })} disabled /></label>
+    <label
+      >{tr({ en: 'Race', fr: 'Race' })}
+      <select bind:value={app.character.identity.race}>
+        {#each [...rules.races.values()] as r (r.id)}<option value={r.id}>{tr(r.name)}</option>{/each}
+        {#if !rules.races.has(app.character.identity.race)}<option value={app.character.identity.race}>{app.character.identity.race}</option>{/if}
+      </select></label
+    >
+    <label>{tr({ en: 'Size', fr: 'Catégorie de taille' })}<input
+        value={view.sheet.race.size === 'small' ? tr({ en: 'Small (+1)', fr: 'Petite (+1)' }) : tr({ en: 'Medium (+0)', fr: 'Moyenne (+0)' })}
+        disabled
+      /></label>
     <label>{tr({ en: 'Alignment', fr: 'Alignement' })}<input bind:value={app.character.identity.alignment} /></label>
     <label>{tr({ en: 'Deity', fr: 'Dieu' })}<input bind:value={app.character.identity.deity} /></label>
     <label>{tr({ en: 'Gender', fr: 'Sexe' })}<input bind:value={app.character.identity.gender} /></label>
@@ -78,7 +88,8 @@
     font-family: var(--font-num);
     font-weight: 700;
   }
-  input {
+  input,
+  select {
     font: inherit;
     font-family: var(--font-body);
     font-size: 1rem;

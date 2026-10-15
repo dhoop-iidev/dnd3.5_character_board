@@ -1,0 +1,2704 @@
+[
+  {
+    "id": "alarm",
+    "name": {
+      "en": "Alarm",
+      "fr": "Alarme"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "bard": 1,
+      "ranger": 1,
+      "sorcerer-wizard": 1
+    },
+    "components": "V, S, F/DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "area": {
+      "en": "20-ft. -radius emanation centered on a point in space",
+      "fr": "émanation de 6 m de rayon autour du point choisi"
+    },
+    "duration": {
+      "en": "2 hours/level (D)",
+      "fr": "2 heures/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Wards an area for 2 hours/level.",
+      "fr": "Protège une zone pendant 2 heures/niv."
+    },
+    "text": {
+      "en": "<p>A<i>larm</i> sounds a mental or audible alarm each time a creature of Tiny or larger size enters the warded area or touches it. A creature that speaks the password (determined by you at the time of casting) does not set off the <i>alarm</i>. You decide at the time of casting whether the <i>alarm</i> will be mental or audible.</p><p><i>Mental Alarm:</i> A mental <i>alarm</i> alerts you (and only you) so long as you remain within 1 mile of the warded area. You note a single mental 'ping' that awakens you from normal sleep but does not otherwise disturb concentration. A <i>silence</i> spell has no effect on a mental <i>alarm</i>.</p><p><i>Audible Alarm:</i> An audible <i>alarm</i> produces the sound of a hand bell, and anyone within 60 feet of the warded area can hear it clearly. Reduce the distance by 10 feet for each interposing closed door and by 20 feet for each substantial interposing wall.</p><p>In quiet conditions, the ringing can be heard faintly as far as 180 feet away. The sound lasts for 1 round. Creatures within a <i>silence</i> spell cannot hear the ringing.</p><p>Ethereal or astral creatures do not trigger the <i>alarm</i>.</p><p><i>alarm</i> can be made permanent with a <i>permanency</i> spell.</p><p><i>Arcane Focus:</i> A tiny bell and a piece of very fine silver wire</p>",
+      "fr": "<p>Alarme fait retentir une sonnerie d’alerte audible ou mentale chaque fois qu’une créature de taille TP ou supérieure pénètre dans la zone protégée ou la touche. Quiconque donne le mot de passe (choisi par le personnage au moment de l’incantation) peut entrer sans déclencher l’alarme. C’est le jeteur de sorts qui décide si la sonnerie est audible ou mentale.</p><p>Alarme mentale. Le personnage est le seul à prendre conscience de l’intrusion, mais il faut pour cela qu’il se trouve à moins de 1,5 kilomètre de l’endroit protégé. Il entend une brève sonnerie qui le réveille s’il dormait mais ne nuit en rien à sa concentration. L’alerte lui parvient même s’il est sous le coup d’un sort de silence.</p><p>Alarme audible. Un bruit de cloche retentit en cas d’intrusion et toutes les créatures distantes de 18 mètres ou moins l’entendent clairement (distance réduite de 3 mètres par porte close et de 6 mètres par mur épais). Si les environs sont suffisamment silencieux, on entend faiblement la sonnerie jusqu’à 54 mètres à la ronde. Elle dure 1 round. Les créatures situées dans la zone d’un sort de silence sont incapables de la percevoir.</p><p>Les créatures astrales ou éthérées ne déclenchent pas l’alarme.</p><p>Focaliseur profane : une clochette et un peu de fil d’argent extrêmement fin.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/alarm.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "animal-growth",
+    "name": {
+      "en": "Animal Growth",
+      "fr": "Croissance animale"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 5,
+      "ranger": 4,
+      "sorcerer-wizard": 5
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Medium (100 ft. + 10 ft./level)",
+      "fr": "moyenne (30 m + 3 m/niveau)"
+    },
+    "target": {
+      "en": "Up to one animal (Gargantuan or smaller) per two levels, no two of which can be more than 30 ft. apart",
+      "fr": "jusqu’à 1 animal/2 niveaux, tous devant se trouver à 9 m ou moins les uns des autres"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "Fortitude negates",
+      "fr": "Vigueur, annule"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "One animal/two levels doubles in size.",
+      "fr": "Double la taille et les DV de 1 animal/2 niveaux."
+    },
+    "text": {
+      "en": "<p>A number of animals grow to twice their normal size and eight times their normal weight. This alteration changes each animal's size category to the next largest, grants it a +8 size bonus to Strength and a +4 size bonus to Constitution (and thus an extra 2 hit points per HD), and imposes a -2 size penalty to Dexterity. The creature's existing natural armor bonus increases by 2. The size change also affects the animal's modifier to AC and attack rolls and its base damage. The animal's space and reach change as appropriate to the new size, but its speed does not change.</p><p>The spell also grants each subject damage reduction 10/magic and a +4 resistance bonus on saving throws. If insufficient room is available for the desired growth, the creature attains the maximum possible size and may make a Strength check (using its increased Strength) to burst any enclosures in the process. If it fails, it is constrained without harm by the materials enclosing it- the spell cannot be used to crush a creature by increasing its size.</p><p>All equipment worn or carried by an animal is similarly enlarged by the spell, though this change has no effect on the magical properties of any such equipment.</p><p>Any enlarged item that leaves the enlarged creature's possession instantly returns to its normal size.</p><p>The spell gives no means of command or influence over the enlarged animals.</p><p>Multiple magical effects that increase size do not stack.</p>",
+      "fr": "<p>Les animaux affectés par ce sort doublent de taille, ce qui multiplie leur poids par huit. L’animal passe dans la catégorie de taille suivante (taille TG à taille Gig, par exemple), bénéficie d’un bonus de taille de +8 en Force et de +4 en Constitution (et donc de 2 points de vie supplémentaires par DV), mais subit un malus de taille de –2 en Dextérité. Le bonus d’armure naturelle existant de la créature augmente de 2 points. Le changement de taille affecte également le modificateur de l’animal à la CA et aux jets d’attaque, ainsi que ses dégâts de base. Son espace occupé et son allonge changent comme le montre la Table : taille des créatures et échelle, mais il n’en est rien pour sa vitesse de déplacement.</p><p>Le sort confère également à chaque sujet une réduction des dégâts (10/magie) et un bonus de résistance de +4 aux jets de sauvegarde.</p><p>S’il n’y a pas suffisamment de place pour accueillir la forme désirée, la créature atteint la taille possible maximale et effectue un test de Force (en utilisant sa nouvelle valeur) pour faire éclater l’espace confiné. En cas d’échec, elle est enfermée mais pas blessée. En effet, on ne peut pas utiliser ce sort pour écraser une créature en augmentant sa taille.</p><p>Tout l’équipement porté ou tenu par l’animal est également agrandi, même si cela n’affecte pas les propriétés magiques de l’objet. Si la créature lâche ou se défait d’un tel objet, il recouvre instantanément sa taille normale.</p><p>Ce sort ne permet pas de contrôler ou d’influencer un animal affecté.</p><p>Plusieurs effets magiques qui augmentent la taille ne sont pas cumulatifs, ce qui signifie (entre autres choses) qu’il n’est pas possible de jeter ce sort une seconde fois pour augmenter la taille d’un animal qui se trouve encore sous l’effet de la première incantation.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/animalGrowth.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "animal-messenger",
+    "name": {
+      "en": "Animal Messenger",
+      "fr": "Messager animal"
+    },
+    "school": {
+      "en": "Enchantment (Compulsion) [Mind-Affecting]",
+      "fr": "Enchantement (coercition) [mental]"
+    },
+    "level": {
+      "bard": 2,
+      "druid": 2,
+      "ranger": 1
+    },
+    "components": "V, S, M",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "target": {
+      "en": "One Tiny animal",
+      "fr": "1 animal de taille TP"
+    },
+    "duration": {
+      "en": "One day/level",
+      "fr": "1 jour/niveau"
+    },
+    "save": {
+      "en": "None; see text",
+      "fr": "aucun (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Sends a Tiny animal to a specific place.",
+      "fr": "Envoie un animal de taille TP en un lieu donné."
+    },
+    "text": {
+      "en": "<p>You compel a Tiny animal to go to a spot you designate. The most common use for this spell is to get an animal to carry a message to your allies. The animal cannot be one tamed or trained by someone else, including such creatures as familiars and animal companions.</p><p>Using some type of food desirable to the animal as a lure, you call the animal to you. It advances and awaits your bidding. You can mentally impress on the animal a certain place well known to you or an obvious landmark. The directions must be simple, because the animal depends on your knowledge and can't find a destination on its own. You can attach some small item or note to the messenger. The animal then goes to the designated location and waits there until the duration of the spell expires, whereupon it resumes its normal activities.</p><p>During this period of waiting, the messenger allows others to approach it and remove any scroll or token it carries. The intended recipient gains no special ability to communicate with the animal or read any attached message (if it's written in a language he or she doesn't know, for example).</p><p><i>Material Component:</i> A morsel of food the animal likes.</p>",
+      "fr": "<p>Ce sort force un animal de taille TP à se rendre à l’endroit désigné par le personnage. Il sert généralement à transmettre un message à quelqu’un en l’attachant à l’animal. Ce dernier ne doit en aucun cas avoir été dompté ou dressé par quelqu’un d’autre pour que le sort fonctionne (ce qui inclut les familiers et compagnons animaux).</p><p>Le personnage attire l’animal en lui offrant une nourriture qu’il apprécie. La petite bête avance alors et attend les ordres. Le jeteur de sorts peut lui imprimer à l’esprit un lieu qu’il connaît bien ou un repère visible de loin (comme, par exemple, la cime d’un mont distant). Les indications doivent être simples, car l’animal est incapable de trouver sa destination finale de lui-même. Il est possible de lui attacher une note ou un petit objet autour du cou. Cela fait, le messager part pour le lieu indiqué. Il attend là-bas jusqu’à ce que le sort s’achève, après quoi il reprend une existence normale.</p><p>Au cours de cette attente, l’animal se laisse approcher pour que l’on puisse prendre le message ou l’objet qu’il transporte. Notez qu’il est fort possible que le destinataire ne lui prête aucune attention, à moins qu’il ne sache qu’un message lui est destiné. Le sort ne confère pas au destinataire le pouvoir de communiquer avec l’animal ou de lire le message (dans le cas où celui-ci a été rédigé dans une langue qu’il ignore, par exemple).</p><p>Composante matérielle : un peu de nourriture appréciée par l’animal que l’on souhaite appeler.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/animalMessenger.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "barkskin",
+    "name": {
+      "en": "Barkskin",
+      "fr": "Peau d’écorce"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 2,
+      "ranger": 2
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Living creature touched",
+      "fr": "créature vivante touchée"
+    },
+    "duration": {
+      "en": "10 min./level",
+      "fr": "10 minutes/niveau"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Grants +2 (or higher) enhancement to natural armor.",
+      "fr": "Confère un bonus d’armure naturelle de +2 (ou plus)."
+    },
+    "text": {
+      "en": "<p><i>Barkskin</i> toughens a creature's skin. The effect grants a +2 enhancement bonus to the creature's existing natural armor bonus. This enhancement bonus increases by 1 for every three caster levels above 3rd, to a maximum of +5 at caster level 12th.</p><p>The enhancement bonus provided by <i>Barkskin</i> stacks with the target's natural armor bonus, but not with other enhancement bonuses to natural armor. A creature without natural armor has an effective natural armor bonus of +0.</p>",
+      "fr": "<p>Comme son nom l’indique, ce sort rend l’épiderme du sujet aussi dur que de l’écorce, ce qui lui confère un bonus d’altération de +2 à son bonus d’armure naturelle. Ce bonus augmente de 1 point par tranche de 3 niveaux du lanceur de sorts, pour un maximum de +5 au niveau 12.</p><p>L’effet de peau d’écorce est cumulatif avec le bonus d’armure naturelle du sujet, mais pas avec quelque autre bonus d’altération à l’armure naturelle. Une créature dénuée d’armure naturelle possède un bonus d’armure naturelle de +0, un peu comme un personnage portant de simples vêtements a un bonus d’armure de +0.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/barkskin.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "bears-endurance",
+    "name": {
+      "en": "Bear's Endurance",
+      "fr": "Endurance de l’ours"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "cleric": 2,
+      "druid": 2,
+      "ranger": 2,
+      "sorcerer-wizard": 2
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "1 créature touchée"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Subject gains +4 to Con for 1 min./level.",
+      "fr": "Confère +4 en Con pendant 1 minute/niveau."
+    },
+    "text": {
+      "en": "<p>The affected creature gains greater vitality and stamina. The spell grants the subject a +4 enhancement bonus to Constitution, which adds the usual benefits to hit points, Fortitude saves, Constitution checks, and so forth.</p><p>Hit points gained by a temporary increase in Constitution score are not temporary hit points. They go away when the subject's Constitution drops back to normal. They are not lost first as temporary hit points are.</p>",
+      "fr": "<p>La créature affectée bénéficie d’une meilleure vigueur. Le sort confère donc au sujet un bonus d’altération de +4 en Constitution, qui déteint sur ses points de vie, ses jets de Vigueur, ses tests de Constitution, etc.</p><p>Les points de vie ainsi gagnés ne sont pas temporaires. Ils disparaissent une fois la valeur de Constitution revenue à la normale et ne sont pas perdus les premiers, comme c’est le cas pour les points de vie temporaires.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/bearsEndurance.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "calm-animals",
+    "name": {
+      "en": "Calm Animals",
+      "fr": "Apaisement des animaux"
+    },
+    "school": {
+      "en": "Enchantment (Compulsion) [Mind-Affecting]",
+      "fr": "Enchantement (coercition) [mental]"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "target": {
+      "en": "Animals within 30 ft. of each other",
+      "fr": "animaux distants de 9 m ou moins les uns des autres"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "Will negates; see text",
+      "fr": "Volonté, annule (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Calms (2d4 + level) HD of animals.",
+      "fr": "Calme (2d4 + niveau) DV d’animaux."
+    },
+    "text": {
+      "en": "<p>This spell soothes and quiets animals, rendering them docile and harmless. Only ordinary animals (those with Intelligence scores of 1 or 2) can be affected by this spell. All the subjects must be of the same kind, and no two may be more than 30 feet apart. The maximum number of Hit Dice of animals you can affect is equal to 2d4 + caster level. A dire animal or an animal trained to attack or guard is allowed a saving throw; other animals are not.</p><p>The affected creatures remain where they are and do not attack or flee. They are not helpless and defend themselves normally if attacked. Any threat breaks the spell on the threatened creatures.</p>",
+      "fr": "<p>Cet enchantement calme les animaux, qu’il rend dociles et inoffensifs. Seuls les animaux ordinaires (ayant 1 ou 2 en Intelligence) peuvent être affectées. Tous doivent être de la même espèce et se trouver dans une sphère de 9 mètres de rayon. Le nombre de dés de vie affectés est égal à 2d4 + niveau de lanceur de sorts. Les animaux sanguinaires et ceux qui ont été dressés à l’attaque ont droit à un jet de sauvegarde, mais pas les autres (un druide peut ainsi calmer facilement un loup ou un ours normal, mais un chien de garde lui demandera de plus gros efforts de persuasion).</p><p>Les créatures affectées restent là où elles se trouvent et ne cherchent ni à attaquer ni à s’enfuir. Mais elles ne sont pas sans défense et réagissent si on les attaque. La moindre menace (incendie, prédateur affamé, attaque imminente) met immédiatement un terme à l’effet du sort.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/calmAnimals.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "cats-grace",
+    "name": {
+      "en": "Cat's Grace",
+      "fr": "Grâce féline"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "bard": 2,
+      "druid": 2,
+      "ranger": 2,
+      "sorcerer-wizard": 2
+    },
+    "components": "V, S, M",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Subject gains +4 to Dex for 1 min./level.",
+      "fr": "Confère +4 en Dex pendant 1 minute/niveau."
+    },
+    "text": {
+      "en": "<p>The transmuted creature becomes more graceful, agile, and coordinated. The spell grants a +4 enhancement bonus to Dexterity, adding the usual benefits to AC, Reflex saves, and other uses of the Dexterity modifier.</p><p><i>Material Component:</i> A pinch of cat fur.</p>",
+      "fr": "<p>La créature transformée à l’aide de ce sort devient bien plus gracieuse et agile, ce qui lui permet de mieux coordonner ses gestes. Cet avantage se traduit par un bonus d’altération de +4 à la Dextérité, accompagné de toutes les modifications habituelles en termes de CA, de jets de Réflexes et autres utilisations du bonus de Dextérité.</p><p>Composantes matérielles : quelques poils de chat.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/catsGrace.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "charm-animal",
+    "name": {
+      "en": "Charm Animal",
+      "fr": "Charme-animal"
+    },
+    "school": {
+      "en": "Enchantment (Charm) [Mind-Affecting]",
+      "fr": "Enchantement (charme) [mental]"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "target": {
+      "en": "One animal",
+      "fr": "1 animal"
+    },
+    "duration": {
+      "en": "1 hour/level",
+      "fr": "1 heure/niveau"
+    },
+    "save": {
+      "en": "Will negates",
+      "fr": "Volonté, annule"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Makes one animal your friend.",
+      "fr": "Un animal devient l’ami du PJ."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>charm person</i>, except that it affects a creature of the animal type.</p>",
+      "fr": "<p>Ce sort fonctionne sur le même principe que charme-personne, si ce n’est qu’il affecte une créature de type animal.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/charmAnimal.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "command-plants",
+    "name": {
+      "en": "Command Plants",
+      "fr": "Empire végétal"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 4,
+      "ranger": 3
+    },
+    "components": "V",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "target": {
+      "en": "Up to 2 HD/level of plant creatures, no two of which can be more than 30 ft. apart",
+      "fr": "jusqu’à 2 DV/niveau de créatures végétales, chacune devant se trouver à 9 m ou moins des autres"
+    },
+    "duration": {
+      "en": "One day/level",
+      "fr": "1 jour/niveau"
+    },
+    "save": {
+      "en": "Will negates",
+      "fr": "Volonté, annule"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Sway the actions of one or more plant creatures.",
+      "fr": "Influence les actions d’une ou plusieurs créatures végétales."
+    },
+    "text": {
+      "en": "<p>This spell allows you some degree of control over one or more plant creatures. Affected plant creatures can understand you, and they perceive your words and actions in the most favorable way (treat their attitude as friendly). They will not attack you while the spell lasts. You can try to give a subject orders, but you must win an opposed Charisma check to convince it to do anything it wouldn't ordinarily do. (Retries are not allowed.) A commanded plant never obeys suicidal or obviously harmful orders, but it might be convinced that something very dangerous is worth doing.</p><p>You can affect a number of plant creatures whose combined level or HD do not exceed twice your level.</p>",
+      "fr": "<p>Ce sort permet de contrôler les plantes dans une certaine mesure. Les plantes affectées comprennent le lanceur de sorts et le considèrent de la manière la plus favorable qui soit (leur attitude est amicale). Elles ne l’attaqueront donc pas pendant toute la durée du sort. Le personnage peut tenter de donner des instructions à une plante, mais il lui faut remporter un test de Charisme opposé pour la convaincre de faire quelque chose qui lui déplaît (une seule chance). Une plante ainsi contrôlée n’obéit jamais à un ordre suicidaire ou nuisible pour autrui, mais il est possible de contourner cette restriction (voir le sort charme-personne). Le personnage peut affecter un nombre de dés de vie dont le total n’excède pas deux fois son niveau.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/commandPlants.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "commune-with-nature",
+    "name": {
+      "en": "Commune with Nature",
+      "fr": "Communion avec la nature"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "druid": 5,
+      "ranger": 4
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "10 minutes",
+      "fr": "10 minutes"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Learn about terrain for 1 mile/level.",
+      "fr": "Permet de connaître les environs (1,5 km/niveau)."
+    },
+    "text": {
+      "en": "<p>You become one with nature, attaining knowledge of the surrounding territory. You instantly gain knowledge of as many as three facts from among the following subjects: the ground or terrain, plants, minerals, bodies of water, people, general animal population, presence of woodland creatures, presence of powerful unnatural creatures, or even the general state of the natural setting.</p><p>In outdoor settings, the spell operates in a radius of 1 mile per caster level. In natural underground settings-caves, caverns, and the like-the radius is limited to 100 feet per caster level. The spell does not function where nature has been replaced by construction or settlement, such as in dungeons and towns.</p>",
+      "fr": "<p>Le personnage ne fait plus qu’un avec la nature qui l’entoure, ce qui lui permet de connaître intimement les environs. Il apprend instantanément tout ce qu’il y a à savoir sur trois des sujets suivants : sol ou milieu, végétation, minéraux, étendues et cours d’eau, habitants, population animale, présence ou non de créatures des bois ou de puissantes créatures surnaturelles, ou encore état de la nature environnante. Le sort peut par exemple lui apprendre où se trouvent les puissants morts-vivants, les sources d’eau potable et les bâtiments (qui lui apparaissent comme des vides dans sa perception de la nature qui l’entoure).</p><p>En extérieur, ce sort a une portée de 1,5 kilomètre par niveau de lanceur de sorts. Dans des lieux naturels mais souterrains (grottes, galeries, etc.), elle est nettement plus limitée (30 mètres par niveau de lanceur de sorts). Communion avec la nature ne fonctionne pas dans les endroits où la nature a été remplacée par une importante série de constructions (par exemple en ville ou au cœur d’un donjon).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/communeWithNature.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "cure-light-wounds",
+    "name": {
+      "en": "Cure Light Wounds",
+      "fr": "Soins légers"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "bard": 1,
+      "cleric": 1,
+      "druid": 1,
+      "paladin": 1,
+      "ranger": 2
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "Will half (harmless); see text",
+      "fr": "Volonté, 1/2 dégâts (inoffensif) (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless); see text",
+      "fr": "oui (inoffensif) (voir description)"
+    },
+    "summary": {
+      "en": "Cures 1d8 damage +1/level (max +5).",
+      "fr": "Rend 1d8 pv au sujet, +1/niveau (max. +5)."
+    },
+    "text": {
+      "en": "<p>When laying your hand upon a living creature, you channel positive energy that cures 1d8 points of damage +1 point per caster level (maximum +5).</p><p>Since undead are powered by negative energy, this spell deals damage to them instead of curing their wounds. An undead creature can apply spell resistance, and can attempt a Will save to take half damage.</p>",
+      "fr": "<p>En posant les mains sur une créature vivante, le personnage lui transmet de l’énergie positive qui lui permet de récupérer 1d8 points de vie, +1 par niveau de lanceur de sorts (jusqu’à un maximum de +5).</p><p>Les morts-vivants étant animés d’énergie négative, ce sort leur inflige des dégâts plutôt qu’il ne les soigne. Un jet de Volonté réussi leur permet toutefois de ne subir que des dégâts réduits de moitié.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/cureLightWounds.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "cure-moderate-wounds",
+    "name": {
+      "en": "Cure Moderate Wounds",
+      "fr": "Soins modérés"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "bard": 2,
+      "cleric": 2,
+      "druid": 3,
+      "paladin": 3,
+      "ranger": 3
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "Will half (harmless); see text",
+      "fr": "Volonté, 1/2 dégâts (inoffensif) (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless); see text",
+      "fr": "oui (inoffensif) (voir description)"
+    },
+    "summary": {
+      "en": "Cures 2d8 damage +1/level (max +10).",
+      "fr": "Rend 2d8 pv au sujet, +1/niveau (max. +10)."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>cure light wounds</i>, except that it cures 2d8 points of damage +1 point per caster level (maximum +10).</p>",
+      "fr": "<p>Ce sort est semblable à soins légers, si ce n’est qu’il guérit 2d8 points de dégâts, +1 par niveau de lanceur de sorts (jusqu’à un maximum de +10).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/cureModerateWounds.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "cure-serious-wounds",
+    "name": {
+      "en": "Cure Serious Wounds",
+      "fr": "Soins importants"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "bard": 3,
+      "cleric": 3,
+      "druid": 4,
+      "paladin": 4,
+      "ranger": 4
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "Will half (harmless); see text",
+      "fr": "Volonté, 1/2 dégâts (inoffensif) (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless); see text",
+      "fr": "oui (inoffensif) (voir description)"
+    },
+    "summary": {
+      "en": "Cures 3d8 damage +1/level (max +15).",
+      "fr": "Rend 3d8 pv au sujet, +1/niveau (max. +15)."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>cure light wounds</i>, except that it cures 3d8 points of damage +1 point per caster level (maximum +15).</p>",
+      "fr": "<p>Ce sort est semblable à soins légers, si ce n’est qu’il guérit 3d8 points de dégâts, +1 par niveau de lanceur de sorts (jusqu’à un maximum de +15).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/cureSeriousWounds.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "darkvision",
+    "name": {
+      "en": "Darkvision",
+      "fr": "Vision dans le noir"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "ranger": 3,
+      "sorcerer-wizard": 2
+    },
+    "components": "V, S, M",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "1 hour/level",
+      "fr": "1 heure/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "See 60 ft. in total darkness.",
+      "fr": "Permet de voir à 18 m sans la moindre luminosité."
+    },
+    "text": {
+      "en": "<p>The subject gains the ability to see 60 feet even in total darkness. Darkvision is black and white only but otherwise like normal sight. <i>Darkvision</i> does not grant one the ability to see in magical darkness.</p><p><i>Darkvision</i> can be made permanent with a <i>permanency</i> spell.</p><p><i>Material Component:</i> Either a pinch of dried carrot or an agate.</p>",
+      "fr": "<p>Le bénéficiaire acquiert la faculté de voir jusqu’à 18 mètres de distance dans le noir le plus complet. Les formes lui apparaissent clairement, mais il les voit en noir et blanc. Ce sort ne permet pas de voir dans l’obscurité magique.</p><p>Il est possible d’user de permanence sur un sort de vision dans le noir.</p><p>Composante matérielle : une pincée de poudre de carotte séchée ou une agate.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/darkvision.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "delay-poison",
+    "name": {
+      "en": "Delay Poison",
+      "fr": "Ralentissement du poison"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "bard": 2,
+      "cleric": 2,
+      "druid": 2,
+      "paladin": 2,
+      "ranger": 1
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "1 hour/level",
+      "fr": "1 heure/niveau"
+    },
+    "save": {
+      "en": "Fortitude negates (harmless)",
+      "fr": "Vigueur, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Stops poison from harming subject for 1 hour/level.",
+      "fr": "Neutralise le poison pendant 1 heure/niveau."
+    },
+    "text": {
+      "en": "<p>The subject becomes temporarily immune to poison. Any poison in its system or any poison to which it is exposed during the spell's duration does not affect the subject until the spell's duration has expired. <i>Delay poison</i> does not cure any damage that poison may have already done.</p>",
+      "fr": "<p>Le bénéficiaire du sort est temporairement immunisé contre les effets du poison. Toute substance toxique courant dans ses veines cesse de l’affecter jusqu’au terme de la durée indiquée. Cela est aussi valable pour tout nouveau poison qu’il reçoit tant que le sort fait effet. Ralentissement du poison ne soigne pas les dégâts que cette substance a pu infliger avant.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/delayPoison.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "detect-animals-or-plants",
+    "name": {
+      "en": "Detect Animals or Plants",
+      "fr": "Détection de la faune ou de la flore"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Long (400 ft. + 40 ft./level)",
+      "fr": "longue (120 m + 12 m/niveau)"
+    },
+    "area": {
+      "en": "Cone-shaped emanation",
+      "fr": "émanation en forme de cône"
+    },
+    "duration": {
+      "en": "Concentration, up to 10 min./level (D)",
+      "fr": "concentration, jusqu’à 10 minutes/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Detects kinds of animals or plants.",
+      "fr": "Détecte espèces de plantes ou d’animaux."
+    },
+    "text": {
+      "en": "<p>You can detect a particular kind of animal or plant in a cone emanating out from you in whatever direction you face. You must think of a kind of animal or plant when using the spell, but you can change the animal or plant kind each round. The amount of information revealed depends on how long you search a particular area or focus on a specific kind of animal or plant.</p><p><i>1st Round:</i> Presence or absence of that kind of animal or plant in the area.</p><p><i>2nd Round:</i> Number of individuals of the specified kind in the area, and the condition of the healthiest specimen.</p><p><i>3rd Round:</i> The condition (see below) and location of each individual present. If an animal or plant is outside your line of sight, then you discern its direction but not its exact location.</p><p><i>Conditions:</i> For purposes of this spell, the categories of condition are as follows:</p><p>Normal: Has at least 90% of full normal hit points, free of disease.</p><p>Fair: 30% to 90% of full normal hit points remaining.</p><p>Poor: Less than 30% of full normal hit points remaining, afflicted with a disease, or suffering from a debilitating injury.</p><p>Weak: 0 or fewer hit points remaining, afflicted with a disease in the terminal stage, or crippled.</p><p>If a creature falls into more than one category, the spell indicates the weaker of the two.</p><p>Each round you can turn to detect a kind of animal or plant in a new area. The spell can penetrate barriers, but 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt blocks it.</p>",
+      "fr": "<p>Ce sort permet de détecter un type de plante ou d’animal bien précis, pour peu qu’il se trouve dans un cône partant du personnage. Celui-ci doit penser au végétal ou à la créature qu’il cherche au moment de l’incantation. Il peut par la suite en changer, à raison d’un par round. La quantité d’informations révélées dépend du temps qu’il passe à sonder une zone ou à se concentrer sur une plante ou un animal donné :</p><p>Premier round : présence ou absence du végétal ou de l’animal recherché dans la zone sondée.</p><p>Deuxième round : nombre d’animaux ou de plantes de ce type dans la zone sondée, ainsi que l’état de l’individu ou du spécimen le plus sain (voir ci-dessous).</p><p>Troisième round : état de tous les animaux ou végétaux recherchés dans la zone d’effet. Si l’un d’eux est situé hors du champ de vision du personnage, ce dernier sait dans quelle direction il se trouve, mais pas la distance qui l’en sépare.</p><p>État. Dans le cadre de ce sort, les divers états possibles d’une plante ou d’un animal sont les suivants :</p><p>Normal : pas de maladie, au moins 90 % de ses points de vie d’origine.</p><p>Correct : 30 % à 90 % de son total de points de vie.</p><p>Faible : moins de 30 % de ses points de vie d’origine, malade ou souffrant d’une blessure handicapante.</p><p>Rachitique : 0 point de vie ou moins, affecté par une maladie au stade terminal ou estropié.</p><p>Si l’état d’une créature entre dans plusieurs catégories, le sort indique automatiquement la plus préoccupante.</p><p>Le personnage peut se tourner pour sonder une nouvelle zone chaque round. Le sort fonctionne au travers des barrières, à condition qu’elles ne soient pas trop épaisses : il est bloqué par 30 centimètres de pierre, 2,5 centimètres de métal, une mince feuille de plomb ou 90 centimètres de bois ou de terre.</p><p>On doit décider si le type de plante ou d’animal recherché est présent dans les environs.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/detectAnimalsOrPlants.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "detect-poison",
+    "name": {
+      "en": "Detect Poison",
+      "fr": "Détection du poison"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "cleric": 0,
+      "druid": 0,
+      "paladin": 1,
+      "ranger": 1,
+      "sorcerer-wizard": 0
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "target": {
+      "en": "One creature, one object, or a 5-ft. cube",
+      "fr": "1 créature, 1 objet ou 1 cube de 1,50 m d’arête"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Detects poison in one creature or small object.",
+      "fr": "Détecte le poison chez 1 créature ou 1 objet."
+    },
+    "text": {
+      "en": "<p>You determine whether a creature, object, or area has been poisoned or is poisonous. You can determine the exact type of poison with a DC 20 Wisdom check. A character with the Craft (alchemy) skill may try a DC 20 Craft (alchemy) check if the Wisdom check fails, or may try the Craft (alchemy) check prior to the Wisdom check.</p><p>The spell can penetrate barriers, but 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt blocks it.</p>",
+      "fr": "<p>Ce sort permet de savoir si un individu, un objet ou un lieu a été empoisonné ou est toxique. Le type de poison peut être déterminé à l’aide d’un test de Sagesse (DD 20). Un personnage maîtrisant la compétence Artisanat (alchimie) peut l’utiliser si son test de Sagesse échoue. Le tests d’Artisanat (alchimie) s’accompagne également d’un DD de 20. Il est également possible d’effectuer le test d’Artisanat (alchimie) avant celui de Sagesse.</p><p>Le sort fonctionne au travers des barrières, à condition qu’elles ne soient pas trop épaisses : il est bloqué par 30 centimètres de pierre, 2,5 centimètres de métal, une mince feuille de plomb ou 90 centimètres de bois ou de terre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/detectPoison.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "detect-snares-and-pits",
+    "name": {
+      "en": "Detect Snares and Pits",
+      "fr": "Détection des collets et des fosses"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "60 ft.",
+      "fr": "18 m"
+    },
+    "area": {
+      "en": "Cone-shaped emanation",
+      "fr": "émanation en forme de cône"
+    },
+    "duration": {
+      "en": "Concentration, up to 10 min./level (D)",
+      "fr": "concentration, jusqu’à 10 minutes/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Reveals natural or primitive traps.",
+      "fr": "Détecte pièges naturels ou primitifs."
+    },
+    "text": {
+      "en": "<p>You can detect simple pits, deadfalls, and snares as well as mechanical traps constructed of natural materials. The spell does not detect complex traps, including trapdoor traps.</p><p><i>Detect snares and pits</i> does detect certain natural hazards-quicksand (a snare), a sinkhole (a pit), or unsafe walls of natural rock (a deadfall). However, it does not reveal other potentially dangerous conditions. The spell does not detect magic traps (except those that operate by pit, deadfall, or snaring; see the spell <i>snare</i>), nor mechanically complex ones, nor those that have been rendered safe or inactive.</p><p>The amount of information revealed depends on how long you study a particular area.</p><p><i>1st Round:</i> Presence or absence of hazards.</p><p><i>2nd Round:</i> Number of hazards and the location of each. If a hazard is outside your line of sight, then you discern its direction but not its exact location.</p><p><i>Each Additional Round:</i> The general type and trigger for one particular hazard closely examined by you.</p><p>Each round, you can turn to detect snares and pits in a new area. The spell can penetrate barriers, but 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt blocks it.</p>",
+      "fr": "<p>Ce sort permet de détecter les fosses, les poids en équilibre instable risquant de tomber sur quiconque passe dessous, les pièges tendus par les créatures sauvages (tels qu’une toile tissée par une araignée monstrueuse, etc.), mais aussi les pièges rudimentaires obtenus à partir de matériaux naturels (collets, pièges à projectiles, etc.). Il ne repère pas les pièges complexes (ceux qui permettent de défendre une porte, par exemple).</p><p>Il révèle par contre certains risques naturels en rapport avec le terrain : les sables mouvants (qu’il indique comme étant des collets), les trous dans le sol (fosses) et les blocs de rochers menaçant de tomber (poids en équilibre). Cela étant, il n’indique pas les risques naturels non évidents de prime abord : une grotte risquant d’être inondée en cas de forte pluie, un mur pouvant s’écrouler à tout moment, une plante vénéneuse, etc. Il ne détecte pas les pièges magiques (sauf ceux qui fonctionnent à l’aide d’une fosse, d’un collet ou d’un poids en équilibre ; voir le sort collet), ni ceux qui sont d’origine mécanique ou qui ont été désamorcés.</p><p>La quantité d’informations révélées dépend du temps que l’on passe à étudier la zone :</p><p>Premier round : présence ou absence de pièges.</p><p>Deuxième round : nombre de pièges et leur localisation. S’ils se situent en dehors du champ de vision du personnage, celui-ci n’a conscience que de la direction dans laquelle ils se trouvent, pas de leur position exacte.</p><p>Chaque round supplémentaire : nature exacte et mode de déclenchement d’un piège bien spécifique, examiné par le druide ou le rôdeur.</p><p>Le personnage peut se tourner pour sonder une nouvelle zone chaque round. Le sort fonctionne au travers des barrières, à condition qu’elles ne soient pas trop épaisses : il est bloqué par 30 centimètres de pierre, 2,5 centimètres de métal, une mince feuille de plomb ou 90 centimètres de bois ou de terre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/detectSnaresAndPits.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "diminish-plants",
+    "name": {
+      "en": "Diminish Plants",
+      "fr": "Rabougrissement des plantes"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 3,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "See text",
+      "fr": "voir description"
+    },
+    "target": {
+      "en": "See text",
+      "fr": "voir description"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Reduces size or blights growth of normal plants.",
+      "fr": "Réduit la taille des plantes ou empêche leur croissance."
+    },
+    "text": {
+      "en": "<p>This spell has two versions.</p><p><i>Prune Growth:</i> This version causes normal vegetation within long range (400 feet + 40 feet per level) to shrink to about one-third of their normal size, becoming untangled and less bushy. The affected vegetation appears to have been carefully pruned and trimmed.</p><p>At your option, the area can be a 100- foot-radius circle, a 150-foot-radius semicircle, or a 200-foot-radius quarter-circle.</p><p>You may also designate portions of the area that are not affected.</p><p><i>Stunt Growth:</i> This version targets normal plants within a range of 1/2 mile, reducing their potential productivity over the course of the following year to one third below normal.</p><p><i>Diminish plants</i> counters <i>plant growth</i>.</p><p>This spell has no effect on plant creatures.</p>",
+      "fr": "<p>Ce sort a deux versions différentes :</p><p>Taille. La première version réduit d’environ un tiers la densité de la végétation affectée (herbe, buissons, lianes, arbres, etc.), ce qui la rend plus clairsemée. Cet effet fonctionne à longue portée (120 mètres + 12 mètres par niveau du personnage). Les plantes affectées semblent avoir été récemment taillées.</p><p>Au choix du lanceur de sorts, la zone d’effet prend la forme d’un cercle de 30 mètres de rayon, un demi-cercle de 45 mètres de rayon ou un quart de cercle de 60 mètres de rayon. Il est possible de définir des points au sein de cette zone qui ne seront pas affectés.</p><p>Interruption de croissance. Cette version touche toutes les plantes dans un rayon de 750 mètres. Leur productivité est réduite d’un tiers pour l’année à venir.</p><p>Rabougrissement des plantes contre croissance végétale.</p><p>Enfin, ce sort n’a aucun effet sur les créatures végétales.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/diminishPlants.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "endure-elements",
+    "name": {
+      "en": "Endure Elements",
+      "fr": "Endurance aux énergies destructives"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "cleric": 1,
+      "druid": 1,
+      "paladin": 1,
+      "ranger": 1,
+      "sorcerer-wizard": 1
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "24 hours",
+      "fr": "24 heures"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Exist comfortably in hot or cold environments.",
+      "fr": "Protège des environnements chauds ou froids."
+    },
+    "text": {
+      "en": "<p>A creature protected by <i>Endure elements</i> suffers no harm from being in a hot or cold environment. It can exist comfortably in conditions between -50 and 140 degrees Fahrenheit without having to make Fortitude saves). The creature's equipment is likewise protected.</p><p><i>Endure elements</i> doesn't provide any protection from fire or cold damage, nor does it protect against other environmental hazards such as smoke, lack of air, and so forth.</p>",
+      "fr": "<p>Une créature protégée par endurance aux énergies destructives ne risque rien dans un environnement chaud ou froid. Elle peut donc évoluer par des températures allant de –10° à +60° sans devoir effectuer le moindre jet de Vigueur. Son équipement est également protégé.</p><p>Endurance aux énergies destructives n’est d’aucune utilité contre les dégâts de feu et de froid. Il ne protège pas davantage des dangers liés à l’environnement, comme la fumée, le manque d’air, etc.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/endureElements.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "entangle",
+    "name": {
+      "en": "Entangle",
+      "fr": "Enchevêtrement"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Long (400 ft. + 40 ft./level)",
+      "fr": "longue (120 m + 12 m/niveau)"
+    },
+    "area": {
+      "en": "Plants in a 40-ft. -radius spread",
+      "fr": "toute la végétation sur une étendue de 12 m de rayon"
+    },
+    "duration": {
+      "en": "1 min./level (D)",
+      "fr": "1 minute/niveau (T)"
+    },
+    "save": {
+      "en": "Reflex partial; see text",
+      "fr": "Réflexes, partiel (voir description)"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Plants entangle everyone in 40-ft. -radius circle.",
+      "fr": "La végétation immobilise tout dans un rayon de 12 m."
+    },
+    "text": {
+      "en": "<p>Grasses, weeds, bushes, and even trees wrap, twist, and entwine about creatures in the area or those that enter the area, holding them fast and causing them to become entangled. The creature can break free and move half its normal speed by using a full-round action to make a DC 20 Strength check or a DC 20 Escape Artist check. A creature that succeeds on a Reflex save is not entangled but can still move at only half speed through the area. Each round on your turn, the plants once again attempt to entangle all creatures that have avoided or escaped entanglement.</p><p><i>Note:</i> The effects of the spell may be altered somewhat, based on the nature of the entangling plants.</p>",
+      "fr": "<p>Herbe, plantes, buissons et arbres se déforment pour s’entortiller autour des créatures qui se trouvent dans la zone d’effet ou qui y pénètrent. Si elle réussit un test de Force ou d’Évasion (DD 20), la créature peut se libérer et évoluer à la moitié de sa vitesse de déplacement en utilisant une action complexe. Une créature réussissant son jet de Réflexes n’est pas immobilisée par la végétation, mais sa vitesse de déplacement est tout de même réduite de moitié tant qu’elle se trouve dans la zone affectée. Chaque round, les plantes tentent d’immobiliser toutes les créatures qui leur ont échappé (nouveau jet de Réflexes nécessaire).</p><p>Note. Il est possible de modifier légèrement l’effet du sort en fonction de la végétation locale.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/entangle.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "freedom-of-movement",
+    "name": {
+      "en": "Freedom of Movement",
+      "fr": "Liberté de mouvement"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "bard": 4,
+      "cleric": 4,
+      "druid": 4,
+      "ranger": 4
+    },
+    "components": "V, S, M, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal or touch",
+      "fr": "personnelle ou contact"
+    },
+    "target": {
+      "en": "You or creature touched",
+      "fr": "le jeteur de sorts ou créature touchée"
+    },
+    "duration": {
+      "en": "10 min./level",
+      "fr": "10 minutes/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Subject moves normally despite impediments.",
+      "fr": "La cible bouge normalement malgré les entraves."
+    },
+    "text": {
+      "en": "<p>This spell enables you or a creature you touch to move and attack normally for the duration of the spell, even under the influence of magic that usually impedes movement, such as paralysis, <i>solid fog</i>, <i>slow</i>, and <i>web</i>. The subject automatically succeeds on any grapple check made to resist a grapple attempt, as well as on grapple checks or Escape Artist checks made to escape a grapple or a pin.</p><p>The spell also allows the subject to move and attack normally while underwater, even with slashing weapons such as axes and swords or with bludgeoning weapons such as flails, hammers, and maces, provided that the weapon is wielded in the hand rather than hurled. The <i>freedom of movement</i> spell does not, however, allow water breathing.</p><p><i>Material Component:</i> A leather thong, bound around the arm or a similar appendage.</p>",
+      "fr": "<p>Ce sort permet au personnage ou à la créature qu’il touche de se déplacer et de combattre normalement, même sous le coup de sorts ou d’effets magiques qui contrarient normalement les déplacements, comme c’est le cas pour brouillard dense, lenteur, la paralysie ou toile d’araignée. Le sujet réussit automatiquement les tests de lutte visant à résister aux tentatives de lutte, ainsi que les tests de lutte ou d’Évasion visant à échapper à une lutte ou une immobilisation.</p><p>Le sujet peut également se mouvoir et attaquer normalement sous l’eau, même à l’aide d’armes tranchantes (épées, haches, etc.) ou contondantes (fléaux, marteaux et autres masses d’armes), du moins tant qu’il les manie au corps à corps (il ne peut toujours pas les lancer). Par contre, liberté de mouvement ne permet pas de respirer sous l’eau.</p><p>Composante matérielle : une lanière en cuir, nouée autour du bras ou de la jambe.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/freedomOfMovement.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "hide-from-animals",
+    "name": {
+      "en": "Hide from Animals",
+      "fr": "Invisibilité pour les animaux"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "One creature touched/level",
+      "fr": "1 créature touchée/niveau"
+    },
+    "duration": {
+      "en": "10 min./level (D)",
+      "fr": "10 minutes/niveau (T)"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Animals can't perceive one subject/level.",
+      "fr": "Les animaux ne voient pas 1 sujet/niveau."
+    },
+    "text": {
+      "en": "<p>Animals cannot see, hear, or smell the warded creatures. Even extraordinary or supernatural sensory capabilities, such as blindsense, blindsight, scent, and tremorsense, cannot detect or locate warded creatures. Animals simply act as though the warded creatures are not there. If a warded character touches an animal or attacks any creature, even with a spell, the spell ends for all recipients.</p>",
+      "fr": "<p>Les animaux ne peuvent ni voir, ni entendre, ni sentir les créatures protégées. Même les pouvoirs sensoriels extraordinaires ou surnaturels, comme les sens aveugles, la vision aveugle, l’odorat et la perception des vibrations, ne leur sont d’aucune utilité. Les animaux se comportent donc comme si les créatures dissimulées n’étaient pas là. Ainsi, ces dernières pourraient se tenir devant des lions affamés sans être inquiétées. Par contre, si une créature protégée touche un animal ou attaque qui que ce soit, même à l’aide d’un sort, la dissimulation aux animaux prend fin pour tous les bénéficiaires.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/hideFromAnimals.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "hold-animal",
+    "name": {
+      "en": "Hold Animal",
+      "fr": "Immobilisation d’animal"
+    },
+    "school": {
+      "en": "Enchantment (Compulsion) [Mind-Affecting]",
+      "fr": "Enchantement (coercition) [mental]"
+    },
+    "level": {
+      "druid": 2,
+      "ranger": 2
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Medium (100 ft. + 10 ft./level)",
+      "fr": "moyenne (30 m + 3 m/niveau)"
+    },
+    "target": {
+      "en": "One animal",
+      "fr": "1 animal"
+    },
+    "duration": {
+      "en": "1 round/level (D); see text",
+      "fr": "1 round/niveau (T) (voir description)"
+    },
+    "save": {
+      "en": "Will negates; see text",
+      "fr": "Volonté, annule (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Paralyzes one animal for 1 round/level.",
+      "fr": "Immobilise un animal pour 1 round/niveau."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>hold person</i>, except that it affects an animal instead of a humanoid.</p>",
+      "fr": "<p>Ce sort est semblable à immobilisation de personne, si ce n’est qu’il affecte un animal.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/holdAnimal.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "jump",
+    "name": {
+      "en": "Jump",
+      "fr": "Saut"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1,
+      "sorcerer-wizard": 1
+    },
+    "components": "V, S, M",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "1 min./level (D)",
+      "fr": "1 minute/niveau (T)"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Subject gets bonus on Jump checks.",
+      "fr": "Confère un bonus aux tests de Saut."
+    },
+    "text": {
+      "en": "<p>The subject gets a +10 enhancement bonus on Jump checks. The enhancement bonus increases to +20 at caster level 5th, and to +30 (the maximum) at caster level 9th.</p><p><i>Material Component:</i> A grasshopper's hind leg, which you break when the spell is cast.</p>",
+      "fr": "<p>Le sujet bénéficie d’un bonus d’altération de +10 aux tests de Saut. Ce bonus d’altération passe à +20 au niveau 5 de lanceur de sorts, et à +30 (le maximum) au niveau 9 de lanceur de sorts.</p><p>Composante matérielle : une patte arrière de sauterelle, que l’on casse en prononçant l’incantation.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/jump.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "longstrider",
+    "name": {
+      "en": "Longstrider",
+      "fr": "Grand pas"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S, M",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "1 hour/level (D)",
+      "fr": "1 heure/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Increases your speed.",
+      "fr": "Augmente la vitesse de déplacement du PJ de 3 m."
+    },
+    "text": {
+      "en": "<p>This spell increases your base land speed by 10 feet. (This adjustment counts as an enhancement bonus.) It has no effect on other modes of movement, such as burrow, climb, fly, or swim.</p><p><i>Material Component:</i> A pinch of dirt.</p>",
+      "fr": "<p>Ce sort augmente la vitesse de déplacement terrestre du personnage de 3 mètres (il s’agit d’un bonus d’altération). Il n’a aucun effet sur les autres modes de déplacement, comme le creusement, l’escalade, le vol ou la nage.</p><p>Composante matérielle : un peu de boue.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/longstrider.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "magic-fang",
+    "name": {
+      "en": "Magic Fang",
+      "fr": "Morsure magique"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Living creature touched",
+      "fr": "créature vivante touchée"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "One natural weapon of subject creature gets +1 on attack and damage rolls.",
+      "fr": "Une arme naturelle du sujet gagne +1 aux jets d’attaque et de dégâts."
+    },
+    "text": {
+      "en": "<p><i>Magic fang</i> gives one natural weapon of the subject a +1 enhancement bonus on attack and damage rolls. The spell can affect a slam attack, fist, bite, or other natural weapon. (The spell does not change an unarmed strike's damage from nonlethal damage to lethal damage.)</p><p><i>Magic fang</i> can be made permanent with a <i>permanency</i> spell.</p>",
+      "fr": "<p>Morsure magique confère à l’une des armes naturelles du sujet un bonus d’altération de +1 aux jets d’attaque et de dégâts. Le sort peut affecter une morsure, un coup de poing, ou toute autre arme naturelle (sans faire passer les dégâts occasionnés par cette dernière de non-létaux à létaux, le cas échéant).</p><p>Il est possible d’user de permanence sur un sort de morsure magique.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/magicFang.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "magic-fang-greater",
+    "name": {
+      "en": "Magic Fang, Greater",
+      "fr": "Morsure magique suprême"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 3,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "target": {
+      "en": "One living creature",
+      "fr": "1 créature vivante"
+    },
+    "duration": {
+      "en": "1 hour/level",
+      "fr": "1 heure/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "One natural weapon of subject creature gets +1/three caster levels on attack and damage rolls (max +5).",
+      "fr": "Une arme naturelle du sujet gagne +1 à l’attaque et aux dégâts/3 niveaux (max. +5)."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>magic fang</i>, except that the enhancement bonus on attack and damage rolls is +1 per four caster levels (maximum +5).</p><p>Alternatively, you may imbue all of the creature's natural weapons with a +1 enhancement bonus (regardless of your caster level).</p><p><i>Greater magic fang</i> can be made permanent with a <i>permanency</i> spell.</p>",
+      "fr": "<p>Ce sort est semblable à morsure magique, si ce n’est que le bonus d’altération est de +1 tous les quatre niveaux du personnage (jusqu’à un maximum de +5).</p><p>Une autre version du sort permet d’offrir un bonus d’altération de +1 à toutes les armes naturelles de la créature (quel que soit le niveau de lanceur de sorts du personnage).</p><p>Il est possible d’user de permanence sur un sort de morsure magique suprême.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/magicFangGreater.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "neutralize-poison",
+    "name": {
+      "en": "Neutralize Poison",
+      "fr": "Neutralisation du poison"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "bard": 4,
+      "cleric": 4,
+      "druid": 3,
+      "paladin": 4,
+      "ranger": 3
+    },
+    "components": "V, S, M/DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature or object of up to 1 cu. ft./level touched",
+      "fr": "créature ou objet (30 dm³/niveau) touché"
+    },
+    "duration": {
+      "en": "10 min./level",
+      "fr": "10 minutes/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless, object)",
+      "fr": "Volonté, annule (inoffensif, objet)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless, object)",
+      "fr": "oui (inoffensif, objet)"
+    },
+    "summary": {
+      "en": "Immunizes subject against poison, detoxifies venom in or on subject.",
+      "fr": "Rend le poison inoffensif."
+    },
+    "text": {
+      "en": "<p>You detoxify any sort of venom in the creature or object touched. A poisoned creature suffers no additional effects from the poison, and any temporary effects are ended, but the spell does not reverse instantaneous effects, such as hit point damage, temporary ability damage, or effects that don't go away on their own.</p><p>The creature is immune to any poison it is exposed to during the duration of the spell. Unlike with <i>delay poison</i>, such effects aren't postponed until after the duration -the creature need not make any saves against poison effects applied to it during the length of the spell.</p><p>This spell can instead neutralize the poison in a poisonous creature or object for the duration of the spell, at the caster's option.</p><p><i>Arcane Material Component:</i> A bit of charcoal.</p>",
+      "fr": "<p>Ce sort chasse toutes les formes de poison de l’organisme de la créature touchée. Cette dernière ne souffre plus. Les effets temporaires du poison cessent aussitôt, mais le sort n’annule pas ses effets instantanés (perte de points de vie, affaiblissement temporaire de caractéristique et autres effets ne se dissipant pas d’eux-mêmes). Par exemple, si un poison a temporairement fait perdre 3 points de Constitution à un personnage et menace de lui en ôter davantage, neutralisation du poison prévient la perte de Constitution future mais ne restaure pas les points perdus.</p><p>La créature est immunisée contre tout poison auquel elle est exposée pendant la durée du sort. Contrairement à retardement du poison, les effets ne sont pas différés dans le temps. La créature n’a donc pas besoin d’effectuer de jet de sauvegarde contre le poison au terme du sort.</p><p>Un autre effet du sort consiste à neutraliser le poison d’une créature venimeuse ou d’un objet empoisonné.</p><p>Composante matérielle profane : un peu de charbon.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/neutralizePoison.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "nondetection",
+    "name": {
+      "en": "Nondetection",
+      "fr": "Antidétection"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "ranger": 4,
+      "sorcerer-wizard": 3
+    },
+    "components": "V, S, M",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature or object touched",
+      "fr": "créature ou objet touché"
+    },
+    "duration": {
+      "en": "1 hour/level",
+      "fr": "1 heure/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless, object)",
+      "fr": "Volonté, annule (inoffensif, objet)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless, object)",
+      "fr": "oui (inoffensif, objet)"
+    },
+    "summary": {
+      "en": "Hides subject from divination, scrying.",
+      "fr": "Protège contre la scrutation et les divinations."
+    },
+    "text": {
+      "en": "<p>The warded creature or object becomes difficult to detect by divination spells such as <i>clairaudience/clairvoyance</i>, <i>locate object</i>, and <i>detect</i> spells. <i>Nondetection</i> also prevents location by such magic items as <i>crystal balls</i>. If a divination is attempted against the warded creature or item, the caster of the divination must succeed on a caster level check (1d20 + caster level) against a DC of 11 + the caster level of the spellcaster who cast <i>nondetection</i>. If you cast <i>Nondetection</i> on yourself or on an item currently in your possession, the DC is 15 + your caster level.</p><p>If cast on a creature, <i>Nondetection</i> wards the creature's gear as well as the creature itself.</p><p><i>Material Component:</i> A pinch of diamond dust worth 50 gp.</p>",
+      "fr": "<p>La créature ou l’objet protégé par ce sort devient difficile à repérer à l’aide de sorts de Divination, comme clairvoyance/clairaudience, localisation d’objet et autres détections. Antidétection protège également contre les boules de cristal. Quiconque tente d’espionner la créature ou l’objet protégé doit réussir un test de niveau de lanceur de sorts (1d20 + niveau de lanceur de sorts) contre un DD égal à 11 + niveau de lanceur de sorts du personnage qui a lancé antidétection. Si ce dernier décide de bénéficier lui-même de l’abjuration (ou de protéger un objet en sa possession), le DD est égal à 15 + son niveau de lanceur de sorts.</p><p>Lorsqu’une créature bénéficie de l’effet d’antidétection, tout son équipement est également protégé.</p><p>Composante matérielle : une pincée de poudre de diamant (valeur 50 po minimum).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/nondetection.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "owls-wisdom",
+    "name": {
+      "en": "Owl's Wisdom",
+      "fr": "Sagesse du hibou"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "cleric": 2,
+      "druid": 2,
+      "paladin": 2,
+      "ranger": 2,
+      "sorcerer-wizard": 2
+    },
+    "components": "V, S, M/DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Subject gains +4 to Wis for 1 min./level.",
+      "fr": "Confère +4 en Sag pendant 1 minute/niveau."
+    },
+    "text": {
+      "en": "<p>The transmuted creature becomes wiser. The spell grants a +4 enhancement bonus to Wisdom, adding the usual benefit to Wisdom-related skills. Clerics, druids, paladins, and rangers (and other Wisdom-based spellcasters) who receive <i>owl's wisdom</i> do not gain any additional bonus spells for the increased Wisdom, but the save DCs for their spells increase.</p><p><i>Arcane Material Component:</i> A few feathers, or a pinch of droppings, from an owl.</p>",
+      "fr": "<p>La créature transformée se montre plus sage. Le sort octroie un bonus d’altération de +4 en Sagesse. La cible en bénéficie dans le cadre de toute utilisation de la Sagesse. Les prêtres, druides, paladins et rôdeurs (et autres lanceurs de sorts dépendant de la Sagesse) bénéficiant de sagesse du hibou ne gagnent pas de sorts supplémentaires, mais le DD de leurs sorts s’en trouve augmenté.</p><p>Composantes matérielles profanes : quelques plumes de hibou, ou encore un peu de fiente.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/owlsWisdom.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "pass-without-trace",
+    "name": {
+      "en": "Pass without Trace",
+      "fr": "Passage sans trace"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "One creature/level touched",
+      "fr": "1 créature touchée/niveau"
+    },
+    "duration": {
+      "en": "1 hour/level (D)",
+      "fr": "1 heure/niveau (T)"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "One subject/level leaves no tracks.",
+      "fr": "Les sujets (1/niveau) ne laissent pas de traces."
+    },
+    "text": {
+      "en": "<p>The subject or subjects can move through any type of terrain and leave neither footprints nor scent. Tracking the subjects is impossible by nonmagical means.</p>",
+      "fr": "<p>Les sujets peuvent marcher sur la surface de leur choix (boue, neige, poussière, etc.) sans laisser la moindre trace de leur passage. Seuls des moyens magiques permettent de les suivre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/passWithoutTrace.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "plant-growth",
+    "name": {
+      "en": "Plant Growth",
+      "fr": "Croissance végétale"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 3,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "See text",
+      "fr": "voir description"
+    },
+    "target": {
+      "en": "See text",
+      "fr": "voir description"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Grows vegetation, improves crops.",
+      "fr": "Fait pousser la végétation, améliore son rendement."
+    },
+    "text": {
+      "en": "<p><i>Plant growth</i> has different effects depending on the version chosen.</p><p><i>Overgrowth:</i> This effect causes normal vegetation (grasses, briars, bushes, creepers, thistles, trees, vines) within long range (400 feet + 40 feet per caster level) to become thick and overgrown. The plants entwine to form a thicket or jungle that creatures must hack or force a way through. Speed drops to 5 feet, or 10 feet for Large or larger creatures. The area must have brush and trees in it for this spell to take effect.</p><p>At your option, the area can be a 100-foot-radius circle, a 150-foot-radius semicircle, or a 200-foot-radius quarter circle.</p><p>You may designate places within the area that are not affected.</p><p><i>Enrichment:</i> This effect targets plants within a range of one-half mile, raising their potential productivity over the course of the next year to one-third above normal.</p><p><i>Plant growth</i> counters <i>diminish plants</i>.</p><p>This spell has no effect on plant creatures.</p>",
+      "fr": "<p>Croissance végétale a des effets différents selon la version choisie.</p><p>Jungle. Toute la flore (herbe, fourrés, arbres, plantes grimpantes, lianes, etc.) contenue dans la zone d’effet (qui doit être choisie dans une limite de portée de 120 mètres + 12 mètres par niveau de lanceur de sorts) pousse de manière démesurée, à tel point que la zone se retrouve envahie. Les plantes tissent un réseau si dense que les créatures désirant avancer doivent se frayer un passage à l’aide de leurs armes ou de leurs attaques naturelles. Leur vitesse de déplacement tombe à 1,50 mètre, ou 3 mètres pour les entités de taille G ou plus (on peut toutefois autoriser les créatures de taille très réduite ou très importante à se déplacer plus rapidement). La zone d’effet doit comprendre des arbres et des buissons pour que cette version du sort serve à quelque chose.</p><p>Au choix du personnage, la zone d’effet peut prendre la forme d’un cercle de 30 mètres de rayon, d’un demi-cercle de 45 mètres de rayon ou d’un quart de cercle de 60 mètres de rayon. Il est également possible de désigner des points non affectés au cœur de la zone d’effet.</p><p>Engrais. L’autre effet du sort enrichit la sève des plantes comprises dans un rayon d’un kilomètre, ce qui augmente d’un tiers leur productivité au cours de l’année à venir.</p><p>Dans nombre de communautés agricoles, prêtres et druides lancent ce sort au moment des semailles ou lors des festivals de printemps.</p><p>Croissance végétale contre rabougrissement des plantes.</p><p>Ce sort n’a aucun effet sur les créatures végétales.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/plantGrowth.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "protection-from-energy",
+    "name": {
+      "en": "Protection from Energy",
+      "fr": "Protection contre les énergies destructives"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "cleric": 3,
+      "druid": 3,
+      "ranger": 2,
+      "sorcerer-wizard": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "10 min./level or until discharged",
+      "fr": "10 minutes/niveau ou jusqu’à épuisement"
+    },
+    "save": {
+      "en": "Fortitude negates (harmless)",
+      "fr": "Vigueur, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Absorb 12 points/level of damage from one kind of energy.",
+      "fr": "Absorbe 12 points de dégâts/niveau infligés par le type d’énergie choisi."
+    },
+    "text": {
+      "en": "<p><i>protection from energy</i> grants temporary immunity to the type of energy you specify when you cast it (acid, cold, electricity, fire, or sonic). When the spell absorbs 12 points per caster level of energy damage (to a maximum of 120 points at 10th level), it is discharged.</p><p><i>Note: Protection from energy</i> overlaps (and does not stack with) <i>resist energy</i>. If a character is warded by <i>protection from energy</i> and <i>resist energy</i>, the <i>protection</i> spell absorbs damage until its power is exhausted.</p>",
+      "fr": "<p>Ce sort confère une immunité temporaire contre le type d’énergie sélectionné (acide, électricité, feu, froid ou son). Une fois que l’abjuration a absorbé 12 points de dégâts par niveau de lanceur de sorts celui qui l’a lancée (jusqu’à un maximum de 120 points de dégâts au niveau 10), elle cesse de faire effet.</p><p>Note. Protection contre les énergies destructives remplace résistance aux énergies destructives (et n’est pas cumulatif avec ce dernier). Si un personnage bénéficie de protection contre les énergies destructives et de l’autre sort, la protection agit seule jusqu’à ce que son potentiel d’absorption soit épuisé.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/protectionFromEnergy.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "read-magic",
+    "name": {
+      "en": "Read Magic",
+      "fr": "Lecture de la magie"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "bard": 0,
+      "cleric": 0,
+      "druid": 0,
+      "paladin": 1,
+      "ranger": 1,
+      "sorcerer-wizard": 0
+    },
+    "components": "V, S, F",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "10 min./level",
+      "fr": "10 minutes/niveau"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Read scrolls and spellbooks.",
+      "fr": "Permet de lire parchemins et livres de sorts."
+    },
+    "text": {
+      "en": "<p>By means of <i>Read magic</i>, you can decipher magical inscriptions on objects-books, scrolls, weapons, and the like-that would otherwise be unintelligible. This deciphering does not normally invoke the magic contained in the writing, although it may do so in the case of a cursed scroll. Furthermore, once the spell is cast and you have read the magical inscription, you are thereafter able to read that particular writing without recourse to the use of <i>read magic</i>. You can read at the rate of one page (250 words) per minute. The spell allows you to identify a <i>glyph of warding</i> with a DC 13 Spellcraft check, a <i>greater glyph of warding</i> with a DC 16 Spellcraft check, or any <i>symbol</i> spell with a Spellcraft check (DC 10 + spell level).</p><p><i>Read magic</i> can be made permanent with a <i>permanency</i> spell.</p><p><i>Focus:</i> A clear crystal or mineral prism.</p>",
+      "fr": "<p>Ce sort permet de lire les inscriptions magiques qui seraient sinon inintelligibles (sur les parchemins, livres magiques, armes, etc.). En règle générale, ce déchiffrage ne déclenche pas la magie contenue dans le texte, sauf dans le cas des parchemins maudits. Une fois le sort jeté et le texte compris, le personnage peut le lire aussi souvent qu’il le souhaite. On lit à la vitesse d’une page (250 mots) par minute. Lecture de la magie permet d’identifier un glyphe de garde sur un test d’Art de la magie (DD 13), un glyphe de garde divin (Art de la magie, DD 16) et un symbole (également sur un test d’Art de la magie, mais contre un DD égal à 10 + niveau de sort)).</p><p>On peut user de permanence sur un sort de lecture de la magie.</p><p>Focaliseur : un prisme taillé dans du minerai ou du cristal.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/readMagic.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "reduce-animal",
+    "name": {
+      "en": "Reduce Animal",
+      "fr": "Rapetissement d’animal"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 2,
+      "ranger": 3
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "One willing animal of Small, Medium, Large, or Huge size",
+      "fr": "1 animal consentant de taille P, M, G ou TG"
+    },
+    "duration": {
+      "en": "1 hour/level (D)",
+      "fr": "1 heure/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Shrinks one willing animal.",
+      "fr": "Réduit la taille d’un animal consentant."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>reduce person</i>, except that it affects a single willing animal. Reduce the damage dealt by the animal's natural attacks as appropriate for its new size.</p>",
+      "fr": "<p>Ce sort est semblable à rapetissement, si ce n’est qu’il affecte un animal consentant (pas contre lequel il se bat, par exemple). Réduisez les dégâts infligés par les attaques naturelles de l’animal conformément à sa nouvelle taille</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/reduceAnimal.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "remove-disease",
+    "name": {
+      "en": "Remove Disease",
+      "fr": "Guérison des maladies"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "cleric": 3,
+      "druid": 3,
+      "ranger": 3
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "Fortitude negates (harmless)",
+      "fr": "Vigueur, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Cures all diseases affecting subject.",
+      "fr": "Guérit tous les maux du sujet."
+    },
+    "text": {
+      "en": "<p><i>Remove disease</i> cures all diseases that the subject is suffering from. The spell also kills parasites, including green slime and others. Certain special diseases may not be countered by this spell or may be countered only by a caster of a certain level or higher.</p><p><i>Note:</i> Since the spell's duration is instantaneous, it does not prevent reinfection after a new exposure to the same disease at a later date.</p>",
+      "fr": "<p>Ce sort soigne toutes les maladies dont souffre le sujet. Il tue également les parasites, ce qui inclut, entre autres, le limon vert. Certaines maladies ne peuvent être contrées par ce sort, et d’autres ne peuvent être soignées que par des lanceurs de sorts d’un certain niveau.</p><p>Note. La durée du sort est instantanée, ce qui signifie que l’individu soigné peut être infecté de nouveau par la même maladie ou le même parasite pour peu qu’il y soit encore exposé.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/removeDisease.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "repel-vermin",
+    "name": {
+      "en": "Repel Vermin",
+      "fr": "Répulsif"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "bard": 4,
+      "cleric": 4,
+      "druid": 4,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "10 ft.",
+      "fr": "3 m"
+    },
+    "area": {
+      "en": "10-ft. -radius emanation centered on you",
+      "fr": "émanation de 3 m de rayon, centrée sur le jeteur de sorts"
+    },
+    "duration": {
+      "en": "10 min./level (D)",
+      "fr": "10 minutes/niveau (T)"
+    },
+    "save": {
+      "en": "None or Will negates; see text",
+      "fr": "aucun ou Volonté, annule (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Insects, spiders, and other vermin stay 10 ft. away.",
+      "fr": "Les insectes, araignées et autres vermines restent à 3 m du PJ."
+    },
+    "text": {
+      "en": "<p>An invisible barrier holds back vermin. A vermin with Hit Dice of less than one-third your level cannot penetrate the barrier.</p><p>A vermin with Hit Dice of one-third your level or more can penetrate the barrier if it succeeds on a Will save. Even so, crossing the barrier deals the vermin 2d6 points of damage, and pressing against the barrier causes pain, which deters most vermin.</p>",
+      "fr": "<p>Cette incantation génère une barrière invisible qui repousse la vermine. Les créatures faisant partie de cette catégorie n’ont aucune chance de passer si leur nombre de dés de vie est inférieur au tiers du niveau du personnage. Au-delà, elles ont droit à un jet de Volonté pour surmonter l’effet du sort. Même en cas de succès, le seul fait de traverser la barrière du répulsif leur inflige 2d6 points de dégâts. La douleur qu’elles ressentent en s’approchant de la zone est bien souvent suffisante pour faire rebrousser chemin aux moins agressives.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/repelVermin.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "resist-energy",
+    "name": {
+      "en": "Resist Energy",
+      "fr": "Résistance aux énergies destructives"
+    },
+    "school": {
+      "en": "Abjuration",
+      "fr": "Abjuration"
+    },
+    "level": {
+      "cleric": 2,
+      "druid": 2,
+      "paladin": 2,
+      "ranger": 1,
+      "sorcerer-wizard": 2
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "créature touchée"
+    },
+    "duration": {
+      "en": "10 min./level",
+      "fr": "10 minutes/niveau"
+    },
+    "save": {
+      "en": "Fortitude negates (harmless)",
+      "fr": "Vigueur, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Ignores first 10 (or more) points of damage/attack from specified energy type.",
+      "fr": "Protège contre la forme d’énergie choisie à raison de 10 points de dégâts/attaque."
+    },
+    "text": {
+      "en": "<p>This abjuration grants a creature limited protection from damage of whichever one of five energy types you select: acid, cold, electricity, fire, or sonic. The subject gains energy resistance 10 against the energy type chosen, meaning that each time the creature is subjected to such damage (whether from a natural or magical source), that damage is reduced by 10 points before being applied to the creature's hit points. The value of the energy resistance granted increases to 20 points at 7th level and to a maximum of 30 points at 11th level. The spell protects the recipient's equipment as well.</p><p><i>Resist energy</i> absorbs only damage. The subject could still suffer unfortunate side effects.</p><p><i>Note: Resist energy</i> overlaps (and does not stack with) <i>protection from energy</i>. If a character is warded by <i>protection from energy</i> and <i>resist energy</i>, the <i>protection</i> spell absorbs damage until its power is exhausted.</p>",
+      "fr": "<p>Ce sort confère une protection limitée contre la forme d’énergie choisie : acide, électricité, feu, froid ou son. Le sujet bénéficie d’une résistance de (10) contre le type d’énergie choisi, ce qui signifie que chaque fois qu’il subit des dégâts (que leur source soit d’origine naturelle ou magique), ceux-ci sont réduits de 10 points avant d’être retirés de ses points de vie restant. Cette résistance passe à 20 points au niveau 7 et à 30 points (le maximum) au niveau 11. Le sort protège également l’équipement du bénéficiaire.</p><p>Résistance aux énergies destructives ne fait qu’absorber les dégâts. Le sujet ne donc être victime d’effets secondaires malheureux, comme se noyer dans un bassin d’acide ou être pris dans la glace.</p><p>Note. Résistance aux énergies destructives prend le pas sur protection contre les énergies destructives (ces sorts ne sont donc pas cumulatifs). Si un personnage bénéficie de protection contre les énergies destructives et de ce sort, la protection agit seule jusqu’à ce que son potentiel d’absorption soit épuisé.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/resistEnergy.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "snare",
+    "name": {
+      "en": "Snare",
+      "fr": "Collet"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 3,
+      "ranger": 2
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "3 rounds",
+      "fr": "3 rounds"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Touched nonmagical circle of vine, rope, or thong with a 2 ft. diameter + 2 ft./level",
+      "fr": "cercle de corde, liane ou ficelle non magique de 60 cm de diamètre + 60 cm/niveau"
+    },
+    "duration": {
+      "en": "Until triggered or broken",
+      "fr": "jusqu’à ce qu’il se referme ou soit cassé"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Creates a magic booby trap.",
+      "fr": "Crée un piège magique tout simple."
+    },
+    "text": {
+      "en": "<p>This spell enables you to make a snare that functions as a magic trap. The snare can be made from any supple vine, a thong, or a rope. When you cast <i>snare</i> upon it, the cordlike object blends with its surroundings (Search DC 23 for a character with the trapfinding ability to locate). One end of the snare is tied in a loop that contracts around one or more of the limbs of any creature stepping inside the circle.</p><p>If a strong and supple tree is nearby, the snare can be fastened to it. The spell causes the tree to bend and then straighten when the loop is triggered, dealing 1d6 points of damage to the creature trapped and lifting it off the ground by the trapped limb or limbs. If no such tree is available, the cordlike object tightens around the creature, dealing no damage but causing it to be entangled.</p><p>The snare is magical. To escape, a trapped creature must make a DC 23 Escape Artist check or a DC 23 Strength check that is a full-round action. The snare has AC 7 and 5 hit points. A successful escape from the snare breaks the loop and ends the spell.</p>",
+      "fr": "<p>Ce sort permet de confectionner un collet fonctionnant comme un piège magique. Il peut être obtenu à partir d’une liane souple, d’une ficelle ou d’une corde. Une fois l’incantation achevée, le piège se fond dans le décor, ce qui le rend extrêmement difficile à repérer (seul un roublard peut y parvenir, sur un test de Détection, DD 23). Une des extrémités du collet s’achève par un nœud coulant, qui se referme autour de la jambe ou de la patte de la première créature marchant dans le cercle (à noter qu’il est également possible de saisir la tête d’un ver ou d’un reptile).</p><p>On peut fixer le collet à un arbre souple et résistant. Dans ce cas, l’arbre, plié lors de l’installation, se détend quand le piège se déclenche, ce qui soulève violemment la créature capturée en lui infligeant 1d6 points de dégâts. En l’absence d’arbre, le nœud coulant se contente de se refermer sur sa proie, qu’il immobilise sans lui occasionner le moindre dégât.</p><p>Le collet est magique. Pour s’en débarrasser, il faut réussir un test d’Évasion ou de Force (DD 23 dans les deux cas). Quelle que soit l’option choisie, c’est une action complexe. Le collet a 5 points de vie et une CA égale à 7. Si sa proie parvient à s’échapper, le nœud coulant se défait, mettant ainsi un terme au sort.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/snare.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "speak-with-animals",
+    "name": {
+      "en": "Speak with Animals",
+      "fr": "Communication avec les animaux"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "bard": 3,
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "You can communicate with animals.",
+      "fr": "Permet de communiquer avec les animaux."
+    },
+    "text": {
+      "en": "<p>You can comprehend and communicate with animals. You are able to ask questions of and receive answers from animals, although the spell doesn't make them any more friendly or cooperative than normal. Furthermore, wary and cunning animals are likely to be terse and evasive, while the more stupid ones make inane comments. If an animal is friendly toward you, it may do some favor or service for you.</p>",
+      "fr": "<p>Cette incantation permet de comprendre les animaux et de communiquer avec eux. Le personnage peut leur poser des questions et saisir le sens de leurs réponses, même si le sort ne les rend pas plus amicaux qu’ils ne le seraient en temps normal. Les animaux prudents et sournois sont souvent évasifs dans leurs réponses, tandis que les plus stupides ont tendance à dire n’importe quoi. Si l’animal se montre amical, il peut rendre service au personnage.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/speakWithAnimals.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "speak-with-plants",
+    "name": {
+      "en": "Speak with Plants",
+      "fr": "Communication avec les plantes"
+    },
+    "school": {
+      "en": "Divination",
+      "fr": "Divination"
+    },
+    "level": {
+      "bard": 4,
+      "druid": 3,
+      "ranger": 2
+    },
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "You can talk to normal plants and plant creatures.",
+      "fr": "Permet de communiquer avec les plantes et les créatures végétales."
+    },
+    "text": {
+      "en": "<p>You can comprehend and communicate with plants, including both normal plants and plant creatures. You are able to ask questions of and receive answers from plants. A regular plant's sense of its surroundings is limited, so it won't be able to give (or recognize) detailed descriptions of creatures or answer questions about events outside its immediate vicinity.</p><p>The spell doesn't make plant creatures any more friendly or cooperative than normal. Furthermore, wary and cunning plant creatures are likely to be terse and evasive, while the more stupid ones may make inane comments. If a plant creature is friendly toward you, it may do some favor or service for you.</p>",
+      "fr": "<p>Cette divination permet de comprendre les plantes (ce qui inclut les créatures végétales) et de communiquer avec elles. Le personnage peut poser des questions et recevoir des réponses. Les plantes ne possédant qu’une perception très limitée de leur environnement, elles sont incapables de répondre à ce qui n’a pas trait à leur voisinage direct.</p><p>Le sort ne rend pas les végétaux plus amicaux qu’ils ne le seraient en temps normal. Les plantes prudentes et sournoises sont souvent évasives dans leurs réponses, tandis que les plus stupides ont tendance à dire n’importe quoi. Si une créature végétale se montre amicale, elle peut rendre service au personnage.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/speakWithPlants.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "spike-growth",
+    "name": {
+      "en": "Spike Growth",
+      "fr": "Croissance d’épines"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 3,
+      "ranger": 2
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Medium (100 ft. + 10 ft./level)",
+      "fr": "moyenne (30 m + 3 m/niveau)"
+    },
+    "area": {
+      "en": "One 20-ft. square/level",
+      "fr": "un carré de 6 m de côté/niveau"
+    },
+    "duration": {
+      "en": "1 hour/level (D)",
+      "fr": "1 heure/niveau (T)"
+    },
+    "save": {
+      "en": "Reflex partial",
+      "fr": "Réflexes, partiel"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Creatures in area take 1d4 damage, may be slowed.",
+      "fr": "1d4 points de dégâts, lenteur possible."
+    },
+    "text": {
+      "en": "<p>Any ground-covering vegetation in the spell's area becomes very hard and sharply pointed without changing its appearance.</p><p>In areas of bare earth, roots and rootlets act in the same way. Typically, <i>Spike growth</i> can be cast in any outdoor setting except open water, ice, heavy snow, sandy desert, or bare stone. Any creature moving on foot into or through the spell's area takes 1d4 points of piercing damage for each 5 feet of movement through the spiked area.</p><p>Any creature that takes damage from this spell must also succeed on a Reflex save or suffer injuries to its feet and legs that slow its land speed by one-half. This speed penalty lasts for 24 hours or until the injured creature receives a <i>cure</i> spell (which also restores lost hit points). Another character can remove the penalty by taking 10 minutes to dress the injuries and succeeding on a Heal check against the spell's save DC.</p><p><i>Spike growth</i> can't be disabled with the Disable Device skill.</p><p><i>Note:</i> Magic traps such as <i>Spike growth</i> are hard to detect. A rogue (only) can use the Search skill to find a <i>spike growth</i>. The DC is 25 + spell level, or DC 28 for <i>Spike growth</i> (or DC 27 for <i>Spike growth</i> cast by a ranger).</p>",
+      "fr": "<p>La végétation couvrant le sol dans la zone d’effet durcit et se hérisse d’épines invisibles. Si on lance le sort sur une zone de terre nue, les racines sous la surface se comportent de la même manière. Croissance d’épines peut normalement être jeté presque partout en extérieur, sauf sur l’eau, la glace, une épaisse couche de neige, le sable (désert) ou la roche. Toute créature traversant la zone affectée subit 1d4 points de dégâts perforants tous les 1,50 mètre.</p><p>Quiconque est blessé par ce sort doit réussir un jet de Réflexes sous peine d’être touché aux pieds ou aux jambes, ce qui réduit sa vitesse de déplacement terrestre de moitié. Cette pénalité dure pendant 24 heures, à moins que le blessé ne bénéficie d’un sort de soins (qui lui permet également de récupérer les points de vie habituels). Un compagnon peut également le soigner, mais il faut panser ses plaies (ce qui demande 10 minutes) et réussir un test de Premiers secours contre le DD du sort.</p><p>Croissance d’épines est un piège magique impossible à désamorcer à l’aide de la compétence Désamorçage/sabotage.</p><p>Note. Les pièges magiques tels que croissance d’épines sont extrêmement durs à détecter. Seul un roublard peut y parvenir en faisant appel à sa compétence de Fouille (DD 25 + niveau du sort, soit 28 pour croissances d’épines, ou 27 dans le cas d’un rôdeur).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/spikeGrowth.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "summon-natures-ally-i",
+    "name": {
+      "en": "Summon Nature's Ally I",
+      "fr": "Convocation d’alliés naturels I"
+    },
+    "school": {
+      "en": "Conjuration (Summoning)",
+      "fr": "Invocation (convocation) [voir description]"
+    },
+    "level": {
+      "druid": 1,
+      "ranger": 1
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "effect": {
+      "en": "One summoned creature",
+      "fr": "1 créature convoquée"
+    },
+    "duration": {
+      "en": "1 round/level (D)",
+      "fr": "1 round/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Calls animal to fight for you.",
+      "fr": "Appelle une créature luttant pour le PJ."
+    },
+    "text": {
+      "en": "<p>This spell summons a natural creature. It appears where you designate and acts immediately, on your turn. It attacks your opponents to the best of its ability. If you can communicate with the creature, you can direct it not to attack, to attack particular enemies, or to perform other actions.</p><p>A summoned monster cannot summon or otherwise conjure another creature, nor can it use any teleportation or planar travel abilities. Creatures cannot be summoned into an environment that cannot support them.</p><p>The spell conjures one of the creatures from the 1st-level list on the accompanying Summon Nature's Ally table. You choose which kind of creature to summon, and you can change that choice each time you cast the spell. All the creatures on the table are neutral unless otherwise noted.</p>",
+      "fr": "<p>Ce sort convoque une créature naturelle qui attaque ensuite les ennemis du personnage du mieux qu’elle peut. Elle se manifeste à l’endroit décidé par le personnage et agit immédiatement, pendant le tour du personnage. Si le druide (ou le rôdeur) est capable de communiquer avec elle, il peut lui dire qui combattre, qui laisser en paix, ou même lui donner d’autres instructions.</p><p>Un monstre convoqué ne peut à son tour convoquer d’autres créatures. Il ne peut pas davantage user de ses facultés de téléportation ou de déplacement planaire. Une créature ne peut pas être convoquée dans un environnement qui ne saurait assurer sa survie. Par exemple, un marsouin ne peut être convoqué que dans un environnement aquatique.</p><p>Le sort invoque l’une des créatures de la liste de niveau 1 sur la table qui suit. Le personnage choisit la créature convoquée et peut en changer chaque fois qu’il lance le sort. Sauf indication contraire, toutes les créatures sont d’alignement neutre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/summonNaturesAllyI.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "summon-natures-ally-ii",
+    "name": {
+      "en": "Summon Nature's Ally II",
+      "fr": "Convocation d’alliés naturels II"
+    },
+    "school": {
+      "en": "Conjuration (Summoning)",
+      "fr": "Invocation (convocation) [voir description]"
+    },
+    "level": {
+      "druid": 2,
+      "ranger": 2
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "effect": {
+      "en": "One or more creatures, no two of which can be more than 30 ft. apart",
+      "fr": "1 ou plusieurs créatures convoquées, apparaissant à 9 m ou moins les unes des autres"
+    },
+    "duration": {
+      "en": "1 round/level (D)",
+      "fr": "1 round/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Calls animal to fight for you.",
+      "fr": "Appelle une ou plusieurs créatures luttant pour le PJ."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>summon nature's ally I</i>, except that you can summon one 2nd-level creature or 1d3 1st-level creatures of the same kind.</p>",
+      "fr": "<p>Ce sort est semblable à convocation d’alliés naturels I, si ce n’est qu’il permet d’appeler une créature de niveau 2 ou 1d3 créatures de niveau 1 (qui doivent toutes être du même type).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/summonNaturesAllyII.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "summon-natures-ally-iii",
+    "name": {
+      "en": "Summon Nature's Ally III",
+      "fr": "Convocation d’alliés naturels III"
+    },
+    "school": {
+      "en": "Conjuration (Summoning) [see text]",
+      "fr": "Invocation (convocation) [voir description]"
+    },
+    "level": {
+      "druid": 3,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "effect": {
+      "en": "One or more creatures, no two of which can be more than 30 ft. apart",
+      "fr": "1 ou plusieurs créatures convoquées, apparaissant à 9 m ou moins les unes des autres"
+    },
+    "duration": {
+      "en": "1 round/level (D)",
+      "fr": "1 round/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Calls animal to fight for you.",
+      "fr": "Appelle une ou plusieurs créatures luttant pour le PJ."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>summon nature's ally I</i>, except that you can summon one 3rd-level creature, 1d3 2nd-level creatures of the same kind, or 1d4+1 1st-level creatures of the same kind.</p><p>When you use a summoning spell to summon an air, chaotic, earth, evil, fire, good, lawful, or water creature, it is a spell of that type.</p>",
+      "fr": "<p>Ce sort est semblable à convocation d’alliés naturels I, si ce n’est qu’il permet d’appeler une créature de niveau 3, 1d3 créatures de niveau 2 ou 1d4+1 créatures de niveau 1 (quand le personnage convoque plusieurs alliés naturels, ceux-ci doivent tous être du même type).</p><p>Un sort de convocation appelant une créature bonne, loyale, mauvaise, chaotique, de feu, de terre, d’air ou d’eau, est automatiquement considéré comme un sort du même type. Par exemple, convocation d’alliés naturels III est un sort de feu quand on s’en sert pour appeler une salamandre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/summonNaturesAllyIII.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "summon-natures-ally-iv",
+    "name": {
+      "en": "Summon Nature's Ally IV",
+      "fr": "Convocation d’alliés naturels IV"
+    },
+    "school": {
+      "en": "Conjuration (Summoning) [see text]",
+      "fr": "Invocation (convocation) [voir description]"
+    },
+    "level": {
+      "druid": 4,
+      "ranger": 4
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "range": {
+      "en": "Close (25 ft. + 5 ft./2 levels)",
+      "fr": "courte (7,50 m + 1,50 m/2 niveaux)"
+    },
+    "effect": {
+      "en": "One or more creatures, no two of which can be more than 30 ft. apart",
+      "fr": "1 ou plusieurs créatures convoquées, apparaissant à 9 m ou moins les unes des autres"
+    },
+    "duration": {
+      "en": "1 round/level (D)",
+      "fr": "1 round/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Calls animal to fight for you.",
+      "fr": "Appelle une ou plusieurs créatures luttant pour le PJ."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>summon nature's ally I</i>, except that you can summon one 4th-level creature, 1d3 3rd-level creatures of the same kind, or 1d4+1 lower-level creatures of the same kind.</p><p>When you use a summoning spell to summon an air, chaotic, earth, evil, fire, good, lawful, or water creature, it is a spell of that type.</p>",
+      "fr": "<p>Ce sort est semblable à convocation d’alliés naturels I, si ce n’est qu’il permet d’appeler une créature de niveau 4, 1d3 créatures de niveau 3 ou 1d4+1 créatures de niveau moindre (quand le personnage convoque plusieurs alliés naturels, ceux-ci doivent tous être du même type).</p><p>Un sort de convocation appelant une créature bonne, loyale, mauvaise, chaotique, de feu, de terre, d’air ou d’eau, est automatiquement considéré comme un sort du même type.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/summonNaturesAllyIV.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "tree-shape",
+    "name": {
+      "en": "Tree Shape",
+      "fr": "Forme d’arbre"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "druid": 2,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "1 hour/level (D)",
+      "fr": "1 heure/niveau (T)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "You look exactly like a tree for 1 hour/level.",
+      "fr": "Transforme le PJ en arbre pendant 1 heure/niveau."
+    },
+    "text": {
+      "en": "<p>By means of this spell, you are able to assume the form of a Large living tree or shrub or a Large dead tree trunk with a small number of limbs. The closest inspection cannot reveal that the tree in question is actually a magically concealed creature. To all normal tests you are, in fact, a tree or shrub, although a <i>detect magic</i> spell reveals a faint transmutation on the tree. While in tree form, you can observe all that transpires around you just as if you were in your normal form, and your hit points and save bonuses remain unaffected. You gain a +10 natural armor bonus to AC but have an effective Dexterity score of 0 and a speed of 0 feet. You are immune to critical hits while in tree form. All clothing and gear carried or worn changes with you.</p><p>You can dismiss <i>tree shape</i> as a free action (instead of as a standard action).</p>",
+      "fr": "<p>Grâce à ce sort, le personnage peut prendre la forme d’un petit arbre vivant, d’un buisson, ou encore d’un tronc d’arbre mort doté de quelques branches. Même en l’inspectant de près, il est impossible de déceler que ce qui ressemble à un arbre est en réalité une créature camouflée par magie. Tout montre que le personnage est bien un arbre (ou un buisson), même si détection de la magie révèle une légère aura de transmutation. Le druide (ou le rôdeur) est conscient de tout ce qui l’entoure. Ses sens, points de vie et jets de sauvegarde restent les mêmes que sous sa forme d’origine. Il bénéficie d’un bonus d’armure naturelle de +10 à la CA, mais sa valeur de Dextérité effective tombe à 0. Sa vitesse de déplacement est de 0 mètre. Il est immunisé contre les coups critiques. Ses vêtements et tout ce qu’il tient ou porte se transforme avec lui.</p><p>Si le personnage décide de mettre prématurément un terme à forme d’arbre, il lui en coûte seulement une action libre (au lieu d’une action simple).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/treeShape.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "tree-stride",
+    "name": {
+      "en": "Tree Stride",
+      "fr": "Voyage par les arbres"
+    },
+    "school": {
+      "en": "Conjuration (Teleportation)",
+      "fr": "Invocation (téléportation)"
+    },
+    "level": {
+      "druid": 5,
+      "ranger": 4
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Personal",
+      "fr": "personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "le jeteur de sorts"
+    },
+    "duration": {
+      "en": "1 hour/level or until expended; see text",
+      "fr": "1 heure/niveau ou jusqu’à utilisation (voir description)"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Step from one tree to another far away.",
+      "fr": "Le PJ entre dans un arbre et ressort par un autre."
+    },
+    "text": {
+      "en": "<p>You gain the ability to enter trees and move from inside one tree to inside another tree. The first tree you enter and all others you enter must be of the same kind, must be living, and must have girth at least equal to yours. By moving into an oak tree (for example), you instantly know the location of all other oak trees within transport range (see below) and may choose whether you want to pass into one or simply step back out of the tree you moved into. You may choose to pass to any tree of the appropriate kind within the transport range as shown on the following table.</p><p>You may move into a tree up to one time per caster level (passing from one tree to another counts only as moving into one tree). The spell lasts until the duration expires or you exit a tree. Each transport is a full-round action.</p><p>You can, at your option, remain within a tree without transporting yourself, but you are forced out when the spell ends. If the tree in which you are concealed is chopped down or burned, you are slain if you do not exit before the process is complete.</p>",
+      "fr": "<p>Ce sort permet de pénétrer dans un arbre ou de se déplacer d’un arbre à l’autre. L’arbre dans lequel le personnage entre et ceux par lesquels il transite avant de ressortir doivent être de la même espèce. La largeur de leur tronc doit également leur permettre d’accueillir le lanceur de sorts. Dès que ce dernier pénètre dans un chêne (par exemple), il apprend instantanément où se trouvent tous les autres chênes situés dans les limites de portée (voir ci-dessous), ce qui lui permet de décider s’il désire se téléporter jusqu’à l’un d’eux ou ressortir par l’arbre dans lequel il est entré. L’arbre au cœur duquel il peut réapparaître peut être plus ou moins éloigné, en fonction de son espèce :</p><p>Le personnage peut se téléporter une fois par niveau de lanceur de sorts (le fait de se déplacer du premier au deuxième arbre compte seulement pour un passage). Le sort s’achève dès que le personnage a épuisé son nombre de déplacements possibles ou dès qu’il sort d’un arbre. Dans une grande forêt de chênes, un druide de niveau 10 pourrait donc se déplacer (en 10 rounds) sur une distance de 9 kilomètres. Chaque déplacement constitue une action complexe.</p><p>Il est également possible de rester dans l’arbre de son choix sans en sortir, mais le personnage en est expulsé au terme de la durée indiquée. Si l’arbre dans lequel il se cache est abattu ou incendié, le personnage meurt s’il ne s’extrait pas de l’arbre avant la mort de ce dernier.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/treeStride.htm",
+      "frRef": "DRS 22d (sorts IV), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "water-walk",
+    "name": {
+      "en": "Water Walk",
+      "fr": "Marche sur l’onde"
+    },
+    "school": {
+      "en": "Transmutation [Water]",
+      "fr": "Transmutation [eau]"
+    },
+    "level": {
+      "cleric": 3,
+      "ranger": 3
+    },
+    "components": "V, S, DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "One touched creature/level",
+      "fr": "1 créature touchée/niveau"
+    },
+    "duration": {
+      "en": "10 min./level (D)",
+      "fr": "10 minutes/niveau (T)"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "Subject treads on water as if solid.",
+      "fr": "Permet de marcher sur l’eau."
+    },
+    "text": {
+      "en": "<p>The transmuted creatures can tread on any liquid as if it were firm ground. Mud, oil, snow, quicksand, running water, ice, and even lava can be traversed easily, since the subjects' feet hover an inch or two above the surface. (Creatures crossing molten lava still take damage from the heat because they are near it.) The subjects can walk, run, charge, or otherwise move across the surface as if it were normal ground.</p><p>If the spell is cast underwater (or while the subjects are partially or wholly submerged in whatever liquid they are in), the subjects are borne toward the surface at 60 feet per round until they can stand on it.</p>",
+      "fr": "<p>Les bénéficiaires du sort peuvent marcher sur n’importe quel liquide avec autant d’aisance que sur la terre ferme. Cela leur permet de négocier sans problème les cours d’eau ou la glace, mais aussi la neige, la boue, l’huile, les sables mouvants, et même la lave, car leurs pieds se posent à quelques centimètres au-dessus de la surface (à noter que cela ne les empêche pas de souffrir de l’intense chaleur dégagée par le magma). Les sujets peuvent marcher, courir, ou charger normalement, comme s’ils se trouvaient sur la terre ferme.</p><p>Si le sort est lancé sous l’eau (ou sur des sujets tout ou partiellement immergés), ses bénéficiaires remontent vers la surface à la vitesse de 18 mètres par round et se stabilisent, debout, à quelques centimètres au-dessus du liquide.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/waterWalk.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "wind-wall",
+    "name": {
+      "en": "Wind Wall",
+      "fr": "Mur de vent"
+    },
+    "school": {
+      "en": "Evocation [Air]",
+      "fr": "Évocation [air]"
+    },
+    "level": {
+      "cleric": 3,
+      "druid": 3,
+      "ranger": 2,
+      "sorcerer-wizard": 3
+    },
+    "components": "V, S, M/DF",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Medium (100 ft. + 10 ft./level)",
+      "fr": "moyenne (30 m + 3 m/niveau)"
+    },
+    "effect": {
+      "en": "Wall up to 10 ft./level long and 5 ft./level high (S)",
+      "fr": "mur faisant jusqu’à 3 m de long/niveau et 1,50 m de haut/niveau (F)"
+    },
+    "duration": {
+      "en": "1 round/level",
+      "fr": "1 round/niveau"
+    },
+    "save": {
+      "en": "None; see text",
+      "fr": "aucun (voir description)"
+    },
+    "spellResistance": {
+      "en": "Yes",
+      "fr": "oui"
+    },
+    "summary": {
+      "en": "Deflects arrows, smaller creatures, and gases.",
+      "fr": "Détourne projectiles, gaz et créatures de taille modeste."
+    },
+    "text": {
+      "en": "<p>An invisible vertical curtain of wind appears. It is 2 feet thick and of considerable strength. It is a roaring blast sufficient to blow away any bird smaller than an eagle, or tear papers and similar materials from unsuspecting hands. (A Reflex save allows a creature to maintain its grasp on an object.) Tiny and Small flying creatures cannot pass through the barrier. Loose materials and cloth garments fly upward when caught in a <i>wind wall</i>. Arrows and bolts are deflected upward and miss, while any other normal ranged weapon passing through the wall has a 30% miss chance. (A giant-thrown boulder, a siege engine projectile, and other massive ranged weapons are not affected.) Gases, most gaseous breath weapons, and creatures in gaseous form cannot pass through the wall (although it is no barrier to incorporeal creatures).</p><p>While the wall must be vertical, you can shape it in any continuous path along the ground that you like. It is possible to create cylindrical or square wind walls to enclose specific points.</p><p><i>Arcane Material Component:</i> A tiny fan and a feather of exotic origin.</p>",
+      "fr": "<p>Un rideau de vent vertical et invisible se forme au terme de cette incantation. Il est épais de 60 centimètres et sa violence considérable lui permet d’emporter tout oiseau plus petit qu’un aigle ou d’arracher papiers et autres objets similaires si leur possesseur est surpris (ce dernier peut toutefois les garder en main s’il réussit un jet de Réflexes). Les créatures volantes de taille TP ou P sont incapables de franchir cette barrière. Objets non tenus et vêtements s’envolent au contact d’un mur de vent. Flèches et carreaux sont déviés et manquent automatiquement leur cible, tandis que les autres armes à distance ont 30 % de la rater (rochers de géants, projectiles d’engins de siège et autres armes de jet aussi massives ne sont pas affectés). Le gaz ne peut pas franchir le mur, pas plus que la plupart des souffles gazeux ou les créatures en état gazeux. À l’inverse, le sort ne constitue pas une barrière pour les créatures intangibles.</p><p>Le mur doit être vertical mais, cette restriction exceptée, le personnage peut lui donner la forme de son choix. Il est possible de le créer cylindrique ou carré pour délimiter une zone bien précise. Un lanceur de sorts de niveau 5 génère un mur de vent de 15 mètres de long sur 7,50 mètres de haut, ce qui suffit pour constituer un cylindre de 4,50 mètres de diamètre.</p><p>Composantes matérielles profanes : un minuscule éventail et une plume d’oiseau exotique.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/windWall.htm",
+      "frRef": "DRS 22c (sorts III), DRS 21 (listes de sorts)"
+    }
+  }
+]

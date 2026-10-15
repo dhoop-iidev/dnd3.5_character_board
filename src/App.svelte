@@ -5,6 +5,7 @@
   import { app, leaveShared, tr, view } from './state.svelte'
   import Combat from './ui/panes/Combat.svelte'
   import Maneuvers from './ui/panes/Maneuvers.svelte'
+  import Spells from './ui/panes/Spells.svelte'
   import Equipment from './ui/panes/Equipment.svelte'
   import General from './ui/panes/General.svelte'
   import Notes from './ui/panes/Notes.svelte'
@@ -12,12 +13,13 @@
   import Popup from './ui/Popup.svelte'
   import Welcome from './ui/Welcome.svelte'
 
-  type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'notes'
+  type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'spells' | 'notes'
   const TABS: { id: Tab; label: typeof UI.tabGeneral }[] = [
     { id: 'general', label: UI.tabGeneral },
     { id: 'equipment', label: UI.tabEquipment },
     { id: 'combat', label: UI.tabCombat },
     { id: 'maneuvers', label: { en: 'Maneuvers', fr: 'Manœuvres' } },
+    { id: 'spells', label: { en: 'Spells', fr: 'Sorts' } },
     { id: 'notes', label: UI.tabNotes },
   ]
 
@@ -66,7 +68,12 @@
   )
   const maneuverErrors = $derived(view.warnings.filter((w) => w.actionable && w.area === 'maneuvers').length)
   // The Maneuvers tab only exists once the character has a warblade level.
-  const tabs = $derived(TABS.filter((t) => t.id !== 'maneuvers' || view.sheet.martial.caps))
+  // The Spells tab only exists once the character has a spellcasting class.
+  const tabs = $derived(
+    TABS.filter(
+      (t) => (t.id !== 'maneuvers' || view.sheet.martial.caps) && (t.id !== 'spells' || view.sheet.spellcasting.length),
+    ),
+  )
 </script>
 
 <svelte:window onhashchange={() => (tab = fromHash())} />
@@ -89,9 +96,9 @@
       <h1>{c.identity.name}</h1>
       {#if c.identity.title}<p class="title">{c.identity.title}</p>{/if}
       <p>
-        {tr({ en: 'Human', fr: 'Humain' })} · {classSummary} · {tr(UI.level)}
+        {tr(view.sheet.race.name)} · {classSummary} · {tr(UI.level)}
         {view.sheet.characterLevel}
-        · {c.identity.deity}
+        {#if c.identity.deity}· {c.identity.deity}{/if}
       </p>
     </div>
     <div class="controls">
@@ -127,6 +134,8 @@
       <Combat />
     {:else if tab === 'maneuvers'}
       <Maneuvers />
+    {:else if tab === 'spells'}
+      <div class="grid-spells"><Spells /></div>
     {:else}
       <Notes />
     {/if}

@@ -36,5 +36,15 @@ export function migrate(raw: unknown): Character {
     c.martial.active = (c.martial.active ?? []).map((a) => ({ id: a.id, stage: 0 }))
     c.schemaVersion = 5
   }
+  // v5 -> v6: generic races and classes. Feat slots 'human' -> 'race', 'fighter' -> 'class'.
+  if (c.schemaVersion < 6) {
+    for (const l of c.levels)
+      for (const f of l.feats) {
+        const slot = f.slot as string
+        if (slot === 'human') f.slot = 'race'
+        else if (slot === 'fighter') f.slot = 'class'
+      }
+    c.schemaVersion = 6
+  }
   return c
 }

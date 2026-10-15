@@ -1,9 +1,13 @@
 import type { AbilityId, I18n, Lang, ModifierSpec, Slot } from '../data/types'
 
-export const SCHEMA_VERSION = 5
+export const SCHEMA_VERSION = 6
 
-/** Feat slot that granted the feat (docs/rules/advancement.md, house rule #3 for 'deity'). */
-export type FeatSlot = 'general' | 'human' | 'fighter' | 'deity'
+/**
+ * Feat slot that granted the feat (docs/rules/advancement.md): general (1st + every 3 levels), race (human bonus
+ * feat), class (class bonus feat: fighter list, warblade list…), deity (house rule #3), granted (given by a class
+ * feature without a choice, e.g. ranger Track — computed, never stored).
+ */
+export type FeatSlot = 'general' | 'race' | 'class' | 'deity' | 'granted'
 
 export interface FeatPick {
   featId: string
@@ -23,6 +27,11 @@ export interface LevelEntry {
   maneuversLearned?: string[]
   /** Warblade 4th, 6th, 8th… level: one known maneuver (not a stance) exchanged for another (ToB p. 21). */
   maneuverSwap?: { from: string; to: string }
+  /**
+   * Class feature choices made at this level, e.g. ranger: favoredEnemy (new type), favoredEnemyIncrease (type
+   * whose bonus rises by 2), combatStyle ("archery" | "two-weapon").
+   */
+  classChoices?: Record<string, string>
 }
 
 /**
@@ -50,6 +59,14 @@ export interface MartialState {
   active: ActiveManeuver[]
   /** Critical hits scored in the current stance (Blood in the Water, ToB p. 86). */
   crits?: number
+}
+
+/** Prepared spells of one casting class (slots by spell level; spontaneous casters only count casts). */
+export interface SpellcastingState {
+  /** Spell level -> prepared slots (spell id, cast today or not). */
+  prepared: Record<number, { id: string; cast: boolean }[]>
+  /** Spontaneous casters: spells cast today per spell level. */
+  castCount?: Record<number, number>
 }
 
 export type ItemKind = 'weapon' | 'armor' | 'gear' | 'magic' | 'custom'
@@ -87,6 +104,8 @@ export interface Loadout {
   shield?: string
   /** One-handed weapons (uids) gripped with two hands: Str ×1.5, Power Attack ×2. */
   twoHanded?: string[]
+  /** Fight with two weapons: the first melee weapon is the primary hand, the second the off hand. */
+  twoWeapon?: boolean
 }
 
 export interface ActiveEffect {
@@ -113,6 +132,8 @@ export interface CombatToggles {
   combatExpertise: number
   fightingDefensively: boolean
   totalDefense: boolean
+  /** Rapid Shot: one extra ranged attack at the highest bonus, −2 on all ranged attacks this round. */
+  rapidShot?: boolean
   /** Situational modifiers switched on by the user (key = modifier key from the engine, e.g. "feat:dodge"). */
   situational: Record<string, boolean>
 }
@@ -122,7 +143,8 @@ export interface Character {
   identity: {
     name: string
     player: string
-    race: 'human'
+    /** Race id (src/data/srd/races.json). */
+    race: string
     deity: string
     alignment: string
     gender: string
@@ -155,6 +177,8 @@ export interface Character {
   activeEffects: ActiveEffect[]
   /** Combat round counter (1 = first round of the encounter). */
   round?: number
+  /** Spellcasting state per class id: prepared spells by spell level, with the ones already cast today. */
+  spells?: Record<string, SpellcastingState>
   hp: { damage: number; nonlethal: number; temp: number }
   /** Daily uses spent (key = feature id, e.g. "ki-damage"). */
   dailyUsesSpent: Record<string, number>

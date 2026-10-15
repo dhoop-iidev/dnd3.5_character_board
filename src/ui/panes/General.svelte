@@ -1,6 +1,6 @@
 <script lang="ts">
   import { rules } from '../../data/rules'
-  import { ABILITIES, type AbilityId, type I18n, type SaveId } from '../../data/types'
+  import { ABILITIES, type AbilityId, type ClassFeatureDef, type I18n, type SaveId } from '../../data/types'
   import { fmt } from '../../engine/compute'
   import { unmetPrereqs } from '../../engine/validate'
   import { SUBTYPES, UI } from '../../i18n/ui'
@@ -88,24 +88,37 @@
     })
   }
 
-  // Class features gained so far (class tables, e.g. Weapon Master: ki damage, increased multiplier…).
+  // Class features gained so far: the class's feature list when it has one (ranger…), else its table entries
+  // (Weapon Master: ki damage, increased multiplier…).
   const features = $derived(
-    Object.entries(s.classLevels).flatMap(([classId, n]) => {
+    Object.entries(s.classLevels).flatMap(([classId, n]): { classId: string; level: number; name: I18n; feature?: ClassFeatureDef }[] => {
       const cls = rules.classes.get(classId)
+      if (cls?.features?.length)
+        return cls.features.filter((f) => f.level <= n).map((f) => ({ classId, level: f.level, name: f.name, feature: f }))
       return (cls?.table ?? [])
         .filter((r) => r.level <= n)
-        .flatMap((r) => r.special.filter((f) => f.en !== 'Bonus feat').map((f) => ({ classId, level: r.level, name: f })))
+        .flatMap((r) => r.special.filter((f) => f.en !== 'Bonus feat').map((f) => ({ classId, level: r.level, name: f, feature: undefined })))
     }),
   )
-  function classPopup(classId: string) {
+  function classPopup(classId: string, feature?: ClassFeatureDef) {
     const cls = rules.classes.get(classId)
-    if (cls) openPopup({ title: cls.name, html: cls.text, source: cls.source, noteKey: `class:${classId}` })
+    if (feature)
+      openPopup({
+        title: feature.name,
+        html: feature.text,
+        source: feature.source,
+        noteKey: `feature:${feature.id}`,
+        lines: feature.computed ? [] : [{ en: 'Described only: not computed by the app.', fr: 'Décrite seulement : non calculée par l’application.' }],
+      })
+    else if (cls) openPopup({ title: cls.name, html: cls.text, source: cls.source, noteKey: `class:${classId}` })
   }
 
   const unusable = (featId: string) => view.warnings.some((w) => w.id === `unusable-${featId}`)
-  const featLevels = $derived(
-    app.character.levels.flatMap((l, i) => l.feats.map((f) => ({ ...f, level: i + 1 }))),
-  )
+  const featLevels = $derived([
+    ...app.character.levels.flatMap((l, i) => l.feats.map((f) => ({ ...f, level: i + 1 }))),
+    // Feats given by class features (ranger Track, Endurance, combat style…).
+    ...s.feats.filter((f) => f.slot === 'granted').map((f) => ({ ...f, level: 0 })),
+  ])
 </script>
 
 <!-- Hero: abilities | 3D portrait | vital statistics (inspired by ornate character sheets) -->
@@ -245,7 +258,7 @@
           <button class="link" onclick={() => featPopup(f.featId, f.choice, f.level)}>
             {tr(rules.feats.get(f.featId)?.name) || f.featId}{f.choice ? ` (${f.choice})` : ''}
           </button>
-          <small>{tr(UI.level)} {f.level} · {tr(UI.slot[f.slot])}</small>
+          <small>{f.level ? `${tr(UI.level)} ${f.level} · ` : ''}{tr(UI.slot[f.slot])}</small>
           {#if unusable(f.featId)}<small class="badge">{tr(UI.unusable)}</small>{/if}
         </li>
       {/each}
@@ -258,13 +271,28 @@
     <ul class="feats">
       {#each features as f (f.classId + f.level + f.name.en)}
         <li>
-          <button class="link" onclick={() => classPopup(f.classId)}>{tr(f.name)}</button>
+          <button class="link" onclick={() => classPopup(f.classId, f.feature)}>{tr(f.name)}</button>
           <small>{tr(rules.classes.get(f.classId)?.name)} {f.level}</small>
         </li>
       {:else}
         <li><small>—</small></li>
       {/each}
     </ul>
+    {#if s.favoredEnemies.length}
+      <p class="extra">
+        <strong>{tr({ en: 'Favored enemies', fr: 'Ennemis jurés' })} :</strong>
+        {s.favoredEnemies.map((fe) => `${tr(fe.name)} +${fe.bonus}`).join(', ')}
+      </p>
+    {/if}
+    {#if s.combatStyle}
+      <p class="extra" class:off={!s.combatStyle.active}>
+        <strong>{tr({ en: 'Combat style', fr: 'Style de combat' })} :</strong>
+        {tr(s.combatStyle.name)}{s.combatStyle.active ? '' : tr({ en: ' (inactive: medium or heavy armor)', fr: ' (inactif : armure intermédiaire ou lourde)' })}
+      </p>
+    {/if}
+    {#each s.featureStats as fs (fs.id)}
+      <p class="extra"><strong>{tr(fs.name)} :</strong> d20 <StatValue stat={() => view.sheet.featureStats.find((x) => x.id === fs.id)!.stat} title={fs.name} /></p>
+    {/each}
   </section>
 
   <div class="wide"><LevelEditor /></div>
@@ -464,6 +492,13 @@
     width: 1.15rem;
     height: 1.15rem;
     accent-color: var(--ink);
+  }
+  .extra {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+  }
+  .extra.off {
+    color: var(--ink-soft);
   }
   .feats {
     list-style: none;

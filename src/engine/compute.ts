@@ -17,6 +17,9 @@ import { ABILITIES } from '../data/types'
 import type { Character, FeatPick, ItemInstance } from '../model/character'
 import { i18n, resolve, type Part, type Stat } from './stacking'
 import { effectLive, knownManeuvers, martialCaps, type MartialCaps } from './martial'
+import { raceOf } from './race'
+import { spellcastingOf, type Spellcasting } from './spells'
+import type { RaceDef } from '../data/types'
 import type { ManeuverDef } from '../data/types'
 
 const SRD = 'https://www.d20srd.org/srd/'
@@ -85,6 +88,8 @@ export interface AttackLine {
   notes: { name: I18n; text: I18n }[]
   /** Bonus on rolls to confirm a critical hit (warblade battle ardor). */
   critConfirmBonus: number
+  /** Two-weapon fighting: which hand this weapon is in. */
+  hand?: 'primary' | 'off'
 }
 
 export type LoadBand = 'light' | 'medium' | 'heavy' | 'overloaded'
@@ -117,6 +122,15 @@ export interface Sheet {
   shield?: { item: ItemInstance; def: ArmorDef }
   /** Damage reduction from equipment (adamantine armor…) and maneuvers (Stone Bones…). */
   damageReduction: { value: string; source: I18n }[]
+  race: RaceDef
+  /** Spellcasting classes: caster level, spells per day (with bonus spells), save DCs. */
+  spellcasting: Spellcasting[]
+  /** Class-feature checks shown as stats (ranger wild empathy…). */
+  featureStats: { id: string; name: I18n; stat: Stat }[]
+  /** Ranger favored enemies: creature type -> bonus. */
+  favoredEnemies: { id: string; name: I18n; bonus: number }[]
+  /** Ranger combat style and whether it works now (light or no armor, https://www.d20srd.org/srd/classes/ranger.htm). */
+  combatStyle?: { id: string; name: I18n; active: boolean }
   /** Tome of Battle: caps, known maneuvers/stances, current stance and running maneuvers. */
   martial: {
     caps: MartialCaps | null
@@ -173,7 +187,31 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- class levels and feats
   const classLevels: Record<string, number> = {}
   for (const l of levels) classLevels[l.classId] = (classLevels[l.classId] ?? 0) + 1
-  const feats = levels.flatMap((l) => l.feats)
+  const race = raceOf(char, rules)
+  const chosenFeats = levels.flatMap((l) => l.feats)
+  // Feats granted by class features (ranger Track at 1st, Endurance at 3rd…).
+  const granted: FeatPick[] = []
+  for (const [classId, n] of Object.entries(classLevels))
+    for (const f of rules.classes.get(classId)?.features ?? [])
+      if (f.level <= n) for (const featId of f.grantsFeats ?? []) granted.push({ featId, slot: 'granted' })
+  // Ranger combat style (https://www.d20srd.org/srd/classes/ranger.htm#combatStyle): feats at ranger 2/6/11,
+  // usable only in light or no armor.
+  const rangerLevel = classLevels['ranger'] ?? 0
+  const styleId = levels.map((l) => l.classChoices?.combatStyle).find((x) => !!x)
+  const wornArmor = char.inventory.find(
+    (i) => i.kind === 'armor' && i.location === 'worn' && !['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? ''),
+  )
+  const wornCat = wornArmor ? rules.armor.get(wornArmor.refId)?.category : undefined
+  const wornShift = wornArmor?.material ? (rules.materials.get(wornArmor.material)?.effects.armorCategoryShift ?? 0) : 0
+  const wornIdx = ['light', 'medium', 'heavy'].indexOf(wornCat ?? 'light') - wornShift
+  const styleActive = !wornArmor || wornIdx <= 0
+  const STYLE_FEATS: Record<string, [number, string][]> = {
+    archery: [[2, 'rapid-shot'], [6, 'manyshot'], [11, 'improved-precise-shot']],
+    'two-weapon': [[2, 'two-weapon-fighting'], [6, 'improved-two-weapon-fighting'], [11, 'greater-two-weapon-fighting']],
+  }
+  if (rangerLevel >= 2 && styleId && styleActive)
+    for (const [lvl, featId] of STYLE_FEATS[styleId] ?? []) if (rangerLevel >= lvl) granted.push({ featId, slot: 'granted' })
+  const feats = [...chosenFeats, ...granted.filter((g) => !chosenFeats.some((c) => c.featId === g.featId && !c.choice))]
   const hasFeat = (id: string, choice?: string) =>
     feats.some((f) => f.featId === id && (choice === undefined || f.choice === choice))
   const wmLevel = classLevels['weapon-master'] ?? 0
@@ -194,6 +232,43 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const spec of def?.modifiers ?? item.custom?.modifiers ?? [])
       mods.push({ spec, sourceId: `item:${item.uid}`, label: item.name ?? def?.name ?? i18n(item.refId), source: def?.source })
   }
+  // ---- race: racial bonuses (https://www.d20srd.org/srd/races.htm); Small size handled below
+  for (const spec of race.modifiers) mods.push({ spec, sourceId: `race:${race.id}`, label: race.name, source: race.source })
+  if (race.size === 'small')
+    // Small: +4 size bonus on Hide (https://www.d20srd.org/srd/skills/hide.htm).
+    mods.push({ spec: { target: 'skill.hide', bonusType: 'size', value: 4 }, sourceId: 'size', label: i18n('Small size', 'Taille P'), source: { srdUrl: 'https://www.d20srd.org/srd/skills/hide.htm' } })
+  // ---- class features with modifiers
+  for (const [classId, n] of Object.entries(classLevels))
+    for (const f of rules.classes.get(classId)?.features ?? [])
+      if (f.level <= n) for (const spec of f.modifiers ?? []) mods.push({ spec, sourceId: `feature:${f.id}`, label: f.name, source: f.source })
+  // ---- ranger favored enemies (https://www.d20srd.org/srd/classes/ranger.htm#favoredEnemy): +2 per type at
+  // first, +2 more to one type at ranger 5/10/15/20; Bluff, Listen, Sense Motive, Spot, Survival and weapon damage.
+  const ranger = rules.classes.get('ranger')
+  const enemyBonus = new Map<string, number>()
+  for (const l of levels) {
+    const pick = l.classChoices?.favoredEnemy
+    if (pick && !enemyBonus.has(pick)) enemyBonus.set(pick, 2)
+    const inc = l.classChoices?.favoredEnemyIncrease
+    if (inc && enemyBonus.has(inc)) enemyBonus.set(inc, enemyBonus.get(inc)! + 2)
+  }
+  const favoredEnemies = [...enemyBonus].map(([id, bonus]) => ({
+    id,
+    bonus,
+    name: ranger?.choices?.favoredEnemy?.find((o) => o.id === id)?.name ?? i18n(id, id),
+  }))
+  const feSource = ranger?.features?.find((f) => f.id === 'favored-enemy')?.source ?? { srdUrl: 'https://www.d20srd.org/srd/classes/ranger.htm#favoredEnemy' }
+  for (const fe of favoredEnemies) {
+    const vs = i18n(`vs ${fe.name.en}`, `contre ${fe.name.fr}`)
+    for (const skill of ['bluff', 'listen', 'sense-motive', 'spot', 'survival'])
+      mods.push({ spec: { target: `skill.${skill}`, bonusType: 'untyped', value: fe.bonus, condition: vs }, sourceId: `favored-enemy:${fe.id}`, label: i18n('Favored enemy', 'Ennemi juré'), source: feSource })
+    mods.push({
+      spec: { target: 'damage.all', bonusType: 'untyped', value: fe.bonus, condition: i18n(`vs ${fe.name.en} (ranged: within 30 ft.)`, `contre ${fe.name.fr} (à distance : à 9 m ou moins)`) },
+      sourceId: `favored-enemy:${fe.id}`,
+      label: i18n('Favored enemy', 'Ennemi juré'),
+      source: feSource,
+    })
+  }
+
   // ---- Tome of Battle: stance and running maneuvers (house rule #15)
   const caps = martialCaps(char, rules, characterLevel)
   const known = caps ? knownManeuvers(char, rules, characterLevel) : []
@@ -276,6 +351,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const parts: Part[] = [
       { sourceId: 'base', label: i18n('Base score', 'Valeur de base'), value: char.baseAbilities[a], bonusType: 'base' },
     ]
+    // Racial adjustments (https://www.d20srd.org/srd/races.htm): part of the score, not a bonus.
+    const adj = race.abilityAdjustments[a]
+    if (adj) parts.push({ sourceId: 'race', label: race.name, value: adj, bonusType: 'base', source: race.source })
     levels.forEach((l, i) => {
       if (l.abilityIncrease === a)
         parts.push({
@@ -330,6 +408,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   // ---- proficiencies (union of the classes' lists)
   const profWeapons = new Set(Object.keys(classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.weapons ?? []))
+  // Racial weapon proficiencies (elf) and weapon familiarity: exotic racial weapons count as martial (dwarf, gnome).
+  for (const id of race.weaponProficiencies ?? []) profWeapons.add(id)
+  if (profWeapons.has('martial')) for (const id of race.weaponFamiliarity ?? []) profWeapons.add(id)
   const profArmor = new Set(Object.keys(classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.armor ?? []))
 
   // ---- hit points (house rule #9: max hit die every level; Con retroactive)
@@ -403,7 +484,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   carried.lb += coins / 50
   carried.kg += coins / 100
   const carriedLb = carried.lb
-  const limits = capacity(rules, abilities.str.score.total)
+  const capMedium = capacity(rules, abilities.str.score.total)
+  // Small creatures carry ×3/4 (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures).
+  const sizeFactor = race.size === 'small' ? 0.75 : 1
+  const scaleW = (w: Weight): Weight => ({ lb: round2(w.lb * sizeFactor), kg: round2(w.kg * sizeFactor) })
+  const limits = { light: scaleW(capMedium.light), medium: scaleW(capMedium.medium), heavy: scaleW(capMedium.heavy) }
   const band: LoadBand =
     carriedLb <= limits.light.lb ? 'light' : carriedLb <= limits.medium.lb ? 'medium' : carriedLb <= limits.heavy.lb ? 'heavy' : 'overloaded'
   const loadFx = band === 'light' ? undefined : LOAD_EFFECTS[band === 'overloaded' ? 'heavy' : band]
@@ -437,16 +522,20 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
   const armorCheckPenalty = resolve(acpParts)
 
-  // Speed: worse of armor and load (human base 30 ft).
-  const baseFt = 30
+  // Speed: racial base (https://www.d20srd.org/srd/races.htm), then the worse of armor and load (30-ft or 20-ft
+  // column). Dwarves keep their speed in medium/heavy armor and loads.
+  const baseFt = race.speed
   let speedFt = baseFt
   let speedFrom = i18n('base', 'base')
-  if (armor && ['medium', 'heavy'].includes(armor.category) && armor.def.speed30) {
-    speedFt = armor.def.speed30.ft
+  const slow = baseFt <= 20
+  const armorSpeed = armor && (slow ? armor.def.speed20 : armor.def.speed30)
+  if (!race.speedNotReducedByArmor && armor && ['medium', 'heavy'].includes(armor.category) && armorSpeed && armorSpeed.ft < speedFt) {
+    speedFt = armorSpeed.ft
     speedFrom = armor.def.name
   }
-  if (loadFx && loadFx.speed30 < speedFt) {
-    speedFt = loadFx.speed30
+  const loadSpeed = loadFx && (slow ? loadFx.speed20 : loadFx.speed30)
+  if (!race.speedNotReducedByArmor && loadSpeed && loadSpeed < speedFt) {
+    speedFt = loadSpeed
     speedFrom = i18n(`${band} load`, `charge ${band === 'medium' ? 'intermédiaire' : 'lourde'}`)
   }
   // Speed bonuses follow the stacking rules; haste-like enhancement bonuses cap at twice the normal speed
@@ -462,6 +551,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const dexZero = flags.includes('dexZeroForAc') || flags.includes('helpless')
   const dexToAc = dexZero ? abilityMod(0) : maxDex.value === null ? mod('dex') : Math.min(mod('dex'), maxDex.value)
   const acParts: Part[] = [{ sourceId: 'base10', label: i18n('Base', 'Base'), value: 10, bonusType: 'base', source: src('combat/combatStatistics.htm#armorClass') }]
+  // Size modifier (https://www.d20srd.org/srd/combat/combatStatistics.htm#sizeModifier): Small +1.
+  const sizePart = (value: number): Part => ({ sourceId: 'size', label: i18n('Small size', 'Taille P'), value, bonusType: 'size', source: src('combat/combatStatistics.htm#sizeModifier') })
+  if (race.size === 'small') acParts.push(sizePart(1))
   if (armor) {
     const enh = armor.item.enhancement ?? 0
     acParts.push({
@@ -518,7 +610,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // An initiative check is a Dexterity check: ability-check modifiers apply (https://www.d20srd.org/srd/combat/initiative.htm).
   // Situational Dex-check bonuses (e.g. "to resist a trip") are not initiative bonuses.
   const initiative = resolve([abilityPart('dex'), ...partsFor(['initiative']), ...partsFor(['check.dex']).filter((p) => !p.condition)])
-  const grapple = resolve([...tableSum('bab'), abilityPart('str'), ...partsFor(['grapple'])])
+  // Grapple: special size modifier, Small −4 (https://www.d20srd.org/srd/combat/specialAttacks.htm#grapple).
+  const grapple = resolve([
+    ...tableSum('bab'),
+    abilityPart('str'),
+    ...(race.size === 'small' ? [{ ...sizePart(-4), source: src('combat/specialAttacks.htm#grapple') }] : []),
+    ...partsFor(['grapple']),
+  ])
 
   // ---- Weapon Master features need the class requirements to stay met (Complete Warrior p.16, rulings q6):
   // current ability scores and a masterwork weapon of choice.
@@ -601,11 +699,23 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   // ---- attacks per weapon in the active loadout (docs/rules/combat.md)
   const attacks: AttackLine[] = []
+  // Two-weapon fighting (https://www.d20srd.org/srd/combat/specialAttacks.htm#twoWeaponFighting): the first two melee
+  // weapons in hand are the primary and off hand when the loadout says so.
+  const meleeInHand = (loadout?.weapons ?? []).filter((uid) => {
+    const it = char.inventory.find((i) => i.uid === uid)
+    return it && rules.weapons.get(it.refId)?.kind === 'melee'
+  })
+  const twf = !!loadout?.twoWeapon && meleeInHand.length >= 2
+  const [primaryUid, offUid] = twf ? meleeInHand : []
+  const offWeapon = offUid ? rules.weapons.get(char.inventory.find((i) => i.uid === offUid)!.refId) : undefined
+  const offLight = offWeapon?.handedness === 'light' || offWeapon?.handedness === 'unarmed'
+  const twfSource = src('combat/specialAttacks.htm#twoWeaponFighting')
   for (const uid of loadout?.weapons ?? []) {
     const item = char.inventory.find((i) => i.uid === uid)
     const weapon = item && rules.weapons.get(item.refId)
     if (!item || !weapon) continue
     const melee = weapon.kind === 'melee'
+    const hand = twf && uid === primaryUid ? 'primary' : twf && uid === offUid ? 'off' : undefined
     // Ranged families (https://www.d20srd.org/srd/combat/combatStatistics.htm#strengthBonus): thrown weapons and slings
     // add Str to damage; bows take only a Str penalty (composite ratings not modeled); crossbows ignore Str.
     const family = /crossbow/.test(weapon.id)
@@ -628,6 +738,23 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const twoHands = weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid))
 
     const atk: Part[] = [...tableSum('bab'), abilityPart(melee ? 'str' : 'dex')]
+    if (race.size === 'small') atk.push(sizePart(1))
+    if (hand) {
+      // Normal −6/−10; light off-hand weapon −4/−8; Two-Weapon Fighting feat −2/−2 better each.
+      let pen = hand === 'primary' ? -6 : -10
+      if (offLight) pen += 2
+      if (hasFeat('two-weapon-fighting')) pen += hand === 'primary' ? 2 : 6
+      atk.push({
+        sourceId: 'two-weapon',
+        label: hand === 'primary' ? i18n('Two-weapon fighting: primary hand', 'Combat à deux armes : main directrice') : i18n('Two-weapon fighting: off hand', 'Combat à deux armes : main non directrice'),
+        value: pen,
+        bonusType: 'untyped',
+        source: twfSource,
+      })
+    }
+    // Rapid Shot (https://www.d20srd.org/srd/feats.htm#rapidShot): −2 on every ranged attack of the full attack.
+    const rapidShot = !melee && toggles.rapidShot === true && hasFeat('rapid-shot')
+    if (rapidShot) atk.push({ sourceId: 'rapid-shot', label: i18n('Rapid Shot', 'Tir rapide'), value: -2, bonusType: 'untyped', source: src('feats.htm#rapidShot') })
     if (enh > 0) atk.push({ sourceId: `enh:${uid}`, label: i18n(`Enhancement +${enh}`, `Altération +${enh}`), value: enh, bonusType: 'enhancement', source: src('magicItems/magicWeapons.htm') })
     else if (masterwork) atk.push({ sourceId: `mw:${uid}`, label: i18n('Masterwork', 'De maître'), value: 1, bonusType: 'enhancement', source: src('equipment/weapons.htm#masterworkWeapons') })
     for (const featId of ['weapon-focus', 'greater-weapon-focus']) {
@@ -666,16 +793,29 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     // Full attack: iteratives, plus one extra attack at full BAB from haste or a speed weapon (not cumulative:
     // https://www.d20srd.org/srd/magicItems/magicWeapons.htm#speed).
     const extra = sumTarget('attack.extra') > 0 || props.some((pr) => pr.effects.extraAttack) ? [attack.total] : []
-    const iterative = [...extra, ...iterativeBab.map((b) => attack.total - (bab.total - b))]
+    const rapid = rapidShot ? [attack.total] : []
+    // Off hand: one attack, plus one at −5 (Improved TWF) and one at −10 (Greater TWF).
+    const offHand = [attack.total, ...(hasFeat('improved-two-weapon-fighting') ? [attack.total - 5] : []), ...(hasFeat('greater-two-weapon-fighting') ? [attack.total - 10] : [])]
+    const iterative = hand === 'off' ? offHand : [...extra, ...rapid, ...iterativeBab.map((b) => attack.total - (bab.total - b))]
 
     const dmg: Part[] = []
     const strMod = mod('str')
     let strDmg = strMod
     if (family === 'melee' && twoHands && strMod > 0) strDmg = Math.floor(strMod * 1.5)
+    // Off hand: ½ Str bonus (a penalty applies in full).
+    if (hand === 'off' && strMod > 0) strDmg = Math.floor(strMod / 2)
     if (family === 'bow') strDmg = Math.min(0, strMod)
     if (family === 'crossbow') strDmg = 0
     if (strDmg !== 0)
-      dmg.push({ ...abilityPart('str', strDmg), label: family === 'melee' && twoHands && strMod > 0 ? i18n('Strength ×1.5 (two hands)', 'Force ×1,5 (à deux mains)') : ABILITY_NAMES.str })
+      dmg.push({
+        ...abilityPart('str', strDmg),
+        label:
+          hand === 'off' && strMod > 0
+            ? i18n('Strength ×½ (off hand)', 'Force ×½ (main non directrice)')
+            : family === 'melee' && twoHands && strMod > 0
+              ? i18n('Strength ×1.5 (two hands)', 'Force ×1,5 (à deux mains)')
+              : ABILITY_NAMES.str,
+      })
     if (enh > 0) dmg.push({ sourceId: `enh:${uid}`, label: i18n(`Enhancement +${enh}`, `Altération +${enh}`), value: enh, bonusType: 'enhancement', source: src('magicItems/magicWeapons.htm') })
     for (const [featId, value] of [['weapon-specialization', 2], ['greater-weapon-specialization', 2]] as const) {
       const def = rules.feats.get(featId)
@@ -721,7 +861,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       name,
       attack,
       iterative,
-      damageDice: weapon.damage.M,
+      // Small characters use Small weapons (https://www.d20srd.org/srd/equipment/weapons.htm#weaponSize).
+      damageDice: race.size === 'small' ? weapon.damage.S : weapon.damage.M,
       damage,
       critRange: 21 - span,
       critMult,
@@ -748,14 +889,38 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       notes: props.filter((pr) => pr.effects.notes).map((pr) => ({ name: pr.name, text: pr.effects.notes! })),
       // Battle ardor (warblade 3, Tome of Battle p. 22): insight = Int bonus on critical confirmation rolls.
       critConfirmBonus: caps && caps.classLevel >= 3 ? Math.max(0, mod('int')) : 0,
+      hand,
     })
   }
 
   const wmRow = rules.classes.get('weapon-master')
+  // ---- class-feature checks: wild empathy = d20 + druid/ranger level + Cha (https://www.d20srd.org/srd/classes/ranger.htm#wildEmpathy)
+  const featureStats: Sheet['featureStats'] = []
+  const empathyClasses = Object.entries(classLevels).filter(([id]) =>
+    rules.classes.get(id)?.features?.some((f) => f.id === 'wild-empathy'),
+  )
+  if (empathyClasses.length) {
+    const f = rules.classes.get(empathyClasses[0][0])!.features!.find((x) => x.id === 'wild-empathy')!
+    featureStats.push({
+      id: 'wild-empathy',
+      name: f.name,
+      stat: resolve([
+        ...empathyClasses.map(([id, n]) => ({ sourceId: `class:${id}`, label: { en: `${rules.classes.get(id)!.name.en} ${n}`, fr: `${rules.classes.get(id)!.name.fr} ${n}` }, value: n, bonusType: 'base' as const, source: f.source })),
+        abilityPart('cha'),
+      ]),
+    })
+  }
+  const rangerStyle = styleId ? ranger?.choices?.combatStyle?.find((o) => o.id === styleId) : undefined
+
   return {
     characterLevel,
     classLevels,
     feats,
+    race,
+    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a]),
+    featureStats,
+    favoredEnemies,
+    combatStyle: rangerStyle && rangerLevel >= 2 ? { id: rangerStyle.id, name: rangerStyle.name, active: styleActive } : undefined,
     abilities,
     hpMax,
     bab,
