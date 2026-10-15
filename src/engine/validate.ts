@@ -276,8 +276,8 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       `Dex bonus to AC capped at +${now.maxDex.value} by ${now.maxDex.from.en} (Dex mod +${now.abilities.dex.mod})`,
       `Bonus de Dex à la CA limité à +${now.maxDex.value} par ${now.maxDex.from.fr} (mod. Dex +${now.abilities.dex.mod})`,
       { srdUrl: `${SRD}equipment/armor.htm#maximumDexBonus` }))
-  // Special abilities need at least +1, and the total bonus (enhancement + abilities) is at most +10
-  // (https://www.d20srd.org/srd/magicItems/magicWeapons.htm, magicArmor.htm).
+  // Special abilities need at least +1 (https://www.d20srd.org/srd/magicItems/magicWeapons.htm). Above a +10 total
+  // the item is epic (https://www.d20srd.org/srd/epic/magicItems/epicMagicItems.htm): allowed, only noted.
   for (const it of char.inventory) {
     const props = (it.properties ?? []).map((id) => rules.itemProperties.get(id)).filter((d) => !!d)
     if (!props.length) continue
@@ -286,7 +286,7 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     if (enh < 1)
       out.push(w(`props-need-enh-${it.uid}`, 'error', 'inventory', 'Special abilities need at least a +1 enhancement bonus', 'Les propriétés spéciales exigent au moins un bonus d’altération de +1', { srdUrl: `${SRD}magicItems/magicWeapons.htm` }))
     if (total > 10)
-      out.push(w(`props-over-10-${it.uid}`, 'error', 'inventory', `Total bonus +${total} exceeds +10`, `Bonus total +${total} supérieur à +10`, { srdUrl: `${SRD}magicItems/magicWeapons.htm` }))
+      out.push(w(`props-epic-${it.uid}`, 'info', 'inventory', `Total bonus +${total}: epic item (above +10)`, `Bonus total +${total} : objet épique (au-delà de +10)`, { srdUrl: `${SRD}epic/magicItems/epicMagicItems.htm` }))
   }
   const slots: Record<string, number> = {}
   for (const it of char.inventory) {
