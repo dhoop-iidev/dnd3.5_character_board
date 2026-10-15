@@ -12,7 +12,10 @@ export interface SpellSlots {
   /** Bonus spells from a high ability score. */
   bonus: number
   total: number
-  /** Ability score too low to cast spells of this level (10 + spell level needed). */
+  /** Cleric domain slot / specialist wizard extra slot (one per spell level from 1st). */
+  extra: number
+  /** Ability score too low to cast spells of this level (10 + spell level needed): the slots stay, for lower-level
+   * spells only. */
   blocked: boolean
 }
 
@@ -39,6 +42,8 @@ export function spellcastingOf(
   classLevels: Record<string, number>,
   rules: Rules,
   ability: (a: AbilityId) => { score: Stat; mod: number },
+  /** Class choices made so far (wizard school for the specialist's extra slot). */
+  choices: Record<string, string> = {},
 ): Spellcasting[] {
   const out: Spellcasting[] = []
   for (const [classId, n] of Object.entries(classLevels)) {
@@ -52,11 +57,17 @@ export function spellcastingOf(
     const cl = n < firstSpellLevel ? 0 : def.casterLevel === 'half' ? Math.floor(n / 2) : n
     const { score, mod } = ability(def.ability)
     const slots: SpellSlots[] = []
+    // Cleric: +1 domain spell per spell level from 1st (https://www.d20srd.org/srd/classes/cleric.htm#domains);
+    // specialist wizard: +1 spell of the specialty school per level (https://www.d20srd.org/srd/classes/wizard.htm).
+    const extraSlot = (def.domainSlots || (classId === 'wizard' && !!choices.school && choices.school !== 'universal')) ? 1 : 0
     perDay.forEach((base, spellLevel) => {
       if (base === null || base === undefined) return
-      const bonus = bonusSpells(mod, spellLevel)
+      const extra = spellLevel >= 1 ? extraSlot : 0
+      // Too low a score: the slots stay (to hold lower-level spells), without bonus spells
+      // (https://www.d20srd.org/srd/magicOverview/castingSpells.htm#spellSlots).
       const blocked = score.total < 10 + spellLevel
-      slots.push({ spellLevel, base, bonus, total: blocked ? 0 : base + bonus, blocked })
+      const bonus = blocked ? 0 : bonusSpells(mod, spellLevel)
+      slots.push({ spellLevel, base, bonus, extra, total: base + bonus + extra, blocked })
     })
     out.push({
       classId,

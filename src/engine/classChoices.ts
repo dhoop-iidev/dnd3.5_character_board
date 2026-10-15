@@ -20,8 +20,19 @@ export function choicesAt(char: Character, rules: Rules, L: number): ClassChoice
   const entry = char.levels[L - 1]
   if (!entry) return []
   const cls = rules.classes.get(entry.classId)
-  if (!cls || cls.id !== 'ranger') return []
   const n = classLevelAt(char, L)
+  // Wizard school specialization at 1st level (optional: "universal" = no specialty).
+  // https://www.d20srd.org/srd/classes/wizard.htm#schoolSpecialization
+  if (cls?.id === 'wizard' && n === 1 && cls.choices?.school)
+    return [
+      {
+        key: 'school',
+        label: { en: 'School specialization', fr: 'Spécialisation' },
+        options: [{ id: 'universal', name: { en: 'None (universalist)', fr: 'Aucune (universaliste)' } }, ...cls.choices.school],
+        srdUrl: 'https://www.d20srd.org/srd/classes/wizard.htm#schoolSpecialization',
+      },
+    ]
+  if (!cls || cls.id !== 'ranger') return []
   const out: ClassChoice[] = []
   const enemies = cls.choices?.favoredEnemy ?? []
   // Favored enemy: a new type at ranger 1, 5, 10, 15, 20; from 5th, +2 more on one type (the new one allowed).

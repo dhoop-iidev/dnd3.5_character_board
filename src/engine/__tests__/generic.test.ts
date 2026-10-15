@@ -122,3 +122,77 @@ describe('ranger (https://www.d20srd.org/srd/classes/ranger.htm)', () => {
     expect(compute(ranger(3), rules).featureStats.find((f) => f.id === 'wild-empathy')!.stat.total).toBe(3)
   })
 })
+
+describe('um_actually 2026-10-15 (races & classes) fixes', () => {
+  const ids = (c: Character) => validate(c, rules).map((w) => w.id)
+  const levels = (c: Character, classId: string, n: number) => {
+    c.levels = Array.from({ length: n }, () => ({ classId, skillRanks: {}, feats: [] }))
+    return c
+  }
+  it('racial weapon proficiency counts everywhere (elf wizard: longsword, Weapon Focus)', () => {
+    const c = levels(fresh('elf', 'wizard'), 'wizard', 3)
+    c.inventory = [weapon('ls', 'longsword')]
+    wield(c, ['ls'])
+    c.levels[2].feats = [{ featId: 'weapon-focus', slot: 'general', choice: 'longsword' }]
+    expect(ids(c)).not.toContain('weapon-prof-ls')
+    expect(ids(c).some((i) => i.startsWith('prereq-weapon-focus'))).toBe(false)
+  })
+  it('Exotic Weapon Proficiency removes the −4', () => {
+    const c = fresh()
+    c.inventory = [weapon('sc', 'spiked-chain')]
+    wield(c, ['sc'])
+    c.levels[0].feats = [{ featId: 'exotic-weapon-proficiency', slot: 'general', choice: 'spiked-chain' }]
+    expect(atk(c, 'sc').attack.parts.some((p) => p.sourceId === 'nonproficient-weapon')).toBe(false)
+  })
+  it('wizard bonus feat at 5th; monk bonus feats at 1st ignore prerequisites', () => {
+    const wiz = levels(fresh('human', 'wizard'), 'wizard', 5)
+    wiz.levels[4].feats = [{ featId: 'craft-wand', slot: 'class' }]
+    expect(ids(wiz).filter((i) => i.includes('-class-'))).toEqual([])
+    const monk = fresh('human', 'monk')
+    monk.levels[0].feats = [{ featId: 'stunning-fist', slot: 'class' }]
+    expect(ids(monk).some((i) => i.startsWith('prereq-stunning-fist') || i.startsWith('feat-not-class'))).toBe(false)
+  })
+  it('paladin divine grace, barbarian fast movement, monk AC bonus and fast movement', () => {
+    const pal = levels(fresh('human', 'paladin', { ...ABIL, cha: 16 }), 'paladin', 2)
+    expect(compute(pal, rules).saves.will.total).toBe(0 + 1 + 3) // base 0, Wis +1, Cha +3
+    expect(compute(fresh('human', 'barbarian'), rules).speed.current.ft).toBe(40)
+    const monk = levels(fresh('human', 'monk', { ...ABIL, wis: 16 }), 'monk', 3)
+    const s = compute(monk, rules)
+    expect(s.ac.total).toBe(10 + 2 + 3) // Dex +2, Wis +3
+    expect(s.speed.current.ft).toBe(40)
+  })
+  it('cleric domain slot: cleric 1, Wis 12 → three 1st-level spells', () => {
+    const sc = compute(fresh('human', 'cleric'), rules).spellcasting[0]
+    expect(sc.slots.find((x) => x.spellLevel === 1)).toMatchObject({ base: 1, bonus: 1, extra: 1, total: 3 })
+  })
+  it('a low Wisdom keeps the slots (for lower-level spells)', () => {
+    const c = levels(fresh('human', 'ranger', { ...ABIL, wis: 11 }), 'ranger', 10)
+    const slot = compute(c, rules).spellcasting[0].slots.find((x) => x.spellLevel === 2)!
+    expect(slot).toMatchObject({ blocked: true, bonus: 0, total: 1 })
+  })
+  it('half-orc Int is at least 3', () => {
+    expect(compute(fresh('half-orc', 'barbarian', { ...ABIL, int: 3 }), rules).abilities.int.score.total).toBe(3)
+  })
+  it('granted feats meet prerequisites: ranger 3 with Endurance can take Diehard', () => {
+    const c = levels(fresh('human', 'ranger'), 'ranger', 3)
+    c.levels[2].feats = [{ featId: 'diehard', slot: 'general' }]
+    expect(ids(c).some((i) => i.startsWith('prereq-diehard'))).toBe(false)
+  })
+  it('favored enemy choices left on a non-ranger level are ignored', () => {
+    const c = fresh('human', 'ranger')
+    c.levels = [
+      { classId: 'ranger', skillRanks: {}, feats: [], classChoices: { favoredEnemy: 'animal' } },
+      { classId: 'fighter', skillRanks: {}, feats: [], classChoices: { favoredEnemy: 'undead', favoredEnemyIncrease: 'animal' } },
+    ]
+    expect(compute(c, rules).favoredEnemies.map((f) => [f.id, f.bonus])).toEqual([['animal', 2]])
+  })
+  it('halfling +1 with slings; wild empathy +2 with 5 ranks of Handle Animal', () => {
+    const h = fresh('halfling', 'fighter')
+    h.inventory = [weapon('sl', 'sling')]
+    wield(h, ['sl'])
+    expect(atk(h, 'sl').attack.parts.some((p) => p.sourceId.startsWith('race:halfling') && p.value === 1)).toBe(true)
+    const r = fresh('human', 'ranger')
+    r.levels[0].skillRanks = { 'handle-animal': 5 }
+    expect(compute(r, rules).featureStats[0].stat.total).toBe(1 + 0 + 2)
+  })
+})

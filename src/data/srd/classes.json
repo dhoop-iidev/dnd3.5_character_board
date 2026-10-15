@@ -327,7 +327,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#barbarianFastMovement",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "illiteracy",
@@ -375,7 +376,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#uncannyDodge",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "trap-sense",
@@ -391,7 +393,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#trapSense",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "rage-4",
@@ -439,7 +442,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#trapSense",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "damage-reduction",
@@ -487,7 +491,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#trapSense",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "damage-reduction-10",
@@ -551,7 +556,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#trapSense",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "damage-reduction-13",
@@ -583,7 +589,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#indomitableWill",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "trap-sense-15",
@@ -599,7 +606,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#trapSense",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "damage-reduction-16",
@@ -663,7 +671,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/barbarian.htm#trapSense",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "damage-reduction-19",
@@ -1586,7 +1595,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#bardSpells",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-competence",
@@ -2236,7 +2246,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/cleric.htm#clericSpells",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "spontaneous-casting",
@@ -2277,7 +2288,8 @@
       "style": "prepared",
       "list": "cleric",
       "casterLevel": "full",
-      "maxSpellLevel": 9
+      "maxSpellLevel": 9,
+      "domainSlots": true
     },
     "text": {
       "en": "<p><b>Weapon and Armor Proficiency:</b> Clerics are proficient with all simple weapons, with all types of armor (light, medium, and heavy), and with shields (except tower shields).</p><p>A cleric who chooses the War domain receives the Weapon Focus feat related to his deity’s weapon as a bonus feat. He also receives the appropriate Martial Weapon Proficiency feat as a bonus feat, if the weapon falls into that category.</p>",
@@ -2877,7 +2889,8 @@
             "bonusType": "untyped",
             "value": 2
           }
-        ]
+        ],
+        "computed": true
       },
       {
         "id": "spells",
@@ -2893,7 +2906,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/druid.htm#druidSpells",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "spontaneous-casting",
@@ -2925,7 +2939,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/druid.htm#wildEmpathy",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "woodland-stride",
@@ -4099,7 +4114,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/monk.htm#aCBonus",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "bonus-feat",
@@ -4115,7 +4131,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/monk.htm#bonusFeat",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "flurry-of-blows",
@@ -4166,7 +4183,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/monk.htm#bonusFeat",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "evasion",
@@ -4198,7 +4216,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/monk.htm#monkFastMovement",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "still-mind",
@@ -4225,7 +4244,8 @@
               "fr": "contre les sorts et effets de l’école des enchantements"
             }
           }
-        ]
+        ],
+        "computed": true
       },
       {
         "id": "ki-strike",
@@ -4289,7 +4309,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/monk.htm#bonusFeat",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "slow-fall-6",
@@ -4628,6 +4649,26 @@
         }
       }
     ],
+    "bonusFeatLevels": [
+      1,
+      2,
+      6
+    ],
+    "bonusFeatListByLevel": {
+      "1": [
+        "improved-grapple",
+        "stunning-fist"
+      ],
+      "2": [
+        "combat-reflexes",
+        "deflect-arrows"
+      ],
+      "6": [
+        "improved-disarm",
+        "improved-trip"
+      ]
+    },
+    "bonusFeatIgnorePrereqs": true,
     "text": {
       "en": "<p><b>Weapon and Armor Proficiency:</b> Monks are proficient with club, crossbow (light or heavy), dagger, handaxe, javelin, kama, nunchaku, quarterstaff, sai, shuriken, siangham, and sling.</p><p>Monks are not proficient with any armor or shields</p><p>When wearing armor, using a shield, or carrying a medium or heavy load, a monk loses her AC bonus, as well as her fast movement and flurry of blows abilities.</p>",
       "fr": "<p><b>Armes et armures.</b> Le moine est formé au maniement des armes suivantes : arbalète légère ou lourde, bâton, dague, fronde, gourdin, hachette, javelot, kama, nunchaku, sai, shuriken et siangham. Le moine n’est formé ni au maniement des boucliers ni au port des armures. De fait, tous les talents du moine nécessitent une grande liberté de mouvement. S’il porte une armure ou un bouclier, ou s’il transporte une charge intermédiaire ou lourde, un moine perd ses bonus à la CA, ainsi que ses aptitudes de déplacement accéléré et de déluge de coup.</p>"
@@ -5219,7 +5260,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/paladin.htm#divineGrace",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "lay-on-hands",
@@ -5283,7 +5325,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/paladin.htm#paladinSpells",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "turn-undead",
@@ -6056,7 +6099,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/ranger.htm#wildEmpathy",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "combat-style",
@@ -6067,7 +6111,7 @@
         },
         "text": {
           "en": "<p><b>Combat Style (Ex):</b> At 2nd level, a ranger must select one of two combat styles to pursue: archery or two-weapon combat. This choice affects the character’s class features but does not restrict his selection of feats or special abilities in any way.</p><p>If the ranger selects archery, he is treated as having the Rapid Shot feat, even if he does not have the normal prerequisites for that feat.</p><p>If the ranger selects two-weapon combat, he is treated as having the Two-Weapon Fighting feat, even if he does not have the normal prerequisites for that feat.</p><p>The benefits of the ranger’s chosen style apply only when he wears light or no armor. He loses all benefits of his combat style when wearing medium or heavy armor.</p>",
-          "fr": "<p><b>Style de combat (Ext).</b> Au niveau 2, un rôdeur doit choisir entre le style de combat à deux armes et le style de combat à distance. Ce choix détermine quelques aptitudes de classe, mais ne limite en rien le rôdeur pour le choix de ses dons ou de ses pouvoirs spéciaux.</p><p>Si le rôdeur choisit le combat à deux armes, il peut se battre comme s’il possédait le don Combat à deux armes, même s’il n’en remplit pas les conditions.</p><p>Si le rôdeur choisit le combat à distance, il peut se battre comme s’il possédait le don Tir rapide, même s’il n’en remplit pas les conditions.</p><p>Le rôdeur ne doit porter aucune armure ou seulement une armure légère pour bénéficier de son style de combat. Il en perd tous les avantages s’il porte une arme intermédiaire ou lourde.</p>"
+          "fr": "<p><b>Style de combat (Ext).</b> Au niveau 2, un rôdeur doit choisir entre le style de combat à deux armes et le style de combat à distance. Ce choix détermine quelques aptitudes de classe, mais ne limite en rien le rôdeur pour le choix de ses dons ou de ses pouvoirs spéciaux.</p><p>Si le rôdeur choisit le combat à deux armes, il peut se battre comme s’il possédait le don Combat à deux armes, même s’il n’en remplit pas les conditions.</p><p>Si le rôdeur choisit le combat à distance, il peut se battre comme s’il possédait le don Tir rapide, même s’il n’en remplit pas les conditions.</p><p>Le rôdeur ne doit porter aucune armure ou seulement une armure légère pour bénéficier de son style de combat. Il en perd tous les avantages s’il porte une armure intermédiaire ou lourde.</p>"
         },
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/ranger.htm#combatStyle",
@@ -6125,7 +6169,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/ranger.htm#rangerSpells",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "favored-enemy-5",
@@ -6153,7 +6198,7 @@
         },
         "text": {
           "en": "<p><b>Improved Combat Style (Ex):</b> At 6th level, a ranger’s aptitude in his chosen combat style (archery or two-weapon combat) improves. If he selected archery at 2nd level, he is treated as having the Manyshot feat, even if he does not have the normal prerequisites for that feat.</p><p>If the ranger selected two-weapon combat at 2nd level, he is treated as having the Improved Two-Weapon Fighting feat, even if he does not have the normal prerequisites for that feat.</p><p>As before, the benefits of the ranger’s chosen style apply only when he wears light or no armor. He loses all benefits of his combat style when wearing medium or heavy armor.</p>",
-          "fr": "<p><b>Science du style de combat (Ext).</b> Au niveau 6, le rôdeur progresse dans son style de combat (à deux armes ou à distance). S’il a choisi le style de combat à deux armes au niveau 2, il peut maintenant se battre comme s’il possédait le don Science du combat à deux armes, même s’il n’en remplit pas les conditions.</p><p>S’il a choisi le style de combat à distance au niveau 2, il peut maintenant se battre comme s’il possédait le don Feu nourri, même s’il n’en remplit pas les conditions.</p><p>Comme précédemment, le rôdeur ne doit porter aucune armure ou seulement une armure légère pour bénéficier de son style de combat. Il en perd tous les avantages s’il porte une arme intermédiaire ou lourde.</p>"
+          "fr": "<p><b>Science du style de combat (Ext).</b> Au niveau 6, le rôdeur progresse dans son style de combat (à deux armes ou à distance). S’il a choisi le style de combat à deux armes au niveau 2, il peut maintenant se battre comme s’il possédait le don Science du combat à deux armes, même s’il n’en remplit pas les conditions.</p><p>S’il a choisi le style de combat à distance au niveau 2, il peut maintenant se battre comme s’il possédait le don Feu nourri, même s’il n’en remplit pas les conditions.</p><p>Comme précédemment, le rôdeur ne doit porter aucune armure ou seulement une armure légère pour bénéficier de son style de combat. Il en perd tous les avantages s’il porte une armure intermédiaire ou lourde.</p>"
         },
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/ranger.htm#improvedCombatStyle",
@@ -6235,7 +6280,7 @@
         },
         "text": {
           "en": "<p><b>Combat Style Mastery (Ex):</b> At 11th level, a ranger’s aptitude in his chosen combat style (archery or two-weapon combat) improves again. If he selected archery at 2nd level, he is treated as having the Improved Precise Shot feat, even if he does not have the normal prerequisites for that feat.</p><p>If the ranger selected two-weapon combat at 2nd level, he is treated as having the Greater Two-Weapon Fighting feat, even if he does not have the normal prerequisites for that feat.</p><p>As before, the benefits of the ranger’s chosen style apply only when he wears light or no armor. He loses all benefits of his combat style when wearing medium or heavy armor.</p>",
-          "fr": "<p><b>Maîtrise du style de combat (Ext).</b> Au niveau 11, le rôdeur maîtrise totalement son style de combat (à deux armes ou à distance). S’il a choisi le style de combat à deux armes au niveau 2, il peut maintenant se battre comme s’il possédait le don Maîtrise du combat à deux armes, même s’il n’en remplit pas les conditions.</p><p>S’il a choisi le style de combat à distance au niveau 2, il peut maintenant se battre comme s’il possédait le don Science du tir de précision, même s’il n’en remplit pas les conditions.</p><p>Comme précédemment, le rôdeur ne doit porter aucune armure ou seulement une armure légère pour bénéficier de son style de combat. Il en perd tous les avantages s’il porte une arme intermédiaire ou lourde.</p>"
+          "fr": "<p><b>Maîtrise du style de combat (Ext).</b> Au niveau 11, le rôdeur maîtrise totalement son style de combat (à deux armes ou à distance). S’il a choisi le style de combat à deux armes au niveau 2, il peut maintenant se battre comme s’il possédait le don Maîtrise du combat à deux armes, même s’il n’en remplit pas les conditions.</p><p>S’il a choisi le style de combat à distance au niveau 2, il peut maintenant se battre comme s’il possédait le don Science du tir de précision, même s’il n’en remplit pas les conditions.</p><p>Comme précédemment, le rôdeur ne doit porter aucune armure ou seulement une armure légère pour bénéficier de son style de combat. Il en perd tous les avantages s’il porte une armure intermédiaire ou lourde.</p>"
         },
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/ranger.htm#combatStyleMastery",
@@ -6979,7 +7024,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#trapSense",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "uncanny-dodge",
@@ -6995,7 +7041,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#uncannyDodge",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "sneak-attack-5",
@@ -7027,7 +7074,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#trapSense",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "sneak-attack-7",
@@ -7091,7 +7139,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#trapSense",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "special-ability",
@@ -7139,7 +7188,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#trapSense",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "sneak-attack-13",
@@ -7203,7 +7253,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#trapSense",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "special-ability-16",
@@ -7251,7 +7302,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/rogue.htm#trapSense",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "sneak-attack-19",
@@ -8033,7 +8085,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#sorcererSpells",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "summon-familiar",
@@ -8570,7 +8623,8 @@
         },
         "grantsFeats": [
           "scribe-scroll"
-        ]
+        ],
+        "computed": true
       },
       {
         "id": "spellbooks",
@@ -8602,7 +8656,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#wizardSpells",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "summon-familiar",
@@ -8634,7 +8689,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#bonusFeats",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "bonus-feat-10",
@@ -8650,7 +8706,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#bonusFeats",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "bonus-feat-15",
@@ -8666,7 +8723,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#bonusFeats",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "bonus-feat-20",
@@ -8682,7 +8740,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#bonusFeats",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       }
     ],
     "spellcasting": {
@@ -8753,6 +8812,32 @@
         }
       ]
     },
+    "bonusFeatLevels": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "bonusFeatList": [
+      "brew-potion",
+      "craft-magic-arms-and-armor",
+      "craft-rod",
+      "craft-staff",
+      "craft-wand",
+      "craft-wondrous-item",
+      "empower-spell",
+      "enlarge-spell",
+      "extend-spell",
+      "forge-ring",
+      "heighten-spell",
+      "maximize-spell",
+      "quicken-spell",
+      "scribe-scroll",
+      "silent-spell",
+      "spell-mastery",
+      "still-spell",
+      "widen-spell"
+    ],
     "text": {
       "en": "<p><b>Weapon and Armor Proficiency:</b> Wizards are proficient with the club, dagger, heavy crossbow, light crossbow, and quarterstaff, but not with any type of armor or shield. Armor of any type interferes with a wizard’s movements, which can cause her spells with somatic components to fail.</p>",
       "fr": "<p><b>Armes et armures.</b> Le magicien est formé au maniement de l’arbalète (légère et lourde), du bâton, de la dague et du gourdin. Il n’est formé ni au maniement des boucliers ni au port des armures. En effet, l’armure restreint ses mouvements et risque de faire échouer ses sorts à composante gestuelle.</p>"

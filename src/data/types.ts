@@ -173,6 +173,8 @@ export interface SpellcastingDef {
   casterLevel: 'full' | 'half'
   /** Highest spell level of the class (ranger 4). */
   maxSpellLevel: number
+  /** Cleric: one domain spell slot per spell level from 1st. */
+  domainSlots?: boolean
 }
 
 /** Ranger favored enemy types and similar choice lists. */
@@ -193,6 +195,10 @@ export interface ClassDef {
   /** Class levels granting a bonus feat, and the allowed list (fighter). */
   bonusFeatLevels?: number[]
   bonusFeatList?: string[]
+  /** Bonus feat list that depends on the class level (monk: 1st, 2nd, 6th). */
+  bonusFeatListByLevel?: Record<string, string[]>
+  /** Monk: bonus feats taken without meeting their prerequisites. */
+  bonusFeatIgnorePrereqs?: boolean
   requirements?: Prereq
   /** Class features by level (generic class model; mechanics flagged with `computed`). */
   features?: ClassFeatureDef[]
@@ -213,6 +219,8 @@ export interface RaceDef {
   /** Dwarf: speed not reduced by medium/heavy armor or load. */
   speedNotReducedByArmor?: boolean
   abilityAdjustments: Partial<Record<AbilityId, number>>
+  /** Minimum starting scores (half-orc Int 3). */
+  minimumScores?: Partial<Record<AbilityId, number>>
   /** Human: 1 extra feat at 1st level. */
   bonusFeat?: boolean
   /** Human: extra skill points per level (×4 at 1st level). */

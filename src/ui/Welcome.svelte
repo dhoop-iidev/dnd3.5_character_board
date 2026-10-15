@@ -31,7 +31,8 @@
   })
   const race = $derived(rules.races.get(form.race))
   function create() {
-    openCharacter(newCharacter({ ...form, lang: app.character.settings.lang }))
+    const lang = app.character.settings.lang
+    openCharacter(newCharacter({ ...form, lang, languages: race?.automaticLanguages.map((l) => l[lang]) }))
   }
 
   async function open(file: File | undefined) {

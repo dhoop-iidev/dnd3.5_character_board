@@ -10,21 +10,23 @@
 
   function endTurn() {
     const c = app.character
-    const expired: string[] = []
-    for (const e of c.activeEffects) {
-      if (e.rounds === undefined || !e.enabled) continue
-      e.rounds -= 1
-      if (e.rounds <= 0) expired.push(tr(effectName(e)))
-    }
-    c.activeEffects = c.activeEffects.filter((e) => e.rounds === undefined || e.rounds > 0 || !e.enabled)
     if (c.martial) advanceManeuvers(c.martial, rules, 'endOfTurn')
-    message = expired.length ? tr({ en: 'Ended: ', fr: 'Terminé : ' }) + expired.join(', ') : ''
+    message = ''
   }
+  // A duration in rounds ends just before the initiative count it began on: count it down when your next turn starts
+  // (also while switched off: a duration keeps running).
   function startTurn() {
     const c = app.character
     c.round = (c.round ?? 1) + 1
+    const expired: string[] = []
+    for (const e of c.activeEffects) {
+      if (e.rounds === undefined) continue
+      e.rounds -= 1
+      if (e.rounds <= 0) expired.push(tr(effectName(e)))
+    }
+    c.activeEffects = c.activeEffects.filter((e) => e.rounds === undefined || e.rounds > 0)
     if (c.martial) advanceManeuvers(c.martial, rules, 'startOfTurn')
-    message = ''
+    message = expired.length ? tr({ en: 'Ended: ', fr: 'Terminé : ' }) + expired.join(', ') : ''
   }
   function endEncounter() {
     const c = app.character
@@ -51,8 +53,8 @@
   </div>
   <p class="note">
     {tr({
-      en: 'End of my turn: effects with a duration lose 1 round (removed at 0); strike bonuses end. Start of my next turn: “1 round” effects end.',
-      fr: 'Fin de mon tour : les effets avec une durée perdent 1 round (retirés à 0) ; les bonus des frappes se terminent. Début de mon tour suivant : les effets « 1 round » se terminent.',
+      en: 'End of my turn: strike bonuses end. Start of my next turn: effects with a duration lose 1 round (removed at 0), as a duration ends just before the initiative count it began on.',
+      fr: 'Fin de mon tour : les bonus des frappes se terminent. Début de mon tour suivant : les effets avec une durée perdent 1 round (retirés à 0), car une durée prend fin juste avant le rang d’initiative où elle a commencé.',
     })}
   </p>
 </section>

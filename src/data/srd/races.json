@@ -398,13 +398,9 @@
         "value": 2
       },
       {
-        "target": "skill.craft",
+        "target": "skill.craft:alchemy",
         "bonusType": "racial",
-        "value": 2,
-        "condition": {
-          "en": "Craft (alchemy) only",
-          "fr": "Artisanat (alchimie) seulement"
-        }
+        "value": 2
       }
     ],
     "weaponFamiliarity": [
@@ -578,6 +574,9 @@
       "int": -2,
       "cha": -2
     },
+    "minimumScores": {
+      "int": 3
+    },
     "favoredClass": "barbarian",
     "vision": "darkvision",
     "darkvision": 60,
@@ -732,13 +731,9 @@
         }
       },
       {
-        "target": "attack.ranged",
+        "target": "attack.thrown",
         "bonusType": "racial",
-        "value": 1,
-        "condition": {
-          "en": "with thrown weapons and slings",
-          "fr": "avec les armes de jet et les frondes"
-        }
+        "value": 1
       },
       {
         "target": "skill.listen",
@@ -746,7 +741,28 @@
         "value": 2
       }
     ],
-    "traits": [],
+    "traits": [
+      {
+        "name": {
+          "en": "Small",
+          "fr": "Petite taille"
+        },
+        "text": {
+          "en": "Small: As a Small creature, a halfling gains a +1 size bonus to Armor Class, a +1 size bonus on attack rolls, and a +4 size bonus on Hide checks, but she uses smaller weapons than humans use, and her lifting and carrying limits are three-quarters of those of a Medium character.",
+          "fr": "Petite taille. En tant que créatures de taille P, les halfelins ont un bonus de taille de +1 à la CA, un bonus de taille de +1 aux jets d’attaque et un de +4 aux tests de Discrétion. Par contre, ils sont limités à des armes plus petites que celles utilisées par les humains, et la charge qu’ils peuvent soulever est plus modeste (75 % du poids porté par les créatures de taille M)."
+        }
+      },
+      {
+        "name": {
+          "en": "Fearless",
+          "fr": "Intrépidité"
+        },
+        "text": {
+          "en": "+2 morale bonus on saving throws against fear: This bonus stacks with the halfling’s +1 bonus on saving throws in general.",
+          "fr": "Bonus de moral de +2 aux jets de sauvegarde contre la terreur (qui vient s’ajouter au bonus de +1 mentionné ci-dessus)."
+        }
+      }
+    ],
     "text": {
       "en": "<p>+2 Dexterity, –2 Strength.</p><p>Small: As a Small creature, a halfling gains a +1 size bonus to Armor Class, a +1 size bonus on attack rolls, and a +4 size bonus on Hide checks, but she uses smaller weapons than humans use, and her lifting and carrying limits are three-quarters of those of a Medium character.</p><p>Halfling base land speed is 20 feet.</p><p>+2 racial bonus on Climb, Jump, and Move Silently checks.</p><p>+1 racial bonus on all saving throws.</p><p>+2 morale bonus on saving throws against fear: This bonus stacks with the halfling’s +1 bonus on saving throws in general.</p><p>+1 racial bonus on attack rolls with thrown weapons and slings.</p><p>+2 racial bonus on Listen checks.</p><p>Automatic Languages: Common and Halfling. Bonus Languages: Dwarven, Elven, Gnome, Goblin, and Orc.</p><p>Favored Class: Rogue. A multiclass halfling’s rogue class does not count when determining whether she takes an experience point penalty for multiclassing.</p>",
       "fr": "<p>+2 en Dextérité, –2 en Force.</p><p>Petite taille. En tant que créatures de taille P, les halfelins ont un bonus de taille de +1 à la CA, un bonus de taille de +1 aux jets d’attaque et un de +4 aux tests de Discrétion. Par contre, ils sont limités à des armes plus petites que celles utilisées par les humains, et la charge qu’ils peuvent soulever est plus modeste (75 % du poids porté par les créatures de taille M).</p><p>Leur vitesse de déplacement de base au sol est de 6 mètres.</p><p>Bonus racial de +2 aux tests de Déplacement silencieux, Escalade et Saut.</p><p>Bonus racial de +1 à tous les jets de sauvegarde.</p><p>Bonus de moral de +2 aux jets de sauvegarde contre la terreur (qui vient s’ajouter au bonus de +1 mentionné ci-dessus).</p><p>Bonus racial de +1 aux jets d’attaque avec les armes de jet et les frondes.</p><p>Bonus racial de +2 aux tests de Perception auditive.</p><p>Langues. D’office : commun et halfelin. Supplémentaires : elfe, gnome, gobelin, nain et orque.</p><p>Classe de prédilection. Roublard. La classe de roublard d’un halfelin multiclassé n’est pas prise en compte quand on détermine s’il subit ou non un malus de points d’expérience.</p>"

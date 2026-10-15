@@ -79,9 +79,9 @@ def source(where, s):
 
 
 TARGET_RE = re.compile(
-    r"^(ability\.(str|dex|con|int|wis|cha)|abilityDamage\.\w+|abilityDrain\.\w+|attack\.(melee|ranged|all|choice|weapon)"
+    r"^(ability\.(str|dex|con|int|wis|cha)|abilityDamage\.\w+|abilityDrain\.\w+|attack\.(melee|ranged|all|choice|weapon|thrown)"
     r"|attack\.extra|damage\.(melee|ranged|all|choice|weapon)|ac|ac\.noDex|ac\.armor|ac\.shield|save\.(fort|ref|will|all)|initiative"
-    r"|skill\.[a-z-]+|check\.(str|dex|con|int|wis|cha)|speed|speed\.half|hp\.temp|hp\.max)$")
+    r"|skill\.[a-z-]+(:[a-z-]+)?|check\.(str|dex|con|int|wis|cha)|speed|speed\.half|hp\.temp|hp\.max)$")
 EXTENDED_TARGETS = {"attack.choice", "damage.choice", "attack.weapon", "damage.weapon", "ac.armor", "ac.shield", "skill.choice"}
 
 
@@ -100,7 +100,7 @@ def modifiers(where, mods, skill_ids, used_ext):
         t = m["target"]
         if not TARGET_RE.match(t):
             err(where, f"unknown target {t}")
-        if t.startswith("skill.") and t not in ("skill.all", "skill.strdex", "skill.choice") and t[6:] not in skill_ids:
+        if t.startswith("skill.") and t not in ("skill.all", "skill.strdex", "skill.choice") and t[6:].split(":")[0] not in skill_ids:
             err(where, f"unknown skill in target {t}")
         if t in EXTENDED_TARGETS:
             used_ext.add(t)
@@ -240,7 +240,7 @@ def class_extras(w, c, skill_ids, feat_ids, weapon_ids, used_ext):
         err(w, f"bad armor proficiency {pr['armor']}")
     if "spellcasting" in c:
         sc = c["spellcasting"]
-        if set(sc) != {"ability", "kind", "style", "list", "casterLevel", "maxSpellLevel"} or sc["ability"] not in ABILITIES \
+        if not {"ability", "kind", "style", "list", "casterLevel", "maxSpellLevel"} <= set(sc) <= {"ability", "kind", "style", "list", "casterLevel", "maxSpellLevel", "domainSlots"} or sc["ability"] not in ABILITIES \
                 or sc["kind"] not in ("arcane", "divine") or sc["style"] not in ("prepared", "spontaneous") \
                 or sc["list"] not in LISTS or sc["casterLevel"] not in ("full", "half") or not 1 <= sc["maxSpellLevel"] <= 9:
             err(w, f"bad spellcasting {sc}")
@@ -285,7 +285,7 @@ def race(w, x, class_ids, skill_ids, weapon_ids, used_ext):
     """RaceDef (types.ts)."""
     req = {"id", "name", "size", "speed", "abilityAdjustments", "favoredClass", "vision", "automaticLanguages", "bonusLanguages",
            "modifiers", "traits", "text", "source"}
-    opt = {"speedNotReducedByArmor", "bonusFeat", "extraSkillPoints", "darkvision", "weaponProficiencies", "weaponFamiliarity"}
+    opt = {"speedNotReducedByArmor", "bonusFeat", "extraSkillPoints", "darkvision", "weaponProficiencies", "weaponFamiliarity", "minimumScores"}
     if not req <= set(x) or set(x) - req - opt:
         err(w, f"keys {set(x) ^ req}")
         return
@@ -337,6 +337,41 @@ def spell(w, x):
     source(w, x["source"])
     if not x["source"].get("srdUrl", "").startswith("https://www.d20srd.org/srd/spells/"):
         err(w, "srdUrl must be the d20srd spell page")
+
+
+# Spells per level on the SRD lists that spells.json holds in full, counted on
+# https://www.d20srd.org/srd/spellLists/druidSpells.htm and .../rangerSpells.htm (same counts in dnd35.db).
+SRD_LIST_COUNTS = {"druid": [13, 20, 26, 22, 17, 19, 18, 13, 11, 10], "ranger": [0, 19, 12, 13, 7]}
+DB_LIST = {"druid": "Druid", "ranger": "Ranger"}
+
+
+def spell_lists_complete(spells):
+    """Every druid / ranger list spell of dnd35.db is in spells.json with that list level; counts match the SRD lists."""
+    by_name = {x["name"]["en"]: x for x in spells}
+    for x in spells:
+        if x["text"]["fr"] == f"<p>{x['name']['fr']}</p>":
+            err(f"spell {x['id']}", "French text missing (name-only fallback)")
+    db_path = ROOT / "sources" / "dnd35.db"
+    if db_path.exists():
+        import sqlite3
+        con = sqlite3.connect(db_path)
+        for lst, label in DB_LIST.items():
+            for name, levels in con.execute("select name, level from spell where level like ?", (f"%{label}%",)):
+                m = re.search(rf"\b{label} (\d)", levels)
+                if not m:
+                    continue
+                x = by_name.get(name)
+                if x is None:
+                    err("spells.json", f"{lst} spell {name} (dnd35.db) missing")
+                elif x["level"].get(lst) != int(m.group(1)):
+                    err(f"spell {x['id']}", f"level.{lst} {x['level'].get(lst)} != {m.group(1)} (dnd35.db)")
+        con.close()
+    else:
+        WARN.append("sources/dnd35.db not found: druid/ranger list completeness against the database skipped")
+    for lst, counts in SRD_LIST_COUNTS.items():
+        got = [sum(1 for x in spells if x["level"].get(lst) == lv) for lv in range(len(counts))]
+        if got != counts:
+            err("spells.json", f"{lst} spells per level {got} != SRD list {counts}")
 
 
 def check_ids(name, items):
@@ -405,7 +440,7 @@ def main():
     for c in files["classes.json"] + [custom["weapon-master.json"]]:
         w = f"class {c['id']}"
         req = {"id", "name", "prestige", "hitDie", "skillPoints", "classSkills", "proficiencies", "table", "text", "source"}
-        if not req <= set(c) or set(c) - req - {"bonusFeatLevels", "bonusFeatList", "requirements", "features", "spellcasting", "choices"}:
+        if not req <= set(c) or set(c) - req - {"bonusFeatLevels", "bonusFeatList", "bonusFeatListByLevel", "bonusFeatIgnorePrereqs", "requirements", "features", "spellcasting", "choices"}:
             err(w, f"keys {set(c) ^ req}")
         class_extras(w, c, skill_ids, feat_ids, weapon_ids, used_ext)
         i18n(w + ".name", c["name"]); i18n(w + ".text", c["text"]); source(w, c["source"])
@@ -499,6 +534,7 @@ def main():
             for lv in range(1, c["spellcasting"]["maxSpellLevel"] + 1):
                 if not any(x["level"].get("ranger") == lv for x in files["spells.json"]):
                     err("spells.json", f"no ranger spell of level {lv}")
+    spell_lists_complete(files["spells.json"])
 
     check_ids("item-properties.json", files["item-properties.json"])
     for x in files["item-properties.json"]:
@@ -580,7 +616,7 @@ def spot_checks(files, custom):
         ("hide-in-plain-sight", 17), ("favored-enemy-20", 20))))
     expect("ranger computed features", sorted(i for i, f in rf.items() if f.get("computed")) == sorted(
         ["favored-enemy", "favored-enemy-5", "favored-enemy-10", "favored-enemy-15", "favored-enemy-20", "track", "combat-style",
-         "endurance", "improved-combat-style", "combat-style-mastery"]))
+         "endurance", "improved-combat-style", "combat-style-mastery", "wild-empathy", "spells"]))
     expect("ranger Track / Endurance granted feats", rf["track"].get("grantsFeats") == ["track"]
            and rf["endurance"].get("grantsFeats") == ["endurance"])
     fe = rg["choices"]["favoredEnemy"]
@@ -610,10 +646,18 @@ def spot_checks(files, custom):
            and {"target": "save.all", "bonusType": "racial", "value": 1} in rc["halfling"]["modifiers"])
     sp = by["spells.json"]
     rl = [x for x in sp.values() if "ranger" in x["level"]]
-    expect("51 ranger spells (19/12/13/7 by level 1-4)", len(sp) == 51 and len(rl) == 51 and [
+    dl = [x for x in sp.values() if "druid" in x["level"]]
+    expect("173 spells: 169 druid (levels 0-9) + ranger-only, 51 ranger (19/12/13/7 by level 1-4)",
+           len(sp) == 173 and len(dl) == 169 and len(rl) == 51 and [
         sum(1 for x in rl if x["level"]["ranger"] == lv) for lv in (1, 2, 3, 4)] == [19, 12, 13, 7])
     expect("entangle: druid 1 / ranger 1, Enchevêtrement",
            sp["entangle"]["level"] == {"druid": 1, "ranger": 1} and sp["entangle"]["name"]["fr"] == "Enchevêtrement")
+    expect("goodberry: druid 1, Baie nourricière", sp["goodberry"]["level"] == {"druid": 1}
+           and sp["goodberry"]["name"]["fr"] == "Baie nourricière")
+    expect("shapechange: druid 9 / sorcerer-wizard 9, Changement de forme",
+           sp["shapechange"]["level"] == {"druid": 9, "sorcerer-wizard": 9} and sp["shapechange"]["name"]["fr"] == "Changement de forme")
+    expect("detect magic: druid 0, school Divination (French SRD 'Universel' corrected)",
+           sp["detect-magic"]["level"]["druid"] == 0 and sp["detect-magic"]["school"]["fr"] == "Divination")
     expect("cure light wounds: ranger 2, Soins légers", sp["cure-light-wounds"]["level"]["ranger"] == 2
            and sp["cure-light-wounds"]["name"]["fr"] == "Soins légers")
     ah = by["magic-items.json"]["amulet-of-health-2"]

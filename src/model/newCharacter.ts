@@ -3,6 +3,8 @@ import type { AbilityId, Lang } from '../data/types'
 import { SCHEMA_VERSION, type Character } from './character'
 
 export interface NewCharacterOptions {
+  /** Automatic languages of the race (names in the chosen language). */
+  languages?: string[]
   name: string
   race: string
   classId: string
@@ -30,7 +32,7 @@ export function newCharacter(o: NewCharacterOptions): Character {
       homeland: '',
       title: '',
       motto: '',
-      languages: [o.lang === 'fr' ? 'Commun' : 'Common'],
+      languages: o.languages?.length ? o.languages : [o.lang === 'fr' ? 'Commun' : 'Common'],
     },
     xp: 0,
     baseAbilities: { ...o.abilities },

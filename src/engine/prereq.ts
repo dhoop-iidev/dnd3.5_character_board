@@ -2,6 +2,7 @@
 import type { Rules } from '../data/rules'
 import type { I18n, Prereq } from '../data/types'
 import type { Sheet } from './compute'
+import { proficientWith } from './proficiency'
 
 /** Check a prerequisite against a computed sheet; returns the unmet parts (English/French). */
 export function unmetPrereqs(
@@ -29,8 +30,7 @@ export function unmetPrereqs(
   }
   if (prereq.proficiency === '$choice' && choice) {
     const weapon = rules.weapons.get(choice)
-    const profs = new Set(Object.keys(sheet.classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.weapons ?? []))
-    if (weapon && !profs.has(weapon.category) && !profs.has(weapon.id))
+    if (weapon && !proficientWith(sheet.proficiency, weapon))
       out.push({ en: `proficiency with ${weapon.name.en}`, fr: `maniement de ${weapon.name.fr}` })
   }
   // Weapon aptitude (Tome of Battle p. 22): warblade level − 2 stacks with fighter levels for feat prerequisites.

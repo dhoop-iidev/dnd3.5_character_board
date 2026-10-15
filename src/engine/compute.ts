@@ -18,6 +18,7 @@ import type { Character, FeatPick, ItemInstance } from '../model/character'
 import { i18n, resolve, type Part, type Stat } from './stacking'
 import { effectLive, knownManeuvers, martialCaps, type MartialCaps } from './martial'
 import { raceOf } from './race'
+import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
 import { spellcastingOf, type Spellcasting } from './spells'
 import type { RaceDef } from '../data/types'
 import type { ManeuverDef } from '../data/types'
@@ -123,6 +124,8 @@ export interface Sheet {
   /** Damage reduction from equipment (adamantine armor…) and maneuvers (Stone Bones…). */
   damageReduction: { value: string; source: I18n }[]
   race: RaceDef
+  /** Weapon and armor proficiencies (classes, race, feats). */
+  proficiency: Proficiencies
   /** Spellcasting classes: caster level, spells per day (with bonus spells), save DCs. */
   spellcasting: Spellcasting[]
   /** Class-feature checks shown as stats (ranger wild empathy…). */
@@ -197,7 +200,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Ranger combat style (https://www.d20srd.org/srd/classes/ranger.htm#combatStyle): feats at ranger 2/6/11,
   // usable only in light or no armor.
   const rangerLevel = classLevels['ranger'] ?? 0
-  const styleId = levels.map((l) => l.classChoices?.combatStyle).find((x) => !!x)
+  // Ranger level reached at each character level (class choices only count on the ranger levels where they are due).
+  const rangerAt: number[] = []
+  levels.reduce((n, l) => (rangerAt.push(l.classId === 'ranger' ? n + 1 : 0), l.classId === 'ranger' ? n + 1 : n), 0)
+  const styleId = levels.map((l, i) => (rangerAt[i] === 2 ? l.classChoices?.combatStyle : undefined)).find((x) => !!x)
   const wornArmor = char.inventory.find(
     (i) => i.kind === 'armor' && i.location === 'worn' && !['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? ''),
   )
@@ -245,12 +251,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // first, +2 more to one type at ranger 5/10/15/20; Bluff, Listen, Sense Motive, Spot, Survival and weapon damage.
   const ranger = rules.classes.get('ranger')
   const enemyBonus = new Map<string, number>()
-  for (const l of levels) {
+  levels.forEach((l, i) => {
+    const r = rangerAt[i]
+    if (!(r === 1 || (r > 0 && r % 5 === 0))) return
     const pick = l.classChoices?.favoredEnemy
     if (pick && !enemyBonus.has(pick)) enemyBonus.set(pick, 2)
-    const inc = l.classChoices?.favoredEnemyIncrease
+    const inc = r >= 5 ? l.classChoices?.favoredEnemyIncrease : undefined
     if (inc && enemyBonus.has(inc)) enemyBonus.set(inc, enemyBonus.get(inc)! + 2)
-  }
+  })
   const favoredEnemies = [...enemyBonus].map(([id, bonus]) => ({
     id,
     bonus,
@@ -262,7 +270,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const skill of ['bluff', 'listen', 'sense-motive', 'spot', 'survival'])
       mods.push({ spec: { target: `skill.${skill}`, bonusType: 'untyped', value: fe.bonus, condition: vs }, sourceId: `favored-enemy:${fe.id}`, label: i18n('Favored enemy', 'Ennemi juré'), source: feSource })
     mods.push({
-      spec: { target: 'damage.all', bonusType: 'untyped', value: fe.bonus, condition: i18n(`vs ${fe.name.en} (ranged: within 30 ft.)`, `contre ${fe.name.fr} (à distance : à 9 m ou moins)`) },
+      spec: { target: 'damage.all', bonusType: 'untyped', value: fe.bonus, condition: vs },
       sourceId: `favored-enemy:${fe.id}`,
       label: i18n('Favored enemy', 'Ennemi juré'),
       source: feSource,
@@ -372,6 +380,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     if (drain)
       parts.push({ sourceId: 'drain', label: i18n('Ability drain', 'Diminution permanente'), value: -drain, bonusType: 'base', source: src('specialAbilities.htm#abilityScoreLoss') })
     const score = resolve(parts)
+    // Racial minimum (half-orc Int at least 3: https://www.d20srd.org/srd/races.htm#halfOrcs).
+    const min = race.minimumScores?.[a]
+    if (min !== undefined) {
+      const starting = char.baseAbilities[a] + (adj ?? 0)
+      if (starting < min) {
+        score.parts.push({ sourceId: 'race-minimum', label: i18n(`${race.name.en}: minimum ${min}`, `${race.name.fr} : minimum ${min}`), value: min - starting, bonusType: 'base', active: true, source: race.source })
+        score.total += min - starting
+      }
+    }
     score.total = Math.max(0, score.total)
     abilities[a] = { score, mod: abilityMod(score.total), damage, drain }
   }
@@ -407,11 +424,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     })
 
   // ---- proficiencies (union of the classes' lists)
-  const profWeapons = new Set(Object.keys(classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.weapons ?? []))
-  // Racial weapon proficiencies (elf) and weapon familiarity: exotic racial weapons count as martial (dwarf, gnome).
-  for (const id of race.weaponProficiencies ?? []) profWeapons.add(id)
-  if (profWeapons.has('martial')) for (const id of race.weaponFamiliarity ?? []) profWeapons.add(id)
-  const profArmor = new Set(Object.keys(classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.armor ?? []))
+  const proficiency = proficiencies(classLevels, feats, race, rules)
+  const profArmor = proficiency.armor
 
   // ---- hit points (house rule #9: max hit die every level; Con retroactive)
   const hpParts: Part[] = levels.map((l, i) => {
@@ -434,6 +448,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const iterativeBab: number[] = []
   for (let b = bab.total; iterativeBab.length === 0 || (b > 0 && iterativeBab.length < 4); b -= 5) iterativeBab.push(b)
 
+  // Trap sense: +1 at barbarian 3 / rogue 3, +1 every 3 levels; levels of both classes stack
+  // (https://www.d20srd.org/srd/classes/barbarian.htm#trapSense).
+  const trapSense = ['barbarian', 'rogue'].reduce((n, id) => n + Math.floor((classLevels[id] ?? 0) / 3), 0)
+
   // ---- saves
   const saveAbility: Record<SaveId, AbilityId> = { fort: 'con', ref: 'dex', will: 'wis' }
   const saves = {} as Record<SaveId, Stat>
@@ -451,6 +469,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         bonusType: 'insight',
         source: { book: 'Tome of Battle', page: 22 },
       })
+    // Paladin divine grace (2nd): Charisma bonus on all saves (https://www.d20srd.org/srd/classes/paladin.htm#divineGrace).
+    if ((classLevels['paladin'] ?? 0) >= 2 && mod('cha') > 0)
+      extra.push({ sourceId: 'divine-grace', label: i18n('Divine grace', 'Grâce divine'), value: mod('cha'), bonusType: 'untyped', source: src('classes/paladin.htm#divineGrace') })
+    // Trap sense (barbarian, rogue; stacks between classes): Reflex vs traps.
+    if (s === 'ref' && trapSense > 0)
+      extra.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'untyped', source: src('classes/rogue.htm#trapSense'), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ref'] ?? false, toggleKey: 'trap-sense|ref' })
+    // Barbarian indomitable will (14th): +4 Will vs enchantment while raging.
+    if (s === 'will' && (classLevels['barbarian'] ?? 0) >= 14)
+      extra.push({ sourceId: 'indomitable-will', label: i18n('Indomitable will', 'Volonté indomptable'), value: 4, bonusType: 'untyped', source: src('classes/barbarian.htm#indomitableWill'), condition: i18n('vs enchantment, while raging', 'contre les enchantements, en rage'), situationalOn: toggles.situational['indomitable-will|will'] ?? false, toggleKey: 'indomitable-will|will' })
     saves[s] = resolve([...tableSum(s), abilityPart(saveAbility[s]), ...extra, ...partsFor([`save.${s}`, 'save.all'])])
   }
 
@@ -524,16 +551,25 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   // Speed: racial base (https://www.d20srd.org/srd/races.htm), then the worse of armor and load (30-ft or 20-ft
   // column). Dwarves keep their speed in medium/heavy armor and loads.
-  const baseFt = race.speed
+  // Fast movement is added before armor and load (https://www.d20srd.org/srd/classes/barbarian.htm#fastMovement):
+  // barbarian +10 ft. unless in heavy armor or heavy load; monk +10 ft. per 3 levels, unarmored and light load.
+  const barbarianFast = (classLevels['barbarian'] ?? 0) >= 1 && armor?.category !== 'heavy' && band !== 'heavy' && band !== 'overloaded'
+  const monkLevel = classLevels['monk'] ?? 0
+  const monkUnencumbered = !armor && band === 'light'
+  const monkFast = monkLevel >= 3 && monkUnencumbered ? Math.floor(monkLevel / 3) * 10 : 0
+  const baseFt = race.speed + (barbarianFast ? 10 : 0) + monkFast
   let speedFt = baseFt
-  let speedFrom = i18n('base', 'base')
+  let speedFrom = barbarianFast || monkFast ? i18n('base + fast movement', 'base + déplacement accéléré') : i18n('base', 'base')
   const slow = baseFt <= 20
+  // Armor and load tables give 20 and 30 ft. columns; a faster base loses the same as 30 ft. (40 → 30).
+  const reduced = (d?: { ft: number } | null) => (d ? (slow ? d.ft : d.ft + Math.max(0, baseFt - 30)) : undefined)
   const armorSpeed = armor && (slow ? armor.def.speed20 : armor.def.speed30)
-  if (!race.speedNotReducedByArmor && armor && ['medium', 'heavy'].includes(armor.category) && armorSpeed && armorSpeed.ft < speedFt) {
-    speedFt = armorSpeed.ft
+  const armorFt = reduced(armorSpeed)
+  if (!race.speedNotReducedByArmor && armor && ['medium', 'heavy'].includes(armor.category) && armorFt !== undefined && armorFt < speedFt) {
+    speedFt = armorFt
     speedFrom = armor.def.name
   }
-  const loadSpeed = loadFx && (slow ? loadFx.speed20 : loadFx.speed30)
+  const loadSpeed = loadFx && reduced({ ft: slow ? loadFx.speed20 : loadFx.speed30 })
   if (!race.speedNotReducedByArmor && loadSpeed && loadSpeed < speedFt) {
     speedFt = loadSpeed
     speedFrom = i18n(`${band} load`, `charge ${band === 'medium' ? 'intermédiaire' : 'lourde'}`)
@@ -591,13 +627,22 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     acParts.push({ sourceId: 'fighting-defensively', label: tumble5 ? i18n('Fighting defensively (Tumble 5 ranks)', 'Combat sur la défensive (Acrobaties 5 degrés)') : i18n('Fighting defensively', 'Combat sur la défensive'), value: tumble5 ? 3 : 2, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#fightDefensively') })
   if (toggles.totalDefense)
     acParts.push({ sourceId: 'total-defense', label: tumble5 ? i18n('Total defense (Tumble 5 ranks)', 'Défense totale (Acrobaties 5 degrés)') : i18n('Total defense', 'Défense totale'), value: tumble5 ? 6 : 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
+  // Monk AC bonus: Wis bonus + 1 per 5 monk levels, unarmored, no shield, light load; kept when flat-footed and vs
+  // touch, lost when immobilized or helpless (https://www.d20srd.org/srd/classes/monk.htm#acBonus).
+  if (monkLevel >= 1 && monkUnencumbered && !shield && !flags.some((f) => ['immobile', 'helpless'].includes(f))) {
+    const v = Math.max(0, mod('wis')) + Math.floor(monkLevel / 5)
+    if (v) acParts.push({ sourceId: 'monk-ac', label: i18n('Monk AC bonus', 'Bonus à la CA du moine'), value: v, bonusType: 'untyped', source: src('classes/monk.htm#acBonus') })
+  }
+  if (trapSense > 0)
+    acParts.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'dodge', source: src('classes/rogue.htm#trapSense'), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ac'] ?? false, toggleKey: 'trap-sense|ac' })
   acParts.push(...partsFor(['ac']))
   // Uncanny dodge (warblade 2, Tome of Battle p. 22): keeps the Dex bonus when caught flat-footed (or by an invisible
   // attacker), not when it is lost for another reason (stunned, blinded, cowering, pinned…).
   const otherDexLoss =
     activeConditions.some((id) => id !== 'flat-footed' && rules.conditions.get(id)?.flags.includes('loseDexToAc')) ||
     sumTarget('ac.noDex') > 0
-  const uncannyDodge = !!caps && caps.classLevel >= 2 && !otherDexLoss
+  const uncannyDodge =
+    ((caps?.classLevel ?? 0) >= 2 || (classLevels['barbarian'] ?? 0) >= 2 || (classLevels['rogue'] ?? 0) >= 4) && !otherDexLoss
   const stripDex = (parts: Part[]) =>
     parts.filter(
       (p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero && !uncannyDodge) && p.bonusType !== 'dodge',
@@ -715,7 +760,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const weapon = item && rules.weapons.get(item.refId)
     if (!item || !weapon) continue
     const melee = weapon.kind === 'melee'
-    const hand = twf && uid === primaryUid ? 'primary' : twf && uid === offUid ? 'off' : undefined
+    const hand: 'primary' | 'off' | undefined = twf && uid === primaryUid ? 'primary' : twf && uid === offUid ? 'off' : undefined
     // Ranged families (https://www.d20srd.org/srd/combat/combatStatistics.htm#strengthBonus): thrown weapons and slings
     // add Str to damage; bows take only a Str penalty (composite ratings not modeled); crossbows ignore Str.
     const family = /crossbow/.test(weapon.id)
@@ -735,7 +780,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const weaponOfChoice = wmActive && char.weaponOfChoice === weapon.id && masterwork
     const name: I18n = item.name ?? { en: `${weapon.name.en}${enh ? ` +${enh}` : ''}`, fr: `${weapon.name.fr}${enh ? ` +${enh}` : ''}` }
     // A one-handed weapon can be gripped two-handed (Str x1.5, Power Attack x2).
-    const twoHands = weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid))
+    const twoHands =
+      !hand && (weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid)))
 
     const atk: Part[] = [...tableSum('bab'), abilityPart(melee ? 'str' : 'dex')]
     if (race.size === 'small') atk.push(sizePart(1))
@@ -765,7 +811,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     if (weaponOfChoice && wmLevel >= 3)
       atk.push({ sourceId: 'wm:superior-weapon-focus', label: i18n('Superior Weapon Focus', 'Arme de prédilection suprême'), value: 1, bonusType: 'untyped', source: { book: 'Sword and Fist', page: 39 } })
     // Nonproficient weapon: -4 (https://www.d20srd.org/srd/combat/combatModifiers.htm).
-    if (!profWeapons.has(weapon.category) && !profWeapons.has(weapon.id))
+    if (!proficientWith(proficiency, weapon))
       atk.push({ sourceId: 'nonproficient-weapon', label: i18n('Not proficient with the weapon', 'Arme non maîtrisée'), value: -4, bonusType: 'untyped', source: src('equipment/weapons.htm#weaponCategories') })
     // Nonproficient armor or shield: its armor check penalty applies to attack rolls (rulings R24).
     for (const x of [armor, shield])
@@ -788,7 +834,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const pr of props)
       if (pr.effects.attackBonus)
         atk.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: pr.effects.attackBonus.value, bonusType: 'enhancement', source: pr.source, condition: pr.effects.attackBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
-    atk.push(...partsFor([melee ? 'attack.melee' : 'attack.ranged', 'attack.all', 'attack.weapon']))
+    atk.push(
+      ...partsFor([
+        melee ? 'attack.melee' : 'attack.ranged',
+        'attack.all',
+        'attack.weapon',
+        ...(family === 'thrown' || family === 'sling' ? ['attack.thrown'] : []),
+      ]),
+    )
     const attack = resolve(atk)
     // Full attack: iteratives, plus one extra attack at full BAB from haste or a speed weapon (not cumulative:
     // https://www.d20srd.org/srd/magicItems/magicWeapons.htm#speed).
@@ -907,6 +960,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       stat: resolve([
         ...empathyClasses.map(([id, n]) => ({ sourceId: `class:${id}`, label: { en: `${rules.classes.get(id)!.name.en} ${n}`, fr: `${rules.classes.get(id)!.name.fr} ${n}` }, value: n, bonusType: 'base' as const, source: f.source })),
         abilityPart('cha'),
+        // Synergy: 5 ranks of Handle Animal (https://www.d20srd.org/srd/skills/handleAnimal.htm).
+        ...(levels.reduce((n, l) => n + (l.skillRanks['handle-animal'] ?? 0), 0) >= 5
+          ? [{ sourceId: 'synergy:handle-animal', label: i18n('Handle Animal 5 ranks', 'Dressage 5 degrés'), value: 2, bonusType: 'circumstance' as const, source: src('skills/handleAnimal.htm') }]
+          : []),
       ]),
     })
   }
@@ -917,7 +974,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     classLevels,
     feats,
     race,
-    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a]),
+    proficiency,
+    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))),
     featureStats,
     favoredEnemies,
     combatStyle: rangerStyle && rangerLevel >= 2 ? { id: rangerStyle.id, name: rangerStyle.name, active: styleActive } : undefined,

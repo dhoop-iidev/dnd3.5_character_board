@@ -4,10 +4,11 @@ import type { I18n } from '../data/types'
 import type { Character } from '../model/character'
 import { compute } from './compute'
 import { unmetPrereqs } from './prereq'
-import { featSlotsAt, isAbilityIncreaseLevel, skillBudget } from './progression'
+import { classBonusFeatList, featSlotsAt, isAbilityIncreaseLevel, skillBudget } from './progression'
 import { knownManeuvers, learnBlockers, martialCaps } from './martial'
 import { choicesAt } from './classChoices'
 import { raceOf } from './race'
+import { proficientWith } from './proficiency'
 
 export { unmetPrereqs }
 
@@ -137,12 +138,15 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
         out.push(w(`unknown-feat-${pick.featId}`, 'error', 'feats', `Unknown feat "${pick.featId}"`, `Don inconnu « ${pick.featId} »`, { level: L }))
         continue
       }
-      const bonusList = cls.bonusFeatList
-      if (pick.slot === 'class' && !(cls.id === 'fighter' ? def.fighterBonus : bonusList?.includes(def.id)))
+      const bonusList = classBonusFeatList(char, rules, L)
+      if (pick.slot === 'class' && !(bonusList ? bonusList.includes(def.id) : def.fighterBonus))
         out.push(w(`feat-not-class-${pick.featId}`, 'error', 'feats',
           `Level ${L}: ${def.name.en} is not a ${cls.name.en} bonus feat`, `Niveau ${L} : ${def.name.fr} n'est pas un don supplémentaire de ${cls.name.fr}`,
           { level: L, srdUrl: cls.source.srdUrl ?? `${SRD}classes/fighter.htm` }))
-      const unmet = unmetPrereqs(def.prereq, after, rules, feats, pick.choice)
+      // Feats granted by class features at this level count too (ranger Endurance → Diehard).
+      const granted = after.feats.filter((f) => f.slot === 'granted')
+      const unmet =
+        pick.slot === 'class' && cls.bonusFeatIgnorePrereqs ? [] : unmetPrereqs(def.prereq, after, rules, [...feats, ...granted], pick.choice)
       if (unmet.length)
         out.push(w(`prereq-${pick.featId}-${L}`, 'error', 'feats',
           `Level ${L}: ${def.name.en} prerequisites not met: ${unmet.map((u) => u.en).join(', ')}`,
@@ -263,6 +267,12 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
 
   // Current state checks (with temporary effects).
   const now = compute(char, rules)
+  if (!rules.races.has(char.identity.race))
+    out.push(w('unknown-race', 'error', 'levels', `Unknown race "${char.identity.race}": human rules used`, `Race inconnue « ${char.identity.race} » : règles de l'humain utilisées`, { srdUrl: `${SRD}races.htm` }))
+  // Two-weapon fighting: neither weapon can be wielded in two hands.
+  for (const a of now.attacks)
+    if (a.hand && a.weapon.handedness === 'twoHanded')
+      out.push(w(`twf-two-handed-${a.itemUid}`, 'error', 'combat', `${a.weapon.name.en} needs both hands: it can't be used for two-weapon fighting`, `${a.weapon.name.fr} demande les deux mains : impossible en combat à deux armes`, { srdUrl: `${SRD}combat/specialAttacks.htm#twoWeaponFighting` }))
   // Ranger combat style works only in light or no armor (https://www.d20srd.org/srd/classes/ranger.htm#combatStyle).
   if (now.combatStyle && !now.combatStyle.active)
     out.push(w('combat-style-inactive', 'warning', 'combat', `${now.combatStyle.name.en} combat style unusable: medium or heavy armor worn`, `Style de combat (${now.combatStyle.name.fr}) inutilisable : armure intermédiaire ou lourde portée`, { srdUrl: `${SRD}classes/ranger.htm#combatStyle` }))
@@ -292,14 +302,13 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
   }
 
   // Equipment: proficiency, load, max Dex, slots.
-  const profArmor = new Set(Object.keys(now.classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.armor ?? []))
-  const profWeapons = new Set(Object.keys(now.classLevels).flatMap((c) => rules.classes.get(c)?.proficiencies.weapons ?? []))
+  const profArmor = now.proficiency.armor
   for (const x of [now.armor, now.shield]) {
     if (x && !profArmor.has(x.def.category))
       out.push(w(`armor-prof-${x.item.uid}`, 'error', 'inventory', `Not proficient with ${x.def.name.en}`, `Pas de maniement de ${x.def.name.fr}`, { srdUrl: `${SRD}equipment/armor.htm` }))
   }
   for (const a of now.attacks)
-    if (!profWeapons.has(a.weapon.category) && !profWeapons.has(a.weapon.id))
+    if (!proficientWith(now.proficiency, a.weapon))
       out.push(w(`weapon-prof-${a.itemUid}`, 'error', 'combat', `Not proficient with ${a.weapon.name.en} (−4 attack)`, `Pas de maniement de ${a.weapon.name.fr} (−4 à l'attaque)`, { srdUrl: `${SRD}equipment/weapons.htm` }))
   if (now.load.band !== 'light')
     out.push(w('load', now.load.band === 'overloaded' ? 'error' : 'warning', 'inventory',

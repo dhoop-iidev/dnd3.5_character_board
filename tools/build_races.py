@@ -74,7 +74,7 @@ RACES = [
          modifiers=[M("save.all", 2, cond=("vs illusions", "contre les illusions")),
                     M("attack.all", 1, cond=("vs kobolds and goblinoids", "contre les kobolds et les gobelinoïdes")),
                     M("ac", 4, "dodge", GIANTS), M("skill.listen", 2),
-                    M("skill.craft", 2, cond=("Craft (alchemy) only", "Artisanat (alchimie) seulement"))],
+                    M("skill.craft:alchemy", 2)],
          traits=[("Low-light vision", "Vision nocturne", r"^Low-Light Vision", r"^Vision nocturne"),
                  ("Illusion spells", "Sorts d’illusion", r"^Add \+1 to the Difficulty Class", r"^Bonus de \+1 au DD"),
                  ("Speak with burrowing mammals", "Communication avec les animaux fouisseurs", r"speak with a burrowing mammal",
@@ -98,9 +98,11 @@ RACES = [
          auto=["Common", "Halfling"], bonus=["Dwarven", "Elven", "Gnome", "Goblin", "Orc"],
          modifiers=[M("skill.climb", 2), M("skill.jump", 2), M("skill.move-silently", 2), M("save.all", 1),
                     M("save.all", 2, "morale", ("vs fear", "contre la terreur")),
-                    M("attack.ranged", 1, cond=("with thrown weapons and slings", "avec les armes de jet et les frondes")),
+                    # attack.thrown: the engine applies it to thrown weapons and slings only.
+                    M("attack.thrown", 1),
                     M("skill.listen", 2)],
-         traits=[]),
+         traits=[("Small", "Petite taille", r"^Small:", r"^Petite taille"),
+                 ("Fearless", "Intrépidité", r"^\+2 morale bonus on saving throws against fear", r"^Bonus de moral de \+2 aux jets de sauvegarde contre la terreur")]),
 ]
 
 # Half-orc minimum Int: the French SRD has no matching sentence; own translation of the SRD sentence.
@@ -144,7 +146,7 @@ def build_races(skill_ids: set[str], weapon_ids: set[str]) -> list[dict]:
             traits.append({"name": i18n(name_en, name_fr), "text": i18n(t_en, t_fr)})
         for m in r["modifiers"]:
             if m["target"].startswith("skill."):
-                assert m["target"][6:] in skill_ids, m
+                assert m["target"][6:].split(":")[0] in skill_ids, m
         for w in r.get("weaponProficiencies", []) + r.get("weaponFamiliarity", []):
             assert w in weapon_ids, w
         # sanity checks against the bullets
@@ -157,6 +159,9 @@ def build_races(skill_ids: set[str], weapon_ids: set[str]) -> list[dict]:
         if r.get("speedNotReducedByArmor"):
             d["speedNotReducedByArmor"] = True
         d["abilityAdjustments"] = r["abilities"]
+        if r["id"] == "half-orc":
+            # https://www.d20srd.org/srd/races.htm#halfOrcs: starting Int is always at least 3.
+            d["minimumScores"] = {"int": 3}
         if r.get("bonusFeat"):
             d["bonusFeat"] = True
         if r.get("extraSkillPoints"):

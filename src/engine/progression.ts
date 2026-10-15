@@ -95,6 +95,16 @@ function featsBefore(char: Character, level: number, pick?: FeatPick): FeatPick[
   return [...earlier, ...same.slice(0, idx < 0 ? same.length : idx)]
 }
 
+/**
+ * Allowed class bonus feats at a character level: the class's list (warblade, wizard), the list for that class level
+ * (monk), or undefined = the fighter bonus feat list.
+ */
+export function classBonusFeatList(char: Character, rules: Rules, level: number): string[] | undefined {
+  const cls = rules.classes.get(char.levels[level - 1]?.classId ?? '')
+  if (!cls || cls.id === 'fighter') return undefined
+  return cls.bonusFeatListByLevel?.[String(classLevelAt(char, level))] ?? cls.bonusFeatList
+}
+
 /** Feats that can be taken at this level in this slot, with their unmet prerequisites (empty = eligible). */
 export function featOptions(
   char: Character,
@@ -104,18 +114,22 @@ export function featOptions(
   pick?: FeatPick,
 ): { def: FeatDef; unmet: string[] }[] {
   const sheet = compute({ ...char, activeEffects: [], abilityDamage: {} }, rules, { level })
-  const owned = featsBefore(char, level, pick)
+  // Feats granted by class features (ranger Track, Endurance…) count as owned.
+  const owned = [...featsBefore(char, level, pick), ...sheet.feats.filter((f) => f.slot === 'granted')]
   // Class bonus feats: fighter list for fighters, the class's own list otherwise (warblade, ToB p. 23).
   const cls = rules.classes.get(char.levels[level - 1]?.classId ?? '')
-  const bonusOk = (d: FeatDef) => (cls?.id === 'fighter' || !cls?.bonusFeatList ? d.fighterBonus : cls.bonusFeatList.includes(d.id))
+  const list = classBonusFeatList(char, rules, level)
+  const bonusOk = (d: FeatDef) => (list ? list.includes(d.id) : d.fighterBonus)
   return [...rules.feats.values()]
     .filter((d) => slot !== 'class' || bonusOk(d))
     .filter((d) => d.type === 'general' || slot === 'general' || slot === 'race' || slot === 'deity')
     .map((def) => ({
       def,
-      unmet: unmetPrereqs(def.prereq, sheet, rules, owned, pick?.featId === def.id ? pick.choice : undefined).map(
-        (u) => u.en,
-      ),
+      // Monk bonus feats ignore prerequisites (https://www.d20srd.org/srd/classes/monk.htm#bonusFeat).
+      unmet:
+        slot === 'class' && cls?.bonusFeatIgnorePrereqs
+          ? []
+          : unmetPrereqs(def.prereq, sheet, rules, owned, pick?.featId === def.id ? pick.choice : undefined).map((u) => u.en),
     }))
     .filter(({ def }) => def.multiple || def.choice || !owned.some((f) => f.featId === def.id))
 }

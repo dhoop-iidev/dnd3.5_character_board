@@ -474,6 +474,52 @@ def build_features(cid, specs, en_sec, fr_sec, special_by_level, page, table_anc
     return feats, special_rows
 
 
+# Engine data the SRD tables don't carry (each line cites its rule).
+WIZARD_BONUS_FEATS = [  # metamagic, item creation, Spell Mastery (https://www.d20srd.org/srd/classes/wizard.htm#bonusFeats)
+    "brew-potion", "craft-magic-arms-and-armor", "craft-rod", "craft-staff", "craft-wand", "craft-wondrous-item",
+    "empower-spell", "enlarge-spell", "extend-spell", "forge-ring", "heighten-spell", "maximize-spell",
+    "quicken-spell", "scribe-scroll", "silent-spell", "spell-mastery", "still-spell", "widen-spell",
+]
+# Features the engine computes (popups otherwise say "described only").
+COMPUTED = {
+    "barbarian": {"fast-movement", "uncanny-dodge", "trap-sense", "indomitable-will"},
+    "cleric": {"spells"},
+    "druid": {"spells", "wild-empathy", "nature-sense"},
+    "monk": {"ac-bonus", "fast-movement", "still-mind", "bonus-feat"},
+    "paladin": {"divine-grace", "spells"},
+    "ranger": {"wild-empathy", "spells"},
+    "rogue": {"trap-sense", "uncanny-dodge"},
+    "wizard": {"bonus-feat", "scribe-scroll", "spells"},
+    "sorcerer": {"spells"},
+    "bard": {"spells"},
+}
+
+
+def apply_engine_extras(d: dict) -> None:
+    cid = d["id"]
+    for f in d["features"]:
+        base = f["id"].rsplit("-", 1)[0] if f["id"].rsplit("-", 1)[-1].isdigit() else f["id"]
+        if base in COMPUTED.get(cid, set()) or f["id"] in COMPUTED.get(cid, set()):
+            f["computed"] = True
+    if cid == "cleric":
+        d["spellcasting"]["domainSlots"] = True  # 1 domain spell slot per spell level (cleric.htm#domains)
+    if cid == "wizard":
+        d["bonusFeatLevels"] = [5, 10, 15, 20]
+        d["bonusFeatList"] = WIZARD_BONUS_FEATS
+    if cid == "monk":
+        # https://www.d20srd.org/srd/classes/monk.htm#bonusFeat: a choice of two feats at 1st, 2nd, 6th, prerequisites ignored.
+        d["bonusFeatLevels"] = [1, 2, 6]
+        d["bonusFeatListByLevel"] = {"1": ["improved-grapple", "stunning-fist"], "2": ["combat-reflexes", "deflect-arrows"],
+                                     "6": ["improved-disarm", "improved-trip"]}
+        d["bonusFeatIgnorePrereqs"] = True
+    if cid == "ranger":
+        # Typo in the official French SRD (DRS 03b): "arme intermédiaire ou lourde" for "armure".
+        for f in d["features"]:
+            fr = f["text"]["fr"]
+            if "arme intermédiaire ou lourde" in fr:
+                f["text"]["fr"] = fr.replace("arme intermédiaire ou lourde", "armure intermédiaire ou lourde")
+
+
 def build_all(fighter: dict, skill_ids: set[str], feat_ids: set[str], weapon_ids: set[str]) -> list[dict]:
     c = db()
     en_all = {"04_": rtf_fr.load("04_", "en"), "05_": rtf_fr.load("05_", "en")}
@@ -555,6 +601,7 @@ def build_all(fighter: dict, skill_ids: set[str], feat_ids: set[str], weapon_ids
             choices[key] = [{"id": i, "name": i18n(en, fr)} for i, en, fr in opts]
         if choices:
             d["choices"] = choices
+        apply_engine_extras(d)
         d["text"] = i18n(clip_paras(fr_paras_html(en_body)), clip_paras(fr_paras_html(fr_body)))
         d["source"] = srd_source(srd_urls.anchor_url(cdef["page"], cdef["table"]), fr_ref)
         out.append(d)

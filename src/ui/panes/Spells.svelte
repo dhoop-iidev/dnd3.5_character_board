@@ -23,6 +23,16 @@
       .filter((sp) => sp.level[sc.def.list] === level)
       .sort((a, b) => tr(a.name).localeCompare(tr(b.name)))
   }
+  /** A slot can hold a spell of its level or lower (https://www.d20srd.org/srd/magicOverview/castingSpells.htm#spellSlots);
+   * if the key ability is too low for that level, only lower-level spells it can cast. */
+  function slotOptions(sc: Spellcasting, slotLevel: number, blocked: boolean): { level: number; spells: SpellDef[] }[] {
+    const usable = sc.slots.filter((x) => !x.blocked).map((x) => x.spellLevel)
+    const out: { level: number; spells: SpellDef[] }[] = []
+    for (let l = blocked ? slotLevel - 1 : slotLevel; l >= 0; l--)
+      if (usable.includes(l) || l < slotLevel) out.push({ level: l, spells: spellsOf(sc, l) })
+    return out.filter((g) => g.spells.length)
+  }
+  const hasSave = (sp: SpellDef) => !/^(none|aucun)/i.test(sp.save.en.trim())
 
   /** Prepared slots of one spell level, padded to the number of spells per day (read only). */
   function slotsFor(sc: Spellcasting, level: number, total: number) {
@@ -45,7 +55,10 @@
       title: sp.name,
       summary: sp.summary,
       lines: [
-        { en: `${sp.school.en}, level ${lvl} · save DC ${sc.dc(lvl)}`, fr: `${sp.school.fr}, niveau ${lvl} · DD ${sc.dc(lvl)}` },
+        {
+          en: `${sp.school.en}, level ${lvl}${hasSave(sp) ? ` · save DC ${sc.dc(lvl)}` : ''}`,
+          fr: `${sp.school.fr}, niveau ${lvl}${hasSave(sp) ? ` · DD ${sc.dc(lvl)}` : ''}`,
+        },
         { en: `Components: ${sp.components}`, fr: `Composantes : ${sp.components}` },
         ...line('Casting time', 'Temps d’incantation', sp.castingTime),
         ...line('Range', 'Portée', sp.range),
@@ -75,7 +88,11 @@
     <div class="caps">
       <div>
         <small>{tr({ en: 'Caster level', fr: 'Niveau de lanceur de sorts' })}</small>
-        <StatValue stat={() => view.sheet.spellcasting.find((x) => x.classId === sc.classId)!.casterLevel} title={{ en: 'Caster level', fr: 'Niveau de lanceur de sorts' }} signed={false} />
+        <StatValue
+          stat={() => view.sheet.spellcasting.find((x) => x.classId === sc.classId)!.casterLevel}
+          title={{ en: 'Caster level', fr: 'Niveau de lanceur de sorts' }}
+          signed={false}
+        />
       </div>
       <div>
         <small>{tr({ en: 'Key ability', fr: 'Caractéristique' })}</small>
@@ -85,7 +102,9 @@
         <small>{tr({ en: 'Kind', fr: 'Type' })}</small>
         <strong>
           {sc.def.kind === 'divine' ? tr({ en: 'divine', fr: 'divin' }) : tr({ en: 'arcane', fr: 'profane' })},
-          {sc.def.style === 'prepared' ? tr({ en: 'prepared', fr: 'préparés' }) : tr({ en: 'spontaneous', fr: 'spontanés' })}
+          {sc.def.style === 'prepared'
+            ? tr({ en: 'prepared', fr: 'préparés' })
+            : tr({ en: 'spontaneous', fr: 'spontanés' })}
         </strong>
       </div>
     </div>
@@ -99,64 +118,82 @@
       </p>
     {/if}
 
-    {#each sc.slots.filter((x) => x.total > 0 || x.blocked) as slot (slot.spellLevel)}
+    {#each sc.slots.filter((x) => x.total > 0) as slot (slot.spellLevel)}
       <div class="level">
         <h4>
-          {tr({ en: 'Level', fr: 'Niveau' })} {slot.spellLevel}
+          {tr({ en: 'Level', fr: 'Niveau' })}
+          {slot.spellLevel}
           <small>
-            · {slot.total} {tr({ en: 'per day', fr: 'par jour' })}
-            ({slot.base} + {slot.bonus} {tr({ en: 'bonus', fr: 'bonus' })}) · {tr({ en: 'DC', fr: 'DD' })} {sc.dc(slot.spellLevel)}
+            · {slot.total}
+            {tr({ en: 'per day', fr: 'par jour' })}
+            ({slot.base} + {slot.bonus}
+            {tr({ en: 'bonus', fr: 'bonus' })}{#if slot.extra}
+              + {slot.extra}
+              {sc.classId === 'cleric'
+                ? tr({ en: 'domain', fr: 'domaine' })
+                : tr({ en: 'specialty', fr: 'spécialité' })}{/if}) · {tr({
+              en: 'DC',
+              fr: 'DD',
+            })}
+            {sc.dc(slot.spellLevel)}
           </small>
         </h4>
         {#if slot.blocked}
           <p class="note">
             {tr({
-              en: `Key ability score too low (needs ${10 + slot.spellLevel}).`,
-              fr: `Valeur de caractéristique trop basse (il faut ${10 + slot.spellLevel}).`,
+              en: `Key ability score too low for level ${slot.spellLevel} spells (needs ${10 + slot.spellLevel}): these slots hold lower-level spells.`,
+              fr: `Caractéristique trop basse pour les sorts de niveau ${slot.spellLevel} (il faut ${10 + slot.spellLevel}) : ces emplacements reçoivent des sorts de niveau inférieur.`,
             })}
           </p>
-        {:else}
-          {@const options = spellsOf(sc, slot.spellLevel)}
-          <ul class="slots">
-            {#each slotsFor(sc, slot.spellLevel, slot.total) as prep, j (j)}
-              {@const def = rules.spells.get(prep.id)}
-              <li class:cast={prep.cast}>
-                <select
-                  value={prep.id}
-                  onchange={(e) => setSlot(sc, slot.spellLevel, j, { id: e.currentTarget.value, cast: false })}
-                  aria-label={tr({ en: 'Prepared spell', fr: 'Sort préparé' })}
-                >
-                  <option value="">— {tr({ en: 'prepare a spell', fr: 'préparer un sort' })} —</option>
-                  {#each options as sp (sp.id)}<option value={sp.id}>{tr(sp.name)}</option>{/each}
-                </select>
-                {#if def}<button class="link" onclick={() => spellPopup(def, sc)}>ⓘ {tr(def.summary)}</button>{/if}
-                <label class="check">
-                  <input
-                    type="checkbox"
-                    checked={prep.cast}
-                    disabled={!prep.id}
-                    onchange={(e) => setSlot(sc, slot.spellLevel, j, { cast: e.currentTarget.checked })}
-                  />
-                  {tr({ en: 'cast', fr: 'lancé' })}
-                </label>
-              </li>
-            {/each}
-          </ul>
         {/if}
+        <ul class="slots">
+          {#each slotsFor(sc, slot.spellLevel, slot.total) as prep, j (j)}
+            {@const def = rules.spells.get(prep.id)}
+            <li class:cast={prep.cast}>
+              <select
+                value={prep.id}
+                onchange={(e) => setSlot(sc, slot.spellLevel, j, { id: e.currentTarget.value, cast: false })}
+                aria-label={tr({ en: 'Prepared spell', fr: 'Sort préparé' })}
+              >
+                <option value="">— {tr({ en: 'prepare a spell', fr: 'préparer un sort' })} —</option>
+                {#each slotOptions(sc, slot.spellLevel, slot.blocked) as g (g.level)}
+                  <optgroup label={`${tr({ en: 'Level', fr: 'Niveau' })} ${g.level}`}>
+                    {#each g.spells as sp (sp.id)}<option value={sp.id}>{tr(sp.name)}</option>{/each}
+                  </optgroup>
+                {/each}
+              </select>
+              {#if def}<button class="link" onclick={() => spellPopup(def, sc)}>ⓘ {tr(def.summary)}</button>{/if}
+              <label class="check">
+                <input
+                  type="checkbox"
+                  checked={prep.cast}
+                  disabled={!prep.id}
+                  onchange={(e) => setSlot(sc, slot.spellLevel, j, { cast: e.currentTarget.checked })}
+                />
+                {tr({ en: 'cast', fr: 'lancé' })}
+              </label>
+            </li>
+          {/each}
+        </ul>
       </div>
     {/each}
 
     <div class="actions">
-      <button onclick={() => newDay(sc)}>☀ {tr({ en: 'New day (spells available again)', fr: 'Nouveau jour (sorts de nouveau disponibles)' })}</button>
+      <button onclick={() => newDay(sc)}
+        >☀ {tr({ en: 'New day (spells available again)', fr: 'Nouveau jour (sorts de nouveau disponibles)' })}</button
+      >
     </div>
 
     <details>
       <summary>{tr({ en: 'Spell list', fr: 'Liste de sorts' })} ({tr(sc.className)})</summary>
-      {#each Array.from({ length: sc.def.maxSpellLevel }, (_, k) => k + 1) as lvl (lvl)}
+      {#each Array.from({ length: sc.def.maxSpellLevel + 1 }, (_, k) => k).filter((l) => spellsOf(sc, l).length) as lvl (lvl)}
         <h4>{tr({ en: 'Level', fr: 'Niveau' })} {lvl}</h4>
         <ul class="list">
           {#each spellsOf(sc, lvl) as sp (sp.id)}
-            <li><button class="link" onclick={() => spellPopup(sp, sc)}>{tr(sp.name)}</button> <small>{tr(sp.summary)}</small></li>
+            <li>
+              <button class="link" onclick={() => spellPopup(sp, sc)}>{tr(sp.name)}</button>
+              <small>{tr(sp.summary)}</small>
+            </li>
           {:else}
             <li><small>—</small></li>
           {/each}
