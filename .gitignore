@@ -31,3 +31,7 @@ design inspiration/
 
 # personal exported saves
 character_saves/
+
+# never publish books or documents (copyrighted)
+*.pdf
+*.epub
