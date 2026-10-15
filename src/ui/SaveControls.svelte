@@ -8,9 +8,13 @@
   let shareOpen = $state(false)
   let includeNotes = $state(false)
   let shareUrl = $state('')
+  // The DM can't open a link to this computer's dev server: from a local address, link to the public site.
+  const PUBLIC_URL = 'https://dhoop-iidev.github.io/dnd3.5_character_board/'
+  const isLocal = /^(localhost|127\.|\[::1\]|192\.168\.|10\.)/.test(location.hostname) || location.protocol === 'file:'
   async function makeLink() {
     const data = await encodeShare(app.character, { includeNotes })
-    shareUrl = `${location.origin}${location.pathname}?share=${data}#/general`
+    const base = isLocal ? PUBLIC_URL : `${location.origin}${location.pathname}`
+    shareUrl = `${base}?share=${data}#/general`
   }
   async function copyLink() {
     try {

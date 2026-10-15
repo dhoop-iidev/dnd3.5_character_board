@@ -627,12 +627,12 @@
     },
     "supernatural": false,
     "summary": {
-      "en": "Stance: +10 ft. enhancement bonus on Jump checks; all your jumps count as running jumps.",
-      "fr": "Posture : bonus d’altération de +3 m aux tests de Saut ; tous vos sauts comptent comme des sauts avec élan."
+      "en": "Stance: +10 enhancement bonus on Jump checks; all your jumps count as running jumps.",
+      "fr": "Posture : bonus d'altération de +10 aux tests de Saut ; tous vos sauts comptent comme des sauts avec élan."
     },
     "text": {
-      "en": "<p>While in this stance you gain a <strong>+10-foot enhancement bonus on Jump checks</strong>, and every jump you make counts as a <strong>running jump</strong> (no 20-ft. run-up needed).</p>",
-      "fr": "<p>Dans cette posture, vous gagnez un <strong>bonus d’altération de +3 m aux tests de Saut</strong>, et tous vos sauts comptent comme des <strong>sauts avec élan</strong> (sans les 6 m de course préalable).</p>"
+      "en": "<p>While in this stance you gain a <strong>+10 enhancement bonus on Jump checks</strong>, and every jump you make counts as a <strong>running jump</strong> (no 20-ft. run-up needed).</p>",
+      "fr": "<p>Dans cette posture, vous gagnez un <strong>bonus d’altération de +10 aux tests de Saut</strong>, et tous vos sauts comptent comme des <strong>sauts avec élan</strong> (sans les 6 m de course préalable).</p>"
     },
     "skillCheck": {
       "skill": "jump",
@@ -642,14 +642,25 @@
       }
     },
     "notes": {
-      "en": "The full entry says \"+10-foot\" but the book's summary list (p. 49) says +10 on Jump checks; recommended reading +10 on the check (pending DM, house rule #18). Not applied to the Jump modifier until decided.",
-      "fr": "L'entrée complète dit « +10 pieds » mais la liste résumée du livre (p. 49) dit +10 aux tests de Saut ; lecture recommandée : +10 au test (MJ à confirmer, règle maison n° 18). Non appliqué au modificateur de Saut en attendant."
+      "en": "Read as +10 on Jump checks, as in the book's summary list p. 49 (house rule #18), not +10 ft of distance.",
+      "fr": "Lu comme +10 aux tests de Saut, comme dans la liste résumée du livre p. 49 (règle maison n° 18), et non +3 m de distance."
     },
     "source": {
       "book": "Tome of Battle",
       "page": 88,
       "frRef": "traduction maison"
-    }
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "skill.jump",
+          "bonusType": "enhancement",
+          "value": 10
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      }
+    ]
   },
   {
     "id": "pouncing-charge",

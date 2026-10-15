@@ -13,20 +13,20 @@ Questions found while encoding the maneuvers. Researched 2026-10-15. Summaries i
 | Wizards customer-service answers (compiled) | unofficial | https://drammelsnotes.wikidot.com/the-unofficial-official-errata |
 | Forums (EN World, Giant in the Playground, Min-Max), dndtools | community | links per question |
 
-**Result:** no official ruling exists for any of the nine questions. Six are settled by the book's own text; three are genuinely open and are listed as `pending` in `docs/house-rules.md` (#17–19).
+**Result:** no official ruling exists for any of the nine questions. Six are settled by the book's own text; the three open ones were decided by the user as house rules #17–19 (2026-10-15).
 
-## T1. Bounding Assault (Diamond Mind 4, p. 62): charge +2 / −2 AC? — **pending (#17)**
+## T1. Bounding Assault (Diamond Mind 4, p. 62): charge +2 / −2 AC? — **decided: house rule #17**
 - Text: double move, then one melee attack at +2; it "is considered a charge" only to decide whether feats and abilities apply.
 - When the book means a real charge, it says "you must make a charge attack", adds "in addition to the charge bonus" when bonuses stack (pp. 60, 61, 94), and spells out the −2 AC when it applies (p. 56). Bounding Assault says none of this.
 - Recommended (RAW reading): **+2 on the attack, no second charge +2, no −2 AC**; counts as a charge for charge feats. Confidence medium-high on the +2, medium on the AC. Community discussion is thin (https://www.enworld.org/forum/showthread.php?171812).
 - App: +2 on the strike's attack; −2 AC not applied.
 
-## T2. Leaping Dragon Stance (Tiger Claw 3, p. 88): +10 on the check or +10 ft? — **pending (#18)**
+## T2. Leaping Dragon Stance (Tiger Claw 3, p. 88): +10 on the check or +10 ft? — **decided: house rule #18 (+10 on the check)**
 - Full entry: "+10-foot enhancement bonus on Jump checks"; the book's own summary list (p. 49): "+10 on Jump checks". Every jump counts as a running jump.
 - Long jump: same result either way (check result = distance in feet). High jump: +10 on the check ≈ +2,5 ft (75 cm) of height; +10 ft of distance would be worth +40 on the check.
 - Community split (https://www.enworld.org/threads/swooping-dragon-strike.192670/, https://www.dragonslair.it/forums/topic/57551-leaping-dragon-stance/).
 - Recommended: **+10 enhancement bonus on Jump checks** (skill-bonus wording, matches the summary list, conservative). Confidence medium.
-- App: not applied to Jump until the DM decides.
+- App: +10 enhancement bonus on Jump while in the stance.
 
 ## T3. Wolf Fang Strike (Tiger Claw 1, p. 90): normal two-weapon penalties too? — **resolved**
 - Text: one attack with each weapon against the same foe, −2 on each. The Bloodclaw Master entry (p. 97) calls this "the −2 penalty … for fighting with two weapons".
@@ -40,9 +40,9 @@ Questions found while encoding the maneuvers. Researched 2026-10-15. Summaries i
 ## T5. Lightning Throw (Iron Heart 8, p. 68): only 2 maneuvers? — **resolved: 2, as printed**
 - Book, official card and dndtools all say two Iron Heart maneuvers. No errata or forum calls it a misprint; other 8th-level maneuvers also need two (Earthstrike Quake, Wolf Pack Tactics…).
 
-## T6. Iron Heart Endurance (Iron Heart 6, p. 68): "your level" — **pending (#19)**
+## T6. Iron Heart Endurance (Iron Heart 6, p. 68): "your level" — **decided: house rule #19 (warblade level)**
 - Only bare "your level" in the book; everywhere else ToB names the level it means (initiator, warblade, character level). A maneuver is not a class feature (anyone can learn it with Martial Study), so the FAQ's "class level for class features" rule doesn't fit.
-- Recommended: **character level** (medium). Options for the DM: character level / initiator level / warblade level.
+- Recommended reading was character level (medium); the user ruled **warblade level** (house rule #19).
 - Not relevant yet: a 6th-level maneuver needs initiator level 11.
 
 ## T7. Blood in the Water (Tiger Claw 1 stance, p. 86) — **resolved**

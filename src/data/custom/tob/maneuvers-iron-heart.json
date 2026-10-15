@@ -730,16 +730,16 @@
     },
     "supernatural": false,
     "summary": {
-      "en": "At half hp or less, heal 2 × your level.",
-      "fr": "À la moitié de vos pv ou moins, récupérez 2 × votre niveau en pv."
+      "en": "At half hp or less, heal 2 × your warblade level.",
+      "fr": "À la moitié de vos pv ou moins, récupérez 2 × votre niveau de lame de bataille en pv."
     },
     "text": {
       "en": "<p>Usable only if you have half or fewer of your full normal hit points left: you heal hit points equal to <b>2 × your level</b>.</p>",
       "fr": "<p>Utilisable seulement s’il vous reste la moitié ou moins de votre maximum de pv normal : vous récupérez un nombre de pv égal à <b>2 × votre niveau</b>.</p>"
     },
     "notes": {
-      "en": "\"Your level\" read as character level (recommended, pending DM: house rule #19; alternatives initiator or warblade level). No duration line is printed.",
-      "fr": "« Votre niveau » lu comme le niveau de personnage (recommandé, MJ à confirmer : règle maison n° 19 ; autres lectures : niveau d'initiateur ou de lame de bataille). Aucune ligne de durée n'est imprimée."
+      "en": "\"Your level\" = warblade level (house rule #19). No duration line is printed.",
+      "fr": "« Votre niveau » = niveau de lame de bataille (règle maison n° 19). Aucune ligne de durée n'est imprimée."
     },
     "source": {
       "book": "Tome of Battle",

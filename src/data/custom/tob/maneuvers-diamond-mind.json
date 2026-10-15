@@ -510,8 +510,8 @@
       }
     ],
     "notes": {
-      "en": "Only the maneuver's +2 applies (no second charge bonus) and no −2 AC under the book's wording; counts as a charge for charge feats. Pending DM confirmation (house rule #17, rulings-tob T1).",
-      "fr": "Seul le +2 de la manœuvre s'applique (pas de second bonus de charge) et pas de −2 CA selon le texte ; compte comme une charge pour les dons de charge. À confirmer par le MJ (règle maison n° 17, rulings-tob T1)."
+      "en": "Only the maneuver's +2 applies (no second charge bonus) and no −2 AC; counts as a charge for charge feats (house rule #17).",
+      "fr": "Seul le +2 de la manœuvre s'applique (pas de second bonus de charge) et pas de −2 CA ; compte comme une charge pour les dons de charge (règle maison n° 17)."
     },
     "source": {
       "book": "Tome of Battle",

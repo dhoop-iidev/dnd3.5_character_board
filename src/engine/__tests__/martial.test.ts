@@ -72,4 +72,9 @@ describe('stances and running maneuvers', () => {
     expect(three.attack.total).toBe(19)
     expect(three.damage.total).toBe(zero.damage.total + 3)
   })
+  it('Leaping Dragon Stance: +10 enhancement on Jump checks (house rule #18)', () => {
+    const tc = ['wolf-fang-strike', 'steel-wind', 'steely-strike', 'leaping-dragon-stance']
+    const off = compute(learned(tc), rules).skills.find((k) => k.key === 'jump')!.total.total
+    expect(compute(learned(tc, { stance: 'leaping-dragon-stance' }), rules).skills.find((k) => k.key === 'jump')!.total.total).toBe(off + 10)
+  })
 })
