@@ -10,6 +10,7 @@
   import Notes from './ui/panes/Notes.svelte'
   import SaveControls from './ui/SaveControls.svelte'
   import Popup from './ui/Popup.svelte'
+  import Welcome from './ui/Welcome.svelte'
 
   type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'notes'
   const TABS: { id: Tab; label: typeof UI.tabGeneral }[] = [
@@ -80,61 +81,71 @@
   </div>
 {/if}
 
-<header class="top">
-  <div class="who">
-    <h1>{c.identity.name}</h1>
-    {#if c.identity.title}<p class="title">{c.identity.title}</p>{/if}
-    <p>
-      {tr({ en: 'Human', fr: 'Humain' })} · {classSummary} · {tr(UI.level)} {view.sheet.characterLevel}
-      · {c.identity.deity}
-    </p>
-  </div>
-  <div class="controls">
-    <label>
-      <span>{tr(UI.loadout)}</span>
-      <select bind:value={app.character.activeLoadout}>
-        {#each c.loadouts as l (l.id)}<option value={l.id}>{tr(l.name)}</option>{/each}
-      </select>
-    </label>
-    <button class="theme" title={tr(UI.theme)} onclick={() => (theme = nextTheme[theme])}>{themeIcon[theme]}</button>
-    <div class="lang" role="group" aria-label="Language">
-      <button class:on={c.settings.lang === 'fr'} onclick={() => (app.character.settings.lang = 'fr')}>FR</button>
-      <button class:on={c.settings.lang === 'en'} onclick={() => (app.character.settings.lang = 'en')}>EN</button>
+{#if !app.loaded}
+  <Welcome />
+{:else}
+  <header class="top">
+    <div class="who">
+      <h1>{c.identity.name}</h1>
+      {#if c.identity.title}<p class="title">{c.identity.title}</p>{/if}
+      <p>
+        {tr({ en: 'Human', fr: 'Humain' })} · {classSummary} · {tr(UI.level)}
+        {view.sheet.characterLevel}
+        · {c.identity.deity}
+      </p>
     </div>
-  </div>
-</header>
+    <div class="controls">
+      <label>
+        <span>{tr(UI.loadout)}</span>
+        <select bind:value={app.character.activeLoadout}>
+          {#each c.loadouts as l (l.id)}<option value={l.id}>{tr(l.name)}</option>{/each}
+        </select>
+      </label>
+      <button class="theme" title={tr(UI.theme)} onclick={() => (theme = nextTheme[theme])}>{themeIcon[theme]}</button>
+      <div class="lang" role="group" aria-label="Language">
+        <button class:on={c.settings.lang === 'fr'} onclick={() => (app.character.settings.lang = 'fr')}>FR</button>
+        <button class:on={c.settings.lang === 'en'} onclick={() => (app.character.settings.lang = 'en')}>EN</button>
+      </div>
+    </div>
+  </header>
 
-<nav class="tabs">
-  {#each tabs as t (t.id)}
-    <button class:active={tab === t.id} onclick={() => (tab = t.id)}>
-      {tr(t.label)}
-      {#if t.id === 'maneuvers' && maneuverErrors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{maneuverErrors}</span>{/if}
-      {#if t.id === 'general' && errors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{errors}</span>{/if}
-    </button>
-  {/each}
-</nav>
+  <nav class="tabs">
+    {#each tabs as t (t.id)}
+      <button class:active={tab === t.id} onclick={() => (tab = t.id)}>
+        {tr(t.label)}
+        {#if t.id === 'maneuvers' && maneuverErrors}<span
+            class="count"
+            title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{maneuverErrors}</span
+          >{/if}
+        {#if t.id === 'general' && errors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}
+            >{errors}</span
+          >{/if}
+      </button>
+    {/each}
+  </nav>
 
-<main>
-  {#if tab === 'general'}
-    <General />
-  {:else if tab === 'equipment'}
-    <Equipment />
-  {:else if tab === 'combat'}
-    <Combat />
-  {:else if tab === 'maneuvers'}
-    <Maneuvers />
-  {:else}
-    <Notes />
-  {/if}
-</main>
+  <main>
+    {#if tab === 'general'}
+      <General />
+    {:else if tab === 'equipment'}
+      <Equipment />
+    {:else if tab === 'combat'}
+      <Combat />
+    {:else if tab === 'maneuvers'}
+      <Maneuvers />
+    {:else}
+      <Notes />
+    {/if}
+  </main>
 
-<footer>
-  <SaveControls />
-  <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) ·
-  <a href="models/CREDITS.md" target="_blank">3D : « Fallen Paladin », Pigcraft, CC-BY 4.0</a>
-</footer>
+  <footer>
+    <SaveControls />
+    <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) ·
+    <a href="models/CREDITS.md" target="_blank">3D : « Fallen Paladin », Pigcraft, CC-BY 4.0</a>
+  </footer>
 
-<Popup />
+  <Popup />
+{/if}
 
 <style>
   /* Header: the sheet's title block. Paper, large name, a heavy rule over a hairline (book style). */
@@ -148,7 +159,9 @@
     color: var(--ink);
     background: var(--paper);
     border-bottom: 3px solid var(--frame);
-    box-shadow: 0 4px 0 -2px var(--paper), 0 5px 0 -2px var(--frame);
+    box-shadow:
+      0 4px 0 -2px var(--paper),
+      0 5px 0 -2px var(--frame);
   }
   h1 {
     margin: 0;

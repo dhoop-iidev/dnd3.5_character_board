@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import fenrirJson from '../../data/characters/chikibidouille.json'
+import fenrirJson from './fixtures/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { migrate } from '../../model/migrate'
 import { classOptions, featOptions, featSlotsAt, levelForXp, skillBudget, xpForLevel } from '../progression'

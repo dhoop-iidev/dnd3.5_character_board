@@ -1,7 +1,7 @@
 // Tome of Battle (house rule #15): warblade maneuvers, stances, learning rules.
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import seedJson from '../../data/characters/chikibidouille.json'
+import seedJson from './fixtures/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { compute } from '../compute'
 import { validate } from '../validate'

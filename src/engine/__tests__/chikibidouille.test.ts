@@ -1,7 +1,7 @@
 // Reference values for Chikibidouille (formerly Fenrir), checked by hand against docs/rules (see the plan's verification table).
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import fenrirJson from '../../data/characters/chikibidouille.json'
+import fenrirJson from './fixtures/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { compute } from '../compute'
 import { validate } from '../validate'

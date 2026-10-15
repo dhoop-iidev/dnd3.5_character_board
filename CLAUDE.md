@@ -58,10 +58,11 @@ Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD
 - Keep the OGL 1.0a notice in the repo if SRD text is included.
 
 ## Commands
-- `npm run dev` / `npm run build` / `npm run check` (svelte-check + tsc) / `npm test` (Vitest; one file: `npm test -- src/engine/__tests__/fenrir.test.ts`) / `npm run format`.
+- `npm run dev` / `npm run build` / `npm run check` (svelte-check + tsc) / `npm test` (Vitest; one file: `npm test -- src/engine/__tests__/chikibidouille.test.ts`) / `npm run format`.
 - `python tools/build_data.py`: regenerates `src/data/srd/*.json` from `sources/` (see `tools/README.md`). `src/data/custom/*.json` is hand-written.
 - **Gotcha:** the `&` in the folder path (`D&D 3.5`) breaks npm's Windows `.cmd` shims (`npx vite` fails with "'D' is not recognized"). The npm scripts therefore call `node node_modules/<pkg>/…` directly; keep it that way and don't use `npx` here.
 - `books/`, `sources/` and the `.xls` are gitignored (copyrighted or large): never commit them or copy book text into the repo.
 - Live app: https://dhoop-iidev.github.io/dnd3.5_character_board/ (repo github.com/dhoop-iidev/dnd3.5_character_board, public).
 - Deployment: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build, GitHub Pages). The build uses relative paths (`base: './'`) and is an installable offline PWA (`vite-plugin-pwa`).
+- **No character ships with the app** (the user wants it private): it opens on a welcome screen that imports a character JSON; "Fermer le personnage" clears it from the browser. The build used by the tests is `src/engine/__tests__/fixtures/chikibidouille.json`. `character_saves/` is gitignored: never commit it.
 - DM sharing: "Partager avec le MJ" makes a read-only link `?share=<deflate+base64url character>` (no pictures, notes optional; `src/model/share.ts`); a shared view never saves over the local character.

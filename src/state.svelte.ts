@@ -1,6 +1,5 @@
 // App state: the current character (autosaved in the browser), derived sheet and rule warnings.
 import { rules } from './data/rules'
-import seed from './data/characters/chikibidouille.json'
 import type { I18n, Lang } from './data/types'
 import type { Character } from './model/character'
 import { migrate } from './model/migrate'
@@ -10,21 +9,29 @@ import { validate } from './engine/validate'
 
 const STORAGE_KEY = 'dnd35-playboard:character'
 
-function seedCopy(): Character {
-  return structuredClone(seed) as unknown as Character
+// No character ships with the app (the user's character stays private): until one is imported, the app
+// shows the welcome screen and `character` is a placeholder that only carries the interface language.
+function placeholder(): Character {
+  const lang: Lang = navigator.language?.startsWith('fr') ? 'fr' : 'en'
+  return { settings: { lang } } as unknown as Character
 }
 
-function load(): Character {
+function load(): Character | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) return migrate(JSON.parse(raw))
   } catch {
-    // Storage unavailable or corrupt: fall back to the seed character.
+    // Storage unavailable or corrupt: start from the welcome screen.
   }
-  return seedCopy()
+  return null
 }
 
-export const app = $state<{ character: Character; shared: { name: string } | null }>({ character: load(), shared: null })
+const stored = load()
+export const app = $state<{ character: Character; loaded: boolean; shared: { name: string } | null }>({
+  character: stored ?? placeholder(),
+  loaded: !!stored,
+  shared: null,
+})
 
 // Read-only view of a character shared by link (?share=…): shown, never saved over the local character.
 const shareParam = new URLSearchParams(location.search).get('share')
@@ -33,6 +40,7 @@ if (shareParam)
     .then((character) => {
       app.shared = { name: character.identity.name }
       app.character = character
+      app.loaded = true
     })
     .catch(() => alert('Lien de partage invalide / invalid share link'))
 
@@ -65,7 +73,7 @@ export function tr(text: I18n | undefined): string {
 }
 
 export function save() {
-  if (app.shared) return // shared view: never overwrite the local character
+  if (app.shared || !app.loaded) return // shared view: never overwrite the local character
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(app.character))
   } catch {
@@ -73,9 +81,22 @@ export function save() {
   }
 }
 
-export function resetToSeed() {
-  app.character = seedCopy()
-  save()
+/** Open an imported character (already migrated). */
+export function openCharacter(character: Character) {
+  app.character = character
+  app.loaded = true
+}
+
+/** Close the character: forget it in this browser and go back to the welcome screen. */
+export function closeCharacter() {
+  const lang = app.character.settings.lang
+  app.loaded = false
+  app.character = { settings: { lang } } as unknown as Character
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    // ignore
+  }
 }
 
 $effect.root(() => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import fenrirJson from '../../data/characters/chikibidouille.json'
+import fenrirJson from './fixtures/chikibidouille.json'
 import type { Character } from '../../model/character'
 import { decodeShare, encodeShare } from '../../model/share'
 

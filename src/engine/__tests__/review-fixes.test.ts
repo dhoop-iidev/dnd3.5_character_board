@@ -1,7 +1,7 @@
 // One test per finding of docs/reviews/um_actually-2026-10-13.md (inputs are the reviewer's repros).
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
-import fenrirJson from '../../data/characters/chikibidouille.json'
+import fenrirJson from './fixtures/chikibidouille.json'
 import type { ActiveEffect, Character, ItemInstance } from '../../model/character'
 import { compute } from '../compute'
 import { skillBudget } from '../progression'

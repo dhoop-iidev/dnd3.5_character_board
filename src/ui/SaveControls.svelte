@@ -2,7 +2,7 @@
   // Move the character between PC and tablet as a JSON file (CLAUDE.md: no backend).
   import { migrate } from '../model/migrate'
   import { encodeShare } from '../model/share'
-  import { app, resetToSeed, tr } from '../state.svelte'
+  import { app, closeCharacter, openCharacter, tr } from '../state.svelte'
 
   // ---- read-only link for the DM (character compressed in the URL, without pictures)
   let shareOpen = $state(false)
@@ -50,9 +50,16 @@
     if (!file) return
     try {
       const character = migrate(JSON.parse(await file.text()))
-      if (!confirm(tr({ en: `Replace the current character with "${character.identity.name}"?`, fr: `Remplacer le personnage actuel par « ${character.identity.name} » ?` })))
+      if (
+        !confirm(
+          tr({
+            en: `Replace the current character with "${character.identity.name}"?`,
+            fr: `Remplacer le personnage actuel par « ${character.identity.name} » ?`,
+          }),
+        )
+      )
         return
-      app.character = character
+      openCharacter(character)
       message = tr({ en: 'Character imported.', fr: 'Personnage importé.' })
     } catch (err) {
       message = tr({ en: 'Import failed: ', fr: "Échec de l'import : " }) + (err as Error).message
@@ -62,8 +69,15 @@
   }
 
   function reset() {
-    if (confirm(tr({ en: 'Reset to the original character file? Unsaved changes are lost.', fr: 'Revenir au personnage d’origine ? Les modifications non exportées seront perdues.' })))
-      resetToSeed()
+    if (
+      confirm(
+        tr({
+          en: 'Close this character and remove it from this browser? Export it first: changes not exported are lost.',
+          fr: 'Fermer ce personnage et l’effacer de ce navigateur ? Exportez-le d’abord : les modifications non exportées seront perdues.',
+        }),
+      )
+    )
+      closeCharacter()
   }
 </script>
 
@@ -71,8 +85,11 @@
   <button onclick={exportJson}>⭳ {tr({ en: 'Export (JSON)', fr: 'Exporter (JSON)' })}</button>
   <button onclick={() => fileInput?.click()}>⭱ {tr({ en: 'Import', fr: 'Importer' })}</button>
   <input bind:this={fileInput} type="file" accept="application/json,.json" onchange={importJson} hidden />
-  <button onclick={reset}>↺ {tr({ en: 'Reset', fr: 'Réinitialiser' })}</button>
-  <button class="dm" onclick={() => ((shareOpen = !shareOpen), (shareUrl = ''))}>⚑ {tr({ en: 'Share with the DM', fr: 'Partager avec le MJ' })}</button>
+  {#if !app.shared}<button onclick={reset}>✕ {tr({ en: 'Close the character', fr: 'Fermer le personnage' })}</button
+    >{/if}
+  <button class="dm" onclick={() => ((shareOpen = !shareOpen), (shareUrl = ''))}
+    >⚑ {tr({ en: 'Share with the DM', fr: 'Partager avec le MJ' })}</button
+  >
   {#if message}<span>{message}</span>{/if}
 </div>
 
@@ -84,7 +101,13 @@
         fr: 'Crée un lien en lecture seule vers votre fiche actuelle (sans les images). Votre MJ l’ouvre dans un navigateur ; rien n’est enregistré chez lui. Refaites un lien après chaque changement.',
       })}
     </p>
-    <label><input type="checkbox" bind:checked={includeNotes} onchange={() => (shareUrl = '')} /> {tr({ en: 'Include my notes (Notes pane and popup notes)', fr: 'Inclure mes notes (onglet Notes et notes des popups)' })}</label>
+    <label
+      ><input type="checkbox" bind:checked={includeNotes} onchange={() => (shareUrl = '')} />
+      {tr({
+        en: 'Include my notes (Notes pane and popup notes)',
+        fr: 'Inclure mes notes (onglet Notes et notes des popups)',
+      })}</label
+    >
     {#if !shareUrl}
       <button onclick={makeLink}>{tr({ en: 'Create the link', fr: 'Créer le lien' })}</button>
     {:else}
