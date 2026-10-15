@@ -11,7 +11,7 @@ export default defineConfig({
     // Installable, offline-capable app for the tablet: everything is precached on first visit.
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['OGL.txt', 'apple-touch-icon.png'],
+      includeAssets: ['OGL.txt', 'apple-touch-icon.png', 'favicon.svg'],
       manifest: {
         name: 'Plateau D&D 3.5',
         short_name: 'Plateau D&D',
