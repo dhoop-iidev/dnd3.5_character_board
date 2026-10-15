@@ -339,6 +339,124 @@ def spell(w, x):
         err(w, "srdUrl must be the d20srd spell page")
 
 
+SIZES = {"fine", "diminutive", "tiny", "small", "medium", "large", "huge", "gargantuan", "colossal"}
+ATTACK_KINDS = {"melee", "ranged", "touch", "rangedTouch"}
+ATTACK_ROLES = {"primary", "secondary", "weapon"}
+# Monster feats (not in feats.json) accepted in CreatureDef.featIds (build_creatures.MONSTER_FEATS).
+MONSTER_FEATS = {"multiattack", "flyby-attack", "improved-natural-attack", "awesome-blow", "hover", "wingover",
+                 "ability-focus", "multiweapon-fighting", "snatch"}
+
+
+def creature(w, x, feat_ids):
+    """CreatureDef (types.ts)."""
+    req = {"id", "name", "size", "type", "typeText", "hitDice", "hp", "initiative", "speed", "ac", "bab", "grapple",
+           "attacks", "space", "reach", "saves", "abilities", "skills", "feats", "featIds", "specialAttacks",
+           "specialQualities", "specialAbilities", "alignment", "cr", "text", "source"}
+    if set(x) != req:
+        err(w, f"keys {set(x) ^ req}")
+        return
+    for k in ("name", "typeText", "skills", "feats", "specialAttacks", "specialQualities", "alignment"):
+        i18n(f"{w}.{k}", x[k])
+    for k in ("specialAbilities", "text"):
+        i18n(f"{w}.{k}", x[k])
+        if any(len(v) > 6100 for v in x[k].values()):
+            err(w, f"{k} longer than ~6000 chars")
+    if x["size"] not in SIZES or not ID_RE.match(x["type"]):
+        err(w, "bad size/type")
+    hd = x["hitDice"]
+    if set(hd) != {"count", "die", "bonus"} or not (hd["count"] > 0 and hd["die"] in (4, 6, 8, 10, 12) and isinstance(hd["bonus"], int)):
+        err(w, f"bad hitDice {hd}")
+    for k in ("hp", "initiative", "bab", "grapple"):
+        if not isinstance(x[k], int):
+            err(w, f"{k} not an int")
+    sp = x["speed"]
+    if "land" not in sp or set(sp) - {"land", "fly", "swim", "climb", "burrow", "flyManeuver"} \
+            or not all(isinstance(v, int) and v >= 0 for k, v in sp.items() if k != "flyManeuver") \
+            or sp.get("flyManeuver", "average") not in ("clumsy", "poor", "average", "good", "perfect") \
+            or ("flyManeuver" in sp) != ("fly" in sp):
+        err(w, f"bad speed {sp}")
+    ac = x["ac"]
+    if set(ac) != {"total", "touch", "flatFooted", "natural", "dexMod", "sizeMod", "other"} or not all(isinstance(v, int) for v in ac.values()):
+        err(w, f"bad ac {ac}")
+    elif ac["total"] != 10 + ac["natural"] + ac["dexMod"] + ac["sizeMod"] + ac["other"]:
+        err(w, f"AC total != 10 + components {ac}")
+    if not x["attacks"]:
+        err(w, "no attack")
+    for a in x["attacks"]:
+        wa = f"{w} attack {a.get('name', {}).get('en')}"
+        allowed = {"name", "bonus", "damage", "extra", "kind", "role", "count", "attackAbility", "strDamageFactor", "critical"}
+        if not {"name", "bonus", "damage", "kind", "role", "count", "attackAbility", "strDamageFactor"} <= set(a) or set(a) - allowed:
+            err(wa, f"keys {set(a)}")
+            continue
+        i18n(wa, a["name"])
+        if "extra" in a:
+            i18n(wa, a["extra"])
+        if a["kind"] not in ATTACK_KINDS or a["role"] not in ATTACK_ROLES or a["attackAbility"] not in ("str", "dex") \
+                or a["strDamageFactor"] not in (0, 0.5, 1, 1.5) or not (isinstance(a["count"], int) and a["count"] >= 1) \
+                or not isinstance(a["bonus"], int) or not re.match(r"^(\d+d\d+([+-]\d+)?|\d+)$", a["damage"]) \
+                or not re.match(r"^((\d+-)?\d+/×\d|×\d)$", a.get("critical", "×2")):
+            err(wa, f"bad attack {a}")
+    if x["space"] <= 0 or x["reach"] < 0:
+        err(w, "bad space/reach")
+    if set(x["saves"]) != {"fort", "ref", "will"} or not all(isinstance(v, int) for v in x["saves"].values()):
+        err(w, "bad saves")
+    if set(x["abilities"]) != ABILITIES or not all(v is None or (isinstance(v, int) and v >= 1) for v in x["abilities"].values()):
+        err(w, f"bad abilities {x['abilities']}")
+    for f in x["featIds"]:
+        if f not in feat_ids and f not in MONSTER_FEATS:
+            err(w, f"unknown feat id {f}")
+    if x["featIds"] != sorted(set(x["featIds"])):
+        err(w, "featIds not sorted/unique")
+    if not re.match(r"^\d+(/\d+)?", x["cr"]):
+        err(w, f"bad cr {x['cr']}")
+    source(w, x["source"])
+    url = x["source"].get("srdUrl", "")
+    page = re.sub(r"#.*$", "", url.replace("https://www.d20srd.org/srd/", ""))
+    if not url.startswith("https://www.d20srd.org/srd/monsters/") or not srd_urls.anchors(page) or not x["source"].get("frRef"):
+        err(w, f"srdUrl must be a d20srd monster page present in d20srd_anchors.json, with a frRef: {x['source']}")
+
+
+def creature_lists(companions, summon, creature_ids, spell_ids):
+    """CompanionData and SummonList[] (types.ts), cross-referenced with creatures.json and spells.json."""
+    w = "companions.json"
+    if set(companions) != {"advancement", "options", "source"}:
+        err(w, f"keys {set(companions)}")
+        return
+    rows = companions["advancement"]
+    if [(r["minLevel"], r["maxLevel"]) for r in rows] != [(1, 2), (3, 5), (6, 8), (9, 11), (12, 14), (15, 17), (18, 20)]:
+        err(w, "advancement bands")
+    for n, r in enumerate(rows):
+        if set(r) != {"minLevel", "maxLevel", "bonusHD", "naturalArmorAdj", "strDexAdj", "bonusTricks", "special"}:
+            err(w, f"row keys {set(r)}")
+            continue
+        if (r["bonusHD"], r["naturalArmorAdj"], r["strDexAdj"], r["bonusTricks"]) != (2 * n, 2 * n, n, n + 1):
+            err(w, f"row {r['minLevel']}: SRD table values expected +{2 * n}/+{2 * n}/+{n}/{n + 1}")
+        for s in r["special"]:
+            if set(s) != {"id", "name", "text"} or not ID_RE.match(s["id"]):
+                err(w, f"bad special {s}")
+            else:
+                i18n(f"{w}.{s['id']}", s["name"]); i18n(f"{w}.{s['id']}", s["text"])
+    specials = [s["id"] for r in rows for s in r["special"]]
+    if specials != ["link", "share-spells", "evasion", "devotion", "multiattack", "improved-evasion"]:
+        err(w, f"specials {specials}")
+    for o in companions["options"]:
+        if set(o) != {"creatureId", "minLevel", "levelAdjustment"} or o["creatureId"] not in creature_ids \
+                or (o["minLevel"], o["levelAdjustment"]) not in ((1, 0), (4, -3), (7, -6), (10, -9), (13, -12), (16, -15)):
+            err(w, f"bad option {o}")
+    source(w, companions["source"])
+    w = "summon-lists.json"
+    if [x.get("level") for x in summon] != list(range(1, 10)):
+        err(w, "levels 1-9 expected")
+    for x in summon:
+        if set(x) != {"spellId", "level", "creatures"} or x["spellId"] not in spell_ids:
+            err(w, f"bad list {x.get('spellId')}")
+        for c in x["creatures"]:
+            if c not in creature_ids:
+                err(w, f"{x['spellId']}: unknown creature {c}")
+        if x["creatures"] != sorted(set(x["creatures"])):
+            err(w, f"{x['spellId']}: creatures not sorted/unique")
+
+
 # Spells per level on the SRD lists that spells.json holds in full, counted on
 # https://www.d20srd.org/srd/spellLists/druidSpells.htm and .../rangerSpells.htm (same counts in dnd35.db).
 SRD_LIST_COUNTS = {"druid": [13, 20, 26, 22, 17, 19, 18, 13, 11, 10], "ranger": [0, 19, 12, 13, 7]}
@@ -536,6 +654,12 @@ def main():
                     err("spells.json", f"no ranger spell of level {lv}")
     spell_lists_complete(files["spells.json"])
 
+    check_ids("creatures.json", files["creatures.json"])
+    for x in files["creatures.json"]:
+        creature(f"creature {x['id']}", x, feat_ids)
+    creature_lists(files["companions.json"], files["summon-lists.json"], {x["id"] for x in files["creatures.json"]},
+                   {x["id"] for x in files["spells.json"]})
+
     check_ids("item-properties.json", files["item-properties.json"])
     for x in files["item-properties.json"]:
         item_property(f"property {x['id']}", x, skill_ids, used_ext)
@@ -660,6 +784,37 @@ def spot_checks(files, custom):
            sp["detect-magic"]["level"]["druid"] == 0 and sp["detect-magic"]["school"]["fr"] == "Divination")
     expect("cure light wounds: ranger 2, Soins légers", sp["cure-light-wounds"]["level"]["ranger"] == 2
            and sp["cure-light-wounds"]["name"]["fr"] == "Soins légers")
+    cr = by["creatures.json"]
+    wolf = cr["wolf"]
+    expect("115 creatures (companion lists + Summon Nature's Ally I-IX)", len(cr) == 115)
+    expect("wolf: Loup, 2d8+4 (13 hp), AC 14/12/12, bite +3 1d6+1 (primary, 1.5 Str), trip, Track + Weapon Focus",
+           wolf["name"]["fr"] == "Loup" and wolf["hitDice"] == {"count": 2, "die": 8, "bonus": 4} and wolf["hp"] == 13
+           and (wolf["ac"]["total"], wolf["ac"]["touch"], wolf["ac"]["flatFooted"]) == (14, 12, 12)
+           and [(a["name"]["fr"], a["bonus"], a["damage"], a["role"], a["strDamageFactor"]) for a in wolf["attacks"]]
+           == [("Morsure", 3, "1d6+1", "primary", 1.5)] and wolf["featIds"] == ["track", "weapon-focus"]
+           and wolf["source"]["srdUrl"] == "https://www.d20srd.org/srd/monsters/wolf.htm")
+    dw = cr["dire-wolf"]
+    expect("dire wolf: Loup sanguinaire, large, bite +11 1d8+10", dw["name"]["fr"] == "Loup sanguinaire" and dw["size"] == "large"
+           and (dw["attacks"][0]["bonus"], dw["attacks"][0]["damage"]) == (11, "1d8+10"))
+    ea = cr["elemental-small-air"]
+    expect("small air elemental: fly 100 perfect, slam +5 Dex (Weapon Finesse), Élémentaire de l’Air, taille P",
+           ea["speed"] == {"land": 0, "fly": 100, "flyManeuver": "perfect"} and ea["attacks"][0]["attackAbility"] == "dex"
+           and ea["name"]["fr"] == "Élémentaire de l’Air, taille P" and ea["source"]["srdUrl"].endswith("elemental.htm#airElemental"))
+    bb = cr["bear-black"]
+    expect("black bear: 2 claws +6 primary, bite +1 secondary (½ Str)",
+           [(a["count"], a["bonus"], a["role"], a["strDamageFactor"]) for a in bb["attacks"]] == [(2, 6, "primary", 1), (1, 1, "secondary", 0.5)])
+    sl = {x["level"]: x for x in files["summon-lists.json"]}
+    expect("SNA I: 8 creatures incl. wolf, dire rat; SNA IX: 4 elder elementals, grig, pixie, celestial charger",
+           len(sl[1]["creatures"]) == 8 and {"wolf", "dire-rat"} <= set(sl[1]["creatures"])
+           and set(sl[9]["creatures"]) == {"elemental-elder-air", "elemental-elder-earth", "elemental-elder-fire",
+                                           "elemental-elder-water", "grig", "pixie", "unicorn-celestial-charger"}
+           and sl[1]["spellId"] == "summon-natures-ally-i")
+    co = files["companions.json"]
+    opts = {(o["creatureId"], o["minLevel"]): o["levelAdjustment"] for o in co["options"]}
+    expect("companions: wolf base list, dire wolf 7th (-6), tyrannosaurus 16th (-15), crocodile base and 4th (-3); 9-11: +6 HD, multiattack",
+           opts.get(("wolf", 1)) == 0 and opts.get(("dire-wolf", 7)) == -6 and opts.get(("tyrannosaurus", 16)) == -15
+           and opts.get(("crocodile", 1)) == 0 and opts.get(("crocodile", 4)) == -3 and len(co["options"]) == 59
+           and co["advancement"][3]["bonusHD"] == 6 and co["advancement"][3]["special"][0]["id"] == "multiattack")
     ah = by["magic-items.json"]["amulet-of-health-2"]
     expect("amulet-of-health-2 neck, enhancement +2 Con, 4000 gp",
            ah["slot"] == "neck" and ah["priceGp"] == 4000

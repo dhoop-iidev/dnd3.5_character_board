@@ -1,0 +1,161 @@
+[
+  {
+    "spellId": "summon-natures-ally-i",
+    "level": 1,
+    "creatures": [
+      "dire-rat",
+      "eagle",
+      "monkey",
+      "octopus",
+      "owl",
+      "porpoise",
+      "snake-small-viper",
+      "wolf"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-ii",
+    "level": 2,
+    "creatures": [
+      "bear-black",
+      "crocodile",
+      "dire-badger",
+      "dire-bat",
+      "elemental-small-air",
+      "elemental-small-earth",
+      "elemental-small-fire",
+      "elemental-small-water",
+      "hippogriff",
+      "shark-medium",
+      "snake-medium-viper",
+      "squid",
+      "wolverine"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-iii",
+    "level": 3,
+    "creatures": [
+      "ape",
+      "dire-weasel",
+      "dire-wolf",
+      "eagle-giant",
+      "lion",
+      "owl-giant",
+      "satyr",
+      "shark-large",
+      "snake-constrictor",
+      "snake-large-viper",
+      "thoqqua"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-iv",
+    "level": 4,
+    "creatures": [
+      "arrowhawk-juvenile",
+      "bear-brown",
+      "crocodile-giant",
+      "deinonychus",
+      "dire-ape",
+      "dire-boar",
+      "dire-wolverine",
+      "elemental-medium-air",
+      "elemental-medium-earth",
+      "elemental-medium-fire",
+      "elemental-medium-water",
+      "salamander-flamebrother",
+      "sea-cat",
+      "shark-huge",
+      "snake-huge-viper",
+      "tiger",
+      "tojanida-juvenile",
+      "unicorn",
+      "xorn-minor"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-v",
+    "level": 5,
+    "creatures": [
+      "arrowhawk-adult",
+      "bear-polar",
+      "dire-lion",
+      "elasmosaurus",
+      "elemental-large-air",
+      "elemental-large-earth",
+      "elemental-large-fire",
+      "elemental-large-water",
+      "griffon",
+      "janni",
+      "nixie",
+      "rhinoceros",
+      "satyr",
+      "snake-constrictor-giant",
+      "tojanida-adult",
+      "whale-orca"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-vi",
+    "level": 6,
+    "creatures": [
+      "dire-bear",
+      "elemental-huge-air",
+      "elemental-huge-earth",
+      "elemental-huge-fire",
+      "elemental-huge-water",
+      "elephant",
+      "girallon",
+      "megaraptor",
+      "octopus-giant",
+      "pixie",
+      "salamander-average",
+      "whale-baleen",
+      "xorn-average"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-vii",
+    "level": 7,
+    "creatures": [
+      "arrowhawk-elder",
+      "dire-tiger",
+      "djinni",
+      "elemental-greater-air",
+      "elemental-greater-earth",
+      "elemental-greater-fire",
+      "elemental-greater-water",
+      "invisible-stalker",
+      "pixie",
+      "squid-giant",
+      "triceratops",
+      "tyrannosaurus",
+      "whale-cachalot",
+      "xorn-elder"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-viii",
+    "level": 8,
+    "creatures": [
+      "dire-shark",
+      "roc",
+      "salamander-noble",
+      "tojanida-elder"
+    ]
+  },
+  {
+    "spellId": "summon-natures-ally-ix",
+    "level": 9,
+    "creatures": [
+      "elemental-elder-air",
+      "elemental-elder-earth",
+      "elemental-elder-fire",
+      "elemental-elder-water",
+      "grig",
+      "pixie",
+      "unicorn-celestial-charger"
+    ]
+  }
+]

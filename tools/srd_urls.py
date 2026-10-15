@@ -49,6 +49,18 @@ PAGES = [
     "skills/skillsSummary.htm",
 ]
 
+# Monster pages used by creatures.json (build_creatures.CATALOG; checked there). Refresh only these with
+# `python tools/srd_urls.py --refresh-monsters`.
+MONSTER_PAGES = [f"monsters/{p}.htm" for p in (
+    "ape", "arrowhawk", "badger", "bearBlack", "bearBrown", "bearPolar", "bison", "boar", "camel", "cheetah", "crocodile",
+    "crocodileGiant", "dinosaur", "direApe", "direBadger", "direBat", "direBear", "direBoar", "direLion", "direRat",
+    "direShark", "direTiger", "direWeasel", "direWolf", "direWolverine", "dog", "dogRiding", "eagle", "eagleGiant",
+    "elemental", "elephant", "genie", "girallon", "griffon", "hawk", "hippogriff", "horse", "invisibleStalker", "leopard",
+    "lion", "lizardMonitor", "monkey", "octopus", "octopusGiant", "owl", "owlGiant", "pony", "porpoise", "rhinoceros",
+    "roc", "salamander", "satyr", "seaCat", "shark", "snake", "sprite", "squid", "squidGiant", "thoqqua", "tiger",
+    "tojanida", "unicorn", "whale", "wolf", "wolverine", "xorn")]
+PAGES += MONSTER_PAGES
+
 _SMALL = {"of", "and", "or", "the", "in", "a", "an", "to", "by", "with", "on", "for", "than", "at"}
 
 
@@ -111,11 +123,12 @@ def skill_url(name: str) -> str:
     return f"{BASE}skills/{camel(base, False)}.htm"
 
 
-def refresh() -> None:
+def refresh(pages: list[str] | None = None) -> None:
+    """Fetch the anchors of `pages` (default: all PAGES) and merge them into the cache."""
     import urllib.request
 
-    data = {}
-    for p in PAGES:
+    data = json.loads(CACHE.read_text(encoding="utf-8")) if CACHE.exists() and pages else {}
+    for p in pages or PAGES:
         req = urllib.request.Request(BASE + p, headers={"User-Agent": "Mozilla/5.0 (dnd-playboard data build)"})
         with urllib.request.urlopen(req, timeout=60) as r:
             html = r.read().decode("utf-8", errors="replace")
@@ -128,5 +141,7 @@ def refresh() -> None:
 if __name__ == "__main__":
     if "--refresh" in sys.argv:
         refresh()
+    elif "--refresh-monsters" in sys.argv:
+        refresh(MONSTER_PAGES)
     else:
         print(feat_url("Weapon Focus"), skill_url("Decipher Script"))

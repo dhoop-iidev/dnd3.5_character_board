@@ -6,6 +6,8 @@
   import Combat from './ui/panes/Combat.svelte'
   import Maneuvers from './ui/panes/Maneuvers.svelte'
   import Spells from './ui/panes/Spells.svelte'
+  import Companions from './ui/panes/Companions.svelte'
+  import { companionLevel } from './engine/creature'
   import Equipment from './ui/panes/Equipment.svelte'
   import General from './ui/panes/General.svelte'
   import Notes from './ui/panes/Notes.svelte'
@@ -13,13 +15,14 @@
   import Popup from './ui/Popup.svelte'
   import Welcome from './ui/Welcome.svelte'
 
-  type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'spells' | 'notes'
+  type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'spells' | 'companions' | 'notes'
   const TABS: { id: Tab; label: typeof UI.tabGeneral }[] = [
     { id: 'general', label: UI.tabGeneral },
     { id: 'equipment', label: UI.tabEquipment },
     { id: 'combat', label: UI.tabCombat },
     { id: 'maneuvers', label: { en: 'Maneuvers', fr: 'Manœuvres' } },
     { id: 'spells', label: { en: 'Spells', fr: 'Sorts' } },
+    { id: 'companions', label: { en: 'Companions', fr: 'Compagnons' } },
     { id: 'notes', label: UI.tabNotes },
   ]
 
@@ -71,7 +74,9 @@
   // The Spells tab only exists once the character has a spellcasting class.
   const tabs = $derived(
     TABS.filter(
-      (t) => (t.id !== 'maneuvers' || view.sheet.martial.caps) && (t.id !== 'spells' || view.sheet.spellcasting.length),
+      (t) => (t.id !== 'maneuvers' || view.sheet.martial.caps) && (t.id !== 'spells' || view.sheet.spellcasting.length) &&
+        // Companions: druid 1 or ranger 4 (or companions already recorded).
+        (t.id !== 'companions' || companionLevel(view.sheet.classLevels) > 0 || (app.character.companions ?? []).length),
     ),
   )
 </script>
@@ -134,6 +139,8 @@
       <Combat />
     {:else if tab === 'maneuvers'}
       <Maneuvers />
+    {:else if tab === 'companions'}
+      <div class="grid-spells"><Companions /></div>
     {:else if tab === 'spells'}
       <div class="grid-spells"><Spells /></div>
     {:else}

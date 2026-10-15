@@ -498,3 +498,95 @@ export interface MartialProgression {
   source: Source
   sourceInitiatorTable: Source
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Creatures: animal companions and summoned creatures (SRD monster stat blocks, https://www.d20srd.org/srd/monsters/)
+
+/** One attack of a creature as printed in its stat block. */
+export interface CreatureAttack {
+  name: I18n
+  /** Attack bonus as printed (full attack line). */
+  bonus: number
+  /** Damage as printed, e.g. "1d6+1" (dice + Str already included). */
+  damage: string
+  /** Extra text after the damage, e.g. "plus 1d4 fire", "plus poison" (bilingual). */
+  extra?: I18n
+  kind: 'melee' | 'ranged' | 'touch' | 'rangedTouch'
+  /** Natural attack role: primary (full Str) or secondary (−5, ½ Str); weapon = manufactured weapon. */
+  role: 'primary' | 'secondary' | 'weapon'
+  /** Number of such attacks in the full attack (2 claws → 2). */
+  count: number
+  /** Ability used for the attack roll (Weapon Finesse → dex). */
+  attackAbility: 'str' | 'dex'
+  /** Multiplier of the Str bonus on damage: 1.5 (sole natural attack / two-handed), 1, 0.5 (secondary), 0 (none). */
+  strDamageFactor: number
+  /** Critical as "20/×2"-style text when not the default. */
+  critical?: string
+}
+
+export interface CreatureDef {
+  id: string
+  name: I18n
+  size: 'fine' | 'diminutive' | 'tiny' | 'small' | 'medium' | 'large' | 'huge' | 'gargantuan' | 'colossal'
+  /** Creature type id, e.g. "animal", "magical-beast", "elemental", "fey", "outsider", "plant", "vermin". */
+  type: string
+  /** Type and subtypes as printed, bilingual (e.g. "Large magical beast (cold)"). */
+  typeText: I18n
+  hitDice: { count: number; die: number; bonus: number }
+  /** Average hp as printed. */
+  hp: number
+  initiative: number
+  /** Speeds in feet: land, and optional fly / swim / climb / burrow (fly maneuverability in `flyManeuver`). */
+  speed: { land: number; fly?: number; swim?: number; climb?: number; burrow?: number; flyManeuver?: string }
+  ac: { total: number; touch: number; flatFooted: number; natural: number; dexMod: number; sizeMod: number; other: number }
+  bab: number
+  grapple: number
+  attacks: CreatureAttack[]
+  space: number
+  reach: number
+  saves: { fort: number; ref: number; will: number }
+  /** null = no score (e.g. Con for undead, Int for vermin). */
+  abilities: Record<AbilityId, number | null>
+  /** Skills as printed (bilingual text), e.g. "Hide +2, Listen +3*". */
+  skills: I18n
+  /** Feats as printed (bilingual text, bonus feats included). */
+  feats: I18n
+  /** Feat ids recognised (for Weapon Finesse, Multiattack…), when they exist in feats.json. */
+  featIds: string[]
+  specialAttacks: I18n
+  specialQualities: I18n
+  /** Special abilities descriptions (bilingual HTML). */
+  specialAbilities: I18n
+  alignment: I18n
+  cr: string
+  /** Short description / combat text (bilingual HTML). */
+  text: I18n
+  source: Source
+}
+
+/** SRD Table: Animal Companions — advancement by (effective) druid level. */
+export interface CompanionAdvancementRow {
+  /** Lowest effective druid level of the band (1, 3, 6, 9, 12, 15, 18). */
+  minLevel: number
+  maxLevel: number
+  bonusHD: number
+  naturalArmorAdj: number
+  strDexAdj: number
+  bonusTricks: number
+  /** Special abilities gained at this band (link, share spells, evasion, devotion, multiattack, improved evasion). */
+  special: { id: string; name: I18n; text: I18n }[]
+}
+
+export interface CompanionData {
+  advancement: CompanionAdvancementRow[]
+  /** Animals available: base list (level 1) and alternative lists with the level adjustment (−3, −6, −9, −12, −15). */
+  options: { creatureId: string; minLevel: number; levelAdjustment: number }[]
+  source: Source
+}
+
+/** Summon Nature's Ally / Summon Monster lists: spell level -> creature ids. */
+export interface SummonList {
+  spellId: string
+  level: number
+  creatures: string[]
+}

@@ -157,6 +157,15 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       feats.push(pick)
     }
 
+    // Rolled hit points (house rule #9 switched off): each level after the 1st needs its roll.
+    if (L > 1 && char.settings.maxHitDice === false) {
+      const r = lvl.hpRoll
+      if (r === undefined)
+        out.push(w(`hp-roll-missing-${L}`, 'warning', 'levels', `Level ${L}: hit points not rolled yet (average used)`, `Niveau ${L} : points de vie pas encore lancés (moyenne utilisée)`, { level: L, srdUrl: `${SRD}combat/combatStatistics.htm#hitPoints` }))
+      else if (r < 1 || r > cls.hitDie)
+        out.push(w(`hp-roll-invalid-${L}`, 'error', 'levels', `Level ${L}: a d${cls.hitDie} roll must be 1–${cls.hitDie}`, `Niveau ${L} : un jet de d${cls.hitDie} va de 1 à ${cls.hitDie}`, { level: L }))
+    }
+
     // Ability increases every 4 levels.
     if (isAbilityIncreaseLevel(L) && !lvl.abilityIncrease)
       out.push(w(`ability-increase-missing-${L}`, 'warning', 'abilities', `Level ${L}: ability increase not chosen`, `Niveau ${L} : augmentation de caractéristique non choisie`, { level: L, srdUrl: `${SRD}theBasics.htm#abilityScores` }))

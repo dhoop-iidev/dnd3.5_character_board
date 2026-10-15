@@ -1,0 +1,439 @@
+{
+  "advancement": [
+    {
+      "minLevel": 1,
+      "maxLevel": 2,
+      "bonusHD": 0,
+      "naturalArmorAdj": 0,
+      "strDexAdj": 0,
+      "bonusTricks": 1,
+      "special": [
+        {
+          "id": "link",
+          "name": {
+            "en": "Link",
+            "fr": "Lien"
+          },
+          "text": {
+            "en": "A druid can handle her animal companion as a free action, or push it as a move action, even if she doesn't have any ranks in the Handle Animal skill. The druid gains a +4 circumstance bonus on all wild empathy checks and Handle Animal checks made regarding an animal companion.",
+            "fr": "Un druide peut diriger son compagnon animal par une action libre, ou le pousser par une action de mouvement, et ce même s’il ne possède pas un degré de maîtrise en Dressage de 1 ou plus. Le druide bénéficie d’un bonus de circonstances de +4 sur les tests d’empathie sauvage et de Dressage en rapport avec son compagnon animal."
+          }
+        },
+        {
+          "id": "share-spells",
+          "name": {
+            "en": "Share spells",
+            "fr": "Transfert d’effet magique"
+          },
+          "text": {
+            "en": "At the druid's option, she may have any spell (but not any spell-like ability) she casts upon herself also affect her animal companion. The animal companion must be within 5 feet of her at the time of casting to receive the benefit. If the spell or effect has a duration other than instantaneous, it stops affecting the animal companion if the companion moves farther than 5 feet away and will not affect the animal again, even if it returns to the druid before the duration expires. Additionally, the druid may cast a spell with a target of 'You' on her animal companion (as a touch range spell) instead of on herself. A druid and her animal companion can share spells even if the spells normally do not affect creatures of the companion's type (animal).",
+            "fr": "Si le druide le souhaite, tout sort (mais pas un pouvoir magique) qu’il lance sur lui-même peut également affecter son compagnon animal. Ce dernier doit se trouver à 1,50 mètre ou moins de distance au moment de l’incantation pour bénéficier des effets du sort. Si le sort a une durée autre qu’instantanée, il cesse d’affecter le compagnon animal si celui-ci s’éloigne de son maître de plus de 1,50 mètre. Dans ce cas, l’effet du sort ne reprend pas même si le compagnon revient à côté du druide. De plus, le personnage peut lancer directement sur son compagnon animal tout sort à portée personnelle (il a alors une portée de contact) au lieu de le lancer sur lui-même. Ce transfert d’effet magique est permis même si, en temps normal, le sort ne devrait pas affecter une entité du type du compagnon (animal)."
+          }
+        }
+      ]
+    },
+    {
+      "minLevel": 3,
+      "maxLevel": 5,
+      "bonusHD": 2,
+      "naturalArmorAdj": 2,
+      "strDexAdj": 1,
+      "bonusTricks": 2,
+      "special": [
+        {
+          "id": "evasion",
+          "name": {
+            "en": "Evasion",
+            "fr": "Esquive totale"
+          },
+          "text": {
+            "en": "If an animal companion is subjected to an attack that normally allows a Reflex saving throw for half damage, it takes no damage if it makes a successful saving throw.",
+            "fr": "Lorsque le compagnon animal est soumis à un effet qui autorise un jet de Réflexes pour demi-dégâts, il ne subit aucun dégât s’il réussit son jet de sauvegarde."
+          }
+        }
+      ]
+    },
+    {
+      "minLevel": 6,
+      "maxLevel": 8,
+      "bonusHD": 4,
+      "naturalArmorAdj": 4,
+      "strDexAdj": 2,
+      "bonusTricks": 3,
+      "special": [
+        {
+          "id": "devotion",
+          "name": {
+            "en": "Devotion",
+            "fr": "Dévotion"
+          },
+          "text": {
+            "en": "An animal companion gains a +4 morale bonus on Will saves against enchantment spells and effects.",
+            "fr": "La dévotion du compagnon animal pour son maître est telle qu’il obtient du bonus de moral de +4 sur ses jets de sauvegarde contre les sorts et effets de l’école des enchantements."
+          }
+        }
+      ]
+    },
+    {
+      "minLevel": 9,
+      "maxLevel": 11,
+      "bonusHD": 6,
+      "naturalArmorAdj": 6,
+      "strDexAdj": 3,
+      "bonusTricks": 4,
+      "special": [
+        {
+          "id": "multiattack",
+          "name": {
+            "en": "Multiattack",
+            "fr": "Attaques multiples"
+          },
+          "text": {
+            "en": "An animal companion gains Multiattack as a bonus feat if it has three or more natural attacks and does not already have that feat. If it does not have the requisite three or more natural attacks, the animal companion instead gains a second attack with its primary natural weapon, albeit at a -5 penalty.",
+            "fr": "Le compagnon animal obtient automatiquement ce don en tant que don supplémentaire, à condition d’avoir au moins trois attaques naturelles et de ne pas déjà le posséder. Si l’animal ne remplit pas la condition des trois attaques naturelles, il obtient à la place de ce don la possibilité de porter une seconde attaque à l’aide de son arme naturelle principale, mais avec un malus de –5."
+          }
+        }
+      ]
+    },
+    {
+      "minLevel": 12,
+      "maxLevel": 14,
+      "bonusHD": 8,
+      "naturalArmorAdj": 8,
+      "strDexAdj": 4,
+      "bonusTricks": 5,
+      "special": []
+    },
+    {
+      "minLevel": 15,
+      "maxLevel": 17,
+      "bonusHD": 10,
+      "naturalArmorAdj": 10,
+      "strDexAdj": 5,
+      "bonusTricks": 6,
+      "special": [
+        {
+          "id": "improved-evasion",
+          "name": {
+            "en": "Improved Evasion",
+            "fr": "Esquive extraordinaire"
+          },
+          "text": {
+            "en": "When subjected to an attack that normally allows a Reflex saving throw for half damage, an animal companion takes no damage if it makes a successful saving throw and only half damage if the saving throw fails.",
+            "fr": "Lorsque le compagnon animal est soumis à un effet qui autorise un jet de Réflexes pour demi-dégâts, il ne subit aucun dégât s’il réussit son jet de sauvegarde et la moitié des dégâts dans le cas contraire."
+          }
+        }
+      ]
+    },
+    {
+      "minLevel": 18,
+      "maxLevel": 20,
+      "bonusHD": 12,
+      "naturalArmorAdj": 12,
+      "strDexAdj": 6,
+      "bonusTricks": 7,
+      "special": []
+    }
+  ],
+  "options": [
+    {
+      "creatureId": "badger",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "camel",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "dire-rat",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "dog",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "dog-riding",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "eagle",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "hawk",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "horse-light",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "horse-heavy",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "owl",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "pony",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "snake-small-viper",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "snake-medium-viper",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "wolf",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "crocodile",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "porpoise",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "shark-medium",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "squid",
+      "minLevel": 1,
+      "levelAdjustment": 0
+    },
+    {
+      "creatureId": "ape",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "bear-black",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "bison",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "boar",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "cheetah",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "crocodile",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "dire-badger",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "dire-bat",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "dire-weasel",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "leopard",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "lizard-monitor",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "shark-large",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "snake-constrictor",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "snake-large-viper",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "wolverine",
+      "minLevel": 4,
+      "levelAdjustment": -3
+    },
+    {
+      "creatureId": "bear-brown",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "dire-wolverine",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "crocodile-giant",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "deinonychus",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "dire-ape",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "dire-boar",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "dire-wolf",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "elasmosaurus",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "lion",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "rhinoceros",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "snake-huge-viper",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "tiger",
+      "minLevel": 7,
+      "levelAdjustment": -6
+    },
+    {
+      "creatureId": "bear-polar",
+      "minLevel": 10,
+      "levelAdjustment": -9
+    },
+    {
+      "creatureId": "dire-lion",
+      "minLevel": 10,
+      "levelAdjustment": -9
+    },
+    {
+      "creatureId": "megaraptor",
+      "minLevel": 10,
+      "levelAdjustment": -9
+    },
+    {
+      "creatureId": "shark-huge",
+      "minLevel": 10,
+      "levelAdjustment": -9
+    },
+    {
+      "creatureId": "snake-constrictor-giant",
+      "minLevel": 10,
+      "levelAdjustment": -9
+    },
+    {
+      "creatureId": "whale-orca",
+      "minLevel": 10,
+      "levelAdjustment": -9
+    },
+    {
+      "creatureId": "dire-bear",
+      "minLevel": 13,
+      "levelAdjustment": -12
+    },
+    {
+      "creatureId": "elephant",
+      "minLevel": 13,
+      "levelAdjustment": -12
+    },
+    {
+      "creatureId": "octopus-giant",
+      "minLevel": 13,
+      "levelAdjustment": -12
+    },
+    {
+      "creatureId": "dire-shark",
+      "minLevel": 16,
+      "levelAdjustment": -15
+    },
+    {
+      "creatureId": "dire-tiger",
+      "minLevel": 16,
+      "levelAdjustment": -15
+    },
+    {
+      "creatureId": "squid-giant",
+      "minLevel": 16,
+      "levelAdjustment": -15
+    },
+    {
+      "creatureId": "triceratops",
+      "minLevel": 16,
+      "levelAdjustment": -15
+    },
+    {
+      "creatureId": "tyrannosaurus",
+      "minLevel": 16,
+      "levelAdjustment": -15
+    }
+  ],
+  "source": {
+    "srdUrl": "https://www.d20srd.org/srd/classes/druid.htm#animalCompanion",
+    "frRef": "DRS 03a (classes I)"
+  }
+}

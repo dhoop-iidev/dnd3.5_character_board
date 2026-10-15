@@ -455,14 +455,22 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const profArmor = proficiency.armor
 
   // ---- hit points (house rule #9: max hit die every level; Con retroactive)
+  // Maximum hit die at 1st level (https://www.d20srd.org/srd/combat/combatStatistics.htm#hitPoints); later levels:
+  // maximum too with house rule #9 (a setting), otherwise the roll entered for that level (average until entered).
+  const maxHd = char.settings.maxHitDice !== false
   const hpParts: Part[] = levels.map((l, i) => {
     const cls = rules.classes.get(l.classId)
+    const die = cls?.hitDie ?? 0
+    const rolled = i > 0 && !maxHd
+    const roll = rolled ? Math.min(die, Math.max(1, l.hpRoll ?? Math.ceil((die + 1) / 2))) : die
+    const what = !rolled ? 'max' : l.hpRoll ? `${roll}` : `${roll} (avg., not rolled yet)`
+    const whatFr = !rolled ? 'max' : l.hpRoll ? `${roll}` : `${roll} (moyenne, pas encore lancé)`
     return {
       sourceId: `hd:${i + 1}`,
-      label: { en: `Level ${i + 1} (${cls?.name.en}) d${cls?.hitDie} max`, fr: `Niveau ${i + 1} (${cls?.name.fr}) d${cls?.hitDie} max` },
-      value: cls?.hitDie ?? 0,
+      label: { en: `Level ${i + 1} (${cls?.name.en}) d${die} ${what}`, fr: `Niveau ${i + 1} (${cls?.name.fr}) d${die} ${whatFr}` },
+      value: roll,
       bonusType: 'base' as const,
-      source: { houseRule: 9 },
+      source: i === 0 || !maxHd ? src('combat/combatStatistics.htm#hitPoints') : { houseRule: 9 },
     }
   })
   hpParts.push({ ...abilityPart('con', mod('con') * characterLevel), label: { en: `Constitution ${fmt(mod('con'))} × ${characterLevel}`, fr: `Constitution ${fmt(mod('con'))} × ${characterLevel}` } })

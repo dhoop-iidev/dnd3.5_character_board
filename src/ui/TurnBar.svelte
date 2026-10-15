@@ -25,12 +25,19 @@
       if (e.rounds <= 0) expired.push(tr(effectName(e)))
     }
     c.activeEffects = c.activeEffects.filter((e) => e.rounds === undefined || e.rounds > 0)
+    // Summoned creatures: 1 round per caster level, gone when it runs out.
+    for (const x of c.summons ?? []) {
+      x.rounds -= 1
+      if (x.rounds <= 0) expired.push(tr(rules.creatures.get(x.creatureId)?.name ?? { en: '?', fr: '?' }))
+    }
+    if (c.summons) c.summons = c.summons.filter((x) => x.rounds > 0)
     if (c.martial) advanceManeuvers(c.martial, rules, 'startOfTurn')
     message = expired.length ? tr({ en: 'Ended: ', fr: 'Terminé : ' }) + expired.join(', ') : ''
   }
   function endEncounter() {
     const c = app.character
     delete c.round
+    c.summons = []
     if (c.martial) {
       c.martial.expended = []
       c.martial.active = []

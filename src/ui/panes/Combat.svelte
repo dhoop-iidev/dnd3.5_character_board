@@ -11,6 +11,7 @@
   import WarningList from '../WarningList.svelte'
   import ManeuverBlock from '../ManeuverBlock.svelte'
   import TurnBar from '../TurnBar.svelte'
+  import SummonBlock from '../SummonBlock.svelte'
   import { effectName } from '../effects'
 
   const s = $derived(view.sheet)
@@ -211,6 +212,7 @@
     </div>
   </section>
 
+  {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
   {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
 
   <section class="box wide">

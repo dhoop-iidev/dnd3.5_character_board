@@ -13,6 +13,9 @@ import type {
   ManeuverDef,
   MartialProgression,
   RaceDef,
+  CompanionData,
+  CreatureDef,
+  SummonList,
   SkillDef,
   SpellDef,
   SynergyDef,
@@ -25,6 +28,10 @@ import feats from './srd/feats.json'
 import classes from './srd/classes.json'
 import races from './srd/races.json'
 import spells from './srd/spells.json'
+
+import creatures from './srd/creatures.json'
+import companions from './srd/companions.json'
+import summonLists from './srd/summon-lists.json'
 import weapons from './srd/weapons.json'
 import armor from './srd/armor.json'
 import gear from './srd/gear.json'
@@ -65,6 +72,9 @@ export interface Rules {
   martialProgression: Map<string, MartialProgression>
   races: Map<string, RaceDef>
   spells: Map<string, SpellDef>
+  creatures: Map<string, CreatureDef>
+  companions?: CompanionData
+  summonLists: SummonList[]
 }
 
 function index<T extends { id: string }>(list: T[]): Map<string, T> {
@@ -97,6 +107,9 @@ export function buildRules(): Rules {
     martialProgression: new Map([['warblade', warbladeProgression as unknown as MartialProgression]]),
     races: index(races as unknown as RaceDef[]),
     spells: index(spells as unknown as SpellDef[]),
+    creatures: index(creatures as unknown as CreatureDef[]),
+    companions: companions as unknown as CompanionData,
+    summonLists: summonLists as unknown as SummonList[],
   }
 }
 

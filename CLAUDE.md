@@ -42,7 +42,7 @@ Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD
 - Model each rule from the SRD text first (cite the URL in a code comment or the data), then encode it. When a rule is unclear, ask; don't guess.
 
 ## UI
-- Panes: **General** (abilities, saves, HP, AC, BAB, skills), **Equipment** (items with description, price, weight, totals, load), **Combat** (attacks, combat feats, Weapon Master features, turn bar with effect durations), **Manœuvres** (warblade only), **Sorts** (spellcasters only), **Notes** (campaign notes).
+- Panes: **General** (abilities, saves, HP, AC, BAB, skills), **Equipment** (items with description, price, weight, totals, load), **Combat** (attacks, combat feats, Weapon Master features, turn bar with effect durations), **Manœuvres** (warblade only), **Sorts** (spellcasters only), **Compagnons** (druid 1 / ranger 4+: animal companion stat block with SRD advancement; summoned creatures are cards in the Combat pane), **Notes** (campaign notes).
 - Layout inspired by the official 3.5 character sheet, sober and modern: black-and-white with one red accent, black small-caps panel tags, no gradients or textures (the user rejected the parchment/gold look as tacky). Values are clickable to open a breakdown and source popup. FR/EN toggle everywhere.
 - Images: the Equipment paper doll uses `public/images/fenrir-knight.webp` (user-provided illustration); the General pane shows a portrait and a coat of arms that the user uploads (resized, stored in the character JSON). The 3D viewer was removed at the user's request.
 - Every popup can carry a campaign note (`character.annotations`, keyed like `feat:<id>`, `item:<uid>`, `stat:<title>`).

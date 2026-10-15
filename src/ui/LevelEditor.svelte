@@ -111,6 +111,18 @@
 <section class="box wide progression">
   <h3>{tr({ en: 'Progression', fr: 'Progression' })}</h3>
 
+  <label class="toggle hd">
+    <input
+      type="checkbox"
+      checked={c.settings.maxHitDice !== false}
+      onchange={(e) => (app.character.settings.maxHitDice = e.currentTarget.checked)}
+    />
+    {tr({
+      en: 'Maximum hit dice every level (house rule #9); untick to enter each roll',
+      fr: 'Dés de vie maximaux à chaque niveau (règle maison n° 9) ; décochez pour saisir chaque jet',
+    })}
+  </label>
+
   <div class="top">
     <label class="xp">
       <span>{tr({ en: 'Experience points', fr: "Points d'expérience" })}</span>
@@ -184,6 +196,23 @@
         {#if open === L}
           <div class="editor">
             <div class="fields">
+              {#if L > 1 && c.settings.maxHitDice === false}
+                {@const die = rules.classes.get(entry.classId)?.hitDie ?? 0}
+                <label>
+                  {tr({ en: `Hit points rolled (d${die})`, fr: `Points de vie lancés (d${die})` })}
+                  <input
+                    type="number"
+                    min="1"
+                    max={die}
+                    value={entry.hpRoll ?? ''}
+                    onchange={(e) => {
+                      const v = Number(e.currentTarget.value)
+                      if (e.currentTarget.value === '' || !v) delete app.character.levels[i].hpRoll
+                      else app.character.levels[i].hpRoll = v
+                    }}
+                  />
+                </label>
+              {/if}
               <label>
                 {tr(UI.class)}
                 <select bind:value={app.character.levels[i].classId}>
@@ -312,6 +341,12 @@
 </section>
 
 <style>
+  .hd {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
   .top {
     display: flex;
     flex-wrap: wrap;

@@ -28,6 +28,9 @@ lb / 2, and notes about modelling choices. It also copies `sources/OGL.txt` to `
 | `src/data/srd/classes.json` | The 11 core classes (`build_classes.py`): tables 1–20 (BAB, saves, Special column EN/FR, `spellsPerDay` / `spellsKnown` with 10 slots, `null` = —), class skills, proficiencies, `spellcasting`, `features` (one entry per feature per level gained or improved, SRD paragraph EN + DRS 03 paragraph FR, d20srd anchor), `choices` (ranger favored enemies and combat styles, rogue special abilities, wizard schools). The fighter's fields are unchanged (tests); it only gains `features`. Only the ranger features the engine computes carry `computed: true`. |
 | `src/data/srd/races.json` | The 7 SRD races (`build_races.py`): numbers and modifiers by hand from the SRD bullets (situational ones with `condition`; Small-size modifiers are left to the engine), trait and race texts = the EN SRD (03_Races) and DRS 02 bullets. |
 | `src/data/srd/spells.json` | Every spell of the druid (0–9) and ranger (1–4) lists, 173 spells (`build_spells.py`), with its level on each core list (bard, cleric, druid, paladin, ranger, sorcerer-wizard; cleric domains left out). French entry from DRS 22a–d matched by (core levels, school, subschool), ties in `HAND_FR`, and checked against the DRS 21 druid / ranger lists (same level; `FR_LIST_ALIAS`, `FR_LIST_MISSING` for the French list's own slips); summaries from DRS 21; entries that say "semblable à X" inherit X's header lines; French header lines that contradict the SRD fixed in `FR_HEADER_ERRATA`, text misprints in `FR_ERRATA`. |
+| `src/data/srd/creatures.json` | The 115 creatures of the SRD druid animal companion lists and of the Summon Nature's Ally I–IX table (`build_creatures.py`): stat block from `dnd35.db` parsed into typed fields (Hit Dice, speeds, AC components, attacks of the **first** full-attack routine with role / ability / Str factor, saves, abilities, feat ids), texts as printed (skills, feats with `(B)` / `(S)` for bonus feats, SA, SQ, alignment, CR), description and special abilities from the `full_text` (snakes: the local English SRD HTML). French block (DRS 33, 35–40) matched by numbers (Hit Dice line + ability scores, speeds on ties), never by name. |
+| `src/data/srd/companions.json` | SRD Table: The Druid's Animal Companion (bands 1–2 … 18–20, the six special abilities with EN/FR texts, checked against the DRS 03a table) and `options`: base list (level 1, adjustment 0) and alternative lists (4th −3 … 16th −15), parsed from the SRD druid text. |
+| `src/data/srd/summon-lists.json` | Summon Nature's Ally I–IX: spell id → creature ids, parsed from the SRD table; the French table (DRS 22a) is counted against it. |
 | `src/data/srd/weapons.json` | SRD weapons (shield bash / armor spikes rows excluded). |
 | `src/data/srd/armor.json` | Armors and shields. |
 | `src/data/srd/gear.json` | Goods and services that are items, **plus ammunition** (arrows, bolts, sling bullets: they have no damage of their own) and armor add-ons (spikes, locked gauntlet). |
@@ -60,6 +63,7 @@ To correct one: edit `fr_guess`, set `status` to `ok`, and rebuild. Rows with `o
 | `build_classes.py` | classes.json: catalog `CLASSES` (per class: proficiencies, spellcasting, features with their EN/FR paragraph starts, d20srd anchor and the regexes that pair the EN/FR Special-column items). Asserts that every Special item is paired, that the DRS tables give the same spells per day as the database, and that every favored-enemy French name is in DRS 03b. |
 | `build_races.py` | races.json (hand data + SRD/DRS 02 bullets, checked: speed, darkvision, weapon ids, skill ids) |
 | `build_spells.py` | spells.json (druid list 0–9 + ranger list 1–4) |
+| `build_creatures.py` | creatures.json, companions.json, summon-lists.json (see below). Runs alone too (`python tools/build_creatures.py`, reads the other generated files) and prints the consistency report. |
 | `build_equipment.py` | weapons, armor, gear |
 | `build_magic.py` | magic items, carrying capacity |
 | `build_properties.py` | item-properties.json (special abilities; French headings from DRS 24/25, a few French SRD errors corrected in `FR_ERRATA`) |
@@ -71,8 +75,33 @@ To correct one: edit `fr_guess`, set `status` to `ok`, and rebuild. Rows with `o
 
 ## Conventions
 
+- Creature ids: "family first", as the SRD lists name them: `shark-large`, `bear-black`, `snake-small-viper`,
+  `arrowhawk-juvenile`, `whale-orca`, `unicorn-celestial-charger`; dire animals keep `dire-wolf`; elementals put the
+  element last: `elemental-small-air` … `elemental-elder-water`.
 - ids: stable, kebab-case English (`weapon-focus`, `greatsword`, `full-plate`, `heavy-steel-shield`, `amulet-of-health-2`); arrays sorted by id.
 - Weights `{lb, kg}`: kg from the French book when printed, else lb / 2. Distances `{ft, m}` with 5 ft = 1,5 m.
 - Texts: SRD text (OGL) as HTML paragraphs, at most ~2000 characters each.
 - Modifier targets beyond the `types.ts` comment: `attack.choice` / `damage.choice` / `skill.choice` (the feat's chosen weapon/skill),
   `attack.weapon` / `damage.weapon` (the weapon a property is applied to), `ac.armor` / `ac.shield` (enhancement to the armor or shield bonus).
+
+## Creatures (`build_creatures.py`)
+
+- **Lists**: `CATALOG` (id → `dnd35.db` name, d20srd page and anchor) and `LABELS` (SRD list label → ids). The companion
+  lists are parsed from the Druid `full_text`, the summon lists from the Summon Nature's Ally IX `full_text`; every
+  label must be in `LABELS` and every catalog creature on a list. Variants of one stat block (satyr with/without pipes,
+  pixie with or without special arrows) are one creature; the alignment notes `[NG]` of the summon table are not kept.
+- **Source URLs**: d20srd monster pages from the d20srd monster index; their anchors are in `d20srd_anchors.json`
+  (`python tools/srd_urls.py --refresh-monsters`, needs internet, fetches only `srd_urls.MONSTER_PAGES`).
+- **French**: the DRS stat block (paragraph or table form) with the same Hit Dice line and ability scores; `FR_MATCH`
+  pairs the two fire elementals whose French Int differs, `FR_NAME` fixes the table names that only print the variant
+  ("Jeune" → "Tojanida, jeune"). The celestial charger has no French entry: its French texts are written in `CHARGER_FR`
+  with official terms (skills/feats from skills.json/feats.json, spell names checked against the DRS 22 headings).
+- **Attacks**: only the first full-attack routine (`or` alternatives are reported). Role: weapon if the name is a
+  weapons.json weapon; natural attacks are primary when the bonus = BAB + Str (Dex with Weapon Finesse) + size
+  (+ Weapon Focus, + enhancement), secondary when 5 lower (2 with Multiattack). Str factor: 1.5 sole natural attack or
+  two-handed weapon, 1 primary, 0.5 secondary, 0 for rays, bows, crossbows and 0-damage attacks.
+- **Checks** (reported in the build notes, never fatal; the printed English SRD numbers are kept): hp = average of the
+  Hit Dice, AC total/touch/flat-footed vs components, size and Dex modifiers, grapple, initiative, base saves by type,
+  attack and damage bonuses, French vs English numbers. `DB_FIX` corrects the few `dnd35.db` typos against d20srd.
+- Monster feats (Multiattack, Flyby Attack, Improved Natural Attack, Awesome Blow, Wingover, Snatch…) are not in
+  feats.json but are kept in `featIds` (`MONSTER_FEATS`, also accepted by `validate_data.py`).

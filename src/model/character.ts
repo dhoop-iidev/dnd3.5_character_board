@@ -27,6 +27,8 @@ export interface LevelEntry {
   maneuversLearned?: string[]
   /** Warblade 4th, 6th, 8th… level: one known maneuver (not a stance) exchanged for another (ToB p. 21). */
   maneuverSwap?: { from: string; to: string }
+  /** Hit points rolled at this level, when maximum hit dice (house rule #9) is switched off. */
+  hpRoll?: number
   /**
    * Class feature choices made at this level, e.g. ranger: favoredEnemy (new type), favoredEnemyIncrease (type
    * whose bonus rises by 2), combatStyle ("archery" | "two-weapon").
@@ -67,6 +69,35 @@ export interface SpellcastingState {
   prepared: Record<number, { id: string; cast: boolean }[]>
   /** Spontaneous casters: spells cast today per spell level. */
   castCount?: Record<number, number>
+}
+
+/** A creature with the character: animal companion or summoned creature (stat block from creatures.json). */
+export interface CreatureState {
+  uid: string
+  creatureId: string
+  /** Given name (companions). */
+  name?: string
+  /** Maximum hit points for every hit die; false = `hpManual` (or the stat block average when empty). */
+  maxHp: boolean
+  hpManual?: number
+  damage: number
+  nonlethal?: number
+  /** Conditions and effects on the creature (same model as the character's). */
+  effects?: ActiveEffect[]
+  notes?: string
+}
+
+export interface CompanionState extends CreatureState {
+  /** Tricks taught with Handle Animal (free text ids/names). */
+  tricks?: string[]
+}
+
+export interface SummonState extends CreatureState {
+  /** Rounds left (1 round per caster level), counted down at the start of your turn. */
+  rounds: number
+  spellId?: string
+  /** Augment Summoning applied (+4 Str and Con). */
+  augmented: boolean
 }
 
 export type ItemKind = 'weapon' | 'armor' | 'gear' | 'magic' | 'custom'
@@ -177,6 +208,10 @@ export interface Character {
   activeEffects: ActiveEffect[]
   /** Combat round counter (1 = first round of the encounter). */
   round?: number
+  /** Animal companions (druid, ranger 4+). */
+  companions?: CompanionState[]
+  /** Creatures currently summoned. */
+  summons?: SummonState[]
   /** Spellcasting state per class id: prepared spells by spell level, with the ones already cast today. */
   spells?: Record<string, SpellcastingState>
   hp: { damage: number; nonlethal: number; temp: number }
@@ -197,5 +232,7 @@ export interface Character {
   images: { coatOfArms?: string; face?: string; doll?: string | null }
   /** Tome of Battle: readied/expended maneuvers, stance, active effects. */
   martial: MartialState
-  settings: { lang: Lang }
+  /** maxHitDice: house rule #9 (every level gives the maximum of its hit die); false = rolled hit points entered by
+   * hand (level 1 is always the maximum). Undefined = true. */
+  settings: { lang: Lang; maxHitDice?: boolean }
 }

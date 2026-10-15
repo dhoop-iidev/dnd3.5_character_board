@@ -451,6 +451,7 @@ def build_fighter(feats):
 
 def main() -> None:
     import build_classes
+    import build_creatures
     import build_equipment
     import build_magic
     import build_races
@@ -471,7 +472,12 @@ def main() -> None:
     feat_ids = {f["id"] for f in feats}
     counts["classes.json"] = len(build_classes.build_all(build_fighter(feats), skill_ids, feat_ids, weapon_ids))
     counts["races.json"] = len(build_races.build_races(skill_ids, weapon_ids))
-    counts["spells.json"] = len(build_spells.build_spells())
+    spells = build_spells.build_spells()
+    counts["spells.json"] = len(spells)
+    creatures, companions, summon, _ = build_creatures.build_creatures(weapons, feats, skills, {x["id"] for x in spells})
+    counts["creatures.json"] = len(creatures)
+    counts["companions.json"] = len(companions["options"])
+    counts["summon-lists.json"] = len(summon)
     armor, extras = build_equipment.build_armor()
     counts["armor.json"] = len(armor)
     counts["gear.json"] = len(build_equipment.build_gear(ammo, extras))
