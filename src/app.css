@@ -164,6 +164,32 @@ a {
   background: var(--paper-2);
 }
 
+/* Base look of form controls, so none falls back to the browser's grey-on-white widgets (unreadable in dark
+   mode, and on iPad Safari). :where() keeps specificity at zero: component styles still win. */
+:where(button, select, input:not([type='checkbox'], [type='radio'], [type='range']), textarea) {
+  font: inherit;
+  color: var(--ink);
+  background-color: var(--box);
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+}
+:where(button) {
+  cursor: pointer;
+}
+:where(button:disabled, select:disabled, input:disabled, textarea:disabled) {
+  color: var(--ink-soft);
+  background-color: var(--paper-2);
+  border-color: var(--rule);
+  cursor: default;
+}
+:where(input, textarea)::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+:where(input[type='checkbox'], input[type='radio'], input[type='range']) {
+  accent-color: var(--accent);
+}
+
 button:focus-visible,
 select:focus-visible,
 input:focus-visible,

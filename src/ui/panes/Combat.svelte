@@ -196,7 +196,7 @@
   {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
 
   <section class="box wide">
-    <h3>{tr({ en: 'Attacks', fr: 'Attaques' })} — {tr(loadout.name)}</h3>
+    <h3>{tr({ en: 'Attacks', fr: 'Attaques' })}</h3>
     <div class="attacks">
       {#each s.attacks as a (a.itemUid)}
         <article class="attack" class:choice={a.weaponOfChoice}>
@@ -251,7 +251,7 @@
           {/if}
         </article>
       {:else}
-        <p>{tr({ en: 'No weapon in this loadout.', fr: 'Aucune arme dans cet équipement.' })}</p>
+        <p>{tr({ en: 'No weapon in hand: tick one below.', fr: 'Aucune arme en main : cochez-en une ci-dessous.' })}</p>
       {/each}
     </div>
     <WarningList areas={['combat']} />
@@ -331,7 +331,7 @@
   </section>
 
   <section class="box">
-    <h3>{tr({ en: 'Loadout', fr: 'Équipement de combat' })} — {tr(loadout.name)}</h3>
+    <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
     <p class="note">{tr({ en: 'Weapons in hand:', fr: 'Armes en main :' })}</p>
     {#each weapons as w (w.uid)}
       <label class="check">

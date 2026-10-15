@@ -95,12 +95,6 @@
       </p>
     </div>
     <div class="controls">
-      <label>
-        <span>{tr(UI.loadout)}</span>
-        <select bind:value={app.character.activeLoadout}>
-          {#each c.loadouts as l (l.id)}<option value={l.id}>{tr(l.name)}</option>{/each}
-        </select>
-      </label>
       <button class="theme" title={tr(UI.theme)} onclick={() => (theme = nextTheme[theme])}>{themeIcon[theme]}</button>
       <div class="lang" role="group" aria-label="Language">
         <button class:on={c.settings.lang === 'fr'} onclick={() => (app.character.settings.lang = 'fr')}>FR</button>
@@ -140,8 +134,7 @@
 
   <footer>
     <SaveControls />
-    <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) ·
-    <a href="models/CREDITS.md" target="_blank">3D : « Fallen Paladin », Pigcraft, CC-BY 4.0</a>
+    <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) · Tome of Battle (Warblade)
   </footer>
 
   <Popup />
@@ -184,26 +177,6 @@
     gap: 0.5rem;
     align-items: flex-end;
     flex-wrap: wrap;
-  }
-  .controls label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    font-family: var(--font-title);
-    font-size: 0.85em;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-  }
-  select {
-    font: inherit;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    min-height: 2.75rem;
-    padding: 0 0.6rem;
-    background: var(--box);
-    color: var(--ink);
-    border: 1px solid var(--rule-strong);
-    border-radius: 4px;
   }
   .theme,
   .lang button {

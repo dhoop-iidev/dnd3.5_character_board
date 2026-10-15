@@ -167,7 +167,7 @@
   </div>
 
   <div class="weapons">
-    <strong>{tr({ en: 'In hand', fr: 'En main' })} — {tr(loadout.name)}</strong>
+    <strong>{tr({ en: 'In hand', fr: 'En main' })}</strong>
     <div class="row">
       {#each inHands as item (item.uid)}
         {@const info = itemInfo(item)}

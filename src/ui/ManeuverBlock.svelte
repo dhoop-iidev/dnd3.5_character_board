@@ -174,8 +174,12 @@
     grid-column: 2;
     grid-row: 1 / span 2;
   }
-  .used {
-    opacity: 0.55;
+  /* Expended: dimmed but still readable in both themes. */
+  .used > :global(*) {
+    opacity: 0.75;
+  }
+  .used .link {
+    text-decoration: line-through;
   }
   .none {
     font-style: italic;
