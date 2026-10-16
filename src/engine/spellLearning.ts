@@ -10,8 +10,8 @@ import { spellcastingAdvance } from './spells'
 import { i18n } from './stacking'
 
 /** Casting class whose spells are learned at character level L: the class taken (bard, sorcerer, wizard), or the one a
- * prestige level adds a spellcasting level to (spells known; for a wizard, the two free spellbook spells: house rule
- * #36, pending). */
+ * prestige level adds a spellcasting level to (spells known; for a wizard, the two free spellbook spells: 3.5 FAQ,
+ * rulings-classes.md C34). */
 export function spellOwner(char: Character, rules: Rules, L: number): string | undefined {
   const l = char.levels[L - 1]
   if (!l) return undefined
@@ -48,6 +48,8 @@ export interface SpellLearning {
   knownBefore: string[]
   learned: string[]
   prohibited: string[]
+  /** Specialist wizard: one of the two free spells of each new level must be of her specialty school. */
+  specialty?: string
 }
 
 export function spellLearning(char: Character, rules: Rules, L: number): SpellLearning | undefined {
@@ -65,7 +67,7 @@ export function spellLearning(char: Character, rules: Rules, L: number): SpellLe
     const first = n === 1 || !char.levels.slice(0, L - 1).some((l) => l.classId === 'wizard')
     return first
       ? { ...base, free: Math.max(0, 3 + sheet.abilities.int.mod), onlyLevel: 1, swap: false }
-      : { ...base, free: 2, swap: false }
+      : { ...base, free: 2, swap: false, specialty: wizardSchools(char).specialty }
   }
   const now = knownCaps(rules, owner, n)
   const prev = castingLevelAt(char, rules, owner, L - 1) ? knownCaps(rules, owner, castingLevelAt(char, rules, owner, L - 1)) : []
@@ -110,6 +112,10 @@ export function learningProblems(rules: Rules, x: SpellLearning): { kind: 'extra
   if (x.free !== undefined) {
     if (x.learned.length > x.free) out.push({ kind: 'extra', en: `${x.learned.length - x.free} spell(s) too many (${x.free} free)`, fr: `${x.learned.length - x.free} sort(s) en trop (${x.free} gratuits)` })
     if (x.learned.length < x.free) out.push({ kind: 'missing', en: `${x.free - x.learned.length} free spellbook spell(s) to choose`, fr: `${x.free - x.learned.length} sort(s) gratuit(s) du grimoire à choisir` })
+    // https://www.d20srd.org/srd/magicOverview/arcaneSpells.htm#spellsGainedAtANewLevel: a specialist's two free spells
+    // include one of her specialty school.
+    if (x.specialty && x.learned.length >= x.free && !x.learned.some((id) => rules.spells.get(id)?.schoolId === x.specialty))
+      out.push({ kind: 'illegal', en: 'one of the two free spells must be of the specialty school', fr: 'un des deux sorts gratuits doit être de l’école de spécialité' })
   }
   if (x.newByLevel) {
     const got: Record<number, number> = {}

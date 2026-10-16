@@ -127,7 +127,7 @@
       "abilityIncrease": "int",
       "spellsLearned": [
         "web",
-        "bulls-strength"
+        "flaming-sphere"
       ]
     },
     {
@@ -170,7 +170,7 @@
         }
       ],
       "spellsLearned": [
-        "dispel-magic",
+        "lightning-bolt",
         "fly"
       ]
     },

@@ -174,7 +174,7 @@
         {#if x.free !== undefined}
           {x.onlyLevel
             ? tr({ en: `${x.free} 1st-level spells (3 + Int modifier); all 0-level spells are in the book.`, fr: `${x.free} sorts du niveau 1 (3 + modificateur d’Int) ; tous les sorts de niveau 0 sont dans le grimoire.` })
-            : tr({ en: `${x.free} spells of levels you can cast (up to ${x.highest}).`, fr: `${x.free} sorts de niveaux que vous pouvez lancer (jusqu’au ${x.highest}).` })}
+            : tr({ en: `${x.free} spells of levels you can cast (up to ${x.highest})${x.specialty ? ', one of your specialty school' : ''}.`, fr: `${x.free} sorts de niveaux que vous pouvez lancer (jusqu’au ${x.highest})${x.specialty ? ', dont un de votre école de spécialité' : ''}.` })}
         {:else if x.newByLevel}
           {tr({ en: 'New spells known', fr: 'Nouveaux sorts connus' })} :
           {Object.entries(x.newByLevel).map(([l, n]) => `${n} × ${tr({ en: 'level', fr: 'niv.' })} ${l}`).join(', ') || '—'}

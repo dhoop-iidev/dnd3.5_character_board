@@ -39,6 +39,14 @@ describe('wizard', () => {
     c.levels[1].spellsLearned = ['fireball']
     expect(learningProblems(rules, spellLearning(c, rules, 2)!).some((p) => p.kind === 'illegal')).toBe(true)
   })
+  it('specialist: one of the two free spells of a new level is of her specialty school (SRD)', () => {
+    const c = make(times('wizard', 3))
+    c.levels[0].classChoices = { school: 'evocation', prohibited1: 'enchantment', prohibited2: 'illusion' }
+    c.levels[2].spellsLearned = ['web', 'glitterdust']
+    expect(learningProblems(rules, spellLearning(c, rules, 3)!).some((p) => /specialty/.test(p.en))).toBe(true)
+    c.levels[2].spellsLearned = ['web', 'scorching-ray']
+    expect(learningProblems(rules, spellLearning(c, rules, 3)!)).toEqual([])
+  })
   it('specialist: an extra spell at every spell level, 0 included (C26); prohibited schools must be chosen', () => {
     const c = make(['wizard'])
     c.levels[0].classChoices = { school: 'conjuration' }
