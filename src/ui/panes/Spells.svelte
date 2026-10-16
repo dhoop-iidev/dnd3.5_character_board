@@ -2,7 +2,8 @@
   // Spells: per casting class, caster level, save DCs, spells per day (bonus spells included), prepared spells and
   // the ones cast today. https://www.d20srd.org/srd/magicOverview/castingSpells.htm
   import { rules } from '../../data/rules'
-  import type { SpellDef } from '../../data/types'
+  import type { DomainDef, SpellDef } from '../../data/types'
+  import { clericChoices, domainCasterLevelBonus } from '../../engine/cleric'
   import type { Spellcasting } from '../../engine/spells'
   import { app, tr, view } from '../../state.svelte'
   import { openPopup } from '../popupState.svelte'
@@ -34,12 +35,64 @@
   }
   const hasSave = (sp: SpellDef) => !/^(none|aucun)/i.test(sp.save.en.trim())
 
+  // ---- extra slots: cleric domain slot (one of the two domains' spells), specialist wizard (specialty school)
+  // https://www.d20srd.org/srd/classes/cleric.htm#domains, https://www.d20srd.org/srd/classes/wizard.htm
+  const isExtraSlot = (slot: { total: number; extra: number }, j: number) =>
+    slot.extra > 0 && j >= slot.total - slot.extra
+  function extraOptions(
+    sc: Spellcasting,
+    slotLevel: number,
+    blocked: boolean,
+  ): { level: number; spells: SpellDef[] }[] {
+    const out: { level: number; spells: SpellDef[] }[] = []
+    const choices = Object.assign({}, ...app.character.levels.map((l) => l.classChoices ?? {})) as Record<
+      string,
+      string
+    >
+    for (let l = blocked ? slotLevel - 1 : slotLevel; l >= 1; l--) {
+      const spells = [...rules.spells.values()]
+        .filter((sp) =>
+          sc.classId === 'cleric'
+            ? s.domains.some((d) => sp.level[`domain:${d.id}`] === l)
+            : sp.level[sc.def.list] === l && sp.schoolId === choices.school,
+        )
+        .sort((a, b) => tr(a.name).localeCompare(tr(b.name)))
+      if (spells.length) out.push({ level: l, spells })
+    }
+    return out
+  }
+  const domainOf = (sp: SpellDef) => s.domains.find((d) => sp.level[`domain:${d.id}`] !== undefined)
+
+  // ---- spontaneous casting (cleric): a prepared spell (not a domain spell) can be lost to cast a cure (positive
+  // energy) or inflict (negative) spell of the same level or lower
+  // (https://www.d20srd.org/srd/classes/cleric.htm#spontaneousCasting).
+  const spontaneousKind = $derived(clericChoices(app.character).channel === 'negative' ? 'inflict' : 'cure')
+  function spontaneousOptions(slotLevel: number): SpellDef[] {
+    return [...rules.spells.values()]
+      .filter((sp) => sp.id.startsWith(`${spontaneousKind}-`) && (sp.level['cleric'] ?? 99) <= slotLevel)
+      .sort((a, b) => (b.level['cleric'] ?? 0) - (a.level['cleric'] ?? 0))
+  }
+
+  function domainPopup(d: DomainDef) {
+    openPopup({
+      title: d.name,
+      summary: { en: 'Cleric domain', fr: 'Domaine de prêtre' },
+      html: d.grantedPower,
+      lines: Object.entries(d.spells).map(([lvl, id]) => {
+        const sp = rules.spells.get(id)
+        return { en: `${lvl}: ${sp?.name.en ?? id}`, fr: `${lvl} : ${sp?.name.fr ?? id}` }
+      }),
+      source: d.source,
+      noteKey: `domain:${d.id}`,
+    })
+  }
+
   /** Prepared slots of one spell level, padded to the number of spells per day (read only). */
   function slotsFor(sc: Spellcasting, level: number, total: number) {
     const list = app.character.spells?.[sc.classId]?.prepared[level] ?? []
     return Array.from({ length: total }, (_, j) => list[j] ?? { id: '', cast: false })
   }
-  function setSlot(sc: Spellcasting, level: number, j: number, patch: Partial<{ id: string; cast: boolean }>) {
+  function setSlot(sc: Spellcasting, level: number, j: number, patch: Partial<{ id: string; cast: boolean; spontaneous: string }>) {
     const st = (app.character.spells ??= {})
     const cls = (st[sc.classId] ??= { prepared: {} })
     const list = (cls.prepared[level] ??= [])
@@ -48,7 +101,11 @@
   }
 
   function spellPopup(sp: SpellDef, sc: Spellcasting) {
-    const lvl = sp.level[sc.def.list] ?? 0
+    const dom = domainOf(sp)
+    const lvl = sp.level[sc.def.list] ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
+    // Caster level for this spell: the class's, + domain bonus (Good, Evil, Law, Chaos, Healing, Knowledge).
+    const clBonus = sc.classId === 'cleric' ? domainCasterLevelBonus(sp, s.domains) : { value: 0, domain: undefined }
+    const cl = sc.casterLevel.total + clBonus.value
     const line = (en: string, fr: string, v?: { en: string; fr: string }) =>
       v && (v.en || v.fr) ? [{ en: `${en}: ${v.en}`, fr: `${fr} : ${v.fr}` }] : []
     openPopup({
@@ -58,6 +115,10 @@
         {
           en: `${sp.school.en}, level ${lvl}${hasSave(sp) ? ` · save DC ${sc.dc(lvl)}` : ''}`,
           fr: `${sp.school.fr}, niveau ${lvl}${hasSave(sp) ? ` · DD ${sc.dc(lvl)}` : ''}`,
+        },
+        {
+          en: `Caster level ${cl}${clBonus.value ? ` (+${clBonus.value} ${clBonus.domain?.name.en} domain)` : ''}`,
+          fr: `Niveau de lanceur ${cl}${clBonus.value ? ` (+${clBonus.value} domaine ${clBonus.domain?.name.fr})` : ''}`,
         },
         { en: `Components: ${sp.components}`, fr: `Composantes : ${sp.components}` },
         ...line('Casting time', 'Temps d’incantation', sp.castingTime),
@@ -78,9 +139,26 @@
   function newDay(sc: Spellcasting) {
     const cls = app.character.spells?.[sc.classId]
     if (!cls) return
-    for (const list of Object.values(cls.prepared)) for (const slot of list) slot.cast = false
+    for (const list of Object.values(cls.prepared))
+      for (const slot of list) {
+        slot.cast = false
+        delete slot.spontaneous
+      }
   }
 </script>
+
+{#if s.spellcasting.length > 1}
+  <section class="box wide">
+    <h3>{tr({ en: 'Several spellcasting classes', fr: 'Plusieurs classes de lanceur de sorts' })}</h3>
+    <p class="note">
+      {tr({
+        en: 'Each class keeps its own spell list, spells per day, caster level, key ability and save DCs; spells are prepared for each class separately. A spell on two lists is cast at the level and caster level of the class it was prepared with.',
+        fr: 'Chaque classe garde sa propre liste de sorts, ses sorts par jour, son niveau de lanceur, sa caractéristique et ses DD ; les sorts se préparent séparément pour chaque classe. Un sort présent sur deux listes est lancé au niveau et au niveau de lanceur de la classe qui l’a préparé.',
+      })}
+      <a href="https://www.d20srd.org/srd/classes/multiclass.htm" target="_blank" rel="noopener">d20srd</a>
+    </p>
+  </section>
+{/if}
 
 {#each s.spellcasting as sc (sc.classId)}
   <section class="box wide">
@@ -108,6 +186,23 @@
         </strong>
       </div>
     </div>
+
+    {#if sc.classId === 'cleric'}
+      <p class="domains">
+        <strong>{tr({ en: 'Domains', fr: 'Domaines' })} :</strong>
+        {#each s.domains as d (d.id)}<button class="link" onclick={() => domainPopup(d)}>{tr(d.name)}</button>{:else}
+          <span class="note"
+            >{tr({
+              en: 'choose two domains at cleric 1 (Progression)',
+              fr: 'choisissez deux domaines au niveau 1 de prêtre (Progression)',
+            })}</span
+          >
+        {/each}
+        · {spontaneousKind === 'cure'
+          ? tr({ en: 'spontaneous cure spells', fr: 'sorts de soins spontanés' })
+          : tr({ en: 'spontaneous inflict spells', fr: 'sorts de blessure spontanés' })}
+      </p>
+    {/if}
 
     {#if !sc.slots.some((x) => x.total > 0)}
       <p class="note">
@@ -149,14 +244,20 @@
         <ul class="slots">
           {#each slotsFor(sc, slot.spellLevel, slot.total) as prep, j (j)}
             {@const def = rules.spells.get(prep.id)}
-            <li class:cast={prep.cast}>
+            {@const extra = isExtraSlot(slot, j)}
+            <li class:cast={prep.cast} class:extra>
+              {#if extra}<span class="tag"
+                  >{sc.classId === 'cleric'
+                    ? tr({ en: 'domain', fr: 'domaine' })
+                    : tr({ en: 'specialty', fr: 'spécialité' })}</span
+                >{/if}
               <select
                 value={prep.id}
-                onchange={(e) => setSlot(sc, slot.spellLevel, j, { id: e.currentTarget.value, cast: false })}
+                onchange={(e) => setSlot(sc, slot.spellLevel, j, { id: e.currentTarget.value, cast: false, spontaneous: undefined })}
                 aria-label={tr({ en: 'Prepared spell', fr: 'Sort préparé' })}
               >
                 <option value="">— {tr({ en: 'prepare a spell', fr: 'préparer un sort' })} —</option>
-                {#each slotOptions(sc, slot.spellLevel, slot.blocked) as g (g.level)}
+                {#each extra ? extraOptions(sc, slot.spellLevel, slot.blocked) : slotOptions(sc, slot.spellLevel, slot.blocked) as g (g.level)}
                   <optgroup label={`${tr({ en: 'Level', fr: 'Niveau' })} ${g.level}`}>
                     {#each g.spells as sp (sp.id)}<option value={sp.id}>{tr(sp.name)}</option>{/each}
                   </optgroup>
@@ -172,6 +273,27 @@
                 />
                 {tr({ en: 'cast', fr: 'lancé' })}
               </label>
+              {#if sc.classId === 'cleric' && !extra && prep.id && !prep.cast}
+                <select
+                  class="spont"
+                  value=""
+                  onchange={(e) => setSlot(sc, slot.spellLevel, j, { cast: true, spontaneous: e.currentTarget.value })}
+                  aria-label={tr({ en: 'Cast spontaneously', fr: 'Lancer spontanément' })}
+                >
+                  <option value=""
+                    >{spontaneousKind === 'cure'
+                      ? tr({ en: 'cure instead', fr: 'soins à la place' })
+                      : tr({ en: 'inflict instead', fr: 'blessure à la place' })}</option
+                  >
+                  {#each spontaneousOptions(slot.spellLevel) as sp (sp.id)}<option value={sp.id}>{tr(sp.name)}</option
+                    >{/each}
+                </select>
+              {/if}
+              {#if prep.spontaneous}
+                <small class="note"
+                  >{tr({ en: 'cast as', fr: 'lancé comme' })} {tr(rules.spells.get(prep.spontaneous)?.name)}</small
+                >
+              {/if}
             </li>
           {/each}
         </ul>
@@ -241,6 +363,25 @@
     align-items: center;
     padding: 0.3rem 0;
     border-bottom: 1px solid var(--rule);
+  }
+  .slots li.extra {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.4rem;
+  }
+  .tag {
+    font-size: 0.8rem;
+    font-family: var(--font-title);
+    color: var(--accent);
+  }
+  .spont {
+    min-height: 2.4rem;
+    font-size: 0.9rem;
+  }
+  .domains {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
   }
   .slots li.cast select,
   .slots li.cast .link {

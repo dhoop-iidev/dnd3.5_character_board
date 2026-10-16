@@ -474,7 +474,11 @@ def main() -> None:
     counts["races.json"] = len(build_races.build_races(skill_ids, weapon_ids))
     spells = build_spells.build_spells()
     counts["spells.json"] = len(spells)
+    import build_domains
+    counts["domains.json"] = len(build_domains.build_domains(spells))
     creatures, companions, summon, _ = build_creatures.build_creatures(weapons, feats, skills, {x["id"] for x in spells})
+    import build_templates
+    counts["templates.json"] = len(build_templates.build_templates())
     counts["creatures.json"] = len(creatures)
     counts["companions.json"] = len(companions["options"])
     counts["summon-lists.json"] = len(summon)

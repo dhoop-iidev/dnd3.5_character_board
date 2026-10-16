@@ -249,8 +249,14 @@ export interface SpellDef {
   id: string
   name: I18n
   school: I18n
-  /** Spell level per spell list id, e.g. { "ranger": 1, "druid": 1 }. */
+  /** Spell level per spell list id, e.g. { "ranger": 1, "druid": 1 }; cleric domains as "domain:<id>" (e.g.
+   * "domain:healing": 1). */
   level: Record<string, number>
+  /** School id in English lowercase ("conjuration"), subschool ("healing", "summoning") and descriptors ("good",
+   * "fire", "mind-affecting"), for domain and feat effects (Spell Focus, Good domain…). */
+  schoolId?: string
+  subschool?: string
+  descriptors?: string[]
   components: string
   castingTime: I18n
   range: I18n
@@ -594,4 +600,50 @@ export interface SummonList {
   spellId: string
   level: number
   creatures: string[]
+  /** Summon Monster: templates a creature comes with (celestial and/or fiendish, chosen by the caster's alignment
+   * rule) and alignment-subtype notes, e.g. { "dire-rat": ["celestial", "fiendish"] }. */
+  templates?: Record<string, ('celestial' | 'fiendish')[]>
+  /** Alignment of the entry as printed (e.g. "LG" for a lantern archon), to warn about opposed alignments. */
+  alignments?: Record<string, string>
+}
+
+/** A cleric domain (https://www.d20srd.org/srd/divine/domains.htm). */
+export interface DomainDef {
+  id: string
+  name: I18n
+  /** Granted power, as printed (bilingual). */
+  grantedPower: I18n
+  /** Domain spells by spell level 1..9 (spell ids in spells.json). */
+  spells: Record<string, string>
+  /** Machine-readable parts of the granted power the engine applies. */
+  effects?: {
+    /** Skills that become cleric class skills (Knowledge: all Knowledge skills; Trickery: Bluff, Disguise, Hide…). */
+    classSkills?: string[]
+    /** Feats granted (War: Weapon Focus with the deity's weapon → "weapon-focus:$deityWeapon"; Strength? none). */
+    grantsFeats?: string[]
+    /** Spells with these descriptors (or of this school/subschool) are cast at +N caster level (Good, Evil, Law,
+     * Chaos: +1; Healing: healing subschool +1; Knowledge: divination +1). */
+    casterLevelBonus?: { descriptor?: string; school?: string; subschool?: string; value: number }
+    /** Extra turn/rebuke ability (Air: rebuke earth / turn air creatures…; Sun: greater turning 1/day). */
+    turning?: { mode: 'turn' | 'rebuke' | 'greater-turning'; creatures: I18n; perDay?: string }
+    /** Uses per day of an activated granted power, as text (e.g. Luck: "1/day reroll"). */
+    usesPerDay?: string
+  }
+  source: Source
+}
+
+/** Templates applied to summoned creatures (Summon Monster: celestial, fiendish). */
+export interface TemplateDef {
+  id: string
+  name: I18n
+  /** Bilingual description (special attacks/qualities, by Hit Dice). */
+  text: I18n
+  /** Damage reduction, energy resistance and spell resistance by Hit Dice bands (SRD table). */
+  bands: { minHD: number; maxHD: number; dr: string; resistances: I18n; }[]
+  /** Spell resistance = HD + this (max 25). */
+  srPlusHD: number
+  /** Smite (evil for celestial, good for fiendish): 1/day, +Cha bonus to attack (? see text), +HD damage. */
+  smite: I18n
+  darkvision: number
+  source: Source
 }

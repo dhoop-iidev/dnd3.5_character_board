@@ -243,6 +243,18 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       out.push(w('stance-unknown', 'error', 'maneuvers', 'Current stance is not a known stance', 'La posture active n’est pas une posture connue', { book: TOB }))
   }
 
+  // ---- cleric energy vs alignment: a good cleric channels positive energy, an evil one negative
+  // (https://www.d20srd.org/srd/classes/cleric.htm#spontaneousCasting).
+  {
+    const first = char.levels.find((l) => l.classId === 'cleric')
+    const ch = first?.classChoices?.channel
+    const al = (char.identity.alignment ?? '').toUpperCase().replace(/\s/g, '')
+    const good = /^(LG|NG|CG|LB|NB|CB)$/.test(al) || /BON/.test(al)
+    const evil = /^(LE|NE|CE|LM|NM|CM)$/.test(al) || /MAUVAIS/.test(al)
+    if (ch && ((good && ch === 'negative') || (evil && ch === 'positive')))
+      out.push(w('cleric-energy-alignment', 'error', 'levels', `A ${good ? 'good' : 'evil'} cleric must channel ${good ? 'positive' : 'negative'} energy`, `Un prêtre ${good ? 'bon' : 'mauvais'} canalise l'énergie ${good ? 'positive' : 'négative'}`, { srdUrl: `${SRD}classes/cleric.htm#spontaneousCasting` }))
+  }
+
   // ---- class-feature choices (ranger favored enemy, combat style)
   char.levels.forEach((lvl, i) => {
     const L = i + 1

@@ -1,0 +1,120 @@
+[
+  {
+    "id": "celestial",
+    "name": {
+      "en": "Celestial Creature",
+      "fr": "Créature céleste"
+    },
+    "text": {
+      "en": "<p>Celestial creatures dwell on the upper planes, the realms of good, although they resemble beings found on the Material Plane. They are more regal and more beautiful than their earthly counterparts.</p><p>Celestial creatures often come in metallic colors (usually silver, gold, or platinum). They can be mistaken for half-celestials, more powerful creatures that are created when a celestial mates with a non-celestial creature.</p><p><b>Creating a Celestial Creature</b></p><p>“Celestial” is an inherited template that can be added to any corporeal animal, aberration, animal, dragon, fey, giant, humanoid, magical beast, monstrous humanoid, plant, or vermin of good or neutral alignment (referred to hereafter as the base creature).</p><p>A celestial creature uses all the base creature’s statistics and abilities except as noted here. Do not recalculate the creature’s Hit Dice, base attack bonus, saves, or skill points if its type changes.</p><p><b>Size and Type:</b> Animals or vermin with this template become magical beasts, but otherwise the creature type is unchanged. Size is unchanged. Celestial creatures encountered on the Material Plane have the extraplanar subtype.</p><p><b>Special Attacks:</b> A celestial creature retains all the special attacks of the base creature and also gains the following attack.</p><p><i>Smite Evil (Su):</i> Once per day a celestial creature can make a normal melee attack to deal extra damage equal to its HD (maximum of +20) against an evil foe.</p><p><b>Special Qualities:</b> A celestial creature retains all the special qualities of the base creature and also gains the following qualities.</p><p>—Darkvision out to 60 feet.</p><p>—Damage reduction (see the table below).</p><p>—Resistance to acid, cold, and electricity (see the table below).</p><p>—Spell resistance equal to HD + 5 (maximum 25).</p><p>If the base creature already has one or more of these special qualities, use the better value.</p><p>If a celestial creature gains damage reduction, its natural weapons are treated as magic weapons for the purpose of overcoming damage reduction.</p><p><b>Abilities:</b> Same as the base creature, but Intelligence is at least 3.</p><p><b>Environment:</b> Any good-aligned plane.</p><p><b>Challenge Rating:</b> HD 3 or less, as base creature; HD 4 to 7, as base creature +1; HD 8 or more, as base creature +2.</p><p><b>Alignment:</b> Always good (any).</p><p><b>Level Adjustment:</b> Same as the base creature +2.</p>",
+      "fr": "<p>Bien qu’elles ressemblent aux créatures vivant dans le plan Matériel, les créatures célestes résident dans les plans supérieurs, c’est-à-dire ceux du Bien. Elles sont plus belles et plus majestueuses que les habitants du plan Matériel.</p><p>Leur peau est souvent de la couleur d’un métal précieux (l’argent, l’or et le platine étant les couleurs les plus fréquentes). On les prend parfois pour des demi-célestes, êtres résultant de l’union entre un véritable céleste et une autre créature.</p><p><b>Création de créature céleste</b></p><p>L’archétype hérité « créature céleste » peut être ajouté à n’importe quelle créature tangible de type aberration, animal, créature magique, dragon, fée, géant, humanoïde, humanoïde monstrueux, plante ou vermine dont l’alignement est autre que mauvais (appelée ci-après « créature de base »).</p><p>La créature céleste conserve le profil et les pouvoirs de la créature de base, exception faite de ce qui suit. Même si son type change, il ne faut pas recalculer ses dés de vie, bonus de base à l’attaque et aux sauvegardes ou points de compétences.</p><p><b>Taille et type.</b> Animaux et vermines agrémentées de cet archétype deviennent des créatures magiques. Ces deux cas de figure exceptés, le type de la créature de base reste inchangé. La taille est inchangée. Les créatures célestes rencontrées dans le plan Matériel ont le sous-type extraplanaire.</p><p><b>Attaques spéciales.</b> La créature céleste conserve toutes les attaques spéciales de la créature de base et gagne la suivante.</p><p><i>Châtiment du Mal (Sur).</i> Une fois par jour, la créature céleste peut porter une attaque contre un adversaire d’alignement mauvais avec un bonus aux dégâts égal à son nombre de DV (maximum +20).</p><p><b>Particularités.</b> La créature céleste conserve toutes les particularités de la créature de base et gagne les suivantes.</p><p>• Vision dans le noir sur 18 mètres.</p><p>• Réduction des dégâts (voir table ci-dessous)</p><p>• Résistance à l’acide, au froid et à l’électricité (voir table ci-dessous)</p><p>• Résistance à la magie égale à 5 + son nombre de DV (25 maximum)</p><p>Si la créature de base possède déjà l’une de ces particularités, appliquez la valeur qui l’avantage le plus.</p><p>Si la créature obtient une réduction des dégâts, ses armes naturelles sont considérées comme étant magiques pour ce qui est d’ignorer la réduction des dégâts.</p><p><b>Caractéristiques.</b> Comme la créature de base, mais au moins 3 en Intelligence.</p><p><b>Environnement.</b> Un plan d’alignement bon.</p><p><b>Facteur de puissance.</b> Jusqu’à 3 DV, comme la créature de base ; de 4 à 7 DV, comme la créature de base +1 ; à partir de 8 DV, comme la créature de base +2.</p><p><b>Alignement.</b> Toujours bon (loyal, neutre ou chaotique).</p><p><b>Ajustement de niveau.</b> Comme la créature de base +2.</p>"
+    },
+    "bands": [
+      {
+        "minHD": 1,
+        "maxHD": 3,
+        "dr": "—",
+        "resistances": {
+          "en": "acid 5, cold 5, electricity 5",
+          "fr": "acide 5, froid 5, électricité 5"
+        }
+      },
+      {
+        "minHD": 4,
+        "maxHD": 7,
+        "dr": "5/magic",
+        "resistances": {
+          "en": "acid 5, cold 5, electricity 5",
+          "fr": "acide 5, froid 5, électricité 5"
+        }
+      },
+      {
+        "minHD": 8,
+        "maxHD": 11,
+        "dr": "5/magic",
+        "resistances": {
+          "en": "acid 10, cold 10, electricity 10",
+          "fr": "acide 10, froid 10, électricité 10"
+        }
+      },
+      {
+        "minHD": 12,
+        "maxHD": 99,
+        "dr": "10/magic",
+        "resistances": {
+          "en": "acid 10, cold 10, electricity 10",
+          "fr": "acide 10, froid 10, électricité 10"
+        }
+      }
+    ],
+    "srPlusHD": 5,
+    "smite": {
+      "en": "<i>Smite Evil (Su):</i> Once per day a celestial creature can make a normal melee attack to deal extra damage equal to its HD (maximum of +20) against an evil foe.",
+      "fr": "<i>Châtiment du Mal (Sur).</i> Une fois par jour, la créature céleste peut porter une attaque contre un adversaire d’alignement mauvais avec un bonus aux dégâts égal à son nombre de DV (maximum +20)."
+    },
+    "darkvision": 60,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/celestialCreature.htm",
+      "frRef": "DRS 35 (monstres A-De)"
+    }
+  },
+  {
+    "id": "fiendish",
+    "name": {
+      "en": "Fiendish Creature",
+      "fr": "Créature fiélon"
+    },
+    "text": {
+      "en": "<p>Fiendish creatures dwell on the lower planes, the realms of evil, although they resemble beings found on the Material Plane. They are more fearsome in appearance than their earthly counterparts.</p><p><b>Creating a Fiendish Creature</b></p><p>“Fiendish” is an inherited template that can be added to any corporeal aberration, animal, dragon, fey, giant, humanoid, magical beast, monstrous humanoid, ooze, plant, or vermin of nongood alignment (referred to thereafter as the base creature).</p><p>A fiendish creature uses all the base creature’s statistics and abilities except as noted here. Do not recalculate the creature’s Hit Dice, base attack bonus, saves, or skill points if its type changes.</p><p><b>Size and Type:</b> Animals or vermin with this template become magical beasts, but otherwise the creature type is unchanged. Size is unchanged. Fiendish creatures encountered on the Material Plane have the extraplanar subtype.</p><p><b>Special Attacks:</b> A fiendish creature retains all the special attacks of the base creature and also gains the following special attack.</p><p><b><i>Smite Good (Su):</i></b> Once per day the creature can make a normal melee attack to deal extra damage equal to its HD total (maximum of +20) against a good foe.</p><p><b>Special Qualities:</b> A fiendish creature retains all the special qualities of the base creature and also gains the following.</p><p>—Darkvision out to 60 feet.</p><p>—Damage reduction (see the table below).</p><p>—Resistance to cold and fire (see the table below).</p><p>—Spell resistance equal to the creature’s HD + 5 (maximum 25).</p><p>If the base creature already has one or more of these special qualities, use the better value.</p><p>If a fiendish creature gains damage reduction, its natural weapons are treated as magic weapons for the purpose of overcoming damage reduction.</p><p><b>Abilities:</b> Same as the base creature, but Intelligence is at least 3.</p><p><b>Environment:</b> Any evil-aligned plane.</p><p><b>Challenge Rating:</b> HD 3 or less, as base creature; HD 4 to 7, as base creature +1; HD 8 or more, as base creature +2.</p><p><b>Alignment:</b> Always evil (any).</p><p><b>Level Adjustment:</b> Same as the base creature +2.</p>",
+      "fr": "<p>Bien qu’elles ressemblent aux créatures évoluant dans le plan Matériel, les créatures fiélons résident dans les plans inférieurs, vouées au Mal. Elles sont plus terrifiantes que les mortels qu’elles rappellent.</p><p><b>Création de créature fiélon</b></p><p>L’archétype hérité « créature fiélon » peut être ajouté à n’importe quelle créature tangible de type aberration, animal, créature magique, dragon, fée, géant, humanoïde, humanoïde monstrueux, plante, vase ou vermine dont l’alignement est autre que bon (appelée ci-après « créature de base »).</p><p>La créature fiélon conserve le profil et les pouvoirs de la créature de base, exception faite de ce qui suit. Même si son type change, il ne faut pas recalculer ses dés de vie, bonus de base à l’attaque et aux sauvegardes ou points de compétences.</p><p><b>Taille et type.</b> Animaux et vermines agrémentés de cet archétype deviennent des créatures magiques. Ces deux cas de figure exceptés, le type de la créature de base reste inchangé. La taille est inchangée. Les créatures fiélons rencontrées dans le plan Matériel ont le sous-type extraplanaire.</p><p><b>Attaques spéciales.</b> La créature fiélon conserve toutes les attaques spéciales de la créature de base et gagne la suivante.</p><p><i>Châtiment du Bien (Sur).</i> Une fois par jour, la créature fiélon peut porter, contre un adversaire d’alignement bon, une attaque au cours de laquelle elle cause un supplément de dégâts égal à son nombre de DV (maximum +20).</p><p><b>Particularités.</b> La créature fiélon conserve toutes les particularités de la créature de base et gagne les suivantes.</p><p>• Vision dans le noir sur 18 mètres.</p><p>• Réduction des dégâts (voir table ci-dessous)</p><p>• Résistance au feu et au froid (voir table ci-dessous)</p><p>• Résistance à la magie égale à 5 + son nombre de DV (25 maximum)</p><p>Si la créature de base possède déjà l’une de ces particularités, appliquez la valeur qui l’avantage le plus.</p><p>Si la créature obtient une réduction des dégâts, ses armes naturelles sont considérées comme étant magiques pour ce qui est d’ignorer la réduction des dégâts.</p><p><b>Caractéristiques.</b> Comme la créature de base, mais au moins 3 en Intelligence.</p><p><b>Environnement.</b> Un plan d’alignement mauvais.</p><p><b>Facteur de puissance.</b> Jusqu’à 3 DV, comme la créature de base ; de 4 à 7 DV, comme la créature de base +1 ; à partir de 8 DV, comme la créature de base +2.</p><p><b>Alignement.</b> Toujours mauvais (loyal, neutre ou chaotique).</p><p><b>Ajustement de niveau.</b> Comme la créature de base +2.</p>"
+    },
+    "bands": [
+      {
+        "minHD": 1,
+        "maxHD": 3,
+        "dr": "—",
+        "resistances": {
+          "en": "cold 5, fire 5",
+          "fr": "froid 5, feu 5"
+        }
+      },
+      {
+        "minHD": 4,
+        "maxHD": 7,
+        "dr": "5/magic",
+        "resistances": {
+          "en": "cold 5, fire 5",
+          "fr": "froid 5, feu 5"
+        }
+      },
+      {
+        "minHD": 8,
+        "maxHD": 11,
+        "dr": "5/magic",
+        "resistances": {
+          "en": "cold 10, fire 10",
+          "fr": "froid 10, feu 10"
+        }
+      },
+      {
+        "minHD": 12,
+        "maxHD": 99,
+        "dr": "10/magic",
+        "resistances": {
+          "en": "cold 10, fire 10",
+          "fr": "froid 10, feu 10"
+        }
+      }
+    ],
+    "srPlusHD": 5,
+    "smite": {
+      "en": "<i>Smite Good (Su):</i> Once per day the creature can make a normal melee attack to deal extra damage equal to its HD total (maximum of +20) against a good foe.",
+      "fr": "<i>Châtiment du Bien (Sur).</i> Une fois par jour, la créature fiélon peut porter, contre un adversaire d’alignement bon, une attaque au cours de laquelle elle cause un supplément de dégâts égal à son nombre de DV (maximum +20)."
+    },
+    "darkvision": 60,
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/fiendishCreature.htm",
+      "frRef": "DRS 35 (monstres A-De)"
+    }
+  }
+]

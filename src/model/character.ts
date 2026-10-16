@@ -66,7 +66,7 @@ export interface MartialState {
 /** Prepared spells of one casting class (slots by spell level; spontaneous casters only count casts). */
 export interface SpellcastingState {
   /** Spell level -> prepared slots (spell id, cast today or not). */
-  prepared: Record<number, { id: string; cast: boolean }[]>
+  prepared: Record<number, { id: string; cast: boolean; spontaneous?: string }[]>
   /** Spontaneous casters: spells cast today per spell level. */
   castCount?: Record<number, number>
 }
@@ -98,6 +98,8 @@ export interface SummonState extends CreatureState {
   spellId?: string
   /** Augment Summoning applied (+4 Str and Con). */
   augmented: boolean
+  /** Summon Monster: celestial or fiendish template (templates.json id). */
+  template?: string
 }
 
 /** Druid wild shape in progress (https://www.d20srd.org/srd/classes/druid.htm#wildShape). */

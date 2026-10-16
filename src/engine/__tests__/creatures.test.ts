@@ -12,7 +12,7 @@ describe('creature data', () => {
     expect([s.saves.fort.total, s.saves.ref.total, s.saves.will.total]).toEqual([5, 5, 1])
   })
   it('summon lists point to existing creatures and spells', () => {
-    expect(rules.summonLists).toHaveLength(9)
+    expect(rules.summonLists).toHaveLength(18) // Summon Nature's Ally I-IX + Summon Monster I-IX
     for (const l of rules.summonLists) {
       expect(rules.spells.has(l.spellId)).toBe(true)
       for (const id of l.creatures) expect(rules.creatures.has(id)).toBe(true)

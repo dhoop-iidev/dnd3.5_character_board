@@ -16,6 +16,8 @@ import type {
   CompanionData,
   CreatureDef,
   SummonList,
+  DomainDef,
+  TemplateDef,
   SkillDef,
   SpellDef,
   SynergyDef,
@@ -32,6 +34,9 @@ import spells from './srd/spells.json'
 import creatures from './srd/creatures.json'
 import companions from './srd/companions.json'
 import summonLists from './srd/summon-lists.json'
+
+import domains from './srd/domains.json'
+import templates from './srd/templates.json'
 import weapons from './srd/weapons.json'
 import armor from './srd/armor.json'
 import gear from './srd/gear.json'
@@ -75,6 +80,8 @@ export interface Rules {
   creatures: Map<string, CreatureDef>
   companions?: CompanionData
   summonLists: SummonList[]
+  domains: Map<string, DomainDef>
+  templates: Map<string, TemplateDef>
 }
 
 function index<T extends { id: string }>(list: T[]): Map<string, T> {
@@ -110,6 +117,8 @@ export function buildRules(): Rules {
     creatures: index(creatures as unknown as CreatureDef[]),
     companions: companions as unknown as CompanionData,
     summonLists: summonLists as unknown as SummonList[],
+    domains: index(domains as unknown as DomainDef[]),
+    templates: index(templates as unknown as TemplateDef[]),
   }
 }
 

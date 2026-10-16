@@ -321,7 +321,7 @@ def spell(w, x):
     """SpellDef (types.ts)."""
     req = {"id", "name", "school", "level", "components", "castingTime", "range", "duration", "save", "spellResistance",
            "summary", "text", "source"}
-    if not req <= set(x) or set(x) - req - {"target", "area", "effect"}:
+    if not req <= set(x) or set(x) - req - {"target", "area", "effect", "schoolId", "subschool", "descriptors"}:
         err(w, f"keys {set(x) ^ req}")
         return
     for k in (req - {"id", "level", "components", "source"}) | ({"target", "area", "effect"} & set(x)):
@@ -330,7 +330,7 @@ def spell(w, x):
         err(w, "no target, area or effect")
     if not (isinstance(x["components"], str) and x["components"]):
         err(w, "bad components")
-    if not x["level"] or set(x["level"]) - LISTS or not all(isinstance(v, int) and 0 <= v <= 9 for v in x["level"].values()):
+    if not x["level"] or {k for k in x["level"] if not k.startswith("domain:")} - LISTS or not all(isinstance(v, int) and 0 <= v <= 9 for v in x["level"].values()):
         err(w, f"bad level {x['level']}")
     if any(not v.startswith("<p>") or len(v) > 6100 for v in x["text"].values()):
         err(w, "text must be <p> HTML of at most ~6000 chars")
@@ -453,10 +453,10 @@ def creature_lists(companions, summon, creature_ids, spell_ids):
             err(w, f"bad option {o}")
     source(w, companions["source"])
     w = "summon-lists.json"
-    if [x.get("level") for x in summon] != list(range(1, 10)):
+    if [x.get("level") for x in summon if x["spellId"].startswith("summon-natures-ally-")] != list(range(1, 10)):
         err(w, "levels 1-9 expected")
     for x in summon:
-        if set(x) != {"spellId", "level", "creatures"} or x["spellId"] not in spell_ids:
+        if set(x) - {"templates", "alignments"} != {"spellId", "level", "creatures"} or x["spellId"] not in spell_ids:
             err(w, f"bad list {x.get('spellId')}")
         for c in x["creatures"]:
             if c not in creature_ids:
@@ -679,6 +679,8 @@ def main():
     spell_lists = {c["spellcasting"]["list"]: c for c in files["classes.json"] if "spellcasting" in c}
     for x in files["spells.json"]:
         for lst, lv in x["level"].items():
+            if lst.startswith("domain:"):
+                continue  # domain levels: validate_spells_domains
             if lst not in spell_lists:
                 err(f"spell {x['id']}", f"unknown spell list {lst}")
             elif not 0 <= lv <= spell_lists[lst]["spellcasting"]["maxSpellLevel"]:
@@ -696,6 +698,10 @@ def main():
     wild_shape_complete(files["creatures.json"])
     creature_lists(files["companions.json"], files["summon-lists.json"], {x["id"] for x in files["creatures.json"]},
                    {x["id"] for x in files["spells.json"]})
+    import validate_summon_monster
+    validate_summon_monster.check(err, files, warn=WARN.append)
+    import validate_spells_domains
+    validate_spells_domains.check(err, {k: v for k, v in files.items() if isinstance(v, list)}, warn=WARN.append)
 
     check_ids("item-properties.json", files["item-properties.json"])
     for x in files["item-properties.json"]:
@@ -808,22 +814,22 @@ def spot_checks(files, custom):
     sp = by["spells.json"]
     rl = [x for x in sp.values() if "ranger" in x["level"]]
     dl = [x for x in sp.values() if "druid" in x["level"]]
-    expect("173 spells: 169 druid (levels 0-9) + ranger-only, 51 ranger (19/12/13/7 by level 1-4)",
-           len(sp) == 173 and len(dl) == 169 and len(rl) == 51 and [
+    expect("383 spells: cleric 231, druid 169, ranger 51 (19/12/13/7 by level 1-4), and the domain spells",
+           len(sp) == 383 and sum(1 for x in sp.values() if "cleric" in x["level"]) == 231 and len(dl) == 169 and len(rl) == 51 and [
         sum(1 for x in rl if x["level"]["ranger"] == lv) for lv in (1, 2, 3, 4)] == [19, 12, 13, 7])
     expect("entangle: druid 1 / ranger 1, Enchevêtrement",
-           sp["entangle"]["level"] == {"druid": 1, "ranger": 1} and sp["entangle"]["name"]["fr"] == "Enchevêtrement")
+           sp["entangle"]["level"] == {"domain:plant": 1, "druid": 1, "ranger": 1} and sp["entangle"]["name"]["fr"] == "Enchevêtrement")
     expect("goodberry: druid 1, Baie nourricière", sp["goodberry"]["level"] == {"druid": 1}
            and sp["goodberry"]["name"]["fr"] == "Baie nourricière")
     expect("shapechange: druid 9 / sorcerer-wizard 9, Changement de forme",
-           sp["shapechange"]["level"] == {"druid": 9, "sorcerer-wizard": 9} and sp["shapechange"]["name"]["fr"] == "Changement de forme")
+           sp["shapechange"]["level"] == {"domain:animal": 9, "druid": 9, "sorcerer-wizard": 9} and sp["shapechange"]["name"]["fr"] == "Changement de forme")
     expect("detect magic: druid 0, school Divination (French SRD 'Universel' corrected)",
            sp["detect-magic"]["level"]["druid"] == 0 and sp["detect-magic"]["school"]["fr"] == "Divination")
     expect("cure light wounds: ranger 2, Soins légers", sp["cure-light-wounds"]["level"]["ranger"] == 2
            and sp["cure-light-wounds"]["name"]["fr"] == "Soins légers")
     cr = by["creatures.json"]
     wolf = cr["wolf"]
-    expect("137 creatures (companion lists + Summon Nature's Ally I-IX: 115; other animals and plants: 22)", len(cr) == 137)
+    expect("195 creatures (companion lists + Summon Nature's Ally I-IX: 115; other animals and plants: 22; Summon Monster I-IX base creatures: 58)", len(cr) == 195)
     wh = cr["warhorse-heavy"]
     expect("heavy warhorse: Cheval de guerre lourd, 4d8+12, 2 hooves +6 1d6+4 primary, bite +1 1d4+2 secondary, #warhorseHeavy",
            wh["name"]["fr"].startswith("Cheval de guerre lourd") and wh["hp"] == 30
@@ -851,7 +857,7 @@ def spot_checks(files, custom):
     bb = cr["bear-black"]
     expect("black bear: 2 claws +6 primary, bite +1 secondary (½ Str)",
            [(a["count"], a["bonus"], a["role"], a["strDamageFactor"]) for a in bb["attacks"]] == [(2, 6, "primary", 1), (1, 1, "secondary", 0.5)])
-    sl = {x["level"]: x for x in files["summon-lists.json"]}
+    sl = {x["level"]: x for x in files["summon-lists.json"] if x["spellId"].startswith("summon-natures-ally-")}
     expect("SNA I: 8 creatures incl. wolf, dire rat; SNA IX: 4 elder elementals, grig, pixie, celestial charger",
            len(sl[1]["creatures"]) == 8 and {"wolf", "dire-rat"} <= set(sl[1]["creatures"])
            and set(sl[9]["creatures"]) == {"elemental-elder-air", "elemental-elder-earth", "elemental-elder-fire",

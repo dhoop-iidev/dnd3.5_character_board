@@ -235,6 +235,26 @@
   {#if d.specialAttacks.en || d.specialQualities.en}
     <p class="line"><small>{[tr(d.specialAttacks), tr(d.specialQualities)].filter((x) => x).join(' · ')}</small></p>
   {/if}
+  {#if s.template}
+    <p class="line">
+      <button
+        class="link chip"
+        onclick={() =>
+          openPopup({
+            title: s.template!.def.name,
+            html: s.template!.def.text,
+            lines: [s.template!.def.smite],
+            source: s.template!.def.source,
+          })}>{tr(s.template.def.name)}</button
+      >
+      <small
+        >{tr({ en: 'DR', fr: 'RD' })}
+        {lang() === 'fr' ? s.template.dr.replace('magic', 'magie') : s.template.dr} · {tr(s.template.resistances)} · {tr({ en: 'SR', fr: 'RM' })}
+        {s.template.sr} · {tr({ en: 'darkvision', fr: 'vision dans le noir' })}
+        {fmtDistance(ftToDistance(s.template.def.darkvision), lang())} · {tr({ en: 'smite 1/day', fr: 'châtiment 1/jour' })}</small
+      >
+    </p>
+  {/if}
   {#if s.special.length}
     <p class="line">
       {#each s.special as sp (sp.id)}

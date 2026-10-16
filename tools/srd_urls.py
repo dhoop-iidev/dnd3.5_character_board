@@ -61,7 +61,12 @@ MONSTER_PAGES = [f"monsters/{p}.htm" for p in (
     "tojanida", "unicorn", "whale", "wolf", "wolverine", "xorn",
     # wild shape forms (animals and plants not on the druid lists)
     "assassinVine", "baboon", "bat", "cat", "donkey", "fungus", "hyena", "lizard", "mantaRay", "mule", "phantomFungus",
-    "ponyWar", "rat", "raven", "shamblingMound", "swarm", "tendriculos", "toad", "treant", "weasel")]
+    "ponyWar", "rat", "raven", "shamblingMound", "swarm", "tendriculos", "toad", "treant", "weasel",
+    # Summon Monster I-IX base creatures (build_creatures.SUMMON_MONSTER) and the celestial / fiendish templates
+    "achaierai", "archon", "avoral", "bralani", "chaosBeast", "couatl", "demon", "devil", "giantBee",
+    "giantBombardierBeetle", "giantFireBeetle", "giantPrayingMantis", "giantStagBeetle", "giantWasp", "hellHound",
+    "howler", "leonal", "lillend", "mephit", "monstrousCentipede", "monstrousScorpion", "monstrousSpider", "nightHag",
+    "shadowMastiff", "xill", "yethHound", "celestialCreature", "fiendishCreature")]
 PAGES += MONSTER_PAGES
 
 _SMALL = {"of", "and", "or", "the", "in", "a", "an", "to", "by", "with", "on", "for", "than", "at"}

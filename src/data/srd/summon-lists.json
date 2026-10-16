@@ -157,5 +157,646 @@
       "pixie",
       "unicorn-celestial-charger"
     ]
+  },
+  {
+    "spellId": "summon-monster-i",
+    "level": 1,
+    "creatures": [
+      "badger",
+      "beetle-giant-fire",
+      "dire-rat",
+      "dog",
+      "hawk",
+      "monkey",
+      "monstrous-centipede-medium",
+      "monstrous-scorpion-small",
+      "monstrous-spider-small",
+      "octopus",
+      "owl",
+      "porpoise",
+      "raven",
+      "snake-small-viper"
+    ],
+    "templates": {
+      "badger": [
+        "celestial"
+      ],
+      "beetle-giant-fire": [
+        "celestial"
+      ],
+      "dire-rat": [
+        "fiendish"
+      ],
+      "dog": [
+        "celestial"
+      ],
+      "hawk": [
+        "fiendish"
+      ],
+      "monkey": [
+        "celestial"
+      ],
+      "monstrous-centipede-medium": [
+        "fiendish"
+      ],
+      "monstrous-scorpion-small": [
+        "fiendish"
+      ],
+      "monstrous-spider-small": [
+        "fiendish"
+      ],
+      "octopus": [
+        "fiendish"
+      ],
+      "owl": [
+        "celestial"
+      ],
+      "porpoise": [
+        "celestial"
+      ],
+      "raven": [
+        "fiendish"
+      ],
+      "snake-small-viper": [
+        "fiendish"
+      ]
+    },
+    "alignments": {
+      "badger": "CG",
+      "beetle-giant-fire": "NG",
+      "dire-rat": "LE",
+      "dog": "LG",
+      "hawk": "CE",
+      "monkey": "CG",
+      "monstrous-centipede-medium": "NE",
+      "monstrous-scorpion-small": "NE",
+      "monstrous-spider-small": "CE",
+      "octopus": "CE",
+      "owl": "LG",
+      "porpoise": "NG",
+      "raven": "LE",
+      "snake-small-viper": "CE"
+    }
+  },
+  {
+    "spellId": "summon-monster-ii",
+    "level": 2,
+    "creatures": [
+      "bee-giant",
+      "beetle-giant-bombardier",
+      "dog-riding",
+      "eagle",
+      "lemure",
+      "monstrous-centipede-large",
+      "monstrous-scorpion-medium",
+      "monstrous-spider-medium",
+      "shark-medium",
+      "snake-medium-viper",
+      "squid",
+      "wolf"
+    ],
+    "templates": {
+      "bee-giant": [
+        "celestial"
+      ],
+      "beetle-giant-bombardier": [
+        "celestial"
+      ],
+      "dog-riding": [
+        "celestial"
+      ],
+      "eagle": [
+        "celestial"
+      ],
+      "monstrous-centipede-large": [
+        "fiendish"
+      ],
+      "monstrous-scorpion-medium": [
+        "fiendish"
+      ],
+      "monstrous-spider-medium": [
+        "fiendish"
+      ],
+      "shark-medium": [
+        "fiendish"
+      ],
+      "snake-medium-viper": [
+        "fiendish"
+      ],
+      "squid": [
+        "fiendish"
+      ],
+      "wolf": [
+        "fiendish"
+      ]
+    },
+    "alignments": {
+      "bee-giant": "LG",
+      "beetle-giant-bombardier": "NG",
+      "dog-riding": "NG",
+      "eagle": "CG",
+      "lemure": "LE",
+      "monstrous-centipede-large": "NE",
+      "monstrous-scorpion-medium": "NE",
+      "monstrous-spider-medium": "CE",
+      "shark-medium": "NE",
+      "snake-medium-viper": "CE",
+      "squid": "LE",
+      "wolf": "LE"
+    }
+  },
+  {
+    "spellId": "summon-monster-iii",
+    "level": 3,
+    "creatures": [
+      "ape",
+      "bear-black",
+      "bison",
+      "boar",
+      "crocodile",
+      "dire-badger",
+      "dire-bat",
+      "dire-weasel",
+      "dretch",
+      "elemental-small-air",
+      "elemental-small-earth",
+      "elemental-small-fire",
+      "elemental-small-water",
+      "hell-hound",
+      "hippogriff",
+      "monstrous-centipede-huge",
+      "snake-constrictor",
+      "snake-large-viper",
+      "wolverine"
+    ],
+    "templates": {
+      "ape": [
+        "fiendish"
+      ],
+      "bear-black": [
+        "celestial"
+      ],
+      "bison": [
+        "celestial"
+      ],
+      "boar": [
+        "fiendish"
+      ],
+      "crocodile": [
+        "fiendish"
+      ],
+      "dire-badger": [
+        "celestial"
+      ],
+      "dire-bat": [
+        "fiendish"
+      ],
+      "dire-weasel": [
+        "fiendish"
+      ],
+      "hippogriff": [
+        "celestial"
+      ],
+      "monstrous-centipede-huge": [
+        "fiendish"
+      ],
+      "snake-constrictor": [
+        "fiendish"
+      ],
+      "snake-large-viper": [
+        "fiendish"
+      ],
+      "wolverine": [
+        "fiendish"
+      ]
+    },
+    "alignments": {
+      "ape": "LE",
+      "bear-black": "LG",
+      "bison": "NG",
+      "boar": "NE",
+      "crocodile": "CE",
+      "dire-badger": "CG",
+      "dire-bat": "NE",
+      "dire-weasel": "LE",
+      "dretch": "CE",
+      "elemental-small-air": "N",
+      "elemental-small-earth": "N",
+      "elemental-small-fire": "N",
+      "elemental-small-water": "N",
+      "hell-hound": "LE",
+      "hippogriff": "CG",
+      "monstrous-centipede-huge": "NE",
+      "snake-constrictor": "LE",
+      "snake-large-viper": "CE",
+      "wolverine": "CE"
+    }
+  },
+  {
+    "spellId": "summon-monster-iv",
+    "level": 4,
+    "creatures": [
+      "archon-lantern",
+      "dire-wolf",
+      "eagle-giant",
+      "howler",
+      "lion",
+      "mephit-air",
+      "mephit-dust",
+      "mephit-earth",
+      "mephit-fire",
+      "mephit-ice",
+      "mephit-magma",
+      "mephit-ooze",
+      "mephit-salt",
+      "mephit-steam",
+      "mephit-water",
+      "monstrous-spider-large",
+      "owl-giant",
+      "praying-mantis-giant",
+      "shark-large",
+      "snake-huge-viper",
+      "wasp-giant",
+      "yeth-hound"
+    ],
+    "templates": {
+      "dire-wolf": [
+        "fiendish"
+      ],
+      "eagle-giant": [
+        "celestial"
+      ],
+      "lion": [
+        "celestial"
+      ],
+      "monstrous-spider-large": [
+        "fiendish"
+      ],
+      "owl-giant": [
+        "celestial"
+      ],
+      "praying-mantis-giant": [
+        "fiendish"
+      ],
+      "shark-large": [
+        "fiendish"
+      ],
+      "snake-huge-viper": [
+        "fiendish"
+      ],
+      "wasp-giant": [
+        "fiendish"
+      ]
+    },
+    "alignments": {
+      "archon-lantern": "LG",
+      "dire-wolf": "LE",
+      "eagle-giant": "CG",
+      "howler": "CE",
+      "lion": "CG",
+      "mephit-air": "N",
+      "mephit-dust": "N",
+      "mephit-earth": "N",
+      "mephit-fire": "N",
+      "mephit-ice": "N",
+      "mephit-magma": "N",
+      "mephit-ooze": "N",
+      "mephit-salt": "N",
+      "mephit-steam": "N",
+      "mephit-water": "N",
+      "monstrous-spider-large": "CE",
+      "owl-giant": "LG",
+      "praying-mantis-giant": "NE",
+      "shark-large": "NE",
+      "snake-huge-viper": "CE",
+      "wasp-giant": "LE",
+      "yeth-hound": "NE"
+    }
+  },
+  {
+    "spellId": "summon-monster-v",
+    "level": 5,
+    "creatures": [
+      "achaierai",
+      "archon-hound",
+      "bear-brown",
+      "beetle-giant-stag",
+      "crocodile-giant",
+      "deinonychus",
+      "devil-bearded",
+      "dire-ape",
+      "dire-boar",
+      "dire-wolverine",
+      "elemental-medium-air",
+      "elemental-medium-earth",
+      "elemental-medium-fire",
+      "elemental-medium-water",
+      "griffon",
+      "monstrous-scorpion-large",
+      "sea-cat",
+      "shadow-mastiff",
+      "shark-huge",
+      "tiger"
+    ],
+    "templates": {
+      "bear-brown": [
+        "celestial"
+      ],
+      "beetle-giant-stag": [
+        "celestial"
+      ],
+      "crocodile-giant": [
+        "fiendish"
+      ],
+      "deinonychus": [
+        "fiendish"
+      ],
+      "dire-ape": [
+        "fiendish"
+      ],
+      "dire-boar": [
+        "fiendish"
+      ],
+      "dire-wolverine": [
+        "fiendish"
+      ],
+      "griffon": [
+        "celestial"
+      ],
+      "monstrous-scorpion-large": [
+        "fiendish"
+      ],
+      "sea-cat": [
+        "celestial"
+      ],
+      "shark-huge": [
+        "fiendish"
+      ],
+      "tiger": [
+        "fiendish"
+      ]
+    },
+    "alignments": {
+      "achaierai": "LE",
+      "archon-hound": "LG",
+      "bear-brown": "LG",
+      "beetle-giant-stag": "NG",
+      "crocodile-giant": "CE",
+      "deinonychus": "LE",
+      "devil-bearded": "LE",
+      "dire-ape": "LE",
+      "dire-boar": "NE",
+      "dire-wolverine": "CE",
+      "elemental-medium-air": "N",
+      "elemental-medium-earth": "N",
+      "elemental-medium-fire": "N",
+      "elemental-medium-water": "N",
+      "griffon": "CG",
+      "monstrous-scorpion-large": "NE",
+      "sea-cat": "NG",
+      "shadow-mastiff": "NE",
+      "shark-huge": "NE",
+      "tiger": "CE"
+    }
+  },
+  {
+    "spellId": "summon-monster-vi",
+    "level": 6,
+    "creatures": [
+      "bear-polar",
+      "bralani",
+      "chaos-beast",
+      "devil-chain",
+      "dire-lion",
+      "elasmosaurus",
+      "elemental-large-air",
+      "elemental-large-earth",
+      "elemental-large-fire",
+      "elemental-large-water",
+      "janni",
+      "monstrous-centipede-gargantuan",
+      "monstrous-spider-huge",
+      "rhinoceros",
+      "snake-constrictor-giant",
+      "whale-orca",
+      "xill"
+    ],
+    "templates": {
+      "bear-polar": [
+        "celestial"
+      ],
+      "dire-lion": [
+        "celestial"
+      ],
+      "elasmosaurus": [
+        "fiendish"
+      ],
+      "monstrous-centipede-gargantuan": [
+        "fiendish"
+      ],
+      "monstrous-spider-huge": [
+        "fiendish"
+      ],
+      "rhinoceros": [
+        "fiendish"
+      ],
+      "snake-constrictor-giant": [
+        "fiendish"
+      ],
+      "whale-orca": [
+        "celestial"
+      ]
+    },
+    "alignments": {
+      "bear-polar": "LG",
+      "bralani": "CG",
+      "chaos-beast": "CN",
+      "devil-chain": "LE",
+      "dire-lion": "CG",
+      "elasmosaurus": "CE",
+      "elemental-large-air": "N",
+      "elemental-large-earth": "N",
+      "elemental-large-fire": "N",
+      "elemental-large-water": "N",
+      "janni": "N",
+      "monstrous-centipede-gargantuan": "NE",
+      "monstrous-spider-huge": "CE",
+      "rhinoceros": "NE",
+      "snake-constrictor-giant": "CE",
+      "whale-orca": "NG",
+      "xill": "LE"
+    }
+  },
+  {
+    "spellId": "summon-monster-vii",
+    "level": 7,
+    "creatures": [
+      "avoral",
+      "babau",
+      "devil-bone",
+      "djinni",
+      "elemental-huge-air",
+      "elemental-huge-earth",
+      "elemental-huge-fire",
+      "elemental-huge-water",
+      "elephant",
+      "girallon",
+      "invisible-stalker",
+      "megaraptor",
+      "monstrous-scorpion-huge",
+      "octopus-giant",
+      "whale-baleen"
+    ],
+    "templates": {
+      "elephant": [
+        "celestial"
+      ],
+      "girallon": [
+        "fiendish"
+      ],
+      "megaraptor": [
+        "fiendish"
+      ],
+      "monstrous-scorpion-huge": [
+        "fiendish"
+      ],
+      "octopus-giant": [
+        "fiendish"
+      ],
+      "whale-baleen": [
+        "celestial"
+      ]
+    },
+    "alignments": {
+      "avoral": "NG",
+      "babau": "CE",
+      "devil-bone": "LE",
+      "djinni": "CG",
+      "elemental-huge-air": "N",
+      "elemental-huge-earth": "N",
+      "elemental-huge-fire": "N",
+      "elemental-huge-water": "N",
+      "elephant": "LG",
+      "girallon": "CE",
+      "invisible-stalker": "N",
+      "megaraptor": "LE",
+      "monstrous-scorpion-huge": "NE",
+      "octopus-giant": "CE",
+      "whale-baleen": "NG"
+    }
+  },
+  {
+    "spellId": "summon-monster-viii",
+    "level": 8,
+    "creatures": [
+      "dire-bear",
+      "dire-tiger",
+      "elemental-greater-air",
+      "elemental-greater-earth",
+      "elemental-greater-fire",
+      "elemental-greater-water",
+      "hellcat",
+      "lillend",
+      "monstrous-centipede-colossal",
+      "monstrous-spider-gargantuan",
+      "squid-giant",
+      "triceratops",
+      "tyrannosaurus",
+      "vrock",
+      "whale-cachalot"
+    ],
+    "templates": {
+      "dire-bear": [
+        "celestial"
+      ],
+      "dire-tiger": [
+        "fiendish"
+      ],
+      "monstrous-centipede-colossal": [
+        "fiendish"
+      ],
+      "monstrous-spider-gargantuan": [
+        "fiendish"
+      ],
+      "squid-giant": [
+        "fiendish"
+      ],
+      "triceratops": [
+        "celestial"
+      ],
+      "tyrannosaurus": [
+        "fiendish"
+      ],
+      "whale-cachalot": [
+        "celestial"
+      ]
+    },
+    "alignments": {
+      "dire-bear": "LG",
+      "dire-tiger": "CE",
+      "elemental-greater-air": "N",
+      "elemental-greater-earth": "N",
+      "elemental-greater-fire": "N",
+      "elemental-greater-water": "N",
+      "hellcat": "LE",
+      "lillend": "CG",
+      "monstrous-centipede-colossal": "NE",
+      "monstrous-spider-gargantuan": "CE",
+      "squid-giant": "LE",
+      "triceratops": "NG",
+      "tyrannosaurus": "CE",
+      "vrock": "CE",
+      "whale-cachalot": "NG"
+    }
+  },
+  {
+    "spellId": "summon-monster-ix",
+    "level": 9,
+    "creatures": [
+      "bebilith",
+      "couatl",
+      "devil-barbed",
+      "dire-shark",
+      "elemental-elder-air",
+      "elemental-elder-earth",
+      "elemental-elder-fire",
+      "elemental-elder-water",
+      "hezrou",
+      "leonal",
+      "monstrous-scorpion-gargantuan",
+      "monstrous-spider-colossal",
+      "night-hag",
+      "roc"
+    ],
+    "templates": {
+      "dire-shark": [
+        "fiendish"
+      ],
+      "monstrous-scorpion-gargantuan": [
+        "fiendish"
+      ],
+      "monstrous-spider-colossal": [
+        "fiendish"
+      ],
+      "roc": [
+        "celestial"
+      ]
+    },
+    "alignments": {
+      "bebilith": "CE",
+      "couatl": "LG",
+      "devil-barbed": "LE",
+      "dire-shark": "NE",
+      "elemental-elder-air": "N",
+      "elemental-elder-earth": "N",
+      "elemental-elder-fire": "N",
+      "elemental-elder-water": "N",
+      "hezrou": "CE",
+      "leonal": "NG",
+      "monstrous-scorpion-gargantuan": "NE",
+      "monstrous-spider-colossal": "CE",
+      "night-hag": "NE",
+      "roc": "CG"
+    }
   }
 ]

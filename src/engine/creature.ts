@@ -3,7 +3,7 @@
 // Augment Summoning (+4 Str and Con: https://www.d20srd.org/srd/feats.htm#augmentSummoning), and the hit point option
 // (maximum hit dice or hit points entered by hand).
 import type { Rules } from '../data/rules'
-import type { AbilityId, CompanionAdvancementRow, CreatureAttack, CreatureDef, I18n } from '../data/types'
+import type { AbilityId, CompanionAdvancementRow, CreatureAttack, CreatureDef, I18n, TemplateDef } from '../data/types'
 import { ABILITIES } from '../data/types'
 import { i18n, resolve, type Part, type Stat } from './stacking'
 
@@ -37,6 +37,9 @@ export interface CreatureOptions {
   /** Maximum hit points for every hit die (otherwise `hpManual`, or the printed average). */
   maxHp?: boolean
   hpManual?: number
+  /** Celestial / fiendish template (Summon Monster): damage reduction, resistances, spell resistance by Hit Dice,
+   * smite, darkvision, Int at least 3 (https://www.d20srd.org/srd/monsters/celestialCreature.htm). */
+  template?: TemplateDef
 }
 
 export interface CreatureAttackLine {
@@ -65,6 +68,8 @@ export interface CreatureSheet {
   attacks: CreatureAttackLine[]
   /** Alternative full attacks ("or" in the stat block). */
   altAttacks: CreatureAttackLine[][]
+  /** Template applied: name, damage reduction, resistances, spell resistance, smite. */
+  template?: { def: TemplateDef; dr: string; resistances: I18n; sr: number }
   /** Companion special abilities gained (link, share spells, evasion…). */
   special: { id: string; name: I18n; text: I18n }[]
 }
@@ -93,6 +98,9 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
       parts.push({ sourceId: 'companion', label: i18n('Companion Str/Dex adjustment', 'Ajustement For/Dex du compagnon'), value: adv.strDexAdj, bonusType: 'base', source: advSource })
     if (base !== null && opts.augment && (a === 'str' || a === 'con'))
       parts.push({ sourceId: 'augment', label: i18n('Augment Summoning', 'Convocation suprême'), value: 4, bonusType: 'enhancement', source: { srdUrl: AUGMENT } })
+    // Celestial/fiendish: Intelligence at least 3.
+    if (opts.template && a === 'int' && base !== null && base < 3)
+      parts.push({ sourceId: 'template', label: opts.template.name, value: 3 - base, bonusType: 'base', source: opts.template.source })
     const stat = resolve(parts)
     const score = base === null ? null : stat.total
     abilities[a] = { score, mod: mod(score), stat }
@@ -190,7 +198,10 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
   // Alternative full attacks ("or" in the stat block).
   const altAttacks = (def.altAttacks ?? []).map((r) => r.map(attackLine))
 
-  return { def, hitDice: hd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, special }
+  const t = opts.template
+  const band = t?.bands.find((b) => hd >= b.minHD && hd <= b.maxHD)
+  const template = t ? { def: t, dr: band?.dr ?? '—', resistances: band?.resistances ?? { en: '—', fr: '—' }, sr: Math.min(25, hd + t.srPlusHD) } : undefined
+  return { def, hitDice: hd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special }
 }
 
 /** Effective druid level for the animal companion: druid level + ½ ranger level from ranger 4 (FAQ p. 29). */

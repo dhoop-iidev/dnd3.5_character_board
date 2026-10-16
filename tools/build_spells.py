@@ -1,28 +1,50 @@
-"""Spells (src/data/srd/spells.json): every spell of the druid (levels 0-9) and ranger (levels 1-4) spell lists, with its
-level on every core class list (cleric domains are out of scope).
+"""Spells (src/data/srd/spells.json): every spell of the cleric (levels 0-9), druid (0-9) and ranger (1-4) spell lists and
+of the 22 SRD cleric domains, with its level on every core class list and on each core domain ("domain:<id>").
 
 English: Andargor SRD SQLite (`spell`). French: official French SRD, DRS 22a-d (spell entries) and DRS 21 (spell
-lists: one-line summaries, and the "Sorts de druide" / "Sorts de rôdeur" lists used as a check: the French entry must
-be on the list at the same level). An English spell is matched to the French entry with the same core class levels and
-school + subschool (HAND_FR settles the ties; FR_HEADER_ERRATA fixes the few French header lines that contradict the
-SRD); French entries that only say "semblable à X" inherit the missing header lines from X, as the SRD rule says.
+lists: one-line summaries, and the "Sorts de prêtre" / "Sorts de druide" / "Sorts de rôdeur" lists used as a check: the
+French entry must be on the list at the same level). An English spell is matched to the French entry with the same core
+class levels and school + subschool, ties settled by HAND_FR, the DD-3e glossary name, the domain levels, then the
+components (FR_HEADER_ERRATA fixes the French header lines that contradict the SRD); French entries that only say
+"semblable à X" inherit the missing header lines from X (recursively), as the SRD rule says. schoolId / subschool /
+descriptors come from the dnd35.db columns (DB_FIX: the few that contradict the d20srd spell page).
 """
 from __future__ import annotations
 
 import re
 
+import glossary_fr
 import rtf_fr
 from common import OUT_SRD, clip_paras, db, esc, html_paras, i18n, srd_source, write_json
 from ctx import NOTES, fr_paras_html, norm
 
 LIST_EN = {"Bard": "bard", "Cleric": "cleric", "Druid": "druid", "Paladin": "paladin", "Ranger": "ranger",
            "Sorcerer/Wizard": "sorcerer-wizard"}
-LIST_FR = {"Bard": "bard", "Prê": "cleric", "Dru": "druid", "Pal": "paladin", "Rôd": "ranger", "Ens/Mag": "sorcerer-wizard"}
+LIST_FR = {"Bard": "bard", "Prê": "cleric", "Dru": "druid", "Pal": "paladin", "Rôd": "ranger", "Ens/Mag": "sorcerer-wizard",
+           # misprints of the DRS 22 level lines
+           "Bar": "bard", "Ens-Mag": "sorcerer-wizard"}
+# The 22 SRD cleric domains (https://www.d20srd.org/srd/spellLists/clericDomains.htm): id -> (English, French name as in
+# the DRS 21 "Domaine de ..." headings and the DRS 22 level lines).
+DOMAINS = {
+    "air": ("Air", "Air"), "animal": ("Animal", "Faune"), "chaos": ("Chaos", "Chaos"), "death": ("Death", "Mort"),
+    "destruction": ("Destruction", "Destruction"), "earth": ("Earth", "Terre"), "evil": ("Evil", "Mal"),
+    "fire": ("Fire", "Feu"), "good": ("Good", "Bien"), "healing": ("Healing", "Guérison"),
+    "knowledge": ("Knowledge", "Connaissance"), "law": ("Law", "Loi"), "luck": ("Luck", "Chance"),
+    "magic": ("Magic", "Magie"), "plant": ("Plant", "Flore"), "protection": ("Protection", "Protection"),
+    "strength": ("Strength", "Force"), "sun": ("Sun", "Soleil"), "travel": ("Travel", "Voyage"),
+    "trickery": ("Trickery", "Duperie"), "war": ("War", "Guerre"), "water": ("Water", "Eau"),
+}
+DOMAIN_EN = {en: f"domain:{d}" for d, (en, _) in DOMAINS.items()}
+DOMAIN_FR = {fr: f"domain:{d}" for d, (_, fr) in DOMAINS.items()}
 SCHOOL_FR = {"Abjuration": "Abjuration", "Conjuration": "Invocation", "Divination": "Divination", "Enchantment": "Enchantement",
              "Evocation": "Évocation", "Illusion": "Illusion", "Necromancy": "Nécromancie", "Transmutation": "Transmutation"}
 SUBSCHOOL_FR = {"Compulsion": "coercition", "Charm": "charme", "Healing": "guérison", "Summoning": "convocation",
-                "Teleportation": "téléportation", "Creation": "création", "Calling": "appel", "Glamer": "chimère",
-                "Figment": "hallucination", "Pattern": "mirage", "Phantasm": "fantasme", "Shadow": "ombre", "Scrying": "scrutation"}
+                "Teleportation": "téléportation", "Creation": "création", "Calling": "appel",
+                # DRS 20: "Hallucination" changes the subject's sensory qualities (= glamer), "chimère" = figment.
+                "Glamer": "hallucination", "Figment": "chimère", "Pattern": "mirage",
+                "Phantasm": "fantasme", "Shadow": "ombre", "Scrying": "scrutation",
+                # two subschools: Gate, Mislead (French order)
+                "Creation or Calling": "appel ou création", "Figment, Glamer": "chimère, hallucination"}
 # English name -> French DRS 22 heading, for ties of the (levels, school) signature (the choice must be one of the tied
 # candidates; checked at build time). Identified from the French spell descriptions.
 HAND_FR: dict[str, str] = {
@@ -49,10 +71,13 @@ HAND_FR: dict[str, str] = {
     "Goodberry": "Baie nourricière", "Shillelagh": "Gourdin magique", "Hallow": "Sanctification", "Unhallow": "Sanctification maléfique",
     "Ironwood": "Bois de fer", "Liveoak": "Chêne animé", "Repel Wood": "Éloignement du bois", "Spellstaff": "Bâton à sort",
     "Reincarnate": "Réincarnation", "Rusting Grasp": "Rouille", "Spike Stones": "Pierres acérées",
+    # Cleric list (the DD-3e glossary has the 3.0 name "glyphe de garde divin").
+    "Glyph of Warding, Greater": "Glyphe de garde suprême",
 }
 # French SRD header lines (DRS 22) that disagree with the English SRD; the English side was checked on the d20srd spell
-# pages. French name -> (field, French text, corrected text); field is "level", "school" or a French header label. The
-# level line is only used for matching (levels come from the English SRD); the other lines are shown, so they are fixed.
+# pages. French name -> (field, French text, corrected text) or a list of them; field is "level", "school" or a French
+# header label. The level line is only used for matching (levels come from the English SRD); the other lines are shown,
+# so they are fixed.
 FR_HEADER_ERRATA = {
     "Force de taureau": ("level", "Bard 2, Dru 2, Ens/Mag 2, Force 2, Pal 2, Prê 2",  # SRD: no bard (Clr, Drd, Pal, Sor/Wiz 2)
                          "Dru 2, Ens/Mag 2, Force 2, Pal 2, Prê 2"),
@@ -62,15 +87,25 @@ FR_HEADER_ERRATA = {
     "Tempête vengeresse": ("school", "Invocation (conjuration)", "Invocation (convocation)"),  # SRD: Conjuration (Summoning)
     "Voie végétale": ("school", "Transmutation", "Invocation (téléportation)"),  # SRD: Conjuration (Teleportation)
     "Germes de feu": ("Résistance à la magie", "oui", "non"),  # SRD: Spell Resistance: No
+    "Porte dimensionnelle": [("school", "Invocation [téléportation]", "Invocation (téléportation)"),  # SRD: Conjuration (Teleportation)
+                             ("Résistance à la magie", "oui ou non (objet)", "non et oui (objet)")],  # SRD: No and Yes (object)
+    "Métamorphose universelle": ("Jet de sauvegarde", "Volonté, annule (objet) (voir description)",  # SRD: Fortitude negates
+                                 "Vigueur, annule (objet) (voir description)"),
+    "Ténèbres maudites": ("Jet de sauvegarde", "Vigueur, partiel", "Volonté, partiel"),  # SRD: Will partial
+    "Refuge": ("school", "Transmutation [téléportation]", "Invocation (téléportation)"),  # SRD: Conjuration (Teleportation)
+    "Téléportation suprême": ("school", "Invocaion (téléportation)", "Invocation (téléportation)"),  # misprint
     "Vision dans le noir": ("Jet de sauvegarde", "aucun", "Volonté, annule (inoffensif)"),  # SRD: Will negates (harmless)
 }
 # DRS 21 list names that differ from the DRS 22 heading, and DRS 22 spells missing from a DRS 21 list (checked by hand:
 # the English SRD list has them).
-FR_LIST_ALIAS = {"Morsure magique suprême": "Morsure magique aggravée"}  # druid list only
+FR_LIST_ALIAS = {"Morsure magique suprême": "Morsure magique aggravée",  # druid list
+                 "Soins intensifs de groupe": "Soins critiques de groupe",  # cleric list and Healing domain list
+                 "Blessure grave de groupe": "Blessure importante de groupe"}  # cleric list
 # The French header uses another of the target / area / effect lines than the English SRD: English field -> French field.
 FR_FIELD_FROM = {"Blight": {"target": "effect"}, "Ironwood": {"effect": "target"}, "Stone Tell": {"target": "area"},
                  "Storm of Vengeance": {"effect": "area"}}
-FR_LIST_MISSING = {("Soins importants de groupe", "druid"), ("Détection du poison", "ranger")}
+FR_LIST_MISSING = {("Soins importants de groupe", "druid"), ("Détection du poison", "ranger"),
+                   ("Annihilation de mort-vivant", "cleric")}
 FIELDS = {  # French header label -> SpellDef field
     "Composantes": "components", "Temps d’incantation": "castingTime", "Portée": "range", "Cible": "target", "Cibles": "target",
     "Zone d’effet": "area", "Effet": "effect", "Durée": "duration", "Jet de sauvegarde": "save",
@@ -85,16 +120,23 @@ SUMMARY_ERRATA = {
     "magic-fang-greater": [("en", ("+1/three caster levels", "+1/four caster levels")), ("fr", ("dégâts/3 niveaux", "dégâts/4 niveaux"))],
     # 3.0 leftover in the French list: animal growth gives no extra Hit Dice in 3.5.
     "animal-growth": [("fr", ("Double la taille et les DV de", "Double la taille de"))],
+    # 3.0 radius (15 ft.) in the French list; 3.5 and the DRS 22 header: 20 ft. = 6 m.
+    "silence": [("fr", ("dans un rayon de 4,50 m", "dans un rayon de 6 m"))],
 }
 
 FR_ERRATA = {
     # DRS 22: "jusqu'à un maximum de +35"; English SRD and the DRS 21 list line both say +15.
     "cure-serious-wounds": [("jusqu’à un maximum de +35", "jusqu’à un maximum de +15")],
+    # DRS 22: 6d6 for both alignment steps; SRD (https://www.d20srd.org/srd/spells/forbiddance.htm): 12d6 for two.
+    "forbiddance": [("(Loi/Chaos et Bien/Mal) : la créature perd 6d6 points de vie", "(Loi/Chaos et Bien/Mal) : la créature perd 12d6 points de vie")],
 }
 # DRS 21 list headings checked against each built spell (the French entry must be on the list at the same level).
-LIST_HEAD_FR = {"Sorts de druide": "druid", "Sorts de rôdeur": "ranger"}
-# Spell lists built in full (every spell on these lists is in spells.json).
-BUILT_LISTS = ("druid", "ranger")
+LIST_HEAD_FR = {"Sorts de prêtre": "cleric", "Sorts de druide": "druid", "Sorts de rôdeur": "ranger"}
+# Spell lists built in full (every spell on these lists is in spells.json; the domain lists too).
+BUILT_LISTS = ("cleric", "druid", "ranger")
+# dnd35.db references kept: the core spell chapters (psionic and epic spells are not core; the extra-domain chapter
+# repeats Undeath to Death, whose core entry is in SpellsT-Z).
+CORE_REFS = ("SRD 3.5 Spells",)
 SPELL_FILES = ["DRS 22a", "DRS 22b", "DRS 22c", "DRS 22d"]
 # d20srd page names that do not follow the camelCase rule of the spell name.
 URL_FIX = {"Magic Fang, Greater": "magicFangGreater", "Summon Nature's Ally I": "summonNaturesAllyI",
@@ -112,11 +154,45 @@ def spell_url(name: str) -> str:
 
 
 def levels(s: str, table: dict) -> dict:
+    """'Clr 2, Sor/Wiz 3' -> {list id: level} for the names in `table` (tolerates a missing comma: 'Mort 7 Prê 7')."""
     out = {}
-    for part in s.split(","):
-        m = re.match(r"^\s*(.+?)\s+(\d)\s*$", part)
-        if m and m.group(1).strip() in table:
-            out[table[m.group(1).strip()]] = int(m.group(2))
+    for name, n in re.findall(r"([^\d,]+?)\s+(\d)", s or ""):
+        name = name.strip(" ,")
+        if name in table:
+            out[table[name]] = int(n)
+    return out
+
+
+COMPONENTS_FR = {"V": "V", "S": "G", "M": "M", "F": "F", "DF": "FD", "XP": "PX"}
+
+
+def glossary_name(en: str) -> str:
+    """'Heal, Mass' -> 'Mass Heal' (the glossary's word order)."""
+    m = re.match(r"^(.+), (Mass|Greater|Lesser)$", en)
+    return f"{m.group(2)} {m.group(1)}" if m else en
+
+
+def components_key(s: str, fr: bool) -> frozenset:
+    """Components as a set of English codes ('V, G, M/FD' and 'V, S, M/DF' give the same key)."""
+    inv = {v: k for k, v in COMPONENTS_FR.items()}
+    codes = re.findall(r"[A-Z]+", re.sub(r"\(.*?\)", "", s or ""))
+    return frozenset(inv.get(c, c) if fr else c for c in codes)
+
+
+def spell_tags(r) -> dict:
+    """schoolId, subschool, descriptors from the dnd35.db columns (lowercase English, kebab-case). Where the SRD gives
+    a choice ('Creation or Calling', 'Fire or Cold', 'Figment, Glamer') the subschool is the first one and the
+    descriptors are all those that the spell can have; 'see text' descriptors (summon monster, align weapon, planar
+    ally, elemental swarm: the descriptor depends on the creature or alignment chosen) give none."""
+    out = {"schoolId": r["school"].strip().lower()}
+    sub = nz(r["subschool"])
+    if sub:
+        out["subschool"] = re.split(r",| or ", sub)[0].strip().lower()
+    desc = nz(r["descriptor"]) or ""
+    if desc.lower().startswith("see text"):
+        desc = ""
+    tags = [re.sub(r"[^a-z]+", "-", t.strip().lower()).strip("-") for t in re.split(r",|\bor\b", desc) if t.strip()]
+    out["descriptors"] = list(dict.fromkeys(tags))
     return out
 
 
@@ -132,7 +208,7 @@ def fr_spell_entries() -> list[dict]:
             end = starts[n + 1] if n + 1 < len(starts) else len(ps)
             e = {"name": ps[i].text, "file": f, "fields": {}, "body": []}
             for p in ps[i + 1:end]:
-                m = re.match(r"^([^:]{3,40}?) : (.*)$", p.text)
+                m = re.match(r"^([^:]{3,40}?) ?: (.*)$", p.text)  # "Cibles: ..." (Porte dimensionnelle) too
                 if p.text.startswith("Niveau :"):
                     e["level"] = p.text[len("Niveau :"):].strip()
                 elif "level" not in e and not e["body"]:
@@ -145,11 +221,13 @@ def fr_spell_entries() -> list[dict]:
     return out
 
 
-def fr_list_summaries() -> tuple[dict, dict]:
-    """DRS 21: {norm(name): summary} over all lists, and {list id: {norm(name): level}} for the druid and ranger lists."""
+def fr_list_summaries() -> tuple[dict, dict, dict]:
+    """DRS 21: {norm(name): summary} over all lists, {list id: {norm(name): level}} for the cleric, druid and ranger
+    lists, and {list id: {norm(name): summary}} for those lists."""
     ps = rtf_fr.load("DRS 21")
     summ: dict[str, str] = {}
     lists: dict[str, dict[str, int]] = {lst: {} for lst in LIST_HEAD_FR.values()}
+    list_summ: dict[str, dict[str, str]] = {lst: {} for lst in LIST_HEAD_FR.values()}
     cur, lvl = None, None
     for p in ps:
         if p.bold_all and not p.in_table:
@@ -158,13 +236,30 @@ def fr_list_summaries() -> tuple[dict, dict]:
             lvl = int(m.group(1)) if m else None
             continue
         b = p.bold_prefix.strip()
+        m = re.match(r"^(?:Abjur|Div|Ench|Évoc|Illu|Invoc|Nécro|Trans|Univ) (.+?)\.(?: |$)", p.text)
+        if not b and m:  # sorcerer/wizard list: the first spell of each school starts with the school, not in bold
+            name = re.sub(r"\s*\((M|F|X|FD|PX)(, ?(M|F|X|FD|PX))*\)\s*$", "", m.group(1)).strip()
+            summ.setdefault(norm(name), p.text[len(m.group(0)):].strip())
+            continue
         if b.endswith("."):
             name = re.sub(r"\s*\((M|F|X|FD|PX)(, ?(M|F|X|FD|PX))*\)\s*$", "", b[:-1]).strip()
             name = re.sub(r"^\d\s+", "", name)
-            summ.setdefault(norm(name), p.text[len(b):].strip())
-            if cur and lvl is not None:
-                lists[cur][norm(name)] = lvl
-    return summ, lists
+            for one in split_alignments(name):
+                summ.setdefault(norm(one), p.text[len(b):].strip())
+                if cur and lvl is not None:
+                    lists[cur][norm(one)] = lvl
+                    list_summ[cur][norm(one)] = p.text[len(b):].strip()
+    return summ, lists, list_summ
+
+
+def split_alignments(name: str) -> list[str]:
+    """DRS 21 lines that group the four alignment spells: 'Détection de la Loi/du Bien/du Chaos/du Mal' ->
+    ['Détection de la Loi', 'Détection du Bien', 'Détection du Chaos', 'Détection du Mal']."""
+    parts = name.split("/")
+    m = re.match(r"^(.*?)\s(?:de la|du|la|le)\s(?:Loi|Bien|Chaos|Mal)$", parts[0])
+    if len(parts) < 2 or not m or not all(re.match(r"^(?:de la|du|la|le)\s(?:Loi|Bien|Chaos|Mal)$", x) for x in parts[1:]):
+        return [name]
+    return [parts[0]] + [f"{m.group(1)} {x}" for x in parts[1:]]
 
 
 def fr_list_level(lst: dict, name: str) -> int | None:
@@ -184,38 +279,85 @@ def en_school(r) -> str:
     return s
 
 
+# dnd35.db values that contradict the d20srd spell page (school line of every built spell checked online).
+DB_FIX = {
+    # https://www.d20srd.org/srd/spells/heroesFeast.htm: Conjuration (Creation); the database has it as a descriptor.
+    "Heroes' Feast": {"subschool": "Creation", "descriptor": "None"},
+    # symbolOfWeakness.htm, undeathToDeath.htm: Necromancy, no [Death] descriptor.
+    "Symbol of Weakness": {"descriptor": "None"}, "Undeath to Death": {"descriptor": "None"},
+}
+
+
 def nz(v):
     return None if v is None or v.strip() in ("None", "") else v.strip()
+
+
+TIE_LOG: list[str] = []  # how each tie of the (levels, school) signature was settled (for inspection, not printed)
+
+
+def fr_candidates(r, lv: dict, lvd: dict, fr_all: list[dict]) -> tuple[list[dict], str]:
+    """French DRS 22 entries for an English spell row: same core class levels and school (+ subschool); ties settled by
+    HAND_FR, the DD-3e glossary name, the domain levels, then the components. Returns (candidates, how the tie went)."""
+    en = r["name"]
+    school_fr = SCHOOL_FR[r["school"]]
+    if nz(r["subschool"]):
+        school_fr += f" ({SUBSCHOOL_FR.get(r['subschool'], '?')})"
+    cands = [e for e in fr_all if levels(e.get("level", ""), LIST_FR) == lv
+             and re.match(re.escape(school_fr) + r"(\s*\[|\s*$)", e.get("school", ""))]
+    if len(cands) <= 1:
+        return cands, ""
+    if en in HAND_FR:
+        return [e for e in cands if norm(e["name"]) == norm(HAND_FR[en])], "HAND_FR"
+    gl = glossary_fr.lookup(glossary_name(en), "sort")
+    keys = (("glossary", lambda e: gl is not None and norm(e["name"]) == norm(gl)),
+            ("domain levels", lambda e: levels(e.get("level", ""), DOMAIN_FR) == lvd),
+            ("components", lambda e: components_key(e["fields"].get("Composantes", ""), True)
+             == components_key(r["components"], False)))
+    for label, key in keys:
+        narrowed = [e for e in cands if key(e)]
+        if narrowed:
+            cands = narrowed
+        if len(cands) == 1:
+            return cands, label
+    return cands, "unsettled"
 
 
 def build_spells() -> list[dict]:
     c = db()
     fr_all = fr_spell_entries()
-    for e in fr_all:
-        if e["name"] in FR_HEADER_ERRATA:
-            field, old, new = FR_HEADER_ERRATA[e["name"]]
+    fixed = []
+    for e in fr_all:  # two French spells can share a name (Refuge): the erratum applies to the one with the old line
+        fixes = FR_HEADER_ERRATA.get(e["name"], [])
+        for field, old, new in [fixes] if isinstance(fixes, tuple) else fixes:
             where = e if field in ("level", "school") else e["fields"]
-            assert where.get(field) == old, (e["name"], field, where.get(field))
-            where[field] = new
-            NOTES.append(f"spells: French SRD {field} line corrected for {e['name']}: '{old}' -> '{new}'")
-    assert all(any(e["name"] == n for e in fr_all) for n in FR_HEADER_ERRATA)
+            if where.get(field) == old:
+                where[field] = new
+                fixed.append((e["name"], field))
+                NOTES.append(f"spells: French SRD {field} line corrected for {e['name']}: '{old}' -> '{new}'")
+    wanted = [(n, f[0]) for n, v in FR_HEADER_ERRATA.items() for f in ([v] if isinstance(v, tuple) else v)]
+    assert sorted(fixed) == sorted(wanted), set(wanted) ^ set(fixed)
     by_norm = {norm(e["name"]): e for e in fr_all}
-    summaries, fr_lists = fr_list_summaries()
+    dup_fr = {n for n in by_norm if sum(1 for e in fr_all if norm(e["name"]) == n) > 1}
+    summaries, fr_lists, list_summaries = fr_list_summaries()
     out = []
-    for r in c.execute("select * from spell where level like '%Druid%' or level like '%Ranger%' order by name"):
+    for r in c.execute("select * from spell order by name"):
         en = r["name"]
-        lv = levels(r["level"], LIST_EN)
-        if not any(lst in lv for lst in BUILT_LISTS):
+        if not r["reference"].startswith(CORE_REFS):
             continue
-        school_fr = SCHOOL_FR[r["school"]]
-        if nz(r["subschool"]):
-            school_fr += f" ({SUBSCHOOL_FR[r['subschool']]})"
-        cands = [e for e in fr_all if levels(e.get("level", ""), LIST_FR) == lv
-                 and re.match(re.escape(school_fr) + r"(\s*\[|\s*$)", e.get("school", ""))]
-        if en in HAND_FR:
-            cands = [e for e in cands if norm(e["name"]) == norm(HAND_FR[en])]
+        r = {**dict(r), **DB_FIX.get(en, {})}
+        lv = levels(r["level"], LIST_EN)
+        lvd = levels(r["level"], DOMAIN_EN)
+        if not any(lst in lv for lst in BUILT_LISTS) and not lvd:
+            continue
+        cands, how = fr_candidates(r, lv, lvd, fr_all)
+        if how:
+            TIE_LOG.append(f"{en} -> {cands[0]['name'] if len(cands) == 1 else '?'} ({how})")
         assert len(cands) == 1, f"spell {en}: {len(cands)} French candidates {[e['name'] for e in cands]}"
         fr = cands[0]
+        fr_dom = levels(fr.get("level", ""), DOMAIN_FR)
+        if fr_dom != lvd:
+            # Domain levels come from the SRD; the French level line is only reported (DRS 22 slips).
+            NOTES.append(f"spells: {en} / {fr['name']}: DRS 22 domain levels {fr_dom} differ from the SRD {lvd} (SRD kept)")
         for lst in BUILT_LISTS:
             if lst not in lv:
                 continue
@@ -226,14 +368,19 @@ def build_spells() -> list[dict]:
             found = (fr_list_level(fr_lists[lst], fr["name"]), fr_list_level(fr_lists[lst], FR_LIST_ALIAS.get(fr["name"], "")))
             assert lv[lst] in found, f"spell {en}: {fr['name']} is not on the DRS 21 {lst} list at level {lv[lst]}"
 
-        # French header lines, inherited from the spell named in "semblable à X" when missing.
+        # French header lines, inherited from the spell named in "semblable à X" when missing (X may itself inherit:
+        # cercle magique contre le Chaos -> cercle magique contre le Mal -> protection contre le Mal).
         fields = dict(fr["fields"])
-        first = fr["body"][0].text if fr["body"] else ""
-        m = re.search(r"(?:semblable à |même principe que |même principe qu’|fonctionne comme )(.+?), (?:si ce n’est|excepté|sauf)", first)
-        if m:
-            base = by_norm.get(norm(m.group(1)))
-            assert base, f"spell {en}: base spell '{m.group(1)}' not found"
-            for k, v in base["fields"].items():
+        e = fr
+        for _ in range(3):
+            first = e["body"][0].text if e["body"] else ""
+            m = re.search(r"(?:semblable à |même principe que |même principe qu’|fonctionne comme )(.+?), "
+                          r"(?:si ce n’est|excepté|sauf|mais)", first)
+            if not m:
+                break
+            e = by_norm.get(norm(m.group(1)))
+            assert e, f"spell {en}: base spell '{m.group(1)}' not found"
+            for k, v in e["fields"].items():
                 fields.setdefault(k, v)
         fr_f: dict[str, str] = {}
         for label, v in fields.items():
@@ -243,7 +390,8 @@ def build_spells() -> list[dict]:
         if en_f["target"] and en_f["target"] == en_f["area"]:
             en_f["area"] = None  # SRD "Target or Area" line duplicated in both columns
         d = dict(id=re.sub(r"[^a-z0-9]+", "-", en.lower().replace("'", "")).strip("-"), name=i18n(en, fr["name"]),
-                 school=i18n(en_school(r), fr["school"]), level=dict(sorted(lv.items())), components=r["components"],
+                 school=i18n(en_school(r), fr["school"]), level=dict(sorted({**lv, **lvd}.items())), **spell_tags(r),
+                 components=r["components"],
                  castingTime=i18n(r["casting_time"], fr_f["castingTime"]), range=i18n(r["range"], fr_f["range"]))
         for k in ("target", "area", "effect"):
             if not en_f[k]:
@@ -251,6 +399,11 @@ def build_spells() -> list[dict]:
             v = fr_f.get(k) or fr_f.get("target/area" if k in ("target", "area") else "") or fr_f.get("target/effect" if k in ("target", "effect") else "") or fr_f.get("any")
             if not v and k in FR_FIELD_FROM.get(en, {}):
                 v = fr_f.get(FR_FIELD_FROM[en][k])
+            if not v:  # the French header uses another line: take it when it is the only one left unused
+                spare = [f for f in ("target", "area", "effect") if fr_f.get(f) and not en_f[f]]
+                if len(spare) == 1:
+                    v = fr_f[spare[0]]
+                    NOTES.append(f"spells: {en}: English {k} line paired with the French {spare[0]} line")
             assert v, f"spell {en}: no French {k} in {fields}"
             d[k] = i18n(en_f[k], v)
         d["duration"] = i18n(r["duration"], fr_f["duration"])
@@ -262,7 +415,12 @@ def build_spells() -> list[dict]:
             assert sr_en == "No", (en, sr_en, fields)
         d["save"] = i18n(save_en, fr_f.get("save", "aucun"))
         d["spellResistance"] = i18n(sr_en, fr_f.get("spellResistance", "non"))
-        s_fr = fr_list_level(summaries, fr["name"])
+        # The first DRS 21 line with that name; for a French name shared by two spells, the line of the spell's own
+        # list (the cleric 7 "Refuge" is not the bard / wizard 4 "Refuge").
+        names = (fr["name"], FR_LIST_ALIAS.get(fr["name"], fr["name"]))
+        s_fr = next((fr_list_level(list_summaries[lst], n) for lst in BUILT_LISTS if lst in lv for n in names
+                     if fr_list_level(list_summaries[lst], n)), None) if norm(fr["name"]) in dup_fr else None
+        s_fr = s_fr or next((fr_list_level(summaries, n) for n in names if fr_list_level(summaries, n)), None)
         assert s_fr, f"spell {en}: no DRS 21 summary for {fr['name']}"
         d["summary"] = i18n(r["short_description"], s_fr)
         for lang, (old, new) in SUMMARY_ERRATA.get(d["id"], []):

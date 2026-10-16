@@ -224,3 +224,67 @@ describe('rulings 2026-10-16 (docs/rules/rulings-classes.md)', () => {
     expect(ids(c)).toContain('unusable-two-weapon-defense')
   })
 })
+
+describe('cleric turning (https://www.d20srd.org/srd/combat/specialAttacks.htm#turnOrRebukeUndead)', () => {
+  it('cleric 3, Cha 14: 3 + 2 uses, check 1d20 + 2, damage 2d6 + 3 + 2, table around level 3', () => {
+    const c = fresh('human', 'cleric', { ...ABIL, cha: 14 })
+    c.levels = [1, 2, 3].map(() => ({ classId: 'cleric', skillRanks: {}, feats: [] }))
+    const t = compute(c, rules).turning!
+    expect([t.usesPerDay.total, t.check.total, t.damage.total, t.level]).toEqual([5, 2, 5, 3])
+    expect(t.table[0].hd).toBe(-1)
+    expect(t.table[4].hd).toBe(3)
+    expect(t.mode).toBe('turn')
+  })
+  it('cleric 2 / paladin 5: turning level 2 + (5 − 3) = 4 (multiclass rule)', () => {
+    const c = fresh('human', 'cleric')
+    c.levels = [...[1, 2].map(() => ({ classId: 'cleric', skillRanks: {}, feats: [] })), ...[1, 2, 3, 4, 5].map(() => ({ classId: 'paladin', skillRanks: {}, feats: [] }))]
+    expect(compute(c, rules).turning!.level).toBe(4)
+  })
+  it('negative energy: rebuke', () => {
+    const c = fresh('human', 'cleric')
+    c.levels[0].classChoices = { channel: 'negative' }
+    expect(compute(c, rules).turning!.mode).toBe('rebuke')
+  })
+})
+
+describe('cleric domains (https://www.d20srd.org/srd/spellLists/clericDomains.htm)', () => {
+  const cleric = (d1: string, d2: string, extra: Record<string, string> = {}) => {
+    const c = fresh('human', 'cleric', { ...ABIL, wis: 14 })
+    c.levels[0].classChoices = { domain1: d1, domain2: d2, channel: 'positive', ...extra }
+    return c
+  }
+  it('22 domains; Knowledge makes every Knowledge skill a class skill', () => {
+    expect(rules.domains.size).toBe(22)
+    const s = compute(cleric('knowledge', 'good'), rules)
+    expect(s.skills.find((k) => k.key === 'knowledge-arcana')!.classSkill).toBe(true)
+  })
+  it('War: Weapon Focus and Martial Weapon Proficiency with the deity’s weapon', () => {
+    const s = compute(cleric('war', 'good', { deityWeapon: 'longsword' }), rules)
+    expect(s.feats.some((f) => f.featId === 'weapon-focus' && f.choice === 'longsword')).toBe(true)
+    expect(s.proficiency.weapons.has('longsword')).toBe(true)
+  })
+  it('domain spell levels and the rule checks accept two different domains', () => {
+    expect(rules.spells.get('entangle')!.level['domain:plant']).toBe(1)
+    const ids = validate(cleric('war', 'good', { deityWeapon: 'longsword' }), rules).map((w) => w.id)
+    expect(ids.filter((i) => i.startsWith('choice-'))).toEqual([])
+  })
+  it('a good cleric channelling negative energy is flagged', () => {
+    const c = cleric('war', 'good', { channel: 'negative', deityWeapon: 'longsword' })
+    c.identity.alignment = 'NG'
+    expect(validate(c, rules).map((w) => w.id)).toContain('cleric-energy-alignment')
+  })
+})
+
+describe('Summon Monster templates (https://www.d20srd.org/srd/monsters/celestialCreature.htm)', () => {
+  it('celestial dire wolf (6 HD): DR 5/magic, SR 11', async () => {
+    const { computeCreature } = await import('../creature')
+    const s = computeCreature(rules.creatures.get('dire-wolf')!, { template: rules.templates.get('celestial') })
+    expect(s.template?.dr).toBe('5/magic')
+    expect(s.template?.sr).toBe(11)
+  })
+  it('Summon Monster I–IX lists exist and their template creatures exist', () => {
+    const sm = rules.summonLists.filter((l) => l.spellId.startsWith('summon-monster-'))
+    expect(sm).toHaveLength(9)
+    for (const l of sm) for (const id of Object.keys(l.templates ?? {})) expect(rules.creatures.has(id)).toBe(true)
+  })
+})

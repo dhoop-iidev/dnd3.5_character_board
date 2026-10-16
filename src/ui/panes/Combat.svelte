@@ -13,6 +13,7 @@
   import TurnBar from '../TurnBar.svelte'
   import SummonBlock from '../SummonBlock.svelte'
   import WildShapeBlock from '../WildShapeBlock.svelte'
+  import TurningBlock from '../TurningBlock.svelte'
   import { effectName } from '../effects'
 
   const s = $derived(view.sheet)
@@ -285,6 +286,7 @@
     </div>
   </section>
 
+  {#if s.turning}<div class="wide"><TurningBlock /></div>{/if}
   {#if (s.classLevels['druid'] ?? 0) >= 5 || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
   {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
   {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}

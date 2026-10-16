@@ -18,9 +18,10 @@ import type { Character, FeatPick, ItemInstance } from '../model/character'
 import { i18n, resolve, type Part, type Stat } from './stacking'
 import { effectLive, knownManeuvers, martialCaps, type MartialCaps } from './martial'
 import { raceOf } from './race'
+import { classSkillsOf, clericChoices, domainFeats, domainsOf, TURNING_TABLE } from './cleric'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
 import { spellcastingOf, type Spellcasting } from './spells'
-import type { CreatureDef, RaceDef } from '../data/types'
+import type { CreatureDef, DomainDef, RaceDef } from '../data/types'
 import type { ManeuverDef } from '../data/types'
 
 const SRD = 'https://www.d20srd.org/srd/'
@@ -130,6 +131,23 @@ export interface Sheet {
   size: Size
   /** Wild shape in progress: the form. */
   wildShape?: { def: CreatureDef; rounds: number }
+  /** Cleric turn or rebuke undead (https://www.d20srd.org/srd/combat/specialAttacks.htm#turnOrRebukeUndead). */
+  turning?: {
+    mode: 'turn' | 'rebuke'
+    /** Turning level (cleric level). */
+    level: number
+    usesPerDay: Stat
+    /** Turning check: 1d20 + this. */
+    check: Stat
+    /** Turning damage: 2d6 + this (total Hit Dice affected). */
+    damage: Stat
+    /** Check result bands → highest Hit Dice affected. */
+    table: { max: number; hd: number }[]
+    /** Domains' extra turning (elementals, plants, Sun's greater turning). */
+    extra: { name: I18n; mode: string; creatures: I18n; perDay?: string }[]
+  }
+  /** Cleric domains chosen. */
+  domains: DomainDef[]
   /** Weapon and armor proficiencies (classes, race, feats). */
   proficiency: Proficiencies
   /** Spellcasting classes: caster level, spells per day (with bonus spells), save DCs. */
@@ -261,6 +279,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   for (const [classId, n] of Object.entries(classLevels))
     for (const f of rules.classes.get(classId)?.features ?? [])
       if (f.level <= n) for (const featId of f.grantsFeats ?? []) granted.push({ featId, slot: 'granted' })
+  // Cleric domains (War: Weapon Focus with the deity's favored weapon).
+  if (classLevels['cleric']) granted.push(...domainFeats(char, rules))
   // Ranger combat style (https://www.d20srd.org/srd/classes/ranger.htm#combatStyle): feats at ranger 2/6/11,
   // usable only in light or no armor.
   const rangerLevel = classLevels['ranger'] ?? 0
@@ -803,8 +823,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- skills (docs/rules/skills.md)
   const ranksByKey: Record<string, number> = {}
   for (const l of levels) for (const [k, v] of Object.entries(l.skillRanks)) ranksByKey[k] = (ranksByKey[k] ?? 0) + v
-  const isClassSkill = (skillId: string) =>
-    Object.keys(classLevels).some((c) => rules.classes.get(c)?.classSkills.includes(skillId))
+  // Class skills of every class taken (cleric: plus the domain skills).
+  const isClassSkill = (skillId: string) => Object.keys(classLevels).some((c) => classSkillsOf(char, rules, c).includes(skillId))
   const skillKeys = new Set<string>()
   for (const s of rules.skills.values()) if (!s.hasSubtypes) skillKeys.add(s.id)
   for (const k of Object.keys(ranksByKey)) skillKeys.add(k)
@@ -1164,6 +1184,44 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
   const rangerStyle = styleId ? ranger?.choices?.combatStyle?.find((o) => o.id === styleId) : undefined
 
+  // ---- cleric: turn (positive energy) or rebuke (negative energy) undead, 3 + Cha mod per day (+4 per Extra
+  // Turning); check 1d20 + Cha mod (+2 with 5 ranks of Knowledge (religion)); damage 2d6 + cleric level + Cha mod.
+  const clericLevel = classLevels['cleric'] ?? 0
+  const domains = clericLevel ? domainsOf(char, rules) : []
+  // Paladins turn undead from 4th level as a cleric of 3 levels lower; a cleric/paladin adds both
+  // (https://www.d20srd.org/srd/classes/multiclass.htm#classFeatures).
+  const paladinLevel = classLevels['paladin'] ?? 0
+  const paladinTurning = paladinLevel >= 4 ? paladinLevel - 3 : 0
+  const turningLevel = clericLevel + paladinTurning
+  let turning: Sheet['turning']
+  if (turningLevel) {
+    const tsrc = src('combat/specialAttacks.htm#turnOrRebukeUndead')
+    const extraTurning = feats.filter((f) => f.featId === 'extra-turning').length
+    const religion = levels.reduce((n, l) => n + (l.skillRanks['knowledge-religion'] ?? 0), 0)
+    turning = {
+      mode: clericLevel && clericChoices(char).channel === 'negative' ? 'rebuke' : 'turn',
+      level: turningLevel,
+      usesPerDay: resolve([
+        { sourceId: 'base', label: i18n('Base', 'Base'), value: 3, bonusType: 'base', source: tsrc },
+        abilityPart('cha'),
+        ...(extraTurning ? [{ sourceId: 'feat:extra-turning', label: i18n(`Extra Turning ×${extraTurning}`, `Renvoi supplémentaire ×${extraTurning}`), value: 4 * extraTurning, bonusType: 'untyped' as const, source: src('feats.htm#extraTurning') }] : []),
+      ]),
+      check: resolve([
+        abilityPart('cha'),
+        ...(religion >= 5 ? [{ sourceId: 'synergy:knowledge-religion', label: i18n('Knowledge (religion) 5 ranks', 'Connaissances (religion) 5 degrés'), value: 2, bonusType: 'circumstance' as const, source: src('skills/knowledge.htm') }] : []),
+      ]),
+      damage: resolve([
+        ...(clericLevel ? [{ sourceId: 'class:cleric', label: i18n(`Cleric ${clericLevel}`, `Prêtre ${clericLevel}`), value: clericLevel, bonusType: 'base' as const, source: tsrc }] : []),
+        ...(paladinTurning ? [{ sourceId: 'class:paladin', label: i18n(`Paladin ${paladinLevel} − 3`, `Paladin ${paladinLevel} − 3`), value: paladinTurning, bonusType: 'base' as const, source: src('classes/paladin.htm#turnUndead') }] : []),
+        abilityPart('cha'),
+      ]),
+      table: TURNING_TABLE.map((r) => ({ max: r.max, hd: turningLevel + r.delta })),
+      extra: domains
+        .filter((d) => d.effects?.turning)
+        .map((d) => ({ name: d.name, mode: d.effects!.turning!.mode, creatures: d.effects!.turning!.creatures, perDay: d.effects!.turning!.perDay })),
+    }
+  }
+
   return {
     characterLevel,
     classLevels,
@@ -1174,6 +1232,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     proficiency,
     spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))),
     featureStats,
+    turning,
+    domains,
     favoredEnemies,
     inactiveStyleFeats: styleActive ? [] : styleFeats,
     unusableFeats: [...unusableFeats],

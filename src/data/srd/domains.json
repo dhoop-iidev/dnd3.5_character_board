@@ -1,0 +1,728 @@
+[
+  {
+    "id": "air",
+    "name": {
+      "en": "Air",
+      "fr": "Air"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Powers:</b> Turn or destroy earth creatures as a good cleric turns undead. Rebuke, command, or bolster air creatures as an evil cleric rebukes undead. Use these abilities a total number of times per day equal to 3 + your Charisma modifier. This granted power is a supernatural ability.</p><p>*Cast as an air spell only.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage peut renvoyer ou détruire les créatures de la terre comme un prêtre bon le fait avec les morts-vivants. Il peut également intimider, contrôler ou augmenter le moral des créatures de l’air comme un prêtre mauvais le fait avec les morts-vivants. Il peut utiliser ces pouvoirs 3 fois + modificateur de Charisme par jour. Il s’agit d’un pouvoir surnaturel.</p><p>* Lancé comme un sort d’air uniquement.</p>"
+    },
+    "spells": {
+      "1": "obscuring-mist",
+      "2": "wind-wall",
+      "3": "gaseous-form",
+      "4": "air-walk",
+      "5": "control-winds",
+      "6": "chain-lightning",
+      "7": "control-weather",
+      "8": "whirlwind",
+      "9": "elemental-swarm"
+    },
+    "effects": {
+      "turning": {
+        "mode": "rebuke",
+        "creatures": {
+          "en": "air creatures (rebuke, command or bolster); earth creatures: turn or destroy",
+          "fr": "créatures de l’air (intimider, contrôler ou augmenter le moral) ; créatures de la terre : renvoyer ou détruire"
+        },
+        "perDay": "3 + Cha"
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#airDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "animal",
+    "name": {
+      "en": "Animal",
+      "fr": "Faune"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Powers:</b> You can use speak with animals once per day as a spell-like ability.</p><p>Add Knowledge (nature) to your list of cleric class skills.</p><p>*Can only summon animals.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage peut lancer communication avec les animaux une fois par jour, en qualité de pouvoir magique. Connaissances (nature) est une compétence de classe.</p><p>* Ne peut convoquer que des animaux.</p>"
+    },
+    "spells": {
+      "1": "calm-animals",
+      "2": "hold-animal",
+      "3": "dominate-animal",
+      "4": "summon-natures-ally-iv",
+      "5": "commune-with-nature",
+      "6": "antilife-shell",
+      "7": "animal-shapes",
+      "8": "summon-natures-ally-viii",
+      "9": "shapechange"
+    },
+    "effects": {
+      "classSkills": [
+        "knowledge-nature"
+      ],
+      "usesPerDay": "1/day: speak with animals (Sp)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#animalDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "chaos",
+    "name": {
+      "en": "Chaos",
+      "fr": "Chaos"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You cast chaos spells at +1 caster level.</p><p>*Cast as a chaos spell only.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage lance les sorts du Chaos avec un bonus de +1 au niveau de lanceur de sorts.</p><p>* Lancé comme un sort du Chaos uniquement.</p>"
+    },
+    "spells": {
+      "1": "protection-from-law",
+      "2": "shatter",
+      "3": "magic-circle-against-law",
+      "4": "chaos-hammer",
+      "5": "dispel-law",
+      "6": "animate-objects",
+      "7": "word-of-chaos",
+      "8": "cloak-of-chaos",
+      "9": "summon-monster-ix"
+    },
+    "effects": {
+      "casterLevelBonus": {
+        "descriptor": "chaotic",
+        "value": 1
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#chaosDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "death",
+    "name": {
+      "en": "Death",
+      "fr": "Mort"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You may use a death touch once per day. Your death touch is a supernatural ability that produces a death effect. You must succeed on a melee touch attack against a living creature (using the rules for touch spells). When you touch, roll 1d6 per cleric level you possess. If the total at least equals the creature’s current hit points, it dies (no save).</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> une fois par jour, le personnage peut utiliser un pouvoir surnaturel du nom de caresse mortelle. Il commence par toucher la créature vivante de son choix (en accord avec les règles concernant les attaques de contact). En cas de succès, il jette 1d6 par niveau de prêtre. Si le total obtenu atteint ou dépasse le nombre de points de vie de la cible, cette dernière meurt (pas de jet de sauvegarde). Sinon, elle n’est pas affectée.</p>"
+    },
+    "spells": {
+      "1": "cause-fear",
+      "2": "death-knell",
+      "3": "animate-dead",
+      "4": "death-ward",
+      "5": "slay-living",
+      "6": "create-undead",
+      "7": "destruction",
+      "8": "create-greater-undead",
+      "9": "wail-of-the-banshee"
+    },
+    "effects": {
+      "usesPerDay": "1/day: death touch (Su)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#deathDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "destruction",
+    "name": {
+      "en": "Destruction",
+      "fr": "Destruction"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You gain the smite power, the supernatural ability to make a single melee attack with a +4 bonus on attack rolls and a bonus on damage rolls equal to your cleric level (if you hit). You must declare the smite before making the attack. This ability is usable once per day.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> une fois par jour, le personnage peut infliger un châtiment. Ce pouvoir surnaturel prend la forme d’une attaque de corps à corps accompagnée d’un bonus de +4 au jet d’attaque et d’un bonus aux dégâts égal au niveau du prêtre (en cas de coup au but). Le joueur doit déclarer son intention avant de lancer le dé d’attaque.</p>"
+    },
+    "spells": {
+      "1": "inflict-light-wounds",
+      "2": "shatter",
+      "3": "contagion",
+      "4": "inflict-critical-wounds",
+      "5": "inflict-light-wounds-mass",
+      "6": "harm",
+      "7": "disintegrate",
+      "8": "earthquake",
+      "9": "implosion"
+    },
+    "effects": {
+      "usesPerDay": "1/day: smite (Su)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#destructionDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "earth",
+    "name": {
+      "en": "Earth",
+      "fr": "Terre"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Turn or destroy air creatures as a good cleric turns undead. Rebuke, command, or bolster earth creatures as an evil cleric rebukes undead. Use these abilities a total number of times per day equal to 3 + your Charisma modifier. This granted power is a supernatural ability.</p><p>*Cast as an earth spell only.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage peut renvoyer ou détruire les créatures de l’air comme un prêtre bon le fait avec les morts-vivants. Il peut également intimider, contrôler ou augmenter le moral des créatures de la terre comme un prêtre mauvais le fait avec les morts-vivants. Il peut utiliser ces pouvoirs 3 fois + modificateur de Charisme par jour. Il s’agit d’un pouvoir surnaturel.</p><p>* Lancé comme un sort de terre uniquement.</p>"
+    },
+    "spells": {
+      "1": "magic-stone",
+      "2": "soften-earth-and-stone",
+      "3": "stone-shape",
+      "4": "spike-stones",
+      "5": "wall-of-stone",
+      "6": "stoneskin",
+      "7": "earthquake",
+      "8": "iron-body",
+      "9": "elemental-swarm"
+    },
+    "effects": {
+      "turning": {
+        "mode": "rebuke",
+        "creatures": {
+          "en": "earth creatures (rebuke, command or bolster); air creatures: turn or destroy",
+          "fr": "créatures de la terre (intimider, contrôler ou augmenter le moral) ; créatures de l’air : renvoyer ou détruire"
+        },
+        "perDay": "3 + Cha"
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#earthDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "evil",
+    "name": {
+      "en": "Evil",
+      "fr": "Mal"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You cast evil spells at +1 caster level.</p><p>*Cast as an evil spell only.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage lance les sorts du Mal avec un bonus de +1 au niveau de lanceur de sorts.</p><p>* Lancé comme un sort du Mal uniquement.</p>"
+    },
+    "spells": {
+      "1": "protection-from-good",
+      "2": "desecrate",
+      "3": "magic-circle-against-good",
+      "4": "unholy-blight",
+      "5": "dispel-good",
+      "6": "create-undead",
+      "7": "blasphemy",
+      "8": "unholy-aura",
+      "9": "summon-monster-ix"
+    },
+    "effects": {
+      "casterLevelBonus": {
+        "descriptor": "evil",
+        "value": 1
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#evilDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "fire",
+    "name": {
+      "en": "Fire",
+      "fr": "Feu"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Turn or destroy water creatures as a good cleric turns undead. Rebuke, command, or bolster fire creatures as an evil cleric rebukes undead. Use these abilities a total number of times per day equal to 3 + your Charisma modifier. This granted power is a supernatural ability.</p><p>*Resist cold or fire only.</p><p>**Cast as a fire spell only.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage peut renvoyer ou détruire les créatures de l’eau comme un prêtre bon le fait avec les morts-vivants. Il peut également intimider, contrôler ou augmenter le moral des créatures du feu comme un prêtre mauvais le fait avec les morts-vivants. Il peut utiliser ces pouvoirs 3 fois + modificateur de Charisme par jour. Il s’agit d’un pouvoir surnaturel.</p><p>* Résistance au feu ou au froid uniquement.</p><p>** Lancé comme un sort de feu uniquement.</p>"
+    },
+    "spells": {
+      "1": "burning-hands",
+      "2": "produce-flame",
+      "3": "resist-energy",
+      "4": "wall-of-fire",
+      "5": "fire-shield",
+      "6": "fire-seeds",
+      "7": "fire-storm",
+      "8": "incendiary-cloud",
+      "9": "elemental-swarm"
+    },
+    "effects": {
+      "turning": {
+        "mode": "rebuke",
+        "creatures": {
+          "en": "fire creatures (rebuke, command or bolster); water creatures: turn or destroy",
+          "fr": "créatures du feu (intimider, contrôler ou augmenter le moral) ; créatures de l’eau : renvoyer ou détruire"
+        },
+        "perDay": "3 + Cha"
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#fireDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "good",
+    "name": {
+      "en": "Good",
+      "fr": "Bien"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You cast good spells at +1 caster level.</p><p>*Cast as a good spell only.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage lance les sorts du Bien avec un bonus de +1 au niveau de lanceur de sorts.</p><p>* Lancé comme un sort du Bien uniquement.</p>"
+    },
+    "spells": {
+      "1": "protection-from-evil",
+      "2": "aid",
+      "3": "magic-circle-against-evil",
+      "4": "holy-smite",
+      "5": "dispel-evil",
+      "6": "blade-barrier",
+      "7": "holy-word",
+      "8": "holy-aura",
+      "9": "summon-monster-ix"
+    },
+    "effects": {
+      "casterLevelBonus": {
+        "descriptor": "good",
+        "value": 1
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#goodDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "healing",
+    "name": {
+      "en": "Healing",
+      "fr": "Guérison"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You cast healing spells at +1 caster level.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage lance les sorts de guérison avec un bonus de +1 au niveau de lanceur de sorts.</p>"
+    },
+    "spells": {
+      "1": "cure-light-wounds",
+      "2": "cure-moderate-wounds",
+      "3": "cure-serious-wounds",
+      "4": "cure-critical-wounds",
+      "5": "cure-light-wounds-mass",
+      "6": "heal",
+      "7": "regenerate",
+      "8": "cure-critical-wounds-mass",
+      "9": "heal-mass"
+    },
+    "effects": {
+      "casterLevelBonus": {
+        "subschool": "healing",
+        "value": 1
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#healingDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "knowledge",
+    "name": {
+      "en": "Knowledge",
+      "fr": "Connaissance"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Add all Knowledge skills to your list of cleric class skills.</p><p>You cast divination spells at +1 caster level.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage lance les sorts de Divination avec un bonus de +1 au niveau de lanceur de sorts. Connaissances (sous toutes ses formes) est une compétence de classe.</p>"
+    },
+    "spells": {
+      "1": "detect-secret-doors",
+      "2": "detect-thoughts",
+      "3": "clairaudience-clairvoyance",
+      "4": "divination",
+      "5": "true-seeing",
+      "6": "find-the-path",
+      "7": "legend-lore",
+      "8": "discern-location",
+      "9": "foresight"
+    },
+    "effects": {
+      "classSkills": [
+        "knowledge-arcana",
+        "knowledge-architecture-and-engineering",
+        "knowledge-dungeoneering",
+        "knowledge-geography",
+        "knowledge-history",
+        "knowledge-local",
+        "knowledge-nature",
+        "knowledge-nobility-and-royalty",
+        "knowledge-religion",
+        "knowledge-the-planes"
+      ],
+      "casterLevelBonus": {
+        "school": "divination",
+        "value": 1
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#knowledgeDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "law",
+    "name": {
+      "en": "Law",
+      "fr": "Loi"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You cast law spells at +1 caster level.</p><p>*Cast as a law spell only.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage lance les sorts de la Loi avec un bonus de +1 au niveau de lanceur de sorts.</p><p>* Lancé comme un sort de la Loi uniquement.</p>"
+    },
+    "spells": {
+      "1": "protection-from-chaos",
+      "2": "calm-emotions",
+      "3": "magic-circle-against-chaos",
+      "4": "orders-wrath",
+      "5": "dispel-chaos",
+      "6": "hold-monster",
+      "7": "dictum",
+      "8": "shield-of-law",
+      "9": "summon-monster-ix"
+    },
+    "effects": {
+      "casterLevelBonus": {
+        "descriptor": "lawful",
+        "value": 1
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#lawDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "luck",
+    "name": {
+      "en": "Luck",
+      "fr": "Chance"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You gain the power of good fortune, which is usable once per day. This extraordinary ability allows you to reroll one roll that you have just made before the DM declares whether the roll results in success or failure. You must take the result of the reroll, even if it’s worse than the original roll.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> une fois par jour, le personnage peut faire appel à sa bonne fortune. Ce pouvoir extraordinaire lui permet de rejouer un jet de dés qu’il vient d’effectuer avant de prendre connaissance de l’issue de la situation. On applique systématiquement le résultat du second lancer, même s’il est moins favorable que le premier.</p>"
+    },
+    "spells": {
+      "1": "entropic-shield",
+      "2": "aid",
+      "3": "protection-from-energy",
+      "4": "freedom-of-movement",
+      "5": "break-enchantment",
+      "6": "mislead",
+      "7": "spell-turning",
+      "8": "moment-of-prescience",
+      "9": "miracle"
+    },
+    "effects": {
+      "usesPerDay": "1/day: reroll (Ex)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#luckDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "magic",
+    "name": {
+      "en": "Magic",
+      "fr": "Magie"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Use scrolls, wands, and other devices with spell completion or spell trigger activation as a wizard of one-half your cleric level (at least 1st level). For the purpose of using a scroll or other magic device, if you are also a wizard, actual wizard levels and these effective wizard levels stack.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage peut utiliser les parchemins, baguettes et autres objets activés par une fin d’incantation ou le potentiel magique de leur utilisateur comme un magicien de la moitié de son niveau (niveau 1 minimum). Si le PJ est également magicien, le niveau “ virtuel ” conféré par son dieu s’ajoute à son niveau de magicien.</p>"
+    },
+    "spells": {
+      "1": "magic-aura",
+      "2": "identify",
+      "3": "dispel-magic",
+      "4": "imbue-with-spell-ability",
+      "5": "spell-resistance",
+      "6": "antimagic-field",
+      "7": "spell-turning",
+      "8": "protection-from-spells",
+      "9": "mages-disjunction"
+    },
+    "effects": {
+      "usesPerDay": "at will: scrolls, wands (spell completion/trigger) as a wizard of ½ cleric level (min. 1)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#magicDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "plant",
+    "name": {
+      "en": "Plant",
+      "fr": "Flore"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Powers:</b> Rebuke or command plant creatures as an evil cleric rebukes or commands undead. Use this ability a total number of times per day equal to 3 + your Charisma modifier. This granted power is a supernatural ability.</p><p>Add Knowledge (nature) to your list of cleric class skills.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> le personnage peut intimider ou contrôler les créatures végétales comme un prêtre mauvais le fait avec les morts-vivants. Il peut utiliser ces pouvoirs 3 fois + modificateur de Charisme par jour. Il s’agit d’un pouvoir surnaturel.</p><p>Connaissances (nature) est une compétence de classe.</p>"
+    },
+    "spells": {
+      "1": "entangle",
+      "2": "barkskin",
+      "3": "plant-growth",
+      "4": "command-plants",
+      "5": "wall-of-thorns",
+      "6": "repel-wood",
+      "7": "animate-plants",
+      "8": "control-plants",
+      "9": "shambler"
+    },
+    "effects": {
+      "classSkills": [
+        "knowledge-nature"
+      ],
+      "turning": {
+        "mode": "rebuke",
+        "creatures": {
+          "en": "plant creatures (rebuke or command)",
+          "fr": "créatures végétales (intimider ou contrôler)"
+        },
+        "perDay": "3 + Cha"
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#plantDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "protection",
+    "name": {
+      "en": "Protection",
+      "fr": "Protection"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You can generate a protective ward as a supernatural ability. Grant someone you touch a resistance bonus equal to your cleric level on his or her next saving throw. Activating this power is a standard action. The protective ward is an abjuration effect with a duration of 1 hour that is usable once per day.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> une fois par jour, le personnage peut utiliser le pouvoir surnaturel de protection divine sur la créature de son choix. Ce pouvoir confère au prochain jet de sauvegarde du sujet un bonus de résistance égal au niveau du prêtre. On l’active au prix d’une action simple et dure 1 heure ou jusqu’à utilisation.</p>"
+    },
+    "spells": {
+      "1": "sanctuary",
+      "2": "shield-other",
+      "3": "protection-from-energy",
+      "4": "spell-immunity",
+      "5": "spell-resistance",
+      "6": "antimagic-field",
+      "7": "repulsion",
+      "8": "mind-blank",
+      "9": "prismatic-sphere"
+    },
+    "effects": {
+      "usesPerDay": "1/day: protective ward (Su)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#protectionDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "strength",
+    "name": {
+      "en": "Strength",
+      "fr": "Force"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> You can perform a feat of strength as a supernatural ability. You gain an enhancement bonus to Strength equal to your cleric level. Activating the power is a free action, the power lasts 1 round, and it is usable once per day.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> une fois par jour, le personnage peut réaliser un véritable exploit physique en faisant brusquement augmenter sa valeur de Force (il bénéficie alors d’un bonus d’altération égal à son niveau de prêtre). Ce pouvoir dure 1 round. On l’active au prix d’une action libre.</p>"
+    },
+    "spells": {
+      "1": "enlarge-person",
+      "2": "bulls-strength",
+      "3": "magic-vestment",
+      "4": "spell-immunity",
+      "5": "righteous-might",
+      "6": "stoneskin",
+      "7": "grasping-hand",
+      "8": "clenched-fist",
+      "9": "crushing-hand"
+    },
+    "effects": {
+      "usesPerDay": "1/day: feat of strength (Su), 1 round"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#strengthDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "sun",
+    "name": {
+      "en": "Sun",
+      "fr": "Soleil"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Once per day, you can perform a greater turning against undead in place of a regular turning. The greater turning is like a normal turning except that the undead creatures that would be turned are destroyed instead.</p>",
+      "fr": "<p><b>Pouvoir accordé :</b> une fois par jour, le personnage peut tenter un renvoi suprême. Ce pouvoir s’utilise comme une tentative de renvoi, d’intimidation ou de contrôle des morts-vivants, sauf que les créatures affectées sont automatiquement détruites.</p>"
+    },
+    "spells": {
+      "1": "endure-elements",
+      "2": "heat-metal",
+      "3": "searing-light",
+      "4": "fire-shield",
+      "5": "flame-strike",
+      "6": "fire-seeds",
+      "7": "sunbeam",
+      "8": "sunburst",
+      "9": "prismatic-sphere"
+    },
+    "effects": {
+      "turning": {
+        "mode": "greater-turning",
+        "creatures": {
+          "en": "undead (turned undead are destroyed instead)",
+          "fr": "morts-vivants (ceux qui seraient renvoyés sont détruits)"
+        },
+        "perDay": "1/day"
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#sunDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "travel",
+    "name": {
+      "en": "Travel",
+      "fr": "Voyage"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Powers:</b> For a total time per day of 1 round per cleric level you possess, you can act normally regardless of magical effects that impede movement as if you were affected by the spell freedom of movement. This effect occurs automatically as soon as it applies, lasts until it runs out or is no longer needed, and can operate multiple times per day (up to the total daily limit of rounds).</p><p>This granted power is a supernatural ability.</p><p>Add Survival to your list of cleric class skills.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage peut agir normalement, même s’il est soumis à des effets magiques restreignant ses capacités de mouvement. Ce pouvoir surnaturel semblable au sort liberté de mouvement, peut être utilisé à volonté, dans la limite d’un total quotidien ne dépassant pas 1 round par niveau du personnage. Il prend effet immédiatement et dure jusqu’à ce que le PJ n’en ait plus besoin (ou jusqu’à ce que sa durée quotidienne soit épuisée).</p><p>Survie est une compétence de classe.</p>"
+    },
+    "spells": {
+      "1": "longstrider",
+      "2": "locate-object",
+      "3": "fly",
+      "4": "dimension-door",
+      "5": "teleport",
+      "6": "find-the-path",
+      "7": "teleport-greater",
+      "8": "phase-door",
+      "9": "astral-projection"
+    },
+    "effects": {
+      "classSkills": [
+        "survival"
+      ],
+      "usesPerDay": "rounds/day = cleric level: freedom of movement (Su)"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#travelDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "trickery",
+    "name": {
+      "en": "Trickery",
+      "fr": "Duperie"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Add Bluff, Disguise, and Hide to your list of cleric class skills.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> Bluff, Déguisement et Discrétion sont des compétences de classe.</p>"
+    },
+    "spells": {
+      "1": "disguise-self",
+      "2": "invisibility",
+      "3": "nondetection",
+      "4": "confusion",
+      "5": "false-vision",
+      "6": "mislead",
+      "7": "screen",
+      "8": "polymorph-any-object",
+      "9": "time-stop"
+    },
+    "effects": {
+      "classSkills": [
+        "bluff",
+        "disguise",
+        "hide"
+      ]
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#trickeryDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "war",
+    "name": {
+      "en": "War",
+      "fr": "Guerre"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Free Martial Weapon Proficiency with deity’s favored weapon (if necessary) and Weapon Focus with the deity’s favored weapon.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage gagne les dons Maniement d’une arme de guerre (si nécessaire) et Arme de prédilection (l’arme étant celle de son dieu).</p>"
+    },
+    "spells": {
+      "1": "magic-weapon",
+      "2": "spiritual-weapon",
+      "3": "magic-vestment",
+      "4": "divine-power",
+      "5": "flame-strike",
+      "6": "blade-barrier",
+      "7": "power-word-blind",
+      "8": "power-word-stun",
+      "9": "power-word-kill"
+    },
+    "effects": {
+      "grantsFeats": [
+        "martial-weapon-proficiency:$deityWeapon",
+        "weapon-focus:$deityWeapon"
+      ]
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#warDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "water",
+    "name": {
+      "en": "Water",
+      "fr": "Eau"
+    },
+    "grantedPower": {
+      "en": "<p><b>Granted Power:</b> Turn or destroy fire creatures as a good cleric turns undead. Rebuke, command, or bolster water creatures as an evil cleric rebukes undead. Use these abilities a total number of times per day equal to 3 + your Charisma modifier. This granted power is a supernatural ability.</p><p>*Cast as a water spell only.</p>",
+      "fr": "<p><b>Pouvoirs accordés :</b> le personnage peut renvoyer ou détruire les créatures du feu comme un prêtre bon le fait avec les morts-vivants. Il peut également intimider, contrôler ou augmenter le moral des créatures de l’eau comme un prêtre mauvais le fait avec les morts-vivants. Il peut utiliser ces pouvoirs 3 fois + modificateur de Charisme par jour. Il s’agit d’un pouvoir surnaturel.</p><p>* Lancé comme un sort d’eau uniquement.</p>"
+    },
+    "spells": {
+      "1": "obscuring-mist",
+      "2": "fog-cloud",
+      "3": "water-breathing",
+      "4": "control-water",
+      "5": "ice-storm",
+      "6": "cone-of-cold",
+      "7": "acid-fog",
+      "8": "horrid-wilting",
+      "9": "elemental-swarm"
+    },
+    "effects": {
+      "turning": {
+        "mode": "rebuke",
+        "creatures": {
+          "en": "water creatures (rebuke, command or bolster); fire creatures: turn or destroy",
+          "fr": "créatures de l’eau (intimider, contrôler ou augmenter le moral) ; créatures du feu : renvoyer ou détruire"
+        },
+        "perDay": "3 + Cha"
+      }
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#waterDomain",
+      "frRef": "DRS 21 (listes de sorts)"
+    }
+  }
+]

@@ -5,6 +5,7 @@ import type { Character, FeatPick, FeatSlot } from '../model/character'
 import { compute } from './compute'
 import { unmetPrereqs } from './prereq'
 import { raceOf } from './race'
+import { classSkillsOf } from './cleric'
 
 /** XP needed to reach a character level: 1000 × n(n−1)/2 (https://www.d20srd.org/srd/xp.htm). */
 export const xpForLevel = (level: number) => (1000 * level * (level - 1)) / 2
@@ -67,9 +68,9 @@ export function skillBudget(char: Character, rules: Rules, level: number): Skill
   let available = Math.max(1, (cls?.skillPoints ?? 0) + intMod) * (level === 1 ? 4 : 1)
   const extra = raceOf(char, rules).extraSkillPoints ?? 0
   available += extra * (level === 1 ? 4 : 1)
-  const inClass = (skillId: string) => cls?.classSkills.includes(skillId) ?? false
-  const anyClass = (skillId: string) =>
-    Object.keys(sheet.classLevels).some((c) => rules.classes.get(c)?.classSkills.includes(skillId))
+  // Class skills of the class taken at this level (cleric: plus domain skills) and of any class.
+  const inClass = (skillId: string) => (cls ? classSkillsOf(char, rules, cls.id).includes(skillId) : false)
+  const anyClass = (skillId: string) => Object.keys(sheet.classLevels).some((c) => classSkillsOf(char, rules, c).includes(skillId))
   const spent = Object.entries(entry.skillRanks).reduce(
     (s, [key, ranks]) => s + (inClass(key.split(':')[0]) ? ranks : ranks * 2),
     0,

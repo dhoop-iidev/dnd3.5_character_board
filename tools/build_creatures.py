@@ -4,7 +4,10 @@
 Scope: every creature on the SRD druid animal companion lists (base list + alternative lists of 4th, 7th, 10th, 13th,
 16th level, https://www.d20srd.org/srd/classes/druid.htm#animalCompanion) and on the Summon Nature's Ally I-IX table
 (https://www.d20srd.org/srd/spells/summonNaturesAllyI.htm), plus every other SRD animal and plant (druid wild shape forms,
-https://www.d20srd.org/srd/classes/druid.htm#wildShape; WILD_SHAPE below).
+https://www.d20srd.org/srd/classes/druid.htm#wildShape; WILD_SHAPE below), plus every base creature of the Summon
+Monster I-IX table (https://www.d20srd.org/srd/spells/summonMonsterI.htm; SUMMON_MONSTER below: vermin, archons, demons,
+devils, mephits...). The Summon Monster lists go to summon-lists.json after the Summon Nature's Ally ones, with the
+celestial / fiendish template and the alignment printed for each entry (templates.json: build_templates.py).
 
 English: Andargor SRD SQLite (`monster` stat block columns, `full_text` for the description; `class` Druid full_text and
 `spell` Summon Nature's Ally IX full_text for the lists, which are parsed and must give exactly the hand catalog below).
@@ -171,6 +174,56 @@ WILD_SHAPE_BLOCKED: dict[str, str] = {
     "Shrieker": "Reflex save — (no Dex score)",
 }
 CATALOG.update(WILD_SHAPE)
+# Base creatures of the Summon Monster I-IX table (https://www.d20srd.org/srd/spells/summonMonsterI.htm) not on the
+# druid lists; the celestial / fiendish animals and the elementals are the base creatures above. Pages and anchors from
+# the d20srd monster index (srd_urls.MONSTER_PAGES). "Lemure" is missing from dnd35.db: its stat block is read from the
+# local English SRD HTML (HTML_STATBLOCK).
+MONSTROUS_SIZES = {"centipede": ("Medium", "Large", "Huge", "Gargantuan", "Colossal"),
+                   "scorpion": ("Small", "Medium", "Large", "Huge", "Gargantuan"),
+                   "spider": ("Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal")}
+MEPHITS = ["air", "dust", "earth", "fire", "ice", "magma", "ooze", "salt", "steam", "water"]
+SUMMON_MONSTER: dict[str, tuple[str, str, str | None]] = {
+    "achaierai": ("Achaierai", "achaierai.htm", None),
+    "archon-hound": ("Hound Archon", "archon.htm", "houndArchon"),
+    "archon-lantern": ("Lantern Archon", "archon.htm", "lanternArchon"),
+    "avoral": ("Avoral", "avoral.htm", None),
+    "babau": ("Babau", "demon.htm", "babau"),
+    "bebilith": ("Bebilith", "demon.htm", "bebilith"),
+    "bee-giant": ("Giant Bee", "giantBee.htm", None),
+    "beetle-giant-bombardier": ("Giant Bombardier Beetle", "giantBombardierBeetle.htm", None),
+    "beetle-giant-fire": ("Giant Fire Beetle", "giantFireBeetle.htm", None),
+    "beetle-giant-stag": ("Giant Stag Beetle", "giantStagBeetle.htm", None),
+    "bralani": ("Bralani", "bralani.htm", None),
+    "chaos-beast": ("Chaos Beast", "chaosBeast.htm", None),
+    "couatl": ("Couatl", "couatl.htm", None),
+    "devil-barbed": ("Barbed Devil", "devil.htm", "barbedDevilHamatula"),
+    "devil-bearded": ("Bearded Devil", "devil.htm", "beardedDevilBarbazu"),
+    "devil-bone": ("Bone Devil", "devil.htm", "boneDevilOsyluth"),
+    "devil-chain": ("Chain Devil", "devil.htm", "chainDevilKyton"),
+    "dretch": ("Dretch", "demon.htm", "dretch"),
+    "hell-hound": ("Hellhound", "hellHound.htm", None),
+    "hellcat": ("Hellcat", "devil.htm", "hellcatBezekira"),
+    "hezrou": ("Hezrou", "demon.htm", "hezrou"),
+    "howler": ("Howler", "howler.htm", None),
+    "lemure": ("Lemure", "devil.htm", "lemure"),
+    "leonal": ("Leonal", "leonal.htm", None),
+    "lillend": ("Lillend", "lillend.htm", None),
+    "night-hag": ("Night Hag", "nightHag.htm", None),
+    "praying-mantis-giant": ("Giant Praying Mantis", "giantPrayingMantis.htm", None),
+    "shadow-mastiff": ("Shadow Mastiff", "shadowMastiff.htm", None),
+    "vrock": ("Vrock", "demon.htm", "vrock"),
+    "wasp-giant": ("Giant Wasp", "giantWasp.htm", None),
+    "xill": ("Xill", "xill.htm", None),
+    "yeth-hound": ("Yeth Hound", "yethHound.htm", None),
+}
+for _fam, _sizes in MONSTROUS_SIZES.items():
+    for _s in _sizes:
+        SUMMON_MONSTER[f"monstrous-{_fam}-{_s.lower()}"] = (f"Monstrous {_fam.capitalize()}, {_s}", f"monstrous{_fam.capitalize()}.htm", None)
+for _m in MEPHITS:
+    SUMMON_MONSTER[f"mephit-{_m}"] = (f"{_m.capitalize()} Mephit", "mephit.htm", f"{_m}Mephit")
+CATALOG.update(SUMMON_MONSTER)
+# Stat blocks missing from dnd35.db: dnd35.db name -> (local English SRD HTML file, heading id of the stat block).
+HTML_STATBLOCK = {"Lemure": ("monsters/monsters-d-de.html", "lemure")}
 for _el in ELEMENTS:
     for _k, _v in ELEMENT_SIZES.items():
         CATALOG[f"elemental-{_k}-{_el}"] = (f"{_el.capitalize()} Elemental, {_v}", "elemental.htm", f"{_el}Elemental")
@@ -300,6 +353,124 @@ def summon_lists() -> dict[int, list[str]]:
     return out
 
 
+# Summon Monster table labels (after dropping "Celestial " / "Fiendish ", footnote marks and the "(demon)"-style
+# group tags) that LABELS does not already name.
+SM_LABELS: dict[str, list[str]] = {
+    "giant fire beetle": ["beetle-giant-fire"], "raven": ["raven"],
+    "monstrous centipede, medium": ["monstrous-centipede-medium"], "monstrous scorpion, small": ["monstrous-scorpion-small"],
+    "monstrous spider, small": ["monstrous-spider-small"], "giant bee": ["bee-giant"],
+    "giant bombardier beetle": ["beetle-giant-bombardier"], "lemure": ["lemure"],
+    "monstrous centipede, large": ["monstrous-centipede-large"], "monstrous scorpion, medium": ["monstrous-scorpion-medium"],
+    "monstrous spider, medium": ["monstrous-spider-medium"], "black bear": ["bear-black"], "hell hound": ["hell-hound"],
+    "monstrous centipede, huge": ["monstrous-centipede-huge"], "dretch": ["dretch"], "archon, lantern": ["archon-lantern"],
+    "giant owl": ["owl-giant"], "giant eagle": ["eagle-giant"], "mephit (any)": [f"mephit-{m}" for m in MEPHITS],
+    "giant wasp": ["wasp-giant"], "giant praying mantis": ["praying-mantis-giant"], "yeth hound": ["yeth-hound"],
+    "monstrous spider, large": ["monstrous-spider-large"], "howler": ["howler"], "archon, hound": ["archon-hound"],
+    "brown bear": ["bear-brown"], "giant stag beetle": ["beetle-giant-stag"], "achaierai": ["achaierai"],
+    "devil, bearded": ["devil-bearded"], "monstrous scorpion, large": ["monstrous-scorpion-large"],
+    "shadow mastiff": ["shadow-mastiff"], "giant crocodile": ["crocodile-giant"], "polar bear": ["bear-polar"],
+    "orca whale": ["whale-orca"], "bralani": ["bralani"], "chaos beast": ["chaos-beast"], "devil, chain": ["devil-chain"],
+    "xill": ["xill"], "monstrous centipede, gargantuan": ["monstrous-centipede-gargantuan"],
+    "monstrous spider, huge": ["monstrous-spider-huge"], "avoral": ["avoral"], "baleen whale": ["whale-baleen"],
+    "devil, bone": ["devil-bone"], "monstrous scorpion, huge": ["monstrous-scorpion-huge"], "babau": ["babau"],
+    "giant octopus": ["octopus-giant"], "cachalot whale": ["whale-cachalot"], "lillend": ["lillend"],
+    "elemental, greater (any)": LABELS["elemental, greater (any)"], "giant squid": ["squid-giant"], "hellcat": ["hellcat"],
+    "monstrous centipede, colossal": ["monstrous-centipede-colossal"],
+    "monstrous spider, gargantuan": ["monstrous-spider-gargantuan"], "vrock": ["vrock"], "couatl": ["couatl"],
+    "leonal": ["leonal"], "elemental, elder (any)": LABELS["elemental, elder"], "devil, barbed": ["devil-barbed"],
+    "monstrous scorpion, gargantuan": ["monstrous-scorpion-gargantuan"], "night hag": ["night-hag"],
+    "bebilith": ["bebilith"], "monstrous spider, colossal": ["monstrous-spider-colossal"], "hezrou": ["hezrou"],
+}
+# French alignment abbreviations of the DRS 22a table (LB = loyal bon ...) -> SRD ones.
+FR_ALIGN = {"LB": "LG", "NB": "NG", "CB": "CG", "LN": "LN", "N": "N", "CN": "CN", "LM": "LE", "NM": "NE", "CM": "CE"}
+
+
+def sm_label_key(s: str) -> tuple[str, str | None]:
+    """'Fiendish snake, Small viper<sup>1</sup>' -> ('snake, small viper', 'fiendish')."""
+    k = _html.unescape(s).replace("*", "")
+    tpl = None
+    m = re.match(r"^(Celestial|Fiendish) (.+)$", k)
+    if m:
+        tpl, k = m.group(1).lower(), m.group(2)
+    k = re.sub(r"\((demon|devil|eladrin|guardinal|genie)\)", "", k)
+    k = re.sub(r"\s+", " ", k).strip().rstrip("1").strip().lower()
+    return k, tpl
+
+
+def summon_monster_lists() -> dict[int, dict]:
+    """Spell level -> {creatures, templates, alignments}, from the Summon Monster table (SRD, printed with the IX spell,
+    https://www.d20srd.org/srd/spells/summonMonsterI.htm). Every row is "label | alignment"; "Celestial X" / "Fiendish X"
+    give the template. The French table (DRS 22a, after the Summon Monster IX spell) must have the same number of rows and
+    the same alignments per level."""
+    t = db().execute("select full_text from spell where name='Summon Monster IX'").fetchone()[0]
+    toks = tokens(t[t.find("<b>Summon Monster</b>"):])
+    out: dict[int, dict] = {}
+    rows: dict[int, list[str]] = {}
+    lvl = None
+    i = 0
+    while i < len(toks):
+        tok = toks[i]
+        h = re.match(r"^(\d)\w\w Level$", tok)
+        if h:
+            lvl = int(h.group(1))
+            out[lvl] = {"creatures": [], "templates": {}, "alignments": {}}
+            rows[lvl] = []
+            i += 1
+            continue
+        if lvl is None or tok == "Summon Monster":
+            i += 1
+            continue
+        if tok.startswith("1 May"):
+            break
+        j = i + 1
+        if toks[j] == "1":  # footnote mark (aquatic environment only)
+            j += 1
+        al = toks[j]
+        assert al in FR_ALIGN.values(), (tok, al)
+        k, tpl = sm_label_key(tok)
+        ids = SM_LABELS.get(k) or LABELS.get(k)
+        assert ids, f"Summon Monster label {tok!r} ({k!r}) not in SM_LABELS / LABELS"
+        e = out[lvl]
+        for cid in ids:
+            assert cid not in e["creatures"], (lvl, cid)
+            e["creatures"].append(cid)
+            if tpl:
+                e["templates"][cid] = [tpl]
+            e["alignments"][cid] = al
+        rows[lvl].append(al)
+        i = j + 1
+    assert sorted(out) == list(range(1, 10)), out.keys()
+    # Cross-check with the French table (DRS 22a): same rows per level, same alignments.
+    ps = rtf_fr.load("DRS 22a")
+    i = next(n for n, p in enumerate(ps) if p.text == "Convocation de monstres" and ps[n + 1].text == "Niveau 1")
+    fr_rows: dict[int, list[str]] = {}
+    lvl = None
+    for p in ps[i + 1:]:
+        h = re.match(r"^Niveau (\d)$", p.text)
+        if h:
+            lvl = int(h.group(1))
+            fr_rows[lvl] = []
+        elif p.text.startswith("*"):
+            break
+        else:
+            fr_rows[lvl].append(FR_ALIGN[p.text.rsplit(" ", 1)[1]])
+    for lv, (fr_al, en_al, why) in FR_SM_ALIGN_SLIPS.items():
+        fr_rows[lv][fr_rows[lv].index(fr_al)] = en_al
+        NOTES.append(f"summon-lists: DRS 22a Summon Monster level {lv}: {why} (the English SRD alignment is used)")
+    for lv in range(1, 10):
+        assert sorted(fr_rows[lv]) == sorted(rows[lv]), (lv, fr_rows[lv], rows[lv])
+    for lv, why in FR_SM_SLIPS.items():
+        NOTES.append(f"summon-lists: DRS 22a Summon Monster level {lv}: {why} (the English SRD list is used)")
+    return out
+
+
+# Alignment slips of the French Summon Monster table: level -> (French, English, explanation).
+FR_SM_ALIGN_SLIPS = {4: ("NG", "LG", "'Hibou géant céleste NB' where the SRD has the celestial giant owl LG")}
+# Slips of the French Summon Monster table (DRS 22a), checked by hand against the SRD.
+FR_SM_SLIPS = {5: "'Requin sanguinaire, taille TG' (no 'fiélon') where the SRD has the fiendish Huge shark",
+               6: "'Orque épaulard' without 'céleste' where the SRD has the celestial orca whale"}
+
+
 # Known slips of the French Summon Nature's Ally table (entries difference, explanation).
 FR_SNA_SLIPS = {1: (-1, "the wolf (Loup) is missing"), 4: (-1, "the brown bear (Ours brun) is missing")}
 # Also checked by hand: DRS 22a level 2 prints "Serpent venimeux, taille P" where the SRD has the Medium viper.
@@ -308,7 +479,7 @@ FR_SNA_SLIPS = {1: (-1, "the wolf (Loup) is missing"), 4: (-1, "the brown bear (
 # ---------------------------------------------------------------------------------------------
 # French stat blocks (DRS 33, 35-40)
 # ---------------------------------------------------------------------------------------------
-FR_FILES = ["DRS 33", "DRS 35", "DRS 36", "DRS 37", "DRS 38", "DRS 39", "DRS 40"]
+FR_FILES = ["DRS 33", "DRS 34", "DRS 35", "DRS 36", "DRS 37", "DRS 38", "DRS 39", "DRS 40"]
 FR_END_LABEL = "Ajustement de niveau"
 
 
@@ -419,7 +590,7 @@ ABIL_FR = {"For": "str", "Dex": "dex", "Con": "con", "Int": "int", "Sag": "wis",
 MONSTER_FEATS = {"multiattack", "flyby-attack", "improved-natural-attack", "awesome-blow", "hover", "wingover",
                  "ability-focus", "multiweapon-fighting", "snatch"}
 # Good saves by creature type (https://www.d20srd.org/srd/typesSubtypes.htm); elementals by subtype.
-GOOD_SAVES = {"animal": {"fort", "ref"}, "magical-beast": {"fort", "ref"}, "fey": {"ref", "will"},
+GOOD_SAVES = {"animal": {"fort", "ref"}, "magical-beast": {"fort", "ref"}, "fey": {"ref", "will"}, "vermin": {"fort"},
               "outsider": {"fort", "ref", "will"}, "elemental:air": {"ref"}, "elemental:fire": {"ref"},
               "elemental:earth": {"fort"}, "elemental:water": {"fort"}}
 # Dire animals have three good saves (https://www.d20srd.org/srd/monsters/direAnimal.htm: "good Fortitude, Reflex,
@@ -453,6 +624,18 @@ FR_NAME = {
 }
 
 
+# Ties that the numbers (Hit Dice, abilities, speeds, AC, damage dice) cannot separate: id -> French block name, checked
+# by hand against the French entry text.
+FR_TIE: dict[str, tuple[str, str]] = {
+    # https://www.d20srd.org/srd/monsters/mephit.htm: fire "15-foot cone", magma "cone of magma", steam "cone of steam"
+    "mephit-fire": ("Méphite enflammé", "Cône de feu"), "mephit-magma": ("Méphite magmatique", "Cône de magma"),
+    "mephit-steam": ("Méphite vaporeux", "Cône de vapeur"),
+    # ooze "10-foot cone ... 1d4 acid", water "15-foot cone ... 1d8 acid"
+    "mephit-ooze": ("Méphite vaseux", "3 mètres de long, dégâts 1d4 acide"),
+    "mephit-water": ("Méphite aqueux", "4,50 mètres de long, dégâts 1d8 acide"),
+}
+
+
 # English creature -> French block name, where the French block has a number that differs from the SRD.
 FR_MATCH = {
     # https://www.d20srd.org/srd/monsters/elemental.htm#fireElemental: elder Int 6 (DRS 37: Int 10)
@@ -460,6 +643,9 @@ FR_MATCH = {
                              "the other elder elementals have Int 10, so the English SRD is probably wrong)"),
     "elemental-greater-fire": ("Élémentaire du Feu, noble", "French SRD (DRS 37) prints Int 8, English SRD Int 6 (kept; "
                                "the other greater elementals have Int 8, so the English SRD is probably wrong)"),
+    # https://www.d20srd.org/srd/monsters/mephit.htm#saltMephit: 3d8+6 (19 hp), the same numbers as the earth mephit
+    "mephit-salt": ("Méphite salin", "French SRD (DRS 38) prints 3d8+3 (16 pv), English SRD 3d8+6 (19 hp) (kept; with Con 13 "
+                    "the French value is the consistent one, the English SRD repeats the earth mephit's line)"),
 }
 # Extra damage text the French full attack line leaves out (official term of the special attack in the same block).
 EXTRA_FR = {"plus disease": "plus maladie"}
@@ -472,6 +658,10 @@ FR_FIELD_ERRATA = {
     # https://www.d20srd.org/srd/monsters/treant.htm: "Damage reduction 10/slashing" (DRS 39: 10/perforant)
     "treant": [("Particularités", "réduction des dégâts (10/perforant)", "réduction des dégâts (10/tranchant)")],
     "fungus-violet": [("Particularités", "vison nocturne", "vision nocturne")],  # misprint
+    # https://www.d20srd.org/srd/monsters/xill.htm: "2 short swords +5 melee (1d6+2/19-20, 1d6+1/19-20)" (DRS 40 prints
+    # only the primary hand damage)
+    "xill": [("Attaque à outrance", "2 épées courtes (+5 corps à corps, 1d6+2/19–20)",
+              "2 épées courtes (+5 corps à corps, 1d6+2/19–20, 1d6+1/19–20)")],
 }
 
 
@@ -607,16 +797,36 @@ def parse_en_attacks(s: str) -> list[list[dict]]:
         atks = []
         for a in split_top(routine, (" and ",)):
             m = EN_ATK.match(a.strip())
-            assert m, f"attack not parsed: {a!r} in {s!r}"
-            dmg, crit, extra = parse_damage(m.group(6), m.group(7))
-            kind = m.group(4).lower()
-            if m.group(5):
-                kind = {"melee": "touch", "ranged": "rangedTouch"}[kind]
-            atks.append({"count": int(m.group(1) or 1), "name": m.group(2).strip(),
-                         "bonuses": [int(x) for x in re.findall(r"[+-]\d+", m.group(3))],
-                         "kind": kind, "damage": dmg, "critical": crit, "extra": extra})
+            if not m:  # attack without damage (bebilith web: "web +11 ranged"): damage "0"
+                m = EN_ATK_NO_DAMAGE.match(a.strip())
+                assert m, f"attack not parsed: {a!r} in {s!r}"
+                m = EN_ATK.match(a.strip() + " (0)")
+            parts = split_dice(m.group(6))
+            for n_part, part in enumerate(parts):
+                dmg, crit, extra = parse_damage(part, m.group(7))
+                kind = m.group(4).lower()
+                if m.group(5):
+                    kind = {"melee": "touch", "ranged": "rangedTouch"}[kind]
+                cnt = int(m.group(1) or 1)
+                assert cnt % len(parts) == 0, a
+                d = {"count": cnt // len(parts), "name": m.group(2).strip(),
+                     "bonuses": [int(x) for x in re.findall(r"[+-]\d+", m.group(3))],
+                     "kind": kind, "damage": dmg, "critical": crit, "extra": extra}
+                if n_part:
+                    d["offHand"] = True
+                atks.append(d)
         out.append(atks)
     return out
+
+
+EN_ATK_NO_DAMAGE = re.compile(r"^(?:(\d+) )?(.+?) ([+-]\d+(?:/[+-]\d+)*) (melee|ranged)( touch)?$", re.I)
+FR_ATK_NO_DAMAGE = re.compile(r"^(?:(\d+) )?(.+?) \(([+–-]\d+(?:/[+–-]\d+)*) (corps à corps|distance|contact à distance|contact)\)$")
+
+
+def split_dice(d: str) -> list[str]:
+    """'1d6+2/19-20, 1d6+1/19-20' (xill: one damage per weapon of the pair) -> two damages; anything else unchanged."""
+    parts = split_top(d, (", ",))
+    return parts if len(parts) > 1 and all(re.match(r"^\d+d\d+", x) for x in parts) else [d]
 
 
 def parse_fr_attacks(s: str) -> list[list[dict]]:
@@ -627,11 +837,15 @@ def parse_fr_attacks(s: str) -> list[list[dict]]:
         atks = []
         for a in split_top(routine, (" et ", ", ")):
             m = FR_ATK.match(a.strip())
-            assert m, f"French attack not parsed: {a!r} in {s!r}"
-            dm = re.match(r"^([0-9d+\-]+)(?:\s*[/,]\s*[0-9]+-\d+)?(?:\s*[/,]\s*[x×]\d)?\s*(.*)$", m.group(5).replace("–", "-").replace("*", "").strip())
-            extra = re.sub(r"^plus(?=\d)", "plus ", dm.group(2).strip()) if dm else ""  # "plus1d8" misprint
-            atks.append({"count": int(m.group(1) or 1), "name": re.sub(r"^(et|puis) ", "", m.group(2).strip()),
-                         "bonus": signed(m.group(3).split("/")[0]), "extra": extra or None})
+            if not m:  # no damage (bebilith web)
+                assert FR_ATK_NO_DAMAGE.match(a.strip()), f"French attack not parsed: {a!r} in {s!r}"
+                m = FR_ATK.match(a.strip()[:-1] + ", 0)")
+            parts = split_dice(m.group(5).replace("–", "-"))
+            for part in parts:
+                dm = re.match(r"^([0-9d+\-]+)(?:\s*[/,]\s*[0-9]+-\d+)?(?:\s*[/,]\s*[x×]\d)?\s*(.*)$", part.replace("–", "-").replace("*", "").strip())
+                extra = re.sub(r"^plus(?=\d)", "plus ", dm.group(2).strip()) if dm else ""  # "plus1d8" misprint
+                atks.append({"count": int(m.group(1) or 1) // len(parts), "name": re.sub(r"^(et|puis) ", "", m.group(2).strip()),
+                             "bonus": signed(m.group(3).split("/")[0]), "extra": extra or None})
         out.append(atks)
     return out
 
@@ -676,8 +890,11 @@ EN_HTML = {
     "warhorse-light": ["horse", "horse--combat@0", "horse--combat@4"],
     "bat": ["bat", "bat--combat"],
     "fungus-violet": ["monsters/monsters-e-f.html:fungus", "fungus--combat", "violet-fungus", "violet-fungus--combat"],
+    "lemure": ["monsters/monsters-d-de.html:lemure", "lemure--combat"],  # not in dnd35.db (HTML_STATBLOCK)
 }
 EN_HTML_FILE = "monsters/monsters-animals.html"
+# dnd35.db full_text that also holds the next creature of the d20srd page: id -> topic where the text is cut.
+EN_TEXT_CUT = {"hell-hound": "Nessian Warhound", "archon-hound": "Hound Archon Hero"}
 
 
 def en_html_texts(ids: list[str]) -> tuple[list[str], list[str]]:
@@ -706,6 +923,39 @@ def en_html_texts(ids: list[str]) -> tuple[list[str], list[str]]:
             in_special = p.startswith("<b>") or (in_special and not p.startswith("<"))
             (special if in_special else desc).append(p)
     return desc, special
+
+
+# English SRD stat block table labels -> dnd35.db monster columns (HTML_STATBLOCK).
+HTML_COLS = {"Hit Dice": "hit_dice", "Initiative": "initiative", "Speed": "speed", "Armor Class": "armor_class",
+             "AC": "armor_class", "Attack": "attack", "Full Attack": "full_attack", "Special Attacks": "special_attacks",
+             "Special Qualities": "special_qualities", "Saves": "saves", "Abilities": "abilities", "Skills": "skills",
+             "Feats": "feats", "Challenge Rating": "challenge_rating", "Alignment": "alignment"}
+
+
+def html_row(name: str) -> dict:
+    """dnd35.db-like monster row from the stat block table of the local English SRD HTML (creatures missing from
+    dnd35.db). Missing rows (Skills, Feats of a mindless creature) are "—"."""
+    from common import ROOT
+    fname, hid = HTML_STATBLOCK[name]
+    html = (ROOT / "sources" / "srd-v3.5" / fname).read_text(encoding="utf-8")
+    m = re.search(rf'<h\d id="{re.escape(hid)}">', html)
+    table = re.search(r"<table.*?</table>", html[m.end():], flags=re.S).group(0)
+    cells = [[re.sub(r"\s+", " ", strip_tags(c)).strip() for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, flags=re.S)]
+             for tr in re.findall(r"<tr>(.*?)</tr>", table, flags=re.S)]
+    r = {"name": name, "descriptor": "None", "feats": "—", "bonus_feats": "—", "skills": "—", "full_text": ""}
+    tm = re.match(r"^(\w+) (.+?)(?: \((.+)\))?$", cells[0][1])
+    r["size"], r["type"], r["descriptor"] = tm.group(1), tm.group(2), tm.group(3) or "None"
+    for lab, val in cells[1:]:
+        lab = lab.rstrip(":")
+        if lab == "Base Attack/Grapple":
+            r["base_attack"], r["grapple"] = val.split("/")
+        elif lab == "Space/Reach":
+            r["space"], r["reach"] = [x + ("" if x.endswith("ft.") else " ft.") for x in val.split("/")]
+        elif lab in HTML_COLS:
+            r[HTML_COLS[lab]] = val.replace("–", "-") if lab in ("Initiative", "Armor Class", "AC", "Saves") else val
+    # The lemure AC line has no comma before "touch" (https://www.d20srd.org/srd/monsters/devil.htm#lemure has it).
+    r["armor_class"] = re.sub(r"\) touch", "), touch", r["armor_class"])
+    return r
 
 
 def fr_texts(body) -> tuple[list[str], list[str]]:
@@ -794,6 +1044,14 @@ def _weapon_names(weapons: list[dict]) -> dict[str, dict]:
     return {w["name"]["en"].lower(): w for w in weapons}
 
 
+def weapon_lookup(name: str, wnames: dict[str, dict]) -> dict | None:
+    """'holy scimitar' / 'holy composite longbow (+4 str bonus)' / 'short swords' -> the weapons.json weapon (special
+    ability words, the composite bow Str rating and the plural dropped)."""
+    n = re.sub(r"\s*\(.*?\)", "", name)
+    n = re.sub(r"^(?:(?:holy|unholy|axiomatic|anarchic|flaming|frost|shock|keen|masterwork) )+", "", n).strip()
+    return wnames.get(n) or (wnames.get(n[:-1]) if n.endswith("s") else None)
+
+
 def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_ids, size, bab, weapons, exc, idx=0) -> list[dict]:
     """Full-attack routine `idx` ("or" alternatives) -> CreatureAttack[], with the consistency checks (exceptions
     appended to `exc`)."""
@@ -806,7 +1064,7 @@ def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_
     is_weapon = []
     for a in routine:
         base = re.sub(r"^\+\d ", "", a["name"]).lower()
-        is_weapon.append(wnames.get(base))
+        is_weapon.append(wnames.get(base) or weapon_lookup(base, wnames))
     n_natural = sum(a["count"] for a, w in zip(routine, is_weapon) if not w and "ray" not in a["name"].lower())
     out = []
     first_natural = True
@@ -845,10 +1103,13 @@ def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_
             first_natural = False
         # Str on damage (https://www.d20srd.org/srd/combat/actionsInCombat.htm#strengthBonus,
         # https://www.d20srd.org/srd/monsters/intro.htm natural weapons: sole attack 1.5, secondary 0.5)
-        if ray or a["damage"] == "0" or (w is not None and w["kind"] == "ranged"):
+        # A composite bow with a Strength rating adds Str (https://www.d20srd.org/srd/equipment/weapons.htm#longbowComposite);
+        # the second damage of a weapon pair is the off-hand one (xill: half Str).
+        composite_str = w is not None and "composite" in name_l and "str bonus" in name_l
+        if ray or a["damage"] == "0" or (w is not None and w["kind"] == "ranged" and not composite_str):
             factor = 0
         elif w is not None:
-            factor = 1.5 if w["handedness"] == "twoHanded" else 1
+            factor = 0.5 if a.get("offHand") else 1.5 if w["handedness"] == "twoHanded" else 1
         elif role == "secondary":
             factor = 0.5
         else:
@@ -905,8 +1166,12 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
     c = db()
     comp = companion_lists()
     sna = summon_lists()
+    sm = summon_monster_lists()
     used = {x for _, _, ids in comp for x in ids} | {x for ids in sna.values() for x in ids}
     assert not used & set(WILD_SHAPE), used & set(WILD_SHAPE)
+    sm_ids = {x for e in sm.values() for x in e["creatures"]}
+    assert set(SUMMON_MONSTER) <= sm_ids, set(SUMMON_MONSTER) - sm_ids
+    used |= sm_ids
     # Wild shape scope: every dnd35.db animal / plant outside the epic and psionic SRD is in the catalog.
     by_name = {v[0]: k for k, v in CATALOG.items()}
     scope = c.execute(f"select name, reference from monster where type in ({','.join('?' * len(WILD_SHAPE_TYPES))})",
@@ -940,7 +1205,11 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
 
     out, exc = [], []
     for cid, (dbname, page, anchor) in sorted(CATALOG.items()):
-        r = dict(c.execute("select * from monster where name=?", (dbname,)).fetchone())
+        if dbname in HTML_STATBLOCK:
+            r = html_row(dbname)
+            NOTES.append(f"creatures: {dbname} is not in dnd35.db; stat block read from sources/srd-v3.5/{HTML_STATBLOCK[dbname][0]}")
+        else:
+            r = dict(c.execute("select * from monster where name=?", (dbname,)).fetchone())
         for col, (a, b) in DB_FIX.get(cid, {}).items():
             assert a in r[col], (cid, col, r[col])
             r[col] = r[col].replace(a, b)
@@ -951,12 +1220,22 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         frs = fr_index.get((hdkey, tuple(abil.values())), [])
         if cid in FR_MATCH:  # the French block differs on a number: matched by name, the English number is kept
             name, why = FR_MATCH[cid]
-            assert not frs, cid
+            assert all(b["name"] != name for b in frs), cid
             frs = [b for b in all_blocks if b["name"] == name]
             exc.append(f"{cid}: {why}")
         if len(frs) > 1:  # same Hit Dice and abilities (cheetah / leopard, giant eagle / owl): the speeds separate them
             sp = {k: v for k, v in parse_speed(r["speed"]).items() if k != "flyManeuver"}
             frs = [b for b in frs if parse_speed_fr(b["fields"]["Vitesse de déplacement"]) == sp]
+        if len(frs) > 1:  # mephits (dust / ice, fire / magma / steam): AC numbers, then the damage dice
+            ac_en = re.findall(r"(?<![+-])\d+(?! (?:size|Dex|natural))", r["armor_class"])
+            frs = [b for b in frs if re.findall(r"(?<![+–-])\d+(?! (?:taille|Dex|naturelle))", b["fields"]["Classe d’armure"]) == ac_en]
+        if len(frs) > 1:
+            dice_en = re.findall(r"\d+d\d+", r["full_attack"])
+            frs = [b for b in frs if re.findall(r"\d+d\d+", b["fields"]["Attaque à outrance"]) == dice_en]
+        if len(frs) > 1 and cid in FR_TIE:  # same numbers everywhere: the hand pair, checked on the breath weapon text
+            name, phrase = FR_TIE[cid]
+            frs = [b for b in frs if b["name"] == name and any(phrase in q.text for q in b["body"])]
+            assert len(frs) == 1, (cid, name, phrase)
         assert len(frs) <= 1, (cid, [b["name"] for b in frs])
         fr = frs[0] if frs else None
         if cid == "unicorn":
@@ -1055,10 +1334,17 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         skills_fr = dash(ff.get("Compétences")) if fr else translate_list(skills_en, tr, CHARGER_FR["skillsExtra"])
         al_en = dash(r["alignment"])
         if al_en == "—":
-            assert typ == "animal", cid
-            al_en = "Always neutral"  # animal trait, https://www.d20srd.org/srd/typesSubtypes.htm#animal
+            assert typ in ("animal", "vermin"), cid
+            # animal trait, https://www.d20srd.org/srd/typesSubtypes.htm#animal; vermin: SRD Monsters, vermin introduction
+            # ("Alignment: Always neutral", sources/srd-v3.5/monsters/monsters-vermin.html; DRS 34 "Toujours neutre")
+            al_en = "Always neutral"
         al_fr = (ff.get("Alignement") or "toujours neutre") if fr else unicorn_fr["fields"]["Alignement"]
-        desc_en, special_en = en_html_texts(EN_HTML[cid]) if cid in EN_HTML else en_texts(r["full_text"])
+        full_text = r["full_text"]
+        if cid in EN_TEXT_CUT:  # the dnd35.db full_text goes on with another creature of the page
+            k = full_text.find(f"<div topic='{EN_TEXT_CUT[cid]}'")
+            assert k > 0, cid
+            full_text = full_text[:k]
+        desc_en, special_en = en_html_texts(EN_HTML[cid]) if cid in EN_HTML else en_texts(full_text)
         if fr:
             desc_fr, special_fr = fr_texts(fr["body"])
             sa_fr, sq_fr = dash(ff.get("Attaques spéciales")), dash(ff.get("Particularités"))
@@ -1089,12 +1375,20 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         if not fr:
             d["source"]["frRef"] = f"{rtf_fr.file_label('DRS 38')} (licorne), {rtf_fr.file_label('DRS 22a')} (nom)"
         out.append(d)
-    assert len({d["name"]["fr"] for d in out}) == len(out), "duplicate French names"
+    _dup = [n for n in {d["name"]["fr"] for d in out} if sum(d["name"]["fr"] == n for d in out) > 1]
+    assert not _dup, f"duplicate French names {_dup}"
     write_json(OUT_SRD / "creatures.json", out)
 
     lists = [{"spellId": f"summon-natures-ally-{ROMAN[lv]}", "level": lv, "creatures": sorted(ids)} for lv, ids in sorted(sna.items())]
     for x in lists:
         assert x["spellId"] in spell_ids, x["spellId"]
+    # Summon Monster I-IX (after the Summon Nature's Ally lists): templates and alignments as printed in the SRD table.
+    for lv, e in sorted(sm.items()):
+        sid = f"summon-monster-{ROMAN[lv]}"
+        if sid not in spell_ids:
+            NOTES.append(f"summon-lists: {sid} is not in spells.json yet (list kept with that id)")
+        lists.append({"spellId": sid, "level": lv, "creatures": sorted(e["creatures"]),
+                      "templates": dict(sorted(e["templates"].items())), "alignments": dict(sorted(e["alignments"].items()))})
     write_json(OUT_SRD / "summon-lists.json", lists)
     companions = build_companions(comp)
     write_json(OUT_SRD / "companions.json", companions)
