@@ -46,6 +46,19 @@ export function unmetPrereqs(
       out.push({ en: `${name.en} ${min} ranks (has ${ranks})`, fr: `${name.fr} ${min} degrés (a ${ranks})` })
     }
   }
+  // "Other" prerequisites that the sheet can answer: turning ability (Extra/Improved Turning) and caster level
+  // (item creation feats, https://www.d20srd.org/srd/feats.htm#itemCreationFeats).
+  for (const o of prereq.other ?? []) {
+    if (/turn or rebuke/i.test(o.en) && !sheet.turning)
+      out.push(o)
+    if (/^wild shape ability/i.test(o.en) && (sheet.classLevels['druid'] ?? 0) < 5) out.push(o)
+    if (/^Wizard level 1/i.test(o.en) && !sheet.classLevels['wizard']) out.push(o)
+    const cl = o.en.match(/^Caster level (\d+)/i)
+    if (cl) {
+      const best = Math.max(0, ...sheet.spellcasting.map((sc) => sc.casterLevel.total))
+      if (best < Number(cl[1])) out.push({ en: `${o.en} (has ${best})`, fr: `${o.fr} (a ${best})` })
+    }
+  }
   return out
 }
 

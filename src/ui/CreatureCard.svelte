@@ -81,7 +81,7 @@
     <div>
       <button class="link name" onclick={info}>{state.name || tr(d.name)}</button>
       <small
-        >{state.name ? `${tr(d.name)} · ` : ''}{tr(d.typeText)} · {s.hitDice}
+        >{state.name ? `${tr(d.name)} · ` : ''}{tr(s.typeText)} · {s.hitDice}
         {tr({ en: 'HD', fr: 'DV' })}{subtitle ? ` · ${subtitle}` : ''}</small
       >
     </div>
@@ -268,6 +268,18 @@
             })}>{tr(sp.name)}</button
         >
       {/each}
+    </p>
+  {/if}
+  {#if s.bonusHdGains}
+    {@const g = s.bonusHdGains}
+    <p class="line">
+      <small
+        >{tr({
+          en: `Bonus HD also give (described only, choose them with the DM): ${g.feats} feat(s), ${g.abilityIncreases} ability increase(s), ${g.skillPoints} skill points`,
+          fr: `Les DV supplémentaires donnent aussi (décrit seulement, à choisir avec le MJ) : ${g.feats} don(s), ${g.abilityIncreases} augmentation(s) de caractéristique, ${g.skillPoints} points de compétence`,
+        })}
+        <a href="https://www.d20srd.org/srd/improvingMonsters.htm" target="_blank" rel="noopener">d20srd</a></small
+      >
     </p>
   {/if}
 </article>

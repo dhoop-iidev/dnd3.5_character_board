@@ -8,7 +8,8 @@ import { classBonusFeatList, featSlotsAt, isAbilityIncreaseLevel, skillBudget } 
 import { knownManeuvers, learnBlockers, martialCaps } from './martial'
 import { choicesAt } from './classChoices'
 import { raceOf } from './race'
-import { proficientWith } from './proficiency'
+import { parseAlignment, opposedDescriptors } from './alignment'
+import { domainsOf } from './cleric'
 
 export { unmetPrereqs }
 
@@ -76,7 +77,10 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       const unmet = unmetPrereqs(cls.requirements, before, rules, feats, perm.weaponOfChoice)
       if (cls.requirements?.masterworkWeapon) {
         const hasMw = char.inventory.some(
-          (it) => it.kind === 'weapon' && it.refId === perm.weaponOfChoice && (it.masterwork || (it.enhancement ?? 0) > 0),
+          (it) =>
+            it.kind === 'weapon' &&
+            it.refId === perm.weaponOfChoice &&
+            (it.masterwork || (it.enhancement ?? 0) > 0 || !!(it.material && rules.materials.get(it.material)?.effects.masterwork)),
         )
         if (!hasMw) unmet.push({ en: 'masterwork weapon of choice', fr: 'arme de prédilection de maître' })
       }
@@ -248,11 +252,40 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
   {
     const first = char.levels.find((l) => l.classId === 'cleric')
     const ch = first?.classChoices?.channel
-    const al = (char.identity.alignment ?? '').toUpperCase().replace(/\s/g, '')
-    const good = /^(LG|NG|CG|LB|NB|CB)$/.test(al) || /BON/.test(al)
-    const evil = /^(LE|NE|CE|LM|NM|CM)$/.test(al) || /MAUVAIS/.test(al)
+    const al = parseAlignment(char.identity.alignment)
+    const good = al?.moral === 'good'
+    const evil = al?.moral === 'evil'
     if (ch && ((good && ch === 'negative') || (evil && ch === 'positive')))
       out.push(w('cleric-energy-alignment', 'error', 'levels', `A ${good ? 'good' : 'evil'} cleric must channel ${good ? 'positive' : 'negative'} energy`, `Un prêtre ${good ? 'bon' : 'mauvais'} canalise l'énergie ${good ? 'positive' : 'négative'}`, { srdUrl: `${SRD}classes/cleric.htm#spontaneousCasting` }))
+    if (first) {
+      // Alignment domains (Chaos, Evil, Good, Law) only if the cleric's alignment matches
+      // (https://www.d20srd.org/srd/classes/cleric.htm#domains).
+      const NEED: Record<string, (a: NonNullable<typeof al>) => boolean> = {
+        good: (a) => a.moral === 'good',
+        evil: (a) => a.moral === 'evil',
+        law: (a) => a.order === 'lawful',
+        chaos: (a) => a.order === 'chaotic',
+      }
+      const domains = domainsOf(char, rules)
+      for (const d of domains)
+        if (NEED[d.id] && (!al || !NEED[d.id](al)))
+          out.push(w(`cleric-domain-alignment-${d.id}`, 'error', 'levels',
+            `The ${d.name.en} domain needs a matching alignment (${char.identity.alignment || 'none given'})`,
+            `Le domaine ${d.name.fr} exige un alignement correspondant (${char.identity.alignment || 'non indiqué'})`,
+            { srdUrl: `${SRD}classes/cleric.htm#domains`, actionable: true }))
+      // Spells of an opposed alignment can't be cast (https://www.d20srd.org/srd/classes/cleric.htm).
+      const opposed = al ? opposedDescriptors(al) : []
+      const prepared = Object.values(char.spells?.['cleric']?.prepared ?? {}).flat()
+      for (const id of new Set(prepared.map((x) => x.id).filter(Boolean))) {
+        const sp = rules.spells.get(id)
+        const bad = sp?.descriptors?.find((d) => opposed.includes(d))
+        if (sp && bad)
+          out.push(w(`cleric-opposed-spell-${id}`, 'error', 'levels',
+            `${sp.name.en} has the ${bad} descriptor, opposed to the cleric's alignment: it can't be cast`,
+            `${sp.name.fr} a le registre ${bad === 'evil' ? 'Mal' : bad === 'good' ? 'Bien' : bad === 'lawful' ? 'Loi' : 'Chaos'}, opposé à l'alignement du prêtre : il ne peut pas être lancé`,
+            { srdUrl: `${SRD}classes/cleric.htm` }))
+      }
+    }
   }
 
   // ---- class-feature choices (ranger favored enemy, combat style)
@@ -334,8 +367,15 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       out.push(w(`armor-prof-${x.item.uid}`, 'error', 'inventory', `Not proficient with ${x.def.name.en}`, `Pas de maniement de ${x.def.name.fr}`, { srdUrl: `${SRD}equipment/armor.htm` }))
   }
   for (const a of now.attacks)
-    if (!proficientWith(now.proficiency, a.weapon))
+    if (!a.proficient)
       out.push(w(`weapon-prof-${a.itemUid}`, 'error', 'combat', `Not proficient with ${a.weapon.name.en} (−4 attack)`, `Pas de maniement de ${a.weapon.name.fr} (−4 à l'attaque)`, { srdUrl: `${SRD}equipment/weapons.htm` }))
+  // Two-handed grip with a shield on the arm: only a buckler can stay strapped (−1 attack, already applied);
+  // a light or heavy shield needs its hand (rulings-combat-equipment.md R27).
+  if (now.shield && now.shield.def.id !== 'buckler' && now.attacks.some((a) => a.twoHands && a.weapon.kind === 'melee'))
+    out.push(w('two-hands-shield', 'warning', 'combat',
+      `A weapon held two-handed and ${now.shield.def.name.en} in the same loadout: the shield hand is needed for the weapon (only a buckler stays usable)`,
+      `Arme tenue à deux mains et ${now.shield.def.name.fr} dans la même configuration : la main du bouclier sert à tenir l'arme (seule une targe reste utilisable)`,
+      { srdUrl: `${SRD}equipment/armor.htm#buckler` }))
   if (now.load.band !== 'light')
     out.push(w('load', now.load.band === 'overloaded' ? 'error' : 'warning', 'inventory',
       `Load: ${now.load.band} (${now.load.carried.lb} lb)`, `Charge : ${now.load.band === 'medium' ? 'intermédiaire' : now.load.band === 'heavy' ? 'lourde' : 'excessive'} (${now.load.carried.kg} kg)`,

@@ -21,14 +21,24 @@
       "9": "elemental-swarm"
     },
     "effects": {
-      "turning": {
-        "mode": "rebuke",
-        "creatures": {
-          "en": "air creatures (rebuke, command or bolster); earth creatures: turn or destroy",
-          "fr": "créatures de l’air (intimider, contrôler ou augmenter le moral) ; créatures de la terre : renvoyer ou détruire"
+      "turning": [
+        {
+          "mode": "rebuke",
+          "creatures": {
+            "en": "air creatures (rebuke, command or bolster)",
+            "fr": "créatures de l’air (intimider, contrôler ou augmenter le moral)"
+          },
+          "perDay": "3+cha"
         },
-        "perDay": "3 + Cha"
-      }
+        {
+          "mode": "turn",
+          "creatures": {
+            "en": "earth creatures (turn or destroy)",
+            "fr": "créatures de la terre (renvoyer ou détruire)"
+          },
+          "perDay": "3+cha"
+        }
+      ]
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#airDomain",
@@ -60,7 +70,10 @@
       "classSkills": [
         "knowledge-nature"
       ],
-      "usesPerDay": "1/day: speak with animals (Sp)"
+      "usesPerDay": {
+        "en": "1/day: speak with animals (Sp)",
+        "fr": "1/jour : communication avec les animaux (Mag)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#animalDomain",
@@ -121,7 +134,10 @@
       "9": "wail-of-the-banshee"
     },
     "effects": {
-      "usesPerDay": "1/day: death touch (Su)"
+      "usesPerDay": {
+        "en": "1/day: death touch (Su)",
+        "fr": "1/jour : caresse mortelle (Sur)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#deathDomain",
@@ -150,7 +166,10 @@
       "9": "implosion"
     },
     "effects": {
-      "usesPerDay": "1/day: smite (Su)"
+      "usesPerDay": {
+        "en": "1/day: smite (Su)",
+        "fr": "1/jour : châtiment (Sur)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#destructionDomain",
@@ -179,14 +198,24 @@
       "9": "elemental-swarm"
     },
     "effects": {
-      "turning": {
-        "mode": "rebuke",
-        "creatures": {
-          "en": "earth creatures (rebuke, command or bolster); air creatures: turn or destroy",
-          "fr": "créatures de la terre (intimider, contrôler ou augmenter le moral) ; créatures de l’air : renvoyer ou détruire"
+      "turning": [
+        {
+          "mode": "rebuke",
+          "creatures": {
+            "en": "earth creatures (rebuke, command or bolster)",
+            "fr": "créatures de la terre (intimider, contrôler ou augmenter le moral)"
+          },
+          "perDay": "3+cha"
         },
-        "perDay": "3 + Cha"
-      }
+        {
+          "mode": "turn",
+          "creatures": {
+            "en": "air creatures (turn or destroy)",
+            "fr": "créatures de l’air (renvoyer ou détruire)"
+          },
+          "perDay": "3+cha"
+        }
+      ]
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#earthDomain",
@@ -247,14 +276,24 @@
       "9": "elemental-swarm"
     },
     "effects": {
-      "turning": {
-        "mode": "rebuke",
-        "creatures": {
-          "en": "fire creatures (rebuke, command or bolster); water creatures: turn or destroy",
-          "fr": "créatures du feu (intimider, contrôler ou augmenter le moral) ; créatures de l’eau : renvoyer ou détruire"
+      "turning": [
+        {
+          "mode": "rebuke",
+          "creatures": {
+            "en": "fire creatures (rebuke, command or bolster)",
+            "fr": "créatures du feu (intimider, contrôler ou augmenter le moral)"
+          },
+          "perDay": "3+cha"
         },
-        "perDay": "3 + Cha"
-      }
+        {
+          "mode": "turn",
+          "creatures": {
+            "en": "water creatures (turn or destroy)",
+            "fr": "créatures de l’eau (renvoyer ou détruire)"
+          },
+          "perDay": "3+cha"
+        }
+      ]
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#fireDomain",
@@ -423,7 +462,10 @@
       "9": "miracle"
     },
     "effects": {
-      "usesPerDay": "1/day: reroll (Ex)"
+      "usesPerDay": {
+        "en": "1/day: good fortune, reroll one roll (Ex)",
+        "fr": "1/jour : bonne fortune, rejouer un jet (Ext)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#luckDomain",
@@ -452,7 +494,10 @@
       "9": "mages-disjunction"
     },
     "effects": {
-      "usesPerDay": "at will: scrolls, wands (spell completion/trigger) as a wizard of ½ cleric level (min. 1)"
+      "usesPerDay": {
+        "en": "at will: scrolls, wands (spell completion/trigger) as a wizard of ½ cleric level (min. 1)",
+        "fr": "à volonté : parchemins, baguettes (fin d’incantation / potentiel magique) comme un magicien de la moitié du niveau de prêtre (niveau 1 minimum)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#magicDomain",
@@ -484,14 +529,16 @@
       "classSkills": [
         "knowledge-nature"
       ],
-      "turning": {
-        "mode": "rebuke",
-        "creatures": {
-          "en": "plant creatures (rebuke or command)",
-          "fr": "créatures végétales (intimider ou contrôler)"
-        },
-        "perDay": "3 + Cha"
-      }
+      "turning": [
+        {
+          "mode": "rebuke",
+          "creatures": {
+            "en": "plant creatures (rebuke or command)",
+            "fr": "créatures végétales (intimider ou contrôler)"
+          },
+          "perDay": "3+cha"
+        }
+      ]
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#plantDomain",
@@ -520,7 +567,10 @@
       "9": "prismatic-sphere"
     },
     "effects": {
-      "usesPerDay": "1/day: protective ward (Su)"
+      "usesPerDay": {
+        "en": "1/day: protective ward (Su)",
+        "fr": "1/jour : protection divine (Sur)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#protectionDomain",
@@ -549,7 +599,10 @@
       "9": "crushing-hand"
     },
     "effects": {
-      "usesPerDay": "1/day: feat of strength (Su), 1 round"
+      "usesPerDay": {
+        "en": "1/day: feat of strength (Su), 1 round",
+        "fr": "1/jour : exploit physique (Sur), 1 round"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#strengthDomain",
@@ -578,14 +631,16 @@
       "9": "prismatic-sphere"
     },
     "effects": {
-      "turning": {
-        "mode": "greater-turning",
-        "creatures": {
-          "en": "undead (turned undead are destroyed instead)",
-          "fr": "morts-vivants (ceux qui seraient renvoyés sont détruits)"
-        },
-        "perDay": "1/day"
-      }
+      "turning": [
+        {
+          "mode": "greater-turning",
+          "creatures": {
+            "en": "undead (turned undead are destroyed instead)",
+            "fr": "morts-vivants (ceux qui seraient renvoyés sont détruits)"
+          },
+          "perDay": 1
+        }
+      ]
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#sunDomain",
@@ -617,7 +672,10 @@
       "classSkills": [
         "survival"
       ],
-      "usesPerDay": "rounds/day = cleric level: freedom of movement (Su)"
+      "usesPerDay": {
+        "en": "rounds/day = cleric level: freedom of movement (Su)",
+        "fr": "rounds/jour = niveau de prêtre : liberté de mouvement (Sur)"
+      }
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#travelDomain",
@@ -680,7 +738,7 @@
     },
     "effects": {
       "grantsFeats": [
-        "martial-weapon-proficiency:$deityWeapon",
+        "martial-weapon-proficiency:$deityWeaponIfMartial",
         "weapon-focus:$deityWeapon"
       ]
     },
@@ -711,14 +769,24 @@
       "9": "elemental-swarm"
     },
     "effects": {
-      "turning": {
-        "mode": "rebuke",
-        "creatures": {
-          "en": "water creatures (rebuke, command or bolster); fire creatures: turn or destroy",
-          "fr": "créatures de l’eau (intimider, contrôler ou augmenter le moral) ; créatures du feu : renvoyer ou détruire"
+      "turning": [
+        {
+          "mode": "rebuke",
+          "creatures": {
+            "en": "water creatures (rebuke, command or bolster)",
+            "fr": "créatures de l’eau (intimider, contrôler ou augmenter le moral)"
+          },
+          "perDay": "3+cha"
         },
-        "perDay": "3 + Cha"
-      }
+        {
+          "mode": "turn",
+          "creatures": {
+            "en": "fire creatures (turn or destroy)",
+            "fr": "créatures du feu (renvoyer ou détruire)"
+          },
+          "perDay": "3+cha"
+        }
+      ]
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spellLists/clericDomains.htm#waterDomain",

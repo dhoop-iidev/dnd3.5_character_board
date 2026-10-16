@@ -93,7 +93,7 @@ To correct one: edit `fr_guess`, set `status` to `ok`, and rebuild. Rows with `o
   Animal or Plant is in the catalog, except the epic and psionic SRD (legendary bear and tiger, mu spore, elder treant,
   udoroot: no French SRD entry) and `WILD_SHAPE_BLOCKED` (bat and rat swarms: grapple "—" and an automatic swarm
   attack; shrieker: Reflex "—"; `CreatureDef` needs numbers there). Bat and toad have no attack (`attacks: []`). Variants of one stat block (satyr with/without pipes,
-  pixie with or without special arrows) are one creature; the alignment notes `[NG]` of the summon table are not kept.
+  pixie with or without special arrows) are one creature; the summon table's printed variant goes to the list's `notes`.
 - **Source URLs**: d20srd monster pages from the d20srd monster index; their anchors are in `d20srd_anchors.json`
   (`python tools/srd_urls.py --refresh-monsters`, needs internet, fetches only `srd_urls.MONSTER_PAGES`).
 - **French**: the DRS stat block (paragraph or table form) with the same Hit Dice line and ability scores; `FR_MATCH`
@@ -120,3 +120,26 @@ To correct one: edit `fr_guess`, set `status` to `ok`, and rebuild. Rows with `o
 - `src/data/srd/templates.json`: celestial and fiendish creature templates (`build_templates.py`): English SRD HTML + DRS 35 text, Hit Dice bands (DR, energy resistances) checked identical in both languages, SR = HD + 5 (max 25), smite, darkvision 60 ft. The open last band "12 or more" has maxHD 99.
 
 Modules: `build_domains.py`, `build_templates.py`; `validate_spells_domains.py` (spells with school/descriptors, cleric list complete, domain slots), `validate_summon_monster.py` (Summon Monster lists, templates) — both called by `validate_data.py`, both run alone too.
+
+## Review fixes (2026-10-16, `docs/reviews/um_actually-2026-10-16-full.md`)
+
+- **Hit Dice groups**: `parse_hd` keeps every dice group; the first is `count`/`die`, the others go to `hitDice.extra`
+  (`[{count, die}]`), all `+N` to `bonus`. Only the celestial charger has two groups (8d10+7d8+75).
+- **Quadrupeds**: `CreatureDef.quadruped` (true/false on every creature) from the hand set `QUADRUPED` in
+  `build_creatures.py` (SRD: "any creature with four or more motive limbs can carry a load as a quadruped"; the
+  comment above the set lists the judgement calls). Asserted to name catalog creatures only.
+- **Summon Nature's Ally table**: `alignments` (the `[NG]`-style brackets), `aquatic` (the "1" footnote: "May be
+  summoned only into an aquatic or watery environment") and `notes` (I18n: satyr with/without pipes, pixie arrows and
+  *irresistible dance*, grig with fiddle; French from the DRS 22a table via `SNA_NOTES_FR`, each checked to be in the
+  French table at the same level). Summon Monster lists gain `aquatic` too. The French tables miss some aquatic marks
+  (reported in the build notes; the English marks are used).
+- **Domains**: `effects.turning` is an array of pools `{mode, creatures, perDay: "3+cha" | number}`. Air/Earth/Fire/
+  Water have two entries (rebuke own element, turn the opposed one); the SRD gives them ONE shared total ("use these
+  abilities a total number of times per day equal to 3 + your Charisma modifier"), so the engine must count both
+  entries of one elemental domain against the same uses. `effects.usesPerDay` is I18n (French tags (Ext)/(Sur)/(Mag)).
+- **War domain** `grantsFeats`: `martial-weapon-proficiency:$deityWeaponIfMartial` (granted only when the deity's
+  favored weapon is martial; SRD "if necessary") and `weapon-focus:$deityWeapon`. Tokens checked by
+  `validate_spells_domains.py` (`DOMAIN_TOKENS`).
+- **Spells**: *earthquake* French summary "1,50 m/niv." -> "24 m" (`SUMMARY_ERRATA`); spells with two subschools
+  (*gate*: creation or calling; *mislead*: figment, glamer) keep the first in `subschool`, the second is only reported
+  in the build notes.

@@ -11,6 +11,10 @@
       "porpoise",
       "snake-small-viper",
       "wolf"
+    ],
+    "aquatic": [
+      "octopus",
+      "porpoise"
     ]
   },
   {
@@ -30,6 +34,10 @@
       "snake-medium-viper",
       "squid",
       "wolverine"
+    ],
+    "aquatic": [
+      "shark-medium",
+      "squid"
     ]
   },
   {
@@ -47,7 +55,21 @@
       "snake-constrictor",
       "snake-large-viper",
       "thoqqua"
-    ]
+    ],
+    "alignments": {
+      "eagle-giant": "NG",
+      "owl-giant": "NG",
+      "satyr": "CN"
+    },
+    "aquatic": [
+      "shark-large"
+    ],
+    "notes": {
+      "satyr": {
+        "en": "Without pipes",
+        "fr": "Sans flûte de Pan"
+      }
+    }
   },
   {
     "spellId": "summon-natures-ally-iv",
@@ -72,6 +94,15 @@
       "tojanida-juvenile",
       "unicorn",
       "xorn-minor"
+    ],
+    "alignments": {
+      "salamander-flamebrother": "NE",
+      "unicorn": "CG"
+    },
+    "aquatic": [
+      "sea-cat",
+      "shark-huge",
+      "tojanida-juvenile"
     ]
   },
   {
@@ -94,7 +125,21 @@
       "snake-constrictor-giant",
       "tojanida-adult",
       "whale-orca"
-    ]
+    ],
+    "alignments": {
+      "satyr": "CN"
+    },
+    "aquatic": [
+      "elasmosaurus",
+      "tojanida-adult",
+      "whale-orca"
+    ],
+    "notes": {
+      "satyr": {
+        "en": "With pipes",
+        "fr": "Avec flûte de Pan"
+      }
+    }
   },
   {
     "spellId": "summon-natures-ally-vi",
@@ -113,7 +158,21 @@
       "salamander-average",
       "whale-baleen",
       "xorn-average"
-    ]
+    ],
+    "alignments": {
+      "pixie": "NG",
+      "salamander-average": "NE"
+    },
+    "aquatic": [
+      "octopus-giant",
+      "whale-baleen"
+    ],
+    "notes": {
+      "pixie": {
+        "en": "No special arrows; can't cast irresistible dance",
+        "fr": "Pas de flèches spéciales ; incapable de lancer danse irrésistible"
+      }
+    }
   },
   {
     "spellId": "summon-natures-ally-vii",
@@ -133,7 +192,21 @@
       "tyrannosaurus",
       "whale-cachalot",
       "xorn-elder"
-    ]
+    ],
+    "alignments": {
+      "djinni": "NG",
+      "pixie": "NG"
+    },
+    "aquatic": [
+      "squid-giant",
+      "whale-cachalot"
+    ],
+    "notes": {
+      "pixie": {
+        "en": "With sleep arrows; can't cast irresistible dance",
+        "fr": "Avec flèches de sommeil ; incapable de lancer danse irrésistible"
+      }
+    }
   },
   {
     "spellId": "summon-natures-ally-viii",
@@ -143,6 +216,12 @@
       "roc",
       "salamander-noble",
       "tojanida-elder"
+    ],
+    "alignments": {
+      "salamander-noble": "NE"
+    },
+    "aquatic": [
+      "dire-shark"
     ]
   },
   {
@@ -156,7 +235,21 @@
       "grig",
       "pixie",
       "unicorn-celestial-charger"
-    ]
+    ],
+    "alignments": {
+      "grig": "NG",
+      "pixie": "NG"
+    },
+    "notes": {
+      "grig": {
+        "en": "With fiddle",
+        "fr": "Avec violon"
+      },
+      "pixie": {
+        "en": "With sleep and memory loss arrows; can cast irresistible dance",
+        "fr": "Avec flèches de sommeil et de perte de mémoire ; capable de lancer danse irrésistible"
+      }
+    }
   },
   {
     "spellId": "summon-monster-i",
@@ -236,7 +329,11 @@
       "porpoise": "NG",
       "raven": "LE",
       "snake-small-viper": "CE"
-    }
+    },
+    "aquatic": [
+      "octopus",
+      "porpoise"
+    ]
   },
   {
     "spellId": "summon-monster-ii",
@@ -303,7 +400,11 @@
       "snake-medium-viper": "CE",
       "squid": "LE",
       "wolf": "LE"
-    }
+    },
+    "aquatic": [
+      "shark-medium",
+      "squid"
+    ]
   },
   {
     "spellId": "summon-monster-iii",
@@ -471,7 +572,10 @@
       "snake-huge-viper": "CE",
       "wasp-giant": "LE",
       "yeth-hound": "NE"
-    }
+    },
+    "aquatic": [
+      "shark-large"
+    ]
   },
   {
     "spellId": "summon-monster-v",
@@ -557,7 +661,10 @@
       "shadow-mastiff": "NE",
       "shark-huge": "NE",
       "tiger": "CE"
-    }
+    },
+    "aquatic": [
+      "sea-cat"
+    ]
   },
   {
     "spellId": "summon-monster-vi",
@@ -625,7 +732,11 @@
       "snake-constrictor-giant": "CE",
       "whale-orca": "NG",
       "xill": "LE"
-    }
+    },
+    "aquatic": [
+      "elasmosaurus",
+      "whale-orca"
+    ]
   },
   {
     "spellId": "summon-monster-vii",
@@ -683,7 +794,11 @@
       "monstrous-scorpion-huge": "NE",
       "octopus-giant": "CE",
       "whale-baleen": "NG"
-    }
+    },
+    "aquatic": [
+      "octopus-giant",
+      "whale-baleen"
+    ]
   },
   {
     "spellId": "summon-monster-viii",
@@ -747,7 +862,11 @@
       "tyrannosaurus": "CE",
       "vrock": "CE",
       "whale-cachalot": "NG"
-    }
+    },
+    "aquatic": [
+      "squid-giant",
+      "whale-cachalot"
+    ]
   },
   {
     "spellId": "summon-monster-ix",
@@ -797,6 +916,9 @@
       "monstrous-spider-colossal": "CE",
       "night-hag": "NE",
       "roc": "CG"
-    }
+    },
+    "aquatic": [
+      "dire-shark"
+    ]
   }
 ]

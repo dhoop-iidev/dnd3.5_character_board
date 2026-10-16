@@ -122,6 +122,9 @@ SUMMARY_ERRATA = {
     "animal-growth": [("fr", ("Double la taille et les DV de", "Double la taille de"))],
     # 3.0 radius (15 ft.) in the French list; 3.5 and the DRS 22 header: 20 ft. = 6 m.
     "silence": [("fr", ("dans un rayon de 4,50 m", "dans un rayon de 6 m"))],
+    # Official misprint in the French list: the radius is fixed, 80 ft. = 24 m (SRD earthquake.htm; DRS 22 header
+    # "étendue de 24 m de rayon").
+    "earthquake": [("fr", ("dans un rayon de 1,50 m/niv.", "dans un rayon de 24 m"))],
 }
 
 FR_ERRATA = {
@@ -187,7 +190,11 @@ def spell_tags(r) -> dict:
     out = {"schoolId": r["school"].strip().lower()}
     sub = nz(r["subschool"])
     if sub:
-        out["subschool"] = re.split(r",| or ", sub)[0].strip().lower()
+        subs = [x.strip().lower() for x in re.split(r",| or ", sub)]
+        out["subschool"] = subs[0]
+        if len(subs) > 1:  # SpellDef.subschool holds one string: the others are only reported
+            NOTES.append(f"spells: {r['name']}: subschool {sub!r} (\"{'or' if ' or ' in sub else 'and'}\"); "
+                         f"subschool stores {subs[0]!r}, not stored: {subs[1:]}")
     desc = nz(r["descriptor"]) or ""
     if desc.lower().startswith("see text"):
         desc = ""

@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Brunhilde Barbe-de-Fer",
+    "player": "",
+    "race": "dwarf",
+    "deity": "Moradin",
+    "alignment": "LN",
+    "gender": "f",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Noirs",
+    "hair": "Roux",
+    "homeland": "Montagnes de Fer",
+    "title": "Bouclier du Clan",
+    "motto": "La pierre ne plie pas",
+    "languages": [
+      "Commun",
+      "Nain",
+      "Orque"
+    ],
+    "skin": "Hâlée"
+  },
+  "xp": 45000,
+  "baseAbilities": {
+    "str": 16,
+    "dex": 12,
+    "con": 14,
+    "int": 13,
+    "wis": 10,
+    "cha": 8
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 4,
+        "jump": 4,
+        "intimidate": 4
+      },
+      "feats": [
+        {
+          "featId": "power-attack",
+          "slot": "general"
+        },
+        {
+          "featId": "weapon-focus",
+          "slot": "class",
+          "choice": "dwarven-waraxe"
+        }
+      ]
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "cleave",
+          "slot": "class"
+        }
+      ]
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "combat-expertise",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "weapon-specialization",
+          "slot": "class",
+          "choice": "dwarven-waraxe"
+        }
+      ],
+      "abilityIncrease": "str"
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "improved-trip",
+          "slot": "general"
+        },
+        {
+          "featId": "great-cleave",
+          "slot": "class"
+        }
+      ]
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "greater-weapon-focus",
+          "slot": "class",
+          "choice": "dwarven-waraxe"
+        }
+      ],
+      "abilityIncrease": "str"
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "iron-will",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "fighter",
+      "skillRanks": {
+        "climb": 1,
+        "jump": 1,
+        "intimidate": 1
+      },
+      "feats": [
+        {
+          "featId": "improved-sunder",
+          "slot": "class"
+        }
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "axe",
+      "kind": "weapon",
+      "refId": "dwarven-waraxe",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 2
+    },
+    {
+      "uid": "throwing",
+      "kind": "weapon",
+      "refId": "throwing-axe",
+      "quantity": 2,
+      "location": "carried"
+    },
+    {
+      "uid": "xbow",
+      "kind": "weapon",
+      "refId": "heavy-crossbow",
+      "quantity": 1,
+      "location": "carried",
+      "masterwork": true
+    },
+    {
+      "uid": "bolts",
+      "kind": "gear",
+      "refId": "crossbow-bolts-10",
+      "quantity": 2,
+      "location": "carried"
+    },
+    {
+      "uid": "plate",
+      "kind": "armor",
+      "refId": "full-plate",
+      "quantity": 1,
+      "location": "worn",
+      "enhancement": 2
+    },
+    {
+      "uid": "shield",
+      "kind": "armor",
+      "refId": "heavy-steel-shield",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 2
+    },
+    {
+      "uid": "gauntlets",
+      "kind": "magic",
+      "refId": "gauntlets-of-ogre-power",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "cloak",
+      "kind": "magic",
+      "refId": "cloak-of-resistance-2",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "amulet",
+      "kind": "magic",
+      "refId": "amulet-of-natural-armor-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "csw",
+      "kind": "magic",
+      "refId": "potion-of-cure-serious-wounds",
+      "quantity": 2,
+      "location": "pack"
+    },
+    {
+      "uid": "backpack",
+      "kind": "gear",
+      "refId": "backpack",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "bedroll",
+      "kind": "gear",
+      "refId": "bedroll",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "rations",
+      "kind": "gear",
+      "refId": "trail-rations",
+      "quantity": 5,
+      "location": "stored"
+    },
+    {
+      "uid": "torch",
+      "kind": "gear",
+      "refId": "everburning-torch",
+      "quantity": 1,
+      "location": "stored"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Waraxe and shield",
+        "fr": "Hache naine et écu"
+      },
+      "weapons": [
+        "axe",
+        "throwing"
+      ],
+      "shield": "shield"
+    },
+    {
+      "id": "two-hands",
+      "name": {
+        "en": "Waraxe, two hands",
+        "fr": "Hache naine à deux mains"
+      },
+      "weapons": [
+        "axe"
+      ],
+      "twoHanded": [
+        "axe"
+      ]
+    },
+    {
+      "id": "ranged",
+      "name": {
+        "en": "Crossbow",
+        "fr": "Arbalète"
+      },
+      "weapons": [
+        "xbow"
+      ]
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "gp": 340,
+    "pp": 0,
+    "other": ""
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [],
+  "summons": []
+}

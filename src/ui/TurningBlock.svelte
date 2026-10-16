@@ -52,17 +52,33 @@
     </tbody>
   </table>
   <p class="soft">
-    {tr({
-      en: `Undead with at most half your turning level in HD (${Math.floor(t.level / 2)}) are destroyed (${t.mode === 'turn' ? 'turn' : 'commanded instead, if rebuking'}); turned undead flee for 10 rounds. Nearest first.`,
-      fr: `Les morts-vivants ayant au plus la moitié de votre niveau de renvoi en DV (${Math.floor(t.level / 2)}) sont détruits (${t.mode === 'turn' ? 'renvoi' : 'contrôlés à la place, en cas d’intimidation'}) ; les morts-vivants renvoyés fuient pendant 10 rounds. Les plus proches d’abord.`,
-    })}
+    {t.mode === 'turn'
+      ? tr({
+          en: `Undead within 60 ft, nearest first. Turned undead flee for 10 rounds; those with at most half your turning level in HD (${Math.floor(t.level / 2)}) are destroyed.`,
+          fr: `Morts-vivants à 18 m ou moins, les plus proches d’abord. Les morts-vivants renvoyés fuient pendant 10 rounds ; ceux ayant au plus la moitié de votre niveau de renvoi en DV (${Math.floor(t.level / 2)}) sont détruits.`,
+        })
+      : tr({
+          en: `Undead within 60 ft, nearest first. Rebuked undead cower in awe for 10 rounds (attacks against them +2); those with at most half your turning level in HD (${Math.floor(t.level / 2)}) are commanded instead. Commanded undead: at most ${t.level} HD in total.`,
+          fr: `Morts-vivants à 18 m ou moins, les plus proches d’abord. Les morts-vivants intimidés sont recroquevillés pendant 10 rounds (+2 aux attaques contre eux) ; ceux ayant au plus la moitié de votre niveau de renvoi en DV (${Math.floor(t.level / 2)}) sont contrôlés à la place. Morts-vivants contrôlés : ${t.level} DV au total au maximum.`,
+        })}
     <a href="https://www.d20srd.org/srd/combat/specialAttacks.htm#turnOrRebukeUndead" target="_blank" rel="noopener">d20srd</a>
   </p>
   {#if t.extra.length}
     <ul class="extra">
       {#each t.extra as x, i (i)}
         <li>
-          <strong>{tr(x.name)}</strong> : {tr(MODE[x.mode] ?? { en: x.mode, fr: x.mode })} — {tr(x.creatures)}{x.perDay ? ` (${x.perDay})` : ''}
+          <strong>{tr(x.name)}</strong> ({x.perDay}/{tr({ en: 'day', fr: 'jour' })}{x.uses.length > 1
+            ? tr({ en: ', shared', fr: ', en tout' })
+            : ''}) :
+          {x.uses.map((u) => `${tr(MODE[u.mode] ?? { en: u.mode, fr: u.mode })} — ${tr(u.creatures)}`).join(' ; ')}
+          {#if x.uses.some((u) => u.mode === 'greater-turning') && t.mode === 'rebuke'}
+            <em
+              >{tr({
+                en: '— no effect for a rebuking cleric as written (house rule #26, pending)',
+                fr: '— sans effet pour un prêtre qui intimide, selon le texte (règle maison n° 26, en attente)',
+              })}</em
+            >
+          {/if}
         </li>
       {/each}
     </ul>

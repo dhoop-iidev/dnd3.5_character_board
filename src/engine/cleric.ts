@@ -26,9 +26,13 @@ export function classSkillsOf(char: Pick<Character, 'levels'>, rules: Rules, cla
 export function domainFeats(char: Pick<Character, 'levels'>, rules: Rules): FeatPick[] {
   const weapon = clericChoices(char).deityWeapon
   return domainsOf(char, rules).flatMap((d) =>
-    (d.effects?.grantsFeats ?? []).map((f) => {
+    (d.effects?.grantsFeats ?? []).flatMap((f) => {
       const [featId, choice] = f.split(':')
-      return { featId, slot: 'granted' as const, ...(choice ? { choice: choice === '$deityWeapon' ? weapon : choice } : {}) }
+      // War: Martial Weapon Proficiency with the deity's weapon "if necessary" — only for a martial weapon
+      // (https://www.d20srd.org/srd/spells/clericDomains.htm#war).
+      if (choice === '$deityWeaponIfMartial')
+        return weapon && rules.weapons.get(weapon)?.category === 'martial' ? [{ featId, slot: 'granted' as const, choice: weapon }] : []
+      return [{ featId, slot: 'granted' as const, ...(choice ? { choice: choice === '$deityWeapon' ? weapon : choice } : {}) }]
     }),
   )
 }

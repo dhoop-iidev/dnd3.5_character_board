@@ -17,6 +17,8 @@
   import { effectName } from '../effects'
 
   const s = $derived(view.sheet)
+  // Tumble 5 ranks: +3 / +6 dodge instead of +2 / +4 (https://www.d20srd.org/srd/skills/tumble.htm).
+  const tumble5 = $derived((s.skills.find((x) => x.key === 'tumble')?.ranks ?? 0) >= 5)
   const c = $derived(app.character)
   const t = $derived(app.character.toggles)
   const loadout = $derived(c.loadouts.find((l) => l.id === c.activeLoadout) ?? c.loadouts[0])
@@ -229,16 +231,20 @@
     {#if hasFeat('combat-expertise')}
       <label class="slider">
         <span>{tr({ en: 'Combat Expertise', fr: 'Expertise du combat' })} : <strong>{t.combatExpertise}</strong></span>
-        <input type="range" min="0" max={maxCe} bind:value={app.character.toggles.combatExpertise} />
+        <input type="range" min="0" max={maxCe} bind:value={app.character.toggles.combatExpertise} disabled={t.totalDefense} />
       </label>
     {/if}
     <label class="check">
       <input type="checkbox" bind:checked={app.character.toggles.fightingDefensively} disabled={t.totalDefense} />
-      {tr({ en: 'Fighting defensively (−4 attack, +2 AC)', fr: 'Combat sur la défensive (−4 attaque, +2 CA)' })}
+      {tumble5
+        ? tr({ en: 'Fighting defensively (−4 attack, +3 AC with Tumble)', fr: 'Combat sur la défensive (−4 attaque, +3 CA avec Acrobaties)' })
+        : tr({ en: 'Fighting defensively (−4 attack, +2 AC)', fr: 'Combat sur la défensive (−4 attaque, +2 CA)' })}
     </label>
     <label class="check">
       <input type="checkbox" bind:checked={app.character.toggles.totalDefense} disabled={t.fightingDefensively} />
-      {tr({ en: 'Total defense (+4 AC, no attack)', fr: 'Défense totale (+4 CA, pas d’attaque)' })}
+      {tumble5
+        ? tr({ en: 'Total defense (+6 AC with Tumble, no attack)', fr: 'Défense totale (+6 CA avec Acrobaties, pas d’attaque)' })
+        : tr({ en: 'Total defense (+4 AC, no attack)', fr: 'Défense totale (+4 CA, pas d’attaque)' })}
     </label>
     <label class="check">
       <input type="checkbox" bind:checked={app.character.toggles.situational['flatFooted']} />

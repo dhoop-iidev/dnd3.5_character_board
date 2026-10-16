@@ -16,7 +16,12 @@ export function legalForms(c: Character, elemental = false): CreatureDef[] {
   const lvl = druidLevel(c)
   const sizes = wildShapeSizes(lvl, elemental)
   return [...rules.creatures.values()]
-    .filter((d) => (elemental ? d.type === 'elemental' : d.type === 'animal' || (lvl >= 12 && d.type === 'plant')))
+    // Elementals: only the Small to Huge air, earth, fire and water elementals (not other creatures of the type).
+    .filter((d) =>
+      elemental
+        ? /^elemental-(small|medium|large|huge)-(air|earth|fire|water)$/.test(d.id)
+        : d.type === 'animal' || (lvl >= 12 && d.type === 'plant'),
+    )
     .filter((d) => sizes.includes(d.size) && d.hitDice.count <= lvl)
 }
 

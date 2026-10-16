@@ -64,11 +64,11 @@ def check_lists(err, lists, creatures, spell_ids, warn):
         err("summon-lists.json", f"summon-monster lists: levels {[x.get('level') for x in sm]}, 1-9 expected")
     for x in lists:
         w = f"summon-lists.json {x.get('spellId')}"
-        if not x.get("spellId", "").startswith("summon-monster-") and ("templates" in x or "alignments" in x):
-            err(w, "templates / alignments only on the Summon Monster lists")
+        if not x.get("spellId", "").startswith("summon-monster-") and "templates" in x:
+            err(w, "templates only on the Summon Monster lists")
     for x in sm:
         w = f"summon-lists.json {x.get('spellId')}"
-        if set(x) != LIST_KEYS:
+        if not LIST_KEYS <= set(x) or set(x) - LIST_KEYS - {"aquatic"}:
             err(w, f"keys {sorted(set(x) ^ LIST_KEYS)}")
             continue
         if x["spellId"] != f"summon-monster-{ROMAN[x['level'] - 1]}":

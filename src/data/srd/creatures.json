@@ -31,6 +31,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": true,
     "grapple": 14,
     "attacks": [
       {
@@ -147,6 +148,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 12,
     "attacks": [
       {
@@ -261,6 +263,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 8,
     "attacks": [
       {
@@ -412,6 +415,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": -8,
     "attacks": [
       {
@@ -514,6 +518,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 9,
     "attacks": [
       {
@@ -635,6 +640,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 25,
     "attacks": [
       {
@@ -760,6 +766,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 0,
     "attacks": [
       {
@@ -878,6 +885,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -978,6 +986,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 9,
     "attacks": [
       {
@@ -1096,6 +1105,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -1212,6 +1222,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": 2,
     "attacks": [
       {
@@ -1313,6 +1324,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -5,
     "attacks": [
       {
@@ -1429,6 +1441,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -17,
     "attacks": [],
     "space": 1,
@@ -1515,6 +1528,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 6,
     "attacks": [
       {
@@ -1629,6 +1643,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 16,
     "attacks": [
       {
@@ -1745,6 +1760,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": true,
     "grapple": 18,
     "attacks": [
       {
@@ -1861,6 +1877,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": true,
     "grapple": 29,
     "attacks": [
       {
@@ -2001,6 +2018,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 2,
     "attacks": [
       {
@@ -2103,6 +2121,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 2,
     "attacks": [
       {
@@ -2201,6 +2220,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -4,
     "attacks": [
       {
@@ -2299,6 +2319,7 @@
       "other": 0
     },
     "bab": 5,
+    "quadruped": true,
     "grapple": 15,
     "attacks": [
       {
@@ -2397,6 +2418,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 13,
     "attacks": [
       {
@@ -2498,6 +2520,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 4,
     "attacks": [
       {
@@ -2601,6 +2624,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 10,
     "attacks": [
       {
@@ -2743,6 +2767,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 10,
     "attacks": [
       {
@@ -2844,6 +2869,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -12,
     "attacks": [
       {
@@ -2957,6 +2983,7 @@
       "other": 0
     },
     "bab": 8,
+    "quadruped": false,
     "grapple": 10,
     "attacks": [
       {
@@ -3063,6 +3090,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 5,
     "attacks": [
       {
@@ -3179,6 +3207,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": false,
     "grapple": 17,
     "attacks": [
       {
@@ -3288,6 +3317,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 6,
     "attacks": [
       {
@@ -3407,6 +3437,7 @@
       "other": 0
     },
     "bab": 5,
+    "quadruped": true,
     "grapple": 21,
     "attacks": [
       {
@@ -3526,6 +3557,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 11,
     "attacks": [
       {
@@ -3653,6 +3685,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": false,
     "grapple": 22,
     "attacks": [
       {
@@ -3761,6 +3794,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 8,
     "attacks": [
       {
@@ -3887,6 +3921,7 @@
       "other": 0
     },
     "bab": 10,
+    "quadruped": false,
     "grapple": 19,
     "attacks": [
       {
@@ -4020,6 +4055,7 @@
       "other": 0
     },
     "bab": 8,
+    "quadruped": false,
     "grapple": 10,
     "attacks": [
       {
@@ -4124,6 +4160,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 13,
     "attacks": [
       {
@@ -4239,6 +4276,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 4,
     "attacks": [
       {
@@ -4356,6 +4394,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 10,
     "attacks": [
       {
@@ -4457,6 +4496,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": true,
     "grapple": 23,
     "attacks": [
       {
@@ -4574,6 +4614,7 @@
       "other": 0
     },
     "bab": 5,
+    "quadruped": true,
     "grapple": 17,
     "attacks": [
       {
@@ -4676,6 +4717,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": true,
     "grapple": 17,
     "attacks": [
       {
@@ -4792,6 +4834,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -4,
     "attacks": [
       {
@@ -4898,6 +4941,7 @@
       "other": 0
     },
     "bab": 13,
+    "quadruped": false,
     "grapple": 27,
     "attacks": [
       {
@@ -5000,6 +5044,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": true,
     "grapple": 24,
     "attacks": [
       {
@@ -5117,6 +5162,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 4,
     "attacks": [
       {
@@ -5219,6 +5265,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 15,
     "attacks": [
       {
@@ -5323,6 +5370,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 13,
     "attacks": [
       {
@@ -5440,6 +5488,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 15,
     "attacks": [
       {
@@ -5543,6 +5592,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -3,
     "attacks": [
       {
@@ -5644,6 +5694,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 3,
     "attacks": [
       {
@@ -5745,6 +5796,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 1,
     "attacks": [
       {
@@ -5845,6 +5897,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -5960,6 +6013,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -4,
     "attacks": [
       {
@@ -6075,6 +6129,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -6190,6 +6245,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": true,
     "grapple": 23,
     "attacks": [
       {
@@ -6294,6 +6350,7 @@
       "other": 0
     },
     "bab": 18,
+    "quadruped": false,
     "grapple": 32,
     "attacks": [
       {
@@ -6404,6 +6461,7 @@
       "other": 0
     },
     "bab": 18,
+    "quadruped": false,
     "grapple": 37,
     "attacks": [
       {
@@ -6513,6 +6571,7 @@
       "other": 0
     },
     "bab": 18,
+    "quadruped": false,
     "grapple": 32,
     "attacks": [
       {
@@ -6628,6 +6687,7 @@
       "other": 0
     },
     "bab": 18,
+    "quadruped": false,
     "grapple": 35,
     "attacks": [
       {
@@ -6739,6 +6799,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 28,
     "attacks": [
       {
@@ -6848,6 +6909,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 33,
     "attacks": [
       {
@@ -6955,6 +7017,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 28,
     "attacks": [
       {
@@ -7069,6 +7132,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 31,
     "attacks": [
       {
@@ -7178,6 +7242,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": false,
     "grapple": 24,
     "attacks": [
       {
@@ -7285,6 +7350,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": false,
     "grapple": 29,
     "attacks": [
       {
@@ -7390,6 +7456,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": false,
     "grapple": 24,
     "attacks": [
       {
@@ -7502,6 +7569,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": false,
     "grapple": 27,
     "attacks": [
       {
@@ -7609,6 +7677,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -7713,6 +7782,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 17,
     "attacks": [
       {
@@ -7815,6 +7885,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -7924,6 +7995,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 15,
     "attacks": [
       {
@@ -8028,6 +8100,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 4,
     "attacks": [
       {
@@ -8131,6 +8204,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 8,
     "attacks": [
       {
@@ -8232,6 +8306,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 4,
     "attacks": [
       {
@@ -8340,6 +8415,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 6,
     "attacks": [
       {
@@ -8443,6 +8519,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": -3,
     "attacks": [
       {
@@ -8545,6 +8622,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": 0,
     "attacks": [
       {
@@ -8645,6 +8723,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": -3,
     "attacks": [
       {
@@ -8752,6 +8831,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -8852,6 +8932,7 @@
       "other": 0
     },
     "bab": 8,
+    "quadruped": true,
     "grapple": 26,
     "attacks": [
       {
@@ -8985,6 +9066,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": 3,
     "attacks": [
       {
@@ -9088,6 +9170,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": true,
     "grapple": 17,
     "attacks": [
       {
@@ -9204,6 +9287,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": true,
     "grapple": 15,
     "attacks": [
       {
@@ -9321,6 +9405,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -11,
     "attacks": [
       {
@@ -9443,6 +9528,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -10,
     "attacks": [
       {
@@ -9543,6 +9629,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 5,
     "attacks": [
       {
@@ -9649,6 +9736,7 @@
       "other": 0
     },
     "bab": 8,
+    "quadruped": true,
     "grapple": 18,
     "attacks": [
       {
@@ -9764,6 +9852,7 @@
       "other": 0
     },
     "bab": 10,
+    "quadruped": true,
     "grapple": 19,
     "attacks": [
       {
@@ -9882,6 +9971,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 11,
     "attacks": [
       {
@@ -9996,6 +10086,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 9,
     "attacks": [
       {
@@ -10097,6 +10188,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 8,
     "attacks": [
       {
@@ -10198,6 +10290,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": true,
     "grapple": 15,
     "attacks": [
       {
@@ -10313,6 +10406,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 3,
     "attacks": [
       {
@@ -10415,6 +10509,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 14,
     "attacks": [
       {
@@ -10519,6 +10614,7 @@
       "other": 5
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 9,
     "attacks": [
       {
@@ -10647,6 +10743,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 2,
     "attacks": [
       {
@@ -10745,6 +10842,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": false,
     "grapple": 20,
     "attacks": [
       {
@@ -10863,6 +10961,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 5,
     "attacks": [
       {
@@ -10979,6 +11078,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 16,
     "attacks": [
       {
@@ -11098,6 +11198,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 12,
     "attacks": [
       {
@@ -11213,6 +11314,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -12,
     "attacks": [
       {
@@ -11314,6 +11416,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 5,
     "attacks": [
       {
@@ -11416,6 +11519,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 9,
     "attacks": [
       {
@@ -11517,6 +11621,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 19,
     "attacks": [
       {
@@ -11647,6 +11752,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -11750,6 +11856,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -11853,6 +11960,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 2,
     "attacks": [
       {
@@ -11956,6 +12064,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -12063,6 +12172,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -12170,6 +12280,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -12278,6 +12389,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 1,
     "attacks": [
       {
@@ -12381,6 +12493,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 2,
     "attacks": [
       {
@@ -12484,6 +12597,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": -1,
     "attacks": [
       {
@@ -12592,6 +12706,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 1,
     "attacks": [
       {
@@ -12694,6 +12809,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -12,
     "attacks": [
       {
@@ -12795,6 +12911,7 @@
       "other": 0
     },
     "bab": 18,
+    "quadruped": true,
     "grapple": 42,
     "attacks": [
       {
@@ -12898,6 +13015,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": true,
     "grapple": 27,
     "attacks": [
       {
@@ -13001,6 +13119,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 15,
     "attacks": [
       {
@@ -13104,6 +13223,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 7,
     "attacks": [
       {
@@ -13209,6 +13329,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -1,
     "attacks": [
       {
@@ -13313,6 +13434,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": true,
     "grapple": 37,
     "attacks": [
       {
@@ -13428,6 +13550,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": true,
     "grapple": 21,
     "attacks": [
       {
@@ -13543,6 +13666,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 11,
     "attacks": [
       {
@@ -13658,6 +13782,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 2,
     "attacks": [
       {
@@ -13773,6 +13898,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -4,
     "attacks": [
       {
@@ -13891,6 +14017,7 @@
       "other": 0
     },
     "bab": 24,
+    "quadruped": true,
     "grapple": 50,
     "attacks": [
       {
@@ -13994,6 +14121,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": true,
     "grapple": 31,
     "attacks": [
       {
@@ -14097,6 +14225,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": true,
     "grapple": 18,
     "attacks": [
       {
@@ -14200,6 +14329,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 9,
     "attacks": [
       {
@@ -14303,6 +14433,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 1,
     "attacks": [
       {
@@ -14408,6 +14539,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -6,
     "attacks": [
       {
@@ -14512,6 +14644,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 9,
     "attacks": [
       {
@@ -14613,6 +14746,7 @@
       "other": 0
     },
     "bab": 8,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -14720,6 +14854,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -6,
     "attacks": [
       {
@@ -14841,6 +14976,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": 2,
     "attacks": [
       {
@@ -14955,6 +15091,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 15,
     "attacks": [
       {
@@ -15072,6 +15209,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -11,
     "attacks": [
       {
@@ -15174,6 +15312,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -15288,6 +15427,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": 3,
     "attacks": [
       {
@@ -15390,6 +15530,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -6,
     "attacks": [
       {
@@ -15510,6 +15651,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 2,
     "attacks": [
       {
@@ -15610,6 +15752,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 3,
     "attacks": [
       {
@@ -15711,6 +15854,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": 1,
     "attacks": [
       {
@@ -15813,6 +15957,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 11,
     "attacks": [
       {
@@ -15926,6 +16071,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -12,
     "attacks": [
       {
@@ -16028,6 +16174,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -13,
     "attacks": [
       {
@@ -16128,6 +16275,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": true,
     "grapple": 18,
     "attacks": [
       {
@@ -16232,6 +16380,7 @@
       "other": 0
     },
     "bab": 13,
+    "quadruped": false,
     "grapple": 37,
     "attacks": [
       {
@@ -16351,6 +16500,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": false,
     "grapple": 11,
     "attacks": [
       {
@@ -16478,6 +16628,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": false,
     "grapple": 1,
     "attacks": [
       {
@@ -16601,6 +16752,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 25,
     "attacks": [
       {
@@ -16732,6 +16884,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 2,
     "attacks": [
       {
@@ -16867,6 +17020,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 14,
     "attacks": [
       {
@@ -16982,6 +17136,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 7,
     "attacks": [
       {
@@ -17085,6 +17240,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 15,
     "attacks": [
       {
@@ -17188,6 +17344,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 20,
     "attacks": [
       {
@@ -17292,6 +17449,7 @@
       "other": 0
     },
     "bab": 5,
+    "quadruped": false,
     "grapple": 12,
     "attacks": [
       {
@@ -17395,6 +17553,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 3,
     "attacks": [
       {
@@ -17498,6 +17657,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 5,
     "attacks": [
       {
@@ -17601,6 +17761,7 @@
       "other": 0
     },
     "bab": 8,
+    "quadruped": false,
     "grapple": 23,
     "attacks": [
       {
@@ -17706,6 +17867,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": false,
     "grapple": 15,
     "attacks": [
       {
@@ -17814,6 +17976,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 6,
     "attacks": [
       {
@@ -17921,6 +18084,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": false,
     "grapple": 0,
     "attacks": [
       {
@@ -18027,6 +18191,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -6,
     "attacks": [
       {
@@ -18133,6 +18298,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": false,
     "grapple": -11,
     "attacks": [
       {
@@ -18238,6 +18404,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 8,
     "attacks": [
       {
@@ -18353,6 +18520,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": false,
     "grapple": 29,
     "attacks": [
       {
@@ -18469,6 +18637,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 23,
     "attacks": [
       {
@@ -18586,6 +18755,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": false,
     "grapple": 4,
     "attacks": [
       {
@@ -18691,6 +18861,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 14,
     "attacks": [
       {
@@ -18805,6 +18976,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -17,
     "attacks": [],
     "space": 1,
@@ -18892,6 +19064,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": true,
     "grapple": 10,
     "attacks": [
       {
@@ -19008,6 +19181,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": true,
     "grapple": 25,
     "attacks": [
       {
@@ -19127,6 +19301,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 1,
     "attacks": [
       {
@@ -19241,6 +19416,7 @@
       "other": 0
     },
     "bab": 5,
+    "quadruped": false,
     "grapple": 22,
     "attacks": [
       {
@@ -19343,6 +19519,7 @@
       "other": 0
     },
     "bab": 12,
+    "quadruped": true,
     "grapple": 30,
     "attacks": [
       {
@@ -19445,6 +19622,7 @@
       "other": 0
     },
     "bab": 13,
+    "quadruped": false,
     "grapple": 30,
     "attacks": [
       {
@@ -19549,6 +19727,7 @@
       "other": 0
     },
     "bab": 4,
+    "quadruped": true,
     "grapple": 13,
     "attacks": [
       {
@@ -19646,7 +19825,13 @@
     "hitDice": {
       "count": 8,
       "die": 10,
-      "bonus": 75
+      "bonus": 75,
+      "extra": [
+        {
+          "count": 7,
+          "die": 8
+        }
+      ]
     },
     "hp": 155,
     "initiative": 4,
@@ -19663,6 +19848,7 @@
       "other": 5
     },
     "bab": 13,
+    "quadruped": true,
     "grapple": 24,
     "attacks": [
       {
@@ -19783,6 +19969,7 @@
       "other": 0
     },
     "bab": 10,
+    "quadruped": false,
     "grapple": 20,
     "attacks": [
       {
@@ -19912,6 +20099,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 11,
     "attacks": [
       {
@@ -20026,6 +20214,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 9,
     "attacks": [
       {
@@ -20142,6 +20331,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 11,
     "attacks": [
       {
@@ -20245,6 +20435,7 @@
       "other": 0
     },
     "bab": 0,
+    "quadruped": true,
     "grapple": -12,
     "attacks": [
       {
@@ -20346,6 +20537,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": false,
     "grapple": 33,
     "attacks": [
       {
@@ -20450,6 +20642,7 @@
       "other": 0
     },
     "bab": 9,
+    "quadruped": false,
     "grapple": 33,
     "attacks": [
       {
@@ -20568,6 +20761,7 @@
       "other": 0
     },
     "bab": 6,
+    "quadruped": false,
     "grapple": 22,
     "attacks": [
       {
@@ -20671,6 +20865,7 @@
       "other": 0
     },
     "bab": 1,
+    "quadruped": true,
     "grapple": 2,
     "attacks": [
       {
@@ -20774,6 +20969,7 @@
       "other": 0
     },
     "bab": 2,
+    "quadruped": true,
     "grapple": 4,
     "attacks": [
       {
@@ -20889,6 +21085,7 @@
       "other": 0
     },
     "bab": 5,
+    "quadruped": false,
     "grapple": 7,
     "attacks": [
       {
@@ -21066,6 +21263,7 @@
       "other": 0
     },
     "bab": 7,
+    "quadruped": false,
     "grapple": 10,
     "attacks": [
       {
@@ -21183,6 +21381,7 @@
       "other": 0
     },
     "bab": 15,
+    "quadruped": false,
     "grapple": 26,
     "attacks": [
       {
@@ -21303,6 +21502,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": false,
     "grapple": 1,
     "attacks": [
       {
@@ -21419,6 +21619,7 @@
       "other": 0
     },
     "bab": 3,
+    "quadruped": true,
     "grapple": 6,
     "attacks": [
       {

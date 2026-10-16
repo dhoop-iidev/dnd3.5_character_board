@@ -29,17 +29,28 @@ KNOWLEDGE = ["knowledge-arcana", "knowledge-architecture-and-engineering", "know
              "knowledge-nobility-and-royalty", "knowledge-religion", "knowledge-the-planes"]
 
 
-def _turn(mode: str, en: str, fr: str, per_day: str) -> dict:
+def _turn(mode: str, en: str, fr: str, per_day: str | int) -> dict:
+    """One DomainDef.turning entry: per_day "3+cha" (3 + Charisma modifier, raised by Extra Turning) or a number."""
+    assert per_day == "3+cha" or isinstance(per_day, int), per_day
     return {"mode": mode, "creatures": i18n(en, fr), "perDay": per_day}
 
 
-def _elemental(rebuke: tuple[str, str], turn: tuple[str, str]) -> dict:
-    """Air/Earth/Fire/Water: turn or destroy the opposed element, rebuke/command/bolster the own element; one pool of
-    3 + Cha modifier uses per day. DomainDef.turning holds one entry: the rebuke one, the turned creatures in the text."""
-    return _turn("rebuke",
-                 f"{rebuke[0]} creatures (rebuke, command or bolster); {turn[0]} creatures: turn or destroy",
-                 f"créatures {rebuke[1]} (intimider, contrôler ou augmenter le moral) ; créatures {turn[1]} : renvoyer ou détruire",
-                 "3 + Cha")
+def _elemental(rebuke: tuple[str, str], turn: tuple[str, str]) -> list[dict]:
+    """Air/Earth/Fire/Water (SRD): "Turn or destroy <opposed> creatures as a good cleric turns undead. Rebuke, command,
+    or bolster <own> creatures as an evil cleric rebukes undead. Use these abilities a total number of times per day
+    equal to 3 + your Charisma modifier." Two entries (rebuke the own element, turn the opposed one), each "3+cha".
+    NOTE: the SRD gives ONE shared total for both abilities ("a total number of times per day"): the two entries of
+    one elemental domain draw on the same 3 + Cha uses."""
+    return [
+        _turn("rebuke", f"{rebuke[0]} creatures (rebuke, command or bolster)",
+              f"créatures {rebuke[1]} (intimider, contrôler ou augmenter le moral)", "3+cha"),
+        _turn("turn", f"{turn[0]} creatures (turn or destroy)", f"créatures {turn[1]} (renvoyer ou détruire)", "3+cha"),
+    ]
+
+
+def _uses(en: str, fr: str) -> dict:
+    """DomainDef.usesPerDay (I18n). French ability tags as in the French SRD: (Ext), (Sur), (Mag)."""
+    return i18n(en, fr)
 
 
 # Machine-readable parts of the granted powers (SRD text above each entry; skill/feat ids of skills.json/feats.json).
@@ -47,13 +58,14 @@ EFFECTS: dict[str, dict] = {
     # Turn or destroy earth creatures ... Rebuke, command, or bolster air creatures ... 3 + Cha modifier per day.
     "air": {"turning": _elemental(("air", "de l’air"), ("earth", "de la terre"))},
     # Speak with animals once per day (spell-like); Knowledge (nature) is a class skill.
-    "animal": {"classSkills": ["knowledge-nature"], "usesPerDay": "1/day: speak with animals (Sp)"},
+    "animal": {"classSkills": ["knowledge-nature"],
+               "usesPerDay": _uses("1/day: speak with animals (Sp)", "1/jour : communication avec les animaux (Mag)")},
     # You cast chaos spells at +1 caster level ([Chaotic] descriptor).
     "chaos": {"casterLevelBonus": {"descriptor": "chaotic", "value": 1}},
     # Death touch once per day (Su): 1d6 per cleric level >= current hp: dies.
-    "death": {"usesPerDay": "1/day: death touch (Su)"},
+    "death": {"usesPerDay": _uses("1/day: death touch (Su)", "1/jour : caresse mortelle (Sur)")},
     # Smite once per day (Su): +4 attack, + cleric level damage.
-    "destruction": {"usesPerDay": "1/day: smite (Su)"},
+    "destruction": {"usesPerDay": _uses("1/day: smite (Su)", "1/jour : châtiment (Sur)")},
     "earth": {"turning": _elemental(("earth", "de la terre"), ("air", "de l’air"))},
     "evil": {"casterLevelBonus": {"descriptor": "evil", "value": 1}},
     "fire": {"turning": _elemental(("fire", "du feu"), ("water", "de l’eau"))},
@@ -64,24 +76,32 @@ EFFECTS: dict[str, dict] = {
     "knowledge": {"classSkills": KNOWLEDGE, "casterLevelBonus": {"school": "divination", "value": 1}},
     "law": {"casterLevelBonus": {"descriptor": "lawful", "value": 1}},
     # Good fortune once per day (Ex): reroll one roll just made.
-    "luck": {"usesPerDay": "1/day: reroll (Ex)"},
+    "luck": {"usesPerDay": _uses("1/day: good fortune, reroll one roll (Ex)", "1/jour : bonne fortune, rejouer un jet (Ext)")},
     # Use spell completion / spell trigger items as a wizard of half the cleric level (min. 1st); always on.
-    "magic": {"usesPerDay": "at will: scrolls, wands (spell completion/trigger) as a wizard of ½ cleric level (min. 1)"},
+    "magic": {"usesPerDay": _uses(
+        "at will: scrolls, wands (spell completion/trigger) as a wizard of ½ cleric level (min. 1)",
+        "à volonté : parchemins, baguettes (fin d’incantation / potentiel magique) comme un magicien de la moitié "
+        "du niveau de prêtre (niveau 1 minimum)")},
     # Rebuke or command plant creatures, 3 + Cha modifier per day (Su); Knowledge (nature) is a class skill.
     "plant": {"classSkills": ["knowledge-nature"],
-              "turning": _turn("rebuke", "plant creatures (rebuke or command)", "créatures végétales (intimider ou contrôler)", "3 + Cha")},
+              "turning": [_turn("rebuke", "plant creatures (rebuke or command)", "créatures végétales (intimider ou contrôler)", "3+cha")]},
     # Protective ward once per day (Su): resistance bonus = cleric level on the next save, 1 hour.
-    "protection": {"usesPerDay": "1/day: protective ward (Su)"},
+    "protection": {"usesPerDay": _uses("1/day: protective ward (Su)", "1/jour : protection divine (Sur)")},
     # Feat of strength once per day (Su): enhancement bonus to Str = cleric level for 1 round.
-    "strength": {"usesPerDay": "1/day: feat of strength (Su), 1 round"},
+    "strength": {"usesPerDay": _uses("1/day: feat of strength (Su), 1 round", "1/jour : exploit physique (Sur), 1 round")},
     # Once per day, a greater turning in place of a regular turning (turned undead are destroyed).
-    "sun": {"turning": _turn("greater-turning", "undead (turned undead are destroyed instead)",
-                             "morts-vivants (ceux qui seraient renvoyés sont détruits)", "1/day")},
+    "sun": {"turning": [_turn("greater-turning", "undead (turned undead are destroyed instead)",
+                              "morts-vivants (ceux qui seraient renvoyés sont détruits)", 1)]},
     # Freedom of movement for a total of 1 round per cleric level per day (Su); Survival is a class skill.
-    "travel": {"classSkills": ["survival"], "usesPerDay": "rounds/day = cleric level: freedom of movement (Su)"},
+    "travel": {"classSkills": ["survival"], "usesPerDay": _uses(
+        "rounds/day = cleric level: freedom of movement (Su)", "rounds/jour = niveau de prêtre : liberté de mouvement (Sur)")},
     "trickery": {"classSkills": ["bluff", "disguise", "hide"]},
-    # Martial Weapon Proficiency (if necessary) and Weapon Focus with the deity's favored weapon.
-    "war": {"grantsFeats": ["martial-weapon-proficiency:$deityWeapon", "weapon-focus:$deityWeapon"]},
+    # "Free Martial Weapon Proficiency with deity's favored weapon (if necessary) and Weapon Focus with the deity's
+    # favored weapon." Choice tokens the engine resolves: $deityWeapon = the deity's favored weapon;
+    # $deityWeaponIfMartial = the same weapon, but the feat is granted only when that weapon is a martial weapon
+    # (a simple weapon needs no proficiency feat; an exotic one would need Exotic Weapon Proficiency, which the
+    # SRD power does not grant).
+    "war": {"grantsFeats": ["martial-weapon-proficiency:$deityWeaponIfMartial", "weapon-focus:$deityWeapon"]},
     "water": {"turning": _elemental(("water", "de l’eau"), ("fire", "du feu"))},
 }
 

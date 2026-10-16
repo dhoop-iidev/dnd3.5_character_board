@@ -53,3 +53,43 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 - So, per class: its own spell list, spells per day (table at that class's level), bonus spells from its own key ability, caster level (= that class's level; ½ for paladin/ranger), save DC (10 + spell level + that class's ability modifier), preparation (or spells known). A spell on two lists (e.g. cure light wounds: cleric 1, druid 1) is prepared separately in each class and cast at that class's spell level and caster level. Domain slots belong to the cleric only; spontaneous cure/inflict converts cleric spells only.
 - Turning undead is the special case where levels add: cleric level + (paladin level − 3) from paladin 4 (same SRD page). Summoning: duration = caster level of the class the summon spell is cast from.
 - **App:** one Spells section per class (own slots, caster level, DCs, prepared spells keyed by class); a note explains it when there are several; the summons box asks which class casts when several can.
+
+## C7. Dire animals as animal companions: Will save — **their printed good saves (good Will included)** (high)
+- SRD: "An animal companion has good Fortitude and Reflex saves" (https://www.d20srd.org/srd/classes/druid.htm#animalCompanion).
+- **Official FAQ 3.5 (6/30/2008) p. 14:** "Dire animals use their normal good saves, even after becoming animal companions." The sentence only restates the animal rule.
+- **App:** a creature's good or poor saves are read from its printed saves, so bonus HD advance a dire animal's Will as a good save.
+
+## C8. Summoning a creature with an alignment makes the spell that type — **yes (Fiendish dire rat = evil spell)** (medium-high)
+- SRD Summon Monster I: "When you use a summoning spell to summon an air, chaotic, earth, evil, fire, good, lawful, or water creature, it is a spell of that type" (https://www.d20srd.org/srd/spells/summonMonsterI.htm). The fiendish template is "always evil"; the summon tables print an alignment for each entry (fiendish dire rat LE).
+- SRD cleric: "A cleric can't cast spells of an alignment opposed to his own or his deity's" (https://www.d20srd.org/srd/classes/cleric.htm). The Good/Evil/Law/Chaos domains cast spells of their alignment at +1 caster level.
+- Community, 3.5 era: EN World "Summon Monster alignments" (2004, https://enworld.org/threads/summon-monster-alignments.107984) and "Clerics as summoners" (https://www.enworld.org/threads/clerics-as-summoners.357101/). No FAQ entry.
+- **App:** the summons box derives the alignment of the summoned creature (printed alignment, or celestial = good, fiendish = evil): a cleric gets a warning when it is opposed to his alignment, and +1 caster level (duration) from a matching alignment domain.
+
+## C9. Animal companion Multiattack band, horse/camel (all natural attacks secondary) — **pending: house rule #25**
+- SRD companion: with fewer than three natural attacks, "the animal companion instead gains a second attack with its primary natural weapon, albeit at a –5 penalty" (https://www.d20srd.org/srd/classes/druid.htm#animalCompanion).
+- Horses, ponies and camels only have secondary attacks ("herbivorous animals… their natural weapons are treated as secondary attacks", https://www.d20srd.org/srd/monsters/intro.htm). FAQ p. 97: "A secondary natural weapon is always a secondary natural weapon, even when a creature attacks only with that weapon."
+- The books don't say what a creature without a primary natural weapon gains. No FAQ; forum discussions are Pathfinder and split.
+- **App (strict reading until decided):** 3+ natural attacks → Multiattack (secondary −2); fewer → one more attack with the primary natural weapon at −5 (wolf: bite +x/+x−5); horse/camel → nothing.
+
+## C10. Wild armor in wild shape — **only the armor bonus and its enhancement** (medium-high)
+- SRD: the wearer "preserves his armor bonus (and any enhancement bonus) while in a wild shape" (https://www.d20srd.org/srd/magicItems/magicArmor.htm#wild). PHB errata 2006: "any gear worn or carried by the druid melds into the new form and becomes nonfunctional". Other properties (fortification, resistances), max Dex, armor check penalty, spell failure and speed reduction don't apply. FAQ p. 89: wild works with wild shape only.
+- Community agreement: GiantITP "[3.5] Wild Armor and Check Penalties?" (https://forums.giantitp.com/archive/index.php/t-265450.html).
+- **App:** as implemented (armor bonus + enhancement only).
+
+## C11. Dwarf druid in wild shape: "not slowed by armor or load" — **doesn't apply** (medium-high)
+- Wild shape works like Alternate Form (C4), which loses "the movement modes of its original form"; the dwarf trait is about "this speed" (the dwarf's own 20 ft) (https://www.d20srd.org/srd/races.htm#dwarves). FAQ pp. 4–5 and 53 discuss the dwarf's own form only.
+- **App:** the form's speeds with the normal load rules.
+
+## C12. Knowledge domain and a homebrew Knowledge skill — **pending: house rule #27**
+- SRD Knowledge domain: "Add all Knowledge skills to your list of cleric class skills" (https://www.d20srd.org/srd/spells/clericDomains.htm#knowledge). Official precedent: Knowledge (psionics) is a new Knowledge category picked up by "Knowledge (all skills)" lists (Expanded Psionics Handbook SRD).
+- "Connaissances des monstres" is a DM skill (house rule #4) whose class-skill list the DM set (fighter, weapon master, warblade). Whether "all Knowledge" lists (bard, wizard, Knowledge domain) include it is the DM's call.
+- **App:** not added until decided.
+
+## C13. Domain slot at a spell level blocked by a low Wisdom — **the slot stays, filled with a lower-level domain spell** (medium)
+- Cleric table footnote: the "+1" is the domain spell slot (https://www.d20srd.org/srd/classes/cleric.htm). Spell slots: "A spellcaster who lacks a high enough ability score to cast spells that would otherwise be his or her due still gets the slots but must fill them with spells of lower level" (https://www.d20srd.org/srd/magicOverview/castingSpells.htm#spellSlots).
+- **App:** as implemented (the domain slot of a blocked level offers lower, castable domain spells).
+
+## C14. Sun domain greater turning for a cleric who rebukes — **pending: house rule #26**
+- SRD Sun: "Once per day, you can perform a greater turning against undead in place of a regular turning… the undead creatures that would be turned are destroyed instead" (https://www.d20srd.org/srd/spells/clericDomains.htm#sun). A cleric who channels negative energy rebukes and never turns; FAQ pp. 10–11: turn or rebuke is fixed. No core "greater rebuking"; books print it explicitly where intended (Eberron Deathless domain).
+- **As written:** no effect for a rebuking cleric. **Alternative for the DM:** once per day a greater rebuke, where undead that would be rebuked are commanded instead.
+- **App:** shown with a note "no effect as written (pending)".

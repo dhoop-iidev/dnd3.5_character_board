@@ -121,7 +121,7 @@
   ])
 </script>
 
-<!-- Hero: abilities | 3D portrait | vital statistics (inspired by ornate character sheets) -->
+<!-- Hero: abilities | portrait | vital statistics (inspired by ornate character sheets) -->
 <section class="hero">
   <div class="col abilities">
     {#each ABILITIES as a (a)}

@@ -29,8 +29,9 @@
   function slotOptions(sc: Spellcasting, slotLevel: number, blocked: boolean): { level: number; spells: SpellDef[] }[] {
     const usable = sc.slots.filter((x) => !x.blocked).map((x) => x.spellLevel)
     const out: { level: number; spells: SpellDef[] }[] = []
+    // Only levels the caster can cast (a blocked level stays blocked in a higher slot too).
     for (let l = blocked ? slotLevel - 1 : slotLevel; l >= 0; l--)
-      if (usable.includes(l) || l < slotLevel) out.push({ level: l, spells: spellsOf(sc, l) })
+      if (usable.includes(l)) out.push({ level: l, spells: spellsOf(sc, l) })
     return out.filter((g) => g.spells.length)
   }
   const hasSave = (sp: SpellDef) => !/^(none|aucun)/i.test(sp.save.en.trim())
@@ -50,6 +51,7 @@
       string
     >
     for (let l = blocked ? slotLevel - 1 : slotLevel; l >= 1; l--) {
+      if (sc.slots.some((x) => x.spellLevel === l && x.blocked)) continue
       const spells = [...rules.spells.values()]
         .filter((sp) =>
           sc.classId === 'cleric'
@@ -67,9 +69,12 @@
   // energy) or inflict (negative) spell of the same level or lower
   // (https://www.d20srd.org/srd/classes/cleric.htm#spontaneousCasting).
   const spontaneousKind = $derived(clericChoices(app.character).channel === 'negative' ? 'inflict' : 'cure')
-  function spontaneousOptions(slotLevel: number): SpellDef[] {
+  // The cure/inflict spell's level is at most the prepared spell's level (not the slot's: a lower spell in a higher
+  // slot only gives a spell of its own level).
+  function spontaneousOptions(preparedId: string, slotLevel: number): SpellDef[] {
+    const lvl = rules.spells.get(preparedId)?.level['cleric'] ?? slotLevel
     return [...rules.spells.values()]
-      .filter((sp) => sp.id.startsWith(`${spontaneousKind}-`) && (sp.level['cleric'] ?? 99) <= slotLevel)
+      .filter((sp) => sp.id.startsWith(`${spontaneousKind}-`) && (sp.level['cleric'] ?? 99) <= Math.min(lvl, slotLevel))
       .sort((a, b) => (b.level['cleric'] ?? 0) - (a.level['cleric'] ?? 0))
   }
 
@@ -100,9 +105,11 @@
     Object.assign(list[j], patch)
   }
 
-  function spellPopup(sp: SpellDef, sc: Spellcasting) {
+  function spellPopup(sp: SpellDef, sc: Spellcasting, domainSlot = false) {
     const dom = domainOf(sp)
-    const lvl = sp.level[sc.def.list] ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
+    // In a domain slot the spell is cast at its domain level (fire storm: Fire 7, cleric 8).
+    const domainLevel = Math.min(...s.domains.map((d) => sp.level[`domain:${d.id}`] ?? 99))
+    const lvl = (domainSlot && domainLevel < 99 ? domainLevel : undefined) ?? sp.level[sc.def.list] ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
     // Caster level for this spell: the class's, + domain bonus (Good, Evil, Law, Chaos, Healing, Knowledge).
     const clBonus = sc.classId === 'cleric' ? domainCasterLevelBonus(sp, s.domains) : { value: 0, domain: undefined }
     const cl = sc.casterLevel.total + clBonus.value
@@ -263,7 +270,9 @@
                   </optgroup>
                 {/each}
               </select>
-              {#if def}<button class="link" onclick={() => spellPopup(def, sc)}>ⓘ {tr(def.summary)}</button>{/if}
+              {#if def}<button class="link" onclick={() => spellPopup(def, sc, extra && sc.classId === 'cleric')}
+                  >ⓘ {tr(def.summary)}</button
+                >{/if}
               <label class="check">
                 <input
                   type="checkbox"
@@ -285,7 +294,7 @@
                       ? tr({ en: 'cure instead', fr: 'soins à la place' })
                       : tr({ en: 'inflict instead', fr: 'blessure à la place' })}</option
                   >
-                  {#each spontaneousOptions(slot.spellLevel) as sp (sp.id)}<option value={sp.id}>{tr(sp.name)}</option
+                  {#each spontaneousOptions(prep.id, slot.spellLevel) as sp (sp.id)}<option value={sp.id}>{tr(sp.name)}</option
                     >{/each}
                 </select>
               {/if}

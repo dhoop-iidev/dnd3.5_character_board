@@ -160,7 +160,7 @@ export interface ActiveEffect {
   refId?: string
   custom?: { name: I18n; modifiers: ModifierSpec[] }
   enabled: boolean
-  /** Rounds left (counted down at the end of each of your turns); undefined = no set duration. */
+  /** Rounds left (counted down at the start of each of your turns by the turn bar); undefined = no set duration. */
   rounds?: number
   note?: string
 }

@@ -540,7 +540,9 @@ export interface CreatureDef {
   type: string
   /** Type and subtypes as printed, bilingual (e.g. "Large magical beast (cold)"). */
   typeText: I18n
-  hitDice: { count: number; die: number; bonus: number }
+  /** Hit Dice: the main group (count × die + bonus), plus extra groups for creatures with class levels (celestial
+   * charger: 8d10 + 7d8 cleric). */
+  hitDice: { count: number; die: number; bonus: number; extra?: { count: number; die: number }[] }
   /** Average hp as printed. */
   hp: number
   initiative: number
@@ -549,6 +551,9 @@ export interface CreatureDef {
   ac: { total: number; touch: number; flatFooted: number; natural: number; dexMod: number; sizeMod: number; other: number }
   bab: number
   grapple: number
+  /** Four or more legs: quadruped carrying capacity multipliers
+   * (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures). */
+  quadruped?: boolean
   /** Full attack (first routine of the stat block). */
   attacks: CreatureAttack[]
   /** Alternative full attacks ("or" in the stat block), e.g. a ray instead of the bite. */
@@ -603,8 +608,13 @@ export interface SummonList {
   /** Summon Monster: templates a creature comes with (celestial and/or fiendish, chosen by the caster's alignment
    * rule) and alignment-subtype notes, e.g. { "dire-rat": ["celestial", "fiendish"] }. */
   templates?: Record<string, ('celestial' | 'fiendish')[]>
-  /** Alignment of the entry as printed (e.g. "LG" for a lantern archon), to warn about opposed alignments. */
+  /** Alignment of the entry as printed (e.g. "LG" for a lantern archon, "NG" for a giant eagle), to warn about
+   * opposed alignments (both summon families). */
   alignments?: Record<string, string>
+  /** Creatures that can be summoned only into an aquatic environment (the table's "¹"). */
+  aquatic?: string[]
+  /** Variant notes printed in the table (satyr with/without pipes, pixie arrows…), bilingual. */
+  notes?: Record<string, I18n>
 }
 
 /** A cleric domain (https://www.d20srd.org/srd/divine/domains.htm). */
@@ -624,10 +634,12 @@ export interface DomainDef {
     /** Spells with these descriptors (or of this school/subschool) are cast at +N caster level (Good, Evil, Law,
      * Chaos: +1; Healing: healing subschool +1; Knowledge: divination +1). */
     casterLevelBonus?: { descriptor?: string; school?: string; subschool?: string; value: number }
-    /** Extra turn/rebuke ability (Air: rebuke earth / turn air creatures…; Sun: greater turning 1/day). */
-    turning?: { mode: 'turn' | 'rebuke' | 'greater-turning'; creatures: I18n; perDay?: string }
+    /** Extra turning abilities, one entry per pool (Air: rebuke/command air creatures AND turn/destroy earth
+     * creatures; Plant: rebuke plants; Sun: greater turning). `perDay`: "3+cha" (a turning pool: 3 + Cha modifier,
+     * +4 per Extra Turning) or a fixed number ("1"). */
+    turning?: { mode: 'turn' | 'rebuke' | 'greater-turning'; creatures: I18n; perDay: '3+cha' | number }[]
     /** Uses per day of an activated granted power, as text (e.g. Luck: "1/day reroll"). */
-    usesPerDay?: string
+    usesPerDay?: I18n
   }
   source: Source
 }

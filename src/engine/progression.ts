@@ -123,7 +123,8 @@ export function featOptions(
   const bonusOk = (d: FeatDef) => (list ? list.includes(d.id) : d.fighterBonus)
   return [...rules.feats.values()]
     .filter((d) => slot !== 'class' || bonusOk(d))
-    .filter((d) => d.type === 'general' || slot === 'general' || slot === 'race' || slot === 'deity')
+    // Class slot: the class list may hold item creation or metamagic feats (wizard, https://www.d20srd.org/srd/classes/wizard.htm#bonusFeats).
+    .filter((d) => d.type === 'general' || slot === 'general' || slot === 'race' || slot === 'deity' || (slot === 'class' && !!list?.includes(d.id)))
     .map((def) => ({
       def,
       // Monk bonus feats ignore prerequisites (https://www.d20srd.org/srd/classes/monk.htm#bonusFeat).

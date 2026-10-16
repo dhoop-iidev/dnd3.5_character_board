@@ -72,13 +72,21 @@ export interface CreatureSheet {
   template?: { def: TemplateDef; dr: string; resistances: I18n; sr: number }
   /** Companion special abilities gained (link, share spells, evasion…). */
   special: { id: string; name: I18n; text: I18n }[]
+  /** Type line, after a template (a celestial/fiendish animal or vermin becomes a magical beast). */
+  typeText: I18n
+  /** Companion bonus Hit Dice: feats, ability increases and skill points they entitle to (described only, not applied;
+   * https://www.d20srd.org/srd/improvingMonsters.htm). */
+  bonusHdGains?: { feats: number; abilityIncreases: number; skillPoints: number }
 }
 
 function parseDamage(dmg: string): { dice: string; bonus: number } {
-  const m = dmg.match(/^\s*([0-9]+d[0-9]+)?\s*([+-−]\s*\d+)?/)
+  const m = dmg.match(/^\s*([0-9]+d[0-9]+)?\s*([-+−]\s*\d+)?/)
   return { dice: m?.[1] ?? '', bonus: m?.[2] ? Number(m[2].replace('−', '-').replace(/\s/g, '')) : 0 }
 }
 const fmtDmg = (dice: string, bonus: number) => (dice ? `${dice}${bonus > 0 ? `+${bonus}` : bonus < 0 ? `${bonus}` : ''}` : `${Math.max(1, bonus)}`)
+/** Str modifier to damage with a factor (×½, ×1, ×1½): a bonus is multiplied, a penalty applies in full
+ * (https://www.d20srd.org/srd/combat/combatStatistics.htm#damage); factor 0 = no Str (grab-only arms). */
+const strToDamage = (m: number, f: number) => (f === 0 ? 0 : m > 0 ? Math.floor(m * f) : m)
 
 export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): CreatureSheet {
   const adv = opts.advancement
@@ -110,6 +118,10 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
   // ---- hit dice, BAB, saves (bonus HD follow the creature type's progressions)
   const bonusHD = adv?.bonusHD ?? 0
   const hd = def.hitDice.count + bonusHD
+  // Extra Hit Dice groups (class levels: celestial charger 8d10 + 7d8) count for hit points, the template and the total.
+  const extraGroups = def.hitDice.extra ?? []
+  const extraHd = extraGroups.reduce((n, g) => n + g.count, 0)
+  const totalHd = hd + extraHd
   const dBab = babFor(def.type, hd) - babFor(def.type, def.hitDice.count)
   const babParts: Part[] = [printed(STAT, def.bab)]
   if (dBab) babParts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD} HD (companion)`, `+${bonusHD} DV (compagnon)`), value: dBab, bonusType: 'base', source: advSource })
@@ -117,21 +129,23 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
 
   // ---- hit points
   const conMod = abilities.con.mod
-  const extra = def.hitDice.bonus - mod(def.abilities.con) * def.hitDice.count // Toughness etc. in the printed bonus
+  const extra = def.hitDice.bonus - mod(def.abilities.con) * (def.hitDice.count + extraHd) // Toughness etc. in the printed bonus
   const hpParts: Part[] = []
   if (opts.maxHp) {
-    hpParts.push({ sourceId: 'hd', label: i18n(`${hd}d${def.hitDice.die} maximum`, `${hd}d${def.hitDice.die} au maximum`), value: hd * def.hitDice.die, bonusType: 'base', source: { srdUrl: TYPES } })
-    hpParts.push({ sourceId: 'con', label: i18n(`Con ${conMod >= 0 ? '+' : ''}${conMod} × ${hd}`, `Con ${conMod >= 0 ? '+' : ''}${conMod} × ${hd}`), value: conMod * hd, bonusType: 'ability' })
+    const dice = [`${hd}d${def.hitDice.die}`, ...extraGroups.map((g) => `${g.count}d${g.die}`)].join(' + ')
+    const maxDice = hd * def.hitDice.die + extraGroups.reduce((n, g) => n + g.count * g.die, 0)
+    hpParts.push({ sourceId: 'hd', label: i18n(`${dice} maximum`, `${dice} au maximum`), value: maxDice, bonusType: 'base', source: { srdUrl: TYPES } })
+    hpParts.push({ sourceId: 'con', label: i18n(`Con ${conMod >= 0 ? '+' : ''}${conMod} × ${totalHd}`, `Con ${conMod >= 0 ? '+' : ''}${conMod} × ${totalHd}`), value: conMod * totalHd, bonusType: 'ability' })
     if (extra) hpParts.push({ sourceId: 'extra', label: i18n('Other (feats)', 'Autres (dons)'), value: extra, bonusType: 'base', source: src })
   } else if (opts.hpManual !== undefined) {
     hpParts.push({ sourceId: 'manual', label: i18n('Hit points entered', 'Points de vie saisis'), value: opts.hpManual, bonusType: 'base' })
   } else {
     hpParts.push(printed(i18n('Average hit points (stat block)', 'Points de vie moyens (profil)'), def.hp))
     if (bonusHD) hpParts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD}d${def.hitDice.die} (average)`, `+${bonusHD}d${def.hitDice.die} (moyenne)`), value: Math.floor((bonusHD * (def.hitDice.die + 1)) / 2) + mod(def.abilities.con) * bonusHD, bonusType: 'base', source: advSource })
-    if (delta.con) hpParts.push({ sourceId: 'con', label: i18n(`Con change × ${hd} HD`, `Variation de Con × ${hd} DV`), value: delta.con * hd, bonusType: 'ability' })
+    if (delta.con) hpParts.push({ sourceId: 'con', label: i18n(`Con change × ${totalHd} HD`, `Variation de Con × ${totalHd} DV`), value: delta.con * totalHd, bonusType: 'ability' })
   }
   const hpMax = resolve(hpParts)
-  hpMax.total = Math.max(hd, hpMax.total)
+  hpMax.total = Math.max(totalHd, hpMax.total)
 
   // ---- saves
   const saveAbility = { fort: 'con', ref: 'dex', will: 'wis' } as const
@@ -171,7 +185,14 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
 
   // ---- attacks: printed bonus + BAB change + attack ability change; damage: Str change × its factor
   const special = adv?.special ?? []
-  const multiattack = special.some((x) => x.id === 'multiattack')
+  // Companion multiattack (https://www.d20srd.org/srd/classes/druid.htm#animalCompanion): with three or more natural
+  // attacks, the Multiattack feat (secondary attacks at −2 instead of −5); otherwise a second attack with its primary
+  // natural weapon at −5. An animal whose natural attacks are all secondary (horse, camel) has no primary weapon:
+  // nothing is added (house rule #25, pending).
+  const naturalCount = def.attacks.filter((a) => a.role !== 'weapon').reduce((n, a) => n + a.count, 0)
+  const hasMultiattackBand = special.some((x) => x.id === 'multiattack')
+  const multiattack = hasMultiattackBand && naturalCount >= 3
+  const extraPrimary = hasMultiattackBand && naturalCount < 3 ? def.attacks.find((a) => a.role === 'primary') : undefined
   const attackLine = (atk: CreatureAttack): CreatureAttackLine => {
     const parts: Part[] = [printed(STAT, atk.bonus)]
     if (dBab) parts.push({ ...babParts[1] })
@@ -184,7 +205,7 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
     const oldStr = mod(def.abilities.str)
     const newStr = abilities.str.mod
     const f = atk.strDamageFactor
-    const dDmg = Math.floor(newStr * f) - Math.floor(oldStr * f)
+    const dDmg = strToDamage(newStr, f) - strToDamage(oldStr, f)
     const damageBonus = resolve([
       printed(i18n('Damage bonus (stat block)', 'Bonus aux dégâts (profil)'), bonus),
       ...(dDmg ? [{ sourceId: 'str', label: i18n(`Str change × ${f}`, `Variation de For × ${f}`), value: dDmg, bonusType: 'ability' as const }] : []),
@@ -192,7 +213,10 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
     const total = resolve(parts)
     // Iterative attacks (+9/+4): each one moves with the first.
     const iterative = (atk.iterative ?? []).map((b) => b + total.total - atk.bonus)
-    return { attack: atk, bonus: total, iterative, damage: fmtDmg(dice, damageBonus.total), damageBonus }
+    if (atk === extraPrimary) iterative.push(total.total - 5)
+    // A printed "0" (grab-only arms, webs) stays 0.
+    const damage = /^\s*0\s*$/.test(atk.damage) ? '0' : fmtDmg(dice, damageBonus.total)
+    return { attack: atk, bonus: total, iterative, damage, damageBonus }
   }
   const attacks = def.attacks.map(attackLine)
   // Alternative full attacks ("or" in the stat block).
@@ -200,8 +224,25 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
 
   const t = opts.template
   const band = t?.bands.find((b) => hd >= b.minHD && hd <= b.maxHD)
-  const template = t ? { def: t, dr: band?.dr ?? '—', resistances: band?.resistances ?? { en: '—', fr: '—' }, sr: Math.min(25, hd + t.srPlusHD) } : undefined
-  return { def, hitDice: hd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special }
+  const template = t ? { def: t, dr: band?.dr ?? '—', resistances: band?.resistances ?? { en: '—', fr: '—' }, sr: Math.min(25, totalHd + t.srPlusHD) } : undefined
+  // Celestial/fiendish: an animal or vermin becomes a magical beast (https://www.d20srd.org/srd/monsters/celestialCreature.htm).
+  const beast = !!t && (def.type === 'animal' || def.type === 'vermin')
+  const typeText = beast
+    ? {
+        en: def.typeText.en.replace(/\b(animal|vermin)\b/i, (w) => `magical beast (augmented ${w.toLowerCase()})`),
+        fr: def.typeText.fr.replace(/\b(animal|vermine)\b/i, (w) => `créature magique (${w.toLowerCase()} augmenté${/vermine/i.test(w) ? 'e' : ''})`),
+      }
+    : def.typeText
+  // Companion bonus HD: a feat per 3 HD, an ability increase per 4 HD, skill points per HD (animal: 2 + Int, min 1)
+  // (https://www.d20srd.org/srd/improvingMonsters.htm).
+  const bonusHdGains = bonusHD
+    ? {
+        feats: Math.floor(hd / 3) - Math.floor(def.hitDice.count / 3),
+        abilityIncreases: Math.floor(hd / 4) - Math.floor(def.hitDice.count / 4),
+        skillPoints: bonusHD * Math.max(1, 2 + abilities.int.mod),
+      }
+    : undefined
+  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains }
 }
 
 /** Effective druid level for the animal companion: druid level + ½ ranger level from ranger 4 (FAQ p. 29). */

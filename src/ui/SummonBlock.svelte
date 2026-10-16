@@ -5,6 +5,9 @@
   // https://www.d20srd.org/srd/spells/summonNaturesAllyI.htm, https://www.d20srd.org/srd/spells/summonMonsterI.htm,
   // Augment Summoning: https://www.d20srd.org/srd/feats.htm#augmentSummoning
   import { rules } from '../data/rules'
+  import type { SpellDef } from '../data/types'
+  import { opposedDescriptors, parseAlignment } from '../engine/alignment'
+  import { domainCasterLevelBonus } from '../engine/cleric'
   import { computeCreature } from '../engine/creature'
   import type { SummonState } from '../model/character'
   import { app, tr, view } from '../state.svelte'
@@ -19,10 +22,19 @@
     rules.summonLists.flatMap((list) => {
       const spell = rules.spells.get(list.spellId)
       if (!spell) return []
+      // A slot of that level that can be used (not blocked by a low ability score). A cleric with the Animal domain
+      // casts Summon Nature's Ally IV/VIII in his domain slot (https://www.d20srd.org/srd/spells/clericDomains.htm#animal).
+      const usable = (sc: (typeof s.spellcasting)[number], lvl: number, domainOnly: boolean) =>
+        sc.slots.some((x) => x.spellLevel === lvl && x.total > 0 && !x.blocked && (!domainOnly || x.extra > 0))
       return s.spellcasting
         .filter((sc) => {
           const lvl = spell.level[sc.def.list]
-          return lvl !== undefined && sc.slots.some((x) => x.spellLevel === lvl && x.total > 0)
+          if (lvl !== undefined && usable(sc, lvl, false)) return true
+          if (sc.classId !== 'cleric') return false
+          return s.domains.some((d) => {
+            const dl = spell.level[`domain:${d.id}`]
+            return dl !== undefined && usable(sc, dl, true)
+          })
         })
         .map((caster) => ({ key: `${list.spellId}|${caster.classId}`, list, spell, caster }))
     }),
@@ -59,15 +71,51 @@
   })
   // Summon Monster: celestial and/or fiendish versions, as the table prints them.
   const templates = $derived(picked?.list.templates?.[picked.id] ?? [])
+  const tplNow = $derived(
+    templates.length === 1 ? templates[0] : templates.includes(template as 'celestial') ? template : templates[0],
+  )
+  // How many: 1 from the spell's own list, 1d3 from the list below, 1d4+1 from lower lists (the spell text).
+  const maxCount = $derived(
+    !picked || !chosen ? 1 : picked.list.level === chosen.list.level ? 1 : picked.list.level === chosen.list.level - 1 ? 3 : 5,
+  )
+  // Alignment of what is summoned: the printed alignment, or the template (celestial = good, fiendish = evil). Summoning
+  // a good/evil/lawful/chaotic creature makes the spell one of that type
+  // (https://www.d20srd.org/srd/spells/summonMonsterI.htm): a cleric can't cast it if it is opposed to his alignment,
+  // and the Good/Evil/Law/Chaos domains add +1 caster level (docs/rules/rulings-classes.md C8).
+  const alignDescriptors = $derived.by(() => {
+    if (!picked) return [] as string[]
+    const out: string[] = []
+    const a = parseAlignment(picked.list.alignments?.[picked.id])
+    if (a?.moral === 'good' || tplNow === 'celestial') out.push('good')
+    if (a?.moral === 'evil' || tplNow === 'fiendish') out.push('evil')
+    if (a?.order === 'lawful') out.push('lawful')
+    if (a?.order === 'chaotic') out.push('chaotic')
+    return [...new Set(out)]
+  })
+  const clBonus = $derived(
+    chosen?.caster.classId === 'cleric'
+      ? domainCasterLevelBonus({ descriptors: alignDescriptors } as unknown as SpellDef, s.domains)
+      : { value: 0, domain: undefined },
+  )
+  const opposed = $derived.by(() => {
+    if (chosen?.caster.classId !== 'cleric') return []
+    const me = parseAlignment(app.character.identity.alignment)
+    return me ? alignDescriptors.filter((d) => opposedDescriptors(me).includes(d)) : []
+  })
+  const DESC = {
+    good: { en: 'good', fr: 'Bien' },
+    evil: { en: 'evil', fr: 'Mal' },
+    lawful: { en: 'lawful', fr: 'Loi' },
+    chaotic: { en: 'chaotic', fr: 'Chaos' },
+  } as Record<string, { en: string; fr: string }>
   const augment = $derived(s.feats.some((f) => f.featId === 'augment-summoning'))
 
   function summon() {
     if (!chosen || !picked) return
-    const rounds = chosen.caster.casterLevel.total
+    const rounds = chosen.caster.casterLevel.total + clBonus.value
     const list = (app.character.summons ??= [])
-    const tpl =
-      templates.length === 1 ? templates[0] : templates.includes(template as 'celestial') ? template : templates[0]
-    for (let i = 0; i < Math.max(1, count); i++)
+    const tpl = tplNow
+    for (let i = 0; i < Math.min(maxCount, Math.max(1, count)); i++)
       list.push({
         uid: newUid(),
         creatureId: picked.id,
@@ -120,9 +168,9 @@
                   : tr({ en: '1d4+1 creatures (lower lists)', fr: '1d4+1 créatures (listes inférieures)' })}
             >
               {#each g.ids as id (id)}<option value={`${g.level}|${id}`}
-                  >{tr(rules.creatures.get(id)?.name)}{g.list.alignments?.[id]
-                    ? ` [${g.list.alignments[id]}]`
-                    : ''}</option
+                  >{tr(rules.creatures.get(id)?.name)}{g.list.alignments?.[id] ? ` [${g.list.alignments[id]}]` : ''}{g.list.aquatic?.includes(id)
+                    ? ` (${tr({ en: 'aquatic only', fr: 'milieu aquatique' })})`
+                    : ''}{g.list.notes?.[id] ? ` — ${tr(g.list.notes[id])}` : ''}</option
                 >{/each}
             </optgroup>
           {/each}
@@ -134,7 +182,7 @@
         {:else if templates.length === 1}
           <span class="note">{tr(TEMPLATE_NAME[templates[0]])}</span>
         {/if}
-        <label class="count">× <input type="number" min="1" max="5" bind:value={count} /></label>
+        <label class="count">× <input type="number" min="1" max={maxCount} bind:value={count} /></label>
         <button class="go" onclick={summon} disabled={!picked}>{tr({ en: 'Summon', fr: 'Convoquer' })}</button>
       </div>
       <p class="note">
@@ -142,7 +190,22 @@
           en: `Duration: 1 round per caster level (${chosen?.caster.casterLevel.total ?? 0}), counted down at the start of your turn.${augment ? ' Augment Summoning: +4 Str and Con.' : ''}`,
           fr: `Durée : 1 round par niveau de lanceur (${chosen?.caster.casterLevel.total ?? 0}), décompté au début de votre tour.${augment ? ' Convocation suprême : +4 For et Con.' : ''}`,
         })}
+        {#if clBonus.value}
+          {tr({
+            en: `+${clBonus.value} caster level (${clBonus.domain?.name.en} domain: the spell is ${alignDescriptors.join(', ')}).`,
+            fr: `+${clBonus.value} niveau de lanceur (domaine ${clBonus.domain?.name.fr} : le sort a le registre ${alignDescriptors.map((d) => DESC[d].fr).join(', ')}).`,
+          })}
+        {/if}
       </p>
+      {#if opposed.length}
+        <p class="warn">
+          {tr({
+            en: `Summoning this creature makes the spell ${opposed.join(', ')}: opposed to your alignment, a cleric can't cast it.`,
+            fr: `Convoquer cette créature donne au sort le registre ${opposed.map((d) => DESC[d].fr).join(', ')} : opposé à votre alignement, un prêtre ne peut pas le lancer.`,
+          })}
+          <a href="https://www.d20srd.org/srd/classes/cleric.htm" target="_blank" rel="noopener">d20srd</a>
+        </p>
+      {/if}
     {/if}
     <div class="cards">
       {#each app.character.summons ?? [] as x (x.uid)}
@@ -192,6 +255,10 @@
   }
   .note {
     color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  .warn {
+    color: var(--accent);
     font-size: 0.9rem;
   }
   .cards {

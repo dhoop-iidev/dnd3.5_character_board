@@ -305,52 +305,111 @@ def companion_lists() -> list[tuple[int, int, list[str]]]:
     return out
 
 
-def summon_lists() -> dict[int, list[str]]:
-    """Spell level -> creature ids, from the Summon Nature's Ally table (SRD, printed with the IX spell)."""
+# Variant notes of the Summon Nature's Ally table (English as printed in the SRD table, brackets and "*" footnote) ->
+# French as printed in the DRS 22a table (each French text is checked to be in the French table at the same level).
+SNA_NOTES_FR = {
+    "Without pipes": "Sans flûte de Pan",
+    "With pipes": "Avec flûte de Pan",
+    "No special arrows; can't cast irresistible dance": "Pas de flèches spéciales ; incapable de lancer danse irrésistible",
+    "With sleep arrows; can't cast irresistible dance": "Avec flèches de sommeil ; incapable de lancer danse irrésistible",
+    "With sleep and memory loss arrows; can cast irresistible dance":
+        "Avec flèches de sommeil et de perte de mémoire ; capable de lancer danse irrésistible",
+    "With fiddle": "Avec violon",
+}
+
+
+def summon_lists() -> dict[int, dict]:
+    """Spell level -> {creatures, alignments, aquatic, notes}, from the Summon Nature's Ally table (SRD, printed with the
+    IX spell, https://www.d20srd.org/srd/spells/summonNaturesAllyI.htm). A label may carry "[NG]" or "[CN; without
+    pipes]" (alignment + variant), a "*" footnote ("*Can't cast irresistible dance", printed after the level's rows) and
+    the footnote mark "1" ("May be summoned only into an aquatic or watery environment")."""
     t = db().execute("select full_text from spell where name=\"Summon Nature's Ally IX\"").fetchone()[0]
     j = t.find("Summon Nature's Ally</")
     if j < 0:
         j = t.find("1st Level")
-    out: dict[int, list[str]] = {}
-    lvl, skip = None, False
+    toks = tokens(t[j:])
+    out: dict[int, dict] = {}
+    lvl = None
     counts: dict[int, int] = {}
-    for tok in tokens(t[j:]):
+    starred: dict[int, list[tuple[list[str], str]]] = {}  # level -> (ids, note without the footnote)
+    i = 0
+    while i < len(toks):
+        tok = toks[i]
+        i += 1
         h = re.match(r"^(\d)\w\w Level$", tok)
         if h:
             lvl = int(h.group(1))
-            out[lvl] = []
+            out[lvl] = {"creatures": [], "alignments": {}, "aquatic": [], "notes": {}}
             continue
-        if skip:
-            skip = False
-            continue
-        if tok.startswith("*Can"):
-            skip = True  # "*Can't cast | irresistible dance |"
+        if re.match(r"^\*Can(?:'t)? cast$", tok):
+            foot = f"{tok[1:]} {toks[i]}"  # "*Can't cast | irresistible dance"
+            i += 1
+            for ids, note in starred.pop(lvl, []):
+                for cid in ids:
+                    out[lvl]["notes"][cid] = f"{note}; {foot[0].lower()}{foot[1:]}" if note else foot
             continue
         if lvl is None or tok in ("1", "Summon Nature's Ally") or tok.startswith("(") or tok.startswith("1 May"):
             continue
         k = label_key(tok)
         assert k in LABELS, f"Summon Nature's Ally label {tok!r} not in LABELS"
-        out[lvl].extend(x for x in LABELS[k] if x not in out[lvl])
+        e = out[lvl]
+        ids = [x for x in LABELS[k] if x not in e["creatures"]]
+        e["creatures"].extend(ids)
         counts[lvl] = counts.get(lvl, 0) + 1
+        aquatic = i < len(toks) and toks[i] == "1"
+        if aquatic:
+            e["aquatic"].extend(ids)
+        note = None
+        b = re.search(r"\[([A-Z]{1,2})(?:; ([^\]]+))?\]", _html.unescape(tok))
+        if b:
+            assert b.group(1) in FR_ALIGN.values(), tok
+            for cid in ids:
+                e["alignments"][cid] = b.group(1)
+            note = b.group(2) and b.group(2)[0].upper() + b.group(2)[1:]
+        if "*" in tok:
+            starred.setdefault(lvl, []).append((ids, note))
+        elif note:
+            for cid in ids:
+                e["notes"][cid] = note
+    assert not starred, starred
     assert sorted(out) == list(range(1, 10)), out.keys()
-    # Cross-check: the French table (DRS 22a, after the IX spell) has as many entries per level, except FR_SNA_SLIPS.
+    # Cross-check: the French table (DRS 22a, after the IX spell) has as many entries per level, except FR_SNA_SLIPS,
+    # the same bracket alignments, every French variant note at the same level, and its "*" aquatic marks.
     ps = rtf_fr.load("DRS 22a")
     i = next(n for n, p in enumerate(ps) if p.text == "Convocation d’alliés naturels" and ps[n + 1].text == "Niveau 1")
-    fr_counts: dict[int, int] = {}
+    fr_rows: dict[int, list[str]] = {}
     lvl = None
     for p in ps[i + 1:]:
         h = re.match(r"^Niveau (\d)$", p.text)
         if h:
             lvl = int(h.group(1))
+            fr_rows[lvl] = []
         elif p.text.startswith("*"):
             break
         else:
-            fr_counts[lvl] = fr_counts.get(lvl, 0) + 1
+            fr_rows[lvl].append(p.text)
     for lv in range(1, 10):
-        if fr_counts.get(lv) != counts[lv]:
-            assert lv in FR_SNA_SLIPS and fr_counts.get(lv) == counts[lv] + FR_SNA_SLIPS[lv][0], (lv, fr_counts.get(lv), counts[lv])
+        if len(fr_rows[lv]) != counts[lv]:
+            assert lv in FR_SNA_SLIPS and len(fr_rows[lv]) == counts[lv] + FR_SNA_SLIPS[lv][0], (lv, len(fr_rows[lv]), counts[lv])
             NOTES.append(f"summon-lists: DRS 22a level {lv} list: {FR_SNA_SLIPS[lv][1]} (the English SRD list is used)")
+        fr_br = [re.search(r"\[([A-Z]{1,2})(?: ; ([^\]]+))?\]", r) for r in fr_rows[lv]]
+        fr_al = sorted(FR_ALIGN[m.group(1)] for m in fr_br if m)
+        assert fr_al == sorted(en_al_rows(out[lv])), (lv, fr_al, en_al_rows(out[lv]))
+        fr_notes = {m.group(2) for m in fr_br if m and m.group(2)}
+        for cid, note in out[lv]["notes"].items():
+            assert SNA_NOTES_FR[note][0].lower() + SNA_NOTES_FR[note][1:] in fr_notes, (lv, cid, note, fr_notes)
+        fr_aq = sum("*" in r for r in fr_rows[lv])
+        en_aq = len(out[lv]["aquatic"])
+        if fr_aq != en_aq:
+            NOTES.append(f"summon-lists: DRS 22a Summon Nature's Ally level {lv}: {fr_aq} rows marked aquatic (*), the "
+                         f"SRD table marks {en_aq} ({', '.join(out[lv]['aquatic'])}); the English marks are used")
     return out
+
+
+def en_al_rows(e: dict) -> list[str]:
+    """One alignment per printed row (an "(any)" row names several creatures with one alignment): here every
+    bracketed row is a single creature, checked by the caller."""
+    return list(e["alignments"].values())
 
 
 # Summon Monster table labels (after dropping "Celestial " / "Fiendish ", footnote marks and the "(demon)"-style
@@ -413,7 +472,7 @@ def summon_monster_lists() -> dict[int, dict]:
         h = re.match(r"^(\d)\w\w Level$", tok)
         if h:
             lvl = int(h.group(1))
-            out[lvl] = {"creatures": [], "templates": {}, "alignments": {}}
+            out[lvl] = {"creatures": [], "templates": {}, "alignments": {}, "aquatic": []}
             rows[lvl] = []
             i += 1
             continue
@@ -423,7 +482,8 @@ def summon_monster_lists() -> dict[int, dict]:
         if tok.startswith("1 May"):
             break
         j = i + 1
-        if toks[j] == "1":  # footnote mark (aquatic environment only)
+        aquatic = toks[j] == "1"  # footnote mark (aquatic environment only)
+        if aquatic:
             j += 1
         al = toks[j]
         assert al in FR_ALIGN.values(), (tok, al)
@@ -437,6 +497,8 @@ def summon_monster_lists() -> dict[int, dict]:
             if tpl:
                 e["templates"][cid] = [tpl]
             e["alignments"][cid] = al
+            if aquatic:
+                e["aquatic"].append(cid)
         rows[lvl].append(al)
         i = j + 1
     assert sorted(out) == list(range(1, 10)), out.keys()
@@ -444,6 +506,7 @@ def summon_monster_lists() -> dict[int, dict]:
     ps = rtf_fr.load("DRS 22a")
     i = next(n for n, p in enumerate(ps) if p.text == "Convocation de monstres" and ps[n + 1].text == "Niveau 1")
     fr_rows: dict[int, list[str]] = {}
+    fr_aq: dict[int, int] = {}
     lvl = None
     for p in ps[i + 1:]:
         h = re.match(r"^Niveau (\d)$", p.text)
@@ -454,6 +517,11 @@ def summon_monster_lists() -> dict[int, dict]:
             break
         else:
             fr_rows[lvl].append(FR_ALIGN[p.text.rsplit(" ", 1)[1]])
+            fr_aq[lvl] = fr_aq.get(lvl, 0) + ("*" in p.text)
+    for lv, e in out.items():
+        if fr_aq.get(lv, 0) != len(e["aquatic"]):
+            NOTES.append(f"summon-lists: DRS 22a Summon Monster level {lv}: {fr_aq.get(lv, 0)} rows marked aquatic (*), "
+                         f"the SRD table marks {len(e['aquatic'])} ({', '.join(e['aquatic'])}); the English marks are used")
     for lv, (fr_al, en_al, why) in FR_SM_ALIGN_SLIPS.items():
         fr_rows[lv][fr_rows[lv].index(fr_al)] = en_al
         NOTES.append(f"summon-lists: DRS 22a Summon Monster level {lv}: {why} (the English SRD alignment is used)")
@@ -694,8 +762,37 @@ def split_top(s: str, seps: tuple[str, ...]) -> list[str]:
     return [x for x in out if x]
 
 
+# Quadrupeds for carrying capacity (CreatureDef.quadruped). SRD: "Quadrupeds can carry heavier loads than characters
+# can" (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures) and "Any creature with four or more
+# motive limbs can carry a load as a quadruped, even if it does not necessarily use all the limbs at once" (SRD Monsters
+# intro, Strength). Decided per creature from its description: four-legged mammals, reptiles and amphibians,
+# quadrupedal dinosaurs, apes and monkeys (walk on their arms too; girallon: "walks on its legs and lower arms"),
+# vermin (6-8 legs), four-legged magical beasts and outsiders (hezrou: "can walk both upright and on all fours"),
+# tojanidas (four paddle stalks "for locomotion") and the elasmosaurus (four flippers). Not quadrupeds: bipeds
+# (deinonychus, megaraptor, tyrannosaurus, humanoid outsiders, fey), birds and bats, snakes and serpentine creatures,
+# fish, whales, sharks, rays, porpoises, octopuses and squids (they swim; arms are attack limbs), the sea cat
+# (forelegs and a fish tail), the xorn (three legs) and xill (two legs, four arms), plants, elementals, the chaos beast
+# and the arrowhawk. Every other creature is false.
+QUADRUPED = {
+    "achaierai", "ape", "baboon", "badger", "bear-black", "bear-brown", "bear-polar", "bebilith", "bee-giant",
+    "beetle-giant-bombardier", "beetle-giant-fire", "beetle-giant-stag", "bison", "boar", "camel", "cat", "cheetah",
+    "crocodile", "crocodile-giant", "dire-ape", "dire-badger", "dire-bear", "dire-boar", "dire-lion", "dire-rat",
+    "dire-tiger", "dire-weasel", "dire-wolf", "dire-wolverine", "dog", "dog-riding", "donkey", "elasmosaurus",
+    "elephant", "girallon", "griffon", "hell-hound", "hellcat", "hezrou", "hippogriff", "horse-heavy", "horse-light",
+    "howler", "hyena", "leopard", "lion", "lizard", "lizard-monitor", "monkey", "mule", "pony", "pony-war",
+    "praying-mantis-giant", "rat", "rhinoceros", "shadow-mastiff", "tiger", "toad", "tojanida-adult", "tojanida-elder",
+    "tojanida-juvenile", "triceratops", "unicorn", "unicorn-celestial-charger", "warhorse-heavy", "warhorse-light",
+    "wasp-giant", "weasel", "wolf", "wolverine", "yeth-hound",
+    *(f"monstrous-centipede-{z}" for z in ("medium", "large", "huge", "gargantuan", "colossal")),
+    *(f"monstrous-scorpion-{z}" for z in ("small", "medium", "large", "huge", "gargantuan")),
+    *(f"monstrous-spider-{z}" for z in ("small", "medium", "large", "huge", "gargantuan", "colossal")),
+}
+
+
 def parse_hd(s: str) -> tuple[dict, int, str, list]:
-    """'2d8+4 (13 hp)' -> ({count, die, bonus}, hp, match key, dice groups)."""
+    """'2d8+4 (13 hp)' -> ({count, die, bonus}, hp, match key, dice groups). Several dice groups (class levels on a
+    monster: celestial charger '8d10+7d8+75', or '6d8+18 plus 11d10+33') -> the first group is count/die, the others go to
+    `extra` [{count, die}] and every +N goes to `bonus`."""
     s = s.replace("–", "-").replace(" ", "")
     m = re.match(r"^(.+?)\((\d+)(?:hp|pv)\)", s)
     dice, hp = m.group(1), int(m.group(2))
@@ -703,6 +800,9 @@ def parse_hd(s: str) -> tuple[dict, int, str, list]:
     bonus = sum(int(x) for x in re.findall(r"([+-]\d+)(?![d\d/])", re.sub(r"\d+/\d+|\d+d\d+", "", dice)))
     c0 = groups[0][0]
     d = {"count": int(c0) if c0.denominator == 1 else float(c0), "die": groups[0][1], "bonus": bonus}
+    if len(groups) > 1:
+        assert all(c.denominator == 1 for c, _ in groups[1:]), s
+        d["extra"] = [{"count": int(c), "die": die} for c, die in groups[1:]]
     return d, hp, f"{dice}|{hp}", groups
 
 
@@ -1167,7 +1267,7 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
     comp = companion_lists()
     sna = summon_lists()
     sm = summon_monster_lists()
-    used = {x for _, _, ids in comp for x in ids} | {x for ids in sna.values() for x in ids}
+    used = {x for _, _, ids in comp for x in ids} | {x for e in sna.values() for x in e["creatures"]}
     assert not used & set(WILD_SHAPE), used & set(WILD_SHAPE)
     sm_ids = {x for e in sm.values() for x in e["creatures"]}
     assert set(SUMMON_MONSTER) <= sm_ids, set(SUMMON_MONSTER) - sm_ids
@@ -1363,7 +1463,7 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         d = {
             "id": cid, "name": i18n(dbname, name_fr), "size": size, "type": typ, "typeText": i18n(type_en, type_fr),
             "hitDice": hd, "hp": hp, "initiative": signed(r["initiative"]), "speed": speed, "ac": ac, "bab": bab,
-            "grapple": grapple, "attacks": attacks, **({"altAttacks": alt_attacks} if alt_attacks else {}), "space": parse_feet(r["space"]), "reach": parse_feet(r["reach"]),
+            "quadruped": cid in QUADRUPED, "grapple": grapple, "attacks": attacks, **({"altAttacks": alt_attacks} if alt_attacks else {}), "space": parse_feet(r["space"]), "reach": parse_feet(r["reach"]),
             "saves": saves, "abilities": abil, "skills": i18n(skills_en, skills_fr), "feats": i18n(feats_en, feats_fr),
             "featIds": fids, "specialAttacks": i18n(dash(r["special_attacks"]), sa_fr),
             "specialQualities": i18n(dash(r["special_qualities"]), sq_fr),
@@ -1375,11 +1475,17 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         if not fr:
             d["source"]["frRef"] = f"{rtf_fr.file_label('DRS 38')} (licorne), {rtf_fr.file_label('DRS 22a')} (nom)"
         out.append(d)
+    _q = {d["id"] for d in out}
+    assert QUADRUPED <= _q, f"QUADRUPED ids not in the catalog: {sorted(QUADRUPED - _q)}"
     _dup = [n for n in {d["name"]["fr"] for d in out} if sum(d["name"]["fr"] == n for d in out) > 1]
     assert not _dup, f"duplicate French names {_dup}"
     write_json(OUT_SRD / "creatures.json", out)
 
-    lists = [{"spellId": f"summon-natures-ally-{ROMAN[lv]}", "level": lv, "creatures": sorted(ids)} for lv, ids in sorted(sna.items())]
+    lists = [{"spellId": f"summon-natures-ally-{ROMAN[lv]}", "level": lv, "creatures": sorted(e["creatures"]),
+              **({"alignments": dict(sorted(e["alignments"].items()))} if e["alignments"] else {}),
+              **({"aquatic": sorted(e["aquatic"])} if e["aquatic"] else {}),
+              **({"notes": {c: i18n(n, SNA_NOTES_FR[n]) for c, n in sorted(e["notes"].items())}} if e["notes"] else {})}
+             for lv, e in sorted(sna.items())]
     for x in lists:
         assert x["spellId"] in spell_ids, x["spellId"]
     # Summon Monster I-IX (after the Summon Nature's Ally lists): templates and alignments as printed in the SRD table.
@@ -1388,7 +1494,8 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         if sid not in spell_ids:
             NOTES.append(f"summon-lists: {sid} is not in spells.json yet (list kept with that id)")
         lists.append({"spellId": sid, "level": lv, "creatures": sorted(e["creatures"]),
-                      "templates": dict(sorted(e["templates"].items())), "alignments": dict(sorted(e["alignments"].items()))})
+                      "templates": dict(sorted(e["templates"].items())), "alignments": dict(sorted(e["alignments"].items())),
+                      **({"aquatic": sorted(e["aquatic"])} if e["aquatic"] else {})})
     write_json(OUT_SRD / "summon-lists.json", lists)
     companions = build_companions(comp)
     write_json(OUT_SRD / "companions.json", companions)

@@ -92,6 +92,10 @@ export interface AttackLine {
   critConfirmBonus: number
   /** Two-weapon fighting: which hand this weapon is in. */
   hand?: 'primary' | 'off'
+  /** Proficient with the weapon as gripped (a bastard sword or dwarven waraxe held two-handed is a martial weapon). */
+  proficient: boolean
+  /** Gripped two-handed. */
+  twoHands: boolean
   /** Wild shape natural attacks: full-attack routine (0 = main, 1+ = "or" alternatives). */
   routine?: number
 }
@@ -144,7 +148,7 @@ export interface Sheet {
     /** Check result bands → highest Hit Dice affected. */
     table: { max: number; hd: number }[]
     /** Domains' extra turning (elementals, plants, Sun's greater turning). */
-    extra: { name: I18n; mode: string; creatures: I18n; perDay?: string }[]
+    extra: { name: I18n; uses: { mode: string; creatures: I18n }[]; perDay: number }[]
   }
   /** Cleric domains chosen. */
   domains: DomainDef[]
@@ -182,8 +186,10 @@ const LOAD_EFFECTS: Record<'medium' | 'heavy', { maxDex: number; acp: number; sp
   heavy: { maxDex: 1, acp: -6, speed30: 20, speed20: 15 },
 }
 
-/** Item weight, lb and kg as printed (house rule #5: kg from the French books). Stored items weigh nothing. */
-function itemWeight(rules: Rules, item: ItemInstance): Weight {
+/** Item weight, lb and kg as printed (house rule #5: kg from the French books). Stored items weigh nothing. Weapons
+ * and armor made for a Small character weigh half (https://www.d20srd.org/srd/equipment/weapons.htm#weaponSize,
+ * https://www.d20srd.org/srd/equipment/armor.htm#armorforUnusualCreatures). */
+function itemWeight(rules: Rules, item: ItemInstance, size: Size = 'medium'): Weight {
   if (item.location === 'stored') return { lb: 0, kg: 0 }
   let w: Weight | undefined
   if (item.kind === 'weapon') w = rules.weapons.get(item.refId)?.weight
@@ -191,7 +197,8 @@ function itemWeight(rules: Rules, item: ItemInstance): Weight {
   else if (item.kind === 'gear') w = rules.gear.get(item.refId)?.weight
   else if (item.kind === 'magic') w = rules.magicItems.get(item.refId)?.weight
   else if (item.custom) w = lbToWeight(item.custom.weightLb)
-  const factor = (item.material && rules.materials.get(item.material)?.effects.weightMultiplier) || 1
+  let factor = (item.material && rules.materials.get(item.material)?.effects.weightMultiplier) || 1
+  if (size === 'small' && (item.kind === 'weapon' || item.kind === 'armor')) factor /= 2
   return { lb: (w?.lb ?? 0) * item.quantity * factor, kg: (w?.kg ?? 0) * item.quantity * factor }
 }
 
@@ -216,6 +223,8 @@ type Size = CreatureDef['size']
 const SIZE_MOD: Record<Size, number> = { fine: 8, diminutive: 4, tiny: 2, small: 1, medium: 0, large: -1, huge: -2, gargantuan: -4, colossal: -8 }
 const SIZE_GRAPPLE: Record<Size, number> = { fine: -16, diminutive: -12, tiny: -8, small: -4, medium: 0, large: 4, huge: 8, gargantuan: 12, colossal: 16 }
 const SIZE_HIDE: Record<Size, number> = { fine: 16, diminutive: 12, tiny: 8, small: 4, medium: 0, large: -4, huge: -8, gargantuan: -12, colossal: -16 }
+// Quadrupeds (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures).
+const SIZE_CARRY_QUADRUPED: Record<Size, number> = { fine: 0.25, diminutive: 0.5, tiny: 0.75, small: 1, medium: 1.5, large: 3, huge: 6, gargantuan: 12, colossal: 24 }
 const SIZE_CARRY: Record<Size, number> = { fine: 0.125, diminutive: 0.25, tiny: 0.5, small: 0.75, medium: 1, large: 2, huge: 4, gargantuan: 8, colossal: 16 }
 const SIZE_NAME: Record<Size, I18n> = {
   fine: { en: 'Fine', fr: 'I' },
@@ -325,6 +334,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     ...chosenFeats.filter((c) => !unusableFeats.has(c.featId)),
     ...granted.filter((g) => !chosenFeats.some((c) => c.featId === g.featId && !c.choice)),
   ]
+  // Elemental wild shape: "she also gains the elemental's feats" (https://www.d20srd.org/srd/classes/druid.htm#wildShape;
+  // rulings-classes.md C4).
+  if (shape && char.wildShape?.elemental)
+    for (const featId of shape.featIds)
+      if (rules.feats.has(featId) && !feats.some((f) => f.featId === featId)) feats.push({ featId, slot: 'granted' })
   const hasFeat = (id: string, choice?: string) =>
     feats.some((f) => f.featId === id && (choice === undefined || f.choice === choice))
   const wmLevel = classLevels['weapon-master'] ?? 0
@@ -353,7 +367,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- wild shape: the +8 racial bonus that comes with a climb or swim speed (house rule #24: part of the movement
   // mode; https://www.d20srd.org/srd/specialAbilities.htm#movementModes, skills/climb.htm, skills/swim.htm).
   if (shape?.speed.climb)
-    mods.push({ spec: { target: 'skill.climb', bonusType: 'racial', value: 8 }, sourceId: 'wild-shape-climb', label: i18n(`Climb speed (${shape.name.en})`, `Vitesse d’escalade (${shape.name.fr})`), source: { srdUrl: 'https://www.d20srd.org/srd/skills/climb.htm', houseRule: 24 } })
+    mods.push({ spec: { target: 'skill.climb', bonusType: 'racial', value: 8 }, sourceId: 'wild-shape-climb', label: i18n(`Climb speed (${shape.name.en}; can always take 10)`, `Vitesse d’escalade (${shape.name.fr} ; peut toujours faire 10)`), source: { srdUrl: 'https://www.d20srd.org/srd/skills/climb.htm', houseRule: 24 } })
   if (shape?.speed.swim)
     mods.push({
       spec: { target: 'skill.swim', bonusType: 'racial', value: 8, condition: i18n('special action or hazard (can always take 10)', 'action spéciale ou danger (peut toujours faire 10)') },
@@ -442,6 +456,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       activeConditions.push(def.id)
       flags.push(...def.flags)
       for (const spec of def.modifiers) mods.push({ spec, sourceId: `condition:${def.id}`, label: def.name, source: def.source })
+      // A condition that makes you helpless brings the helpless condition's own modifiers (−4 AC vs melee…)
+      // (https://www.d20srd.org/srd/conditionSummary.htm#helpless).
+      const helpless = rules.conditions.get('helpless')
+      if (def.id !== 'helpless' && def.flags.includes('helpless') && helpless && !activeConditions.includes('helpless'))
+        for (const spec of helpless.modifiers)
+          mods.push({ spec, sourceId: 'condition:helpless', label: { en: `${def.name.en} (helpless)`, fr: `${def.name.fr} (sans défense)` }, source: helpless.source })
     } else if (eff.kind === 'magic') {
       const def = rules.magicItems.get(eff.refId ?? '')
       for (const spec of def?.modifiers ?? [])
@@ -568,9 +588,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     }
   })
   hpParts.push({ ...abilityPart('con', mod('con') * characterLevel), label: { en: `Constitution ${fmt(mod('con'))} × ${characterLevel}`, fr: `Constitution ${fmt(mod('con'))} × ${characterLevel}` } })
+  // At least 1 hp per Hit Die, level by level (https://www.d20srd.org/srd/combat/combatStatistics.htm#hitPoints).
+  const perLevelShort = hpParts
+    .filter((p) => p.sourceId.startsWith('hd:'))
+    .reduce((n, p) => n + Math.max(0, 1 - (p.value + mod('con'))), 0)
+  if (perLevelShort > 0)
+    hpParts.push({ sourceId: 'hp-min', label: i18n('Minimum 1 hp per level', 'Minimum 1 pv par niveau'), value: perLevelShort, bonusType: 'untyped', source: src('combat/combatStatistics.htm#hitPoints') })
   hpParts.push(...partsFor(['hp.max']))
   const hpMax = ownHp ?? resolve(hpParts)
-  hpMax.total = Math.max(characterLevel, hpMax.total) // at least 1 hp per Hit Die
 
   // ---- BAB and iterative attacks
   const bab = resolve(tableSum('bab'))
@@ -630,20 +655,21 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   const carried = char.inventory.reduce(
     (s, i) => {
-      const w = itemWeight(rules, i)
+      const w = itemWeight(rules, i, race.size)
       return { lb: s.lb + w.lb, kg: s.kg + w.kg }
     },
     { lb: 0, kg: 0 },
   )
   // Coins: 50 coins weigh 1 lb (https://www.d20srd.org/srd/equipment/wealthAndMoney.htm).
   const m = char.money
-  const coins = m ? m.cp + m.sp + m.gp + m.pp : 0
+  // In wild shape the purse melds into the form with the rest of the gear.
+  const coins = m && !shape ? m.cp + m.sp + m.gp + m.pp : 0
   carried.lb += coins / 50
   carried.kg += coins / 100
   const carriedLb = carried.lb
   const capMedium = capacity(rules, abilities.str.score.total)
   // Size multiplier, bipeds (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures): Small ×3/4, Large ×2…
-  const sizeFactor = SIZE_CARRY[size]
+  const sizeFactor = shape?.quadruped ? SIZE_CARRY_QUADRUPED[size] : SIZE_CARRY[size]
   const scaleW = (w: Weight): Weight => ({ lb: round2(w.lb * sizeFactor), kg: round2(w.kg * sizeFactor) })
   const limits = { light: scaleW(capMedium.light), medium: scaleW(capMedium.medium), heavy: scaleW(capMedium.heavy) }
   const band: LoadBand =
@@ -755,7 +781,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Tumble 5+ ranks: +3 dodge when fighting defensively, +6 in total defense (https://www.d20srd.org/srd/skills/tumble.htm).
   const tumbleRanks = levels.reduce((n, l) => n + (l.skillRanks['tumble'] ?? 0), 0)
   const tumble5 = tumbleRanks >= 5
-  if (hasFeat('combat-expertise') && toggles.combatExpertise > 0)
+  if (hasFeat('combat-expertise') && toggles.combatExpertise > 0 && !toggles.totalDefense)
     acParts.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: toggles.combatExpertise, bonusType: 'dodge', source: src('feats.htm#combatExpertise') })
   if (toggles.fightingDefensively)
     acParts.push({ sourceId: 'fighting-defensively', label: tumble5 ? i18n('Fighting defensively (Tumble 5 ranks)', 'Combat sur la défensive (Acrobaties 5 degrés)') : i18n('Fighting defensively', 'Combat sur la défensive'), value: tumble5 ? 3 : 2, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#fightDefensively') })
@@ -774,13 +800,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // attacker), not when it is lost for another reason (stunned, blinded, cowering, pinned…).
   const otherDexLoss =
     activeConditions.some((id) => id !== 'flat-footed' && rules.conditions.get(id)?.flags.includes('loseDexToAc')) ||
-    sumTarget('ac.noDex') > 0
+    mods.some((m) => m.spec.target === 'ac.noDex' && m.spec.value > 0 && m.sourceId !== 'condition:flat-footed')
   const uncannyDodge =
     ((caps?.classLevel ?? 0) >= 2 || (classLevels['barbarian'] ?? 0) >= 2 || (classLevels['rogue'] ?? 0) >= 4) && !otherDexLoss
+  // Uncanny dodge keeps the whole "Dex bonus to AC", dodge bonuses included (rulings R14).
+  const keepDex = uncannyDodge && !dexZero
   const stripDex = (parts: Part[]) =>
-    parts.filter(
-      (p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero && !uncannyDodge) && p.bonusType !== 'dodge',
-    )
+    keepDex ? parts : parts.filter((p) => !(p.sourceId === 'ability:dex' && p.value > 0 && !dexZero) && p.bonusType !== 'dodge')
   const ac = resolve(loseDex ? stripDex(acParts) : acParts)
   const touchAc = resolve((loseDex ? stripDex(acParts) : acParts).filter((p) => !['armor', 'shield', 'naturalArmor'].includes(p.bonusType)))
   const flatFootedAc = resolve(stripDex(acParts))
@@ -816,7 +842,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         : i18n('Combat Reflexes (Dex)', 'Attaques réflexes (Dex)'),
       value: aooBest - 1,
       bonusType: 'untyped',
-      source: wmLevel >= 5 ? { book: 'Sword and Fist', page: 39, houseRule: 12 } : src('feats.htm#combatReflexes'),
+      source:
+        wmActive && wmLevel >= 5 && mod('dex') + mod('wis') >= 1 + mod('dex')
+          ? { book: 'Sword and Fist', page: 39, houseRule: 12 }
+          : src('feats.htm#combatReflexes'),
     })
   const attacksOfOpportunity = resolve(aooParts)
 
@@ -881,7 +910,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Two-weapon fighting (https://www.d20srd.org/srd/combat/specialAttacks.htm#twoWeaponFighting): the first two melee
   // weapons in hand are the primary and off hand when the loadout says so.
   // Wild shape: no manufactured weapons (they meld); the form's natural attacks are added below.
-  const wielded = shape ? [] : (loadout?.weapons ?? [])
+  const wielded = shape ? [] : (loadout?.weapons ?? []).filter((uid) => char.inventory.some((i) => i.uid === uid && i.location !== 'stored'))
   const meleeInHand = wielded.filter((uid) => {
     const it = char.inventory.find((i) => i.uid === uid)
     return it && rules.weapons.get(it.refId)?.kind === 'melee'
@@ -947,12 +976,19 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     if (weaponOfChoice && wmLevel >= 3)
       atk.push({ sourceId: 'wm:superior-weapon-focus', label: i18n('Superior Weapon Focus', 'Arme de prédilection suprême'), value: 1, bonusType: 'untyped', source: { book: 'Sword and Fist', page: 39 } })
     // Nonproficient weapon: -4 (https://www.d20srd.org/srd/combat/combatModifiers.htm).
-    if (!proficientWith(proficiency, weapon))
+    // A bastard sword or dwarven waraxe used two-handed is a martial weapon
+    // (https://www.d20srd.org/srd/equipment/weapons.htm#bastardSword).
+    const martialGrip = twoHands && ['bastard-sword', 'dwarven-waraxe'].includes(weapon.id)
+    const proficient = proficientWith(proficiency, weapon) || (martialGrip && proficiency.weapons.has('martial'))
+    if (!proficient)
       atk.push({ sourceId: 'nonproficient-weapon', label: i18n('Not proficient with the weapon', 'Arme non maîtrisée'), value: -4, bonusType: 'untyped', source: src('equipment/weapons.htm#weaponCategories') })
     // Nonproficient armor or shield: its armor check penalty applies to attack rolls (rulings R24).
     for (const x of [armor, shield])
       if (x && !profArmor.has(x.def.category) && itemAcp(x))
         atk.push({ sourceId: `nonproficient:${x.item.uid}`, label: { en: `Not proficient: ${x.def.name.en}`, fr: `Non maîtrisé : ${x.def.name.fr}` }, value: itemAcp(x), bonusType: 'untyped', source: src('equipment/armor.htm#armorProficiency') })
+    // Buckler + weapon in the off hand or two-handed: −1 attack (https://www.d20srd.org/srd/equipment/armor.htm#buckler).
+    if (shield?.def.id === 'buckler' && melee && (twoHands || hand === 'off'))
+      atk.push({ sourceId: 'buckler', label: i18n('Buckler (hand in use)', 'Targe (main occupée)'), value: -1, bonusType: 'untyped', source: src('equipment/armor.htm#buckler') })
     // Tower shield: -2 on attack rolls (https://www.d20srd.org/srd/equipment/armor.htm#towerShield).
     if (shield?.def.category === 'tower')
       atk.push({ sourceId: 'tower-shield', label: i18n('Tower shield', 'Pavois'), value: -2, bonusType: 'untyped', source: src('equipment/armor.htm#towerShield') })
@@ -967,9 +1003,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     // Fighting defensively: -4 on all attacks (https://www.d20srd.org/srd/combat/actionsInCombat.htm#fightDefensively).
     if (toggles.fightingDefensively)
       atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
+    // Bane: the weapon's enhancement bonus is 2 better than normal against the foe
+    // (https://www.d20srd.org/srd/magicItems/magicWeapons.htm#bane): enhancement enh + 2, best of the two applies.
+    const propValue = (pr: (typeof props)[number], v: number) => (pr.id === 'bane' ? enh + v : v)
     for (const pr of props)
       if (pr.effects.attackBonus)
-        atk.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: pr.effects.attackBonus.value, bonusType: 'enhancement', source: pr.source, condition: pr.effects.attackBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
+        atk.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: propValue(pr, pr.effects.attackBonus.value), bonusType: 'enhancement', source: pr.source, condition: pr.effects.attackBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
     atk.push(
       ...partsFor([
         melee ? 'attack.melee' : 'attack.ranged',
@@ -1015,8 +1054,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       dmg.push({ sourceId: `material:${mat.id}`, label: mat.name, value: mat.effects.damage, bonusType: 'untyped', source: mat.source })
     for (const pr of props)
       if (pr.effects.damageBonus)
-        dmg.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: pr.effects.damageBonus.value, bonusType: 'enhancement', source: pr.source, condition: pr.effects.damageBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
-    const staticBeforePa = resolve(dmg).total
+        dmg.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: propValue(pr, pr.effects.damageBonus.value), bonusType: 'enhancement', source: pr.source, condition: pr.effects.damageBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
+    const paDamage = powerAttackOn && powerAttackAllowed ? toggles.powerAttack * (twoHands ? 2 : 1) : 0
     if (powerAttackOn && powerAttackAllowed) {
       const factor = twoHands ? 2 : 1
       dmg.push({ sourceId: 'power-attack', label: i18n(`Power Attack (×${factor})`, `Attaque en puissance (×${factor})`), value: toggles.powerAttack * factor, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
@@ -1056,7 +1095,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       critRange: 21 - span,
       critMult,
       weaponOfChoice,
-      kiDamageMax: weaponOfChoice ? maxDice(weapon.damage.M) + staticBeforePa : undefined,
+      // Ki damage: maximum damage, Power Attack not maximized (Sword and Fist p. 39; rulings Q10).
+      kiDamageMax: weaponOfChoice ? maxDice(size === 'small' ? weapon.damage.S : weapon.damage.M) + damage.total - paDamage : undefined,
       powerAttackAllowed,
       extraDamage: [
         ...props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
@@ -1079,6 +1119,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       // Battle ardor (warblade 3, Tome of Battle p. 22): insight = Int bonus on critical confirmation rolls.
       critConfirmBonus: caps && caps.classLevel >= 3 ? Math.max(0, mod('int')) : 0,
       hand,
+      proficient,
+      twoHands,
     })
   }
 
@@ -1103,18 +1145,23 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         }
         if (toggles.fightingDefensively)
           atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
+        if (!ranged && hasFeat('combat-expertise') && toggles.combatExpertise > 0)
+          atk.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: -toggles.combatExpertise, bonusType: 'untyped', source: src('feats.htm#combatExpertise') })
         const pa = !ranged && hasFeat('power-attack') && toggles.powerAttack > 0
         if (pa) atk.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: -toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
         atk.push(...partsFor([ranged ? 'attack.ranged' : 'attack.melee', 'attack.all']))
         const attack = resolve(atk)
-        const factor = ranged ? 0 : a.role === 'secondary' ? 0.5 : sole ? 1.5 : 1
+        // Str to damage: the stat block's factor when it is not the default (grab-only arms: 0), else primary ×1,
+        // secondary ×½, sole ×1½; a penalty applies in full.
+        const noDamage = /^0$/.test(a.damage.trim())
+        const factor = ranged || noDamage ? 0 : a.strDamageFactor === 0 ? 0 : a.role === 'secondary' ? 0.5 : sole ? 1.5 : 1
         const strMod = mod('str')
         const strDmg = strMod < 0 ? (factor ? strMod : 0) : Math.floor(strMod * factor)
         const dmg: Part[] = []
         if (strDmg)
           dmg.push({ ...abilityPart('str', strDmg), label: factor === 1 ? ABILITY_NAMES.str : i18n(`Strength ×${factor}`, `Force ×${factor === 0.5 ? '½' : '1,5'}`) })
-        if (pa) dmg.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
-        dmg.push(...partsFor([ranged ? 'damage.ranged' : 'damage.melee', 'damage.all']))
+        if (pa && !noDamage) dmg.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
+        if (!noDamage) dmg.push(...partsFor([ranged ? 'damage.ranged' : 'damage.melee', 'damage.all']))
         const damage = resolve(dmg)
         const crit = a.critical?.match(/^(?:(\d+)-20\/)?×(\d)$/)
         const critRange = crit?.[1] ? Number(crit[1]) : 20
@@ -1153,6 +1200,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           notes: [],
           critConfirmBonus: 0,
           routine: r,
+          proficient: true,
+          twoHands: false,
         })
       })
     })
@@ -1192,7 +1241,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // (https://www.d20srd.org/srd/classes/multiclass.htm#classFeatures).
   const paladinLevel = classLevels['paladin'] ?? 0
   const paladinTurning = paladinLevel >= 4 ? paladinLevel - 3 : 0
-  const turningLevel = clericLevel + paladinTurning
+  // Improved Turning: "as if you were one level higher" (https://www.d20srd.org/srd/feats.htm#improvedTurning).
+  const improvedTurning = clericLevel + paladinTurning > 0 && hasFeat('improved-turning') ? 1 : 0
+  const turningLevel = clericLevel + paladinTurning + improvedTurning
   let turning: Sheet['turning']
   if (turningLevel) {
     const tsrc = src('combat/specialAttacks.htm#turnOrRebukeUndead')
@@ -1204,7 +1255,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       usesPerDay: resolve([
         { sourceId: 'base', label: i18n('Base', 'Base'), value: 3, bonusType: 'base', source: tsrc },
         abilityPart('cha'),
-        ...(extraTurning ? [{ sourceId: 'feat:extra-turning', label: i18n(`Extra Turning ×${extraTurning}`, `Renvoi supplémentaire ×${extraTurning}`), value: 4 * extraTurning, bonusType: 'untyped' as const, source: src('feats.htm#extraTurning') }] : []),
+        ...(extraTurning ? [{ sourceId: 'feat:extra-turning', label: i18n(`Extra Turning ×${extraTurning}`, `Emprise sur les morts-vivants ×${extraTurning}`), value: 4 * extraTurning, bonusType: 'untyped' as const, source: src('feats.htm#extraTurning') }] : []),
       ]),
       check: resolve([
         abilityPart('cha'),
@@ -1213,12 +1264,25 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       damage: resolve([
         ...(clericLevel ? [{ sourceId: 'class:cleric', label: i18n(`Cleric ${clericLevel}`, `Prêtre ${clericLevel}`), value: clericLevel, bonusType: 'base' as const, source: tsrc }] : []),
         ...(paladinTurning ? [{ sourceId: 'class:paladin', label: i18n(`Paladin ${paladinLevel} − 3`, `Paladin ${paladinLevel} − 3`), value: paladinTurning, bonusType: 'base' as const, source: src('classes/paladin.htm#turnUndead') }] : []),
+        ...(improvedTurning ? [{ sourceId: 'feat:improved-turning', label: i18n('Improved Turning', 'Science du renvoi'), value: 1, bonusType: 'untyped' as const, source: src('feats.htm#improvedTurning') }] : []),
         abilityPart('cha'),
       ]),
       table: TURNING_TABLE.map((r) => ({ max: r.max, hd: turningLevel + r.delta })),
-      extra: domains
-        .filter((d) => d.effects?.turning)
-        .map((d) => ({ name: d.name, mode: d.effects!.turning!.mode, creatures: d.effects!.turning!.creatures, perDay: d.effects!.turning!.perDay })),
+      // Domain turning (Air, Earth, Fire, Water, Plant: a separate pool of 3 + Cha, +4 per Extra Turning — the feat
+      // applies to every turning ability, https://www.d20srd.org/srd/feats.htm#extraTurning; Sun: greater turning 1/day).
+      // The abilities of one domain draw on one pool ("use these abilities a total number of times per day equal to
+      // 3 + your Charisma modifier").
+      extra: domains.flatMap((d) => {
+        const list = d.effects?.turning ?? []
+        const pool = list.filter((t) => t.perDay === '3+cha')
+        const fixed = list.filter((t) => t.perDay !== '3+cha')
+        return [
+          ...(pool.length
+            ? [{ name: d.name, uses: pool.map((t) => ({ mode: t.mode, creatures: t.creatures })), perDay: Math.max(0, 3 + mod('cha') + 4 * extraTurning) }]
+            : []),
+          ...fixed.map((t) => ({ name: d.name, uses: [{ mode: t.mode, creatures: t.creatures }], perDay: Number(t.perDay) })),
+        ]
+      }),
     }
   }
 
@@ -1255,7 +1319,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     load: { carried: { lb: round2(carried.lb), kg: round2(carried.kg) }, band, limits },
     skills,
     attacks,
-    flags,
+    flags:
+      hasFeat('combat-reflexes') && !activeConditions.some((id) => id !== 'flat-footed' && rules.conditions.get(id)?.flags.includes('noAoO'))
+        ? flags.filter((f) => f !== 'noAoO')
+        : flags,
     weaponMaster: {
       level: wmLevel,
       active: wmActive,

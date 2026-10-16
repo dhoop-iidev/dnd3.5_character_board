@@ -2,6 +2,9 @@
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
 import druidJson from '../../../examples/druide-niveau-10.json'
+import clericJson from '../../../examples/pretre-niveau-15.json'
+import rangerJson from '../../../examples/rodeur-niveau-12.json'
+import fighterJson from '../../../examples/guerriere-niveau-10.json'
 import { migrate } from '../../model/migrate'
 import { compute } from '../compute'
 import { companionAdvancement, companionLevel, computeCreature } from '../creature'
@@ -81,5 +84,40 @@ describe('wild shape (druid 10 → dire wolf; PHB/MM errata 2006, docs/rules/rul
     startWildShape(c, 'ape')
     const climb = compute(c, rules).skills.find((k) => k.key === 'climb')!.total
     expect(climb.parts.some((p) => p.sourceId === 'wild-shape-climb' && p.value === 8)).toBe(true)
+  })
+})
+
+describe.each([
+  ['pretre-niveau-15.json', clericJson],
+  ['rodeur-niveau-12.json', rangerJson],
+  ['guerriere-niveau-10.json', fighterJson],
+])('examples/%s', (_, json) => {
+  it('is a legal, complete build: no warning at all', () => {
+    const c = migrate(structuredClone(json))
+    expect(validate(c, rules).map((w) => w.id)).toEqual([])
+  })
+})
+
+describe('examples: core numbers', () => {
+  it('human cleric 15 (Sun, Good): hp 150, AC 26, saves 14/7/18, 8th-level slot with fire storm', () => {
+    const s = compute(migrate(structuredClone(clericJson)), rules)
+    expect([s.hpMax.total, s.ac.total, s.bab.total]).toEqual([150, 26, 11])
+    expect([s.saves.fort.total, s.saves.ref.total, s.saves.will.total]).toEqual([14, 7, 18])
+    expect(s.turning!.level).toBe(16) // Improved Turning
+    expect(s.turning!.usesPerDay.total).toBe(3 + 2 + 4)
+    expect(s.spellcasting[0].slots.find((x) => x.spellLevel === 8)!.total).toBe(2)
+  })
+  it('elf ranger 12 (archery): bow +21/+16/+11, AC 24, wolf companion at effective level 6', () => {
+    const c = migrate(structuredClone(rangerJson))
+    const s = compute(c, rules)
+    expect(s.attacks[0].iterative).toEqual([21, 16, 11])
+    expect([s.hpMax.total, s.ac.total]).toEqual([108, 24])
+    expect(companionLevel(s.classLevels)).toBe(6)
+  })
+  it('dwarf fighter 10 (waraxe and shield): +19/+14, 1d10+9, AC 26, hp 130', () => {
+    const s = compute(migrate(structuredClone(fighterJson)), rules)
+    const axe = s.attacks.find((a) => a.itemUid === 'axe')!
+    expect([axe.attack.total, axe.damage.total, axe.damageDice]).toEqual([19, 9, '1d10'])
+    expect([s.ac.total, s.hpMax.total]).toEqual([26, 130])
   })
 })

@@ -356,7 +356,7 @@ def creature(w, x, feat_ids):
     req = {"id", "name", "size", "type", "typeText", "hitDice", "hp", "initiative", "speed", "ac", "bab", "grapple",
            "attacks", "space", "reach", "saves", "abilities", "skills", "feats", "featIds", "specialAttacks",
            "specialQualities", "specialAbilities", "alignment", "cr", "text", "source"}
-    if not req <= set(x) or set(x) - req - {"altAttacks"}:
+    if not req <= set(x) or set(x) - req - {"altAttacks", "quadruped"}:
         err(w, f"keys {set(x) ^ req}")
         return
     for k in ("name", "typeText", "skills", "feats", "specialAttacks", "specialQualities", "alignment"):
@@ -367,9 +367,16 @@ def creature(w, x, feat_ids):
             err(w, f"{k} longer than ~6000 chars")
     if x["size"] not in SIZES or not ID_RE.match(x["type"]):
         err(w, "bad size/type")
+    if "quadruped" in x and not isinstance(x["quadruped"], bool):
+        err(w, "quadruped not a boolean")
     hd = x["hitDice"]
-    if set(hd) != {"count", "die", "bonus"} or not (hd["count"] > 0 and hd["die"] in (4, 6, 8, 10, 12) and isinstance(hd["bonus"], int)):
+    if not {"count", "die", "bonus"} <= set(hd) or set(hd) - {"count", "die", "bonus", "extra"}             or not (hd["count"] > 0 and hd["die"] in (4, 6, 8, 10, 12) and isinstance(hd["bonus"], int)):
         err(w, f"bad hitDice {hd}")
+    for g in hd.get("extra", [{"count": 1, "die": 8}]):
+        if set(g) != {"count", "die"} or not (isinstance(g["count"], int) and g["count"] > 0 and g["die"] in (4, 6, 8, 10, 12)):
+            err(w, f"bad hitDice.extra {g}")
+    if "extra" in hd and not hd["extra"]:
+        err(w, "empty hitDice.extra")
     for k in ("hp", "initiative", "bab", "grapple"):
         if not isinstance(x[k], int):
             err(w, f"{k} not an int")
@@ -456,8 +463,20 @@ def creature_lists(companions, summon, creature_ids, spell_ids):
     if [x.get("level") for x in summon if x["spellId"].startswith("summon-natures-ally-")] != list(range(1, 10)):
         err(w, "levels 1-9 expected")
     for x in summon:
-        if set(x) - {"templates", "alignments"} != {"spellId", "level", "creatures"} or x["spellId"] not in spell_ids:
+        if set(x) - {"templates", "alignments", "aquatic", "notes"} != {"spellId", "level", "creatures"} or x["spellId"] not in spell_ids:
             err(w, f"bad list {x.get('spellId')}")
+        # SummonList.alignments / aquatic / notes (both families): keys on the list, sorted, valid values.
+        al = x.get("alignments", {})
+        if list(al) != sorted(al) or set(al) - set(x["creatures"])                 or any(v not in ("LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE") for v in al.values()):
+            err(w, f"{x['spellId']}: bad alignments {al}")
+        aq = x.get("aquatic")
+        if aq is not None and (not aq or aq != sorted(set(aq)) or set(aq) - set(x["creatures"])):
+            err(w, f"{x['spellId']}: bad aquatic {aq}")
+        nt = x.get("notes")
+        if nt is not None and (not nt or list(nt) != sorted(nt) or set(nt) - set(x["creatures"])):
+            err(w, f"{x['spellId']}: bad notes keys {list(nt or {})}")
+        for c, v in (nt or {}).items():
+            i18n(f"{w} {x['spellId']}.notes.{c}", v)
         for c in x["creatures"]:
             if c not in creature_ids:
                 err(w, f"{x['spellId']}: unknown creature {c}")
@@ -858,6 +877,20 @@ def spot_checks(files, custom):
     expect("black bear: 2 claws +6 primary, bite +1 secondary (½ Str)",
            [(a["count"], a["bonus"], a["role"], a["strDamageFactor"]) for a in bb["attacks"]] == [(2, 6, "primary", 1), (1, 1, "secondary", 0.5)])
     sl = {x["level"]: x for x in files["summon-lists.json"] if x["spellId"].startswith("summon-natures-ally-")}
+    expect("SNA table notes: [NG] giant eagle, [CN] satyr without/with pipes (III/V), [CG] unicorn, [NG] djinni, "
+           "aquatic octopus (I) and dire shark (VIII), pixie IX can cast irresistible dance",
+           sl[3]["alignments"] == {"eagle-giant": "NG", "owl-giant": "NG", "satyr": "CN"}
+           and sl[3]["notes"]["satyr"] == {"en": "Without pipes", "fr": "Sans flûte de Pan"}
+           and sl[5]["notes"]["satyr"]["en"] == "With pipes" and sl[4]["alignments"].get("unicorn") == "CG"
+           and sl[7]["alignments"].get("djinni") == "NG" and "octopus" in sl[1]["aquatic"]
+           and sl[8]["aquatic"] == ["dire-shark"] and "can cast irresistible dance" in sl[9]["notes"]["pixie"]["en"]
+           and "pixie" in sl[6]["notes"] and "grig" in sl[9]["notes"])
+    ch = cr["unicorn-celestial-charger"]
+    expect("celestial charger: 8d10+7d8+75 (two Hit Dice groups)",
+           ch["hitDice"] == {"count": 8, "die": 10, "bonus": 75, "extra": [{"count": 7, "die": 8}]})
+    expect("quadrupeds: wolf, warhorse, monstrous spider yes; eagle, shark, tyrannosaurus, elemental no",
+           all(cr[c]["quadruped"] is True for c in ("wolf", "warhorse-heavy", "monstrous-spider-medium"))
+           and all(cr[c]["quadruped"] is False for c in ("eagle", "shark-large", "tyrannosaurus", "elemental-small-air")))
     expect("SNA I: 8 creatures incl. wolf, dire rat; SNA IX: 4 elder elementals, grig, pixie, celestial charger",
            len(sl[1]["creatures"]) == 8 and {"wolf", "dire-rat"} <= set(sl[1]["creatures"])
            and set(sl[9]["creatures"]) == {"elemental-elder-air", "elemental-elder-earth", "elemental-elder-fire",

@@ -51,6 +51,7 @@
         { en: 'Official errata (PHB, MM 2006): works like the alternate form ability. She takes the form’s Str, Dex, Con, size, natural armor, natural attacks, movement modes and extraordinary special attacks; she keeps her Int, Wis, Cha, hit points (despite the Con change), base attack, base saves, skill ranks, feats and special qualities — not the form’s feats, special qualities or racial skill bonuses.', fr: 'Errata officiel (Manuel des Joueurs, Manuel des Monstres 2006) : fonctionne comme l’aptitude forme alternative. Elle prend la For, la Dex, la Con, la taille, l’armure naturelle, les attaques naturelles, les modes de déplacement et les attaques spéciales extraordinaires de la forme ; elle garde son Int, sa Sag, son Cha, ses points de vie (malgré le changement de Con), son bonus de base à l’attaque, ses jets de sauvegarde de base, ses degrés de compétence, ses dons et ses particularités — pas les dons, particularités ni bonus raciaux de compétence de la forme.' },
         { en: 'Standard action to change (no attack of opportunity); 1 hour per druid level; each use heals as after a night’s rest. All gear melds and stops working; armor or shield with the wild property keeps its armor bonus.', fr: 'Action simple pour changer (sans attaque d’opportunité) ; 1 heure par niveau de druide ; chaque utilisation soigne comme une nuit de repos. Tout l’équipement se fond dans la forme et ne fonctionne plus ; une armure ou un bouclier sauvage garde son bonus d’armure.' },
         { en: 'She can’t speak: spells with verbal or somatic components need Natural Spell.', fr: 'Elle ne peut pas parler : les sorts à composantes verbales ou gestuelles demandent le don Incantation animale.' },
+        { en: 'Elemental forms (16th level): she also gains the elemental’s feats and all its extraordinary, supernatural and spell-like abilities (SRD druid, unchanged by the errata).', fr: 'Formes d’élémentaire (niveau 16) : elle gagne aussi les dons de l’élémentaire et toutes ses aptitudes extraordinaires, surnaturelles et magiques (DRS druide, inchangé par l’errata).' },
       ],
       source: { srdUrl: 'https://www.d20srd.org/srd/classes/druid.htm#wildShape' },
       noteKey: 'feature:wild-shape',
@@ -101,11 +102,27 @@
       · {tr(form.typeText)} · {fmtRounds(c.wildShape?.rounds ?? 0, lang())}
       {tr({ en: 'left', fr: 'restantes' })}
     </p>
-    {#if form.specialAttacks.en && form.specialAttacks.en !== '—'}
+    {#if c.wildShape?.elemental}
+      <p class="soft">
+        {tr({ en: 'Elemental: its feats', fr: 'Élémentaire : ses dons' })} ({tr(form.feats)})
+        {tr({ en: 'and all its abilities apply', fr: 'et toutes ses aptitudes s’appliquent' })} :
+        {[tr(form.specialAttacks), tr(form.specialQualities)].filter((x) => x && x !== '—').join(' · ')}
+        <button
+          class="link"
+          onclick={() => openPopup({ title: form.name, html: form.specialAbilities, source: form.source })}
+          >ⓘ {tr({ en: 'details', fr: 'détails' })}</button
+        >
+      </p>
+    {:else if form.specialAttacks.en && form.specialAttacks.en !== '—'}
       <p class="soft">{tr({ en: 'Extraordinary special attacks', fr: 'Attaques spéciales extraordinaires' })} : {tr(form.specialAttacks)}</p>
     {/if}
     {#if !naturalSpell && s.spellcasting.length}
-      <p class="warn">{tr({ en: 'No spellcasting in this form without Natural Spell.', fr: 'Pas d’incantation sous cette forme sans le don Incantation animale.' })}</p>
+      <p class="warn">
+        {tr({
+          en: 'Without Natural Spell: no spells with verbal or somatic components in this form (most spells).',
+          fr: 'Sans le don Incantation animale : aucun sort à composante verbale ou gestuelle sous cette forme (la plupart des sorts).',
+        })}
+      </p>
     {/if}
     <details open>
       <summary>{tr({ en: 'Equipment: melded or still working', fr: 'Équipement : fondu ou toujours actif' })}</summary>

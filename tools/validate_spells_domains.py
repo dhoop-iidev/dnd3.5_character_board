@@ -49,6 +49,7 @@ SPELL_KEYS = {"id", "name", "school", "level", "components", "castingTime", "ran
               "summary", "text", "source"}
 SPELL_OPT = {"target", "area", "effect", "schoolId", "subschool", "descriptors"}
 DOMAIN_KEYS = {"id", "name", "grantedPower", "spells", "source"}
+DOMAIN_TOKENS = {"$deityWeapon", "$deityWeaponIfMartial"}
 EFFECT_KEYS = {"classSkills", "grantsFeats", "casterLevelBonus", "turning", "usesPerDay"}
 DOMAIN_PAGE = "spellLists/clericDomains.htm"
 
@@ -194,7 +195,9 @@ def check_domains(err, domains, spells, skill_ids, feat_ids):
                 err(w, f"unknown class skill {s}")
         for f in e.get("grantsFeats", []):
             fid, _, choice = f.partition(":")
-            if fid not in feat_ids or (choice and not (choice.startswith("$") or ID_RE.match(choice))):
+            # Choice tokens: $deityWeapon (the deity's favored weapon), $deityWeaponIfMartial (same, granted only
+            # when that weapon is martial: War domain Martial Weapon Proficiency "if necessary").
+            if fid not in feat_ids or (choice and not (choice in DOMAIN_TOKENS or ID_RE.match(choice))):
                 err(w, f"bad granted feat {f}")
         b = e.get("casterLevelBonus")
         if b is not None:
@@ -207,14 +210,19 @@ def check_domains(err, domains, spells, skill_ids, feat_ids):
                 err(w, f"casterLevelBonus school {b['school']} on no spell")
             elif "subschool" in b and not any(b["subschool"] == x.get("subschool") for x in spells):
                 err(w, f"casterLevelBonus subschool {b['subschool']} on no spell")
-        t = e.get("turning")
-        if t is not None:
-            if set(t) - {"mode", "creatures", "perDay"} or t.get("mode") not in ("turn", "rebuke", "greater-turning"):
+        ts = e.get("turning")
+        if ts is not None and not (isinstance(ts, list) and ts):
+            err(w, f"turning must be a non-empty array: {ts}")
+            ts = []
+        for t in ts or []:
+            per = t.get("perDay")
+            if set(t) != {"mode", "creatures", "perDay"} or t.get("mode") not in ("turn", "rebuke", "greater-turning") \
+                    or not (per == "3+cha" or (isinstance(per, int) and not isinstance(per, bool) and per >= 1)):
                 err(w, f"bad turning {t}")
             else:
                 _i18n(err, w + ".turning.creatures", t["creatures"])
-        if "usesPerDay" in e and not (isinstance(e["usesPerDay"], str) and e["usesPerDay"].strip()):
-            err(w, "bad usesPerDay")
+        if "usesPerDay" in e:
+            _i18n(err, w + ".usesPerDay", e["usesPerDay"])
     # Spot checks (SRD clericDomains.htm).
     by = {d["id"]: d for d in domains}
 
@@ -232,7 +240,15 @@ def check_domains(err, domains, spells, skill_ids, feat_ids):
         expect("travel: Survival; 1 Longstrider ... 9 Astral Projection", by["travel"]["effects"].get("classSkills") == ["survival"]
                and by["travel"]["spells"]["1"] == "longstrider" and by["travel"]["spells"]["9"] == "astral-projection")
         expect("healing 9: Heal, Mass (not True Resurrection)", by["healing"]["spells"]["9"] == "heal-mass")
-        expect("sun: greater turning", by["sun"]["effects"].get("turning", {}).get("mode") == "greater-turning")
+        expect("sun: greater turning 1/day", [(t["mode"], t["perDay"]) for t in by["sun"]["effects"].get("turning", [])]
+               == [("greater-turning", 1)])
+        expect("air: rebuke air + turn earth, 3 + Cha each",
+               [(t["mode"], t["perDay"]) for t in by["air"]["effects"].get("turning", [])] == [("rebuke", "3+cha"), ("turn", "3+cha")]
+               and "earth" in by["air"]["effects"]["turning"][1]["creatures"]["en"])
+        expect("plant: rebuke plants 3 + Cha", [(t["mode"], t["perDay"]) for t in by["plant"]["effects"].get("turning", [])] == [("rebuke", "3+cha")])
+        expect("war: Martial Weapon Proficiency only for a martial deity weapon",
+               "martial-weapon-proficiency:$deityWeaponIfMartial" in by["war"]["effects"].get("grantsFeats", []))
+        expect("luck: usesPerDay bilingual", set(by["luck"]["effects"].get("usesPerDay", {})) == {"en", "fr"})
         expect("animal / plant: Faune / Flore", by["animal"]["name"]["fr"] == "Faune" and by["plant"]["name"]["fr"] == "Flore")
 
 
