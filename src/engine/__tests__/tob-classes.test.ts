@@ -100,12 +100,14 @@ describe('prestige classes', () => {
     for (const id of ['bloodclaw-master', 'bloodstorm-blade', 'deepstone-sentinel', 'eternal-blade', 'jade-phoenix-mage', 'master-of-nine', 'ruby-knight-vindicator', 'shadow-sun-ninja'])
       expect(rules.classes.get(id)?.prestige).toBe(true)
   })
-  it('requirements count maneuvers by discipline (stances count as maneuvers, p. 43)', () => {
+  it('requirements count maneuvers by discipline, not stances (p. 44)', () => {
     const c = make(times('warblade', 5))
     const req = rules.classes.get('bloodclaw-master')!.requirements
     const unmet = () => unmetPrereqs(req, compute(c, rules), rules, []).map((u) => u.en)
     expect(unmet().some((u) => /Tiger Claw/.test(u))).toBe(true)
     c.levels[0].maneuversLearned = ['wolf-fang-strike', 'sudden-leap', 'blood-in-the-water']
+    expect(unmet().some((u) => /Tiger Claw/.test(u))).toBe(true) // a stance doesn't count (p. 44)
+    c.levels[4].maneuversLearned = ['claw-at-the-moon']
     expect(unmet().some((u) => /Tiger Claw/.test(u))).toBe(false)
   })
   it('race requirement: a half-elf counts as an elf (Eternal Blade)', () => {

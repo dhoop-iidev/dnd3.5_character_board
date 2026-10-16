@@ -47,7 +47,7 @@ Table "Special" also lists "Steely resolve 10/15/20/25/30" at 4/8/12/16/20: thos
 
 ## Swordsage (pp. 15–19, Table 1–2 p. 16)
 
-- d8, 6 + Int skill points (×6 at 1st), ¾ BAB, poor Fort, good Ref/Will. Proficiencies: simple weapons, martial **melee** weapons (thrown ones included), light armor; no shields. Any alignment.
+- d8, 6 + Int skill points (×4 at 1st: the book's ×6 is a misprint per Wizards customer service, rulings-tob.md; the app uses ×4), ¾ BAB, poor Fort, good Ref/Will. Proficiencies: simple weapons, martial **melee** weapons (thrown ones included), light armor; no shields. Any alignment.
 - Class skills: Balance, Climb, Concentration, Craft, Heal, Hide, Intimidate, Jump, Knowledge (history), Knowledge (local), Knowledge (nature), Knowledge (nobility and royalty), Listen, Martial Lore, Move Silently, Profession, Ride, Sense Motive, Swim, Tumble.
 - Disciplines: Desert Wind, Diamond Mind, Setting Sun, Shadow Hand, Stone Dragon, Tiger Claw (p. 15).
 - Known = level + 5 (6 → 25); readied 4 → 12; stances 1, +1 at 2nd, 5th, 9th, 14th, 20th (6 max). See `swordsage-progression.json`.

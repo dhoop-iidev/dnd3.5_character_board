@@ -84,7 +84,7 @@ export interface Prereq {
   other?: I18n[]
   /** Tome of Battle prestige classes: maneuvers/stances known from some disciplines, highest maneuver level. */
   martial?: {
-    /** Missing `disciplines`: any discipline. Stances count as maneuvers here (Tome of Battle p. 43). */
+    /** Missing `disciplines`: any discipline. Stances don't count here (they count as maneuvers only for maneuver prerequisites, Tome of Battle p. 44). */
     maneuvers?: { count: number; disciplines?: string[]; minLevel?: number; type?: 'strike' }[]
     stances?: { count: number; disciplines?: string[] }[]
     anyManeuverLevel?: number

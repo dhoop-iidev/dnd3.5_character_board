@@ -236,6 +236,19 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
         out.push(w(`maneuver-swap-${L}`, 'error', 'maneuvers', `Level ${L}: maneuver swap not allowed: ${problems.join(', ')}`, `Niveau ${L} : échange de manœuvre impossible : ${problems.join(', ')}`, { level: L, book: TOB }))
     }
   })
+  // Swordsage discipline focus (p. 16, FAQ p. 26): the 12th- and 16th-level picks must be a second discipline, not the
+  // one chosen at 4th and 8th.
+  {
+    const picks: Record<number, string | undefined> = {}
+    let n = 0
+    char.levels.forEach((l) => {
+      if (l.classId !== 'swordsage') return
+      picks[++n] = l.classChoices?.disciplineFocus
+    })
+    for (const [a, b] of [[4, 12], [8, 16]])
+      if (picks[a] && picks[a] === picks[b])
+        out.push(w(`discipline-focus-${b}`, 'warning', 'maneuvers', `Swordsage ${b}: discipline focus must be a second discipline (not the one chosen at ${a})`, `Maître des lames ${b} : la focalisation doit porter sur une seconde discipline (pas celle du niveau ${a})`, { book: 'Tome of Battle p. 16', actionable: true }))
+  }
   // Current readied maneuvers and stance, per martial class (pp. 38, 96: no readied slot can be left empty).
   const allNow = martialCapsAll(char, rules)
   if (allNow.length) {

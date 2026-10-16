@@ -1663,7 +1663,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Swordsage (ToB pp. 15–19).
   if (swordsageLvl) {
     if (swordsageLvl >= 7)
-      classFeatures.notes.push({ name: i18n('Sense magic', 'Détection de la magie martiale'), text: i18n('10 minutes studying a weapon or armor: d20 + swordsage level vs DC 10 + its caster level to learn its properties.', '10 minutes d’étude d’une arme ou armure : d20 + niveau de maître des lames contre DD 10 + son niveau de lanceur pour connaître ses propriétés.'), source: { book: 'Tome of Battle', page: 16 } })
+      classFeatures.notes.push({ name: i18n('Sense magic', 'Détection de la magie martiale'), text: i18n('10 minutes studying a weapon or armor: d20 + swordsage level vs DC 10 + its caster level to learn its properties. One try per item (FAQ p. 26).', '10 minutes d’étude d’une arme ou armure : d20 + niveau de maître des lames contre DD 10 + son niveau de lanceur pour connaître ses propriétés. Un seul essai par objet (FAQ p. 26).'), source: { book: 'Tome of Battle', page: 16 } })
     if (swordsageLvl >= 9)
       classFeatures.notes.push({ name: swordsageLvl >= 17 ? i18n('Improved evasion', 'Esquive extraordinaire') : i18n('Evasion', 'Esquive totale'), text: swordsageLvl >= 17 ? i18n('Reflex for half: no damage on a success, half on a failure; not helpless.', 'Réflexes pour moitié : aucun dégât en cas de réussite, moitié en cas d’échec ; pas sans défense.') : i18n('Reflex for half: no damage on a success (light or no armor; not helpless).', 'Réflexes pour moitié : aucun dégât en cas de réussite (armure légère ou aucune ; pas sans défense).'), source: { book: 'Tome of Battle', page: 17 } })
     if (swordsageLvl >= 20)

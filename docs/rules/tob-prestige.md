@@ -11,7 +11,7 @@ Legend: **P** = passive, the engine can apply it as a modifier or computed value
   - `stances: [{ count, disciplines? }]`.
   - `distinctDisciplines: N` (Master of Nine): at least one maneuver from N different disciplines.
   - `keySkills: { count, ranks }` (Master of Nine): `ranks` in `count` different discipline key skills. Key skills (p. 41–42): Desert Wind Tumble, Devoted Spirit Intimidate, Diamond Mind Concentration, Iron Heart Balance, Setting Sun Sense Motive, Shadow Hand Hide, Stone Dragon Balance, Tiger Claw Jump, White Raven Diplomacy. Distinct *skills*: Balance counts once.
-- **Stances count as maneuvers** for maneuver prerequisites and for prestige class and feat requirements (p. 43). So a stance counts toward `maneuvers` too.
+- **Stances count as maneuvers only for the prerequisites of other maneuvers** (p. 44), not for prestige class requirements: a stance fills only the `stances` entries (corrected 2026-10-16, rulings-tob.md T20).
 - `martialAdvance`: per-level increments of maneuvers known / readied / stances, from the class tables. `initiatorLevel: "full"` for every class: each says it adds its full class levels to the initiator level (and so to the highest maneuver level known). Bloodstorm Blade has **no** `martialAdvance` (no maneuver columns, no initiator level).
 - `spellcastingAdvance: { kind, levels }` (new, Jade Phoenix Mage and Ruby Knight Vindicator): at the listed class levels, +1 level of an existing arcane (resp. divine) spellcasting class for spells per day, caster level and spells known; no other class feature. Both skip levels 1 and 6. With two such classes, the player picks one per level.
 - Bloodstorm Blade: `bonusFeatLevels` [3, 6, 9] with the fighter bonus feat list.
@@ -164,7 +164,7 @@ Save DC of the class abilities: 10 + ½ character level + Wis modifier.
 
 ## Open questions (not decided; ask the user before implementing)
 
-1. **Overlapping requirement entries.** Shadow Sun Ninja: can one 2nd-level Setting Sun maneuver count both as "a 2nd-level Setting Sun or Shadow Hand maneuver" and as "a Setting Sun maneuver"? Deepstone Sentinel: can the Stone Dragon stance be one of the "two Stone Dragon maneuvers" (p. 43 says stances count as maneuvers)? Same for Jade Phoenix Mage (2 maneuvers incl. a strike, plus a stance). The book doesn't say whether the entries need distinct maneuvers. Not researched online yet.
+1. **Overlapping requirement entries.** Shadow Sun Ninja: can one 2nd-level Setting Sun maneuver count both as "a 2nd-level Setting Sun or Shadow Hand maneuver" and as "a Setting Sun maneuver"? Deepstone Sentinel: can the Stone Dragon stance be one of the "two Stone Dragon maneuvers" (no: p. 44 only lets stances count for maneuver prerequisites)? Same for Jade Phoenix Mage (2 maneuvers incl. a strike, plus a stance). The book doesn't say whether the entries need distinct maneuvers. Researched: no answer (rulings-tob.md T20); pending house rule #33.
 2. **Jade Phoenix Mage class skills** (p. 115) are word for word the Eternal Blade list (no Knowledge (arcana), no Spellcraft, odd for a mage). Likely a misprint; no errata found in the book. Entered as printed.
 3. **Bloodstorm Blade weapon aptitude vs warblade weapon aptitude**: the book's formula (warblade + bloodstorm levels − 2) implies one combined −2; noted above for the engine.
 4. **Feats missing from `feats.json`**: Multiattack (MM), Throw Anything (*Complete Warrior*), Adaptive Style and Stone Power (ToB). Requirements using them are text in `other`.

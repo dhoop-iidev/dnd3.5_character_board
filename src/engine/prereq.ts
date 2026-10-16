@@ -48,8 +48,9 @@ export function unmetPrereqs(
       out.push({ en: `${name.en} ${min} ranks (has ${ranks})`, fr: `${name.fr} ${min} degrés (a ${ranks})` })
     }
   }
-  // Tome of Battle prestige classes (p. 96): maneuvers and stances known, by discipline. A stance counts as a maneuver
-  // for these requirements (p. 43). Each entry is checked on its own.
+  // Tome of Battle prestige classes (p. 96): maneuvers and stances known, by discipline. Stances count as maneuvers only
+  // for maneuver prerequisites (p. 44), so here a stance fills only the stance entries (rulings-tob.md T20). Each
+  // entry is checked on its own (house rule #33 pending).
   const m = prereq.martial
   if (m) {
     const known = sheet.martial.known
@@ -59,7 +60,11 @@ export function unmetPrereqs(
     }
     for (const r of m.maneuvers ?? []) {
       const have = known.filter(
-        (k) => (!r.disciplines || r.disciplines.includes(k.discipline)) && k.level >= (r.minLevel ?? 1) && (!r.type || k.type === r.type),
+        (k) =>
+          k.type !== 'stance' &&
+          (!r.disciplines || r.disciplines.includes(k.discipline)) &&
+          k.level >= (r.minLevel ?? 1) &&
+          (!r.type || k.type === r.type),
       ).length
       if (have < r.count) {
         const d = discName(r.disciplines)

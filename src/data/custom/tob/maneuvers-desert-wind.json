@@ -697,8 +697,8 @@
       "fr": "Instantanée"
     },
     "save": {
-      "en": "Reflex half (DC not printed)",
-      "fr": "Réflexes 1/2 dégâts (DD non indiqué)"
+      "en": "Reflex half (DC 12 + Wis modifier)",
+      "fr": "Réflexes 1/2 dégâts (DD 12 + mod. de Sag)"
     },
     "supernatural": true,
     "summary": {
@@ -714,8 +714,8 @@
       "fr": "Cône de 9 m"
     },
     "notes": {
-      "en": "The book (and the official card) give no save DC. The other Desert Wind DCs follow 10 + maneuver level + Wis mod, which would be DC 12 + Wis mod: ask the DM.",
-      "fr": "Le livre (et la carte officielle) n’indiquent pas de DD. Les autres DD du Vent du désert suivent 10 + niveau de la manœuvre + mod. de Sag, soit DD 12 + mod. de Sag : demandez au MJ."
+      "en": "No DC printed: the official FAQ (p. 75) gives 10 + maneuver level + the discipline key ability (Wis) = DC 12 + Wis modifier (rulings-tob.md T22).",
+      "fr": "DD non imprimé : la FAQ officielle (p. 75) donne 10 + niveau de la manœuvre + caractéristique clé de la discipline (Sag) = DD 12 + mod. de Sag (rulings-tob.md T22)."
     },
     "source": {
       "book": "Tome of Battle",
@@ -857,8 +857,8 @@
       "fr": "Instantanée"
     },
     "save": {
-      "en": "Reflex half (DC not printed)",
-      "fr": "Réflexes 1/2 dégâts (DD non indiqué)"
+      "en": "Reflex half (DC 19 + Wis modifier)",
+      "fr": "Réflexes 1/2 dégâts (DD 19 + mod. de Sag)"
     },
     "supernatural": true,
     "summary": {
@@ -874,8 +874,8 @@
       "fr": "Explosion de 18 m de rayon centrée sur vous"
     },
     "notes": {
-      "en": "The book (and the official card) give no save DC. The other Desert Wind DCs follow 10 + maneuver level + Wis mod, which would be DC 19 + Wis mod: ask the DM. Hits allies in the area too.",
-      "fr": "Le livre (et la carte officielle) n’indiquent pas de DD. Les autres DD du Vent du désert suivent 10 + niveau de la manœuvre + mod. de Sag, soit DD 19 + mod. de Sag : demandez au MJ. Touche aussi les alliés dans la zone."
+      "en": "No DC printed: the official FAQ (p. 75) gives 10 + maneuver level + the discipline key ability (Wis) = DC 19 + Wis modifier (rulings-tob.md T22). Hits allies in the area too.",
+      "fr": "DD non imprimé : la FAQ officielle (p. 75) donne 10 + niveau de la manœuvre + caractéristique clé de la discipline (Sag) = DD 19 + mod. de Sag (rulings-tob.md T22). Touche aussi les alliés dans la zone."
     },
     "source": {
       "book": "Tome of Battle",
