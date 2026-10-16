@@ -13,6 +13,7 @@
   import Notes from './ui/panes/Notes.svelte'
   import SaveControls from './ui/SaveControls.svelte'
   import Popup from './ui/Popup.svelte'
+  import { endWildShape, fmtRounds } from './ui/wildShape'
   import Welcome from './ui/Welcome.svelte'
 
   type Tab = 'general' | 'equipment' | 'combat' | 'maneuvers' | 'spells' | 'companions' | 'notes'
@@ -96,7 +97,21 @@
 {#if !app.loaded}
   <Welcome />
 {:else}
-  <header class="top">
+  {#if view.sheet.wildShape}
+  <div class="shape-banner" role="status">
+    <span>
+      {tr({
+        en: `${c.identity.name} is in wild shape: ${view.sheet.wildShape.def.name.en}`,
+        fr: `${c.identity.name} est sous forme animale : ${view.sheet.wildShape.def.name.fr}`,
+      })}
+      · {fmtRounds(view.sheet.wildShape.rounds, c.settings.lang)}
+      {tr({ en: 'left', fr: 'restantes' })} · {tr({ en: 'equipment melded', fr: 'équipement fondu' })}
+    </span>
+    <button onclick={() => (tab = 'combat')}>{tr({ en: 'Details', fr: 'Détails' })}</button>
+    <button onclick={() => endWildShape(app.character)}>{tr({ en: 'End wild shape', fr: 'Reprendre sa forme' })}</button>
+  </div>
+{/if}
+<header class="top">
     <div class="who">
       <h1>{c.identity.name}</h1>
       {#if c.identity.title}<p class="title">{c.identity.title}</p>{/if}
@@ -287,6 +302,12 @@
   main {
     padding: 1.5rem;
   }
+  /* Panes made of stacked full-width boxes (Spells, Companions): same gap as the grids. */
+  .grid-spells {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
   footer {
     padding: 1.25rem 1rem 1.5rem;
     font-size: 0.85em;
@@ -316,6 +337,27 @@
     margin: 0.1rem 0 0;
     font-style: italic;
     font-size: 1.05rem;
+  }
+  /* Wild shape: reminder that the sheet shows the form, with a way out. */
+  .shape-banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: #fff;
+  }
+  .shape-banner button {
+    font: inherit;
+    min-height: 2.4rem;
+    padding: 0 0.8rem;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
   }
   .shared-banner {
     display: flex;

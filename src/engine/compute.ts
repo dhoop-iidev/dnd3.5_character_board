@@ -20,7 +20,7 @@ import { effectLive, knownManeuvers, martialCaps, type MartialCaps } from './mar
 import { raceOf } from './race'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
 import { spellcastingOf, type Spellcasting } from './spells'
-import type { RaceDef } from '../data/types'
+import type { CreatureDef, RaceDef } from '../data/types'
 import type { ManeuverDef } from '../data/types'
 
 const SRD = 'https://www.d20srd.org/srd/'
@@ -91,6 +91,8 @@ export interface AttackLine {
   critConfirmBonus: number
   /** Two-weapon fighting: which hand this weapon is in. */
   hand?: 'primary' | 'off'
+  /** Wild shape natural attacks: full-attack routine (0 = main, 1+ = "or" alternatives). */
+  routine?: number
 }
 
 export type LoadBand = 'light' | 'medium' | 'heavy' | 'overloaded'
@@ -124,6 +126,10 @@ export interface Sheet {
   /** Damage reduction from equipment (adamantine armor…) and maneuvers (Stone Bones…). */
   damageReduction: { value: string; source: I18n }[]
   race: RaceDef
+  /** Current size (race, or wild shape form). */
+  size: Size
+  /** Wild shape in progress: the form. */
+  wildShape?: { def: CreatureDef; rounds: number }
   /** Weapon and armor proficiencies (classes, race, feats). */
   proficiency: Proficiencies
   /** Spellcasting classes: caster level, spells per day (with bonus spells), save DCs. */
@@ -186,7 +192,59 @@ export function capacity(rules: Rules, str: number): { light: Weight; medium: We
   return { light: scale(row.light), medium: scale(row.medium), heavy: scale(row.heavy) }
 }
 
+// Size modifiers (https://www.d20srd.org/srd/combat/combatStatistics.htm#sizeModifier; grapple:
+// specialAttacks.htm#grapple; Hide: skills/hide.htm; carrying capacity, bipeds: carryingCapacity.htm).
+type Size = CreatureDef['size']
+const SIZE_MOD: Record<Size, number> = { fine: 8, diminutive: 4, tiny: 2, small: 1, medium: 0, large: -1, huge: -2, gargantuan: -4, colossal: -8 }
+const SIZE_GRAPPLE: Record<Size, number> = { fine: -16, diminutive: -12, tiny: -8, small: -4, medium: 0, large: 4, huge: 8, gargantuan: 12, colossal: 16 }
+const SIZE_HIDE: Record<Size, number> = { fine: 16, diminutive: 12, tiny: 8, small: 4, medium: 0, large: -4, huge: -8, gargantuan: -12, colossal: -16 }
+const SIZE_CARRY: Record<Size, number> = { fine: 0.125, diminutive: 0.25, tiny: 0.5, small: 0.75, medium: 1, large: 2, huge: 4, gargantuan: 8, colossal: 16 }
+const SIZE_NAME: Record<Size, I18n> = {
+  fine: { en: 'Fine', fr: 'I' },
+  diminutive: { en: 'Diminutive', fr: 'Min' },
+  tiny: { en: 'Tiny', fr: 'TP' },
+  small: { en: 'Small', fr: 'P' },
+  medium: { en: 'Medium', fr: 'M' },
+  large: { en: 'Large', fr: 'G' },
+  huge: { en: 'Huge', fr: 'TG' },
+  gargantuan: { en: 'Gargantuan', fr: 'Gig' },
+  colossal: { en: 'Colossal', fr: 'C' },
+}
+
+/** Wild shape uses per day by druid level (Table: The Druid): 1 at 5th, 2 at 6th, 3 at 7th, 4 at 10th, 5 at 14th, 6 at 18th. */
+export function wildShapeUses(druidLevel: number): { animal: number; elemental: number } {
+  const animal = druidLevel >= 18 ? 6 : druidLevel >= 14 ? 5 : druidLevel >= 10 ? 4 : druidLevel >= 7 ? 3 : druidLevel >= 6 ? 2 : druidLevel >= 5 ? 1 : 0
+  const elemental = druidLevel >= 20 ? 3 : druidLevel >= 18 ? 2 : druidLevel >= 16 ? 1 : 0
+  return { animal, elemental }
+}
+
+/** Sizes a druid can take: Small/Medium at 5th, Large at 8th, Tiny at 11th, Huge at 15th (elementals: S/M/L, Huge at 20th). */
+export function wildShapeSizes(druidLevel: number, elemental = false): Size[] {
+  if (elemental) return ['small', 'medium', 'large', ...(druidLevel >= 20 ? (['huge'] as Size[]) : [])]
+  return [
+    ...(druidLevel >= 11 ? (['tiny'] as Size[]) : []),
+    'small',
+    'medium',
+    ...(druidLevel >= 8 ? (['large'] as Size[]) : []),
+    ...(druidLevel >= 15 ? (['huge'] as Size[]) : []),
+  ]
+}
+
 export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}): Sheet {
+  // ---- wild shape (https://www.d20srd.org/srd/classes/druid.htm#wildShape, as amended by the PHB errata 2006: works
+  // like Alternate Form, MM errata 2006; docs/rules/rulings-classes.md C4). All gear melds and stops working (except
+  // armor/shield with the wild property, and what the player chooses to keep): melded items are treated as stored.
+  const shape = char.wildShape ? rules.creatures.get(char.wildShape.creatureId) : undefined
+  // Hit points of her own form, kept despite the form's Constitution (MM errata 2006, Alternate Form; FAQ p. 16:
+  // later Con changes — spells, Con damage — still count, as they apply to her own form too).
+  const ownHp = shape ? compute({ ...char, wildShape: undefined }, rules, opts).hpMax : undefined
+  if (shape) {
+    const keep = new Set(char.wildShape!.keepItems ?? [])
+    char = {
+      ...char,
+      inventory: char.inventory.map((i) => (keep.has(i.uid) || i.location === 'stored' ? i : { ...i, location: 'stored' as const })),
+    }
+  }
   const levels = char.levels.slice(0, opts.level ?? char.levels.length)
   const characterLevel = levels.length
   const toggles = char.toggles
@@ -195,6 +253,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const classLevels: Record<string, number> = {}
   for (const l of levels) classLevels[l.classId] = (classLevels[l.classId] ?? 0) + 1
   const race = raceOf(char, rules)
+  const size: Size = shape?.size ?? race.size
+  const sizeLabel = i18n(`${SIZE_NAME[size].en} size`, `Taille ${SIZE_NAME[size].fr}`)
   const chosenFeats = levels.flatMap((l) => l.feats)
   // Feats granted by class features (ranger Track at 1st, Endurance at 3rd…).
   const granted: FeatPick[] = []
@@ -267,9 +327,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
   // ---- race: racial bonuses (https://www.d20srd.org/srd/races.htm); Small size handled below
   for (const spec of race.modifiers) mods.push({ spec, sourceId: `race:${race.id}`, label: race.name, source: race.source })
-  if (race.size === 'small')
-    // Small: +4 size bonus on Hide (https://www.d20srd.org/srd/skills/hide.htm).
-    mods.push({ spec: { target: 'skill.hide', bonusType: 'size', value: 4 }, sourceId: 'size', label: i18n('Small size', 'Taille P'), source: { srdUrl: 'https://www.d20srd.org/srd/skills/hide.htm' } })
+  if (SIZE_HIDE[size])
+    // Size modifier on Hide (https://www.d20srd.org/srd/skills/hide.htm): Small +4, Large −4…
+    mods.push({ spec: { target: 'skill.hide', bonusType: 'size', value: SIZE_HIDE[size] }, sourceId: 'size', label: sizeLabel, source: { srdUrl: 'https://www.d20srd.org/srd/skills/hide.htm' } })
   // ---- class features with modifiers
   for (const [classId, n] of Object.entries(classLevels))
     for (const f of rules.classes.get(classId)?.features ?? [])
@@ -383,14 +443,17 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- ability scores (docs/rules/abilities.md)
   const abilities = {} as Record<AbilityId, AbilityBlock>
   for (const a of ABILITIES) {
-    const parts: Part[] = [
-      { sourceId: 'base', label: i18n('Base score', 'Valeur de base'), value: char.baseAbilities[a], bonusType: 'base' },
-    ]
+    // Wild shape: the form's Str, Dex and Con replace hers; Int, Wis, Cha stay (Alternate Form).
+    const formScore = shape && (a === 'str' || a === 'dex' || a === 'con') ? shape.abilities[a] : undefined
+    const parts: Part[] =
+      formScore !== undefined && formScore !== null
+        ? [{ sourceId: 'wild-shape', label: i18n(`${shape!.name.en} (wild shape)`, `${shape!.name.fr} (forme animale)`), value: formScore, bonusType: 'base', source: shape!.source }]
+        : [{ sourceId: 'base', label: i18n('Base score', 'Valeur de base'), value: char.baseAbilities[a], bonusType: 'base' }]
     // Racial adjustments (https://www.d20srd.org/srd/races.htm): part of the score, not a bonus.
     const adj = race.abilityAdjustments[a]
-    if (adj) parts.push({ sourceId: 'race', label: race.name, value: adj, bonusType: 'base', source: race.source })
+    if (adj && formScore === undefined) parts.push({ sourceId: 'race', label: race.name, value: adj, bonusType: 'base', source: race.source })
     levels.forEach((l, i) => {
-      if (l.abilityIncrease === a)
+      if (l.abilityIncrease === a && formScore === undefined)
         parts.push({
           sourceId: `increase:${i + 1}`,
           label: i18n(`Level ${i + 1} increase`, `Augmentation niveau ${i + 1}`),
@@ -475,7 +538,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   })
   hpParts.push({ ...abilityPart('con', mod('con') * characterLevel), label: { en: `Constitution ${fmt(mod('con'))} × ${characterLevel}`, fr: `Constitution ${fmt(mod('con'))} × ${characterLevel}` } })
   hpParts.push(...partsFor(['hp.max']))
-  const hpMax = resolve(hpParts)
+  const hpMax = ownHp ?? resolve(hpParts)
   hpMax.total = Math.max(characterLevel, hpMax.total) // at least 1 hp per Hit Die
 
   // ---- BAB and iterative attacks
@@ -530,7 +593,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     return i < 0 || !armorMat?.effects.armorCategoryShift ? cat : CATS[Math.max(0, i - armorMat.effects.armorCategoryShift)]
   }
   const armor = armorItem && armorDef ? { item: armorItem, def: armorDef, category: shiftCat(armorDef.category) } : undefined
-  const shieldItem = loadout?.shield ? char.inventory.find((i) => i.uid === loadout.shield) : undefined
+  // A stored (or melded) shield is not on her arm.
+  const shieldItem = loadout?.shield ? char.inventory.find((i) => i.uid === loadout.shield && i.location !== 'stored') : undefined
   const shield = shieldItem ? { item: shieldItem, def: rules.armor.get(shieldItem.refId)! } : undefined
 
   const carried = char.inventory.reduce(
@@ -547,8 +611,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   carried.kg += coins / 100
   const carriedLb = carried.lb
   const capMedium = capacity(rules, abilities.str.score.total)
-  // Small creatures carry ×3/4 (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures).
-  const sizeFactor = race.size === 'small' ? 0.75 : 1
+  // Size multiplier, bipeds (https://www.d20srd.org/srd/carryingCapacity.htm#biggerandSmallerCreatures): Small ×3/4, Large ×2…
+  const sizeFactor = SIZE_CARRY[size]
   const scaleW = (w: Weight): Weight => ({ lb: round2(w.lb * sizeFactor), kg: round2(w.kg * sizeFactor) })
   const limits = { light: scaleW(capMedium.light), medium: scaleW(capMedium.medium), heavy: scaleW(capMedium.heavy) }
   const band: LoadBand =
@@ -592,7 +656,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const monkLevel = classLevels['monk'] ?? 0
   const monkUnencumbered = !armor && band === 'light'
   const monkFast = monkLevel >= 3 && monkUnencumbered ? Math.floor(monkLevel / 3) * 10 : 0
-  const baseFt = race.speed + (barbarianFast ? 10 : 0) + monkFast
+  // Wild shape: the form's land speed (its other movement modes are shown with the form).
+  const baseFt = (shape ? shape.speed.land : race.speed) + (barbarianFast ? 10 : 0) + monkFast
   let speedFt = baseFt
   let speedFrom = barbarianFast || monkFast ? i18n('base + fast movement', 'base + déplacement accéléré') : i18n('base', 'base')
   const slow = baseFt <= 20
@@ -623,8 +688,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const dexToAc = dexZero ? abilityMod(0) : maxDex.value === null ? mod('dex') : Math.min(mod('dex'), maxDex.value)
   const acParts: Part[] = [{ sourceId: 'base10', label: i18n('Base', 'Base'), value: 10, bonusType: 'base', source: src('combat/combatStatistics.htm#armorClass') }]
   // Size modifier (https://www.d20srd.org/srd/combat/combatStatistics.htm#sizeModifier): Small +1.
-  const sizePart = (value: number): Part => ({ sourceId: 'size', label: i18n('Small size', 'Taille P'), value, bonusType: 'size', source: src('combat/combatStatistics.htm#sizeModifier') })
-  if (race.size === 'small') acParts.push(sizePart(1))
+  const sizePart = (value: number): Part => ({ sourceId: 'size', label: sizeLabel, value, bonusType: 'size', source: src('combat/combatStatistics.htm#sizeModifier') })
+  if (SIZE_MOD[size]) acParts.push(sizePart(SIZE_MOD[size]))
+  // Wild shape: the form's natural armor bonus.
+  if (shape?.ac.natural)
+    acParts.push({ sourceId: 'wild-shape-natural', label: i18n(`Natural armor (${shape.name.en})`, `Armure naturelle (${shape.name.fr})`), value: shape.ac.natural, bonusType: 'naturalArmor', source: shape.source })
   if (armor) {
     const enh = armor.item.enhancement ?? 0
     acParts.push({
@@ -694,7 +762,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const grapple = resolve([
     ...tableSum('bab'),
     abilityPart('str'),
-    ...(race.size === 'small' ? [{ ...sizePart(-4), source: src('combat/specialAttacks.htm#grapple') }] : []),
+    ...(SIZE_GRAPPLE[size] ? [{ ...sizePart(SIZE_GRAPPLE[size]), source: src('combat/specialAttacks.htm#grapple') }] : []),
     ...partsFor(['grapple']),
   ])
 
@@ -781,7 +849,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const attacks: AttackLine[] = []
   // Two-weapon fighting (https://www.d20srd.org/srd/combat/specialAttacks.htm#twoWeaponFighting): the first two melee
   // weapons in hand are the primary and off hand when the loadout says so.
-  const meleeInHand = (loadout?.weapons ?? []).filter((uid) => {
+  // Wild shape: no manufactured weapons (they meld); the form's natural attacks are added below.
+  const wielded = shape ? [] : (loadout?.weapons ?? [])
+  const meleeInHand = wielded.filter((uid) => {
     const it = char.inventory.find((i) => i.uid === uid)
     return it && rules.weapons.get(it.refId)?.kind === 'melee'
   })
@@ -790,7 +860,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const offWeapon = offUid ? rules.weapons.get(char.inventory.find((i) => i.uid === offUid)!.refId) : undefined
   const offLight = offWeapon?.handedness === 'light' || offWeapon?.handedness === 'unarmed'
   const twfSource = src('combat/specialAttacks.htm#twoWeaponFighting')
-  for (const uid of loadout?.weapons ?? []) {
+  for (const uid of wielded) {
     const item = char.inventory.find((i) => i.uid === uid)
     const weapon = item && rules.weapons.get(item.refId)
     if (!item || !weapon) continue
@@ -819,7 +889,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       !hand && (weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid)))
 
     const atk: Part[] = [...tableSum('bab'), abilityPart(melee ? 'str' : 'dex')]
-    if (race.size === 'small') atk.push(sizePart(1))
+    if (SIZE_MOD[size]) atk.push(sizePart(SIZE_MOD[size]))
     if (hand) {
       // Normal −6/−10; light off-hand weapon −4/−8; Two-Weapon Fighting feat −2/−2 better each.
       let pen = hand === 'primary' ? -6 : -10
@@ -950,7 +1020,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       attack,
       iterative,
       // Small characters use Small weapons (https://www.d20srd.org/srd/equipment/weapons.htm#weaponSize).
-      damageDice: race.size === 'small' ? weapon.damage.S : weapon.damage.M,
+      damageDice: size === 'small' ? weapon.damage.S : weapon.damage.M,
       damage,
       critRange: 21 - span,
       critMult,
@@ -982,6 +1052,81 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
 
   const wmRow = rules.classes.get('weapon-master')
+  // ---- wild shape: the form's natural attacks with the druid's BAB and new Str/Dex (Alternate Form, MM errata 2006:
+  // she keeps her BAB and feats, not the form's). Secondary natural attacks −5 (−2 with her own Multiattack)
+  // and ½ Str; a sole natural attack 1½ Str (https://www.d20srd.org/srd/monsters/intro.htm). The form's feats are
+  // not gained (her own Weapon Finesse applies to natural weapons).
+  if (shape) {
+    const routines = [shape.attacks, ...(shape.altAttacks ?? [])]
+    routines.forEach((routine, r) => {
+      const naturals = routine.filter((a) => a.role !== 'weapon')
+      const sole = naturals.length === 1 && naturals[0].count === 1
+      naturals.forEach((a, n) => {
+        const ranged = a.kind === 'ranged' || a.kind === 'rangedTouch'
+        const useDex = ranged || (hasFeat('weapon-finesse') && mod('dex') > mod('str'))
+        const atk: Part[] = [...tableSum('bab'), abilityPart(useDex ? 'dex' : 'str')]
+        if (SIZE_MOD[size]) atk.push(sizePart(SIZE_MOD[size]))
+        if (a.role === 'secondary') {
+          const multi = hasFeat('multiattack')
+          atk.push({ sourceId: 'secondary', label: multi ? i18n('Secondary attack (Multiattack)', 'Attaque secondaire (Attaques multiples)') : i18n('Secondary natural attack', 'Attaque naturelle secondaire'), value: multi ? -2 : -5, bonusType: 'untyped', source: { srdUrl: 'https://www.d20srd.org/srd/monsters/intro.htm' } })
+        }
+        if (toggles.fightingDefensively)
+          atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
+        const pa = !ranged && hasFeat('power-attack') && toggles.powerAttack > 0
+        if (pa) atk.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: -toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
+        atk.push(...partsFor([ranged ? 'attack.ranged' : 'attack.melee', 'attack.all']))
+        const attack = resolve(atk)
+        const factor = ranged ? 0 : a.role === 'secondary' ? 0.5 : sole ? 1.5 : 1
+        const strMod = mod('str')
+        const strDmg = strMod < 0 ? (factor ? strMod : 0) : Math.floor(strMod * factor)
+        const dmg: Part[] = []
+        if (strDmg)
+          dmg.push({ ...abilityPart('str', strDmg), label: factor === 1 ? ABILITY_NAMES.str : i18n(`Strength ×${factor}`, `Force ×${factor === 0.5 ? '½' : '1,5'}`) })
+        if (pa) dmg.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
+        dmg.push(...partsFor([ranged ? 'damage.ranged' : 'damage.melee', 'damage.all']))
+        const damage = resolve(dmg)
+        const crit = a.critical?.match(/^(?:(\d+)-20\/)?×(\d)$/)
+        const critRange = crit?.[1] ? Number(crit[1]) : 20
+        const mult = crit?.[2] ? Number(crit[2]) : 2
+        const dice = a.damage.match(/^\d+d\d+/)?.[0] ?? a.damage
+        const weapon: WeaponDef = {
+          id: `natural:${a.name.en.toLowerCase()}`,
+          name: a.name,
+          category: 'natural' as WeaponDef['category'],
+          kind: ranged ? 'ranged' : 'melee',
+          handedness: 'light',
+          damage: { S: dice, M: dice },
+          critRange,
+          critMult: mult,
+          damageTypes: [],
+          weight: { lb: 0, kg: 0 },
+          costGp: 0,
+          text: shape.specialAttacks,
+          source: shape.source,
+        }
+        attacks.push({
+          itemUid: `wild-shape:${r}:${n}`,
+          weapon,
+          name: { en: `${a.name.en} (${shape.name.en})`, fr: `${a.name.fr} (${shape.name.fr})` },
+          attack,
+          iterative: Array.from({ length: a.count }, () => attack.total),
+          damageDice: dice,
+          damage,
+          critRange,
+          critMult: resolve([{ sourceId: 'form', label: shape.name, value: mult, bonusType: 'base', source: shape.source }]),
+          weaponOfChoice: false,
+          powerAttackAllowed: !ranged && hasFeat('power-attack'),
+          extraDamage: a.extra ? [{ dice: '', type: a.extra, source: shape.name }] : [],
+          critExtraDamage: [],
+          bypassDR: [],
+          notes: [],
+          critConfirmBonus: 0,
+          routine: r,
+        })
+      })
+    })
+  }
+
   // ---- class-feature checks: wild empathy = d20 + druid/ranger level + Cha (https://www.d20srd.org/srd/classes/ranger.htm#wildEmpathy)
   const featureStats: Sheet['featureStats'] = []
   const empathyClasses = Object.entries(classLevels).filter(([id]) =>
@@ -1013,6 +1158,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     classLevels,
     feats,
     race,
+    size,
+    wildShape: shape ? { def: shape, rounds: char.wildShape!.rounds } : undefined,
     proficiency,
     spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))),
     featureStats,

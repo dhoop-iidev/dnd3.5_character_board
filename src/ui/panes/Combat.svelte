@@ -12,6 +12,7 @@
   import ManeuverBlock from '../ManeuverBlock.svelte'
   import TurnBar from '../TurnBar.svelte'
   import SummonBlock from '../SummonBlock.svelte'
+  import WildShapeBlock from '../WildShapeBlock.svelte'
   import { effectName } from '../effects'
 
   const s = $derived(view.sheet)
@@ -52,7 +53,9 @@
   // ---- loadout editing
   const weapons = $derived(c.inventory.filter((i) => i.kind === 'weapon' && i.location !== 'stored'))
   const shields = $derived(
-    c.inventory.filter((i) => i.kind === 'armor' && ['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? '')),
+    c.inventory.filter(
+      (i) => i.kind === 'armor' && ['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? ''),
+    ),
   )
   function toggleGrip(uid: string) {
     const l = app.character.loadouts.find((x) => x.id === loadout.id)!
@@ -81,7 +84,8 @@
   function effectPopup(e: (typeof c.activeEffects)[number]) {
     if (e.kind === 'condition') {
       const d = rules.conditions.get(e.refId ?? '')
-      if (d) openPopup({ title: d.name, summary: d.summary, html: d.text, source: d.source, noteKey: `condition:${d.id}` })
+      if (d)
+        openPopup({ title: d.name, summary: d.summary, html: d.text, source: d.source, noteKey: `condition:${d.id}` })
     } else if (e.kind === 'magic') {
       const d = rules.magicItems.get(e.refId ?? '')
       if (d) openPopup({ title: d.name, summary: d.duration, html: d.text, source: d.source, noteKey: `magic:${d.id}` })
@@ -106,13 +110,33 @@
     { id: 'skill.all', label: { en: 'All skills', fr: 'Toutes les compétences' } },
     { id: 'initiative', label: { en: 'Initiative', fr: 'Initiative' } },
     ...(['str', 'dex', 'con', 'int', 'wis', 'cha'] as const).flatMap((a) => [
-      { id: `ability.${a}`, label: { en: `${a.toUpperCase()} (bonus/penalty)`, fr: `${a.toUpperCase()} (bonus/malus)` } },
-      { id: `abilityDamage.${a}`, label: { en: `${a.toUpperCase()} damage`, fr: `Affaiblissement ${a.toUpperCase()}` } },
+      {
+        id: `ability.${a}`,
+        label: { en: `${a.toUpperCase()} (bonus/penalty)`, fr: `${a.toUpperCase()} (bonus/malus)` },
+      },
+      {
+        id: `abilityDamage.${a}`,
+        label: { en: `${a.toUpperCase()} damage`, fr: `Affaiblissement ${a.toUpperCase()}` },
+      },
     ]),
     { id: 'hp.max', label: { en: 'Max HP', fr: 'PV max' } },
     { id: 'speed', label: { en: 'Speed (ft)', fr: 'Vitesse (pieds)' } },
   ]
-  const TYPES: BonusType[] = ['untyped', 'enhancement', 'morale', 'luck', 'competence', 'insight', 'sacred', 'profane', 'resistance', 'deflection', 'dodge', 'circumstance', 'alchemical']
+  const TYPES: BonusType[] = [
+    'untyped',
+    'enhancement',
+    'morale',
+    'luck',
+    'competence',
+    'insight',
+    'sacred',
+    'profane',
+    'resistance',
+    'deflection',
+    'dodge',
+    'circumstance',
+    'alchemical',
+  ]
   let custom = $state({ name: '', target: 'attack.all', bonusType: 'untyped' as BonusType, value: 1 })
   function addCustom() {
     if (!custom.name.trim()) return
@@ -136,29 +160,61 @@
     <div class="cell hp">
       <span>{tr(UI.hpShort)}</span>
       <strong class:low={hpCurrent <= s.hpMax.total / 4}>{hpCurrent}</strong>
-      <small>/ {s.hpMax.total}{c.hp.nonlethal ? ` · ${c.hp.nonlethal} NL` : ''}{c.hp.temp ? ` · +${c.hp.temp} temp` : ''}</small>
+      <small
+        >/ {s.hpMax.total}{c.hp.nonlethal ? ` · ${c.hp.nonlethal} NL` : ''}{c.hp.temp
+          ? ` · +${c.hp.temp} temp`
+          : ''}</small
+      >
       <div class="hpbtn">
         <button onclick={() => adjustHp(-5)}>−5</button><button onclick={() => adjustHp(-1)}>−1</button>
         <button onclick={() => adjustHp(1)}>+1</button><button onclick={() => adjustHp(5)}>+5</button>
       </div>
     </div>
-    <div class="cell"><span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big /></div>
-    <div class="cell"><span>{tr(UI.touch)}</span><StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} /></div>
-    <div class="cell"><span>{tr({ en: 'Flat-footed', fr: 'Dépourvu' })}</span><StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} /></div>
-    <div class="cell"><span>{tr(UI.initiative)}</span><StatValue stat={() => view.sheet.initiative} title={UI.initiative} /></div>
+    <div class="cell">
+      <span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big />
+    </div>
+    <div class="cell">
+      <span>{tr(UI.touch)}</span><StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} />
+    </div>
+    <div class="cell">
+      <span>{tr({ en: 'Flat-footed', fr: 'Dépourvu' })}</span><StatValue
+        stat={() => view.sheet.flatFootedAc}
+        title={UI.flatFooted}
+        signed={false}
+      />
+    </div>
+    <div class="cell">
+      <span>{tr(UI.initiative)}</span><StatValue stat={() => view.sheet.initiative} title={UI.initiative} />
+    </div>
     <div class="cell"><span>{tr(UI.fort)}</span><StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></div>
     <div class="cell"><span>{tr(UI.ref)}</span><StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></div>
     <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
-    <div class="cell"><span>{tr({ en: 'BAB', fr: 'BBA' })}</span><StatValue stat={() => view.sheet.bab} title={UI.bab} /></div>
-    <div class="cell"><span>{tr(UI.grapple)}</span><StatValue stat={() => view.sheet.grapple} title={UI.grapple} /></div>
-    <div class="cell"><span>{tr({ en: 'AoO / round', fr: 'AO / round' })}</span><StatValue stat={() => view.sheet.attacksOfOpportunity} title={UI.aoo} signed={false} /></div>
-    <div class="cell"><span>{tr(UI.speed)}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong></div>
+    <div class="cell">
+      <span>{tr({ en: 'BAB', fr: 'BBA' })}</span><StatValue stat={() => view.sheet.bab} title={UI.bab} />
+    </div>
+    <div class="cell">
+      <span>{tr(UI.grapple)}</span><StatValue stat={() => view.sheet.grapple} title={UI.grapple} />
+    </div>
+    <div class="cell">
+      <span>{tr({ en: 'AoO / round', fr: 'AO / round' })}</span><StatValue
+        stat={() => view.sheet.attacksOfOpportunity}
+        title={UI.aoo}
+        signed={false}
+      />
+    </div>
+    <div class="cell">
+      <span>{tr(UI.speed)}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong>
+    </div>
   </div>
-  {#if s.flags.some((f) => FLAGS[f])}<p class="flags">{[...new Set(s.flags)].filter((f) => FLAGS[f]).map((f) => tr(FLAGS[f])).join(' · ')}</p>{/if}
+  {#if s.flags.some((f) => FLAGS[f])}<p class="flags">
+      {[...new Set(s.flags)]
+        .filter((f) => FLAGS[f])
+        .map((f) => tr(FLAGS[f]))
+        .join(' · ')}
+    </p>{/if}
 </section>
 
 <TurnBar />
-
 
 <div class="grid">
   <section class="box">
@@ -190,7 +246,10 @@
     {#if s.feats.some((f) => f.featId === 'rapid-shot')}
       <label class="check">
         <input type="checkbox" bind:checked={app.character.toggles.rapidShot} />
-        {tr({ en: 'Rapid Shot (extra ranged attack, −2 on all)', fr: 'Tir rapide (attaque à distance supplémentaire, −2 à toutes)' })}
+        {tr({
+          en: 'Rapid Shot (extra ranged attack, −2 on all)',
+          fr: 'Tir rapide (attaque à distance supplémentaire, −2 à toutes)',
+        })}
       </label>
     {/if}
   </section>
@@ -200,18 +259,33 @@
     <div class="fields">
       <label>
         {tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}
-        {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong>{/each}
+        {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong
+          >{/each}
         <input bind:value={app.character.defenses.dr} placeholder="—" />
       </label>
-      <label>{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input bind:value={app.character.defenses.sr} placeholder="—" /></label>
-      <label class="wide">{tr({ en: 'Energy resistances', fr: "Résistances aux énergies" })}<input bind:value={app.character.defenses.resistances} placeholder="—" /></label>
+      <label
+        >{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input
+          bind:value={app.character.defenses.sr}
+          placeholder="—"
+        /></label
+      >
+      <label class="wide"
+        >{tr({ en: 'Energy resistances', fr: 'Résistances aux énergies' })}<input
+          bind:value={app.character.defenses.resistances}
+          placeholder="—"
+        /></label
+      >
       <label class="wide">
-        {tr({ en: 'Conditional modifiers (e.g. +2 vs fear)', fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)' })}
+        {tr({
+          en: 'Conditional modifiers (e.g. +2 vs fear)',
+          fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)',
+        })}
         <textarea rows="3" bind:value={app.character.conditionalModifiers}></textarea>
       </label>
     </div>
   </section>
 
+  {#if (s.classLevels['druid'] ?? 0) >= 5 || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
   {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
   {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
 
@@ -223,11 +297,19 @@
           <h4>
             {tr(a.name)}
             {#if a.weaponOfChoice}<small>★ {tr({ en: 'weapon of choice', fr: 'arme de prédilection' })}</small>{/if}
-            {#if a.hand}<small>{a.hand === 'primary' ? tr({ en: 'primary hand', fr: 'main directrice' }) : tr({ en: 'off hand', fr: 'main non directrice' })}</small>{/if}
+            {#if a.hand}<small
+                >{a.hand === 'primary'
+                  ? tr({ en: 'primary hand', fr: 'main directrice' })
+                  : tr({ en: 'off hand', fr: 'main non directrice' })}</small
+              >{/if}
           </h4>
           <div class="line">
             <span>{tr({ en: 'Attack', fr: 'Attaque' })}</span>
-            <StatValue stat={() => view.sheet.attacks.find((x) => x.itemUid === a.itemUid)!.attack} title={a.name} big />
+            <StatValue
+              stat={() => view.sheet.attacks.find((x) => x.itemUid === a.itemUid)!.attack}
+              title={a.name}
+              big
+            />
             <span class="iter">{a.iterative.map(fmt).join(' / ')}</span>
           </div>
           <div class="line">
@@ -239,15 +321,22 @@
           <div class="line">
             <span>{tr({ en: 'Critical', fr: 'Critique' })}</span>
             <strong>{crit(a.critRange, a.critMult.total)}</strong>
-            {#if a.critConfirmBonus}<small>({tr({ en: 'confirm', fr: 'confirmation' })} +{a.critConfirmBonus} {tr({ en: 'battle ardor', fr: 'ardeur au combat' })})</small>{/if}
+            {#if a.critConfirmBonus}<small
+                >({tr({ en: 'confirm', fr: 'confirmation' })} +{a.critConfirmBonus}
+                {tr({ en: 'battle ardor', fr: 'ardeur au combat' })})</small
+              >{/if}
             {#if a.weaponOfChoice && s.weaponMaster.increasedMultiplierPerDay}
-              <small>({tr({ en: 'increased multiplier', fr: 'multiplicateur accru' })} : ×{a.critMult.total + 1})</small>
+              <small>({tr({ en: 'increased multiplier', fr: 'multiplicateur accru' })} : ×{a.critMult.total + 1})</small
+              >
             {/if}
           </div>
           {#each a.extraDamage as x, i (i)}
             <div class="line extra">
               <span>+ {x.dice}</span>
-              <span>{tr(x.type)}{#if x.condition} <em>({tr(x.condition)})</em>{/if} <small>— {tr(x.source)}</small></span>
+              <span
+                >{tr(x.type)}{#if x.condition}
+                  <em>({tr(x.condition)})</em>{/if} <small>— {tr(x.source)}</small></span
+              >
             </div>
           {/each}
           {#each a.critExtraDamage as x, i (i)}
@@ -266,11 +355,18 @@
             <div class="line extra"><span>{tr(n.name)}</span><span class="note">{tr(n.text)}</span></div>
           {/each}
           {#if a.weapon.rangeIncrement}
-            <div class="line"><span>{tr({ en: 'Range increment', fr: 'Facteur de portée' })}</span> {fmtDistance(a.weapon.rangeIncrement, lang())}</div>
+            <div class="line">
+              <span>{tr({ en: 'Range increment', fr: 'Facteur de portée' })}</span>
+              {fmtDistance(a.weapon.rangeIncrement, lang())}
+            </div>
           {/if}
           {#if a.kiDamageMax !== undefined}
-            <div class="line"><span>{tr({ en: 'Ki damage (max)', fr: 'Dégâts ki (max)' })}</span> <strong>{a.kiDamageMax}</strong>
-              {#if t.powerAttack && a.powerAttackAllowed}<small>+ {t.powerAttack * (a.weapon.handedness === 'twoHanded' ? 2 : 1)} {tr({ en: 'Power Attack', fr: 'Attaque en puissance' })}</small>{/if}
+            <div class="line">
+              <span>{tr({ en: 'Ki damage (max)', fr: 'Dégâts ki (max)' })}</span> <strong>{a.kiDamageMax}</strong>
+              {#if t.powerAttack && a.powerAttackAllowed}<small
+                  >+ {t.powerAttack * (a.weapon.handedness === 'twoHanded' ? 2 : 1)}
+                  {tr({ en: 'Power Attack', fr: 'Attaque en puissance' })}</small
+                >{/if}
             </div>
           {/if}
         </article>
@@ -288,7 +384,7 @@
         <p class="inactive">
           {tr({
             en: 'Class features suspended: requirements no longer met (Complete Warrior p.16).',
-            fr: "Pouvoirs suspendus : conditions de la classe plus remplies (Complete Warrior p.16).",
+            fr: 'Pouvoirs suspendus : conditions de la classe plus remplies (Complete Warrior p.16).',
           })}
         </p>
       {/if}
@@ -296,14 +392,21 @@
         <span>{tr({ en: 'Ki damage', fr: 'Dégâts ki' })}</span>
         <button onclick={() => spend('ki-damage', -1, s.weaponMaster.kiDamagePerDay)}>−</button>
         <strong>{s.weaponMaster.kiDamagePerDay - used('ki-damage')} / {s.weaponMaster.kiDamagePerDay}</strong>
-        <button onclick={() => spend('ki-damage', 1, s.weaponMaster.kiDamagePerDay)}>{tr({ en: 'Use', fr: 'Utiliser' })}</button>
+        <button onclick={() => spend('ki-damage', 1, s.weaponMaster.kiDamagePerDay)}
+          >{tr({ en: 'Use', fr: 'Utiliser' })}</button
+        >
       </div>
       {#if s.weaponMaster.increasedMultiplierPerDay}
         <div class="uses">
           <span>{tr({ en: 'Increased multiplier', fr: 'Multiplicateur accru' })}</span>
           <button onclick={() => spend('increased-multiplier', -1, s.weaponMaster.increasedMultiplierPerDay)}>−</button>
-          <strong>{s.weaponMaster.increasedMultiplierPerDay - used('increased-multiplier')} / {s.weaponMaster.increasedMultiplierPerDay}</strong>
-          <button onclick={() => spend('increased-multiplier', 1, s.weaponMaster.increasedMultiplierPerDay)}>{tr({ en: 'Use', fr: 'Utiliser' })}</button>
+          <strong
+            >{s.weaponMaster.increasedMultiplierPerDay - used('increased-multiplier')} / {s.weaponMaster
+              .increasedMultiplierPerDay}</strong
+          >
+          <button onclick={() => spend('increased-multiplier', 1, s.weaponMaster.increasedMultiplierPerDay)}
+            >{tr({ en: 'Use', fr: 'Utiliser' })}</button
+          >
         </div>
       {/if}
       <p class="note">
@@ -313,7 +416,9 @@
         })}
         <small>Sword and Fist p. 39</small>
       </p>
-      <button class="newday" onclick={newDay}>☀ {tr({ en: 'New day (reset uses)', fr: 'Nouveau jour (réinitialiser)' })}</button>
+      <button class="newday" onclick={newDay}
+        >☀ {tr({ en: 'New day (reset uses)', fr: 'Nouveau jour (réinitialiser)' })}</button
+      >
     </section>
   {/if}
 
@@ -324,9 +429,19 @@
         <li class:off={!e.enabled}>
           <input type="checkbox" bind:checked={e.enabled} aria-label={tr(effectName(e))} />
           <button class="link" onclick={() => effectPopup(e)}>{tr(effectName(e))}</button>
-          {#if e.kind === 'custom'}<small>{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small>{/if}
-          <span class="rounds" title={tr({ en: 'Rounds left (blank = no set duration)', fr: 'Rounds restants (vide = pas de durée fixée)' })}>
-            {#if e.rounds !== undefined}<button aria-label="−1" onclick={() => setRounds(e, String(e.rounds! - 1))}>−</button>{/if}
+          {#if e.kind === 'custom'}<small
+              >{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small
+            >{/if}
+          <span
+            class="rounds"
+            title={tr({
+              en: 'Rounds left (blank = no set duration)',
+              fr: 'Rounds restants (vide = pas de durée fixée)',
+            })}
+          >
+            {#if e.rounds !== undefined}<button aria-label="−1" onclick={() => setRounds(e, String(e.rounds! - 1))}
+                >−</button
+              >{/if}
             <input
               type="number"
               min="1"
@@ -338,7 +453,9 @@
             />
             <small>{tr({ en: 'rd', fr: 'rd' })}</small>
           </span>
-          <button class="del" onclick={() => removeEffect(e.uid)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}>✕</button>
+          <button class="del" onclick={() => removeEffect(e.uid)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}
+            >✕</button
+          >
         </li>
       {:else}
         <li class="none">{tr({ en: 'None', fr: 'Aucun' })}</li>
@@ -352,7 +469,9 @@
       <button onclick={addCondition} disabled={!conditionToAdd}>＋</button>
     </div>
     <details>
-      <summary>{tr({ en: 'Custom effect (poison, spell, bonus…)', fr: 'Effet personnalisé (poison, sort, bonus…)' })}</summary>
+      <summary
+        >{tr({ en: 'Custom effect (poison, spell, bonus…)', fr: 'Effet personnalisé (poison, sort, bonus…)' })}</summary
+      >
       <div class="custom">
         <input placeholder={tr({ en: 'Name', fr: 'Nom' })} bind:value={custom.name} />
         <select bind:value={custom.target}>
@@ -367,47 +486,67 @@
     </details>
   </section>
 
-  <section class="box">
-    <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
-    <p class="note">{tr({ en: 'Weapons in hand:', fr: 'Armes en main :' })}</p>
-    {#each weapons as w (w.uid)}
-      <label class="check">
-        <input type="checkbox" checked={loadout.weapons.includes(w.uid)} onchange={() => toggleWeapon(w.uid)} />
-        {tr(itemInfo(w).name)}
-      </label>
-      {#if loadout.weapons.includes(w.uid) && rules.weapons.get(w.refId)?.handedness === 'oneHanded'}
-        <label class="check grip">
-          <input type="checkbox" checked={(loadout.twoHanded ?? []).includes(w.uid)} onchange={() => toggleGrip(w.uid)} />
-          {tr({ en: 'held in two hands (Str ×1.5)', fr: 'tenue à deux mains (For ×1,5)' })}
+  {#if app.character.wildShape}
+    <section class="box">
+      <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
+      <p class="note">
+        {tr({
+          en: 'In wild shape: weapons and shield are melded into the form; the natural attacks of the form are used.',
+          fr: 'Sous forme animale : armes et bouclier sont fondus dans la forme ; les attaques naturelles de la forme sont utilisées.',
+        })}
+      </p>
+    </section>
+  {:else}
+    <section class="box">
+      <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
+      <p class="note">{tr({ en: 'Weapons in hand:', fr: 'Armes en main :' })}</p>
+      {#each weapons as w (w.uid)}
+        <label class="check">
+          <input type="checkbox" checked={loadout.weapons.includes(w.uid)} onchange={() => toggleWeapon(w.uid)} />
+          {tr(itemInfo(w).name)}
+        </label>
+        {#if loadout.weapons.includes(w.uid) && rules.weapons.get(w.refId)?.handedness === 'oneHanded'}
+          <label class="check grip">
+            <input
+              type="checkbox"
+              checked={(loadout.twoHanded ?? []).includes(w.uid)}
+              onchange={() => toggleGrip(w.uid)}
+            />
+            {tr({ en: 'held in two hands (Str ×1.5)', fr: 'tenue à deux mains (For ×1,5)' })}
+          </label>
+        {/if}
+      {/each}
+      {#if meleeInHand >= 2}
+        <label class="check">
+          <input
+            type="checkbox"
+            checked={!!loadout.twoWeapon}
+            onchange={(e) =>
+              (app.character.loadouts.find((x) => x.id === loadout.id)!.twoWeapon = e.currentTarget.checked)}
+          />
+          {tr({
+            en: 'Fight with two weapons (first ticked = primary hand)',
+            fr: 'Combattre à deux armes (la première cochée = main directrice)',
+          })}
         </label>
       {/if}
-    {/each}
-    {#if meleeInHand >= 2}
-      <label class="check">
-        <input
-          type="checkbox"
-          checked={!!loadout.twoWeapon}
-          onchange={(e) => (app.character.loadouts.find((x) => x.id === loadout.id)!.twoWeapon = e.currentTarget.checked)}
-        />
-        {tr({ en: 'Fight with two weapons (first ticked = primary hand)', fr: 'Combattre à deux armes (la première cochée = main directrice)' })}
+      <label class="field">
+        {tr({ en: 'Shield strapped on', fr: 'Bouclier au bras' })}
+        <select
+          value={loadout.shield ?? ''}
+          onchange={(e) => {
+            const l = app.character.loadouts.find((x) => x.id === loadout.id)!
+            const v = e.currentTarget.value
+            if (v) l.shield = v
+            else delete l.shield
+          }}
+        >
+          <option value="">—</option>
+          {#each shields as sh (sh.uid)}<option value={sh.uid}>{tr(itemInfo(sh).name)}</option>{/each}
+        </select>
       </label>
-    {/if}
-    <label class="field">
-      {tr({ en: 'Shield strapped on', fr: 'Bouclier au bras' })}
-      <select
-        value={loadout.shield ?? ''}
-        onchange={(e) => {
-          const l = app.character.loadouts.find((x) => x.id === loadout.id)!
-          const v = e.currentTarget.value
-          if (v) l.shield = v
-          else delete l.shield
-        }}
-      >
-        <option value="">—</option>
-        {#each shields as sh (sh.uid)}<option value={sh.uid}>{tr(itemInfo(sh).name)}</option>{/each}
-      </select>
-    </label>
-  </section>
+    </section>
+  {/if}
 </div>
 
 <style>
@@ -664,7 +803,7 @@
     display: none;
   }
   .summary {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
   .strip {
     display: flex;

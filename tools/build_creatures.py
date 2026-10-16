@@ -3,7 +3,8 @@
 
 Scope: every creature on the SRD druid animal companion lists (base list + alternative lists of 4th, 7th, 10th, 13th,
 16th level, https://www.d20srd.org/srd/classes/druid.htm#animalCompanion) and on the Summon Nature's Ally I-IX table
-(https://www.d20srd.org/srd/spells/summonNaturesAllyI.htm).
+(https://www.d20srd.org/srd/spells/summonNaturesAllyI.htm), plus every other SRD animal and plant (druid wild shape forms,
+https://www.d20srd.org/srd/classes/druid.htm#wildShape; WILD_SHAPE below).
 
 English: Andargor SRD SQLite (`monster` stat block columns, `full_text` for the description; `class` Druid full_text and
 `spell` Summon Nature's Ally IX full_text for the lists, which are parsed and must give exactly the hand catalog below).
@@ -129,6 +130,47 @@ CATALOG: dict[str, tuple[str, str, str | None]] = {
     "xorn-average": ("Average Xorn", "xorn.htm", None),
     "xorn-elder": ("Elder Xorn", "xorn.htm", None),
 }
+# Every other SRD creature of type animal or plant (druid wild shape forms, https://www.d20srd.org/srd/classes/druid.htm#wildShape),
+# not on a companion or summon list. The epic SRD (legendary animals, mu spore, elder treant) and the psionic SRD (udoroot)
+# are left out: they have no French SRD entry (WILD_SHAPE_EXCLUDED).
+WILD_SHAPE: dict[str, tuple[str, str, str | None]] = {
+    "baboon": ("Baboon", "baboon.htm", None),
+    "bat": ("Bat", "bat.htm", None),
+    "cat": ("Cat", "cat.htm", None),
+    "donkey": ("Donkey", "donkey.htm", None),
+    "hyena": ("Hyena", "hyena.htm", None),
+    "lizard": ("Lizard", "lizard.htm", None),
+    "manta-ray": ("Manta Ray", "mantaRay.htm", None),
+    "mule": ("Mule", "mule.htm", None),
+    "pony-war": ("Pony, War", "ponyWar.htm", None),
+    "rat": ("Rat", "rat.htm", None),
+    "raven": ("Raven", "raven.htm", None),
+    "snake-tiny-viper": ("Snake, Tiny Viper", "snake.htm", "viperSnake"),
+    "toad": ("Toad", "toad.htm", None),
+    "warhorse-heavy": ("Warhorse, Heavy", "horse.htm", "warhorseHeavy"),
+    "warhorse-light": ("Warhorse, Light", "horse.htm", "warhorseLight"),
+    "weasel": ("Weasel", "weasel.htm", None),
+    # plants
+    "assassin-vine": ("Assassin Vine", "assassinVine.htm", None),
+    "fungus-violet": ("Violet Fungus", "fungus.htm", "violetFungus"),
+    "phantom-fungus": ("Phantom Fungus", "phantomFungus.htm", None),
+    "shambling-mound": ("Shambling Mound", "shamblingMound.htm", None),
+    "tendriculos": ("Tendriculos", "tendriculos.htm", None),
+    "treant": ("Treant", "treant.htm", None),
+}
+# dnd35.db `reference` of the SRD parts without a French SRD counterpart (epic and psionic monsters).
+WILD_SHAPE_EXCLUDED_REFS = ("SRD 3.5 EpicMonsters", "SRD 3.5 PsionicMonsters")
+WILD_SHAPE_TYPES = ("Animal", "Plant")
+# In scope but not built: their stat blocks print "—" where CreatureDef (src/data/types.ts) needs a number. Swarms have no
+# grapple (https://www.d20srd.org/srd/typesSubtypes.htm#swarmSubtype: "cannot grapple") and a swarm attack with no
+# attack roll; the shrieker has no Reflex save (no Dex). They wait for a types.ts change (grapple / saves nullable,
+# a swarm attack kind).
+WILD_SHAPE_BLOCKED: dict[str, str] = {
+    "Bat Swarm": "grapple — and swarm attack without an attack bonus",
+    "Rat Swarm": "grapple — and swarm attack without an attack bonus",
+    "Shrieker": "Reflex save — (no Dex score)",
+}
+CATALOG.update(WILD_SHAPE)
 for _el in ELEMENTS:
     for _k, _v in ELEMENT_SIZES.items():
         CATALOG[f"elemental-{_k}-{_el}"] = (f"{_el.capitalize()} Elemental, {_v}", "elemental.htm", f"{_el}Elemental")
@@ -421,6 +463,16 @@ FR_MATCH = {
 }
 # Extra damage text the French full attack line leaves out (official term of the special attack in the same block).
 EXTRA_FR = {"plus disease": "plus maladie"}
+# French stat block lines that contradict the English SRD (or misprints): id -> [(field, French as printed, fixed)].
+FR_FIELD_ERRATA = {
+    # https://www.d20srd.org/srd/monsters/horse.htm#warhorseHeavy: "Low-light vision, scent" (DRS 33: vision dans le noir)
+    "warhorse-heavy": [("Particularités", "odorat, vision dans le noir", "odorat, vision nocturne")],
+    # https://www.d20srd.org/srd/monsters/toad.htm: "Amphibious, low-light vision" (DRS 33: —); terms from DRS 35-38
+    "toad": [("Particularités", "—", "amphibie, vision nocturne")],
+    # https://www.d20srd.org/srd/monsters/treant.htm: "Damage reduction 10/slashing" (DRS 39: 10/perforant)
+    "treant": [("Particularités", "réduction des dégâts (10/perforant)", "réduction des dégâts (10/tranchant)")],
+    "fungus-violet": [("Particularités", "vison nocturne", "vision nocturne")],  # misprint
+}
 
 
 def mod(score: int | None) -> int:
@@ -547,7 +599,9 @@ def parse_damage(d: str, tail: str | None = None) -> tuple[str, str | None, str 
 
 
 def parse_en_attacks(s: str) -> list[list[dict]]:
-    """Full attack line -> routines (split on 'or') -> attacks."""
+    """Full attack line -> routines (split on 'or') -> attacks. No attack ("—": bat, toad) -> one empty routine."""
+    if s.strip() in ("-", "—", "None"):
+        return [[]]
     out = []
     for routine in split_top(s, ("; or ", " or ")):
         atks = []
@@ -566,6 +620,8 @@ def parse_en_attacks(s: str) -> list[list[dict]]:
 
 
 def parse_fr_attacks(s: str) -> list[list[dict]]:
+    if s.strip() in ("-", "—", "–", ""):
+        return [[]]
     out = []
     for routine in split_top(s, (" ; ou ", "; ou ", " ou ")):
         atks = []
@@ -611,7 +667,15 @@ def en_texts(full_text: str) -> tuple[list[str], list[str]]:
 EN_HTML = {
     "snake-constrictor": ["snake", "constrictor-snake", "constrictor-snake--combat"],
     "snake-constrictor-giant": ["snake", "constrictor-snake", "constrictor-snake--combat", "constrictor-snake-giant"],
-    **{f"snake-{k}-viper": ["snake", "viper-snake", "viper-snake--combat"] for k in ("small", "medium", "large", "huge")},
+    **{f"snake-{k}-viper": ["snake", "viper-snake", "viper-snake--combat"] for k in ("tiny", "small", "medium", "large", "huge")},
+    # Wild shape forms whose dnd35.db full_text holds the whole family page (all the horses, shrieker + violet fungus) or
+    # no bold special ability heads (bat). "id@k": the k-th part of the section split at its stat block tables (horse
+    # combat section: 0 combat text, 1 heavy horse, 2 light horse, 3 heavy warhorse, 4 light warhorse); "file:id" for
+    # a section of another file.
+    "warhorse-heavy": ["horse", "horse--combat@0", "horse--combat@3"],
+    "warhorse-light": ["horse", "horse--combat@0", "horse--combat@4"],
+    "bat": ["bat", "bat--combat"],
+    "fungus-violet": ["monsters/monsters-e-f.html:fungus", "fungus--combat", "violet-fungus", "violet-fungus--combat"],
 }
 EN_HTML_FILE = "monsters/monsters-animals.html"
 
@@ -619,18 +683,26 @@ EN_HTML_FILE = "monsters/monsters-animals.html"
 def en_html_texts(ids: list[str]) -> tuple[list[str], list[str]]:
     """Paragraphs of the given heading sections of the local English SRD HTML, split like en_texts()."""
     from common import ROOT
-    html = (ROOT / "sources" / "srd-v3.5" / EN_HTML_FILE).read_text(encoding="utf-8")
+    fname = EN_HTML_FILE
+    if ":" in ids[0]:  # "file:first heading id"
+        fname, first = ids[0].split(":")
+        ids = [first] + ids[1:]
+    html = (ROOT / "sources" / "srd-v3.5" / fname).read_text(encoding="utf-8")
     desc, special = [], []
     for hid in ids:
         in_special = False
+        hid, _, part = hid.partition("@")
         m = re.search(rf'<h\d id="{re.escape(hid)}">', html)
         assert m, hid
         rest = html[m.end():]
         e = re.search(r"<h\d[ >]", rest)  # the section stops at the next heading of any level
-        sec = re.sub(r"<table.*?</table>", "", rest[:e.start()] if e else rest, flags=re.S)
+        sec = rest[:e.start()] if e else rest
+        if part:  # only the k-th part between the stat block tables
+            sec = re.split(r"<table.*?</table>", sec, flags=re.S)[int(part)]
+        sec = re.sub(r"<table.*?</table>", "", sec, flags=re.S)
         for p in re.findall(r"<p>(.*?)</p>", sec, flags=re.S):
             p = re.sub(r"\s+", " ", p).strip().replace("<strong>", "<b>").replace("</strong>", "</b>")
-            p = re.sub(r"^([A-Z][\w’' ]+ \((?:Ex|Su|Sp)\):)", r"<b>\1</b>", p)
+            p = re.sub(r"^([A-Z][\w’' ]+ \((?:Ex|Su|Sp)\):|Skills:)", r"<b>\1</b>", p)
             in_special = p.startswith("<b>") or (in_special and not p.startswith("<"))
             (special if in_special else desc).append(p)
     return desc, special
@@ -834,7 +906,20 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
     comp = companion_lists()
     sna = summon_lists()
     used = {x for _, _, ids in comp for x in ids} | {x for ids in sna.values() for x in ids}
-    assert used == set(CATALOG), (used ^ set(CATALOG))
+    assert not used & set(WILD_SHAPE), used & set(WILD_SHAPE)
+    # Wild shape scope: every dnd35.db animal / plant outside the epic and psionic SRD is in the catalog.
+    by_name = {v[0]: k for k, v in CATALOG.items()}
+    scope = c.execute(f"select name, reference from monster where type in ({','.join('?' * len(WILD_SHAPE_TYPES))})",
+                      WILD_SHAPE_TYPES).fetchall()
+    scope = [tuple(x) for x in scope]
+    in_scope = {by_name.get(n, n) for n, ref in scope if not ref.startswith(WILD_SHAPE_EXCLUDED_REFS) and n not in WILD_SHAPE_BLOCKED}
+    assert in_scope <= set(CATALOG), in_scope - set(CATALOG)
+    assert used | in_scope == set(CATALOG), (used | in_scope) ^ set(CATALOG)
+    for n, ref in sorted(scope):
+        if ref.startswith(WILD_SHAPE_EXCLUDED_REFS):
+            NOTES.append(f"creatures: {n} ({ref}) left out: epic / psionic SRD, no French SRD entry")
+        elif n in WILD_SHAPE_BLOCKED:
+            NOTES.append(f"creatures: {n} left out: {WILD_SHAPE_BLOCKED[n]} (CreatureDef needs a number)")
 
     # French blocks indexed by (Hit Dice line, ability scores).
     fr_index: dict[tuple, list[dict]] = {}
@@ -877,7 +962,11 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         if cid == "unicorn":
             unicorn_fr = fr
         assert fr or cid == "unicorn-celestial-charger", f"{cid}: no French stat block with HD {r['hit_dice']} and {r['abilities']}"
-        ff = fr["fields"] if fr else {}
+        ff = dict(fr["fields"]) if fr else {}
+        for field, a, b in FR_FIELD_ERRATA.get(cid, []):
+            assert a in ff[field], (cid, field, ff[field])
+            ff[field] = ff[field].replace(a, b)
+            exc.append(f"{cid}: French SRD ({fr['file']}) {field} '{a}' corrected to '{b}' (English SRD)")
         if fr:  # the French block is checked against the English one; differences are reported (English kept)
             babfr, grpfr = ff["Attaque de base/lutte"].split("/")
             sp_en = {k: v for k, v in parse_speed(r["speed"]).items() if k != "flyManeuver"}

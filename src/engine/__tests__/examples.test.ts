@@ -6,6 +6,7 @@ import { migrate } from '../../model/migrate'
 import { compute } from '../compute'
 import { companionAdvancement, companionLevel, computeCreature } from '../creature'
 import { validate } from '../validate'
+import { startWildShape } from '../../ui/wildShape'
 
 describe('examples/druide-niveau-10.json (human druid 10)', () => {
   const c = migrate(structuredClone(druidJson))
@@ -34,5 +35,45 @@ describe('examples/druide-niveau-10.json (human druid 10)', () => {
     })
     expect(wolf.hitDice).toBe(8)
     expect(wolf.special.map((x) => x.id)).toContain('evasion')
+  })
+})
+
+describe('wild shape (druid 10 → dire wolf; PHB/MM errata 2006, docs/rules/rulings-classes.md C4)', () => {
+  const shaped = () => {
+    const c = migrate(structuredClone(druidJson))
+    c.hp.damage = 30
+    startWildShape(c, 'dire-wolf')
+    return c
+  }
+  it('one daily use, 10 hours, heals 10 hp (a night of rest)', () => {
+    const c = shaped()
+    expect(c.dailyUsesSpent['wild-shape']).toBe(1)
+    expect(c.wildShape?.rounds).toBe(6000)
+    expect(c.hp.damage).toBe(20)
+  })
+  it('physical scores, size, natural armor, speed of the form; gear melded; hit points kept', () => {
+    const s = compute(shaped(), rules)
+    expect([s.abilities.str.score.total, s.abilities.dex.score.total, s.abilities.con.score.total]).toEqual([25, 15, 17])
+    expect(s.abilities.wis.score.total).toBe(18) // periapt melded: 16 + 2 increases
+    expect(s.size).toBe('large')
+    expect(s.ac.total).toBe(10 + 2 - 1 + 3) // Dex, Large, natural armor; hide armor and shield melded
+    expect(s.speed.current.ft).toBe(50)
+    expect(s.hpMax.total).toBe(100) // kept despite Con 17
+    expect(s.armorCheckPenalty.total).toBe(0)
+  })
+  it('natural attack: her BAB + the form’s Str + size; sole natural attack 1½ Str', () => {
+    const s = compute(shaped(), rules)
+    expect(s.attacks).toHaveLength(1)
+    expect(s.attacks[0].attack.total).toBe(7 + 7 - 1)
+    expect(s.attacks[0].damageDice).toBe('1d8')
+    expect(s.attacks[0].damage.total).toBe(10)
+    expect(s.grapple.total).toBe(7 + 7 + 4)
+  })
+  it('kept items work again (DM ruling); ending the shape restores the sheet', () => {
+    const c = shaped()
+    c.wildShape!.keepItems.push('periapt')
+    expect(compute(c, rules).abilities.wis.score.total).toBe(20)
+    delete c.wildShape
+    expect(compute(c, rules).ac.total).toBe(20)
   })
 })

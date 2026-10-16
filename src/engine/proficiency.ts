@@ -37,4 +37,6 @@ export function proficiencies(classLevels: Record<string, number>, feats: FeatPi
   return { weapons, armor }
 }
 
-export const proficientWith = (p: Proficiencies, weapon: WeaponDef) => p.weapons.has(weapon.category) || p.weapons.has(weapon.id)
+/** Natural weapons (wild shape, creatures) need no proficiency (https://www.d20srd.org/srd/monsters/intro.htm). */
+export const proficientWith = (p: Proficiencies, weapon: WeaponDef) =>
+  (weapon.category as string) === 'natural' || p.weapons.has(weapon.category) || p.weapons.has(weapon.id)

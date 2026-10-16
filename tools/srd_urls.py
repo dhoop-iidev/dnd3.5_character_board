@@ -58,7 +58,10 @@ MONSTER_PAGES = [f"monsters/{p}.htm" for p in (
     "elemental", "elephant", "genie", "girallon", "griffon", "hawk", "hippogriff", "horse", "invisibleStalker", "leopard",
     "lion", "lizardMonitor", "monkey", "octopus", "octopusGiant", "owl", "owlGiant", "pony", "porpoise", "rhinoceros",
     "roc", "salamander", "satyr", "seaCat", "shark", "snake", "sprite", "squid", "squidGiant", "thoqqua", "tiger",
-    "tojanida", "unicorn", "whale", "wolf", "wolverine", "xorn")]
+    "tojanida", "unicorn", "whale", "wolf", "wolverine", "xorn",
+    # wild shape forms (animals and plants not on the druid lists)
+    "assassinVine", "baboon", "bat", "cat", "donkey", "fungus", "hyena", "lizard", "mantaRay", "mule", "phantomFungus",
+    "ponyWar", "rat", "raven", "shamblingMound", "swarm", "tendriculos", "toad", "treant", "weasel")]
 PAGES += MONSTER_PAGES
 
 _SMALL = {"of", "and", "or", "the", "in", "a", "an", "to", "by", "with", "on", "for", "than", "at"}

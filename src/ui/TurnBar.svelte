@@ -31,6 +31,14 @@
       if (x.rounds <= 0) expired.push(tr(rules.creatures.get(x.creatureId)?.name ?? { en: '?', fr: '?' }))
     }
     if (c.summons) c.summons = c.summons.filter((x) => x.rounds > 0)
+    // Wild shape: 1 hour per druid level.
+    if (c.wildShape) {
+      c.wildShape.rounds -= 1
+      if (c.wildShape.rounds <= 0) {
+        expired.push(tr({ en: 'wild shape', fr: 'forme animale' }))
+        delete c.wildShape
+      }
+    }
     if (c.martial) advanceManeuvers(c.martial, rules, 'startOfTurn')
     message = expired.length ? tr({ en: 'Ended: ', fr: 'Terminé : ' }) + expired.join(', ') : ''
   }
@@ -67,6 +75,10 @@
 </section>
 
 <style>
+  /* Same spacing as the grid of boxes below it. */
+  .turn {
+    margin-bottom: 1.25rem;
+  }
   .row {
     display: flex;
     flex-wrap: wrap;

@@ -347,6 +347,10 @@ MONSTER_FEATS = {"multiattack", "flyby-attack", "improved-natural-attack", "awes
                  "ability-focus", "multiweapon-fighting", "snatch"}
 
 
+# Creatures whose stat block has no attack at all (Full Attack "—"): attacks = [].
+NO_ATTACK = {"bat", "toad"}
+
+
 def creature(w, x, feat_ids):
     """CreatureDef (types.ts)."""
     req = {"id", "name", "size", "type", "typeText", "hitDice", "hp", "initiative", "speed", "ac", "bab", "grapple",
@@ -380,7 +384,7 @@ def creature(w, x, feat_ids):
         err(w, f"bad ac {ac}")
     elif ac["total"] != 10 + ac["natural"] + ac["dexMod"] + ac["sizeMod"] + ac["other"]:
         err(w, f"AC total != 10 + components {ac}")
-    if not x["attacks"]:
+    if not x["attacks"] and x["id"] not in NO_ATTACK:
         err(w, "no attack")
     if "altAttacks" in x and (not isinstance(x["altAttacks"], list) or not all(x["altAttacks"])):
         err(w, "altAttacks must be a list of non-empty routines")
@@ -494,6 +498,34 @@ def spell_lists_complete(spells):
         got = [sum(1 for x in spells if x["level"].get(lst) == lv) for lv in range(len(counts))]
         if got != counts:
             err("spells.json", f"{lst} spells per level {got} != SRD list {counts}")
+
+
+# Wild shape forms (https://www.d20srd.org/srd/classes/druid.htm#wildShape): every animal and plant of dnd35.db is in
+# creatures.json, except the epic / psionic SRD (no French SRD entry) and the stat blocks with a "—" where CreatureDef
+# needs a number (build_creatures.WILD_SHAPE_BLOCKED). Counts of the core SRD (MM) animals and plants.
+WILD_SHAPE_EXCLUDED_REFS = ("SRD 3.5 EpicMonsters", "SRD 3.5 PsionicMonsters")
+WILD_SHAPE_BLOCKED = {"Bat Swarm", "Rat Swarm", "Shrieker"}
+WILD_SHAPE_COUNTS = {"animal": 79, "plant": 6}
+
+
+def wild_shape_complete(creatures):
+    names = {x["name"]["en"] for x in creatures}
+    got = {t: sum(1 for x in creatures if x["type"] == t) for t in WILD_SHAPE_COUNTS}
+    if got != WILD_SHAPE_COUNTS:
+        err("creatures.json", f"animals/plants {got} != {WILD_SHAPE_COUNTS}")
+    db_path = ROOT / "sources" / "dnd35.db"
+    if not db_path.exists():
+        WARN.append("sources/dnd35.db not found: animal/plant completeness against the database skipped")
+        return
+    import sqlite3
+    con = sqlite3.connect(db_path)
+    for name, typ, ref in con.execute("select name, type, reference from monster where type in ('Animal', 'Plant')"):
+        if ref.startswith(WILD_SHAPE_EXCLUDED_REFS) or name in WILD_SHAPE_BLOCKED:
+            if name in names:
+                err("creatures.json", f"{name}: excluded / blocked but present")
+        elif name not in names:
+            err("creatures.json", f"{typ.lower()} {name} (dnd35.db) missing")
+    con.close()
 
 
 def check_ids(name, items):
@@ -661,6 +693,7 @@ def main():
     check_ids("creatures.json", files["creatures.json"])
     for x in files["creatures.json"]:
         creature(f"creature {x['id']}", x, feat_ids)
+    wild_shape_complete(files["creatures.json"])
     creature_lists(files["companions.json"], files["summon-lists.json"], {x["id"] for x in files["creatures.json"]},
                    {x["id"] for x in files["spells.json"]})
 
@@ -790,7 +823,18 @@ def spot_checks(files, custom):
            and sp["cure-light-wounds"]["name"]["fr"] == "Soins légers")
     cr = by["creatures.json"]
     wolf = cr["wolf"]
-    expect("115 creatures (companion lists + Summon Nature's Ally I-IX)", len(cr) == 115)
+    expect("137 creatures (companion lists + Summon Nature's Ally I-IX: 115; other animals and plants: 22)", len(cr) == 137)
+    wh = cr["warhorse-heavy"]
+    expect("heavy warhorse: Cheval de guerre lourd, 4d8+12, 2 hooves +6 1d6+4 primary, bite +1 1d4+2 secondary, #warhorseHeavy",
+           wh["name"]["fr"].startswith("Cheval de guerre lourd") and wh["hp"] == 30
+           and [(a["count"], a["bonus"], a["damage"], a["role"]) for a in wh["attacks"]] == [(2, 6, "1d6+4", "primary"), (1, 1, "1d4+2", "secondary")]
+           and wh["source"]["srdUrl"].endswith("horse.htm#warhorseHeavy"))
+    tr_ = cr["treant"]
+    expect("treant: Sylvanien, Huge plant, 2 slams +12 2d6+9, DR 10/tranchant (French SRD 'perforant' corrected)",
+           tr_["name"]["fr"] == "Sylvanien" and tr_["type"] == "plant" and tr_["size"] == "huge"
+           and (tr_["attacks"][0]["count"], tr_["attacks"][0]["bonus"], tr_["attacks"][0]["damage"]) == (2, 12, "2d6+9")
+           and "10/tranchant" in tr_["specialQualities"]["fr"])
+    expect("bat and toad: no attack", cr["bat"]["attacks"] == [] and cr["toad"]["attacks"] == [])
     expect("wolf: Loup, 2d8+4 (13 hp), AC 14/12/12, bite +3 1d6+1 (primary, 1.5 Str), trip, Track + Weapon Focus",
            wolf["name"]["fr"] == "Loup" and wolf["hitDice"] == {"count": 2, "die": 8, "bonus": 4} and wolf["hp"] == 13
            and (wolf["ac"]["total"], wolf["ac"]["touch"], wolf["ac"]["flatFooted"]) == (14, 12, 12)

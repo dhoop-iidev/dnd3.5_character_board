@@ -481,6 +481,205 @@
     }
   },
   {
+    "id": "assassin-vine",
+    "name": {
+      "en": "Assassin Vine",
+      "fr": "Liane chasseresse"
+    },
+    "size": "large",
+    "type": "plant",
+    "typeText": {
+      "en": "Large plant",
+      "fr": "Plante de taille G"
+    },
+    "hitDice": {
+      "count": 4,
+      "die": 8,
+      "bonus": 12
+    },
+    "hp": 30,
+    "initiative": 0,
+    "speed": {
+      "land": 5
+    },
+    "ac": {
+      "total": 15,
+      "touch": 9,
+      "flatFooted": 15,
+      "natural": 6,
+      "dexMod": 0,
+      "sizeMod": -1,
+      "other": 0
+    },
+    "bab": 3,
+    "grapple": 12,
+    "attacks": [
+      {
+        "name": {
+          "en": "Slam",
+          "fr": "Coup"
+        },
+        "bonus": 7,
+        "damage": "1d6+7",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 10,
+    "reach": 10,
+    "saves": {
+      "fort": 7,
+      "ref": 1,
+      "will": 2
+    },
+    "abilities": {
+      "str": 20,
+      "dex": 10,
+      "con": 16,
+      "int": null,
+      "wis": 13,
+      "cha": 9
+    },
+    "skills": {
+      "en": "—",
+      "fr": "—"
+    },
+    "feats": {
+      "en": "—",
+      "fr": "—"
+    },
+    "featIds": [],
+    "specialAttacks": {
+      "en": "Constrict 1d6+7, entangle, improved grab",
+      "fr": "constriction (1d6+7), enchevêtrement, étreinte"
+    },
+    "specialQualities": {
+      "en": "Blindsight 30 ft., camouflage, immunity to electricity, low-light vision, plant traits, cold resistance 10, fire resistance 10",
+      "fr": "camouflage, immunité contre l’électricité, résistance au feu et au froid (10), plante, vision aveugle (9 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Constrict (Ex):</b> An assassin vine deals 1d6+7 points of damage with a successful grapple check.</p><p><b>Entangle (Su):</b> An assassin vine can animate plants within 30 feet of itself as a free action (Ref DC 13 partial).</p><p>The effect lasts until the vine dies or decides to end it (also a free action). The save DC is Wisdom-based. The ability is otherwise similar to <i>entangle</i> (caster level 4th).</p><p><b>Improved Grab (Ex):</b> To use this ability, an assassin vine must hit with its slam attack.</p><p>It can then attempt to start a grapple as a free action without provoking an attack of opportunity.</p><p>If it wins the grapple check, it establishes a hold and can constrict.</p><p><b>Blindsight (Ex):</b> Assassin vines have no visual organs but can ascertain all foes within 30 feet using sound, scent, and vibration.</p><p><b>Camouflage (Ex):</b> Since an assassin vine looks like a normal plant when at rest, it takes a DC 20 Spot check to notice it before it attacks.</p><p>Anyone with ranks in Survival or Knowledge (nature) can use one of those skills instead of Spot to notice the plant. Dwarves can use stonecunning to notice the subterranean version.</p>",
+      "fr": "<p><b>Constriction (Ext).</b> Une liane chasseresse inflige 1d6+7 points de dégâts chaque fois qu’elle remporte un test de lutte opposé.</p><p><b>Enchevêtrement (Sur).</b> La liane chasseresse peut animer les plantes qui se trouvent à 9 mètres ou moins d’elle par une action libre (jet de Réflexes DD 13 pour effet partiel). L’effet se poursuit jusqu’à la mort de la liane, à moins qu’elle ne décide d’y mettre un terme par une autre action libre. Le DD de sauvegarde est lié à la Sagesse. Ce pouvoir est par ailleurs similaire au sort enchevêtrement (niveau 4 de lanceur de sorts).</p><p><b>Étreinte (Ext).</b> Pour pouvoir utiliser ce pouvoir, la plante doit réussir une attaque de coup. Elle peut alors tenter d’engager une lutte par une action libre sans provoquer d’attaque d’opportunité.. Si elle remporte le test de lutte, elle agrippe son adversaire et peut utiliser son pouvoir de constriction.</p><p><b>Camouflage (Ext).</b> Comme la liane chasseresse a l’air d’une plante comme les autres tant qu’elle reste immobile, il faut réussir un test de Détection (DD 20) pour la remarquer avant qu’elle n’attaque. Tout personnage maîtrisant les compétences Survie ou Connaissances (nature) peut se servir d’une de ces compétences à la place de Détection. Les nains peuvent utiliser leur faculté de connaissance de la pierre pour repérer une liane chasseresse souterraine.</p><p><b>Vision aveugle (Ext).</b> Bien que ne possédant pas d’organes visuels, la liane chasseresse détecte les créatures distantes de 9 mètres ou moins à l’aide de son ouïe, de son odorat et des vibrations que le sol lui transmet.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "3",
+    "text": {
+      "en": "<p>The assassin vine is a semi-mobile plant that collects its own grisly fertilizer by grabbing and crushing animals and depositing the carcasses near its roots.</p><p>A mature plant consists of a main vine, about 20 feet long. Smaller vines up to 5 feet long branch off from the main vine about every 6 inches. These small vines bear clusters of leaves, and in late summer they produce bunches of small fruits that resemble wild grapes. The fruit is tough and has a hearty but bitter flavor. Assassin vine berries make a heady wine.</p><p>An assassin vine can move about, albeit very slowly, but usually stays put unless it needs to seek prey in a new vicinity.</p><p>A subterranean version of the assassin vine grows near hot springs, volcanic vents, and other sources of thermal energy. These plants have thin, wiry stems and gray leaves shot through with silver, brown, and white veins so that they resemble mineral deposits. An assassin vine growing underground usually generates enough offal to support a thriving colony of mushrooms and other fungi, which spring up around the plant and help conceal it.</p><p>An assassin vine uses simple tactics:</p><p>It lies still until prey comes within reach, then attacks. It uses its entangle ability both to catch prey and to deter counterattacks.</p>",
+      "fr": "<p>La liane chasseresse est une plante semi-mobile qui se procure l’engrais dont elle a besoin en plaçant les créatures qu’elle tue près de ses racines, où elles se décomposent.</p><p>Cette plante est constituée d’une liane principale, longue d’à peu près 6 mètres, et de vrilles, longues de 1,50 mètre, situées tous les 15 centimètres environ. Ces dernières portent des feuilles et l’été, elles produisent des fruits qui pourraient passer pour des grappes de raisin. La liane est couverte d’une écorce noueuse qui lui donne l’aspect d’un pied de vigne géant. Son raisin a un goût très fort, mais beaucoup de gens pensent qu’il est toxique. On en tire un vin qui saoule très rapidement.</p><p>Bien qu’une liane chasseresse soit capable de se déplacer, elle est excessivement lente et ne le fait que si elle a absolument besoin de changer de territoire.</p><p>Une variété souterraine de la liane chasseresse pousse à proximité des eaux chaudes, cheminées de volcans et autres sources d’énergie thermique. Ses vrilles sont plus fines que celles de la plante de surface, et ses feuilles grises sont parsemées de traînées brunes, blanches ou argentées. Quand elle ne bouge pas, il est aisé de la prendre pour un dépôt minéral. Elle génère suffisamment de déchets pour permettre le développement de champignons, mousses et autre parasites, qui aident à la cacher.</p><p>La liane chasseresse applique une tactique basique, mais éprouvée : elle reste immobile jusqu’à ce que son gibier passe à portée, puis se détend subitement. Elle utilise son pouvoir d’enchevêtrement pour piéger ses proies et pour gêner leur éventuelle contre-attaque.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/assassinVine.htm",
+      "frRef": "DRS 38 (monstres H-M)"
+    }
+  },
+  {
+    "id": "baboon",
+    "name": {
+      "en": "Baboon",
+      "fr": "Babouin"
+    },
+    "size": "medium",
+    "type": "animal",
+    "typeText": {
+      "en": "Medium animal",
+      "fr": "Animal de taille M"
+    },
+    "hitDice": {
+      "count": 1,
+      "die": 8,
+      "bonus": 1
+    },
+    "hp": 5,
+    "initiative": 2,
+    "speed": {
+      "land": 40,
+      "climb": 30
+    },
+    "ac": {
+      "total": 13,
+      "touch": 12,
+      "flatFooted": 11,
+      "natural": 1,
+      "dexMod": 2,
+      "sizeMod": 0,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": 2,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 2,
+        "damage": "1d6+3",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 3,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 15,
+      "dex": 14,
+      "con": 12,
+      "int": 2,
+      "wis": 12,
+      "cha": 4
+    },
+    "skills": {
+      "en": "Climb +10, Listen +5, Spot +5",
+      "fr": "Détection +5, Escalade +10, Perception auditive +5"
+    },
+    "feats": {
+      "en": "Alertness",
+      "fr": "Vigilance"
+    },
+    "featIds": [
+      "alertness"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> Baboons have a +8 racial bonus on Climb checks and can always choose to take 10 on Climb checks, even if rushed or threatened.</p>",
+      "fr": "<p><b>Compétences.</b> Les babouins bénéficient d’un bonus racial de +8 aux tests d’Escalade. Ils peuvent toujours choisir de faire 10 à ce type de test, même s’ils sont pressés ou menacés.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/2",
+    "text": {
+      "en": "<p>Baboons are powerful and aggressive primates adapted to life on the ground. They prefer open spaces but climb trees to find safe places to rest overnight. A typical baboon is the size of a big dog.</p><p>Males can be 2 to 4 feet long and weigh as much as 90 pounds.</p><p>Baboons usually attack in groups.</p>",
+      "fr": "<p>Le babouin est un singe puissant et agressif, qui vit communément sur la terre ferme. Bien que préférant les espaces dégagés, il retourne s’abriter dans les arbres à la tombée de la nuit. La plupart des babouins font la taille d’un gros chien. Les mâles mesurent entre 60 centimètres et 1,20 mètre de long. Ils peuvent peser près de 45 kilos.</p><p>Généralement, les babouins attaquent en groupe.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/baboon.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
     "id": "badger",
     "name": {
       "en": "Badger",
@@ -592,6 +791,94 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/badger.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "bat",
+    "name": {
+      "en": "Bat",
+      "fr": "Chauve-souris"
+    },
+    "size": "diminutive",
+    "type": "animal",
+    "typeText": {
+      "en": "Diminutive animal",
+      "fr": "Animal de taille Min"
+    },
+    "hitDice": {
+      "count": 0.25,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 1,
+    "initiative": 2,
+    "speed": {
+      "land": 5,
+      "fly": 40,
+      "flyManeuver": "good"
+    },
+    "ac": {
+      "total": 16,
+      "touch": 16,
+      "flatFooted": 14,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 4,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -17,
+    "attacks": [],
+    "space": 1,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 4,
+      "will": 2
+    },
+    "abilities": {
+      "str": 1,
+      "dex": 15,
+      "con": 10,
+      "int": 2,
+      "wis": 14,
+      "cha": 4
+    },
+    "skills": {
+      "en": "Hide +14, Listen +8*, Move Silently +6, Spot +8*",
+      "fr": "Déplacement silencieux +6, Détection +8*, Discrétion +14, Perception auditive +8*"
+    },
+    "feats": {
+      "en": "Alertness",
+      "fr": "Vigilance"
+    },
+    "featIds": [
+      "alertness"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Blindsense 20 ft., low-light vision",
+      "fr": "perception aveugle (6 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Blindsense (Ex):</b> A bat notices and locates creatures within 20 feet. Opponents still have 100% concealment against a creature with blindsense.</p><p><b>Skills:</b> *A bat has a +4 racial bonus on Spot and Listen checks. These bonuses are lost if its blindsense is negated.</p>",
+      "fr": "<p><b>Perception aveugle (Ext).</b> La chauve-souris utilise un sonar pour localiser les créatures distantes de 6 mètres ou moins. Les adversaires bénéficient d’un camouflage total face à cette perception aveugle.</p><p><b>Compétences.</b> * La chauve-souris bénéficie d’un bonus racial de +4 aux tests de Détection et de Perception auditive. Elle perd cet avantage quand elle ne peut pas se servir de son sonar.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/10",
+    "text": {
+      "en": "<p>Bats are nocturnal flying mammals. The statistics presented here describe small, insectivorous bats.</p>",
+      "fr": "<p>La chauve-souris est un mammifère volant de mœurs nocturnes. Le profil présenté décrit les petites espèces, qui se nourrissent d’insectes.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/bat.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -1240,6 +1527,119 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/camel.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "cat",
+    "name": {
+      "en": "Cat",
+      "fr": "Chat"
+    },
+    "size": "tiny",
+    "type": "animal",
+    "typeText": {
+      "en": "Tiny animal",
+      "fr": "Animal de taille TP"
+    },
+    "hitDice": {
+      "count": 0.5,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 2,
+    "initiative": 2,
+    "speed": {
+      "land": 30
+    },
+    "ac": {
+      "total": 14,
+      "touch": 14,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -12,
+    "attacks": [
+      {
+        "name": {
+          "en": "Claws",
+          "fr": "Griffes"
+        },
+        "bonus": 4,
+        "damage": "1d2-4",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "dex",
+        "strDamageFactor": 1
+      },
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": -1,
+        "damage": "1d3-4",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 3,
+      "dex": 15,
+      "con": 10,
+      "int": 2,
+      "wis": 12,
+      "cha": 7
+    },
+    "skills": {
+      "en": "Balance +10, Climb +6, Hide +14*, Jump +10, Listen +3, Move Silently +6, Spot +3",
+      "fr": "Déplacement silencieux +6, Détection +3, Discrétion +14*, Équilibre +10, Escalade +6, Perception auditive +3, Saut +10"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> Cats have a +4 racial bonus on Climb, Hide, and Move Silently checks and a +8 racial bonus on Jump checks. Cats have a +8 racial bonus on Balance checks. They use their Dexterity modifier instead of their Strength modifier for Climb and Jump checks. *In areas of tall grass or heavy undergrowth, the Hide bonus rises to +8.</p>",
+      "fr": "<p><b>Compétences.</b> Le chat bénéficie d’un bonus racial de +4 aux tests de Déplacement silencieux, de Discrétion et d’Escalade, ainsi que d’un bonus racial de +8 aux tests d’Équilibre. Il utilise son modificateur de Dextérité et non celui de Force pour ces derniers. * Dans les épais fourrés ou les hautes herbes, le bonus aux tests de Discrétion passe à +8.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/4",
+    "text": {
+      "en": "<p>The statistics presented here describe a common housecat.</p><p>Cats prefer to sneak up on their prey.</p>",
+      "fr": "<p>Le profil présenté dans cet appendice est celui des chats domestiques, pas des chats sauvages.</p><p>Le chat aime s’approcher discrètement de sa proie.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/cat.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -3342,6 +3742,106 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/dogRiding.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "donkey",
+    "name": {
+      "en": "Donkey",
+      "fr": "Âne"
+    },
+    "size": "medium",
+    "type": "animal",
+    "typeText": {
+      "en": "Medium animal",
+      "fr": "Animal de taille M"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 8,
+      "bonus": 2
+    },
+    "hp": 11,
+    "initiative": 1,
+    "speed": {
+      "land": 30
+    },
+    "ac": {
+      "total": 13,
+      "touch": 11,
+      "flatFooted": 12,
+      "natural": 2,
+      "dexMod": 1,
+      "sizeMod": 0,
+      "other": 0
+    },
+    "bab": 1,
+    "grapple": 1,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 1,
+        "damage": "1d2",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 4,
+      "ref": 4,
+      "will": 0
+    },
+    "abilities": {
+      "str": 10,
+      "dex": 13,
+      "con": 12,
+      "int": 2,
+      "wis": 11,
+      "cha": 4
+    },
+    "skills": {
+      "en": "Balance +3, Listen +3, Spot +2",
+      "fr": "Détection +2, Équilibre +3, Perception auditive +3"
+    },
+    "feats": {
+      "en": "Endurance",
+      "fr": "Endurance"
+    },
+    "featIds": [
+      "endurance"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> Donkeys have a +2 racial bonus on Balance checks.</p>",
+      "fr": "<p><b>Charge transportable.</b> Pour un âne, les charges se répartissent de la façon suivante : légère jusqu’à 25 kilos, intermédiaire de 25 à 50 kilos et lourde de 50 à 75 kilos. Il peut tirer jusqu’à 375 kilos.</p><p><b>Compétences.</b> L’âne bénéficie d’un bonus racial de +2 aux tests d’Équilibre.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/6",
+    "text": {
+      "en": "<p>These long-eared, horselike creatures are surefooted and sturdy. The statistics presented here could also describe burros.</p><p><b>Carrying Capacity:</b> A light load for a donkey is up to 50 pounds; a medium load, 51-100 pounds; and a heavy load, 101-150 pounds. A donkey can drag 750 pounds.</p><p>A donkey bites only when it has no way to escape.</p>",
+      "fr": "<p>Cet équidé à longues oreilles est résistant et a le pied extrêmement sûr.</p><p>Un âne mord uniquement quand il ne peut fuir.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/donkey.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -6373,6 +6873,108 @@
     }
   },
   {
+    "id": "fungus-violet",
+    "name": {
+      "en": "Violet Fungus",
+      "fr": "Thallophyte violette"
+    },
+    "size": "medium",
+    "type": "plant",
+    "typeText": {
+      "en": "Medium plant",
+      "fr": "Plante de taille M"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 8,
+      "bonus": 6
+    },
+    "hp": 15,
+    "initiative": -1,
+    "speed": {
+      "land": 10
+    },
+    "ac": {
+      "total": 13,
+      "touch": 9,
+      "flatFooted": 13,
+      "natural": 4,
+      "dexMod": -1,
+      "sizeMod": 0,
+      "other": 0
+    },
+    "bab": 1,
+    "grapple": 3,
+    "attacks": [
+      {
+        "name": {
+          "en": "Tentacles",
+          "fr": "Tentacules"
+        },
+        "bonus": 3,
+        "damage": "1d6+2",
+        "extra": {
+          "en": "plus poison",
+          "fr": "et venin"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 4,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      }
+    ],
+    "space": 5,
+    "reach": 10,
+    "saves": {
+      "fort": 6,
+      "ref": -1,
+      "will": 0
+    },
+    "abilities": {
+      "str": 14,
+      "dex": 8,
+      "con": 16,
+      "int": null,
+      "wis": 11,
+      "cha": 9
+    },
+    "skills": {
+      "en": "—",
+      "fr": "—"
+    },
+    "feats": {
+      "en": "—",
+      "fr": "—"
+    },
+    "featIds": [],
+    "specialAttacks": {
+      "en": "Poison",
+      "fr": "venin"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, plant traits",
+      "fr": "plante, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Poison (Ex):</b> Injury, Fortitude DC 14, initial and secondary damage 1d4 Str and 1d4 Con. The save DC is Constitution-based.</p>",
+      "fr": "<p><b>Venin (Ext).</b> Blessure, jet de Vigueur (DD 14) ; effet initial et secondaire : affaiblissement temporaire de 1d4 points de Force et de Constitution. Le DD de sauvegarde est lié à la Constitution.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "3",
+    "text": {
+      "en": "<p>Shriekers and violet fungi often work together to attract and kill prey. When the shriekers’ hellish racket attracts a curious creature, the violet fungus tries to kill it. Both creatures enjoy the fruits of a successful hunt.</p><p>Violet fungi resemble shriekers and are often found growing among them.</p><p>A violet fungi’s coloration ranges from purple overall to dull gray or violet covered with purple spots.</p><p>A violet fungus flails about with its tentacles at living creatures that come within its reach.</p>",
+      "fr": "<p>Criards et thallophytes violettes s’associent souvent pour se nourrir. Le tintamarre produit par les premiers attire les proies, que les secondes éliminent. Une telle association est extrêmement bénéfique pour les deux espèces.</p><p>La thallophyte violette ressemble au criard, et il n’est pas rare que les deux végétaux poussent ensemble.</p><p>Elle peut être intégralement violette, ou d’un gris terne parsemé de taches mauves ou violettes.</p><p>Les tentacules de la thallophyte violette frappent tous les êtres vivants qui commettent l’erreur de s’approcher d’un peu trop près.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/fungus.htm#violetFungus",
+      "frRef": "DRS 40 (monstres T-Z)"
+    }
+  },
+  {
     "id": "girallon",
     "name": {
       "en": "Girallon",
@@ -7147,6 +7749,106 @@
     }
   },
   {
+    "id": "hyena",
+    "name": {
+      "en": "Hyena",
+      "fr": "Hyène"
+    },
+    "size": "medium",
+    "type": "animal",
+    "typeText": {
+      "en": "Medium animal",
+      "fr": "Animal de taille M"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 8,
+      "bonus": 4
+    },
+    "hp": 13,
+    "initiative": 2,
+    "speed": {
+      "land": 50
+    },
+    "ac": {
+      "total": 14,
+      "touch": 12,
+      "flatFooted": 12,
+      "natural": 2,
+      "dexMod": 2,
+      "sizeMod": 0,
+      "other": 0
+    },
+    "bab": 1,
+    "grapple": 3,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 3,
+        "damage": "1d6+3",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 5,
+      "ref": 5,
+      "will": 1
+    },
+    "abilities": {
+      "str": 14,
+      "dex": 15,
+      "con": 15,
+      "int": 2,
+      "wis": 13,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Hide +3*, Listen +6, Spot +4",
+      "fr": "Détection +4, Discrétion +3*, Perception auditive +6"
+    },
+    "feats": {
+      "en": "Alertness",
+      "fr": "Vigilance"
+    },
+    "featIds": [
+      "alertness"
+    ],
+    "specialAttacks": {
+      "en": "Trip",
+      "fr": "croc-en-jambe"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Trip (Ex):</b> A hyena that hits with its bite attack can attempt to trip the opponent (+2 check modifier) as a free action without making a touch attack or provoking an attack of opportunity. If the attempt fails, the opponent cannot react to trip the hyena.</p><p><b>Skills:</b> *Hyenas have a +4 racial bonus on Hide checks in areas of tall grass or heavy undergrowth.</p>",
+      "fr": "<p><b>Croc-en-jambe (Ext).</b> Une hyène touchant sa proie à l’aide de son attaque de morsure peut tenter de la faire tomber comme si elle lui faisait un croc-en-jambe (modificateur de +2 au test). Cette action libre ne nécessite aucune attaque de contact de sa part ; elle ne l’expose pas non plus à une attaque d’opportunité. Même si la tentative échoue, l’adversaire ne peut pas faire de croc-en-jambe au guépard.</p><p><b>Compétence.</b> * La hyène bénéficie d’un bonus racial de +4 aux tests de Discrétion dans les fourrés ou les hautes herbes.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1",
+    "text": {
+      "en": "<p>Hyenas are pack hunters infamous for their cunning and their unnerving vocalizations. The statistics presented here are for a striped hyena, which is about 3 feet long and weighs about 120 pounds.</p><p>A favorite tactic is to send a few individuals against the foe's front while the rest of the pack circles and attacks from the flanks or rear.</p>",
+      "fr": "<p>Les hyènes chassent en meute. Elles sont connues pour leur ingéniosité et pour les jappements stressants qu’elles poussent. Le profil proposé ci-dessus convient à la hyène rayée, longue de 90 centimètres à 1,50 mètre, pour un poids de 60 kilos.</p><p>La tactique préférée des hyènes consiste à envoyer quelques individus de front pendant que le reste de la meute encercle et attaque depuis les flancs et l’arrière.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/hyena.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
     "id": "invisible-stalker",
     "name": {
       "en": "Invisible Stalker",
@@ -7610,6 +8312,107 @@
     }
   },
   {
+    "id": "lizard",
+    "name": {
+      "en": "Lizard",
+      "fr": "Lézard"
+    },
+    "size": "tiny",
+    "type": "animal",
+    "typeText": {
+      "en": "Tiny animal",
+      "fr": "Animal de taille TP"
+    },
+    "hitDice": {
+      "count": 0.5,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 2,
+    "initiative": 2,
+    "speed": {
+      "land": 20,
+      "climb": 20
+    },
+    "ac": {
+      "total": 14,
+      "touch": 14,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -12,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 4,
+        "damage": "1d4-4",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 3,
+      "dex": 15,
+      "con": 10,
+      "int": 1,
+      "wis": 12,
+      "cha": 2
+    },
+    "skills": {
+      "en": "Balance +10, Climb +12, Hide +10, Listen +3, Spot +3",
+      "fr": "Détection +3, Discrétion +10, Équilibre +10, Escalade +12, Perception auditive +3"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision",
+      "fr": "vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> Lizards have a +8 racial bonus on Balance checks. They also have a +8 racial bonus on Climb checks and can always choose to take 10 on Climb checks, even if rushed or threatened. Lizards use their Dexterity modifier instead of their Strength modifier for Climb checks.</p>",
+      "fr": "<p><b>Compétences.</b> Le lézard bénéficie d’un bonus de +8 aux tests d’Équilibre. Il bénéficie également d’un bonus racial de +8 aux tests d’Escalade et peut toujours choisir de faire 10 à ce type de test, même s’il est pressé ou menacé, et il exploite son modificateur de Dextérité (et non celui de Force).</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/6",
+    "text": {
+      "en": "<p>The statistics presented here describe small, nonvenomous lizards of perhaps a foot or two in length, such as an iguana.</p><p>Lizards prefer flight to combat, but they can bite painfully if there is no other option.</p>",
+      "fr": "<p>Le profil détaillé dans cet appendice concerne les petits lézards non venimeux dont la taille varie entre 30 et 60 centimètres de long (l’iguane, par exemple).</p><p>Le lézard préfère fuir le combat, mais il mord violemment quand il n’a d’autre choix.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/lizard.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
     "id": "lizard-monitor",
     "name": {
       "en": "Lizard, Monitor",
@@ -7708,6 +8511,108 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/lizardMonitor.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "manta-ray",
+    "name": {
+      "en": "Manta Ray",
+      "fr": "Raie manta"
+    },
+    "size": "large",
+    "type": "animal",
+    "typeText": {
+      "en": "Large animal (aquatic)",
+      "fr": "Animal (aquatique) de taille G"
+    },
+    "hitDice": {
+      "count": 4,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 18,
+    "initiative": 0,
+    "speed": {
+      "land": 0,
+      "swim": 30
+    },
+    "ac": {
+      "total": 12,
+      "touch": 9,
+      "flatFooted": 12,
+      "natural": 3,
+      "dexMod": 0,
+      "sizeMod": -1,
+      "other": 0
+    },
+    "bab": 3,
+    "grapple": 9,
+    "attacks": [
+      {
+        "name": {
+          "en": "Ram",
+          "fr": "Coup de tête"
+        },
+        "bonus": -1,
+        "damage": "1d6+1",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 10,
+    "reach": 5,
+    "saves": {
+      "fort": 4,
+      "ref": 4,
+      "will": 2
+    },
+    "abilities": {
+      "str": 15,
+      "dex": 11,
+      "con": 10,
+      "int": 1,
+      "wis": 12,
+      "cha": 2
+    },
+    "skills": {
+      "en": "Listen +7, Spot +6, Swim +10",
+      "fr": "Détection +6, Natation +10, Perception auditive +7"
+    },
+    "feats": {
+      "en": "Alertness, Endurance",
+      "fr": "Endurance, Vigilance"
+    },
+    "featIds": [
+      "alertness",
+      "endurance"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision",
+      "fr": "vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> A manta ray has a +8 racial bonus on any Swim check to perform some special action or avoid a hazard. It can always choose to take 10 on a Swim check, even if distracted or endangered. It can use the run action while swimming, provided it swims in a straight line.</p>",
+      "fr": "<p><b>Compétences.</b> La raie manta bénéficie d’un bonus racial de +8 aux tests de Natation visant à effectuer une tâche spéciale ou à éviter un danger. Elle peut toujours choisir de faire 10 à ce type de test, même si elle est distraite ou en danger. Quand elle nage en ligne droite, elle peut recourir à l’action de course.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1",
+    "text": {
+      "en": "<p>These fish are nonaggressive and generally avoid contact with other creatures. They filter plankton and similar small organisms from the water through their gaping, toothless maws.</p><p>*If threatened, a manta ray uses its size and weight to ram opponents. This is treated as a secondary attack.</p>",
+      "fr": "<p>Ce poisson n’est décidément pas agressif et préfère éviter tout contact avec d’autres créatures. Il filtre le plancton et autres micro-organismes grâce à sa grande bouche dénuée de dents.</p><p>* Si elle se sent menacée, la raie manta exploite sa taille et son poids pour heurter son adversaire. Il s’agit d’une attaque secondaire.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/mantaRay.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -7937,6 +8842,107 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/monkey.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "mule",
+    "name": {
+      "en": "Mule",
+      "fr": "Mulet"
+    },
+    "size": "large",
+    "type": "animal",
+    "typeText": {
+      "en": "Large animal",
+      "fr": "Animal de taille G"
+    },
+    "hitDice": {
+      "count": 3,
+      "die": 8,
+      "bonus": 9
+    },
+    "hp": 22,
+    "initiative": 1,
+    "speed": {
+      "land": 30
+    },
+    "ac": {
+      "total": 13,
+      "touch": 10,
+      "flatFooted": 12,
+      "natural": 3,
+      "dexMod": 1,
+      "sizeMod": -1,
+      "other": 0
+    },
+    "bab": 2,
+    "grapple": 9,
+    "attacks": [
+      {
+        "name": {
+          "en": "Hooves",
+          "fr": "Sabots"
+        },
+        "bonus": 4,
+        "damage": "1d4+3",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      }
+    ],
+    "space": 10,
+    "reach": 5,
+    "saves": {
+      "fort": 6,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 16,
+      "dex": 13,
+      "con": 17,
+      "int": 2,
+      "wis": 11,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Listen +6, Spot +6",
+      "fr": "Détection +6, Perception auditive +6"
+    },
+    "feats": {
+      "en": "Alertness, Endurance",
+      "fr": "Endurance, Vigilance"
+    },
+    "featIds": [
+      "alertness",
+      "endurance"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Carrying Capacity:</b> A light load for a mule is up to 230 pounds; a medium load, 231-460 pounds; and a heavy load, 461-690 pounds. A mule can drag 3,450 pounds.</p><p><b>Skills:</b> Mules have a +2 racial bonus on Dexterity checks to avoid slipping or falling.</p>",
+      "fr": "<p><b>Charge transportable.</b> Les charges se répartissent de la façon suivante : légère jusqu’à 115 kilos, intermédiaire de 115 à 230 kilos et lourde de 230 à 345 kilos. Cet animal peut tirer jusqu’à 1,725 tonnes.</p><p><b>Compétences.</b> Le mulet bénéficie d’un bonus racial de +2 aux tests de Dextérité pour ce qui est d’éviter de glisser ou de perdre l’équilibre.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1",
+    "text": {
+      "en": "<p>Mules are sterile crossbreeds of donkeys and horses. A mule is similar to a light horse, but slightly stronger and more agile.</p><p>A mule's powerful kick can be dangerous.</p>",
+      "fr": "<p>Le mulet est un animal stérile, obtenu par croisement entre un âne et une jument. Il est semblable au cheval léger, si ce n’est qu’il est légèrement plus fort et qu’il a le pied plus sûr.</p><p>Les coups de sabot du mulet sont parfois très dangereux.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/mule.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -8510,6 +9516,106 @@
     }
   },
   {
+    "id": "phantom-fungus",
+    "name": {
+      "en": "Phantom Fungus",
+      "fr": "Thallophyte spectrale"
+    },
+    "size": "medium",
+    "type": "plant",
+    "typeText": {
+      "en": "Medium plant",
+      "fr": "Plante de taille M"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 8,
+      "bonus": 6
+    },
+    "hp": 15,
+    "initiative": 0,
+    "speed": {
+      "land": 20
+    },
+    "ac": {
+      "total": 14,
+      "touch": 10,
+      "flatFooted": 14,
+      "natural": 4,
+      "dexMod": 0,
+      "sizeMod": 0,
+      "other": 0
+    },
+    "bab": 1,
+    "grapple": 3,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 3,
+        "damage": "1d6+3",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 6,
+      "ref": 0,
+      "will": 0
+    },
+    "abilities": {
+      "str": 14,
+      "dex": 10,
+      "con": 16,
+      "int": 2,
+      "wis": 11,
+      "cha": 9
+    },
+    "skills": {
+      "en": "Listen +4, Move Silently +6, Spot +4",
+      "fr": "Déplacement silencieux +6, Détection +4, Perception auditive +4"
+    },
+    "feats": {
+      "en": "Alertness",
+      "fr": "Vigilance"
+    },
+    "featIds": [
+      "alertness"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, plant traits, greater invisibility",
+      "fr": "invisibilité suprême, plante, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Greater Invisibility (Su):</b> This ability is constant, allowing a phantom fungus to remain invisible even when attacking. It works like <i>greater invisibility</i> (caster level 12th) and lasts as long as the phantom fungus is alive. This ability is not subject to the <i>invisibility purge</i> spell. A phantom fungus becomes visible 1 minute after it is killed.</p><p><b>Skills:</b> A phantom fungus has a +5 racial bonus on Move Silently checks.</p>",
+      "fr": "<p><b>Invisibilité suprême (Sur).</b> Ce pouvoir fonctionne en permanence, ce qui permet à la thallophyte spectrale de rester invisible même en plein combat. L’effet est identique à celui du sort du même nom (niveau 12 de lanceur de sorts), si ce n’est qu’il fonctionne sans discontinuer tant que le monstre est vivant et qu’il n’est pas contré par le sort négation de l’invisibilité. La thallophyte spectrale redevient visible 1 minute après sa mort.</p><p><b>Compétences.</b> La thallophyte spectrale bénéficie d’un bonus racial de +5 aux tests de Déplacement silencieux.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "3",
+    "text": {
+      "en": "<p>This creature looks like a brown and greenish-brown mass with a cluster of nodules atop the main mass, though it is visible only when dead. A cluster of nodules atop the main mass serve as sensory organs. The creature feeds and attacks with a gaping maw lined with rows of teeth. Four stumpy legs support the creature and allow it to move about. This ambulatory fungus is naturally invisible, making it a feared predator among subterranean inhabitants.</p><p>A phantom fungus usually roams quietly, hunting for prey. It attacks lone individuals almost anywhere, but when tackling groups it prefers an open space where it has a better chance .</p>",
+      "fr": "<p>Criards et thallophytes violettes s’associent souvent pour se nourrir. Le tintamarre produit par les premiers attire les proies, que les secondes éliminent. Une telle association est extrêmement bénéfique pour les deux espèces.</p><p>Cette créature ressemble à une masse brune ou brun-vert, bien que n’apparaissant qu’une fois morte. L’amas de nodules disposé au sommet de la masse principale abrite ses organes sensoriels. Elle se nourrit par une large gueule garnie de dents. Quatre pattes courtaudes lui permettent de se déplacer.</p><p>Cette thallophyte mobile est naturellement invisible, ce qui en fait un redoutable prédateur souterrain.</p><p>La thallophyte spectrale passe son temps à chercher des proies en silence. Elle attaque les créatures isolées n’importe où. Par contre, quand elle s’en prend à un groupe, elle attend de se trouver dans un endroit dégagé, afin que ses adversaires éprouvent davantage de difficultés à la localiser.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/phantomFungus.htm",
+      "frRef": "DRS 40 (monstres T-Z)"
+    }
+  },
+  {
     "id": "pixie",
     "name": {
       "en": "Pixie",
@@ -8732,6 +9838,106 @@
     }
   },
   {
+    "id": "pony-war",
+    "name": {
+      "en": "Pony, War",
+      "fr": "Poney de guerre"
+    },
+    "size": "medium",
+    "type": "animal",
+    "typeText": {
+      "en": "Medium animal",
+      "fr": "Animal de taille M"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 8,
+      "bonus": 4
+    },
+    "hp": 13,
+    "initiative": 1,
+    "speed": {
+      "land": 40
+    },
+    "ac": {
+      "total": 13,
+      "touch": 11,
+      "flatFooted": 12,
+      "natural": 2,
+      "dexMod": 1,
+      "sizeMod": 0,
+      "other": 0
+    },
+    "bab": 1,
+    "grapple": 3,
+    "attacks": [
+      {
+        "name": {
+          "en": "Hooves",
+          "fr": "Sabots"
+        },
+        "bonus": 3,
+        "damage": "1d3+2",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 5,
+      "ref": 4,
+      "will": 0
+    },
+    "abilities": {
+      "str": 15,
+      "dex": 13,
+      "con": 14,
+      "int": 2,
+      "wis": 11,
+      "cha": 4
+    },
+    "skills": {
+      "en": "Listen +5, Spot +5",
+      "fr": "Détection +5, Perception auditive +5"
+    },
+    "feats": {
+      "en": "Endurance",
+      "fr": "Endurance"
+    },
+    "featIds": [
+      "endurance"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Carrying Capacity:</b> A light load for a warpony is up to 100 pounds; a medium load, 101-200 pounds; and a heavy load, 201-300 pounds. A warpony can drag 1,500 pounds.</p>",
+      "fr": "<p><b>Charge transportable.</b> Les charges se répartissent de la façon suivante : légère jusqu’à 50 kilos, intermédiaire de 50 à 100 kilos, et lourde de 100 à 150 kilos. Le poney peut tirer jusqu’à 750 kilos.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/2",
+    "text": {
+      "en": "<p>Warponies are bred for strength and aggression, and are similar to light warhorses.</p><p>A warpony can fight while carrying a rider, but the rider cannot also attack unless he or she succeeds on a Ride check.</p>",
+      "fr": "<p>Le poney de guerre est élevé dans le but de combattre, et est semblable au cheval de guerre léger.</p><p>Le poney de guerre peut se battre en portant un cavalier, mais ce dernier doit réussir un test d’Équitation s’il veut pouvoir attaquer, lui aussi.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/ponyWar.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
     "id": "porpoise",
     "name": {
       "en": "Porpoise",
@@ -8829,6 +10035,210 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/porpoise.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "rat",
+    "name": {
+      "en": "Rat",
+      "fr": "Rat"
+    },
+    "size": "tiny",
+    "type": "animal",
+    "typeText": {
+      "en": "Tiny animal",
+      "fr": "Animal de taille TP"
+    },
+    "hitDice": {
+      "count": 0.25,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 1,
+    "initiative": 2,
+    "speed": {
+      "land": 15,
+      "climb": 15,
+      "swim": 15
+    },
+    "ac": {
+      "total": 14,
+      "touch": 14,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -12,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 4,
+        "damage": "1d3-4",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 2,
+      "dex": 15,
+      "con": 10,
+      "int": 2,
+      "wis": 12,
+      "cha": 2
+    },
+    "skills": {
+      "en": "Balance +10, Climb +12, Hide +14, Move Silently +10, Swim +10",
+      "fr": "Déplacement silencieux +10, Discrétion +14, Équilibre +10, Escalade +12, Natation +10"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> Rats have a +4 racial bonus on Hide and Move Silently checks, and a +8 racial bonus on Balance, Climb, and Swim checks. A rat can always choose to take 10 on Climb checks, even if rushed or threatened. A rat uses its Dexterity modifier instead of its Strength modifier for Climb and Swim checks. A rat has a +8 racial bonus on any Swim check to perform some special action or avoid a hazard. It can always choose to take 10 on a Swim check, even if distracted or endangered. It can use the run action while swimming, provided it swims in a straight line.</p>",
+      "fr": "<p><b>Compétences.</b> Le rat bénéficie d’un bonus racial de +4 aux tests de Déplacement silencieux et de Discrétion, ainsi que d’un bonus racial de +8 aux tests d’Équilibre, d’Escalade et de Natation.</p><p>Il peut toujours choisir de faire 10 aux tests d’Escalade, même s’il est pressé ou menacé.</p><p>Il utilise son modificateur de Dextérité (et non celui de Force) aux tests d’Escalade et de Natation.</p><p>Le rat bénéficie d’un bonus racial de +8 aux tests de Natation visant à effectuer une tâche spéciale ou à éviter un danger. Il peut toujours choisir de faire 10 à ce type de test, même s’il est distrait ou en danger. Quand il nage en ligne droite, il peut recourir à l’action de course.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/8",
+    "text": {
+      "en": "<p>These omnivorous rodents thrive almost anywhere.</p><p>Rats usually run away. They bite only as a last resort.</p>",
+      "fr": "<p>Ce mammifère rongeur vit pour ainsi dire partout.</p><p>Généralement, le rat prend la fuite. Il ne mord qu’en dernier recours.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/rat.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "raven",
+    "name": {
+      "en": "Raven",
+      "fr": "Corbeau"
+    },
+    "size": "tiny",
+    "type": "animal",
+    "typeText": {
+      "en": "Tiny animal",
+      "fr": "Animal de taille TP"
+    },
+    "hitDice": {
+      "count": 0.25,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 1,
+    "initiative": 2,
+    "speed": {
+      "land": 10,
+      "fly": 40,
+      "flyManeuver": "average"
+    },
+    "ac": {
+      "total": 14,
+      "touch": 14,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -13,
+    "attacks": [
+      {
+        "name": {
+          "en": "Claws",
+          "fr": "Serres"
+        },
+        "bonus": 4,
+        "damage": "1d2-5",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 4,
+      "will": 2
+    },
+    "abilities": {
+      "str": 1,
+      "dex": 15,
+      "con": 10,
+      "int": 2,
+      "wis": 14,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Listen +3, Spot +5",
+      "fr": "Détection +5, Perception auditive +3"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision",
+      "fr": "vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "—",
+      "fr": "—"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/6",
+    "text": {
+      "en": "<p>These glossy black birds are about 2 feet long and have wingspans of about 4 feet. They combine both claws into a single attack. The statistics presented here can describe most nonpredatory birds of similar size.</p>",
+      "fr": "<p>Cet oiseau au plumage noir et lustré fait dans les 60 centimètre de long pour une envergure de 1,20 mètre. Il n’attaque qu’une fois par round, en combinant ses deux serres.</p><p>Son profil s’applique à tous les oiseaux de taille similaire, rapaces exceptés.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/raven.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -9684,6 +11094,109 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/seaCat.htm",
       "frRef": "DRS 37 (monstres E-G)"
+    }
+  },
+  {
+    "id": "shambling-mound",
+    "name": {
+      "en": "Shambling Mound",
+      "fr": "Tertre errant"
+    },
+    "size": "large",
+    "type": "plant",
+    "typeText": {
+      "en": "Large plant",
+      "fr": "Plante de taille G"
+    },
+    "hitDice": {
+      "count": 8,
+      "die": 8,
+      "bonus": 24
+    },
+    "hp": 60,
+    "initiative": 0,
+    "speed": {
+      "land": 20,
+      "swim": 20
+    },
+    "ac": {
+      "total": 20,
+      "touch": 9,
+      "flatFooted": 20,
+      "natural": 11,
+      "dexMod": 0,
+      "sizeMod": -1,
+      "other": 0
+    },
+    "bab": 6,
+    "grapple": 15,
+    "attacks": [
+      {
+        "name": {
+          "en": "Slams",
+          "fr": "Coups"
+        },
+        "bonus": 11,
+        "damage": "2d6+5",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      }
+    ],
+    "space": 10,
+    "reach": 10,
+    "saves": {
+      "fort": 9,
+      "ref": 2,
+      "will": 4
+    },
+    "abilities": {
+      "str": 21,
+      "dex": 10,
+      "con": 17,
+      "int": 7,
+      "wis": 10,
+      "cha": 9
+    },
+    "skills": {
+      "en": "Hide +3*, Listen +8, Move Silently +8",
+      "fr": "Déplacement silencieux +8, Discrétion +3*, Perception auditive +8"
+    },
+    "feats": {
+      "en": "Iron Will, Power Attack, Weapon Focus (slam)",
+      "fr": "Arme de prédilection (coup), Attaque en puissance, Volonté de fer"
+    },
+    "featIds": [
+      "iron-will",
+      "power-attack",
+      "weapon-focus"
+    ],
+    "specialAttacks": {
+      "en": "Improved grab, constrict 2d6+7",
+      "fr": "constriction (2d6+7), étreinte"
+    },
+    "specialQualities": {
+      "en": "Darkvision 60 ft., immunity to electricity, low-light vision, plant traits, fire resistance 10",
+      "fr": "immunité contre l’électricité, plante, résistance au feu (10), vision dans le noir (18 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Improved Grab (Ex):</b> To use this ability, a shambler must hit with both slam attacks. It can then attempt to start a grapple as a free action without provoking an attack of opportunity. If it wins the grapple check, it establishes a hold and can constrict.</p><p><b>Constrict (Ex):</b> A shambler deals 2d6+7 points of damage with a successful grapple check.</p><p><b>Immunity to Electricity (Ex):</b> Shamblers take no damage from electricity. Instead, any electricity attack used against a shambler temporarily grants it 1d4 points of Constitution. The shambler loses these points at the rate of 1 per hour.</p><p>Skills: Shamblers have a +4 racial bonus on Hide, Listen, and Move Silently checks. *They have a +12 racial bonus on Hide checks when in a swampy or forested area.</p>",
+      "fr": "<p><b>Constriction (Ext).</b> Le tertre errant inflige 2d6+7 points de dégâts chaque fois qu’il remporte un test de lutte.</p><p><b>Étreinte (Ext).</b> Pour utiliser ce pouvoir, le tertre errant doit réussir ses deux attaques de coup. Ensuite, il peut tenter d’engager une lutte (action libre) sans provoquer d’attaque d’opportunité. S’il remporte le test de lutte, il parvient à assurer sa prise et peut utiliser son pouvoir de constriction.</p><p><b>Immunité contre l’électricité (Ext).</b> Le tertre errant n’est jamais blessé par les attaques électriques, quelle que soit leur puissance. Au contraire, toute attaque électrique (décharge électrique, éclair, etc.) le prenant pour cible lui permet de gagner temporairement 1d4 points de Constitution, qui disparaissent au rythme de 1 par heure.</p><p><b>Compétences.</b> Il bénéficie d’un bonus racial de +4 aux tests de Déplacement silencieux, Discrétion et Perception auditive. * Dans les marécages et forêts, il a également droit à un bonus racial de +12 aux tests de Discrétion.</p>"
+    },
+    "alignment": {
+      "en": "Usually neutral",
+      "fr": "généralement neutre"
+    },
+    "cr": "6",
+    "text": {
+      "en": "<p>Shambling mounds, also called shamblers, appear to be heaps of rotting vegetation. They are actually intelligent, carnivorous plants.</p><p>A shambler's brain and sensory organs are located in its upper body.</p><p>A shambler's body has an 8-foot girth and is about 6 feet tall when the creature stands erect. It weighs about 3,800 pounds.</p><p>A shambling mound batters or constricts its opponents with two huge, armlike appendages.</p>",
+      "fr": "<p>Le tertre errant ressemble à un tas de végétation en décomposition. En réalité, c’est une plante carnivore intelligente. Il est doté d’un cerveau et d’organes sensoriels situés au niveau de sa « poitrine ».</p><p>Il fait 2,40 mètres de diamètre à la base pour 1,80 mètre de haut. Il pèse environ 1,9 tonne.</p><p>Le tertre errant frappe et broie ses adversaires à l’aide de deux gros appendices semblables à des bras.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/shamblingMound.htm",
+      "frRef": "DRS 40 (monstres T-Z)"
     }
   },
   {
@@ -10631,6 +12144,112 @@
     }
   },
   {
+    "id": "snake-tiny-viper",
+    "name": {
+      "en": "Snake, Tiny Viper",
+      "fr": "Serpent venimeux, très petit"
+    },
+    "size": "tiny",
+    "type": "animal",
+    "typeText": {
+      "en": "Tiny animal",
+      "fr": "Animal de taille TP"
+    },
+    "hitDice": {
+      "count": 0.25,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 1,
+    "initiative": 3,
+    "speed": {
+      "land": 15,
+      "climb": 15,
+      "swim": 15
+    },
+    "ac": {
+      "total": 17,
+      "touch": 15,
+      "flatFooted": 14,
+      "natural": 2,
+      "dexMod": 3,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -11,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 5,
+        "damage": "1",
+        "extra": {
+          "en": "plus poison",
+          "fr": "plus venin"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 5,
+      "will": 1
+    },
+    "abilities": {
+      "str": 4,
+      "dex": 17,
+      "con": 11,
+      "int": 1,
+      "wis": 12,
+      "cha": 2
+    },
+    "skills": {
+      "en": "Balance +11, Climb +11, Hide +15, Listen +6, Spot +6, Swim +5",
+      "fr": "Détection +6, Discrétion +15, Équilibre +11, Escalade +11, Natation +5, Perception auditive +6"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "Poison",
+      "fr": "venin"
+    },
+    "specialQualities": {
+      "en": "Scent",
+      "fr": "odorat"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> Snakes have a +4 racial bonus on Hide, Listen, and Spot checks and a +8 racial bonus on Balance and Climb checks. A snake can always choose to take 10 on a Climb check, even if rushed or threatened. Snakes use either their Strength modifier or Dexterity modifier for Climb checks, whichever is higher. A snake has a +8 racial bonus on any Swim check to perform some special action or avoid a hazard. It can always choose to take 10 on a Swim check, even if distracted or endangered. It can use the run action while swimming, provided it swims in a straight line.</p><p><b>Poison (Ex):</b> A viper snake has a poisonous bite that deals initial and secondary damage of 1d6 Con. The save DC varies by the snake’s size, as shown on the table below. The save DCs are Constitution-based.</p>",
+      "fr": "<p><b>Venin (Ext).</b> Morsure, jet de Vigueur (DD variable selon la taille, voir ci-dessous) ; effet initial et secondaire : affaiblissement temporaire de 1d6 points de Constitution. Le DD de sauvegarde est lié à la Constitution.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/3",
+    "text": {
+      "en": "<p>Snakes usually are not aggressive and flee when confronted.</p><p>These creatures range widely in size. They are not particularly aggressive, but will often lash out with a bite attack before attempting to retreat.</p><p>Viper snakes rely on their venomous bite to kill prey and defend themselves.</p>",
+      "fr": "<p>La taille de ce type d’animal est très variable. Les serpents venimeux ne sont pas particulièrement agressifs, mais ils ont tendance à mordre avant de battre en retraite.</p><p>Ce serpent tue ses proies à l’aide de sa morsure venimeuse, qui constitue également sa meilleure défense.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/snake.htm#viperSnake",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
     "id": "squid",
     "name": {
       "en": "Squid",
@@ -10863,6 +12482,122 @@
     }
   },
   {
+    "id": "tendriculos",
+    "name": {
+      "en": "Tendriculos",
+      "fr": "Tendriculaire"
+    },
+    "size": "huge",
+    "type": "plant",
+    "typeText": {
+      "en": "Huge plant",
+      "fr": "Plante de taille TG"
+    },
+    "hitDice": {
+      "count": 9,
+      "die": 8,
+      "bonus": 54
+    },
+    "hp": 94,
+    "initiative": -1,
+    "speed": {
+      "land": 20
+    },
+    "ac": {
+      "total": 16,
+      "touch": 7,
+      "flatFooted": 16,
+      "natural": 9,
+      "dexMod": -1,
+      "sizeMod": -2,
+      "other": 0
+    },
+    "bab": 6,
+    "grapple": 23,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 13,
+        "damage": "2d8+9",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      },
+      {
+        "name": {
+          "en": "Tendrils",
+          "fr": "Appendices"
+        },
+        "bonus": 8,
+        "damage": "1d6+4",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 15,
+    "reach": 15,
+    "saves": {
+      "fort": 12,
+      "ref": 2,
+      "will": 4
+    },
+    "abilities": {
+      "str": 28,
+      "dex": 9,
+      "con": 22,
+      "int": 3,
+      "wis": 8,
+      "cha": 3
+    },
+    "skills": {
+      "en": "Hide +9, Listen +1, Move Silently +1, Spot +1",
+      "fr": "Déplacement silencieux +1, Détection +1, Discrétion +9, Perception auditive +1"
+    },
+    "feats": {
+      "en": "Alertness, Iron Will, Power Attack, Stealthy",
+      "fr": "Attaque en puissance, Discret, Vigilance, Volonté de fer"
+    },
+    "featIds": [
+      "alertness",
+      "iron-will",
+      "power-attack",
+      "stealthy"
+    ],
+    "specialAttacks": {
+      "en": "Improved grab, paralysis, swallow whole",
+      "fr": "étreinte, engloutissement, paralysie"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, plant traits, regeneration 10",
+      "fr": "plante, régénération (10), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Improved Grab (Ex):</b> To use this ability, a tendriculos must hit a creature at least one size smaller than itself with its bite attack. It can then attempt to start a grapple as a free action without provoking an attack of opportunity. If it wins the grapple check, it establishes a hold and can try to swallow the opponent in the following round. A tendriculos can also use its improved grab ability on a tendril attack. If it wins the grapple check, it establishes a hold, picks up the opponent, and transfers it to the mouth as a free action, automatically dealing bite damage.</p><p><b>Swallow Whole/Paralysis (Ex):</b> A tendriculos can try to swallow a grabbed opponent by making a successful grapple check. Once inside the plant's mass, the opponent must succeed on a DC 20 Fortitude save or be paralyzed for 3d6 rounds by the tendriculos's digestive juices, taking 2d6 points of acid damage per round. A new save is required each round inside the plant. The save DC is Constitution-based. A swallowed creature that avoids paralysis can climb out of the mass with a successful grapple check. This returns it to the plant's maw, where another successful grapple check is needed to get free. A swallowed creature can also cut its way out by using a light slashing or piercing weapon to deal 25 points of damage to the tendriculos's interior (AC 14). Once the creature exits, the plant's regenerative capacity closes the hole; another swallowed opponent must cut its own way out. A Huge tendriculos's interior can hold 2 Large, 8 Medium, 32 Small, 128 Tiny, or 512 Diminutive or smaller opponents.</p><p><b>Regeneration (Ex):</b> Bludgeoning weapons and acid deal normal damage to a tendriculos. A tendriculos that loses part of its body mass can regrow it in 1d6 minutes. Holding the severed portion against the mass enables it to reattach instantly.</p>",
+      "fr": "<p><b>Engloutissement/paralysie (Ext).</b> Le tendriculaire peut avaler un adversaire qu’il a agrippé en remportant un test de lutte. Une fois à l’intérieur de la plante, la victime doit réussir un jet de Vigueur (DD 20) pour ne pas être paralysée pendant 3d6 rounds par les sucs gastriques du tendriculaire. Dans le même temps, ces sucs infligent 2d6 points de dégâts d’acide par round. Un nouveau jet de sauvegarde est nécessaire chaque round passé à l’intérieur de la plante. Le DD de sauvegarde est lié à la Constitution.</p><p>Une créature non paralysée peut s’extraire de l’estomac du tendriculaire en remportant un test de lutte. Cela lui permet de revenir dans la gueule du monstre. Si elle remporte un second test de lutte consécutif, elle peut en sortir. Il est également possible de se libérer en infligeant un total de 25 points de dégâts à son estomac (CA 14) à l’aide d’une arme légère tranchante ou perforante. Si un personnage parvient à s’extraire de la sorte, les facultés de régénération de la plante referment aussitôt le trou, et un autre PJ avalé doit de nouveau ouvrir le ventre du monstre pour sortir.</p><p>L’estomac d’un tendriculaire de taille TG peut contenir 2 créatures de taille G, 8 de taille M, 32 de taille P, 128 de taille TP, ou 512 de taille Min ou inférieure.</p><p><b>Étreinte (Ext).</b> Pour utiliser ce pouvoir, le tendriculaire doit réussir une attaque de morsure contre une cible affichant au moins une catégorie de taille de moins que lui. Ensuite, il peut tenter d’engager une lutte (action libre) sans provoquer d’attaque d’opportunité. S’il remporte le test de lutte, il parvient à assurer sa prise et peut tenter d’avaler sa victime au round suivant.</p><p>Le tendriculaire peut également utiliser ce pouvoir via une attaque d’appendice. S’il remporte le test de lutte, il assure sa prise, soulève son adversaire, l’amène aussitôt à sa gueule (action libre) et le mord automatiquement.</p><p><b>Régénération (Ext).</b> L’acide et les armes contondantes infligent des dégâts normaux au tendriculaire.</p><p>Si ce monstre perd un membre, il repousse en 1d6 minutes. S’il l’accole à la blessure, il se fixe instantanément.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "6",
+    "text": {
+      "en": "<p>A tendriculos can rear up to a height of 15 feet. It weighs about 3,500 pounds.</p><p>Animals and other plant creatures are unnerved by the presence of a tendriculos; they avoid it and any place it has been within the last 24 hours.</p><p>Prowling deep forests or waiting in vegetated areas (looking like nothing more than a small hillock), a tendriculos attacks savagely, showing no fear. It attempts to swallow as much flesh as it can, as quickly as it can.</p>",
+      "fr": "<p>Le tendriculaire peut se dresser pour mesurer jusqu’à 4,50 mètres et pèse 1,75 tonne environ.</p><p>Animaux et autres créatures végétales sont nerveux en présence d’un tendriculaire ; ils l’évitent naturellement et refusent d’aller à un endroit où il est passé au cours des dernières 24 heures.</p><p>Qu’il rôde au plus profond des forêts ou qu’il attende ses proies en se faisant passer pour une petite butte, le tendriculaire attaque sans montrer la moindre crainte. Il essaye d’avaler autant de créatures que possible sans perdre une seconde.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/tendriculos.htm",
+      "frRef": "DRS 40 (monstres T-Z)"
+    }
+  },
+  {
     "id": "thoqqua",
     "name": {
       "en": "Thoqqua",
@@ -11079,6 +12814,92 @@
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/tiger.htm",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "toad",
+    "name": {
+      "en": "Toad",
+      "fr": "Crapaud"
+    },
+    "size": "diminutive",
+    "type": "animal",
+    "typeText": {
+      "en": "Diminutive animal",
+      "fr": "Animal de taille Min"
+    },
+    "hitDice": {
+      "count": 0.25,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 1,
+    "initiative": 1,
+    "speed": {
+      "land": 5
+    },
+    "ac": {
+      "total": 15,
+      "touch": 15,
+      "flatFooted": 14,
+      "natural": 0,
+      "dexMod": 1,
+      "sizeMod": 4,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -17,
+    "attacks": [],
+    "space": 1,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 3,
+      "will": 2
+    },
+    "abilities": {
+      "str": 1,
+      "dex": 12,
+      "con": 11,
+      "int": 1,
+      "wis": 14,
+      "cha": 4
+    },
+    "skills": {
+      "en": "Hide +21, Listen +4, Spot +4",
+      "fr": "Détection +4, Discrétion +21, Perception auditive +4"
+    },
+    "feats": {
+      "en": "Alertness",
+      "fr": "Vigilance"
+    },
+    "featIds": [
+      "alertness"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Amphibious, low-light vision",
+      "fr": "amphibie, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Skills:</b> A toad's coloration gives it a +4 racial bonus on Hide checks.</p>",
+      "fr": "<p><b>Compétences.</b> La coloration de la peau du crapaud lui confère un bonus racial de +4 aux tests de Discrétion.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/10",
+    "text": {
+      "en": "<p>These diminutive amphibians are innocuous and beneficial, since they eat insects.</p>",
+      "fr": "<p>Ce batracien ne présente pas le moindre danger. En fait, il est même utile, puisqu’il se nourrit d’insectes.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/toad.htm",
       "frRef": "DRS 33 (animaux)"
     }
   },
@@ -11430,6 +13251,108 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/tojanida.htm",
       "frRef": "DRS 40 (monstres T-Z)"
+    }
+  },
+  {
+    "id": "treant",
+    "name": {
+      "en": "Treant",
+      "fr": "Sylvanien"
+    },
+    "size": "huge",
+    "type": "plant",
+    "typeText": {
+      "en": "Huge plant",
+      "fr": "Plante de taille TG"
+    },
+    "hitDice": {
+      "count": 7,
+      "die": 8,
+      "bonus": 35
+    },
+    "hp": 66,
+    "initiative": -1,
+    "speed": {
+      "land": 30
+    },
+    "ac": {
+      "total": 20,
+      "touch": 7,
+      "flatFooted": 20,
+      "natural": 13,
+      "dexMod": -1,
+      "sizeMod": -2,
+      "other": 0
+    },
+    "bab": 5,
+    "grapple": 22,
+    "attacks": [
+      {
+        "name": {
+          "en": "Slams",
+          "fr": "Branches"
+        },
+        "bonus": 12,
+        "damage": "2d6+9",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      }
+    ],
+    "space": 15,
+    "reach": 15,
+    "saves": {
+      "fort": 10,
+      "ref": 1,
+      "will": 7
+    },
+    "abilities": {
+      "str": 29,
+      "dex": 8,
+      "con": 21,
+      "int": 12,
+      "wis": 16,
+      "cha": 12
+    },
+    "skills": {
+      "en": "Diplomacy +3, Hide -9*, Intimidate +6, Knowledge (nature) +6, Listen +8, Sense Motive +8, Spot +8, Survival +8 (+10 aboveground)",
+      "fr": "Connaissances (nature) +6, Détection +8, Diplomatie +3, Discrétion –9*, Intimidation +6, Perception auditive +8, Psychologie +8, Survie +8 (+10 au-dessus de terre)"
+    },
+    "feats": {
+      "en": "Improved Sunder, Iron Will, Power Attack",
+      "fr": "Attaque en puissance, Science de la destruction, Volonté de fer"
+    },
+    "featIds": [
+      "improved-sunder",
+      "iron-will",
+      "power-attack"
+    ],
+    "specialAttacks": {
+      "en": "Animate trees, double damage against objects, trample 2d6+13",
+      "fr": "animation d’arbres, dégâts doublés contre les objets, piétinement"
+    },
+    "specialQualities": {
+      "en": "Damage reduction 10/slashing, low-light vision, plant traits, vulnerability to fire",
+      "fr": "plante, réduction des dégâts (10/tranchant), vision nocturne, vulnérabilité au feu"
+    },
+    "specialAbilities": {
+      "en": "<p><b><i>Animate Trees</i> (Sp):</b> A treant can animate trees within 180 feet at will, controlling up to two trees at a time. It takes 1 full round for a normal tree to uproot itself. Thereafter it moves at a speed of 10 feet and fights as a treant in all respects. Animated trees lose their ability to move if the treant that animated them is incapacitated or moves out of range. The ability is otherwise similar to <i>liveoak</i> (caster level 12th). Animated trees have the same vulnerability to fire that a treant has.</p><p><b>Double Damage against Objects (Ex):</b> A treant or animated tree that makes a full attack against an object or structure deals double damage.</p><p><b>Trample (Ex):</b> Reflex DC 22 half. The save DC is Strength-based. Skills: *Treants have a +16 racial bonus on Hide checks made in forested areas.</p>",
+      "fr": "<p><b>Animation d’arbres (Mag).</b> À volonté, le sylvanien peut animer les arbres distants de 54 mètres ou moins. Il peut en contrôler jusqu’à deux en même temps. Un arbre normal a besoin de 1 round complet pour se déraciner, après quoi il se déplace à une vitesse de 3 mètres par round et se bat comme un sylvanien. Les arbres animés redeviennent inertes si le sylvanien qui les a appelés est mis hors de combat ou s’éloigne hors de portée. Ces précisions exceptées, ce pouvoir est similaire au sort chêne animé (niveau 12 de lanceur de sorts). Les arbres animés affichent la même vulnérabilité au feu que les sylvaniens.</p><p><b>Dégâts doublés contre les objets (Ext).</b> Un sylvanien ou un arbre animé attaquant à outrance un objet ou une structure lui inflige des dégâts doublés.</p><p><b>Piétinement (Ext).</b> Jet de Réflexes, DD 22, demi-dégâts. Le DD de sauvegarde est lié à la Force.</p><p><b>Compétences.</b> * Le sylvanien bénéficie d’un bonus racial de +16 aux tests de Discrétion en forêt.</p>"
+    },
+    "alignment": {
+      "en": "Usually neutral good",
+      "fr": "généralement neutre bon"
+    },
+    "cr": "8",
+    "text": {
+      "en": "<p>A treant's leaves are deep green in the spring and summer. In the fall and winter the leaves change to yellow, orange, or red, but they rarely fall out. A treant's legs fit together when closed to look like the trunk of a tree, and a motionless treant is nearly indistinguishable from a tree.</p><p>A treant is about 30 feet tall, with a 'trunk' about 2 feet in diameter. It weighs about 4,500 pounds.</p><p>Treants speak their own language, plus Common and Sylvan. Most also can manage a smattering of just about all other humanoid tongues-at least enough to say 'Get away from my trees!'</p><p>Treants prefer to watch potential foes carefully before attacking. They often charge suddenly from cover to trample the despoilers of forests. If sorely pressed, they animate trees as reinforcements.</p>",
+      "fr": "<p>Les feuilles du sylvanien sont d’un vert bouteille au printemps et en été. Durant l’automne et l’hiver, elles prennent des teintes jaunes, orangées ou rouges, mais il est rare qu’elles tombent. Ses jambes ont l’air d’un tronc quand il les ramène l’une contre l’autre. Du reste, il est presque impossible de différencier un sylvanien immobile d’un arbre.</p><p>Il mesure 9 mètres de haut et son « tronc » fait 60 centimètres de diamètre environ. Son poids avoisine les 2,25 tonnes.</p><p>Le sylvanien parle sa propre langue, ainsi que le commun et le sylvestre. Bien souvent, il est également capable de prononcer quelques mots dans la plupart des autres langues humanoïdes (ce qui lui suffit généralement pour passer des messages tels que « Laissez mes arbres tranquilles ! »).</p><p>Le sylvanien préfère étudier longuement ses adversaires potentiels avant de les attaquer. Quand il décide de passer à l’assaut, il le fait brusquement, prenant ses ennemis par surprise pour mieux les piétiner. S’il est en danger, il peut animer des arbres pour se défendre.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/treant.htm",
+      "frRef": "DRS 39 (monstres N-S)"
     }
   },
   {
@@ -11868,6 +13791,335 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/unicorn.htm#celestialCharger",
       "frRef": "DRS 38 (monstres H-M) (licorne), DRS 22a (sorts I) (nom)"
+    }
+  },
+  {
+    "id": "warhorse-heavy",
+    "name": {
+      "en": "Warhorse, Heavy",
+      "fr": "Cheval de guerre lourd (ou destrier lourd)"
+    },
+    "size": "large",
+    "type": "animal",
+    "typeText": {
+      "en": "Large animal",
+      "fr": "Animal de taille G"
+    },
+    "hitDice": {
+      "count": 4,
+      "die": 8,
+      "bonus": 12
+    },
+    "hp": 30,
+    "initiative": 1,
+    "speed": {
+      "land": 50
+    },
+    "ac": {
+      "total": 14,
+      "touch": 10,
+      "flatFooted": 13,
+      "natural": 4,
+      "dexMod": 1,
+      "sizeMod": -1,
+      "other": 0
+    },
+    "bab": 3,
+    "grapple": 11,
+    "attacks": [
+      {
+        "name": {
+          "en": "Hooves",
+          "fr": "Sabots"
+        },
+        "bonus": 6,
+        "damage": "1d6+4",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      },
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 1,
+        "damage": "1d4+2",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 10,
+    "reach": 5,
+    "saves": {
+      "fort": 7,
+      "ref": 5,
+      "will": 2
+    },
+    "abilities": {
+      "str": 18,
+      "dex": 13,
+      "con": 17,
+      "int": 2,
+      "wis": 13,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Listen +5, Spot +4",
+      "fr": "Détection +4, Perception auditive +5"
+    },
+    "feats": {
+      "en": "Endurance, Run",
+      "fr": "Course, Endurance"
+    },
+    "featIds": [
+      "endurance",
+      "run"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Carrying Capacity:</b> A light load for a heavy warhorse is up to 300 pounds; a medium load, 301–600 pounds; and a heavy load, 601–900 pounds. A heavy warhorse can drag 4,500 pounds.</p>",
+      "fr": "<p><b>Charge transportable.</b> Les charges se répartissent de la façon suivante pour un cheval de guerre lourd : légère jusqu’à 150 kilos, intermédiaire de 150 à 300 kilos, et lourde de 300 à 450 kilos. Le cheval peut tirer jusqu’à 2,25 tonnes.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "2",
+    "text": {
+      "en": "<p>Horses are widely domesticated for riding and as beasts of burden.</p><p>A horse not trained for war does not normally use its hooves to attack. Its hoof attack is treated as a secondary attack and adds only half the horse’s Strength bonus to damage. (These secondary attacks are noted with an asterisk in the Attack and Full Attack entries for the heavy horse and the light horse.)</p><p>These animals are similar to heavy horses but are trained and bred for strength and aggression. A heavy warhorse can fight while carrying a rider, but the rider cannot also attack unless he or she succeeds on a Ride check.</p>",
+      "fr": "<p>Les chevaux sont des animaux domestiques de selle ou de bât.</p><p>Un cheval qui n’est pas entraîné à se battre ne se sert généralement pas de ses sabots pour attaquer. L’attaque de sabot est une attaque secondaire qui ne bénéficie que de la moitié du bonus de Force de l’animal aux dégâts. (Les attaques secondaires sont suivies d’un astérisque dans la description des chevaux légers et lourds.)</p><p>Cet animal est semblable au cheval lourd, si ce n’est qu’il est élevé pour la guerre et dressé au combat. Il peut combattre quand il est monté, mais son cavalier ne peut attaquer lui aussi que s’il réussit au préalable un test d’Équitation.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/horse.htm#warhorseHeavy",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "warhorse-light",
+    "name": {
+      "en": "Warhorse, Light",
+      "fr": "Cheval de guerre léger (ou destrier léger)"
+    },
+    "size": "large",
+    "type": "animal",
+    "typeText": {
+      "en": "Large animal",
+      "fr": "Animal de taille G"
+    },
+    "hitDice": {
+      "count": 3,
+      "die": 8,
+      "bonus": 9
+    },
+    "hp": 22,
+    "initiative": 1,
+    "speed": {
+      "land": 60
+    },
+    "ac": {
+      "total": 14,
+      "touch": 10,
+      "flatFooted": 13,
+      "natural": 4,
+      "dexMod": 1,
+      "sizeMod": -1,
+      "other": 0
+    },
+    "bab": 2,
+    "grapple": 9,
+    "attacks": [
+      {
+        "name": {
+          "en": "Hooves",
+          "fr": "Sabots"
+        },
+        "bonus": 4,
+        "damage": "1d4+3",
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "str",
+        "strDamageFactor": 1
+      },
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": -1,
+        "damage": "1d3+1",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 10,
+    "reach": 5,
+    "saves": {
+      "fort": 6,
+      "ref": 4,
+      "will": 2
+    },
+    "abilities": {
+      "str": 16,
+      "dex": 13,
+      "con": 17,
+      "int": 2,
+      "wis": 13,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Listen +4, Spot +4",
+      "fr": "Détection +4, Perception auditive +4"
+    },
+    "feats": {
+      "en": "Endurance, Run",
+      "fr": "Course, Endurance"
+    },
+    "featIds": [
+      "endurance",
+      "run"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Carrying Capacity:</b> A light load for a light warhorse is up to 230 pounds; a medium load, 231–460 pounds; and a heavy load, 461–690 pounds. A light warhorse can drag 3,450 pounds.</p>",
+      "fr": "<p><b>Charge transportable.</b> Les charges se répartissent de la façon suivante pour un cheval de guerre léger : légère jusqu’à 115 kilos, intermédiaire de 115 à 230 kilos, et lourde de 230 à 345 kilos. Le cheval peut tirer jusqu’à 1,725 tonne.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1",
+    "text": {
+      "en": "<p>Horses are widely domesticated for riding and as beasts of burden.</p><p>A horse not trained for war does not normally use its hooves to attack. Its hoof attack is treated as a secondary attack and adds only half the horse’s Strength bonus to damage. (These secondary attacks are noted with an asterisk in the Attack and Full Attack entries for the heavy horse and the light horse.)</p><p>These animals or similar to light horses but are trained and bred for strength and aggression. They usually are not ready for warfare before age three. A light warhorse can fight while carrying a rider, but the rider cannot also attack unless he or she succeeds on a Ride check.</p>",
+      "fr": "<p>Les chevaux sont des animaux domestiques de selle ou de bât.</p><p>Un cheval qui n’est pas entraîné à se battre ne se sert généralement pas de ses sabots pour attaquer. L’attaque de sabot est une attaque secondaire qui ne bénéficie que de la moitié du bonus de Force de l’animal aux dégâts. (Les attaques secondaires sont suivies d’un astérisque dans la description des chevaux légers et lourds.)</p><p>Cet animal est semblable au cheval léger, si ce n’est qu’il est élevé pour la guerre et dressé au combat. Il est généralement prêt à voir ses premières batailles dès l’âge de trois ans. Il peut combattre quand il est monté, mais son cavalier ne peut attaquer lui aussi que s’il réussit au préalable un test d’Équitation.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/horse.htm#warhorseLight",
+      "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "weasel",
+    "name": {
+      "en": "Weasel",
+      "fr": "Belette"
+    },
+    "size": "tiny",
+    "type": "animal",
+    "typeText": {
+      "en": "Tiny animal",
+      "fr": "Animal de taille TP"
+    },
+    "hitDice": {
+      "count": 0.5,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 2,
+    "initiative": 2,
+    "speed": {
+      "land": 20,
+      "climb": 20
+    },
+    "ac": {
+      "total": 14,
+      "touch": 14,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 0,
+    "grapple": -12,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 4,
+        "damage": "1d3-4",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 3,
+      "dex": 15,
+      "con": 10,
+      "int": 2,
+      "wis": 12,
+      "cha": 5
+    },
+    "skills": {
+      "en": "Balance +10, Climb +10, Hide +11, Move Silently +8, Spot +3",
+      "fr": "Déplacement silencieux +8, Détection +3, Discrétion +11, Équilibre +10, Escalade +10"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "Attach",
+      "fr": "fixation"
+    },
+    "specialQualities": {
+      "en": "Low-light vision, scent",
+      "fr": "odorat, vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Attach (Ex):</b> If a weasel hits with a bite attack, it uses its powerful jaws to latch onto the opponent's body and automatically deals bite damage each round it remains attached. An attached weasel loses its Dexterity bonus to Armor Class and has an AC of 12. An attached weasel can be struck with a weapon or grappled itself. To remove an attached weasel through grappling, the opponent must achieve a pin against the creature.</p><p><b>Skills:</b> Weasels have a +4 racial bonus on Move Silently checks and a +8 racial bonus on Balance and Climb checks. They use their Dexterity modifier for Climb checks. A weasel can always choose to take 10 on a Climb check, even if rushed or threatened.</p>",
+      "fr": "<p><b>Fixation (Ext).</b> Si la belette réussit à mordre sa proie, elle utilise ses puissantes mâchoires pour s’accrocher à elle et lui inflige automatiquement des dégâts de morsure tant qu’elle reste accrochée. À partir de cet instant, la belette perd son bonus de Dex à la CA, qui passe à 12.</p><p>Une belette ainsi fixée peut être frappée à l’aide d’une arme, mais également agrippée. Pour l’ôter, la victime doit réussir à l’immobiliser.</p><p><b>Compétences.</b> La belette bénéficie d’un bonus racial de +4 aux tests de Déplacement silencieux, ainsi que d’un bonus racial de +8 aux tests d’Équilibre et d’Escalade. Elle utilise son modificateur de Dextérité (et non celui de Force) aux tests d’Escalade, même si elle est pressée ou menacée.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/4",
+    "text": {
+      "en": "<p>These little mammals are aggressive predators but usually confine themselves to smaller prey. The statistics presented here can also apply to ferrets.</p>",
+      "fr": "<p>Ce petit mammifère est un prédateur agressif, mais il s’en prend rarement aux proies plus grandes que lui. Le profil s’applique également au furet.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/weasel.htm",
+      "frRef": "DRS 33 (animaux)"
     }
   },
   {

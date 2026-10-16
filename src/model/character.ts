@@ -100,6 +100,18 @@ export interface SummonState extends CreatureState {
   augmented: boolean
 }
 
+/** Druid wild shape in progress (https://www.d20srd.org/srd/classes/druid.htm#wildShape). */
+export interface WildShapeState {
+  /** Form taken (creatures.json id). */
+  creatureId: string
+  /** Rounds left (1 hour = 600 rounds per druid level), counted down at the start of your turn. */
+  rounds: number
+  /** Items kept functional (the rest melds into the form and stops working). */
+  keepItems: string[]
+  /** Elemental form (separate daily uses from 16th level). */
+  elemental?: boolean
+}
+
 export type ItemKind = 'weapon' | 'armor' | 'gear' | 'magic' | 'custom'
 /** worn = equipped on the body; carried = in hand/belt; pack = backpack; stored = not carried (no weight). */
 export type ItemLocation = 'worn' | 'carried' | 'pack' | 'stored'
@@ -208,6 +220,8 @@ export interface Character {
   activeEffects: ActiveEffect[]
   /** Combat round counter (1 = first round of the encounter). */
   round?: number
+  /** Wild shape in progress. */
+  wildShape?: WildShapeState
   /** Animal companions (druid, ranger 4+). */
   companions?: CompanionState[]
   /** Creatures currently summoned. */
