@@ -1,0 +1,894 @@
+{
+  "class:barbarian:damage-reduction": {
+    "en": "DR 1/—: each hit or attack deals 1 less damage",
+    "fr": "RD 1/– : chaque coup ou attaque inflige 1 point de dégâts de moins"
+  },
+  "class:barbarian:damage-reduction-10": {
+    "en": "DR 2/—: each hit or attack deals 2 less damage",
+    "fr": "RD 2/– : chaque coup ou attaque inflige 2 points de dégâts de moins"
+  },
+  "class:barbarian:damage-reduction-13": {
+    "en": "DR 3/—: each hit or attack deals 3 less damage",
+    "fr": "RD 3/– : chaque coup ou attaque inflige 3 points de dégâts de moins"
+  },
+  "class:barbarian:damage-reduction-16": {
+    "en": "DR 4/—: each hit or attack deals 4 less damage",
+    "fr": "RD 4/– : chaque coup ou attaque inflige 4 points de dégâts de moins"
+  },
+  "class:barbarian:damage-reduction-19": {
+    "en": "DR 5/—: each hit or attack deals 5 less damage",
+    "fr": "RD 5/– : chaque coup ou attaque inflige 5 points de dégâts de moins"
+  },
+  "class:barbarian:fast-movement": {
+    "en": "+10 ft land speed in no, light or medium armor and without a heavy load",
+    "fr": "+3 m à la vitesse au sol sans armure lourde ni charge lourde"
+  },
+  "class:barbarian:greater-rage": {
+    "en": "Rage bonuses become +6 Str/Con and +3 morale on Will saves",
+    "fr": "Bonus de rage portés à +6 For/Con et +3 de moral en Volonté"
+  },
+  "class:barbarian:illiteracy": {
+    "en": "Can't read or write; 2 skill points (or a level in another class) to learn",
+    "fr": "Ne sait ni lire ni écrire ; 2 points de compétence (ou un niveau d’une autre classe) pour apprendre"
+  },
+  "class:barbarian:improved-uncanny-dodge": {
+    "en": "Can't be flanked, except by a rogue with 4+ more rogue levels than your levels",
+    "fr": "Ne peut être pris en tenaille, sauf par un roublard ayant au moins 4 niveaux de plus"
+  },
+  "class:barbarian:indomitable-will": {
+    "en": "While raging, +4 on Will saves against enchantment spells",
+    "fr": "En rage, +4 aux jets de Volonté contre les sorts d’enchantement"
+  },
+  "class:barbarian:mighty-rage": {
+    "en": "Rage bonuses become +8 Str/Con and +4 morale on Will saves",
+    "fr": "Bonus de rage portés à +8 For/Con et +4 de moral en Volonté"
+  },
+  "class:barbarian:rage": {
+    "en": "Rage 1/day: +4 Str/Con, +2 morale Will, −2 AC, 3 + Con mod rounds, then fatigued",
+    "fr": "Rage 1/jour : +4 For/Con, +2 moral en Volonté, −2 CA, 3 + mod. Con rounds, puis fatigué"
+  },
+  "class:barbarian:rage-12": {
+    "en": "Rage usable 4 times per day",
+    "fr": "Rage utilisable 4 fois par jour"
+  },
+  "class:barbarian:rage-16": {
+    "en": "Rage usable 5 times per day",
+    "fr": "Rage utilisable 5 fois par jour"
+  },
+  "class:barbarian:rage-20": {
+    "en": "Rage usable 6 times per day",
+    "fr": "Rage utilisable 6 fois par jour"
+  },
+  "class:barbarian:rage-4": {
+    "en": "Rage usable 2 times per day",
+    "fr": "Rage utilisable 2 fois par jour"
+  },
+  "class:barbarian:rage-8": {
+    "en": "Rage usable 3 times per day",
+    "fr": "Rage utilisable 3 fois par jour"
+  },
+  "class:barbarian:tireless-rage": {
+    "en": "No longer fatigued when a rage ends",
+    "fr": "N’est plus fatigué à la fin de sa rage"
+  },
+  "class:barbarian:trap-sense": {
+    "en": "+1 on Reflex saves and +1 dodge AC against traps",
+    "fr": "+1 aux jets de Réflexes et bonus d’esquive de +1 à la CA contre les pièges"
+  },
+  "class:barbarian:trap-sense-12": {
+    "en": "+4 on Reflex saves and +4 dodge AC against traps",
+    "fr": "+4 aux jets de Réflexes et bonus d’esquive de +4 à la CA contre les pièges"
+  },
+  "class:barbarian:trap-sense-15": {
+    "en": "+5 on Reflex saves and +5 dodge AC against traps",
+    "fr": "+5 aux jets de Réflexes et bonus d’esquive de +5 à la CA contre les pièges"
+  },
+  "class:barbarian:trap-sense-18": {
+    "en": "+6 on Reflex saves and +6 dodge AC against traps",
+    "fr": "+6 aux jets de Réflexes et bonus d’esquive de +6 à la CA contre les pièges"
+  },
+  "class:barbarian:trap-sense-6": {
+    "en": "+2 on Reflex saves and +2 dodge AC against traps",
+    "fr": "+2 aux jets de Réflexes et bonus d’esquive de +2 à la CA contre les pièges"
+  },
+  "class:barbarian:trap-sense-9": {
+    "en": "+3 on Reflex saves and +3 dodge AC against traps",
+    "fr": "+3 aux jets de Réflexes et bonus d’esquive de +3 à la CA contre les pièges"
+  },
+  "class:barbarian:uncanny-dodge": {
+    "en": "Keeps Dex bonus to AC when flat-footed or attacked by an invisible foe",
+    "fr": "Conserve son bonus de Dex à la CA s’il est pris au dépourvu ou attaqué par un ennemi invisible"
+  },
+  "class:bard:bardic-knowledge": {
+    "en": "Lore check: d20 + bard level + Int mod (+2 with 5 ranks in Knowledge (history))",
+    "fr": "Test de savoir bardique : 1d20 + niveau de barde + mod. Int (+2 si 5 degrés en Connaissances (histoire))"
+  },
+  "class:bard:bardic-music": {
+    "en": "Bardic music 1/day per bard level; each effect needs ranks in a Perform skill",
+    "fr": "Musique de barde 1/jour par niveau de barde ; chaque effet exige des degrés en Représentation"
+  },
+  "class:bard:countersong": {
+    "en": "Perform 3 ranks: allies within 30 ft may use your Perform check vs sonic magic, 10 rounds",
+    "fr": "Représentation 3 : alliés à 9 m utilisent votre test de Représentation contre la magie sonore, 10 rounds"
+  },
+  "class:bard:fascinate": {
+    "en": "Perform 3 ranks: fascinate 1 creature (+1 per 3 levels) within 90 ft, Will DC = Perform",
+    "fr": "Représentation 3 : fascine 1 créature (+1 par 3 niveaux) à 27 m, Volonté DD = test de Représentation"
+  },
+  "class:bard:inspire-competence": {
+    "en": "Perform 6 ranks: one ally within 30 ft gets +2 competence on a skill, up to 2 min",
+    "fr": "Représentation 6 : un allié à 9 m reçoit +2 d’aptitude à une compétence, jusqu’à 2 min"
+  },
+  "class:bard:inspire-courage": {
+    "en": "Perform 3 ranks: allies get +1 morale on attack, weapon damage and saves vs charm/fear",
+    "fr": "Représentation 3 : alliés +1 de moral à l’attaque, aux dégâts et aux JS contre charme et terreur"
+  },
+  "class:bard:inspire-courage-14": {
+    "en": "Inspire courage bonus becomes +3",
+    "fr": "Le bonus d’inspiration vaillante passe à +3"
+  },
+  "class:bard:inspire-courage-20": {
+    "en": "Inspire courage bonus becomes +4",
+    "fr": "Le bonus d’inspiration vaillante passe à +4"
+  },
+  "class:bard:inspire-courage-8": {
+    "en": "Inspire courage bonus becomes +2",
+    "fr": "Le bonus d’inspiration vaillante passe à +2"
+  },
+  "class:bard:inspire-greatness": {
+    "en": "Perform 12 ranks: 1 ally (+1/3 levels) gains 2 bonus HD, +2 attack, +1 Fort",
+    "fr": "Représentation 12 : 1 allié (+1/3 niveaux) gagne 2 DV, +2 à l’attaque, +1 en Vigueur"
+  },
+  "class:bard:inspire-heroics": {
+    "en": "Perform 18 ranks: 1 ally (+1/3 levels) gets +4 morale on saves and +4 dodge AC",
+    "fr": "Représentation 18 : 1 allié (+1/3 niveaux) gagne +4 de moral aux JS et +4 d’esquive à la CA"
+  },
+  "class:bard:mass-suggestion": {
+    "en": "Perform 21 ranks: suggestion on every creature you have fascinated",
+    "fr": "Représentation 21 : suggestion sur toutes les créatures fascinées"
+  },
+  "class:bard:song-of-freedom": {
+    "en": "Perform 15 ranks: 1 minute of music gives break enchantment on one other creature",
+    "fr": "Représentation 15 : 1 minute de musique, annulation d’enchantement sur une autre créature"
+  },
+  "class:bard:spells": {
+    "en": "Arcane spells cast spontaneously (Cha), bard list up to 6th level; light armor allowed",
+    "fr": "Sorts profanes spontanés (Cha), liste du barde jusqu’au niveau 6 ; armure légère permise"
+  },
+  "class:bard:suggestion": {
+    "en": "Perform 9 ranks: suggestion on a fascinated creature, Will DC 10 + ½ bard level + Cha",
+    "fr": "Représentation 9 : suggestion sur une créature fascinée, Volonté DD 10 + ½ niveau + mod. Cha"
+  },
+  "class:cleric:aura": {
+    "en": "Strong aura of the deity's alignment (chaos, evil, good or law), as detect evil shows",
+    "fr": "Puissante aura de l’alignement du dieu (Chaos, Mal, Bien ou Loi), révélée par détection du Mal"
+  },
+  "class:cleric:domains": {
+    "en": "Two domains of the deity: their granted powers and one domain spell slot per spell level",
+    "fr": "Deux domaines du dieu : leurs pouvoirs accordés et un emplacement de sort de domaine par niveau"
+  },
+  "class:cleric:spells": {
+    "en": "Divine spells prepared daily (Wis), whole cleric list up to 9th level",
+    "fr": "Sorts divins préparés chaque jour (Sag), toute la liste du prêtre jusqu’au niveau 9"
+  },
+  "class:cleric:spontaneous-casting": {
+    "en": "Swap a prepared spell (not a domain spell) for a cure or inflict spell of its level",
+    "fr": "Échange un sort préparé (hors domaine) contre un sort de soins ou de blessure de même niveau"
+  },
+  "class:cleric:turn-or-rebuke-undead": {
+    "en": "3 + Cha mod per day; turning check d20 + Cha, damage 2d6 + cleric level + Cha",
+    "fr": "3 + mod. Cha fois par jour ; test de renvoi 1d20 + Cha, dégâts 2d6 + niveau + Cha"
+  },
+  "class:druid:a-thousand-faces": {
+    "en": "Change appearance at will as alter self, only in her normal form",
+    "fr": "Change d’apparence à volonté, comme modification d’apparence, sous sa forme normale"
+  },
+  "class:druid:animal-companion": {
+    "en": "A loyal animal companion that gains HD and abilities as the druid levels up",
+    "fr": "Un compagnon animal fidèle qui gagne DV et pouvoirs avec le niveau du druide"
+  },
+  "class:druid:nature-sense": {
+    "en": "+2 on Knowledge (nature) and Survival checks",
+    "fr": "+2 aux tests de Connaissances (nature) et de Survie"
+  },
+  "class:druid:resist-natures-lure": {
+    "en": "+4 on saves against the spell-like abilities of fey",
+    "fr": "+4 aux jets de sauvegarde contre les pouvoirs magiques des fées"
+  },
+  "class:druid:spells": {
+    "en": "Divine spells prepared daily (Wis), druid list up to 9th level; no metal armor",
+    "fr": "Sorts divins préparés chaque jour (Sag), liste du druide jusqu’au niveau 9 ; pas d’armure en métal"
+  },
+  "class:druid:spontaneous-casting": {
+    "en": "Swap a prepared spell for a summon nature's ally spell of the same level",
+    "fr": "Échange un sort préparé contre une convocation d’alliés naturels de même niveau"
+  },
+  "class:druid:timeless-body": {
+    "en": "No more ability penalties from aging; can't be magically aged",
+    "fr": "Plus de malus de caractéristique dus à l’âge ; immunisé contre le vieillissement magique"
+  },
+  "class:druid:trackless-step": {
+    "en": "Leaves no trail in natural surroundings and can't be tracked",
+    "fr": "Ne laisse aucune trace en milieu naturel et ne peut être pisté"
+  },
+  "class:druid:venom-immunity": {
+    "en": "Immune to all poisons",
+    "fr": "Immunisé contre tous les poisons"
+  },
+  "class:druid:wild-empathy": {
+    "en": "Improve an animal's attitude: d20 + druid level + Cha mod (magical beasts at −4)",
+    "fr": "Améliore l’attitude d’un animal : 1d20 + niveau de druide + mod. Cha (créatures magiques à −4)"
+  },
+  "class:druid:wild-shape": {
+    "en": "Wild shape 1/day: Small or Medium animal, 1 hour per druid level",
+    "fr": "Forme animale 1/jour : animal de taille P ou M, 1 heure par niveau de druide"
+  },
+  "class:druid:wild-shape-10": {
+    "en": "Wild shape usable 4 times per day",
+    "fr": "Forme animale utilisable 4 fois par jour"
+  },
+  "class:druid:wild-shape-11": {
+    "en": "Wild shape can now take Tiny animal forms",
+    "fr": "Forme animale possible en animal de taille TP"
+  },
+  "class:druid:wild-shape-12": {
+    "en": "Wild shape can now take plant creature forms",
+    "fr": "Forme animale possible en créature végétale"
+  },
+  "class:druid:wild-shape-14": {
+    "en": "Wild shape usable 5 times per day",
+    "fr": "Forme animale utilisable 5 fois par jour"
+  },
+  "class:druid:wild-shape-15": {
+    "en": "Wild shape can now take Huge animal forms",
+    "fr": "Forme animale possible en animal de taille TG"
+  },
+  "class:druid:wild-shape-16": {
+    "en": "Wild shape into a Small, Medium or Large elemental 1/day",
+    "fr": "Forme animale en élémentaire de taille P, M ou G, 1/jour"
+  },
+  "class:druid:wild-shape-18": {
+    "en": "Wild shape 6/day, elemental form 2/day",
+    "fr": "Forme animale 6/jour, forme d’élémentaire 2/jour"
+  },
+  "class:druid:wild-shape-20": {
+    "en": "Elemental form 3/day, Huge elementals allowed",
+    "fr": "Forme d’élémentaire 3/jour, élémentaire de taille TG permis"
+  },
+  "class:druid:wild-shape-6": {
+    "en": "Wild shape usable 2 times per day",
+    "fr": "Forme animale utilisable 2 fois par jour"
+  },
+  "class:druid:wild-shape-7": {
+    "en": "Wild shape usable 3 times per day",
+    "fr": "Forme animale utilisable 3 fois par jour"
+  },
+  "class:druid:wild-shape-8": {
+    "en": "Wild shape can now take Large animal forms",
+    "fr": "Forme animale possible en animal de taille G"
+  },
+  "class:druid:woodland-stride": {
+    "en": "Moves through natural undergrowth at normal speed, without damage or impediment",
+    "fr": "Traverse les broussailles naturelles à vitesse normale, sans dégâts ni gêne"
+  },
+  "class:fighter:bonus-feat": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-10": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-12": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-14": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-16": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-18": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-2": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-20": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-4": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-6": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:fighter:bonus-feat-8": {
+    "en": "Bonus feat chosen from the fighter bonus feat list (combat feats)",
+    "fr": "Don supplémentaire choisi dans la liste des dons de guerrier (dons de combat)"
+  },
+  "class:monk:abundant-step": {
+    "en": "Dimension door 1/day, caster level = ½ monk level",
+    "fr": "Porte dimensionnelle 1/jour, niveau de lanceur de sorts = ½ niveau de moine"
+  },
+  "class:monk:ac-bonus": {
+    "en": "Unarmored and unencumbered: Wis bonus to AC, +1 at 5th level and every 5 levels",
+    "fr": "Sans armure ni charge : bonus de Sag à la CA, +1 au niveau 5 puis tous les 5 niveaux"
+  },
+  "class:monk:bonus-feat": {
+    "en": "Bonus feat: Improved Grapple or Stunning Fist, prerequisites not needed",
+    "fr": "Don supplémentaire : Science de la lutte ou Coup étourdissant, sans conditions requises"
+  },
+  "class:monk:bonus-feat-2": {
+    "en": "Bonus feat: Combat Reflexes or Deflect Arrows, prerequisites not needed",
+    "fr": "Don supplémentaire : Attaques réflexes ou Parade de projectiles, sans conditions requises"
+  },
+  "class:monk:bonus-feat-6": {
+    "en": "Bonus feat: Improved Disarm or Improved Trip, prerequisites not needed",
+    "fr": "Don supplémentaire : Science du désarmement ou Science du croc-en-jambe, sans conditions requises"
+  },
+  "class:monk:diamond-body": {
+    "en": "Immune to poisons of all kinds",
+    "fr": "Immunisé contre tous les poisons"
+  },
+  "class:monk:diamond-soul": {
+    "en": "Spell resistance = monk level + 10",
+    "fr": "Résistance à la magie = niveau de moine + 10"
+  },
+  "class:monk:empty-body": {
+    "en": "Becomes ethereal (as etherealness) for 1 round per monk level per day",
+    "fr": "Devient éthéré (comme passage dans l’éther) 1 round par niveau de moine et par jour"
+  },
+  "class:monk:evasion": {
+    "en": "On a successful Reflex save for half damage, takes no damage instead",
+    "fr": "Jet de Réflexes réussi contre un effet à demi-dégâts : aucun dégât"
+  },
+  "class:monk:fast-movement": {
+    "en": "Unarmored, light load: +10 ft enhancement to speed, +10 ft more every 3 levels",
+    "fr": "Sans armure, charge légère : +3 m d’altération à la vitesse, +3 m de plus tous les 3 niveaux"
+  },
+  "class:monk:flurry-of-blows": {
+    "en": "Full attack unarmored: one extra attack, all at −2 (−1 at 5th, no penalty at 9th)",
+    "fr": "Attaque à outrance sans armure : une attaque de plus, toutes à −2 (−1 au niveau 5, 0 au niveau 9)"
+  },
+  "class:monk:greater-flurry": {
+    "en": "Flurry of blows grants a second extra attack at full base attack bonus",
+    "fr": "Le déluge de coups donne une seconde attaque supplémentaire au bonus de base maximal"
+  },
+  "class:monk:improved-evasion": {
+    "en": "Evasion, and only half damage even on a failed Reflex save",
+    "fr": "Esquive totale, et seulement demi-dégâts même sur un jet de Réflexes raté"
+  },
+  "class:monk:ki-strike": {
+    "en": "Unarmed strikes count as magic weapons to overcome damage reduction",
+    "fr": "Les coups à mains nues comptent comme des armes magiques contre la réduction des dégâts"
+  },
+  "class:monk:ki-strike-10": {
+    "en": "Unarmed strikes also count as lawful weapons against damage reduction",
+    "fr": "Les coups à mains nues comptent aussi comme des armes loyales contre la RD"
+  },
+  "class:monk:ki-strike-16": {
+    "en": "Unarmed strikes also count as adamantine against DR and hardness",
+    "fr": "Les coups à mains nues comptent aussi comme de l’adamantium contre la RD et la solidité"
+  },
+  "class:monk:perfect-self": {
+    "en": "Becomes an outsider for spells and effects; DR 10/magic",
+    "fr": "Devient un Extérieur pour les sorts et effets ; RD 10/magie"
+  },
+  "class:monk:purity-of-body": {
+    "en": "Immune to all nonmagical diseases",
+    "fr": "Immunisé contre les maladies non magiques"
+  },
+  "class:monk:quivering-palm": {
+    "en": "1/week: unarmed hit, later Fort DC 10 + ½ monk level + Wis or die",
+    "fr": "1/semaine : coup à mains nues, puis Vigueur DD 10 + ½ niveau + mod. Sag ou mort"
+  },
+  "class:monk:slow-fall": {
+    "en": "Within reach of a wall, a fall counts as 20 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 6 m plus courte"
+  },
+  "class:monk:slow-fall-10": {
+    "en": "Within reach of a wall, a fall counts as 50 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 15 m plus courte"
+  },
+  "class:monk:slow-fall-12": {
+    "en": "Within reach of a wall, a fall counts as 60 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 18 m plus courte"
+  },
+  "class:monk:slow-fall-14": {
+    "en": "Within reach of a wall, a fall counts as 70 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 21 m plus courte"
+  },
+  "class:monk:slow-fall-16": {
+    "en": "Within reach of a wall, a fall counts as 80 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 24 m plus courte"
+  },
+  "class:monk:slow-fall-18": {
+    "en": "Within reach of a wall, a fall counts as 90 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 27 m plus courte"
+  },
+  "class:monk:slow-fall-20": {
+    "en": "Within reach of a wall, falls from any height without damage",
+    "fr": "À portée d’une paroi, chute de n’importe quelle hauteur sans dégâts"
+  },
+  "class:monk:slow-fall-6": {
+    "en": "Within reach of a wall, a fall counts as 30 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 9 m plus courte"
+  },
+  "class:monk:slow-fall-8": {
+    "en": "Within reach of a wall, a fall counts as 40 ft shorter",
+    "fr": "À portée d’une paroi, une chute compte comme 12 m plus courte"
+  },
+  "class:monk:still-mind": {
+    "en": "+2 on saves against enchantment spells and effects",
+    "fr": "+2 aux jets de sauvegarde contre les sorts et effets d’enchantement"
+  },
+  "class:monk:timeless-body": {
+    "en": "No more ability penalties from aging; can't be magically aged",
+    "fr": "Plus de malus de caractéristique dus à l’âge ; immunisé contre le vieillissement magique"
+  },
+  "class:monk:tongue-of-the-sun-and-moon": {
+    "en": "Can speak with any living creature",
+    "fr": "Peut communiquer avec toute créature vivante"
+  },
+  "class:monk:unarmed-strike": {
+    "en": "Improved Unarmed Strike; 1d6 unarmed damage (Medium), rising with level, full Str",
+    "fr": "Science du combat à mains nues ; 1d6 à mains nues (taille M), croissant avec le niveau, For entière"
+  },
+  "class:monk:wholeness-of-body": {
+    "en": "Heals up to 2 × monk level hit points per day, split as wished",
+    "fr": "Soigne jusqu’à 2 × niveau de moine points de vie par jour, en plusieurs fois"
+  },
+  "class:paladin:aura-of-courage": {
+    "en": "Immune to fear; allies within 10 ft get +4 morale on saves against fear",
+    "fr": "Immunisé contre la terreur ; alliés à 3 m +4 de moral aux JS contre la terreur"
+  },
+  "class:paladin:aura-of-good": {
+    "en": "Aura of good whose strength equals the paladin level",
+    "fr": "Aura de Bien d’une puissance égale au niveau de paladin"
+  },
+  "class:paladin:detect-evil": {
+    "en": "Detect evil at will, as the spell",
+    "fr": "Détection du Mal à volonté, comme le sort"
+  },
+  "class:paladin:divine-grace": {
+    "en": "Adds Cha bonus to all saving throws",
+    "fr": "Ajoute son bonus de Cha à tous ses jets de sauvegarde"
+  },
+  "class:paladin:divine-health": {
+    "en": "Immune to all diseases, including magical ones",
+    "fr": "Immunisé contre toutes les maladies, même magiques"
+  },
+  "class:paladin:lay-on-hands": {
+    "en": "Cha 12+: heal paladin level × Cha bonus hit points per day by touch",
+    "fr": "Cha 12+ : soigne niveau de paladin × bonus de Cha points de vie par jour, par contact"
+  },
+  "class:paladin:remove-disease": {
+    "en": "Remove disease, as the spell, 1/week",
+    "fr": "Guérison des maladies, comme le sort, 1/semaine"
+  },
+  "class:paladin:remove-disease-12": {
+    "en": "Remove disease usable 3 times per week",
+    "fr": "Guérison des maladies utilisable 3 fois par semaine"
+  },
+  "class:paladin:remove-disease-15": {
+    "en": "Remove disease usable 4 times per week",
+    "fr": "Guérison des maladies utilisable 4 fois par semaine"
+  },
+  "class:paladin:remove-disease-18": {
+    "en": "Remove disease usable 5 times per week",
+    "fr": "Guérison des maladies utilisable 5 fois par semaine"
+  },
+  "class:paladin:remove-disease-9": {
+    "en": "Remove disease usable 2 times per week",
+    "fr": "Guérison des maladies utilisable 2 fois par semaine"
+  },
+  "class:paladin:smite-evil": {
+    "en": "Smite evil 1/day: + Cha bonus on attack, + paladin level on damage vs an evil foe",
+    "fr": "Châtiment du Mal 1/jour : + bonus de Cha à l’attaque, + niveau de paladin aux dégâts"
+  },
+  "class:paladin:smite-evil-10": {
+    "en": "Smite evil usable 3 times per day",
+    "fr": "Châtiment du Mal utilisable 3 fois par jour"
+  },
+  "class:paladin:smite-evil-15": {
+    "en": "Smite evil usable 4 times per day",
+    "fr": "Châtiment du Mal utilisable 4 fois par jour"
+  },
+  "class:paladin:smite-evil-20": {
+    "en": "Smite evil usable 5 times per day",
+    "fr": "Châtiment du Mal utilisable 5 fois par jour"
+  },
+  "class:paladin:smite-evil-5": {
+    "en": "Smite evil usable 2 times per day",
+    "fr": "Châtiment du Mal utilisable 2 fois par jour"
+  },
+  "class:paladin:special-mount": {
+    "en": "Calls a loyal heavy warhorse (or warpony) 1/day, which grows with paladin level",
+    "fr": "Appelle 1/jour un destrier lourd (ou poney de guerre) fidèle qui progresse avec le niveau"
+  },
+  "class:paladin:spells": {
+    "en": "Divine spells from 4th level (Wis), paladin list up to 4th; caster level = ½ paladin level",
+    "fr": "Sorts divins dès le niveau 4 (Sag), liste du paladin jusqu’au niveau 4 ; NLS = ½ niveau"
+  },
+  "class:paladin:turn-undead": {
+    "en": "Turns undead as a cleric of paladin level − 3, 3 + Cha mod times per day",
+    "fr": "Renvoie les morts-vivants comme un prêtre de niveau −3, 3 + mod. Cha fois par jour"
+  },
+  "class:ranger:animal-companion": {
+    "en": "Animal companion as a druid of half the ranger level",
+    "fr": "Compagnon animal comme un druide de la moitié du niveau de rôdeur"
+  },
+  "class:ranger:camouflage": {
+    "en": "Can Hide in any natural terrain, even without cover or concealment",
+    "fr": "Peut utiliser Discrétion sur tout terrain naturel, même sans abri ni camouflage"
+  },
+  "class:ranger:combat-style": {
+    "en": "Archery (Rapid Shot) or two-weapon (Two-Weapon Fighting), no prerequisites; light armor",
+    "fr": "Distance (Tir rapide) ou deux armes (Combat à deux armes), sans conditions ; armure légère"
+  },
+  "class:ranger:combat-style-mastery": {
+    "en": "Style feat: Improved Precise Shot (archery) or Greater Two-Weapon Fighting",
+    "fr": "Don de style : Science du tir de précision (distance) ou Maîtrise du combat à deux armes"
+  },
+  "class:ranger:endurance": {
+    "en": "Endurance as a bonus feat",
+    "fr": "Endurance comme don supplémentaire"
+  },
+  "class:ranger:evasion": {
+    "en": "On a successful Reflex save for half damage, takes no damage instead",
+    "fr": "Jet de Réflexes réussi contre un effet à demi-dégâts : aucun dégât"
+  },
+  "class:ranger:favored-enemy": {
+    "en": "Chosen creature type: +2 on Bluff, Listen, Sense Motive, Spot, Survival and weapon damage",
+    "fr": "Type choisi : +2 en Bluff, Perception auditive, Psychologie, Détection, Survie et aux dégâts"
+  },
+  "class:ranger:favored-enemy-10": {
+    "en": "3rd favored enemy at +2; one favored enemy's bonus rises by +2",
+    "fr": "3e ennemi juré à +2 ; le bonus contre un ennemi juré augmente de +2"
+  },
+  "class:ranger:favored-enemy-15": {
+    "en": "4th favored enemy at +2; one favored enemy's bonus rises by +2",
+    "fr": "4e ennemi juré à +2 ; le bonus contre un ennemi juré augmente de +2"
+  },
+  "class:ranger:favored-enemy-20": {
+    "en": "5th favored enemy at +2; one favored enemy's bonus rises by +2",
+    "fr": "5e ennemi juré à +2 ; le bonus contre un ennemi juré augmente de +2"
+  },
+  "class:ranger:favored-enemy-5": {
+    "en": "2nd favored enemy at +2; one favored enemy's bonus rises by +2",
+    "fr": "2e ennemi juré à +2 ; le bonus contre un ennemi juré augmente de +2"
+  },
+  "class:ranger:hide-in-plain-sight": {
+    "en": "Can Hide in natural terrain even while being observed",
+    "fr": "Peut utiliser Discrétion en terrain naturel même s’il est observé"
+  },
+  "class:ranger:improved-combat-style": {
+    "en": "Style feat: Manyshot (archery) or Improved Two-Weapon Fighting; light armor",
+    "fr": "Don de style : Feu nourri (distance) ou Science du combat à deux armes ; armure légère"
+  },
+  "class:ranger:spells": {
+    "en": "Divine spells from 4th level (Wis), ranger list up to 4th; caster level = ½ ranger level",
+    "fr": "Sorts divins dès le niveau 4 (Sag), liste du rôdeur jusqu’au niveau 4 ; NLS = ½ niveau"
+  },
+  "class:ranger:swift-tracker": {
+    "en": "Tracks at normal speed without penalty; at double speed only −10",
+    "fr": "Piste à vitesse normale sans malus ; à vitesse double, seulement −10"
+  },
+  "class:ranger:track": {
+    "en": "Track as a bonus feat",
+    "fr": "Pistage comme don supplémentaire"
+  },
+  "class:ranger:wild-empathy": {
+    "en": "Improve an animal's attitude: d20 + ranger level + Cha mod (magical beasts at −4)",
+    "fr": "Améliore l’attitude d’un animal : 1d20 + niveau de rôdeur + mod. Cha (créatures magiques à −4)"
+  },
+  "class:ranger:woodland-stride": {
+    "en": "Moves through natural undergrowth at normal speed, without damage or impediment",
+    "fr": "Traverse les broussailles naturelles à vitesse normale, sans dégâts ni gêne"
+  },
+  "class:rogue:evasion": {
+    "en": "On a successful Reflex save for half damage, takes no damage instead",
+    "fr": "Jet de Réflexes réussi contre un effet à demi-dégâts : aucun dégât"
+  },
+  "class:rogue:improved-uncanny-dodge": {
+    "en": "Can't be flanked, except by a rogue with 4+ more rogue levels than you",
+    "fr": "Ne peut être pris en tenaille, sauf par un roublard ayant au moins 4 niveaux de plus"
+  },
+  "class:rogue:sneak-attack": {
+    "en": "+1d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+1d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-11": {
+    "en": "+6d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+6d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-13": {
+    "en": "+7d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+7d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-15": {
+    "en": "+8d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+8d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-17": {
+    "en": "+9d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+9d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-19": {
+    "en": "+10d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+10d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-3": {
+    "en": "+2d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+2d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-5": {
+    "en": "+3d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+3d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-7": {
+    "en": "+4d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+4d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:sneak-attack-9": {
+    "en": "+5d6 damage vs a foe denied its Dex bonus to AC or flanked (ranged: 30 ft)",
+    "fr": "+5d6 dégâts contre un ennemi privé de son bonus de Dex à la CA ou pris en tenaille (distance : 9 m)"
+  },
+  "class:rogue:special-ability": {
+    "en": "Pick one: crippling strike, defensive roll, improved evasion, opportunist, skill mastery…",
+    "fr": "Au choix : attaque handicapante, roulé-boulé, esquive extraordinaire, opportunisme, esprit fuyant…"
+  },
+  "class:rogue:special-ability-13": {
+    "en": "Pick one: crippling strike, defensive roll, improved evasion, opportunist, skill mastery…",
+    "fr": "Au choix : attaque handicapante, roulé-boulé, esquive extraordinaire, opportunisme, esprit fuyant…"
+  },
+  "class:rogue:special-ability-16": {
+    "en": "Pick one: crippling strike, defensive roll, improved evasion, opportunist, skill mastery…",
+    "fr": "Au choix : attaque handicapante, roulé-boulé, esquive extraordinaire, opportunisme, esprit fuyant…"
+  },
+  "class:rogue:special-ability-19": {
+    "en": "Pick one: crippling strike, defensive roll, improved evasion, opportunist, skill mastery…",
+    "fr": "Au choix : attaque handicapante, roulé-boulé, esquive extraordinaire, opportunisme, esprit fuyant…"
+  },
+  "class:rogue:trap-sense": {
+    "en": "+1 on Reflex saves and +1 dodge AC against traps",
+    "fr": "+1 aux jets de Réflexes et bonus d’esquive de +1 à la CA contre les pièges"
+  },
+  "class:rogue:trap-sense-12": {
+    "en": "+4 on Reflex saves and +4 dodge AC against traps",
+    "fr": "+4 aux jets de Réflexes et bonus d’esquive de +4 à la CA contre les pièges"
+  },
+  "class:rogue:trap-sense-15": {
+    "en": "+5 on Reflex saves and +5 dodge AC against traps",
+    "fr": "+5 aux jets de Réflexes et bonus d’esquive de +5 à la CA contre les pièges"
+  },
+  "class:rogue:trap-sense-18": {
+    "en": "+6 on Reflex saves and +6 dodge AC against traps",
+    "fr": "+6 aux jets de Réflexes et bonus d’esquive de +6 à la CA contre les pièges"
+  },
+  "class:rogue:trap-sense-6": {
+    "en": "+2 on Reflex saves and +2 dodge AC against traps",
+    "fr": "+2 aux jets de Réflexes et bonus d’esquive de +2 à la CA contre les pièges"
+  },
+  "class:rogue:trap-sense-9": {
+    "en": "+3 on Reflex saves and +3 dodge AC against traps",
+    "fr": "+3 aux jets de Réflexes et bonus d’esquive de +3 à la CA contre les pièges"
+  },
+  "class:rogue:trapfinding": {
+    "en": "Can find traps with Search DC over 20 and disarm magic traps with Disable Device",
+    "fr": "Peut trouver les pièges de DD supérieur à 20 (Fouille) et désamorcer les pièges magiques"
+  },
+  "class:rogue:uncanny-dodge": {
+    "en": "Keeps Dex bonus to AC when flat-footed or attacked by an invisible foe",
+    "fr": "Conserve son bonus de Dex à la CA s’il est pris au dépourvu ou attaqué par un ennemi invisible"
+  },
+  "class:sorcerer:spells": {
+    "en": "Arcane spells cast spontaneously (Cha), sorcerer/wizard list up to 9th level",
+    "fr": "Sorts profanes spontanés (Cha), liste des ensorceleurs et magiciens jusqu’au niveau 9"
+  },
+  "class:sorcerer:summon-familiar": {
+    "en": "Can gain a familiar (24 hours, 100 gp); it grants a bonus and grows with level",
+    "fr": "Peut obtenir un familier (24 heures, 100 po) ; il donne un bonus et progresse avec le niveau"
+  },
+  "class:wizard:bonus-feat": {
+    "en": "Bonus feat: a metamagic or item creation feat, or Spell Mastery",
+    "fr": "Don supplémentaire : métamagie, création d’objets ou Maîtrise des sorts"
+  },
+  "class:wizard:bonus-feat-10": {
+    "en": "Bonus feat: a metamagic or item creation feat, or Spell Mastery",
+    "fr": "Don supplémentaire : métamagie, création d’objets ou Maîtrise des sorts"
+  },
+  "class:wizard:bonus-feat-15": {
+    "en": "Bonus feat: a metamagic or item creation feat, or Spell Mastery",
+    "fr": "Don supplémentaire : métamagie, création d’objets ou Maîtrise des sorts"
+  },
+  "class:wizard:bonus-feat-20": {
+    "en": "Bonus feat: a metamagic or item creation feat, or Spell Mastery",
+    "fr": "Don supplémentaire : métamagie, création d’objets ou Maîtrise des sorts"
+  },
+  "class:wizard:school-specialization": {
+    "en": "Optional: +1 spell per level from your school, +2 Spellcraft; 2 forbidden schools",
+    "fr": "Facultatif : +1 sort par niveau de votre école, +2 en Art de la magie ; 2 écoles interdites"
+  },
+  "class:wizard:scribe-scroll": {
+    "en": "Scribe Scroll as a bonus feat",
+    "fr": "Écriture de parchemins comme don supplémentaire"
+  },
+  "class:wizard:spellbooks": {
+    "en": "Prepares spells from a spellbook; 2 free new spells per wizard level",
+    "fr": "Prépare ses sorts depuis son grimoire ; 2 nouveaux sorts gratuits par niveau de magicien"
+  },
+  "class:wizard:spells": {
+    "en": "Arcane spells prepared daily (Int), sorcerer/wizard list up to 9th level",
+    "fr": "Sorts profanes préparés chaque jour (Int), liste des ensorceleurs et magiciens jusqu’au niveau 9"
+  },
+  "class:wizard:summon-familiar": {
+    "en": "Can gain a familiar (24 hours, 100 gp); it grants a bonus and grows with level",
+    "fr": "Peut obtenir un familier (24 heures, 100 po) ; il donne un bonus et progresse avec le niveau"
+  },
+  "classSpecial:warblade:Battle ardor (critical confirmation)": {
+    "en": "Insight bonus = Int bonus on rolls to confirm critical hits",
+    "fr": "Bonus d’intuition = bonus d’Int aux jets de confirmation de critique"
+  },
+  "classSpecial:warblade:Battle clarity (Reflex saves)": {
+    "en": "Insight bonus = Int bonus (max warblade level) on Reflex saves, unless flat-footed",
+    "fr": "Bonus d’intuition = bonus d’Int (max. niveau) aux jets de Réflexes, sauf pris au dépourvu"
+  },
+  "classSpecial:warblade:Battle cunning (damage)": {
+    "en": "Insight bonus = Int bonus on melee damage vs flat-footed or flanked foes",
+    "fr": "Bonus d’intuition = bonus d’Int aux dégâts au contact contre un ennemi pris au dépourvu ou en tenaille"
+  },
+  "classSpecial:warblade:Battle mastery (attacks of opportunity)": {
+    "en": "Insight bonus = Int bonus on attack and damage of attacks of opportunity",
+    "fr": "Bonus d’intuition = bonus d’Int à l’attaque et aux dégâts des attaques d’opportunité"
+  },
+  "classSpecial:warblade:Battle skill (opposed checks)": {
+    "en": "Insight bonus = Int bonus to resist bull rush, disarm, feint, overrun, sunder, trip",
+    "fr": "Bonus d’intuition (Int) contre bousculade, désarmement, feinte, renversement, destruction, croc-en-jambe"
+  },
+  "classSpecial:warblade:Improved uncanny dodge": {
+    "en": "Can't be flanked, except by a rogue with 4+ more levels",
+    "fr": "Ne peut être pris en tenaille, sauf par un roublard ayant au moins 4 niveaux de plus"
+  },
+  "classSpecial:warblade:Stance mastery": {
+    "en": "Two stances active at once; one swift action starts or changes either or both",
+    "fr": "Deux postures actives à la fois ; une action rapide lance ou change l’une ou les deux"
+  },
+  "classSpecial:warblade:Uncanny dodge": {
+    "en": "Keeps Dex bonus to AC when flat-footed or attacked by an invisible foe",
+    "fr": "Conserve son bonus de Dex à la CA s’il est pris au dépourvu ou attaqué par un ennemi invisible"
+  },
+  "classSpecial:warblade:Weapon aptitude": {
+    "en": "Warblade level − 2 counts as fighter level for feats; can re-assign weapon feats",
+    "fr": "Niveau de lame de bataille − 2 compte comme niveau de guerrier pour les dons ; dons d’arme réassignables"
+  },
+  "classSpecial:weapon-master:Increased multiplier 1/day": {
+    "en": "1/day: +1 to the critical multiplier, declared before rolling damage",
+    "fr": "1/jour : +1 au multiplicateur de critique, annoncé avant le jet de dégâts"
+  },
+  "classSpecial:weapon-master:Increased multiplier 2/day": {
+    "en": "2/day: +1 to the critical multiplier, declared before rolling damage",
+    "fr": "2/jour : +1 au multiplicateur de critique, annoncé avant le jet de dégâts"
+  },
+  "classSpecial:weapon-master:Increased multiplier 3/day": {
+    "en": "3/day: +1 to the critical multiplier, declared before rolling damage",
+    "fr": "3/jour : +1 au multiplicateur de critique, annoncé avant le jet de dégâts"
+  },
+  "classSpecial:weapon-master:Increased multiplier 4/day": {
+    "en": "4/day: +1 to the critical multiplier, declared before rolling damage",
+    "fr": "4/jour : +1 au multiplicateur de critique, annoncé avant le jet de dégâts"
+  },
+  "classSpecial:weapon-master:Increased multiplier 5/day": {
+    "en": "5/day: +1 to the critical multiplier, declared before rolling damage",
+    "fr": "5/jour : +1 au multiplicateur de critique, annoncé avant le jet de dégâts"
+  },
+  "classSpecial:weapon-master:Ki Whirlwind Attack": {
+    "en": "Whirlwind Attack as a standard action instead of a full-round one, once per round",
+    "fr": "Attaque en rotation en action simple au lieu d’une action complexe, une fois par round"
+  },
+  "classSpecial:weapon-master:Ki critical": {
+    "en": "Improved Critical with the weapon; if already owned, +2 threat range applied last",
+    "fr": "Science du critique avec l’arme ; si déjà acquis, +2 à la zone de critique, appliqué en dernier"
+  },
+  "classSpecial:weapon-master:Ki damage 1/day per class level": {
+    "en": "After a hit, deal maximum weapon damage instead of rolling; not on crits",
+    "fr": "Après un coup, dégâts de l’arme au maximum au lieu de les lancer ; pas sur un critique"
+  },
+  "classSpecial:weapon-master:Superior Combat Reflexes": {
+    "en": "Attacks of opportunity per round = Dex mod + Wis mod (house rule #12)",
+    "fr": "Attaques d’opportunité par round = mod. Dex + mod. Sag (règle maison n° 12)"
+  },
+  "classSpecial:weapon-master:Superior Weapon Focus": {
+    "en": "+1 more on attack rolls with the weapon of choice (stacks with Weapon Focus)",
+    "fr": "+1 de plus aux jets d’attaque avec l’arme choisie (cumulable avec Arme de prédilection)"
+  },
+  "classSpecial:weapon-master:Weapon of choice": {
+    "en": "One melee weapon type (with Weapon Focus); features need a masterwork one",
+    "fr": "Un type d’arme de corps à corps (avec Arme de prédilection) ; pouvoirs avec une arme de maître"
+  },
+  "race:dwarf:Darkvision": {
+    "en": "Sees in the dark up to 60 ft, in black and white",
+    "fr": "Voit dans le noir jusqu’à 18 m, en noir et blanc"
+  },
+  "race:dwarf:Speed in armor": {
+    "en": "Speed 20 ft, not reduced by medium or heavy armor or load",
+    "fr": "Vitesse 6 m, non réduite par une armure ou une charge intermédiaire ou lourde"
+  },
+  "race:dwarf:Stability": {
+    "en": "+4 on checks to resist bull rush and trip while standing on the ground",
+    "fr": "+4 aux tests pour résister à une bousculade ou un croc-en-jambe, debout sur le sol"
+  },
+  "race:dwarf:Stonecunning": {
+    "en": "+2 Search for unusual stonework; free check within 10 ft; senses depth",
+    "fr": "+2 en Fouille pour la maçonnerie inhabituelle ; test gratuit à 3 m ; sent la profondeur"
+  },
+  "race:elf:Low-light vision": {
+    "en": "Sees twice as far as a human in dim light (starlight, torchlight…)",
+    "fr": "Voit deux fois plus loin qu’un humain dans la pénombre (étoiles, torche…)"
+  },
+  "race:elf:Secret doors": {
+    "en": "+2 Listen, Search, Spot; free Search for secret doors passed within 5 ft",
+    "fr": "+2 en Perception auditive, Fouille, Détection ; Fouille gratuite des portes secrètes à 1,50 m"
+  },
+  "race:elf:Sleep immunity": {
+    "en": "Immune to magic sleep effects; +2 racial on saves vs enchantment",
+    "fr": "Immunisé contre le sommeil magique ; +2 racial aux JS contre l’enchantement"
+  },
+  "race:gnome:Illusion spells": {
+    "en": "+1 to the save DC of illusion spells the gnome casts",
+    "fr": "+1 au DD des jets de sauvegarde des sorts d’illusion lancés par le gnome"
+  },
+  "race:gnome:Low-light vision": {
+    "en": "Sees twice as far as a human in dim light (starlight, torchlight…)",
+    "fr": "Voit deux fois plus loin qu’un humain dans la pénombre (étoiles, torche…)"
+  },
+  "race:gnome:Speak with burrowing mammals": {
+    "en": "Can talk with burrowing mammals (badger, fox, rabbit…), 1/day",
+    "fr": "Peut parler aux mammifères fouisseurs (blaireau, renard, lapin…), 1/jour"
+  },
+  "race:gnome:Spell-like abilities": {
+    "en": "1/day speak with animals (burrowers); Cha 10+: dancing lights, ghost sound, prestidigitation",
+    "fr": "1/j : communication (fouisseurs) ; Cha 10+ : lumières dansantes, son imaginaire, prestidigitation"
+  },
+  "race:half-elf:Elven blood": {
+    "en": "Counts as an elf for all race-related effects",
+    "fr": "Considéré comme un elfe pour tous les effets liés à la race"
+  },
+  "race:half-elf:Low-light vision": {
+    "en": "Sees twice as far as a human in dim light (starlight, torchlight…)",
+    "fr": "Voit deux fois plus loin qu’un humain dans la pénombre (étoiles, torche…)"
+  },
+  "race:half-elf:Sleep immunity": {
+    "en": "Immune to magic sleep effects; +2 racial on saves vs enchantment",
+    "fr": "Immunisé contre le sommeil magique ; +2 racial aux JS contre l’enchantement"
+  },
+  "race:half-orc:Darkvision": {
+    "en": "Sees in the dark up to 60 ft, in black and white",
+    "fr": "Voit dans le noir jusqu’à 18 m, en noir et blanc"
+  },
+  "race:half-orc:Minimum Intelligence": {
+    "en": "Starting Intelligence is never below 3",
+    "fr": "L’Intelligence de départ n’est jamais inférieure à 3"
+  },
+  "race:half-orc:Orc blood": {
+    "en": "Counts as an orc for all race-related effects",
+    "fr": "Considéré comme un orque pour tous les effets liés à la race"
+  },
+  "race:halfling:Fearless": {
+    "en": "+2 morale on saves against fear (stacks with the +1 on all saves)",
+    "fr": "+2 de moral aux JS contre la terreur (cumulable avec le +1 à tous les JS)"
+  },
+  "race:halfling:Small": {
+    "en": "Small: +1 AC, +1 attack, +4 Hide; smaller weapons, ¾ carrying capacity",
+    "fr": "Taille P : +1 CA, +1 à l’attaque, +4 en Discrétion ; armes plus petites, ¾ de la charge"
+  }
+}

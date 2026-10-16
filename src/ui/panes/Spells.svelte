@@ -34,6 +34,16 @@
       if (usable.includes(l)) out.push({ level: l, spells: spellsOf(sc, l) })
     return out.filter((g) => g.spells.length)
   }
+  const SCHOOL_NAME: Record<string, { en: string; fr: string }> = {
+    abjuration: { en: 'Abjuration', fr: 'Abjuration' },
+    conjuration: { en: 'Conjuration', fr: 'Invocation' },
+    divination: { en: 'Divination', fr: 'Divination' },
+    enchantment: { en: 'Enchantment', fr: 'Enchantement' },
+    evocation: { en: 'Evocation', fr: 'Évocation' },
+    illusion: { en: 'Illusion', fr: 'Illusion' },
+    necromancy: { en: 'Necromancy', fr: 'Nécromancie' },
+    transmutation: { en: 'Transmutation', fr: 'Transmutation' },
+  }
   const hasSave = (sp: SpellDef) => !/^(none|aucun)/i.test(sp.save.en.trim())
 
   // ---- extra slots: cleric domain slot (one of the two domains' spells), specialist wizard (specialty school)
@@ -100,7 +110,8 @@
   function setSlot(sc: Spellcasting, level: number, j: number, patch: Partial<{ id: string; cast: boolean; spontaneous: string }>) {
     const st = (app.character.spells ??= {})
     const cls = (st[sc.classId] ??= { prepared: {} })
-    const list = (cls.prepared[level] ??= [])
+    if (!cls.prepared[level]) cls.prepared[level] = []
+    const list = cls.prepared[level]
     while (list.length <= j) list.push({ id: '', cast: false })
     Object.assign(list[j], patch)
   }
@@ -158,6 +169,14 @@
   <p class="rage-warn">
     {tr({ en: 'Raging: no spellcasting (barbarian rage).', fr: 'En rage : aucun sort ne peut être lancé (rage de berserker).' })}
     <a href="https://www.d20srd.org/srd/classes/barbarian.htm#rage" target="_blank" rel="noopener">d20srd</a>
+  </p>
+{/if}
+
+{#if s.spellcasting.length}
+  <p class="legend">
+    {#each ['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion', 'necromancy', 'transmutation'] as sc (sc)}
+      <span class="school-{sc}">{tr(SCHOOL_NAME[sc])}</span>
+    {/each}
   </p>
 {/if}
 
@@ -259,7 +278,7 @@
           {#each slotsFor(sc, slot.spellLevel, slot.total) as prep, j (j)}
             {@const def = rules.spells.get(prep.id)}
             {@const extra = isExtraSlot(slot, j)}
-            <li class:cast={prep.cast} class:extra>
+            <li class:cast={prep.cast} class:extra class="school-{def?.schoolId ?? 'none'}" title={def ? tr(def.school) : undefined}>
               {#if extra}<span class="tag"
                   >{sc.classId === 'cleric'
                     ? tr({ en: 'domain', fr: 'domaine' })
@@ -328,7 +347,7 @@
         <h4>{tr({ en: 'Level', fr: 'Niveau' })} {lvl}</h4>
         <ul class="list">
           {#each spellsOf(sc, lvl) as sp (sp.id)}
-            <li>
+            <li class="school-{sp.schoolId}" title={tr(sp.school)}>
               <button class="link" onclick={() => spellPopup(sp, sc)}>{tr(sp.name)}</button>
               <small>{tr(sp.summary)}</small>
             </li>
@@ -342,6 +361,18 @@
 {/each}
 
 <style>
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.9rem;
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+  }
+  .legend span {
+    border-left: 4px solid var(--school);
+    padding-left: 0.35rem;
+    color: var(--ink-soft);
+  }
   .rage-warn {
     color: var(--accent);
     font-weight: 600;
@@ -376,17 +407,25 @@
     margin: 0;
     padding: 0;
   }
+  /* School of magic: a coloured edge on each spell (muted palette, app.css). */
   .slots li {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    padding: 0.3rem 0;
+    padding: 0.3rem 0 0.3rem 0.5rem;
     border-bottom: 1px solid var(--rule);
+    border-left: 4px solid var(--school, transparent);
   }
   .slots li.extra {
-    border-left: 3px solid var(--accent);
-    padding-left: 0.4rem;
+    background: var(--paper-2);
+  }
+  .list li {
+    border-left: 4px solid var(--school, transparent);
+    padding-left: 0.5rem;
+  }
+  .list li .link {
+    color: var(--school, var(--ink));
   }
   .tag {
     font-size: 0.8rem;

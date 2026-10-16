@@ -24,7 +24,8 @@
 
   function add() {
     if (!pick) return
-    ;(app.character.companions ??= []).push({
+    if (!app.character.companions) app.character.companions = []
+    app.character.companions.push({
       uid: newUid(),
       creatureId: pick,
       maxHp: app.character.settings.maxHitDice !== false,
@@ -41,7 +42,8 @@
   const mounts = $derived((app.character.companions ?? []).filter((x) => x.kind === 'mount'))
   const animals = $derived((app.character.companions ?? []).filter((x) => x.kind !== 'mount'))
   function addMount() {
-    ;(app.character.companions ??= []).push({
+    if (!app.character.companions) app.character.companions = []
+    app.character.companions.push({
       uid: newUid(),
       creatureId: mountDefault,
       kind: 'mount',

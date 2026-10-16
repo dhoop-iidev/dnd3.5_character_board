@@ -136,9 +136,45 @@ export interface ItemInstance {
   material?: string
   /** Magic special abilities ids (src/data/srd/item-properties.json), e.g. ["keen", "flaming"]. */
   properties?: string[]
-  /** Custom items only. */
-  custom?: { weightLb: number; costGp: number; text: I18n; modifiers?: ModifierSpec[]; slot?: Slot }
+  /** Custom items, and custom weapons (then on top of the base weapon `refId`: own weight, price, description,
+   * bonuses while wielded, damage dice and critical overrides). */
+  custom?: {
+    weightLb: number
+    costGp: number
+    text: I18n
+    modifiers?: ModifierSpec[]
+    slot?: Slot
+    /** Custom weapon: damage dice for a Medium wielder (e.g. "2d6"), critical range (19 = 19–20) and multiplier. */
+    damage?: string
+    critRange?: number
+    critMult?: number
+  }
+  /** Spell item made with the app (scroll, potion, oil, wand, staff): sets the activation and the price formula. */
+  spellItem?: SpellItemType
+  /** Spells stored in the item (scroll, wand, staff… or any item: a weapon, a ring). */
+  spells?: StoredSpell[]
+  /** Charges of the item (wand, staff: 50 when made), spent by its spells. */
+  charges?: { left: number; max: number }
   note?: string
+}
+
+export type SpellItemType = 'scroll' | 'potion' | 'oil' | 'wand' | 'staff'
+
+/** A spell an item holds (https://www.d20srd.org/srd/magicItems/creatingMagicItems.htm). */
+export interface StoredSpell {
+  spellId: string
+  /** Spell level as stored (the lowest level on a class list by default). */
+  level: number
+  casterLevel: number
+  /** completion: scroll; trigger: wand, staff; use: potion, oil; command: command word (other items). */
+  activation: 'completion' | 'trigger' | 'use' | 'command'
+  /** single: one use (a scroll's spell, a potion); charges: from the item's charges; perDay: uses per day. */
+  uses: 'single' | 'charges' | 'perDay'
+  /** Charges spent per use (staff: 1, or 2 for a spell stored at half price). */
+  cost?: number
+  perDay?: number
+  /** perDay: uses spent today; single: 1 once used. */
+  used?: number
 }
 
 /** A combat setup: which weapons are in hand and whether the shield is strapped. */

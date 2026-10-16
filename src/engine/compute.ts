@@ -247,7 +247,7 @@ const SMALL_QUARTER = /^(backpack|bedroll|winter-blanket|belt-pouch|trail-ration
 function itemWeight(rules: Rules, item: ItemInstance, size: Size = 'medium'): Weight {
   if (item.location === 'stored') return { lb: 0, kg: 0 }
   let w: Weight | undefined
-  if (item.kind === 'weapon') w = rules.weapons.get(item.refId)?.weight
+  if (item.kind === 'weapon') w = item.custom ? lbToWeight(item.custom.weightLb) : rules.weapons.get(item.refId)?.weight
   else if (item.kind === 'armor') w = rules.armor.get(item.refId)?.weight
   else if (item.kind === 'gear') w = rules.gear.get(item.refId)?.weight
   else if (item.kind === 'magic') w = rules.magicItems.get(item.refId)?.weight
@@ -421,7 +421,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       mods.push({ spec, sourceId: `feat:${f.featId}`, label: def!.name, source: def!.source })
     }
   }
+  // A custom weapon's bonuses apply while it is wielded (in the active loadout).
+  const wieldedNow = new Set((char.loadouts.find((l) => l.id === char.activeLoadout) ?? char.loadouts[0])?.weapons ?? [])
   for (const item of char.inventory) {
+    if (item.kind === 'weapon' && item.custom?.modifiers && wieldedNow.has(item.uid) && item.location !== 'stored' && !shape) {
+      for (const spec of item.custom.modifiers) mods.push({ spec, sourceId: `item:${item.uid}`, label: item.name ?? i18n(item.refId) })
+      continue
+    }
     if (item.location !== 'worn') continue
     const def = item.kind === 'magic' ? rules.magicItems.get(item.refId) : undefined
     for (const spec of def?.modifiers ?? item.custom?.modifiers ?? [])
@@ -1054,7 +1060,18 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const twfSource = src('combat/specialAttacks.htm#twoWeaponFighting')
   for (const uid of wielded) {
     const item = findItem(uid)
-    const weapon = item && rules.weapons.get(item.refId)
+    const baseWeapon = item && rules.weapons.get(item.refId)
+    // Custom weapon: its own damage dice and critical, on top of the base weapon.
+    const cw = item?.custom
+    const weapon =
+      baseWeapon && cw && (cw.damage || cw.critRange || cw.critMult)
+        ? {
+            ...baseWeapon,
+            damage: cw.damage ? { S: cw.damage, M: cw.damage } : baseWeapon.damage,
+            critRange: cw.critRange ?? baseWeapon.critRange,
+            critMult: cw.critMult ?? baseWeapon.critMult,
+          }
+        : baseWeapon
     const monkUnarmed = uid === MONK_UID
     const inFlurry = flurryOn && !!weapon && MONK_WEAPONS.includes(weapon.id)
     if (!item || !weapon) continue
@@ -1090,14 +1107,16 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
     // Weapon Finesse: Dex instead of Str with a light weapon, rapier, whip or spiked chain (when better); a shield's
     // armor check penalty then applies to the attack (https://www.d20srd.org/srd/feats.htm#weaponFinesse).
+    // A nonproficient shield's penalty is already on every attack: Finesse doesn't add it again (FAQ 6/30/2008 p. 51).
+    const finesseShieldAcp = shield && profArmor.has(shield.def.category) ? itemAcp(shield) : 0
     const finesse =
       melee &&
       hasFeat('weapon-finesse') &&
       (weapon.handedness === 'light' || weapon.handedness === 'unarmed' || ['rapier', 'whip', 'spiked-chain'].includes(weapon.id)) &&
-      mod('dex') + (shield ? itemAcp(shield) : 0) > mod('str')
+      mod('dex') + finesseShieldAcp > mod('str')
     const atk: Part[] = [...tableSum('bab'), finesse ? { ...abilityPart('dex'), label: i18n('Dexterity (Weapon Finesse)', 'Dextérité (Attaque en finesse)') } : abilityPart(melee ? 'str' : 'dex')]
-    if (finesse && shield && itemAcp(shield))
-      atk.push({ sourceId: 'finesse-shield', label: i18n(`Shield check penalty (Weapon Finesse): ${shield.def.name.en}`, `Malus d’armure du bouclier (Attaque en finesse) : ${shield.def.name.fr}`), value: itemAcp(shield), bonusType: 'untyped', source: src('feats.htm#weaponFinesse') })
+    if (finesse && shield && finesseShieldAcp)
+      atk.push({ sourceId: 'finesse-shield', label: i18n(`Shield check penalty (Weapon Finesse): ${shield.def.name.en}`, `Malus d’armure du bouclier (Attaque en finesse) : ${shield.def.name.fr}`), value: finesseShieldAcp, bonusType: 'untyped', source: src('feats.htm#weaponFinesse') })
     if (SIZE_MOD[size]) atk.push(sizePart(SIZE_MOD[size]))
     if (hand) {
       // Normal −6/−10; light off-hand weapon −4/−8; Two-Weapon Fighting feat −2/−2 better each.
@@ -1264,7 +1283,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         ...props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
         ...sneakLine,
         ...(smiteOn && melee
-          ? [{ dice: `${paladinLvl}`, type: i18n('smite evil', 'châtiment du Mal'), condition: i18n('first attack only, vs evil', 'première attaque seulement, contre le Mal'), source: i18n('Paladin', 'Paladin') }]
+          ? [{ dice: `${paladinLvl}`, type: i18n('smite evil', 'châtiment du Mal'), condition: i18n('first attack only, vs evil; multiplied on a critical (flat damage)', 'première attaque seulement, contre le Mal ; multiplié sur un critique (dégâts fixes)'), source: i18n('Paladin', 'Paladin') }]
           : []),
         // Strikes/boosts/stances add dice to melee attacks (not multiplied on a critical, Tome of Battle p. 43).
         ...(melee
@@ -1289,7 +1308,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           ? [{ name: i18n('Flurry of blows', 'Déluge de coups'), text: i18n('Not a monk weapon: can’t be used in a flurry.', 'Pas une arme de moine : inutilisable pendant un déluge de coups.') }]
           : []),
         ...(smiteOn && melee
-          ? [{ name: i18n('Smite evil', 'Châtiment du Mal'), text: i18n(`+${paladinLvl} damage on the first attack; on a critical hit, multiplied or not: DM to decide (house rule #28, pending).`, `+${paladinLvl} aux dégâts de la première attaque ; sur un coup critique, multiplié ou non : au MJ de décider (règle maison n° 28, en attente).`) }]
+          ? [{ name: i18n('Smite evil', 'Châtiment du Mal'), text: i18n(`+${paladinLvl} damage on the first attack, multiplied on a critical hit like any flat bonus (only extra dice are not; rulings C23).`, `+${paladinLvl} aux dégâts de la première attaque, multiplié sur un coup critique comme tout bonus fixe (seuls les dés supplémentaires ne le sont pas ; décision C23).`) }]
           : []),
         ...(mountedLance
           ? [{ name: i18n('Lance (mounted)', 'Lance (monté)'), text: i18n('One-handed while mounted; double damage on a mounted charge.', 'À une main en selle ; dégâts doublés lors d’une charge montée.') }]

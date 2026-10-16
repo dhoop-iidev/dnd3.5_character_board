@@ -113,6 +113,9 @@
     else if (cls) openPopup({ title: cls.name, html: cls.text, source: cls.source, noteKey: `class:${classId}` })
   }
 
+  // One-line summary of a class feature (src/data/custom/summaries.json).
+  const featureSummary = (f: { classId: string; name: I18n; feature?: ClassFeatureDef }) =>
+    rules.summaries.get(f.feature ? `class:${f.classId}:${f.feature.id}` : `classSpecial:${f.classId}:${f.name.en}`)
   const unusable = (featId: string) => view.warnings.some((w) => w.id === `unusable-${featId}`)
   const featLevels = $derived([
     ...app.character.levels.flatMap((l, i) => l.feats.map((f) => ({ ...f, level: i + 1 }))),
@@ -260,10 +263,27 @@
           </button>
           <small>{f.level ? `${tr(UI.level)} ${f.level} · ` : ''}{tr(UI.slot[f.slot])}</small>
           {#if unusable(f.featId)}<small class="badge">{tr(UI.unusable)}</small>{/if}
+          {#if rules.feats.get(f.featId)?.summary}<span class="sum">{tr(rules.feats.get(f.featId)!.summary)}</span>{/if}
         </li>
       {/each}
     </ul>
     <WarningList areas={['feats']} />
+  </section>
+
+  <section class="box">
+    <h3>{tr({ en: 'Racial traits', fr: 'Traits raciaux' })} — {tr(s.race.name)}</h3>
+    <ul class="feats">
+      {#each s.race.traits as t (t.name.en)}
+        <li>
+          <button class="link" onclick={() => openPopup({ title: t.name, summary: s.race.name, lines: [t.text], source: s.race.source, noteKey: `race:${s.race.id}:${t.name.en}` })}
+            >{tr(t.name)}</button
+          >
+          {#if rules.summaries.get(`race:${s.race.id}:${t.name.en}`)}<span class="sum">{tr(rules.summaries.get(`race:${s.race.id}:${t.name.en}`))}</span>{/if}
+        </li>
+      {:else}
+        <li><small>{tr({ en: 'Bonus feat and skill points (human).', fr: 'Don et points de compétence en bonus (humain).' })}</small></li>
+      {/each}
+    </ul>
   </section>
 
   <section class="box">
@@ -273,6 +293,7 @@
         <li>
           <button class="link" onclick={() => classPopup(f.classId, f.feature)}>{tr(f.name)}</button>
           <small>{tr(rules.classes.get(f.classId)?.name)} {f.level}</small>
+          {#if featureSummary(f)}<span class="sum">{tr(featureSummary(f))}</span>{/if}
         </li>
       {:else}
         <li><small>—</small></li>
@@ -517,6 +538,19 @@
   }
   .feats small {
     color: var(--ink-soft);
+  }
+  .feats .sum {
+    flex-basis: 100%;
+    color: var(--ink-soft);
+    font-size: 0.88em;
+    line-height: 1.3;
+    padding-bottom: 0.2em;
+    /* Two lines at most; the popup has the full text. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .unusable {
     opacity: 0.7;

@@ -96,7 +96,7 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 
 ## C15. Monk flurry of blows — **total BAB, monk-level penalty and extra attacks** (high)
 - SRD: "one extra attack in a round at her highest base attack bonus, but this attack takes a −2 penalty, as does each other attack made that round" (https://www.d20srd.org/srd/classes/monk.htm#flurryofBlows). FAQ 6/30/2008 p. 21: a multiclass example uses the total BAB.
-- FAQ pp. 19–21: flurry combines with two-weapon fighting (penalties stack) and Rapid Shot (shuriken); natural weapons and non-monk weapons (gauntlet) can't be part of it; quarterstaff: Str ×1, each end a separate weapon. Haste's extra attack: allowed by the wording (full attack), no official ruling.
+- FAQ pp. 19–21: flurry combines with two-weapon fighting (penalties stack) and Rapid Shot (shuriken); natural weapons and non-monk weapons (gauntlet) can't be part of it. Quarterstaff (SRD monk text, not the FAQ): Str ×1, and "each end counts as a separate weapon for the purpose of using the flurry of blows ability". Power Attack with it: house rule #29 (pending). Haste's extra attack: allowed by the wording (full attack), no official ruling.
 - **App:** a flurry toggle; the monk's unarmed strike and monk weapons get the penalty and the extra attack(s); other weapons are flagged. Lost in armor, with a shield or a medium/heavy load.
 
 ## C16. Monk unarmed strike — **light weapon, Power Attack ×1, amulet of mighty fists, size table** (high)
@@ -126,3 +126,11 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 
 ## C22. Review fixes of 2026-10-16 (classes) — **RAW, see docs/reviews/um_actually-2026-10-16-classes.md**
 - Smite evil applies to one attack (first of a full attack); a lance is one-handed while mounted; the mount shares the paladin's better base saves (FAQ p. 22); monk fast movement is an enhancement bonus (no stacking with boots of striding and springing or haste) and is lost with a shield; a fatigued barbarian whose rage ends becomes exhausted; Weapon Finesse is used only when better than Str after the shield's penalty; an ex-druid loses wild empathy, wild shape and the companion; Small characters' gear (backpack, bedroll, rations, outfits…) weighs a quarter, ammunition half (Table: Goods and Services).
+
+## C23. Smite evil damage on a critical hit — **multiplied (flat damage)** (medium-high)
+- SRD Multiplying Damage: "Exception: Extra damage dice over and above a weapon's normal damage are never multiplied" (https://www.d20srd.org/srd/combat/combatStatistics.htm#multiplyingDamage). The broader Critical Hits sentence ("Extra damage over and above…") is the only argument against. *Rules Compendium* p. 40 (as quoted on EN World, https://www.enworld.org/threads/does-damage-from-a-bane-weapon-get-increased-on-a-crit.259958/) names precision damage and energy dice only. FAQ p. 24 (sneak attack dice) and p. 16 (rider effects) concern dice and riders, not flat bonuses. Community: EN World "Critical Smite" (https://www.enworld.org/threads/critical-smite.37311/).
+- **App:** the +paladin level is shown on the first attack, "multiplied on a critical". House rule #28 closed.
+
+## C24. Weapon Finesse with a nonproficient shield — **the shield penalty applies once** (high)
+- FAQ 6/30/2008 p. 51: the armor check penalty for nonproficiency "overrides the normal armor check penalty", applying an equal penalty on Str and Dex checks and attack rolls. Weapon Finesse ("If you carry a shield, its armor check penalty applies to your attack rolls") puts the same penalty from the same item on the attack: once. FAQ p. 23: different penalties for different reasons stack; this is one penalty.
+- **App:** with a nonproficient shield, only the nonproficiency penalty applies; with a proficient one, Finesse adds the shield's penalty. House rule #30 closed.

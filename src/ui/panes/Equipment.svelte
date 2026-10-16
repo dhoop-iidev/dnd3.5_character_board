@@ -3,6 +3,7 @@
   import type { ItemInstance, ItemLocation } from '../../model/character'
   import { SLOTS, UI } from '../../i18n/ui'
   import { app, lang, tr, view } from '../../state.svelte'
+  import { rules } from '../../data/rules'
   import { fmtWeight } from '../format'
   import { catalog, itemInfo, newUid, norm } from '../items'
   import { openPopup } from '../popupState.svelte'
@@ -10,6 +11,11 @@
   import CustomItemForm from '../CustomItemForm.svelte'
   import ItemUpgrades from '../ItemUpgrades.svelte'
   import EquipmentDoll from '../EquipmentDoll.svelte'
+  import ItemSpells from '../ItemSpells.svelte'
+  import { isMagicItem } from '../../engine/spellItems'
+
+  // Items whose stored-spell editor is open.
+  let spellEditor = $state<Record<string, boolean>>({})
 
   const LOCATIONS: { id: ItemLocation; label: I18n }[] = [
     { id: 'worn', label: { en: 'Worn', fr: 'Porté' } },
@@ -156,12 +162,21 @@
           <tbody>
             {#each items as item (item.uid)}
               {@const info = itemInfo(item)}
-              <tr>
+              <tr class:magic={isMagicItem(item)}>
                 <td>
+                  {#if isMagicItem(item)}<span class="arcane" title={tr({ en: 'Magic item', fr: 'Objet magique' })}>✦</span>{/if}
                   <button class="link" onclick={() => details(item)}>{tr(info.name)}</button>
                   {#if info.stats}<small>{tr(info.stats)}</small>{/if}
                   {#if info.slot}<small class="slot">{tr(SLOTS[info.slot]) || info.slot}</small>{/if}
                   {#if item.kind === 'weapon' || item.kind === 'armor'}<ItemUpgrades {item} />{/if}
+                  {#if item.spells?.length}
+                    <small class="spells"
+                      >{item.spells.map((x) => tr(rules.spells.get(x.spellId)?.name)).join(', ')}{item.charges
+                        ? ` · ${item.charges.left}/${item.charges.max} ${tr({ en: 'charges', fr: 'charges' })}`
+                        : ''}</small
+                    >
+                  {/if}
+                  {#if spellEditor[item.uid]}<ItemSpells {item} />{/if}
                 </td>
                 <td class="num qty">
                   <button onclick={() => setQty(item, -1)} aria-label="−1">−</button>
@@ -176,6 +191,14 @@
                   </select>
                 </td>
                 <td class="actions">
+                  <button
+                    class="spellbtn"
+                    class:on={spellEditor[item.uid]}
+                    class:has={!!item.spells?.length}
+                    onclick={() => (spellEditor[item.uid] = !spellEditor[item.uid])}
+                    title={tr({ en: 'Spells stored in this item', fr: 'Sorts stockés dans cet objet' })}
+                    aria-label={tr({ en: 'Spells stored in this item', fr: 'Sorts stockés dans cet objet' })}>✦</button
+                  >
                   {#if info.isPotion}
                     <button onclick={() => drink(item)}>{tr({ en: 'Drink', fr: 'Boire' })}</button>
                   {/if}
@@ -191,6 +214,30 @@
 </div>
 
 <style>
+  tr.magic td:first-child {
+    box-shadow: inset 3px 0 0 var(--arcane);
+  }
+  .arcane {
+    margin-right: 0.2rem;
+  }
+  small.spells {
+    display: block;
+    color: var(--arcane);
+  }
+  /* Stored-spell editor: discreet on ordinary gear, tinted on items that hold spells. */
+  .spellbtn {
+    border-color: transparent;
+    background: none;
+    color: var(--rule-strong);
+    font-size: 0.85rem;
+  }
+  .spellbtn.has {
+    color: var(--arcane);
+  }
+  .spellbtn.on {
+    border-color: var(--rule-strong);
+    color: var(--arcane);
+  }
   .grid {
     display: grid;
     gap: 1.25rem;

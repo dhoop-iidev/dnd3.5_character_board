@@ -645,6 +645,32 @@ def main():
         if cid not in known:
             err("class-skill-overrides", f"unknown class {cid}")
 
+    # One-line summaries (custom/summaries.json) shown in the General pane: every class feature (or, for classes
+    # without a features list, every table special the pane shows: all but "Bonus feat"), every racial trait.
+    summaries = custom.get("summaries.json") or {}
+    if list(summaries) != sorted(summaries):
+        err("summaries.json", "keys not sorted")
+    wanted = set()
+    warblade = load(CUSTOM / "tob" / "warblade.json") or {}
+    for c in files["classes.json"] + [custom["weapon-master.json"], warblade]:
+        if c.get("features"):
+            wanted |= {f"class:{c['id']}:{f['id']}" for f in c["features"]}
+        else:
+            wanted |= {f"classSpecial:{c['id']}:{sp['en']}" for r in c["table"] for sp in r["special"] if sp["en"] != "Bonus feat"}
+    for x in files["races.json"]:
+        wanted |= {f"race:{x['id']}:{t['name']['en']}" for t in x.get("traits", [])}
+    for k in sorted(wanted - set(summaries)):
+        err("summaries.json", f"missing summary {k}")
+    for k, v in summaries.items():
+        if k.startswith("feat:"):
+            if k[5:] not in feat_ids:
+                err("summaries.json", f"unknown feat {k}")
+        elif k not in wanted:
+            err("summaries.json", f"orphan key {k}")
+        i18n(f"summary {k}", v)
+        if isinstance(v, dict) and any(isinstance(s, str) and (len(s) > 120 or "\n" in s) for s in v.values()):
+            WARN.append(f"summary {k}: longer than one line (120 chars)")
+
     for x in files["weapons.json"]:
         w = f"weapon {x['id']}"
         req = {"id", "name", "category", "kind", "handedness", "damage", "critRange", "critMult", "damageTypes", "weight", "costGp", "text", "source"}

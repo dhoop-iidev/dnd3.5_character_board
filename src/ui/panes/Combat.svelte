@@ -15,6 +15,8 @@
   import WildShapeBlock from '../WildShapeBlock.svelte'
   import TurningBlock from '../TurningBlock.svelte'
   import ClassFeaturesBlock from '../ClassFeaturesBlock.svelte'
+  import SpellItemsBlock from '../SpellItemsBlock.svelte'
+  import { isMagicItem } from '../../engine/spellItems'
   import { endRage } from '../classActions'
   import { effectName } from '../effects'
 
@@ -304,6 +306,7 @@
   </section>
 
   {#if s.classFeatures.rage || s.classFeatures.flurry || s.classFeatures.sneakAttack || s.classFeatures.abilities.length || s.classFeatures.notes.length}<div class="wide"><ClassFeaturesBlock /></div>{/if}
+  {#if c.inventory.some((i) => i.spells?.length && i.location !== 'stored')}<div class="wide"><SpellItemsBlock /></div>{/if}
   {#if s.turning}<div class="wide"><TurningBlock /></div>{/if}
   {#if ((s.classLevels['druid'] ?? 0) >= 5 && !s.lostClasses.includes('druid')) || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
   {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
@@ -315,6 +318,7 @@
       {#each s.attacks as a (a.itemUid)}
         <article class="attack" class:choice={a.weaponOfChoice}>
           <h4>
+            {#if c.inventory.some((i) => i.uid === a.itemUid && isMagicItem(i)) || (a.itemUid === 'monk-unarmed' && a.bypassDR.includes('magic'))}<span class="arcane">✦</span>{/if}
             {tr(a.name)}
             {#if a.weaponOfChoice}<small>★ {tr({ en: 'weapon of choice', fr: 'arme de prédilection' })}</small>{/if}
             {#if a.hand}<small

@@ -28,6 +28,18 @@
   --warn: #9a6400;
   --danger: #a3241a;
   --shadow-pop: 0 12px 40px rgb(26 23 20 / 0.18), 0 2px 6px rgb(26 23 20 / 0.08);
+  /* Schools of magic: muted, distinct hues (visual cue on spell rows; text keeps the ink colour). */
+  --school-abjuration: #3b6c8c;
+  --school-conjuration: #9a6a1f;
+  --school-divination: #6b7b33;
+  --school-enchantment: #985079;
+  --school-evocation: #a3452f;
+  --school-illusion: #6650a0;
+  --school-necromancy: #45574c;
+  --school-transmutation: #2d7a68;
+  --school-universal: #7a746b;
+  /* Magic items: a discreet arcane tint. */
+  --arcane: #5f4ea3;
 
   /* Legacy names kept so older components keep resolving (no texture, no gold). */
   --leather: var(--ink);
@@ -60,10 +72,31 @@
     --warn: #e0a84a;
     --danger: #ef7b70;
     --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.6);
+    --school-abjuration: #7eaccc;
+    --school-conjuration: #d5a35a;
+    --school-divination: #a9b96c;
+    --school-enchantment: #d290b6;
+    --school-evocation: #e08467;
+    --school-illusion: #a796dc;
+    --school-necromancy: #93a99b;
+    --school-transmutation: #6cbfa9;
+    --school-universal: #b0a99d;
+    --arcane: #ab9ce6;
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
+  --school-abjuration: #7eaccc;
+  --school-conjuration: #d5a35a;
+  --school-divination: #a9b96c;
+  --school-enchantment: #d290b6;
+  --school-evocation: #e08467;
+  --school-illusion: #a796dc;
+  --school-necromancy: #93a99b;
+  --school-transmutation: #6cbfa9;
+  --school-universal: #b0a99d;
+  --arcane: #ab9ce6;
+
   --page: #0b0a09;
   --paper: #141210;
   --box: #1b1916;
@@ -202,4 +235,29 @@ a:focus-visible {
 
 ::selection {
   background: var(--accent-soft);
+}
+
+/* School of a spell row: sets --school for borders and accents. */
+.school-abjuration { --school: var(--school-abjuration); }
+.school-conjuration { --school: var(--school-conjuration); }
+.school-divination { --school: var(--school-divination); }
+.school-enchantment { --school: var(--school-enchantment); }
+.school-evocation { --school: var(--school-evocation); }
+.school-illusion { --school: var(--school-illusion); }
+.school-necromancy { --school: var(--school-necromancy); }
+.school-transmutation { --school: var(--school-transmutation); }
+.school-universal { --school: var(--school-universal); }
+
+/* Magic item marker: a small star with a slow glimmer (still when the user prefers reduced motion). */
+.arcane {
+  color: var(--arcane);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--arcane) 45%, transparent);
+  animation: glimmer 3.2s ease-in-out infinite;
+}
+@keyframes glimmer {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arcane { animation: none; }
 }

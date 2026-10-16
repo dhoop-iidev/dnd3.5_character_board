@@ -51,9 +51,26 @@ export function itemInfo(item: ItemInstance): ItemInfo {
       const base = d.costGp * (mat?.price.weaponMultiplier ?? 1) + (mat?.price.weapon ?? 0)
       // Magic weapon price: masterwork 300 gp + bonus² × 2,000 gp (https://www.d20srd.org/srd/magicItems/magicWeapons.htm).
       const magic = bonus ? bonus * bonus * 2000 + 300 + flat : item.masterwork || mat?.effects.masterwork ? 300 : 0
+      // Custom weapon: own weight, price, description and damage/critical.
+      const c = item.custom
+      if (c) {
+        const dmg = c.damage ?? d.damage.M
+        const cr = c.critRange ?? d.critRange
+        const crit2 = `${cr < 20 ? `${cr}–20` : '20'}/×${c.critMult ?? d.critMult}`
+        return {
+          name: item.name ?? d.name,
+          weight: { lb: c.weightLb, kg: c.weightLb / 2 },
+          costGp: c.costGp,
+          text: c.text.en || c.text.fr ? c.text : d.text,
+          source: d.source,
+          stats: { en: `${d.name.en} · ${dmg} · ${crit2}${range}`, fr: `${d.name.fr} · ${dmg} · ${crit2}${range}` },
+          isPotion: false,
+        }
+      }
+      const wm = mat?.effects.weightMultiplier ?? 1
       return {
         name: item.name ?? { en: d.name.en + plus(enh) + x.en, fr: d.name.fr + plus(enh) + x.fr },
-        weight: d.weight,
+        weight: { lb: d.weight.lb * wm, kg: d.weight.kg * wm },
         costGp: base + magic,
         text: d.text,
         source: d.source,
@@ -76,9 +93,11 @@ export function itemInfo(item: ItemInstance): ItemInfo {
       const catPrice = d.category === 'shield' || d.category === 'tower' ? mat?.price.shield : mat?.price[d.category]
       // Magic armor price: masterwork 150 gp + bonus² × 1,000 gp (https://www.d20srd.org/srd/magicItems/magicArmor.htm).
       const magic = bonus ? bonus * bonus * 1000 + 150 + flat : item.masterwork || mat?.effects.masterwork ? 150 : 0
+      // Mithral, darkwood…: lighter (the load uses the same multiplier).
+      const wm = mat?.effects.weightMultiplier ?? 1
       return {
         name: item.name ?? { en: d.name.en + plus(enh) + x.en, fr: d.name.fr + plus(enh) + x.fr },
-        weight: d.weight,
+        weight: { lb: d.weight.lb * wm, kg: d.weight.kg * wm },
         costGp: d.costGp + (catPrice ?? 0) + magic,
         text: d.text,
         source: d.source,

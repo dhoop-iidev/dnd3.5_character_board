@@ -113,7 +113,8 @@
   function summon() {
     if (!chosen || !picked) return
     const rounds = chosen.caster.casterLevel.total + clBonus.value
-    const list = (app.character.summons ??= [])
+    if (!app.character.summons) app.character.summons = []
+    const list = app.character.summons
     const tpl = tplNow
     for (let i = 0; i < Math.min(maxCount, Math.max(1, count)); i++)
       list.push({

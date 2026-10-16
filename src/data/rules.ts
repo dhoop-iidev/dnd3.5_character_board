@@ -1,5 +1,6 @@
 // Loads the generated SRD data and hand-written custom data into one indexed registry.
 import type {
+  I18n,
   ArmorDef,
   CarryingCapacityRow,
   ClassDef,
@@ -49,6 +50,7 @@ import classSkillOverrides from './custom/class-skill-overrides.json'
 import itemProperties from './srd/item-properties.json'
 import materials from './custom/materials.json'
 import warblade from './custom/tob/warblade.json'
+import summaries from './custom/summaries.json'
 import warbladeProgression from './custom/tob/warblade-progression.json'
 import disciplines from './custom/tob/disciplines.json'
 import tobSkills from './custom/tob/skills.json'
@@ -82,6 +84,8 @@ export interface Rules {
   summonLists: SummonList[]
   domains: Map<string, DomainDef>
   templates: Map<string, TemplateDef>
+  /** One-line summaries shown in the lists (class:<class>:<feature>, classSpecial:<class>:<name>, race:<race>:<trait>). */
+  summaries: Map<string, I18n>
 }
 
 function index<T extends { id: string }>(list: T[]): Map<string, T> {
@@ -119,6 +123,7 @@ export function buildRules(): Rules {
     summonLists: summonLists as unknown as SummonList[],
     domains: index(domains as unknown as DomainDef[]),
     templates: index(templates as unknown as TemplateDef[]),
+    summaries: new Map(Object.entries(summaries as Record<string, I18n>)),
   }
 }
 
