@@ -231,3 +231,6 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 - As a Knowledge category, it is a class skill for the bard, the wizard and the Knowledge domain (~85%).
 - The DM may keep it fighter-only, as an explicit house rule.
 - Overlap with the SRD split by type: suggest it as an alternative check, never added on top, possibly limited to combat information.
+
+### C25 decisions (2026-10-16)
+- #26: destroyed (the DM). #23: +4 (SRD first in the authority order). #25: training route (horse/pony trained for war: primary hooves). #27: class skill for the all-Knowledge classes. #29: per round (one end ×2, both ends ×1 / none). Implemented with tests in `src/engine/__tests__/house-rules-23-29.test.ts`.

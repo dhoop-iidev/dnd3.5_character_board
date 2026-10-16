@@ -1236,9 +1236,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const pr of props)
       if (pr.effects.damageBonus)
         dmg.push({ sourceId: `prop:${pr.id}`, label: pr.name, value: propValue(pr, pr.effects.damageBonus.value), bonusType: 'enhancement', source: pr.source, condition: pr.effects.damageBonus.condition, situationalOn: toggles.situational[`prop:${pr.id}|${uid}`] ?? false, toggleKey: `prop:${pr.id}|${uid}` })
-    const paDamage = powerAttackOn && powerAttackAllowed ? toggles.powerAttack * (twoHands ? 2 : 1) : 0
+    // Quarterstaff in a flurry, judged per round (house rule #29, SRD Power Attack's double-weapon sentence): one end only
+    // → two-handed (×2); both ends → one end one-handed (×1), the other light (no Power Attack damage).
+    const staffBoth = inFlurry && weapon.id === 'quarterstaff' && toggles.staffBothEnds === true
+    const paFactor = twoHands && !staffBoth ? 2 : 1
+    const paDamage = powerAttackOn && powerAttackAllowed ? toggles.powerAttack * paFactor : 0
     if (powerAttackOn && powerAttackAllowed) {
-      const factor = twoHands ? 2 : 1
+      const factor = paFactor
       dmg.push({ sourceId: 'power-attack', label: i18n(`Power Attack (×${factor})`, `Attaque en puissance (×${factor})`), value: toggles.powerAttack * factor, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
     }
     if (melee && caps && caps.classLevel >= 7 && mod('int') > 0)
@@ -1309,6 +1313,9 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           : []),
         ...(smiteOn && melee
           ? [{ name: i18n('Smite evil', 'Châtiment du Mal'), text: i18n(`+${paladinLvl} damage on the first attack, multiplied on a critical hit like any flat bonus (only extra dice are not; rulings C23).`, `+${paladinLvl} aux dégâts de la première attaque, multiplié sur un coup critique comme tout bonus fixe (seuls les dés supplémentaires ne le sont pas ; décision C23).`) }]
+          : []),
+        ...(staffBoth && powerAttackOn
+          ? [{ name: i18n('Quarterstaff, both ends', 'Bâton, deux extrémités'), text: i18n('Power Attack ×1 on one end; the other end (light) gets no Power Attack damage (house rule #29).', 'Attaque en puissance ×1 sur une extrémité ; l’autre (légère) n’en reçoit pas les dégâts (règle maison n° 29).') }]
           : []),
         ...(mountedLance
           ? [{ name: i18n('Lance (mounted)', 'Lance (monté)'), text: i18n('One-handed while mounted; double damage on a mounted charge.', 'À une main en selle ; dégâts doublés lors d’une charge montée.') }]

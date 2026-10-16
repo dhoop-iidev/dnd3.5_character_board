@@ -2,7 +2,7 @@
   // Animal companions (druid; ranger from 4th at half his level): choice of animal, SRD advancement, stat block.
   // https://www.d20srd.org/srd/classes/druid.htm#animalCompanion
   import { rules } from '../../data/rules'
-  import { companionAdvancement, companionLevel, computeCreature, paladinMountAdvancement } from '../../engine/creature'
+  import { companionAdvancement, companionLevel, computeCreature, paladinMountAdvancement, WAR_TRAINABLE } from '../../engine/creature'
   import type { CompanionState } from '../../model/character'
   import { app, tr, view } from '../../state.svelte'
   import CreatureCard from '../CreatureCard.svelte'
@@ -75,6 +75,7 @@
       advancement: companionAdvancement(rules, level, adjOf(c)),
       maxHp: c.maxHp,
       hpManual: c.hpManual,
+      warTrained: c.warTrained,
     })
   }
 </script>
@@ -162,6 +163,15 @@
           })}
         </p>
       {/if}
+      {#if WAR_TRAINABLE.includes(c.creatureId)}
+        <label class="trained">
+          <input type="checkbox" bind:checked={c.warTrained} />
+          {tr({
+            en: 'Trained for war (combat riding): hooves are primary attacks (house rule #25)',
+            fr: 'Dressé au combat (combat monté) : les sabots sont des attaques principales (règle maison n° 25)',
+          })}
+        </label>
+      {/if}
       <CreatureCard state={c} sheet={() => sheetOf(c)} onremove={() => remove(c.uid)} />
       <label class="tricks">
         {tr({ en: 'Tricks known (Handle Animal)', fr: 'Tours connus (Dressage)' })}
@@ -201,6 +211,13 @@
   .add button {
     min-height: 2.6rem;
     padding: 0 1rem;
+  }
+  .trained {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
   }
   .name,
   .tricks {

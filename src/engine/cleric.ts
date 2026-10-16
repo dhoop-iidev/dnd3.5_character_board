@@ -19,7 +19,11 @@ export function domainsOf(char: Pick<Character, 'levels'>, rules: Rules): Domain
 export function classSkillsOf(char: Pick<Character, 'levels'>, rules: Rules, classId: string): string[] {
   const base = rules.classes.get(classId)?.classSkills ?? []
   if (classId !== 'cleric') return base
-  return [...base, ...domainsOf(char, rules).flatMap((d) => d.effects?.classSkills ?? [])]
+  // Knowledge domain ("all Knowledge skills"): the DM's Knowledge (monsters) too (house rule #27).
+  return [
+    ...base,
+    ...domainsOf(char, rules).flatMap((d) => [...(d.effects?.classSkills ?? []), ...(d.id === 'knowledge' ? ['knowledge-monsters'] : [])]),
+  ]
 }
 
 /** Feats granted by domains (War: Weapon Focus with the deity's favored weapon). */

@@ -44,6 +44,8 @@ export interface CreatureOptions {
   /** Maximum hit points for every hit die (otherwise `hpManual`, or the printed average). */
   maxHp?: boolean
   hpManual?: number
+  /** A horse or pony trained for war (combat riding): its hooves are primary attacks (house rule #25). */
+  warTrained?: boolean
   /** Celestial / fiendish template (Summon Monster): damage reduction, resistances, spell resistance by Hit Dice,
    * smite, darkvision, Int at least 3 (https://www.d20srd.org/srd/monsters/celestialCreature.htm). */
   template?: TemplateDef
@@ -97,7 +99,26 @@ const fmtDmg = (dice: string, bonus: number) => (dice ? `${dice}${bonus > 0 ? `+
  * (https://www.d20srd.org/srd/combat/combatStatistics.htm#damage); factor 0 = no Str (grab-only arms). */
 const strToDamage = (m: number, f: number) => (f === 0 ? 0 : m > 0 ? Math.floor(m * f) : m)
 
-export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): CreatureSheet {
+/** Horses and ponies whose hooves are secondary only when "not trained for war"
+ * (https://www.d20srd.org/srd/monsters/horse.htm, pony.htm; house rule #25, rulings-classes.md C25). */
+export const WAR_TRAINABLE = ['horse-light', 'horse-heavy', 'pony']
+
+/** A war-trained horse or pony: secondary hooves become primary (no −5, full Str to damage). */
+function trainedForWar(def: CreatureDef): CreatureDef {
+  const strMod = mod(def.abilities.str)
+  return {
+    ...def,
+    attacks: def.attacks.map((a) => {
+      if (a.role !== 'secondary') return a
+      const { dice, bonus } = parseDamage(a.damage)
+      const extra = (strMod > 0 ? strMod : 0) - (strMod > 0 ? Math.floor(strMod * a.strDamageFactor) : 0)
+      return { ...a, role: 'primary' as const, bonus: a.bonus + 5, damage: fmtDmg(dice, bonus + extra), strDamageFactor: 1 }
+    }),
+  }
+}
+
+export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): CreatureSheet {
+  const def = opts.warTrained && WAR_TRAINABLE.includes(def0.id) ? trainedForWar(def0) : def0
   const adv = opts.advancement
   const src = def.source
   const advSource = { srdUrl: opts.mount ? MOUNT : DRUID }

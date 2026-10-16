@@ -74,8 +74,8 @@
           {#if x.uses.some((u) => u.mode === 'greater-turning') && t.mode === 'rebuke'}
             <em
               >{tr({
-                en: '— no effect for a rebuking cleric as written (house rule #26, pending)',
-                fr: '— sans effet pour un prêtre qui intimide, selon le texte (règle maison n° 26, en attente)',
+                en: '— used in place of a rebuke: the undead that would be rebuked or commanded are destroyed (house rule #26)',
+                fr: '— à la place d’une intimidation : les morts-vivants qui seraient intimidés ou contrôlés sont détruits (règle maison n° 26)',
               })}</em
             >
           {/if}

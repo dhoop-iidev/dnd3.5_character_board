@@ -81,6 +81,15 @@
             >{tr({ en: 'not in armor, with a shield or a medium/heavy load', fr: 'impossible en armure, avec un bouclier ou une charge intermédiaire/lourde' })}</span
           >{/if}</span
       >
+      {#if c.toggles.flurry && s.attacks.some((a) => a.weapon.id === 'quarterstaff')}
+        <label class="check">
+          <input type="checkbox" bind:checked={app.character.toggles.staffBothEnds} />
+          {tr({
+            en: 'Both ends of the quarterstaff this round (Power Attack ×1 / none; one end only: ×2)',
+            fr: 'Les deux extrémités du bâton ce round (Attaque en puissance ×1 / aucune ; une seule extrémité : ×2)',
+          })}
+        </label>
+      {/if}
     </div>
   {/if}
 

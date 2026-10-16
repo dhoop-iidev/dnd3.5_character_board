@@ -7,8 +7,8 @@
     "armorCheck": 0,
     "hasSubtypes": false,
     "text": {
-      "en": "<p>Homebrew Knowledge skill created by the DM (house rule #4): lore about monsters. Key ability Int, trained only like the SRD Knowledge skills. Class skill for Fighter, Weapon Master and Warblade.</p>",
-      "fr": "<p>Compétence de Connaissances maison créée par le MD (règle maison n°4) : savoir sur les monstres. Caractéristique associée Int, formation nécessaire comme les Connaissances du DRS. Compétence de classe du guerrier, du maître d’armes et de la lame de bataille.</p>"
+      "en": "<p>Homebrew Knowledge skill created by the DM (house rule #4): lore about monsters. Key ability Int, trained only like the SRD Knowledge skills. Class skill for Fighter, Weapon Master and Warblade, and for the classes with all Knowledge skills (bard, wizard, Knowledge-domain cleric; house rule #27).</p>",
+      "fr": "<p>Compétence de Connaissances maison créée par le MD (règle maison n°4) : savoir sur les monstres. Caractéristique associée Int, formation nécessaire comme les Connaissances du DRS. Compétence de classe du guerrier, du maître d’armes et de la lame de bataille, et des classes ayant toutes les Connaissances (barde, magicien, prêtre du domaine de la Connaissance ; règle maison n° 27).</p>"
     },
     "source": { "houseRule": 4 },
     "homebrew": true

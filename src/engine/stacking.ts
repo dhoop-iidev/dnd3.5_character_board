@@ -25,15 +25,17 @@ export interface Stat {
   parts: Part[]
 }
 
-/** Types whose bonuses stack with themselves (different sources). Penalties stack only when untyped. */
-const ALWAYS_STACK: BonusType[] = ['base', 'ability', 'dodge', 'circumstance', 'untyped']
+/** Types whose bonuses stack with themselves (different sources). Penalties stack only when untyped.
+ * Racial bonuses stack (SRD Magic Overview / PHB p. 171: "With the exception of dodge bonuses, most circumstance
+ * bonuses, and racial bonuses, only the better bonus works"; house rule #23, rulings-classes.md C25). */
+const ALWAYS_STACK: BonusType[] = ['base', 'ability', 'dodge', 'circumstance', 'untyped', 'racial']
 
 /**
  * Apply the 3.5 stacking rules:
  * - situational parts count only when switched on;
  * - two parts with the same sourceId: only the larger magnitude counts;
  * - same named type: only the best bonus and the worst penalty count, except dodge, circumstance, untyped
- *   (and the engine's 'base'/'ability' contributions, which are always distinct).
+ *   and racial (house rule #23), and the engine's 'base'/'ability' contributions, which are always distinct.
  */
 export function resolve(parts: Part[]): Stat {
   const out = parts.map((p) => ({ ...p, active: true, inactiveReason: undefined as Part['inactiveReason'] }))

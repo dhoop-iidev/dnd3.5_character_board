@@ -90,6 +90,8 @@ export interface CreatureState {
 export interface CompanionState extends CreatureState {
   /** "mount": the paladin's special mount (advances with paladin level); default: an animal companion. */
   kind?: 'mount'
+  /** Horse or pony trained for war (combat riding): primary hooves (house rule #25). */
+  warTrained?: boolean
   /** Tricks taught with Handle Animal (free text ids/names). */
   tricks?: string[]
 }
@@ -225,6 +227,8 @@ export interface CombatToggles {
   smite?: boolean
   /** Mounted: a lance is wielded in one hand. */
   mounted?: boolean
+  /** Monk's flurry with a quarterstaff: both ends used this round (Power Attack ×1 / none; house rule #29). */
+  staffBothEnds?: boolean
   /** Situational modifiers switched on by the user (key = modifier key from the engine, e.g. "feat:dodge"). */
   situational: Record<string, boolean>
 }
