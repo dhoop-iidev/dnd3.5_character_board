@@ -438,69 +438,6 @@
     {/if}
   </section>
 
-  <section class="box">
-    <h3>{tr({ en: 'Active effects', fr: 'Effets actifs' })}</h3>
-    <ul class="effects">
-      {#each c.activeEffects as e (e.uid)}
-        <li class:off={!e.enabled}>
-          <input type="checkbox" bind:checked={e.enabled} disabled={e.kind === 'class'} aria-label={tr(effectName(e))} />
-          <button class="link" onclick={() => effectPopup(e)}>{tr(effectName(e))}</button>
-          {#if e.kind === 'custom'}<small
-              >{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small
-            >{/if}
-          {#if e.kind === 'class'}<small>{e.rounds} {tr({ en: 'rd', fr: 'rd' })}</small>{:else}<span
-            class="rounds"
-            title={tr({
-              en: 'Rounds left (blank = no set duration)',
-              fr: 'Rounds restants (vide = pas de durée fixée)',
-            })}
-          >
-            {#if e.rounds !== undefined}<button aria-label="−1" onclick={() => setRounds(e, String(e.rounds! - 1))}
-                >−</button
-              >{/if}
-            <input
-              type="number"
-              min="1"
-              inputmode="numeric"
-              placeholder="∞"
-              value={e.rounds ?? ''}
-              onchange={(ev) => setRounds(e, ev.currentTarget.value)}
-              aria-label={tr({ en: 'Rounds left', fr: 'Rounds restants' })}
-            />
-            <small>{tr({ en: 'rd', fr: 'rd' })}</small>
-          </span>{/if}
-          <button class="del" onclick={() => removeEffect(e.uid)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}
-            >✕</button
-          >
-        </li>
-      {:else}
-        <li class="none">{tr({ en: 'None', fr: 'Aucun' })}</li>
-      {/each}
-    </ul>
-    <div class="add">
-      <select bind:value={conditionToAdd}>
-        <option value="">{tr({ en: '— add a condition —', fr: '— ajouter un état —' })}</option>
-        {#each conditions as cd (cd.id)}<option value={cd.id}>{tr(cd.name)}</option>{/each}
-      </select>
-      <button onclick={addCondition} disabled={!conditionToAdd}>＋</button>
-    </div>
-    <details>
-      <summary
-        >{tr({ en: 'Custom effect (poison, spell, bonus…)', fr: 'Effet personnalisé (poison, sort, bonus…)' })}</summary
-      >
-      <div class="custom">
-        <input placeholder={tr({ en: 'Name', fr: 'Nom' })} bind:value={custom.name} />
-        <select bind:value={custom.target}>
-          {#each TARGETS as tg (tg.id)}<option value={tg.id}>{tr(tg.label)}</option>{/each}
-        </select>
-        <select bind:value={custom.bonusType}>
-          {#each TYPES as ty (ty)}<option value={ty}>{ty}</option>{/each}
-        </select>
-        <input type="number" bind:value={custom.value} />
-        <button onclick={addCustom}>＋</button>
-      </div>
-    </details>
-  </section>
 
   {#if s.weaponMaster.level > 0}
     <section class="box">
@@ -554,36 +491,102 @@
   {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
   {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
 
-  <section class="box wide">
-    <h3>{tr({ en: 'Resistances & conditional modifiers', fr: 'Résistances et modificateurs conditionnels' })}</h3>
-    <div class="fields">
-      <label>
-        {tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}
-        {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong
-          >{/each}
-        <input bind:value={app.character.defenses.dr} placeholder="—" />
-      </label>
-      <label
-        >{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input
-          bind:value={app.character.defenses.sr}
-          placeholder="—"
-        /></label
-      >
-      <label class="wide"
-        >{tr({ en: 'Energy resistances', fr: 'Résistances aux énergies' })}<input
-          bind:value={app.character.defenses.resistances}
-          placeholder="—"
-        /></label
-      >
-      <label class="wide">
-        {tr({
-          en: 'Conditional modifiers (e.g. +2 vs fear)',
-          fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)',
-        })}
-        <textarea rows="3" bind:value={app.character.conditionalModifiers}></textarea>
-      </label>
-    </div>
-  </section>
+  <!-- Conditions and damage reduction together, after the class-dependent boxes. -->
+  <div class="wide pair">
+    <section class="box">
+      <h3>{tr({ en: 'Active effects', fr: 'Effets actifs' })}</h3>
+      <ul class="effects">
+        {#each c.activeEffects as e (e.uid)}
+          <li class:off={!e.enabled}>
+            <input type="checkbox" bind:checked={e.enabled} disabled={e.kind === 'class'} aria-label={tr(effectName(e))} />
+            <button class="link" onclick={() => effectPopup(e)}>{tr(effectName(e))}</button>
+            {#if e.kind === 'custom'}<small
+                >{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small
+              >{/if}
+            {#if e.kind === 'class'}<small>{e.rounds} {tr({ en: 'rd', fr: 'rd' })}</small>{:else}<span
+              class="rounds"
+              title={tr({
+                en: 'Rounds left (blank = no set duration)',
+                fr: 'Rounds restants (vide = pas de durée fixée)',
+              })}
+            >
+              {#if e.rounds !== undefined}<button aria-label="−1" onclick={() => setRounds(e, String(e.rounds! - 1))}
+                  >−</button
+                >{/if}
+              <input
+                type="number"
+                min="1"
+                inputmode="numeric"
+                placeholder="∞"
+                value={e.rounds ?? ''}
+                onchange={(ev) => setRounds(e, ev.currentTarget.value)}
+                aria-label={tr({ en: 'Rounds left', fr: 'Rounds restants' })}
+              />
+              <small>{tr({ en: 'rd', fr: 'rd' })}</small>
+            </span>{/if}
+            <button class="del" onclick={() => removeEffect(e.uid)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}
+              >✕</button
+            >
+          </li>
+        {:else}
+          <li class="none">{tr({ en: 'None', fr: 'Aucun' })}</li>
+        {/each}
+      </ul>
+      <div class="add">
+        <select bind:value={conditionToAdd}>
+          <option value="">{tr({ en: '— add a condition —', fr: '— ajouter un état —' })}</option>
+          {#each conditions as cd (cd.id)}<option value={cd.id}>{tr(cd.name)}</option>{/each}
+        </select>
+        <button onclick={addCondition} disabled={!conditionToAdd}>＋</button>
+      </div>
+      <details>
+        <summary
+          >{tr({ en: 'Custom effect (poison, spell, bonus…)', fr: 'Effet personnalisé (poison, sort, bonus…)' })}</summary
+        >
+        <div class="custom">
+          <input placeholder={tr({ en: 'Name', fr: 'Nom' })} bind:value={custom.name} />
+          <select bind:value={custom.target}>
+            {#each TARGETS as tg (tg.id)}<option value={tg.id}>{tr(tg.label)}</option>{/each}
+          </select>
+          <select bind:value={custom.bonusType}>
+            {#each TYPES as ty (ty)}<option value={ty}>{ty}</option>{/each}
+          </select>
+          <input type="number" bind:value={custom.value} />
+          <button onclick={addCustom}>＋</button>
+        </div>
+      </details>
+    </section>
+    <section class="box">
+      <h3>{tr({ en: 'Resistances & conditional modifiers', fr: 'Résistances et modificateurs conditionnels' })}</h3>
+      <div class="fields">
+        <label>
+          {tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}
+          {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong
+            >{/each}
+          <input bind:value={app.character.defenses.dr} placeholder="—" />
+        </label>
+        <label
+          >{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input
+            bind:value={app.character.defenses.sr}
+            placeholder="—"
+          /></label
+        >
+        <label class="wide"
+          >{tr({ en: 'Energy resistances', fr: 'Résistances aux énergies' })}<input
+            bind:value={app.character.defenses.resistances}
+            placeholder="—"
+          /></label
+        >
+        <label class="wide">
+          {tr({
+            en: 'Conditional modifiers (e.g. +2 vs fear)',
+            fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)',
+          })}
+          <textarea rows="3" bind:value={app.character.conditionalModifiers}></textarea>
+        </label>
+      </div>
+    </section>
+  </div>
 
 </div>
 
@@ -596,6 +599,12 @@
   }
   .inhand-row .note {
     margin: 0;
+  }
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: 1.25rem;
+    align-items: start;
   }
   .grid {
     display: grid;
