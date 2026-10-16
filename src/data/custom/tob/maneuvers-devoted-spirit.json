@@ -1,0 +1,1417 @@
+[
+  {
+    "id": "aura-of-chaos",
+    "name": {
+      "en": "Aura of Chaos",
+      "fr": "Aura du chaos"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [
+      "chaos"
+    ],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: melee damage dice that roll their maximum are rolled again and added (no limit).",
+      "fr": "Posture : les dés de dégâts au corps à corps qui font leur maximum sont relancés et ajoutés (sans limite)."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, whenever a damage die of one of your <strong>melee attacks</strong> shows its <strong>maximum</strong> (e.g. 6 on a d6), roll it again and <strong>add</strong> the new result. Keep rerolling and adding as long as dice keep showing their maximum.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, chaque fois qu’un dé de dégâts de l’une de vos <strong>attaques au corps à corps</strong> donne son <strong>maximum</strong> (par ex. 6 sur un d6), relancez-le et <strong>ajoutez</strong> le nouveau résultat. Continuez tant que les dés font leur maximum.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 57,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "aura-of-perfect-order",
+    "name": {
+      "en": "Aura of Perfect Order",
+      "fr": "Aura de l’ordre parfait"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [
+      "law"
+    ],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: once per round, treat a d20 roll as an 11 (decide before rolling).",
+      "fr": "Posture : une fois par round, considérez un d20 comme un 11 (à décider avant le jet)."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, <strong>once per round</strong> you can treat a d20 roll (attack, save, check, anything) as a <strong>natural 11</strong>. You must choose to do so <strong>before rolling</strong>. It takes no action.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, <strong>une fois par round</strong>, vous pouvez considérer un jet de d20 (attaque, sauvegarde, test, peu importe) comme un <strong>11 naturel</strong>. Vous devez le décider <strong>avant de lancer le dé</strong>. Cela ne demande aucune action.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 57,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "aura-of-triumph",
+    "name": {
+      "en": "Aura of Triumph",
+      "fr": "Aura de triomphe"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [
+      "good"
+    ],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You and one ally within 10 ft.",
+      "fr": "Vous et un allié à 3 m ou moins"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: you and an ally within 10 ft. each heal 4 hp per successful melee attack either of you makes against an evil foe.",
+      "fr": "Posture : vous et un allié à 3 m ou moins récupérez chacun 4 pv à chaque attaque au corps à corps réussie de l’un de vous contre une cible mauvaise."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, each time you or an ally within 10 ft. of you hits an <strong>evil</strong> target with a melee attack, you <strong>both heal 4 points of damage</strong>.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, chaque fois que vous ou un allié situé à 3 m ou moins touchez une cible <strong>mauvaise</strong> avec une attaque au corps à corps, vous <strong>récupérez tous deux 4 points de dégâts</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 57,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "aura-of-tyranny",
+    "name": {
+      "en": "Aura of Tyranny",
+      "fr": "Aura de tyrannie"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [
+      "evil"
+    ],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: at the end of your turn, deal 2 damage to each willing ally within 10 ft. and heal 1 per ally.",
+      "fr": "Posture : à la fin de votre tour, infligez 2 points de dégâts à chaque allié consentant à 3 m ou moins et récupérez 1 pv par allié."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, at the <strong>end of your turn</strong> you may deal <strong>2 damage</strong> to each <strong>willing ally within 10 ft.</strong>; you <strong>heal 1 point of damage</strong> for each ally who takes it.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, à la <strong>fin de votre tour</strong>, vous pouvez infliger <strong>2 points de dégâts</strong> à chaque <strong>allié consentant à 3 m ou moins</strong> ; vous <strong>récupérez 1 point de dégâts</strong> par allié qui les subit.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 57,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "castigating-strike",
+    "name": {
+      "en": "Castigating Strike",
+      "fr": "Frappe châtiante"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 minute",
+      "fr": "1 minute"
+    },
+    "save": {
+      "en": "Fortitude partial, DC 17 + Cha mod; see text",
+      "fr": "Vigueur partiel, DD 17 + mod. de Cha ; voir texte"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack +8d6 against a foe of differing alignment; Fort or −2 attack for 1 minute; a 30-ft. burst hits other foes for 5d6.",
+      "fr": "Attaque au corps à corps +8d6 contre un adversaire d’alignement différent ; Vigueur ou −2 à l’attaque 1 minute ; une explosion de 9 m frappe les autres adversaires (5d6)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits a foe whose alignment has <strong>at least one component different from yours</strong>, it deals an extra <strong>8d6 damage</strong> and the target makes a <strong>Fortitude save (DC 17 + your Cha modifier)</strong> or takes <strong>−2 on attack rolls for 1 minute</strong>. Divine energy also bursts from the target: every <strong>opponent within 30 ft.</strong> of it saves too. On a failure it takes <strong>5d6 damage</strong> and the same −2 penalty; on a success, half damage and no penalty.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Si elle touche un adversaire dont l’alignement a <strong>au moins une composante différente du vôtre</strong>, elle inflige <strong>8d6 points de dégâts</strong> supplémentaires et la cible fait un <strong>jet de Vigueur (DD 17 + mod. de Cha)</strong> ou subit <strong>−2 aux jets d’attaque pendant 1 minute</strong>. L’énergie divine explose aussi autour de la cible : tout <strong>adversaire à 9 m ou moins</strong> d’elle fait aussi le jet. En cas d’échec, il subit <strong>5d6 points de dégâts</strong> et le même malus ; en cas de réussite, demi-dégâts et pas de malus.</p>"
+    },
+    "area": {
+      "en": "30-ft.-radius burst centered on the target; see text",
+      "fr": "Explosion de 9 m de rayon centrée sur la cible ; voir texte"
+    },
+    "extraDamage": [
+      {
+        "dice": "8d6",
+        "condition": {
+          "en": "target’s alignment differs from yours in at least one component",
+          "fr": "l’alignement de la cible diffère du vôtre sur au moins une composante"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Foes in the burst: 5d6 and −2 on attack rolls for 1 minute (Fort for half and no penalty).",
+      "fr": "Adversaires dans l’explosion : 5d6 et −2 aux jets d’attaque pendant 1 minute (Vigueur : moitié et pas de malus)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 57,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "crusaders-strike",
+    "name": {
+      "en": "Crusader’s Strike",
+      "fr": "Frappe du croisé"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack against a foe of differing alignment; on a hit you or an ally within 10 ft. heals 1d6 + initiator level (max +5).",
+      "fr": "Attaque au corps à corps contre un adversaire d’alignement différent ; si elle touche, vous ou un allié à 3 m ou moins récupérez 1d6 + niveau d’initiateur (max. +5)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. The target must have at least one alignment component different from yours and pose a direct, immediate threat to you or your allies. If it hits, <strong>you or one ally within 10 ft.</strong> heals <strong>1d6 + 1 per initiator level (maximum +5)</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. La cible doit avoir au moins une composante d’alignement différente de la vôtre et représenter une menace directe et immédiate pour vous ou vos alliés. Si elle touche, <strong>vous ou un allié à 3 m ou moins</strong> récupérez <strong>1d6 + 1 par niveau d’initiateur (maximum +5)</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "daunting-strike",
+    "name": {
+      "en": "Daunting Strike",
+      "fr": "Frappe intimidante"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 minute",
+      "fr": "1 minute"
+    },
+    "save": {
+      "en": "Will negates, DC = damage dealt",
+      "fr": "Volonté annule, DD = dégâts infligés"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit the foe is shaken for 1 minute (Will, DC = damage dealt).",
+      "fr": "Attaque au corps à corps ; si elle touche, l’adversaire est secoué 1 minute (Volonté, DD = dégâts infligés)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack against an opponent you threaten. If it hits, the foe makes a <strong>Will save with a DC equal to the damage you dealt</strong> or is <strong>shaken for 1 minute</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps contre un adversaire que vous menacez. Si elle touche, il fait un <strong>jet de Volonté dont le DD est égal aux dégâts infligés</strong> ou est <strong>secoué pendant 1 minute</strong>.</p>"
+    },
+    "notes": {
+      "en": "Shaken: −2 on attack rolls, saves, skill and ability checks (SRD condition).",
+      "fr": "Secoué : −2 aux jets d’attaque, de sauvegarde, et aux tests de compétence et de caractéristique (état préjudiciable du SRD)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "defensive-rebuke",
+    "name": {
+      "en": "Defensive Rebuke",
+      "fr": "Rebuffade défensive"
+    },
+    "discipline": "devoted-spirit",
+    "type": "boost",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Boost: foes you strike this turn provoke an attack of opportunity from you if they attack anyone else in melee for 1 round.",
+      "fr": "Boost : les adversaires que vous frappez ce tour provoquent une attaque d’opportunité de votre part s’ils attaquent quelqu’un d’autre au corps à corps pendant 1 round."
+    },
+    "text": {
+      "en": "<p>Every enemy you hit after initiating this boost is marked for <strong>1 round</strong>: each melee attack it makes against <strong>anyone other than you</strong> provokes an <strong>attack of opportunity</strong> from you (each separate attack provokes, so Combat Reflexes helps). Enemies you hit know the consequence.</p>",
+      "fr": "<p>Chaque ennemi que vous touchez après avoir initié ce boost est marqué pendant <strong>1 round</strong> : chacune de ses attaques au corps à corps contre <strong>quelqu’un d’autre que vous</strong> provoque une <strong>attaque d’opportunité</strong> de votre part (chaque attaque provoque séparément, d’où l’intérêt de Attaques réflexes). Les ennemis touchés connaissent la conséquence.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "divine-surge",
+    "name": {
+      "en": "Divine Surge",
+      "fr": "Afflux divin"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack with +8d8 damage.",
+      "fr": "Attaque au corps à corps à +8d8 de dégâts."
+    },
+    "text": {
+      "en": "<p>Make one melee attack that deals an extra <strong>8d8 damage</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps qui inflige <strong>8d8 points de dégâts</strong> supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "8d8"
+      }
+    ],
+    "notes": {
+      "en": "The flavor text says the surge leaves you drained, but the rules text gives no drawback.",
+      "fr": "Le texte d’ambiance dit que l’afflux vous épuise, mais la règle n’indique aucune contrepartie."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "greater-divine-surge",
+    "name": {
+      "en": "Divine Surge, Greater",
+      "fr": "Afflux divin supérieur"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round; see text",
+      "fr": "1 round ; voir texte"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack +6d8; take up to initiator level in Con damage for +1 attack and +2d8 each; flat-footed until your next turn.",
+      "fr": "Attaque au corps à corps +6d8 ; subissez jusqu’à votre niveau d’initiateur en affaiblissement de Con pour +1 à l’attaque et +2d8 par point ; pris au dépourvu jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack that deals an extra <strong>6d8 damage</strong>. Before attacking, you may take <strong>Constitution damage</strong> up to your initiator level; for each point you get <strong>+1 on the attack roll</strong> and <strong>+2d8 damage</strong>. Afterwards you are <strong>flat-footed until the start of your next turn</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps qui inflige <strong>6d8 points de dégâts</strong> supplémentaires. Avant l’attaque, vous pouvez subir un <strong>affaiblissement temporaire de Constitution</strong> jusqu’à votre niveau d’initiateur ; chaque point donne <strong>+1 au jet d’attaque</strong> et <strong>+2d8 points de dégâts</strong>. Ensuite, vous êtes <strong>pris au dépourvu jusqu’au début de votre prochain tour</strong>.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "6d8"
+      },
+      {
+        "dice": "2d8",
+        "condition": {
+          "en": "per point of Constitution damage you choose to take (max initiator level)",
+          "fr": "par point d’affaiblissement de Constitution choisi (max. niveau d’initiateur)"
+        }
+      }
+    ],
+    "notes": {
+      "en": "The Con damage and the +1 per point on the attack are not applied automatically: enter the Con damage as an effect. Flat-footed until your next turn.",
+      "fr": "L’affaiblissement de Con et le +1 par point à l’attaque ne sont pas appliqués automatiquement : saisissez l’affaiblissement comme un effet. Pris au dépourvu jusqu’à votre prochain tour."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "doom-charge",
+    "name": {
+      "en": "Doom Charge",
+      "fr": "Charge funeste"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [
+      "evil"
+    ],
+    "level": 5,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Evil only. Charge: +6d6 against a good target; on a hit, DR 10/— until your next turn.",
+      "fr": "Mauvais uniquement. Charge : +6d6 contre une cible bonne ; si elle touche, RD 10/— jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Requires <strong>evil alignment</strong>. Make a charge attack. If the target is <strong>good</strong>, the attack deals an extra <strong>6d6 damage</strong>, and if it hits you gain <strong>damage reduction 10/—</strong> until the start of your next turn.</p>",
+      "fr": "<p>Exige un <strong>alignement mauvais</strong>. Vous portez une attaque de charge. Si la cible est <strong>bonne</strong>, l’attaque inflige <strong>6d6 points de dégâts</strong> supplémentaires et, si elle touche, vous gagnez une <strong>réduction des dégâts de 10/—</strong> jusqu’au début de votre prochain tour.</p>"
+    },
+    "damageReduction": "10/—",
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "round",
+        "stacksAs": "charge"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "6d6",
+        "condition": {
+          "en": "Only against a good-aligned target",
+          "fr": "Seulement contre une cible d’alignement bon"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Prerequisite: one Devoted Spirit maneuver and evil alignment (alignment not checked). DR only on a hit against a good target. The +2 attack / −2 AC are the normal charge modifiers.",
+      "fr": "Condition : une manœuvre de l’Esprit dévoué et un alignement mauvais (alignement non vérifié). RD seulement si l’attaque touche une cible bonne. Le +2 à l’attaque et le −2 à la CA sont les modificateurs normaux de charge."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "entangling-blade",
+    "name": {
+      "en": "Entangling Blade",
+      "fr": "Lame entravante"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "See text",
+      "fr": "Voir texte"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack +2d6; on a hit the target’s speeds drop by 20 ft. until the end of its next turn.",
+      "fr": "Attaque au corps à corps +2d6 ; si elle touche, les vitesses de la cible baissent de 6 m jusqu’à la fin de son prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack that deals an extra <strong>2d6 damage</strong>. If it hits, <strong>all of the target’s speeds drop by 20 ft.</strong> until the end of its next turn, possibly to 0. A flying creature whose fly speed falls to 0 drops to the ground and takes falling damage.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps qui inflige <strong>2d6 points de dégâts</strong> supplémentaires. Si elle touche, <strong>toutes les vitesses de la cible baissent de 6 m</strong> jusqu’à la fin de son prochain tour, parfois jusqu’à 0. Une créature volante dont la vitesse de vol tombe à 0 chute et subit des dégâts de chute.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 58,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "foehammer",
+    "name": {
+      "en": "Foehammer",
+      "fr": "Marteau des ennemis"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack +2d6 that automatically overcomes damage reduction.",
+      "fr": "Attaque au corps à corps +2d6 qui ignore automatiquement la réduction des dégâts."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. It <strong>automatically overcomes the target’s damage reduction</strong> and deals an extra <strong>2d6 damage</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. Elle <strong>passe automatiquement la réduction des dégâts</strong> de la cible et inflige <strong>2d6 points de dégâts</strong> supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6"
+      }
+    ],
+    "notes": {
+      "en": "Ignores damage reduction (not hardness: the text names DR only).",
+      "fr": "Ignore la réduction des dégâts (pas la solidité : le texte ne parle que de RD)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 59,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "immortal-fortitude",
+    "name": {
+      "en": "Immortal Fortitude",
+      "fr": "Vigueur immortelle"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: dropped to 0 hp or less, a Fort save (DC = negative hp total) leaves you at 1 hp; ends after three saves.",
+      "fr": "Posture : ramené à 0 pv ou moins, un jet de Vigueur (DD = total de pv négatifs) vous laisse à 1 pv ; prend fin après trois jets."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, damage that would drop you to <strong>0 hit points or less</strong> cannot kill or disable you outright: make a <strong>Fortitude save, DC = your negative hit point total</strong>. Success: you stay conscious with <strong>1 hit point</strong>. Failure: you die or fall unconscious as normal. No protection against death without hit point damage, petrification, paralysis and the like, nor against a coup de grace while helpless. After <strong>three such saves</strong> the stance ends; you can take it again on your turn.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, des dégâts qui vous mettraient à <strong>0 pv ou moins</strong> ne peuvent pas vous tuer ou vous mettre hors de combat directement : faites un <strong>jet de Vigueur, DD = votre total de pv négatifs</strong>. Réussite : vous restez conscient à <strong>1 pv</strong>. Échec : vous mourez ou tombez inconscient normalement. Aucune protection contre la mort sans dégâts, la pétrification, la paralysie, etc., ni contre un coup de grâce si vous êtes sans défense. Après <strong>trois jets</strong>, la posture prend fin ; vous pouvez la reprendre à votre tour.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 59,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "iron-guards-glare",
+    "name": {
+      "en": "Iron Guard’s Glare",
+      "fr": "Regard du garde de fer"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: foes you threaten take −4 on attacks against your allies.",
+      "fr": "Posture : les adversaires que vous menacez subissent −4 aux attaques contre vos alliés."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, every opponent <strong>you threaten</strong> takes a <strong>−4 penalty on attack rolls against your allies</strong>. Attacks against you are not affected. Those foes know about the penalty.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, tout adversaire <strong>que vous menacez</strong> subit un <strong>malus de −4 aux jets d’attaque contre vos alliés</strong>. Ses attaques contre vous ne sont pas affectées. Ces adversaires connaissent le malus.</p>"
+    },
+    "notes": {
+      "en": "Penalty on the foes’ attacks against your allies (not computed).",
+      "fr": "Malus aux attaques des adversaires contre vos alliés (non calculé)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 59,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "law-bearer",
+    "name": {
+      "en": "Law Bearer",
+      "fr": "Porteur de la loi"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [
+      "law"
+    ],
+    "level": 5,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Lawful only. Charge: +8 attack and +4d6 against a chaotic target; on a hit, +5 on saves and AC until your next turn.",
+      "fr": "Loyal uniquement. Charge : +8 à l’attaque et +4d6 contre une cible chaotique ; si elle touche, +5 aux sauvegardes et à la CA jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Requires <strong>lawful alignment</strong>. Make a charge attack. If the target is <strong>chaotic</strong>, you get <strong>+8 on the attack roll</strong> (on top of the charge bonus) and deal an extra <strong>4d6 damage</strong>; if the attack hits, you gain <strong>+5 on saving throws and to AC</strong> until the start of your next turn.</p>",
+      "fr": "<p>Exige un <strong>alignement loyal</strong>. Vous portez une attaque de charge. Si la cible est <strong>chaotique</strong>, vous gagnez <strong>+8 au jet d’attaque</strong> (en plus du bonus de charge) et infligez <strong>4d6 points de dégâts</strong> supplémentaires ; si l’attaque touche, vous gagnez <strong>+5 aux jets de sauvegarde et à la CA</strong> jusqu’au début de votre prochain tour.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "round",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 8,
+          "condition": {
+            "en": "Only against a chaotic-aligned target",
+            "fr": "Seulement contre une cible d’alignement chaotique"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      },
+      {
+        "spec": {
+          "target": "save.all",
+          "bonusType": "untyped",
+          "value": 5,
+          "condition": {
+            "en": "Only if the charge hit a chaotic-aligned target",
+            "fr": "Seulement si la charge a touché une cible chaotique"
+          }
+        },
+        "duration": "round",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": 5,
+          "condition": {
+            "en": "Only if the charge hit a chaotic-aligned target",
+            "fr": "Seulement si la charge a touché une cible chaotique"
+          }
+        },
+        "duration": "round",
+        "appliesTo": "self"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "4d6",
+        "condition": {
+          "en": "Only against a chaotic-aligned target",
+          "fr": "Seulement contre une cible d’alignement chaotique"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Prerequisite: one Devoted Spirit maneuver and lawful alignment (alignment not checked). The +2 attack / −2 AC are the normal charge modifiers.",
+      "fr": "Condition : une manœuvre de l’Esprit dévoué et un alignement loyal (alignement non vérifié). Le +2 à l’attaque et le −2 à la CA sont les modificateurs normaux de charge."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 59,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "martial-spirit",
+    "name": {
+      "en": "Martial Spirit",
+      "fr": "Esprit martial"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: each melee hit heals 2 hp to you or an ally within 30 ft.",
+      "fr": "Posture : chaque coup au corps à corps rend 2 pv à vous ou à un allié à 9 m ou moins."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, each time you <strong>hit with a melee attack</strong>, you or one ally within <strong>30 ft.</strong> heals <strong>2 points of damage</strong>. You can pick a different recipient for each hit.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, chaque fois que vous <strong>touchez avec une attaque au corps à corps</strong>, vous ou un allié à <strong>9 m</strong> ou moins récupérez <strong>2 points de dégâts</strong>. Vous pouvez choisir un bénéficiaire différent à chaque coup.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "radiant-charge",
+    "name": {
+      "en": "Radiant Charge",
+      "fr": "Charge radieuse"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [
+      "good"
+    ],
+    "level": 5,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Good only. Charge: +6d6 against an evil target; on a hit, DR 10/— until your next turn.",
+      "fr": "Bon uniquement. Charge : +6d6 contre une cible mauvaise ; si elle touche, RD 10/— jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Requires <strong>good alignment</strong>. Make a charge attack. If the target is <strong>evil</strong>, the attack deals an extra <strong>6d6 damage</strong>, and if it hits you gain <strong>damage reduction 10/—</strong> until the start of your next turn.</p>",
+      "fr": "<p>Exige un <strong>alignement bon</strong>. Vous portez une attaque de charge. Si la cible est <strong>mauvaise</strong>, l’attaque inflige <strong>6d6 points de dégâts</strong> supplémentaires et, si elle touche, vous gagnez une <strong>réduction des dégâts de 10/—</strong> jusqu’au début de votre prochain tour.</p>"
+    },
+    "damageReduction": "10/—",
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "round",
+        "stacksAs": "charge"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "6d6",
+        "condition": {
+          "en": "Only against an evil-aligned target",
+          "fr": "Seulement contre une cible d’alignement mauvais"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Prerequisite: one Devoted Spirit maneuver and good alignment (alignment not checked). DR only on a hit against an evil target. The +2 attack / −2 AC are the normal charge modifiers.",
+      "fr": "Condition : une manœuvre de l’Esprit dévoué et un alignement bon (alignement non vérifié). RD seulement si l’attaque touche une cible mauvaise. Le +2 à l’attaque et le −2 à la CA sont les modificateurs normaux de charge."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "rallying-strike",
+    "name": {
+      "en": "Rallying Strike",
+      "fr": "Frappe de ralliement"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack against a foe of differing alignment; on a hit you and all allies within 30 ft. heal 3d6 + initiator level (max +15).",
+      "fr": "Attaque au corps à corps contre un adversaire d’alignement différent ; si elle touche, vous et tous les alliés à 9 m ou moins récupérez 3d6 + niveau d’initiateur (max. +15)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. The target must have at least one alignment component different from yours and pose a direct, immediate threat to you or your allies. If it hits, <strong>you and every ally within 30 ft.</strong> heal <strong>3d6 + 1 per initiator level (maximum +15)</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. La cible doit avoir au moins une composante d’alignement différente de la vôtre et représenter une menace directe et immédiate pour vous ou vos alliés. Si elle touche, <strong>vous et tous les alliés à 9 m ou moins</strong> récupérez <strong>3d6 + 1 par niveau d’initiateur (maximum +15)</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "revitalizing-strike",
+    "name": {
+      "en": "Revitalizing Strike",
+      "fr": "Frappe revigorante"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack against a foe of differing alignment; on a hit you or an ally within 10 ft. heals 3d6 + initiator level (max +10).",
+      "fr": "Attaque au corps à corps contre un adversaire d’alignement différent ; si elle touche, vous ou un allié à 3 m ou moins récupérez 3d6 + niveau d’initiateur (max. +10)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. The target must have at least one alignment component different from yours and pose a direct, immediate threat to you or your allies. If it hits, <strong>you or one ally within 10 ft.</strong> heals <strong>3d6 + 1 per initiator level (maximum +10)</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. La cible doit avoir au moins une composante d’alignement différente de la vôtre et représenter une menace directe et immédiate pour vous ou vos alliés. Si elle touche, <strong>vous ou un allié à 3 m ou moins</strong> récupérez <strong>3d6 + 1 par niveau d’initiateur (maximum +10)</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shield-block",
+    "name": {
+      "en": "Shield Block",
+      "fr": "Blocage au bouclier"
+    },
+    "discipline": "devoted-spirit",
+    "type": "counter",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Counter: an adjacent ally gets your shield’s AC bonus + 4 to AC against one attack.",
+      "fr": "Contre : un allié adjacent gagne le bonus de bouclier de votre bouclier + 4 à la CA contre une attaque."
+    },
+    "text": {
+      "en": "<p>When a melee or ranged attack targets an <strong>adjacent ally</strong>, you give that ally a bonus to AC equal to <strong>your shield’s AC bonus + 4</strong> against that single attack. Use it after the attack roll but before you know whether it hits.</p>",
+      "fr": "<p>Quand une attaque au corps à corps ou à distance vise un <strong>allié adjacent</strong>, vous lui donnez un bonus à la CA égal au <strong>bonus de bouclier de votre bouclier + 4</strong> contre cette seule attaque. À utiliser après le jet d’attaque, mais avant de savoir s’il touche.</p>"
+    },
+    "notes": {
+      "en": "Needs a shield. The bonus goes to the ally, not to you.",
+      "fr": "Exige un bouclier. Le bonus va à l’allié, pas à vous."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shield-counter",
+    "name": {
+      "en": "Shield Counter",
+      "fr": "Contre au bouclier"
+    },
+    "discipline": "devoted-spirit",
+    "type": "counter",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 2,
+    "action": "immediate",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Counter: shield bash at −2 against a foe about to attack; on a hit its next attack automatically misses.",
+      "fr": "Contre : coup de bouclier à −2 contre un adversaire qui va attaquer ; s’il touche, sa prochaine attaque rate automatiquement."
+    },
+    "text": {
+      "en": "<p>When an opponent you threaten declares an attack, before its result is known, make a <strong>shield bash</strong> against it at <strong>−2</strong>. If the bash hits, that opponent’s <strong>next attack automatically misses</strong>.</p>",
+      "fr": "<p>Quand un adversaire que vous menacez annonce une attaque, avant d’en connaître le résultat, vous lui portez un <strong>coup de bouclier</strong> à <strong>−2</strong>. S’il touche, la <strong>prochaine attaque</strong> de cet adversaire <strong>rate automatiquement</strong>.</p>"
+    },
+    "notes": {
+      "en": "Needs a shield you can bash with. The −2 applies to the shield bash only.",
+      "fr": "Exige un bouclier permettant un coup de bouclier. Le −2 ne s’applique qu’au coup de bouclier."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "strike-of-righteous-vitality",
+    "name": {
+      "en": "Strike of Righteous Vitality",
+      "fr": "Frappe de vitalité vertueuse"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 9,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack against a foe of differing alignment; you or an ally within 10 ft. gets a heal spell (caster level = your character level).",
+      "fr": "Attaque au corps à corps contre un adversaire d’alignement différent ; vous ou un allié à 3 m ou moins bénéficiez d’un sort de guérison suprême (NLS = votre niveau global)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. The target must have at least one alignment component different from yours and pose a direct, immediate threat to you or your allies. If you strike such a foe, <strong>you or one ally within 10 ft.</strong> gains the benefit of a <strong>heal</strong> spell as if cast by a cleric of your <strong>character level</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps. La cible doit avoir au moins une composante d’alignement différente de la vôtre et représenter une menace directe et immédiate pour vous ou vos alliés. Si vous frappez un tel adversaire, <strong>vous ou un allié à 3 m ou moins</strong> bénéficiez d’un sort de <strong>guérison suprême</strong> (heal) comme s’il était lancé par un prêtre de votre <strong>niveau global</strong>.</p>"
+    },
+    "notes": {
+      "en": "Heal: 10 hp per caster level (max 150) and removes many conditions (SRD).",
+      "fr": "Guérison suprême : 10 pv par niveau de lanceur (max. 150) et supprime de nombreux états (SRD)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 60,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "thicket-of-blades",
+    "name": {
+      "en": "Thicket of Blades",
+      "fr": "Fourré de lames"
+    },
+    "discipline": "devoted-spirit",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: any movement by a foe you threaten, even a 5-ft. step, provokes an attack of opportunity.",
+      "fr": "Posture : tout déplacement d’un adversaire que vous menacez, même un pas de placement, provoque une attaque d’opportunité."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, an opponent you threaten that moves in any way, <strong>even a 5-ft. step</strong>, <strong>provokes an attack of opportunity</strong> from you before it leaves your threatened area. The withdraw action does not protect its first square from you.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, un adversaire que vous menacez qui se déplace de quelque façon que ce soit, <strong>même d’un pas de placement</strong>, <strong>provoque une attaque d’opportunité</strong> de votre part avant de quitter la zone que vous menacez. L’action de retraite ne protège pas sa première case contre vous.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 61,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "tide-of-chaos",
+    "name": {
+      "en": "Tide of Chaos",
+      "fr": "Marée du chaos"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [
+      "chaos"
+    ],
+    "level": 5,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Chaotic only. Charge: +8 attack and +4d6 against a lawful target; on a hit, total concealment until your next turn.",
+      "fr": "Chaotique uniquement. Charge : +8 à l’attaque et +4d6 contre une cible loyale ; si elle touche, camouflage total jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Requires <strong>chaotic alignment</strong>. Make a charge attack. If the target is <strong>lawful</strong>, you get <strong>+8 on the attack roll</strong> (on top of the charge bonus) and deal an extra <strong>4d6 damage</strong>; if the attack hits, you gain <strong>total concealment</strong> against all attacks until the start of your next turn.</p>",
+      "fr": "<p>Exige un <strong>alignement chaotique</strong>. Vous portez une attaque de charge. Si la cible est <strong>loyale</strong>, vous gagnez <strong>+8 au jet d’attaque</strong> (en plus du bonus de charge) et infligez <strong>4d6 points de dégâts</strong> supplémentaires ; si l’attaque touche, vous bénéficiez d’un <strong>camouflage total</strong> contre toutes les attaques jusqu’au début de votre prochain tour.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "round",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 8,
+          "condition": {
+            "en": "Only against a lawful-aligned target",
+            "fr": "Seulement contre une cible d’alignement loyal"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "strikeAttack"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "4d6",
+        "condition": {
+          "en": "Only against a lawful-aligned target",
+          "fr": "Seulement contre une cible d’alignement loyal"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Prerequisite: one Devoted Spirit maneuver and chaotic alignment (alignment not checked). Total concealment: 50% miss chance, can’t be targeted directly (SRD). The +2 attack / −2 AC are the normal charge modifiers.",
+      "fr": "Condition : une manœuvre de l’Esprit dévoué et un alignement chaotique (alignement non vérifié). Camouflage total : 50 % de chances de rater, ne peut pas être ciblé directement (SRD). Le +2 à l’attaque et le −2 à la CA sont les modificateurs normaux de charge."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 61,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "vanguard-strike",
+    "name": {
+      "en": "Vanguard Strike",
+      "fr": "Frappe d’avant-garde"
+    },
+    "discipline": "devoted-spirit",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit allies get +4 on attacks against that foe until your next turn.",
+      "fr": "Attaque au corps à corps ; si elle touche, les alliés gagnent +4 aux attaques contre cet adversaire jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack against an opponent you threaten. If it hits, <strong>all your allies</strong> gain a <strong>+4 bonus on melee and ranged attack rolls</strong> against that target until the start of your next turn. You don’t get it yourself.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps contre un adversaire que vous menacez. Si elle touche, <strong>tous vos alliés</strong> gagnent un <strong>bonus de +4 aux jets d’attaque au corps à corps et à distance</strong> contre cette cible jusqu’au début de votre prochain tour. Vous-même n’en bénéficiez pas.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.all",
+          "bonusType": "untyped",
+          "value": 4,
+          "condition": {
+            "en": "against the creature you hit",
+            "fr": "contre la créature que vous avez touchée"
+          }
+        },
+        "duration": "round",
+        "appliesTo": "allies"
+      }
+    ],
+    "notes": {
+      "en": "Untyped bonus, allies only.",
+      "fr": "Bonus sans type, alliés uniquement."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 62,
+      "frRef": "traduction maison"
+    }
+  }
+]

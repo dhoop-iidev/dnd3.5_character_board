@@ -115,5 +115,99 @@
       "page": 42,
       "frRef": "traduction maison"
     }
+  },
+  {
+    "id": "desert-wind",
+    "name": {
+      "en": "Desert Wind",
+      "fr": "Vent du désert"
+    },
+    "keySkill": "tumble",
+    "associatedWeapons": [
+      "scimitar",
+      "light-mace",
+      "light-pick",
+      "falchion",
+      "spear"
+    ],
+    "summary": {
+      "en": "Speed and mobility: whirling flurries, quick charges and nimble footwork, and for adepts, supernatural desert fire. Swordsage discipline (others need Martial Study). Key skill Tumble. Weapons: scimitar, light mace, light pick, falchion, spear.",
+      "fr": "Vitesse et mobilité : rafales de coups tourbillonnantes, charges éclair et jeu de jambes agile, et chez les adeptes, le feu surnaturel du désert. Discipline du maître des lames (swordsage ; les autres passent par Étude martiale). Compétence clé : Acrobaties. Armes : cimeterre, masse d’armes légère, pic de guerre léger, cimeterre à deux mains, lance."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 41,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "devoted-spirit",
+    "name": {
+      "en": "Devoted Spirit",
+      "fr": "Esprit dévoué"
+    },
+    "keySkill": "intimidate",
+    "associatedWeapons": [
+      "falchion",
+      "greatclub",
+      "longsword"
+    ],
+    "summary": {
+      "en": "Faith and zeal for a cause: strikes that heal allies, punish foes of an opposed alignment, and endurance that keeps you fighting past normal limits. Crusader discipline (others need Martial Study). Key skill Intimidate. Weapons: falchion, greatclub, longsword, maul (not in our weapon list).",
+      "fr": "La foi et le zèle pour une cause : frappes qui soignent les alliés, punissent les adversaires d’alignement opposé, et endurance qui fait combattre au-delà des limites ordinaires. Discipline du croisé (crusader ; les autres passent par Étude martiale). Compétence clé : Intimidation. Armes : cimeterre à deux mains, massue, épée longue, maillet (absent de notre liste d’armes)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 41,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "setting-sun",
+    "name": {
+      "en": "Setting Sun",
+      "fr": "Soleil couchant"
+    },
+    "keySkill": "sense-motive",
+    "associatedWeapons": [
+      "short-sword",
+      "quarterstaff",
+      "nunchaku",
+      "unarmed-strike"
+    ],
+    "summary": {
+      "en": "Strength is an illusion: turning a foe’s own power and speed against him with throws and mimicking strikes; its highest forms ask the adept to empty herself of intent. Swordsage discipline (others need Martial Study). Key skill Sense Motive. Weapons: short sword, quarterstaff, nunchaku, unarmed strike.",
+      "fr": "La force est une illusion : retourner la puissance et la vitesse de l’adversaire contre lui par des projections et des frappes imitatives ; ses formes ultimes demandent de se vider de toute intention. Discipline du maître des lames (swordsage ; les autres passent par Étude martiale). Compétence clé : Psychologie. Armes : épée courte, bâton, nunchaku, attaque à mains nues."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 42,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-hand",
+    "name": {
+      "en": "Shadow Hand",
+      "fr": "Main de l’ombre"
+    },
+    "keySkill": "hide",
+    "associatedWeapons": [
+      "dagger",
+      "short-sword",
+      "sai",
+      "siangham",
+      "unarmed-strike",
+      "spiked-chain"
+    ],
+    "summary": {
+      "en": "Deception, misdirection and surprise: the best blow lands on a foe who never saw it coming; some maneuvers call on the supernatural cold and darkness of shadow. Swordsage discipline (others need Martial Study). Key skill Hide. Weapons: dagger, short sword, sai, siangham, unarmed strike, spiked chain.",
+      "fr": "Tromperie, diversion et surprise : le meilleur coup frappe un adversaire qui ne l’a jamais vu venir ; certaines manœuvres font appel au froid et aux ténèbres surnaturels de l’ombre. Discipline du maître des lames (swordsage ; les autres passent par Étude martiale). Compétence clé : Discrétion. Armes : dague, épée courte, sai, siangham, attaque à mains nues, chaîne cloutée."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 42,
+      "frRef": "traduction maison"
+    }
   }
 ]

@@ -1,0 +1,1871 @@
+[
+  {
+    "id": "bloodclaw-master",
+    "name": {
+      "en": "Bloodclaw Master",
+      "fr": "Maître de la griffe sanglante"
+    },
+    "prestige": true,
+    "hitDie": 12,
+    "skillPoints": 2,
+    "classSkills": [
+      "balance",
+      "climb",
+      "handle-animal",
+      "hide",
+      "jump",
+      "knowledge-nature",
+      "listen",
+      "martial-lore",
+      "move-silently",
+      "spot",
+      "survival"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "skills": {
+        "jump": 9
+      },
+      "other": [
+        {
+          "en": "Multiattack or Two-Weapon Fighting",
+          "fr": "Attaques multiples ou Combat à deux armes"
+        }
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 3,
+            "disciplines": [
+              "tiger-claw"
+            ]
+          }
+        ]
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "tiger-claw"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 2,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 3,
+          "known": 1,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 5,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        }
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 0,
+        "fort": 2,
+        "ref": 2,
+        "will": 0,
+        "special": [
+          {
+            "en": "Shifting 1/day",
+            "fr": "Mue bestiale 1/jour"
+          },
+          {
+            "en": "Claws of the beast",
+            "fr": "Griffes de la bête"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "fort": 3,
+        "ref": 3,
+        "will": 0,
+        "special": [
+          {
+            "en": "Superior two-weapon fighting",
+            "fr": "Combat à deux armes suprême"
+          },
+          {
+            "en": "Tiger claw synergy (stance)",
+            "fr": "Synergie de la Griffe du tigre (posture)"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "fort": 3,
+        "ref": 3,
+        "will": 1,
+        "special": [
+          {
+            "en": "Pouncing strike",
+            "fr": "Frappe bondissante"
+          },
+          {
+            "en": "Low-light vision",
+            "fr": "Vision nocturne"
+          },
+          {
+            "en": "Shifting 2/day",
+            "fr": "Mue bestiale 2/jour"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": [
+          {
+            "en": "Tiger claw synergy (strike)",
+            "fr": "Synergie de la Griffe du tigre (frappe)"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": [
+          {
+            "en": "Rending claws",
+            "fr": "Griffes déchirantes"
+          },
+          {
+            "en": "Scent",
+            "fr": "Odorat"
+          },
+          {
+            "en": "Shifting 3/day",
+            "fr": "Mue bestiale 3/jour"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 96–98 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Maneuvers:</b> +1 Tiger Claw maneuver known at levels 1, 3 and 5; +1 readied at level 3; class levels add in full to the initiator level.</p><p><b>Shifting:</b> 1/day (2/day at 3rd, 3/day at 5th), free action, lasts Con modifier + class level rounds: +2 Str and two claws (1d4, primary natural weapons; one claw as a standard action, both on a full attack, never more than one attack per claw per round; a claw can be the off-hand weapon with the normal two-weapon penalties).</p><p><b>Claws of the beast:</b> with two daggers or Tiger Claw weapons (kukri, kama, handaxe, unarmed strike, claws), the off-hand weapon adds the full Str bonus to damage.</p><p><b>Superior two-weapon fighting (2nd):</b> same weapons, no −2 two-weapon penalty on attack rolls.</p><p><b>Tiger claw synergy:</b> 2nd, in a Tiger Claw stance pick +1 dodge AC or +10 ft base speed when entering it; 4th, +1 on attack rolls of Tiger Claw strikes.</p><p><b>Pouncing strike (3rd):</b> with two weapons, a standard action (or the end of a charge) gives one attack with each at the highest bonus; costs one readied Tiger Claw strike (recoverable normally).</p><p><b>Low-light vision (3rd), scent (5th).</b></p><p><b>Rending claws (5th):</b> while shifting, with two daggers or Tiger Claw weapons, if both hit the same foe in a round the second hit deals +2d6; counts as a Tiger Claw boost and costs one readied Tiger Claw boost.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 96–98 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Manœuvres :</b> +1 manœuvre connue de la Griffe du tigre aux niveaux 1, 3 et 5 ; +1 préparée au niveau 3 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Mue bestiale :</b> 1/jour (2/jour au niveau 3, 3/jour au niveau 5), action libre, dure mod. de Con + niveau de classe rounds : +2 en For et deux griffes (1d4, armes naturelles principales ; une griffe par une action simple, les deux en attaque à outrance, jamais plus d’une attaque par griffe et par round ; une griffe peut servir d’arme secondaire avec les malus normaux du combat à deux armes).</p><p><b>Griffes de la bête :</b> avec deux dagues ou armes de la Griffe du tigre (kukri, kama, hachette, combat à mains nues, griffes), l’arme de la main non directrice ajoute le bonus de For complet aux dégâts.</p><p><b>Combat à deux armes suprême (niv. 2) :</b> mêmes armes, pas de malus de −2 aux jets d’attaque pour le combat à deux armes.</p><p><b>Synergie de la Griffe du tigre :</b> niv. 2, en posture de la Griffe du tigre, +1 d’esquive à la CA ou +3 m de vitesse de base, au choix en adoptant la posture ; niv. 4, +1 aux jets d’attaque des frappes de la Griffe du tigre.</p><p><b>Frappe bondissante (niv. 3) :</b> avec deux armes, une action simple (ou la fin d’une charge) donne une attaque avec chacune au bonus maximal ; coûte une frappe de la Griffe du tigre préparée (récupérable normalement).</p><p><b>Vision nocturne (niv. 3), odorat (niv. 5).</b></p><p><b>Griffes déchirantes (niv. 5) :</b> en mue, avec deux dagues ou armes de la Griffe du tigre, si les deux touchent le même adversaire dans le round, le second coup inflige +2d6 ; compte comme une manœuvre de soutien de la Griffe du tigre et en coûte une préparée.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 96,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "bloodstorm-blade",
+    "name": {
+      "en": "Bloodstorm Blade",
+      "fr": "Lame de la tempête sanglante"
+    },
+    "prestige": true,
+    "hitDie": 12,
+    "skillPoints": 4,
+    "classSkills": [
+      "balance",
+      "concentration",
+      "craft",
+      "intimidate",
+      "jump",
+      "martial-lore",
+      "spot",
+      "tumble"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "skills": {
+        "balance": 8
+      },
+      "feats": [
+        "point-blank-shot"
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 1,
+            "disciplines": [
+              "iron-heart"
+            ],
+            "type": "strike"
+          }
+        ],
+        "stances": [
+          {
+            "count": 1,
+            "disciplines": [
+              "iron-heart"
+            ]
+          }
+        ]
+      }
+    },
+    "bonusFeatLevels": [
+      3,
+      6,
+      9
+    ],
+    "bonusFeatList": [
+      "blind-fight",
+      "cleave",
+      "combat-expertise",
+      "combat-reflexes",
+      "deflect-arrows",
+      "dodge",
+      "exotic-weapon-proficiency",
+      "far-shot",
+      "great-cleave",
+      "greater-two-weapon-fighting",
+      "greater-weapon-focus",
+      "greater-weapon-specialization",
+      "improved-bull-rush",
+      "improved-critical",
+      "improved-disarm",
+      "improved-feint",
+      "improved-grapple",
+      "improved-initiative",
+      "improved-overrun",
+      "improved-precise-shot",
+      "improved-shield-bash",
+      "improved-sunder",
+      "improved-trip",
+      "improved-two-weapon-fighting",
+      "improved-unarmed-strike",
+      "manyshot",
+      "mobility",
+      "mounted-archery",
+      "mounted-combat",
+      "point-blank-shot",
+      "power-attack",
+      "precise-shot",
+      "quick-draw",
+      "rapid-reload",
+      "rapid-shot",
+      "ride-by-attack",
+      "shot-on-the-run",
+      "snatch-arrows",
+      "spirited-charge",
+      "spring-attack",
+      "stunning-fist",
+      "trample",
+      "two-weapon-defense",
+      "two-weapon-fighting",
+      "weapon-finesse",
+      "weapon-focus",
+      "weapon-specialization",
+      "whirlwind-attack"
+    ],
+    "table": [
+      {
+        "level": 1,
+        "bab": 1,
+        "fort": 2,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Returning attacks",
+            "fr": "Attaques de retour"
+          },
+          {
+            "en": "Throw Anything",
+            "fr": "Lancer n’importe quoi"
+          },
+          {
+            "en": "Weapon aptitude",
+            "fr": "Aptitude martiale"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "fort": 3,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Martial throw",
+            "fr": "Lancer martial"
+          },
+          {
+            "en": "Thunderous throw",
+            "fr": "Lancer tonitruant"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "fort": 3,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Bonus fighter feat",
+            "fr": "Don supplémentaire de guerrier"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Lightning ricochet",
+            "fr": "Ricochet éclair"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Blood wind ricochet",
+            "fr": "Ricochet du vent de sang"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Bonus fighter feat",
+            "fr": "Don supplémentaire de guerrier"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Eye of the storm",
+            "fr": "Œil de la tempête"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "fort": 6,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Blood rain",
+            "fr": "Pluie de sang"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "fort": 6,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Bonus fighter feat",
+            "fr": "Don supplémentaire de guerrier"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Blade storm",
+            "fr": "Tempête de lames"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 100–102 (summary in our own words; see docs/rules/tob-prestige.md). No maneuver progression: the class does not add maneuvers known, readied or initiator levels.</p><p><b>Returning attacks:</b> any weapon you throw acts as if it had the returning special ability (DMG 225); each use costs one readied Iron Heart strike (recoverable normally).</p><p><b>Throw Anything:</b> bonus feat (<i>Complete Warrior</i>, reprinted p. 101): throw a proficient melee weapon with a 10-ft range increment.</p><p><b>Weapon aptitude:</b> counts as a fighter of (warblade + bloodstorm blade levels − 2) for feat prerequisites; 1 hour of practice each morning lets you move single-weapon feats to another weapon you have on hand, as long as all prerequisites still hold.</p><p><b>Martial throw (2nd):</b> Iron Heart strikes that target one creature can be made with a thrown weapon.</p><p><b>Thunderous throw (2nd):</b> swift action, for the rest of the turn thrown attacks use the melee attack bonus (range penalties still apply); a two-handed thrown weapon gets 1½ × Str to damage and Power Attack at ×2.</p><p><b>Bonus fighter feats</b> at 3rd, 6th and 9th.</p><p><b>Lightning ricochet (4th):</b> thrown weapons come back to your hand at once during your turn, so a full attack can be all thrown or mixed.</p><p><b>Blood wind ricochet (5th):</b> full-round action, full attack with a thrown weapon, each attack against a different target, range and cover measured from the last target; costs one readied Iron Heart strike.</p><p><b>Eye of the storm (7th):</b> swift action, replaces the benefit of your current Iron Heart stance: +4 dodge AC against ranged attacks, +2 competence on Reflex saves, and a swift-action melee attack on a foe that makes an attack of opportunity on you for a ranged attack; move no more than 10 ft per turn to keep it.</p><p><b>Blood rain (8th):</b> swift action, replaces the Iron Heart stance benefit: a living creature you damage (thrown or melee) loses 3 hp at the start of each of your turns until healed, a DC 15 Heal check, or you leave the stance; doesn’t stack.</p><p><b>Blade storm (10th):</b> full-round action, one thrown attack at your highest bonus against each of as many targets as you want; costs one readied Iron Heart strike.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 100–102 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit). Pas de progression martiale : la classe n’ajoute ni manœuvres connues, ni préparées, ni niveau d’initiateur.</p><p><b>Attaques de retour :</b> toute arme lancée se comporte comme si elle avait la propriété spéciale « retour » (Guide du Maître p. 225) ; chaque utilisation coûte une frappe du Cœur de fer préparée (récupérable normalement).</p><p><b>Lancer n’importe quoi :</b> don supplémentaire (<i>Complete Warrior</i>, repris p. 101) : lancer une arme de corps à corps maniée avec un facteur de portée de 3 m.</p><p><b>Aptitude martiale :</b> compte comme un guerrier de niveau (lame de bataille + lame de la tempête sanglante − 2) pour les conditions des dons ; 1 heure d’entraînement chaque matin permet de reporter les dons liés à une arme sur une autre arme disponible, si toutes les conditions restent remplies.</p><p><b>Lancer martial (niv. 2) :</b> les frappes du Cœur de fer qui visent une seule créature peuvent se faire avec une arme lancée.</p><p><b>Lancer tonitruant (niv. 2) :</b> action rapide, jusqu’à la fin du tour les attaques lancées utilisent le bonus d’attaque au corps à corps (les malus de portée restent) ; une arme lancée à deux mains ajoute 1,5 × For aux dégâts et Attaque en puissance à ×2.</p><p><b>Dons supplémentaires de guerrier</b> aux niveaux 3, 6 et 9.</p><p><b>Ricochet éclair (niv. 4) :</b> les armes lancées reviennent aussitôt dans votre main pendant votre tour : une attaque à outrance peut être entièrement lancée ou mixte.</p><p><b>Ricochet du vent de sang (niv. 5) :</b> action complexe, attaque à outrance avec une arme lancée, chaque attaque contre une cible différente, portée et abri mesurés depuis la cible précédente ; coûte une frappe du Cœur de fer préparée.</p><p><b>Œil de la tempête (niv. 7) :</b> action rapide, remplace l’effet de la posture du Cœur de fer en cours : +4 d’esquive à la CA contre les attaques à distance, +2 d’aptitude aux jets de Réflexes, et une attaque au corps à corps par une action rapide contre un adversaire qui vous porte une attaque d’opportunité pendant une attaque à distance ; ne pas se déplacer de plus de 3 m par tour pour la garder.</p><p><b>Pluie de sang (niv. 8) :</b> action rapide, remplace l’effet de la posture du Cœur de fer : une créature vivante que vous blessez (lancer ou corps à corps) perd 3 pv au début de chacun de vos tours jusqu’à un soin, un test de Premiers secours DD 15, ou la fin de la posture ; non cumulable.</p><p><b>Tempête de lames (niv. 10) :</b> action complexe, une attaque lancée au bonus maximal contre autant de cibles que voulu ; coûte une frappe du Cœur de fer préparée.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 100,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "deepstone-sentinel",
+    "name": {
+      "en": "Deepstone Sentinel",
+      "fr": "Sentinelle de la pierre profonde"
+    },
+    "prestige": true,
+    "hitDie": 10,
+    "skillPoints": 2,
+    "classSkills": [
+      "balance",
+      "concentration",
+      "craft",
+      "intimidate",
+      "knowledge-dungeoneering",
+      "listen",
+      "martial-lore",
+      "spot"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "bab": 10,
+      "skills": {
+        "balance": 13
+      },
+      "other": [
+        {
+          "en": "Race: dwarf",
+          "fr": "Race : nain"
+        },
+        {
+          "en": "Power Attack or Stone Power (Tome of Battle p. 32)",
+          "fr": "Attaque en puissance ou Puissance de la pierre (Tome of Battle p. 32)"
+        }
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 2,
+            "disciplines": [
+              "stone-dragon"
+            ]
+          }
+        ],
+        "stances": [
+          {
+            "count": 1,
+            "disciplines": [
+              "stone-dragon"
+            ]
+          }
+        ]
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "stone-dragon"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 2,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 3,
+          "known": 1,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 5,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        }
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 0,
+        "fort": 2,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Mountain fortress stance",
+            "fr": "Posture de la forteresse montagne"
+          },
+          {
+            "en": "Passwall",
+            "fr": "Passe-muraille"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "fort": 3,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Crashing mountain juggernaut",
+            "fr": "Avalanche de la montagne"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "fort": 3,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Indomitable redoubt",
+            "fr": "Redoute indomptable"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Stone curse",
+            "fr": "Malédiction de pierre"
+          },
+          {
+            "en": "Dragon’s tooth",
+            "fr": "Croc du dragon"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Awaken the stone dragon",
+            "fr": "Éveil du dragon de pierre"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 105–106 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Maneuvers:</b> +1 Stone Dragon maneuver known at levels 1, 3 and 5; +1 readied at level 3; class levels add in full to the initiator level.</p><p><b>Mountain fortress stance:</b> swift action, replaces the benefit of your current Stone Dragon stance (on earth, stone or worked floor with rock within 1 ft): you stand on a 5-ft pillar; adjacent squares become difficult terrain and a creature entering or leaving one makes a DC 10 Balance check or falls prone (+4 for four legs or stability; flyers and creatures ignoring difficult terrain unaffected). Ends if you leave the stance or move more than 5 ft in a round; a 5-ft step moves the pillar.</p><p><b>Passwall:</b> spell-like ability, 1/day per class level, caster level = class level.</p><p><b>Crashing mountain juggernaut (2nd):</b> starting your turn in mountain fortress stance, a full-round action ends the Stone Dragon stance: creatures in the difficult terrain make DC 15 Balance or fall prone (no bonus for legs or stability), and you may charge; a hit deals +2d6. Not on the same turn as activating mountain fortress stance.</p><p><b>Indomitable redoubt (3rd):</b> while in mountain fortress stance, you also benefit from one Stone Dragon stance (the same or another).</p><p><b>Stone curse (4th):</b> immediate action after a melee hit, before damage: Will save (DC 10 + ½ character level + Str modifier) or the target can’t move for 1 round (fly speed unaffected).</p><p><b>Dragon’s tooth (4th):</b> standard action, a 5- or 10-ft stone pillar rises from natural earth or stone within 60 ft; a creature in that square makes a Reflex save (same DC) or falls prone; dismiss as a standard action.</p><p><b>Awaken the stone dragon (5th):</b> once per encounter, swift action: enemies within 60 ft make a Reflex save (same DC) or take 12d6 and fall prone; success halves damage and they stay standing; stability doesn’t help.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 105–106 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Manœuvres :</b> +1 manœuvre connue du Dragon de pierre aux niveaux 1, 3 et 5 ; +1 préparée au niveau 3 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Posture de la forteresse montagne :</b> action rapide, remplace l’effet de la posture du Dragon de pierre en cours (sur terre, roche ou sol pavé avec de la roche à moins de 30 cm) : vous vous tenez sur un pilier de 1,50 m ; les cases adjacentes deviennent un terrain difficile et une créature qui y entre ou en sort fait un test d’Équilibre DD 10 ou tombe à terre (+4 pour quatre pattes ou stabilité ; créatures volantes ou ignorant le terrain difficile non affectées). Prend fin si vous quittez la posture ou vous déplacez de plus de 1,50 m dans le round ; un pas de placement déplace le pilier.</p><p><b>Passe-muraille :</b> pouvoir magique, 1/jour par niveau de classe, niveau de lanceur = niveau de classe.</p><p><b>Avalanche de la montagne (niv. 2) :</b> si vous commencez votre tour en posture de la forteresse montagne, une action complexe met fin à la posture du Dragon de pierre : les créatures dans le terrain difficile font un test d’Équilibre DD 15 ou tombent à terre (sans bonus de pattes ni de stabilité), et vous pouvez charger ; un coup réussi inflige +2d6. Pas le même tour que l’activation de la posture de la forteresse montagne.</p><p><b>Redoute indomptable (niv. 3) :</b> en posture de la forteresse montagne, vous bénéficiez aussi d’une posture du Dragon de pierre (la même ou une autre).</p><p><b>Malédiction de pierre (niv. 4) :</b> action immédiate après un coup au corps à corps, avant les dégâts : jet de Volonté (DD 10 + ½ niveau global + mod. de For) ou la cible ne peut pas se déplacer pendant 1 round (vol non affecté).</p><p><b>Croc du dragon (niv. 4) :</b> action simple, un pilier de pierre de 1,50 ou 3 m surgit de terre ou de roche naturelle à 18 m ; une créature sur la case fait un jet de Réflexes (même DD) ou tombe à terre ; dissipation par une action simple.</p><p><b>Éveil du dragon de pierre (niv. 5) :</b> une fois par rencontre, action rapide : les ennemis à 18 m font un jet de Réflexes (même DD) ou subissent 12d6 et tombent à terre ; une réussite réduit les dégâts de moitié et ils restent debout ; la stabilité n’aide pas.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 105,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "eternal-blade",
+    "name": {
+      "en": "Eternal Blade",
+      "fr": "Lame éternelle"
+    },
+    "prestige": true,
+    "hitDie": 10,
+    "skillPoints": 2,
+    "classSkills": [
+      "climb",
+      "concentration",
+      "diplomacy",
+      "handle-animal",
+      "intimidate",
+      "jump",
+      "martial-lore",
+      "ride",
+      "sense-motive",
+      "tumble"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "bab": 10,
+      "feats": [
+        "weapon-focus"
+      ],
+      "other": [
+        {
+          "en": "Race: elf",
+          "fr": "Race : elfe"
+        }
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 2,
+            "disciplines": [
+              "devoted-spirit",
+              "diamond-mind"
+            ]
+          }
+        ]
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "devoted-spirit",
+        "diamond-mind",
+        "iron-heart",
+        "white-raven"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 2,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 3,
+          "known": 1,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 5,
+          "known": 1,
+          "readied": 0,
+          "stances": 1
+        },
+        {
+          "level": 6,
+          "known": 0,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 7,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 8,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 9,
+          "known": 1,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 10,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        }
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 1,
+        "fort": 2,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Blade guide",
+            "fr": "Guide de lame"
+          },
+          {
+            "en": "Eternal training 1/day",
+            "fr": "Entraînement éternel 1/jour"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "fort": 3,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Guided strike",
+            "fr": "Frappe guidée"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "fort": 3,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Armored uncanny dodge",
+            "fr": "Esquive instinctive en armure"
+          },
+          {
+            "en": "Eternal training 2/day",
+            "fr": "Entraînement éternel 2/jour"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Eternal knowledge",
+            "fr": "Savoir éternel"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Eternal training 3/day",
+            "fr": "Entraînement éternel 3/jour"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Defensive insight",
+            "fr": "Intuition défensive"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Eternal training 4/day",
+            "fr": "Entraînement éternel 4/jour"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "fort": 6,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Tactical insight",
+            "fr": "Intuition tactique"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "fort": 6,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Eternal training 5/day",
+            "fr": "Entraînement éternel 5/jour"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Island in time",
+            "fr": "Île hors du temps"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 109–111 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Maneuvers:</b> Devoted Spirit, Diamond Mind, Iron Heart, White Raven. +1 maneuver known at each odd level, +1 readied at 3rd, 6th and 9th, +1 stance at 5th; class levels add in full to the initiator level.</p><p><b>Blade guide:</b> spirit of an ancient eternal blade, a mote of white light: incorporeal, size Fine, hit points equal to yours, AC 18, fly 30 ft (perfect), uses your saves, telepathic, sees through your senses. Destroyed or out of line of effect: back in your space after 1d6 rounds. It can manifest visibly to speak for up to 10 minutes a day, but its class features are lost meanwhile. Most features below work only while you have access to the guide.</p><p><b>Eternal training:</b> 1/day (+1 use at 3rd, 5th, 7th, 9th), at most once per encounter, lasts one encounter: either an insight bonus equal to your Int bonus on attack and damage rolls against one creature type (humanoid or outsider: pick a subtype too), or the use of one Devoted Spirit or Diamond Mind maneuver whose prerequisite you meet (recoverable normally, forgotten after the encounter).</p><p><b>Guided strike (2nd):</b> swift action, ignore one foe’s damage reduction for the rest of your turn.</p><p><b>Armored uncanny dodge (3rd):</b> uncanny dodge, or improved uncanny dodge if you already have uncanny dodge, usable in medium and heavy armor.</p><p><b>Eternal knowledge (4th):</b> the guide makes Knowledge checks at eternal blade level + your Int modifier in two chosen fields, plus one more at 6th, 8th and 10th.</p><p><b>Defensive insight (6th):</b> swift action, dodge bonus to AC equal to your Int bonus against one foe until your next turn.</p><p><b>Tactical insight (8th):</b> swift action, until the end of your turn every foe you hit in melee takes a penalty to AC equal to your Int bonus against your allies’ attacks for 1 round.</p><p><b>Island in time (10th):</b> once per encounter, take a whole turn as an immediate action; your initiative count doesn’t change.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 109–111 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Manœuvres :</b> Esprit dévoué, Esprit de diamant, Cœur de fer, Corbeau blanc. +1 manœuvre connue à chaque niveau impair, +1 préparée aux niveaux 3, 6 et 9, +1 posture au niveau 5 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Guide de lame :</b> esprit d’une ancienne lame éternelle, une étincelle de lumière blanche : intangible, taille Infime, autant de points de vie que vous, CA 18, vol 9 m (parfaite), utilise vos jets de sauvegarde, télépathe, perçoit par vos sens. Détruit ou hors de la ligne d’effet : revient dans votre case après 1d6 rounds. Il peut se manifester visiblement pour parler jusqu’à 10 minutes par jour, mais ses aptitudes de classe sont alors perdues. La plupart des aptitudes ci-dessous ne fonctionnent que si vous avez accès au guide.</p><p><b>Entraînement éternel :</b> 1/jour (+1 utilisation aux niveaux 3, 5, 7, 9), au plus une fois par rencontre, dure une rencontre : soit un bonus d’intuition égal au bonus d’Int aux jets d’attaque et de dégâts contre un type de créature (humanoïde ou extérieur : choisir aussi un sous-type), soit l’usage d’une manœuvre d’Esprit dévoué ou d’Esprit de diamant dont vous remplissez les conditions (récupérable normalement, oubliée après la rencontre).</p><p><b>Frappe guidée (niv. 2) :</b> action rapide, ignore la réduction des dégâts d’un adversaire jusqu’à la fin de votre tour.</p><p><b>Esquive instinctive en armure (niv. 3) :</b> esquive instinctive, ou esquive instinctive supérieure si vous avez déjà l’esquive instinctive, utilisable en armure intermédiaire et lourde.</p><p><b>Savoir éternel (niv. 4) :</b> le guide fait des tests de Connaissances à niveau de lame éternelle + votre mod. d’Int dans deux domaines choisis, plus un aux niveaux 6, 8 et 10.</p><p><b>Intuition défensive (niv. 6) :</b> action rapide, bonus d’esquive à la CA égal au bonus d’Int contre un adversaire jusqu’à votre prochain tour.</p><p><b>Intuition tactique (niv. 8) :</b> action rapide, jusqu’à la fin du tour, chaque adversaire touché au corps à corps subit un malus à la CA égal à votre bonus d’Int contre les attaques de vos alliés pendant 1 round.</p><p><b>Île hors du temps (niv. 10) :</b> une fois par rencontre, jouer un tour entier par une action immédiate ; votre rang d’initiative ne change pas.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 109,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "jade-phoenix-mage",
+    "name": {
+      "en": "Jade Phoenix Mage",
+      "fr": "Mage du phénix de jade"
+    },
+    "prestige": true,
+    "hitDie": 6,
+    "skillPoints": 2,
+    "classSkills": [
+      "climb",
+      "concentration",
+      "diplomacy",
+      "handle-animal",
+      "intimidate",
+      "jump",
+      "martial-lore",
+      "ride",
+      "sense-motive",
+      "tumble"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "skills": {
+        "concentration": 9,
+        "knowledge-arcana": 2,
+        "knowledge-history": 2,
+        "knowledge-religion": 2
+      },
+      "other": [
+        {
+          "en": "Alignment: any nonevil",
+          "fr": "Alignement : tout sauf mauvais"
+        },
+        {
+          "en": "Ability to cast 2nd-level arcane spells",
+          "fr": "Capacité à lancer des sorts profanes du 2e niveau"
+        }
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 2
+          },
+          {
+            "count": 1,
+            "type": "strike"
+          }
+        ],
+        "stances": [
+          {
+            "count": 1
+          }
+        ]
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "desert-wind",
+        "devoted-spirit"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 2,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 3,
+          "known": 1,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 5,
+          "known": 1,
+          "readied": 0,
+          "stances": 1
+        },
+        {
+          "level": 6,
+          "known": 0,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 7,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 8,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 9,
+          "known": 1,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 10,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        }
+      ]
+    },
+    "spellcastingAdvance": {
+      "kind": "arcane",
+      "levels": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 1,
+        "fort": 2,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Arcane wrath",
+            "fr": "Courroux arcanique"
+          },
+          {
+            "en": "Rite of waking",
+            "fr": "Rite de l’éveil"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "fort": 3,
+        "ref": 0,
+        "will": 0,
+        "special": [
+          {
+            "en": "Mystic phoenix stance",
+            "fr": "Posture du phénix mystique"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "fort": 3,
+        "ref": 1,
+        "will": 1,
+        "special": []
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": [
+          {
+            "en": "Empowering strike",
+            "fr": "Frappe d’extension"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": []
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Firebird stance",
+            "fr": "Posture de l’oiseau de feu"
+          },
+          {
+            "en": "Jade Phoenix master",
+            "fr": "Maître du phénix de jade"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": []
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "fort": 6,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Quickening strike",
+            "fr": "Frappe accélératrice"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "fort": 6,
+        "ref": 3,
+        "will": 3,
+        "special": []
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Emerald immolation",
+            "fr": "Immolation d’émeraude"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 113–116 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Spellcasting:</b> +1 level of an existing arcane spellcasting class (spells per day, caster level, spells known) at every level except 1st and 6th; no other benefit of that class.</p><p><b>Maneuvers:</b> Desert Wind and Devoted Spirit. +1 maneuver known at each odd level, +1 readied at 3rd, 6th and 9th, +1 stance at 5th; class levels add in full to the initiator level.</p><p><b>Arcane wrath:</b> swift action, lose a prepared arcane spell or slot: +4 on one attack roll or strike and +1d10 damage per spell level, for an attack made before your next turn.</p><p><b>Rite of waking:</b> memories of past lives: +2 on Knowledge checks and Knowledge usable untrained; +2 on saves against death and fear effects.</p><p><b>Mystic phoenix stance (2nd):</b> swift action, replaces the benefit of your current stance (any discipline): +1 caster level for arcane spells and +2 dodge bonus to AC; on activation you may spend an arcane slot for DR (2 × spell level)/evil, max 10/evil, while it lasts.</p><p><b>Empowering strike (4th):</b> once per encounter, after a successful martial strike, an arcane spell you cast before the end of your next turn is empowered without raising its level.</p><p><b>Firebird stance (6th):</b> swift action, replaces a stance’s benefit: fire resistance 10, +3 caster level for fire spells; on activation you may spend an arcane slot for a 10-ft aura dealing 1d6 per spell level (half fire, half untyped) at the start of your turns for 1 minute, Reflex half (DC 14 + key spellcasting modifier).</p><p><b>Jade Phoenix master (6th):</b> may perform the Rite of Waking for a suitable candidate; 1 minute of meditation reveals direction and distance to the nearest Jade Phoenix mage, master or candidate.</p><p><b>Quickening strike (8th):</b> once per encounter, after a successful martial strike, an arcane spell of 5th level or lower cast before the end of your next turn is quickened without raising its level.</p><p><b>Emerald immolation (10th):</b> once per week, 20d6 in a 20-ft radius (half fire, half untyped), Reflex half (DC 19 + key spellcasting modifier); extraplanar creatures that fail also make a Will save (same DC) or are sent home. You are destroyed, then re-form in the same spot 1d6 rounds later with your gear, dazed 1 round, healed of all damage and most afflictions. Counts as a 9th-level spell.</p><p>Class skills as printed (identical to the eternal blade list; possibly a misprint, see docs/rules/tob-prestige.md).</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 113–116 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Sorts :</b> +1 niveau d’une classe de lanceur de sorts profanes déjà possédée (sorts par jour, niveau de lanceur, sorts connus) à chaque niveau sauf 1 et 6 ; aucun autre avantage de cette classe.</p><p><b>Manœuvres :</b> Vent du désert et Esprit dévoué. +1 manœuvre connue à chaque niveau impair, +1 préparée aux niveaux 3, 6 et 9, +1 posture au niveau 5 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Courroux arcanique :</b> action rapide, perdre un sort profane préparé ou un emplacement : +4 à un jet d’attaque ou une frappe et +1d10 dégâts par niveau du sort, pour une attaque avant votre prochain tour.</p><p><b>Rite de l’éveil :</b> souvenirs des vies passées : +2 aux tests de Connaissances, utilisables sans formation ; +2 aux jets de sauvegarde contre les effets de mort et de terreur.</p><p><b>Posture du phénix mystique (niv. 2) :</b> action rapide, remplace l’effet de la posture en cours (toute discipline) : +1 niveau de lanceur pour les sorts profanes et +2 d’esquive à la CA ; à l’activation, vous pouvez sacrifier un emplacement profane pour RD (2 × niveau du sort)/mal, max 10/mal, tant qu’elle dure.</p><p><b>Frappe d’extension (niv. 4) :</b> une fois par rencontre, après une frappe martiale réussie, un sort profane lancé avant la fin de votre prochain tour bénéficie d’Extension d’effet sans augmenter son niveau.</p><p><b>Posture de l’oiseau de feu (niv. 6) :</b> action rapide, remplace l’effet d’une posture : résistance au feu 10, +3 niveaux de lanceur pour les sorts de feu ; à l’activation, vous pouvez sacrifier un emplacement profane pour une aura de 3 m infligeant 1d6 par niveau du sort (moitié feu, moitié non typé) au début de vos tours pendant 1 minute, Réflexes pour moitié (DD 14 + mod. de la caractéristique d’incantation).</p><p><b>Maître du phénix de jade (niv. 6) :</b> peut accomplir le Rite de l’éveil pour un candidat approprié ; 1 minute de méditation révèle la direction et la distance du mage, maître ou candidat du phénix de jade le plus proche.</p><p><b>Frappe accélératrice (niv. 8) :</b> une fois par rencontre, après une frappe martiale réussie, un sort profane de niveau 5 ou moins lancé avant la fin de votre prochain tour bénéficie d’Incantation rapide sans augmenter son niveau.</p><p><b>Immolation d’émeraude (niv. 10) :</b> une fois par semaine, 20d6 dans un rayon de 6 m (moitié feu, moitié non typé), Réflexes pour moitié (DD 19 + mod. de la caractéristique d’incantation) ; les créatures extraplanaires qui échouent font aussi un jet de Volonté (même DD) ou sont renvoyées chez elles. Vous êtes détruit, puis vous vous reformez au même endroit 1d6 rounds plus tard avec votre équipement, hébété 1 round, guéri de tous les dégâts et de la plupart des afflictions. Équivaut à un sort du 9e niveau.</p><p>Compétences de classe telles qu’imprimées (identiques à la liste de la lame éternelle ; erreur d’impression possible, voir docs/rules/tob-prestige.md).</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 113,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "master-of-nine",
+    "name": {
+      "en": "Master of Nine",
+      "fr": "Maître des neuf"
+    },
+    "prestige": true,
+    "hitDie": 8,
+    "skillPoints": 6,
+    "classSkills": [
+      "balance",
+      "climb",
+      "concentration",
+      "craft",
+      "diplomacy",
+      "hide",
+      "intimidate",
+      "jump",
+      "knowledge-history",
+      "knowledge-local",
+      "martial-lore",
+      "sense-motive",
+      "swim",
+      "tumble"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "feats": [
+        "dodge",
+        "blind-fight",
+        "improved-initiative",
+        "improved-unarmed-strike"
+      ],
+      "other": [
+        {
+          "en": "Adaptive Style (Tome of Battle p. 28)",
+          "fr": "Style adaptatif (Tome of Battle p. 28)"
+        }
+      ],
+      "martial": {
+        "distinctDisciplines": 6,
+        "keySkills": {
+          "count": 4,
+          "ranks": 10
+        }
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "desert-wind",
+        "devoted-spirit",
+        "diamond-mind",
+        "iron-heart",
+        "setting-sun",
+        "shadow-hand",
+        "stone-dragon",
+        "tiger-claw",
+        "white-raven"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 2,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 2,
+          "known": 1,
+          "readied": 1,
+          "stances": 1
+        },
+        {
+          "level": 3,
+          "known": 2,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 1,
+          "readied": 1,
+          "stances": 1
+        },
+        {
+          "level": 5,
+          "known": 2,
+          "readied": 1,
+          "stances": 0
+        }
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 0,
+        "fort": 0,
+        "ref": 0,
+        "will": 2,
+        "special": []
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "fort": 0,
+        "ref": 0,
+        "will": 3,
+        "special": [
+          {
+            "en": "Dual stance",
+            "fr": "Double posture"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "fort": 1,
+        "ref": 1,
+        "will": 3,
+        "special": [
+          {
+            "en": "Perfect form",
+            "fr": "Forme parfaite"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "fort": 1,
+        "ref": 1,
+        "will": 4,
+        "special": [
+          {
+            "en": "Counter stance",
+            "fr": "Posture de riposte"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "fort": 1,
+        "ref": 1,
+        "will": 4,
+        "special": [
+          {
+            "en": "Mastery of nine",
+            "fr": "Maîtrise des neuf"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 119–120 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Maneuvers:</b> any of the nine disciplines. +2 maneuvers known at odd levels, +1 at even levels; +1 readied every level; +1 stance at 2nd and 4th; class levels add in full to the initiator level.</p><p><b>Dual stance (2nd):</b> when entering a stance of another discipline, you may keep the current one; both apply for up to 2 rounds per class level per day, split as you like.</p><p><b>Perfect form (3rd):</b> +1 to the save DC of maneuvers you initiate.</p><p><b>Counter stance (4th):</b> changing stance can be part of a counter’s action, even outside your turn.</p><p><b>Mastery of nine (5th):</b> +2 on attack rolls of strikes; strikes deal extra damage equal to the number of different disciplines among the maneuvers you readied that day.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 119–120 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Manœuvres :</b> les neuf disciplines. +2 manœuvres connues aux niveaux impairs, +1 aux niveaux pairs ; +1 préparée à chaque niveau ; +1 posture aux niveaux 2 et 4 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Double posture (niv. 2) :</b> en adoptant une posture d’une autre discipline, vous pouvez garder la posture en cours ; les deux s’appliquent jusqu’à 2 rounds par niveau de classe et par jour, à répartir.</p><p><b>Forme parfaite (niv. 3) :</b> +1 au DD de sauvegarde des manœuvres que vous initiez.</p><p><b>Posture de riposte (niv. 4) :</b> changer de posture peut faire partie de l’action d’une riposte, même hors de votre tour.</p><p><b>Maîtrise des neuf (niv. 5) :</b> +2 aux jets d’attaque des frappes ; les frappes infligent des dégâts supplémentaires égaux au nombre de disciplines différentes parmi les manœuvres préparées ce jour-là.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 119,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "ruby-knight-vindicator",
+    "name": {
+      "en": "Ruby Knight Vindicator",
+      "fr": "Chevalier vengeur du rubis"
+    },
+    "prestige": true,
+    "hitDie": 8,
+    "skillPoints": 4,
+    "classSkills": [
+      "balance",
+      "concentration",
+      "craft",
+      "diplomacy",
+      "heal",
+      "hide",
+      "intimidate",
+      "jump",
+      "knowledge-history",
+      "knowledge-local",
+      "knowledge-religion",
+      "martial-lore",
+      "profession",
+      "ride",
+      "sense-motive",
+      "spellcraft"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "skills": {
+        "hide": 4,
+        "intimidate": 4,
+        "knowledge-religion": 8
+      },
+      "other": [
+        {
+          "en": "Deity: Wee Jas",
+          "fr": "Divinité : Wee Jas"
+        },
+        {
+          "en": "Ability to turn or rebuke undead",
+          "fr": "Capacité à renvoyer ou intimider les morts-vivants"
+        }
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 1,
+            "disciplines": [
+              "devoted-spirit"
+            ]
+          }
+        ],
+        "stances": [
+          {
+            "count": 1,
+            "disciplines": [
+              "devoted-spirit"
+            ]
+          }
+        ]
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "devoted-spirit",
+        "shadow-hand",
+        "stone-dragon",
+        "white-raven"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 0,
+          "readied": 0,
+          "stances": 1
+        },
+        {
+          "level": 2,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 3,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 5,
+          "known": 0,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 6,
+          "known": 1,
+          "readied": 0,
+          "stances": 1
+        },
+        {
+          "level": 7,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 8,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 9,
+          "known": 0,
+          "readied": 1,
+          "stances": 0
+        },
+        {
+          "level": 10,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        }
+      ]
+    },
+    "spellcastingAdvance": {
+      "kind": "divine",
+      "levels": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 1,
+        "fort": 0,
+        "ref": 0,
+        "will": 2,
+        "special": []
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "fort": 0,
+        "ref": 0,
+        "will": 3,
+        "special": [
+          {
+            "en": "Divine recovery",
+            "fr": "Récupération divine"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "fort": 1,
+        "ref": 1,
+        "will": 3,
+        "special": []
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "fort": 1,
+        "ref": 1,
+        "will": 4,
+        "special": []
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "fort": 1,
+        "ref": 1,
+        "will": 4,
+        "special": [
+          {
+            "en": "Armored stealth",
+            "fr": "Discrétion en armure"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "fort": 2,
+        "ref": 2,
+        "will": 5,
+        "special": []
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "fort": 2,
+        "ref": 2,
+        "will": 5,
+        "special": [
+          {
+            "en": "Divine impetus",
+            "fr": "Élan divin"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "fort": 2,
+        "ref": 2,
+        "will": 6,
+        "special": []
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "fort": 3,
+        "ref": 3,
+        "will": 6,
+        "special": [
+          {
+            "en": "Divine fury",
+            "fr": "Fureur divine"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "fort": 3,
+        "ref": 3,
+        "will": 7,
+        "special": []
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 122–123 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Spellcasting:</b> +1 level of an existing divine spellcasting class (spells per day, caster level, spells known) at every level except 1st and 6th; no other benefit of that class.</p><p><b>Maneuvers:</b> Devoted Spirit, Shadow Hand, Stone Dragon, White Raven. +1 maneuver known at each even level, +1 readied at 5th and 9th, +1 stance at 1st and 6th; class levels add in full to the initiator level.</p><p><b>Divine recovery (2nd):</b> swift action, spend one turn or rebuke undead attempt to recover one expended maneuver (a crusader gets it back as a granted maneuver).</p><p><b>Armored stealth (5th):</b> armor check penalty no longer applies to Hide (still applies to other skills).</p><p><b>Divine impetus (7th):</b> spend one turn or rebuke attempt to get one extra swift action this round.</p><p><b>Divine fury (9th):</b> free action, spend one turn or rebuke attempt: +4 sacred bonus (profane if evil) on the attack roll of one martial strike this turn, and the strike deals +1d10 damage.</p><p>The class does not improve turning itself (no extra uses or turning level). A paladin can keep taking paladin levels.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 122–123 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Sorts :</b> +1 niveau d’une classe de lanceur de sorts divins déjà possédée (sorts par jour, niveau de lanceur, sorts connus) à chaque niveau sauf 1 et 6 ; aucun autre avantage de cette classe.</p><p><b>Manœuvres :</b> Esprit dévoué, Main de l’ombre, Dragon de pierre, Corbeau blanc. +1 manœuvre connue à chaque niveau pair, +1 préparée aux niveaux 5 et 9, +1 posture aux niveaux 1 et 6 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Récupération divine (niv. 2) :</b> action rapide, dépenser une tentative de renvoi ou d’intimidation des morts-vivants pour récupérer une manœuvre utilisée (un croisé la récupère comme manœuvre accordée).</p><p><b>Discrétion en armure (niv. 5) :</b> le malus d’armure ne s’applique plus à Discrétion (il s’applique toujours aux autres compétences).</p><p><b>Élan divin (niv. 7) :</b> dépenser une tentative de renvoi ou d’intimidation pour une action rapide supplémentaire ce round.</p><p><b>Fureur divine (niv. 9) :</b> action libre, dépenser une tentative de renvoi ou d’intimidation : bonus sacré de +4 (malfaisant si mauvais) au jet d’attaque d’une frappe martiale ce tour, et la frappe inflige +1d10 dégâts.</p><p>La classe n’améliore pas le renvoi lui-même (ni utilisations supplémentaires, ni niveau de renvoi). Un paladin peut continuer à prendre des niveaux de paladin.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 122,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-sun-ninja",
+    "name": {
+      "en": "Shadow Sun Ninja",
+      "fr": "Ninja du soleil d’ombre"
+    },
+    "prestige": true,
+    "hitDie": 8,
+    "skillPoints": 4,
+    "classSkills": [
+      "balance",
+      "climb",
+      "concentration",
+      "craft",
+      "diplomacy",
+      "escape-artist",
+      "hide",
+      "jump",
+      "knowledge-arcana",
+      "knowledge-the-planes",
+      "knowledge-religion",
+      "listen",
+      "martial-lore",
+      "move-silently",
+      "perform",
+      "profession",
+      "sense-motive",
+      "spot",
+      "swim",
+      "tumble"
+    ],
+    "proficiencies": {
+      "weapons": [],
+      "armor": []
+    },
+    "requirements": {
+      "bab": 3,
+      "skills": {
+        "hide": 8
+      },
+      "feats": [
+        "improved-unarmed-strike"
+      ],
+      "other": [
+        {
+          "en": "Alignment: any good",
+          "fr": "Alignement : tout bon"
+        }
+      ],
+      "martial": {
+        "maneuvers": [
+          {
+            "count": 1,
+            "disciplines": [
+              "setting-sun",
+              "shadow-hand"
+            ],
+            "minLevel": 2
+          },
+          {
+            "count": 1,
+            "disciplines": [
+              "setting-sun"
+            ]
+          },
+          {
+            "count": 1,
+            "disciplines": [
+              "shadow-hand"
+            ]
+          }
+        ]
+      }
+    },
+    "martialAdvance": {
+      "disciplines": [
+        "setting-sun",
+        "shadow-hand"
+      ],
+      "initiatorLevel": "full",
+      "levels": [
+        {
+          "level": 1,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 2,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 3,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 4,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 5,
+          "known": 0,
+          "readied": 1,
+          "stances": 1
+        },
+        {
+          "level": 6,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 7,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 8,
+          "known": 0,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 9,
+          "known": 1,
+          "readied": 0,
+          "stances": 0
+        },
+        {
+          "level": 10,
+          "known": 0,
+          "readied": 1,
+          "stances": 0
+        }
+      ]
+    },
+    "table": [
+      {
+        "level": 1,
+        "bab": 0,
+        "fort": 2,
+        "ref": 2,
+        "will": 2,
+        "special": [
+          {
+            "en": "Monk abilities",
+            "fr": "Aptitudes de moine"
+          },
+          {
+            "en": "Touch of the Shadow Sun",
+            "fr": "Toucher du soleil d’ombre"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "fort": 3,
+        "ref": 3,
+        "will": 3,
+        "special": [
+          {
+            "en": "Flame of the Shadow Sun",
+            "fr": "Flamme du soleil d’ombre"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "fort": 3,
+        "ref": 3,
+        "will": 3,
+        "special": []
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "fort": 4,
+        "ref": 4,
+        "will": 4,
+        "special": [
+          {
+            "en": "Light within darkness",
+            "fr": "Lumière dans les ténèbres"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "fort": 4,
+        "ref": 4,
+        "will": 4,
+        "special": [
+          {
+            "en": "Darkness within light",
+            "fr": "Ténèbres dans la lumière"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 4,
+        "fort": 5,
+        "ref": 5,
+        "will": 5,
+        "special": []
+      },
+      {
+        "level": 7,
+        "bab": 5,
+        "fort": 5,
+        "ref": 5,
+        "will": 5,
+        "special": [
+          {
+            "en": "Void of the Shadow Sun",
+            "fr": "Néant du soleil d’ombre"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 6,
+        "fort": 6,
+        "ref": 6,
+        "will": 6,
+        "special": [
+          {
+            "en": "Child of shadow and light",
+            "fr": "Enfant de l’ombre et de la lumière"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 6,
+        "fort": 6,
+        "ref": 6,
+        "will": 6,
+        "special": []
+      },
+      {
+        "level": 10,
+        "bab": 7,
+        "fort": 7,
+        "ref": 7,
+        "will": 7,
+        "special": [
+          {
+            "en": "Balance of light and dark",
+            "fr": "Équilibre de la lumière et des ténèbres"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "en": "<p>Prestige class from <i>Tome of Battle</i> pp. 126–128 (summary in our own words; see docs/rules/tob-prestige.md).</p><p><b>Maneuvers:</b> Setting Sun and Shadow Hand. +1 maneuver known at 1st, 3rd, 6th and 9th, +1 readied at 5th and 10th, +1 stance at 5th; class levels add in full to the initiator level.</p><p><b>Monk abilities:</b> class levels add to monk levels for the monk AC bonus, unarmed damage, unarmored speed bonus, flurry of blows penalty and Stunning Fist uses per day. Without monk levels: AC bonus of a monk of your class level, and Stunning Fist uses count these levels as monk levels (one per level; other classes one per four levels). No other monk feature.</p><p><b>Touch of the Shadow Sun:</b> standard action, melee touch attack dealing negative energy damage equal to your base unarmed damage + Wis modifier (heals undead). The next round, a touch (standard action, or swift on a willing target) heals that same amount. Not both on the same round; no new negative touch until the healing is spent.</p><p><b>Flame of the Shadow Sun (2nd):</b> immediate action, cold resistance 10 until the start of your next turn; if it reduced damage, a swift action on your next turn hurls a 60-ft ranged touch bolt of 2d6 fire.</p><p><b>Light within darkness (4th):</b> attacking in melee the round after a successful Hide check makes you flare: opponents within 60 ft who didn’t detect you make a Fortitude save (DC 10 + ½ character level + Wis modifier) or are blinded 1 round.</p><p><b>Darkness within light (5th):</b> you may shut your eyes (and blindsense, scent…) to become blinded and deafened until your next turn; against blinded foes you ignore blindness drawbacks and get +4 on melee attack and damage rolls, and they take −2 on saves against your Stunning Fist. Works too when something else blinds you.</p><p><b>Void of the Shadow Sun (7th):</b> swift action, +2 deflection bonus to AC until your next turn; if a foe hits you anyway you lose it and can’t reuse it next turn, but next round a standard action releases a 30-ft burst of 8d6 cold, Fortitude half (same DC).</p><p><b>Child of shadow and light (8th):</b> swift action, replaces a Setting Sun or Shadow Hand stance’s benefit: alternately each round, enemies within 60 ft are dazzled 1 round, or the 60-ft area is in total darkness (both as 9th-level spells against magical light or darkness).</p><p><b>Balance of light and dark (10th):</b> once per day, swift action, 1 minute as a creature of darkness: immune to critical hits, mind-affecting effects, death attacks, energy drain and poison; +8 on Hide; healed by negative energy; +4 on attacks against creatures in darkness or shadows; each unarmed hit may bestow a negative level (heal 5 hp each, they fade after 1 hour). Afterwards, 1 point of Con damage per negative level bestowed; at Con 0 you rise as a vampire in 1d4 days unless restored by <i>true resurrection</i>.</p>",
+      "fr": "<p>Classe de prestige du <i>Tome of Battle</i> p. 126–128 (résumé avec nos propres mots ; voir docs/rules/tob-prestige.md). Noms français : traduction maison (le livre n’a pas été traduit).</p><p><b>Manœuvres :</b> Soleil couchant et Main de l’ombre. +1 manœuvre connue aux niveaux 1, 3, 6 et 9, +1 préparée aux niveaux 5 et 10, +1 posture au niveau 5 ; les niveaux de classe s’ajoutent en entier au niveau d’initiateur.</p><p><b>Aptitudes de moine :</b> les niveaux de classe s’ajoutent à ceux de moine pour le bonus à la CA du moine, les dégâts à mains nues, le bonus de vitesse sans armure, le malus du déluge de coups et les utilisations quotidiennes de Coup étourdissant. Sans niveau de moine : bonus à la CA d’un moine de votre niveau de classe, et ces niveaux comptent comme des niveaux de moine pour Coup étourdissant (une par niveau ; autres classes, une par quatre niveaux). Aucune autre aptitude de moine.</p><p><b>Toucher du soleil d’ombre :</b> action simple, attaque de contact au corps à corps infligeant des dégâts d’énergie négative égaux aux dégâts de base à mains nues + mod. de Sag (soigne les morts-vivants). Au round suivant, un contact (action simple, ou rapide sur une cible consentante) soigne le même montant. Pas les deux dans le même round ; pas de nouveau contact négatif avant d’avoir déchargé le soin.</p><p><b>Flamme du soleil d’ombre (niv. 2) :</b> action immédiate, résistance au froid 10 jusqu’au début de votre prochain tour ; si elle a réduit des dégâts, une action rapide au tour suivant lance un trait de feu de 2d6 (contact à distance, 18 m).</p><p><b>Lumière dans les ténèbres (niv. 4) :</b> attaquer au corps à corps le round après un test de Discrétion réussi déclenche un éclat : les adversaires à 18 m qui ne vous avaient pas repéré font un jet de Vigueur (DD 10 + ½ niveau global + mod. de Sag) ou sont aveuglés 1 round.</p><p><b>Ténèbres dans la lumière (niv. 5) :</b> vous pouvez fermer les yeux (et ignorer perception aveugle, odorat…) pour être aveuglé et assourdi jusqu’à votre prochain tour ; contre des ennemis aveuglés, vous ignorez les inconvénients de la cécité et gagnez +4 aux jets d’attaque et de dégâts au corps à corps, et ils subissent −2 aux jets contre votre Coup étourdissant. Fonctionne aussi si un effet vous aveugle.</p><p><b>Néant du soleil d’ombre (niv. 7) :</b> action rapide, bonus de parade de +2 à la CA jusqu’à votre prochain tour ; si un adversaire vous touche malgré tout, vous le perdez et ne pouvez pas le réutiliser au tour suivant, mais au round suivant une action simple libère une explosion de froid de 8d6 sur 9 m, Vigueur pour moitié (même DD).</p><p><b>Enfant de l’ombre et de la lumière (niv. 8) :</b> action rapide, remplace l’effet d’une posture du Soleil couchant ou de la Main de l’ombre : en alternance à chaque round, les ennemis à 18 m sont éblouis 1 round, ou la zone de 18 m est plongée dans des ténèbres totales (sort du 9e niveau face à la lumière ou aux ténèbres magiques).</p><p><b>Équilibre de la lumière et des ténèbres (niv. 10) :</b> une fois par jour, action rapide, 1 minute en créature de ténèbres : immunité aux coups critiques, aux effets mentaux, aux attaques mortelles, à l’absorption d’énergie et au poison ; +8 en Discrétion ; soigné par l’énergie négative ; +4 à l’attaque contre les créatures dans l’obscurité ou la pénombre ; chaque coup à mains nues peut infliger un niveau négatif (soigne 5 pv chacun, disparaissent après 1 heure). Ensuite, 1 point de dégâts temporaires de Con par niveau négatif infligé ; à Con 0, vous vous relevez en vampire 1d4 jours plus tard sauf <i>résurrection suprême</i>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 126,
+      "frRef": "traduction maison"
+    }
+  }
+]

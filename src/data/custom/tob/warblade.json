@@ -296,6 +296,7 @@
       ]
     }
   ],
+  "disciplines": ["diamond-mind", "iron-heart", "stone-dragon", "tiger-claw", "white-raven"],
   "bonusFeatLevels": [
     5,
     9,

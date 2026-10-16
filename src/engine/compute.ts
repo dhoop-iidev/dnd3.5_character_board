@@ -16,7 +16,7 @@ import type {
 import { ABILITIES } from '../data/types'
 import type { Character, FeatPick, ItemInstance } from '../model/character'
 import { i18n, resolve, type Part, type Stat } from './stacking'
-import { effectLive, knownManeuvers, martialCaps, type MartialCaps } from './martial'
+import { effectLive, knownManeuvers, martialCapsAll, type MartialCaps } from './martial'
 import { raceOf } from './race'
 import { classSkillsOf, clericChoices, domainFeats, domainsOf, TURNING_TABLE } from './cleric'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
@@ -113,6 +113,8 @@ export interface ClassFeatures {
   /** Described-only features worth having at hand (auras, evasion, slow fall…). */
   notes: { name: I18n; text: I18n; source: Source }[]
   spellResistance?: number
+  /** Crusader steely resolve: delayed damage pool (cap, current) and the furious counterstrike bonus. */
+  steelyResolve?: { cap: number; pool: number; furious: number }
 }
 
 export interface AttackLine {
@@ -223,6 +225,8 @@ export interface Sheet {
   /** Tome of Battle: caps, known maneuvers/stances, current stance and running maneuvers. */
   martial: {
     caps: MartialCaps | null
+    /** Every martial progression (one per martial adept class). */
+    all: MartialCaps[]
     known: ManeuverDef[]
     stance?: ManeuverDef
     active: ManeuverDef[]
@@ -403,6 +407,24 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const hasFeat = (id: string, choice?: string) =>
     feats.some((f) => f.featId === id && (choice === undefined || f.choice === choice))
   const wmLevel = classLevels['weapon-master'] ?? 0
+  // Tome of Battle crusader and swordsage (house rule #15; docs/rules/tob-classes.md).
+  const crusaderLvl = classLevels['crusader'] ?? 0
+  const swordsageLvl = classLevels['swordsage'] ?? 0
+  // Swordsage discipline focus (p. 16): a discipline chosen at swordsage 1 (Weapon Focus with its weapons), 4 and 12
+  // (insightful strike: + Wis to the damage of its strikes), 8 and 16 (defensive stance: +2 saves in its stances).
+  const focusPicks = { weapon: [] as string[], strike: [] as string[], stance: [] as string[] }
+  {
+    let n = 0
+    for (const l of levels) {
+      if (l.classId !== 'swordsage') continue
+      n++
+      const d = l.classChoices?.disciplineFocus
+      if (!d) continue
+      if (n === 1) focusPicks.weapon.push(d)
+      else if (n === 4 || n === 12) focusPicks.strike.push(d)
+      else if (n === 8 || n === 16) focusPicks.stance.push(d)
+    }
+  }
   // Alignment-bound class abilities: a paladin who isn't lawful good loses them (ex-paladin), a lawful barbarian can't
   // rage (https://www.d20srd.org/srd/classes/paladin.htm#exPaladins, barbarian.htm#exBarbarians). An unknown alignment
   // keeps them.
@@ -484,8 +506,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
 
   // ---- Tome of Battle: stance and running maneuvers (house rule #15)
-  const caps = martialCaps(char, rules, characterLevel)
-  const known = caps ? knownManeuvers(char, rules, characterLevel) : []
+  // Every martial progression (crusader, swordsage, warblade; prestige classes add to one). Warblade features below use
+  // the warblade level itself.
+  const allCaps = martialCapsAll(char, rules, characterLevel)
+  const caps = allCaps[0] ?? null
+  const warbladeLvl = classLevels['warblade'] ?? 0
+  const known = knownManeuvers(char, rules, characterLevel)
   const stance = known.find((k) => k.type === 'stance' && k.id === char.martial?.stance)
   // Each running maneuver has a turn stage; each of its effects ends at its own stage (engine/martial.ts).
   const running = (char.martial?.active ?? [])
@@ -499,7 +525,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     for (const eff of def.effects ?? []) {
       if (eff.appliesTo === 'allies' || eff.appliesTo === 'target') continue
       if (!effectLive(eff, stage)) continue
-      const il = caps?.initiatorLevel ?? 0
+      const il = Math.max(0, ...allCaps.map((c) => c.initiatorLevel))
       const value =
         eff.valueFrom === 'initiatorLevel'
           ? il
@@ -703,17 +729,25 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const extra: Part[] = []
     // Warblade battle clarity (Tome of Battle p. 22): insight bonus = Int bonus (max warblade level) on Reflex
     // saves, as long as you're not flat-footed.
-    if (s === 'ref' && caps && mod('int') > 0)
+    if (s === 'ref' && warbladeLvl && mod('int') > 0)
       extra.push({
         sourceId: 'battle-clarity',
         label: i18n('Battle clarity', 'Clarté au combat'),
-        value: flatFootedNow ? 0 : Math.min(mod('int'), caps.classLevel),
+        value: flatFootedNow ? 0 : Math.min(mod('int'), warbladeLvl),
         bonusType: 'insight',
         source: { book: 'Tome of Battle', page: 22 },
       })
     // Paladin divine grace (2nd): Charisma bonus on all saves (https://www.d20srd.org/srd/classes/paladin.htm#divineGrace).
     if ((classLevels['paladin'] ?? 0) >= 2 && mod('cha') > 0 && paladinGood)
       extra.push({ sourceId: 'divine-grace', label: i18n('Divine grace', 'Grâce divine'), value: mod('cha'), bonusType: 'untyped', source: src('classes/paladin.htm#divineGrace') })
+    // Crusader indomitable soul (ToB p. 11): Cha bonus on Will saves; doesn't stack with divine grace (same source id:
+    // the better one counts).
+    if (s === 'will' && crusaderLvl >= 2 && mod('cha') > 0)
+      extra.push({ sourceId: 'divine-grace', label: i18n('Indomitable soul', 'Âme indomptable'), value: mod('cha'), bonusType: 'untyped', source: { book: 'Tome of Battle', page: 11 } })
+    // Swordsage defensive stance (ToB p. 16): +2 on saves while in a stance of a chosen discipline.
+    const stanceNow = char.martial?.stance ? rules.maneuvers.get(char.martial.stance) : undefined
+    if (stanceNow && focusPicks.stance.includes(stanceNow.discipline))
+      extra.push({ sourceId: 'defensive-stance', label: i18n('Discipline focus: defensive stance', 'Focalisation de discipline : posture défensive'), value: 2, bonusType: 'untyped', source: { book: 'Tome of Battle', page: 16 } })
     // Trap sense (barbarian, rogue; stacks between classes): Reflex vs traps.
     if (s === 'ref' && trapSense > 0)
       extra.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'untyped', source: src(trapSenseUrl), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ref'] ?? false, toggleKey: 'trap-sense|ref' })
@@ -885,6 +919,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     acParts.push({ sourceId: 'total-defense', label: tumble5 ? i18n('Total defense (Tumble 5 ranks)', 'Défense totale (Acrobaties 5 degrés)') : i18n('Total defense', 'Défense totale'), value: tumble5 ? 6 : 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
   // Monk AC bonus: Wis bonus + 1 per 5 monk levels, unarmored, no shield, light load; kept when flat-footed and vs
   // touch, lost when immobilized or helpless (https://www.d20srd.org/srd/classes/monk.htm#aCBonus).
+  // Swordsage AC bonus (ToB p. 16): Wis modifier to AC in light or no armor, light load, no shield; kept vs touch and when
+  // flat-footed, lost when immobilized or helpless (common reading of "light armor": no armor counts too).
+  if (swordsageLvl >= 2 && (!armor || armor.category === 'light') && band === 'light' && !shield && !flags.some((f) => ['immobile', 'helpless'].includes(f)) && mod('wis') !== 0)
+    acParts.push({ sourceId: 'swordsage-ac', label: i18n('Swordsage AC bonus (Wis)', 'Bonus à la CA du maître des lames (Sag)'), value: mod('wis'), bonusType: 'untyped', source: { book: 'Tome of Battle', page: 16 } })
   if (monkLevel >= 1 && monkUnencumbered && !shield && !flags.some((f) => ['immobile', 'helpless'].includes(f))) {
     const v = Math.max(0, mod('wis')) + Math.floor(monkLevel / 5)
     if (v) acParts.push({ sourceId: 'monk-ac', label: i18n('Monk AC bonus', 'Bonus à la CA du moine'), value: v, bonusType: 'untyped', source: src('classes/monk.htm#aCBonus') })
@@ -898,7 +936,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     activeConditions.some((id) => id !== 'flat-footed' && rules.conditions.get(id)?.flags.includes('loseDexToAc')) ||
     mods.some((m) => m.spec.target === 'ac.noDex' && m.spec.value > 0 && m.sourceId !== 'condition:flat-footed')
   const uncannyDodge =
-    ((caps?.classLevel ?? 0) >= 2 || (classLevels['barbarian'] ?? 0) >= 2 || (classLevels['rogue'] ?? 0) >= 4) && !otherDexLoss
+    (warbladeLvl >= 2 || (classLevels['barbarian'] ?? 0) >= 2 || (classLevels['rogue'] ?? 0) >= 4) && !otherDexLoss
   // Uncanny dodge keeps the whole "Dex bonus to AC", dodge bonuses included (rulings R14).
   const keepDex = uncannyDodge && !dexZero
   const stripDex = (parts: Part[]) =>
@@ -910,7 +948,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- initiative, grapple
   // An initiative check is a Dexterity check: ability-check modifiers apply (https://www.d20srd.org/srd/combat/initiative.htm).
   // Situational Dex-check bonuses (e.g. "to resist a trip") are not initiative bonuses.
-  const initiative = resolve([abilityPart('dex'), ...partsFor(['initiative']), ...partsFor(['check.dex']).filter((p) => !p.condition)])
+  // Swordsage quick to act (ToB p. 16): +1 initiative at 1st, +1 at 5th, 10th, 15th, 20th.
+  const quickToAct = swordsageLvl ? 1 + Math.floor(swordsageLvl / 5) : 0
+  const initiative = resolve([
+    abilityPart('dex'),
+    ...(quickToAct ? [{ sourceId: 'quick-to-act', label: i18n('Quick to act', 'Prompt à agir'), value: quickToAct, bonusType: 'untyped' as const, source: { book: 'Tome of Battle', page: 16 } }] : []),
+    ...partsFor(['initiative']),
+    ...partsFor(['check.dex']).filter((p) => !p.condition),
+  ])
   // Grapple: special size modifier, Small −4 (https://www.d20srd.org/srd/combat/specialAttacks.htm#grapple).
   const grapple = resolve([
     ...tableSum('bab'),
@@ -1036,7 +1081,15 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // (https://www.d20srd.org/srd/classes/paladin.htm#smiteEvil).
   const paladinLvl = classLevels['paladin'] ?? 0
   const paladinOk = paladinLvl > 0 && paladinGood
-  const smiteOn = paladinOk && toggles.smite === true
+  // Crusader smite (ToB p. 11): + Cha to attack, + crusader level to damage, any foe; uses its own toggle.
+  // Crusader steely resolve / furious counterstrike (ToB pp. 10–11): + pool ÷ 5 (min +1 with ≥ 1 point, max +6) on
+  // attack and damage rolls during your turn.
+  const pool = crusaderLvl ? (char.martial?.pool ?? 0) : 0
+  const furious = pool > 0 ? Math.min(6, Math.max(1, Math.floor(pool / 5))) : 0
+  const crusaderSmiteOn = crusaderLvl >= 6 && toggles.crusaderSmite === true && !(paladinOk && toggles.smite === true)
+  const smiteOn = (paladinOk && toggles.smite === true) || crusaderSmiteOn
+  const smiteLvl = crusaderSmiteOn ? crusaderLvl : paladinLvl
+  const smiteName = crusaderSmiteOn ? i18n('Smite (crusader)', 'Châtiment (croisé)') : i18n('Smite evil', 'Châtiment du Mal')
   const rogueLevel = classLevels['rogue'] ?? 0
   const sneak = sneakAttackDice(rogueLevel)
   const sneakLine = sneak
@@ -1174,7 +1227,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     if (inFlurry && flurry!.penalty)
       atk.push({ sourceId: 'flurry', label: i18n('Flurry of blows', 'Déluge de coups'), value: flurry!.penalty, bonusType: 'untyped', source: src('classes/monk.htm#flurryofBlows') })
     if (smiteOn && melee && mod('cha') > 0)
-      atk.push({ sourceId: 'smite-evil', label: i18n('Smite evil (Cha)', 'Châtiment du Mal (Cha)'), value: mod('cha'), bonusType: 'untyped', source: src('classes/paladin.htm#smiteEvil') })
+      atk.push({ sourceId: 'smite-evil', label: { en: `${smiteName.en} (Cha)`, fr: `${smiteName.fr} (Cha)` }, value: mod('cha'), bonusType: 'untyped', source: crusaderSmiteOn ? { book: 'Tome of Battle', page: 11 } : src('classes/paladin.htm#smiteEvil') })
+    if (furious)
+      atk.push({ sourceId: 'furious-counterstrike', label: i18n('Furious counterstrike (your turn)', 'Riposte furieuse (votre tour)'), value: furious, bonusType: 'untyped', source: { book: 'Tome of Battle', page: 10 } })
+    // Swordsage discipline focus (p. 16): Weapon Focus with the weapons of the discipline chosen at 1st level (same
+    // benefit as the feat: doesn't stack with it).
+    if (focusPicks.weapon.some((d) => rules.disciplines.get(d as never)?.associatedWeapons.includes(weapon.id)))
+      atk.push({ sourceId: 'feat:weapon-focus', label: i18n('Discipline focus: Weapon Focus', 'Focalisation de discipline : Arme de prédilection'), value: 1, bonusType: 'untyped', source: { book: 'Tome of Battle', page: 16 } })
     // Fighting defensively: -4 on all attacks (https://www.d20srd.org/srd/combat/actionsInCombat.htm#fightDefensively).
     if (toggles.fightingDefensively)
       atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
@@ -1240,12 +1299,16 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     // → two-handed (×2); both ends → one end one-handed (×1), the other light (no Power Attack damage).
     const staffBoth = inFlurry && weapon.id === 'quarterstaff' && toggles.staffBothEnds === true
     const paFactor = twoHands && !staffBoth ? 2 : 1
+    if (furious)
+      dmg.push({ sourceId: 'furious-counterstrike', label: i18n('Furious counterstrike (your turn)', 'Riposte furieuse (votre tour)'), value: furious, bonusType: 'untyped', source: { book: 'Tome of Battle', page: 10 } })
+    if (melee && mod('wis') !== 0 && strikeDice.some((d) => d.type === 'strike' && focusPicks.strike.includes(d.discipline)))
+      dmg.push({ sourceId: 'insightful-strike', label: i18n('Insightful strike (Wis)', 'Frappe perspicace (Sag)'), value: mod('wis'), bonusType: 'untyped', source: { book: 'Tome of Battle', page: 16 } })
     const paDamage = powerAttackOn && powerAttackAllowed ? toggles.powerAttack * paFactor : 0
     if (powerAttackOn && powerAttackAllowed) {
       const factor = paFactor
       dmg.push({ sourceId: 'power-attack', label: i18n(`Power Attack (×${factor})`, `Attaque en puissance (×${factor})`), value: toggles.powerAttack * factor, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
     }
-    if (melee && caps && caps.classLevel >= 7 && mod('int') > 0)
+    if (melee && warbladeLvl >= 7 && mod('int') > 0)
       dmg.push({
         sourceId: 'battle-cunning',
         label: i18n('Battle cunning', 'Ruse au combat'),
@@ -1287,7 +1350,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         ...props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
         ...sneakLine,
         ...(smiteOn && melee
-          ? [{ dice: `${paladinLvl}`, type: i18n('smite evil', 'châtiment du Mal'), condition: i18n('first attack only, vs evil; multiplied on a critical (flat damage)', 'première attaque seulement, contre le Mal ; multiplié sur un critique (dégâts fixes)'), source: i18n('Paladin', 'Paladin') }]
+          ? [{ dice: `${smiteLvl}`, type: crusaderSmiteOn ? i18n('smite', 'châtiment') : i18n('smite evil', 'châtiment du Mal'), condition: crusaderSmiteOn ? i18n('first attack only; multiplied on a critical (flat damage)', 'première attaque seulement ; multiplié sur un critique (dégâts fixes)') : i18n('first attack only, vs evil; multiplied on a critical (flat damage)', 'première attaque seulement, contre le Mal ; multiplié sur un critique (dégâts fixes)'), source: crusaderSmiteOn ? i18n('Crusader', 'Croisé') : i18n('Paladin', 'Paladin') }]
           : []),
         // Strikes/boosts/stances add dice to melee attacks (not multiplied on a critical, Tome of Battle p. 43).
         ...(melee
@@ -1312,7 +1375,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           ? [{ name: i18n('Flurry of blows', 'Déluge de coups'), text: i18n('Not a monk weapon: can’t be used in a flurry.', 'Pas une arme de moine : inutilisable pendant un déluge de coups.') }]
           : []),
         ...(smiteOn && melee
-          ? [{ name: i18n('Smite evil', 'Châtiment du Mal'), text: i18n(`+${paladinLvl} damage on the first attack, multiplied on a critical hit like any flat bonus (only extra dice are not; rulings C23).`, `+${paladinLvl} aux dégâts de la première attaque, multiplié sur un coup critique comme tout bonus fixe (seuls les dés supplémentaires ne le sont pas ; décision C23).`) }]
+          ? [{ name: smiteName, text: i18n(`+${smiteLvl} damage on the first attack, multiplied on a critical hit like any flat bonus (only extra dice are not; rulings C23).`, `+${smiteLvl} aux dégâts de la première attaque, multiplié sur un coup critique comme tout bonus fixe (seuls les dés supplémentaires ne le sont pas ; décision C23).`) }]
           : []),
         ...(staffBoth && powerAttackOn
           ? [{ name: i18n('Quarterstaff, both ends', 'Bâton, deux extrémités'), text: i18n('Power Attack ×1 on one end; the other end (light) gets no Power Attack damage (house rule #29).', 'Attaque en puissance ×1 sur une extrémité ; l’autre (légère) n’en reçoit pas les dégâts (règle maison n° 29).') }]
@@ -1325,7 +1388,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           : []),
       ],
       // Battle ardor (warblade 3, Tome of Battle p. 22): insight = Int bonus on critical confirmation rolls.
-      critConfirmBonus: caps && caps.classLevel >= 3 ? Math.max(0, mod('int')) : 0,
+      critConfirmBonus: warbladeLvl >= 3 ? Math.max(0, mod('int')) : 0,
       hand,
       proficient,
       twoHands,
@@ -1586,6 +1649,37 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     }
   }
 
+  // Crusader (ToB pp. 8–14).
+  if (crusaderLvl) {
+    const row = rules.martialProgression.get('crusader')?.levels.find((r) => r.level === crusaderLvl) as { delayedDamagePool?: number } | undefined
+    classFeatures.steelyResolve = { cap: row?.delayedDamagePool ?? 5, pool, furious }
+    if (crusaderLvl >= 3)
+      classFeatures.abilities.push({ id: 'zealous-surge', name: i18n('Zealous surge', 'Sursaut de ferveur'), max: 1, period: 'day', lines: [i18n('Reroll one saving throw (no action), after the roll but before knowing the result; the reroll stands.', 'Relancer un jet de sauvegarde (sans action), après le jet mais avant de connaître le résultat ; le second jet est conservé.')], source: { book: 'Tome of Battle', page: 11 } })
+    if (crusaderLvl >= 6)
+      classFeatures.abilities.push({ id: 'crusader-smite', name: i18n('Smite (crusader)', 'Châtiment (croisé)'), max: crusaderLvl >= 18 ? 2 : 1, period: 'day', lines: [i18n(`Next melee attack: +${Math.max(0, mod('cha'))} attack, +${crusaderLvl} damage; any foe.`, `Prochaine attaque au corps à corps : +${Math.max(0, mod('cha'))} à l’attaque, +${crusaderLvl} aux dégâts ; tout adversaire.`)], source: { book: 'Tome of Battle', page: 11 } })
+    if (crusaderLvl >= 13)
+      classFeatures.notes.push({ name: i18n('Mettle', 'Cran'), text: i18n('A successful Fortitude or Will save against an effect with a lesser effect on a success (half, partial): no effect at all. Not while unconscious or asleep.', 'Un jet de Vigueur ou de Volonté réussi contre un effet réduit en cas de réussite (moitié, partiel) : aucun effet. Pas inconscient ni endormi.'), source: { book: 'Tome of Battle', page: 11 } })
+  }
+  // Swordsage (ToB pp. 15–19).
+  if (swordsageLvl) {
+    if (swordsageLvl >= 7)
+      classFeatures.notes.push({ name: i18n('Sense magic', 'Détection de la magie martiale'), text: i18n('10 minutes studying a weapon or armor: d20 + swordsage level vs DC 10 + its caster level to learn its properties.', '10 minutes d’étude d’une arme ou armure : d20 + niveau de maître des lames contre DD 10 + son niveau de lanceur pour connaître ses propriétés.'), source: { book: 'Tome of Battle', page: 16 } })
+    if (swordsageLvl >= 9)
+      classFeatures.notes.push({ name: swordsageLvl >= 17 ? i18n('Improved evasion', 'Esquive extraordinaire') : i18n('Evasion', 'Esquive totale'), text: swordsageLvl >= 17 ? i18n('Reflex for half: no damage on a success, half on a failure; not helpless.', 'Réflexes pour moitié : aucun dégât en cas de réussite, moitié en cas d’échec ; pas sans défense.') : i18n('Reflex for half: no damage on a success (light or no armor; not helpless).', 'Réflexes pour moitié : aucun dégât en cas de réussite (armure légère ou aucune ; pas sans défense).'), source: { book: 'Tome of Battle', page: 17 } })
+    if (swordsageLvl >= 20)
+      classFeatures.abilities.push({ id: 'dual-boost', name: i18n('Dual boost', 'Double stimulation'), max: 3, period: 'day', lines: [i18n('When initiating a boost, initiate another readied boost as a free action (both expended).', 'En initiant une stimulation, en initier une autre préparée par une action libre (toutes deux utilisées).')], source: { book: 'Tome of Battle', page: 17 } })
+    const dn = (ids: string[]) => ids.map((d) => rules.disciplines.get(d as never)?.name).filter((x): x is I18n => !!x)
+    const list = (ids: string[]) => ({ en: dn(ids).map((x) => x.en).join(', ') || '—', fr: dn(ids).map((x) => x.fr).join(', ') || '—' })
+    classFeatures.notes.push({
+      name: i18n('Discipline focus', 'Focalisation de discipline'),
+      text: {
+        en: `Weapon Focus: ${list(focusPicks.weapon).en} · insightful strike (+Wis damage on its strikes): ${list(focusPicks.strike).en} · defensive stance (+2 saves): ${list(focusPicks.stance).en}`,
+        fr: `Arme de prédilection : ${list(focusPicks.weapon).fr} · frappe perspicace (+Sag aux dégâts de ses frappes) : ${list(focusPicks.strike).fr} · posture défensive (+2 aux JS) : ${list(focusPicks.stance).fr}`,
+      },
+      source: { book: 'Tome of Battle', page: 16 },
+    })
+  }
+
   if (rogueLevel) {
     classFeatures.sneakAttack = `${sneak}d6`
     const specials = rogueSpecials
@@ -1651,7 +1745,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     },
     armor,
     shield,
-    martial: { caps, known, stance, active: runningManeuvers },
+    martial: { caps, all: allCaps, known, stance, active: runningManeuvers },
     damageReduction: [
       ...(barbarianDR(barbLevel) ? [{ value: `${barbarianDR(barbLevel)}/—`, source: i18n('Barbarian', 'Barbare') }] : []),
       ...(monkLevel >= 20 ? [{ value: '10/magic', source: i18n('Monk (perfect self)', 'Moine (perfection de l’être)') }] : []),

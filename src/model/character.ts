@@ -61,6 +61,10 @@ export interface MartialState {
   active: ActiveManeuver[]
   /** Critical hits scored in the current stance (Blood in the Water, ToB p. 86). */
   crits?: number
+  /** Crusader: readied maneuvers granted this encounter (the others are withheld; ToB pp. 9–10). */
+  granted?: string[]
+  /** Crusader steely resolve: delayed damage pool (ToB p. 10). */
+  pool?: number
 }
 
 /** Prepared spells of one casting class (slots by spell level; spontaneous casters only count casts). */
@@ -225,6 +229,8 @@ export interface CombatToggles {
   flurry?: boolean
   /** Paladin smite evil on the next melee attack. */
   smite?: boolean
+  /** Crusader smite on the next melee attack (Tome of Battle p. 11). */
+  crusaderSmite?: boolean
   /** Mounted: a lance is wielded in one hand. */
   mounted?: boolean
   /** Monk's flurry with a quarterstaff: both ends used this round (Power Attack ×1 / none; house rule #29). */

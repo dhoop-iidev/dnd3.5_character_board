@@ -289,7 +289,7 @@
                     {#each ch.options as o (o.id)}<option value={o.id}>{tr(o.name)}</option>{/each}
                   </select>
                 </label>
-                <a href={ch.srdUrl} target="_blank" rel="noopener">d20srd</a>
+                {#if ch.srdUrl}<a href={ch.srdUrl} target="_blank" rel="noopener">d20srd</a>{/if}
               </div>
             {/each}
 

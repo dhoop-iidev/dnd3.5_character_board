@@ -71,7 +71,7 @@
       (levelForXp(app.character.xp) > app.character.levels.length ? 1 : 0),
   )
   const maneuverErrors = $derived(view.warnings.filter((w) => w.actionable && w.area === 'maneuvers').length)
-  // The Maneuvers tab only exists once the character has a warblade level.
+  // The Maneuvers tab only exists once the character has a martial adept level (crusader, swordsage, warblade).
   // The Spells tab only exists once the character has a spellcasting class.
   const tabs = $derived(
     TABS.filter(
@@ -168,7 +168,7 @@
 
   <footer>
     <SaveControls />
-    <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) · Tome of Battle (Warblade)
+    <a href="OGL.txt" target="_blank">Open Game License v1.0a</a> · SRD 3.5 · Sword and Fist (Weapon Master) · Tome of Battle
   </footer>
 
   <Popup />

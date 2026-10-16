@@ -1,0 +1,114 @@
+{
+  "classSpecial:crusader:Furious counterstrike": {
+    "en": "On your turn, + (delayed damage pool ÷ 5) on attack and damage, min +1, max +6",
+    "fr": "Pendant votre tour, + (réserve de dégâts différés ÷ 5) à l’attaque et aux dégâts, min. +1, max. +6"
+  },
+  "classSpecial:crusader:Steely resolve 5": {
+    "en": "Attack damage goes to a delayed pool (up to 5), taken at the end of your next turn",
+    "fr": "Les dégâts des attaques vont dans une réserve différée (jusqu’à 5), subie à la fin de votre tour suivant"
+  },
+  "classSpecial:crusader:Steely resolve 10": {
+    "en": "Attack damage goes to a delayed pool (up to 10), taken at the end of your next turn",
+    "fr": "Les dégâts des attaques vont dans une réserve différée (jusqu’à 10), subie à la fin de votre tour suivant"
+  },
+  "classSpecial:crusader:Steely resolve 15": {
+    "en": "Attack damage goes to a delayed pool (up to 15), taken at the end of your next turn",
+    "fr": "Les dégâts des attaques vont dans une réserve différée (jusqu’à 15), subie à la fin de votre tour suivant"
+  },
+  "classSpecial:crusader:Steely resolve 20": {
+    "en": "Attack damage goes to a delayed pool (up to 20), taken at the end of your next turn",
+    "fr": "Les dégâts des attaques vont dans une réserve différée (jusqu’à 20), subie à la fin de votre tour suivant"
+  },
+  "classSpecial:crusader:Steely resolve 25": {
+    "en": "Attack damage goes to a delayed pool (up to 25), taken at the end of your next turn",
+    "fr": "Les dégâts des attaques vont dans une réserve différée (jusqu’à 25), subie à la fin de votre tour suivant"
+  },
+  "classSpecial:crusader:Steely resolve 30": {
+    "en": "Attack damage goes to a delayed pool (up to 30), taken at the end of your next turn",
+    "fr": "Les dégâts des attaques vont dans une réserve différée (jusqu’à 30), subie à la fin de votre tour suivant"
+  },
+  "classSpecial:crusader:Indomitable soul": {
+    "en": "Add your Cha bonus to Will saves (not with a paladin’s divine grace)",
+    "fr": "Bonus de Cha ajouté aux jets de Volonté (pas cumulable avec la grâce divine)"
+  },
+  "classSpecial:crusader:Zealous surge": {
+    "en": "Once per day, reroll a saving throw before knowing the result; keep the new roll",
+    "fr": "Une fois par jour, relancer un jet de sauvegarde avant d’en connaître le résultat ; garder le nouveau jet"
+  },
+  "classSpecial:crusader:Smite 1/day": {
+    "en": "Once per day, next melee attack: + Cha bonus on attack, + crusader level on damage",
+    "fr": "Une fois par jour, prochaine attaque au contact : + bonus de Cha à l’attaque, + niveau de croisé aux dégâts"
+  },
+  "classSpecial:crusader:Smite 2/day": {
+    "en": "Smite twice per day",
+    "fr": "Châtiment deux fois par jour"
+  },
+  "classSpecial:crusader:Die hard": {
+    "en": "Diehard as a bonus feat",
+    "fr": "Dur à cuire en don supplémentaire"
+  },
+  "classSpecial:crusader:Mettle": {
+    "en": "A successful Fort or Will save against a half or partial effect negates it entirely",
+    "fr": "Un jet de Vigueur ou de Volonté réussi contre un effet à moitié ou partiel l’annule complètement"
+  },
+  "classSpecial:swordsage:Quick to act +1": {
+    "en": "+1 on initiative checks",
+    "fr": "+1 aux tests d’initiative"
+  },
+  "classSpecial:swordsage:Quick to act +2": {
+    "en": "+2 on initiative checks",
+    "fr": "+2 aux tests d’initiative"
+  },
+  "classSpecial:swordsage:Quick to act +3": {
+    "en": "+3 on initiative checks",
+    "fr": "+3 aux tests d’initiative"
+  },
+  "classSpecial:swordsage:Quick to act +4": {
+    "en": "+4 on initiative checks",
+    "fr": "+4 aux tests d’initiative"
+  },
+  "classSpecial:swordsage:Quick to act +5": {
+    "en": "+5 on initiative checks",
+    "fr": "+5 aux tests d’initiative"
+  },
+  "classSpecial:swordsage:Discipline focus (Weapon Focus)": {
+    "en": "Pick a discipline: Weapon Focus with its associated weapons",
+    "fr": "Choisir une discipline : Arme de prédilection avec ses armes associées"
+  },
+  "classSpecial:swordsage:AC bonus": {
+    "en": "+ Wis modifier to AC in light armor, unencumbered, no shield (also vs touch and flat-footed)",
+    "fr": "+ modificateur de Sag à la CA en armure légère, sans encombrement ni bouclier (aussi contre le contact et pris au dépourvu)"
+  },
+  "classSpecial:swordsage:Discipline focus (insightful strike)": {
+    "en": "Pick a discipline: + Wis modifier on damage of its strikes",
+    "fr": "Choisir une discipline : + modificateur de Sag aux dégâts de ses frappes"
+  },
+  "classSpecial:swordsage:Discipline focus (second insightful strike)": {
+    "en": "Insightful strike for a second discipline",
+    "fr": "Frappe intuitive pour une seconde discipline"
+  },
+  "classSpecial:swordsage:Discipline focus (defensive stance)": {
+    "en": "Pick a discipline: +2 on saves while in one of its stances",
+    "fr": "Choisir une discipline : +2 aux jets de sauvegarde en tenant une de ses postures"
+  },
+  "classSpecial:swordsage:Discipline focus (second defensive stance)": {
+    "en": "Defensive stance for a second discipline",
+    "fr": "Posture défensive pour une seconde discipline"
+  },
+  "classSpecial:swordsage:Sense magic": {
+    "en": "10 minutes and a level check (DC 10 + caster level) identify a weapon’s or armor’s properties",
+    "fr": "10 minutes et un test de niveau (DD 10 + niveau de lanceur) identifient les propriétés d’une arme ou armure"
+  },
+  "classSpecial:swordsage:Evasion": {
+    "en": "In light or no armor, a successful Reflex save against a half-damage effect means no damage",
+    "fr": "En armure légère ou sans armure, Réflexes réussi contre un effet à demi-dégâts : aucun dégât"
+  },
+  "classSpecial:swordsage:Improved evasion": {
+    "en": "Evasion, and only half damage even on a failed Reflex save",
+    "fr": "Esquive totale, et seulement demi-dégâts même sur un jet de Réflexes raté"
+  },
+  "classSpecial:swordsage:Dual boost 3/day": {
+    "en": "3/day, initiate a second known boost as a free action with a boost",
+    "fr": "3/jour, initier une seconde stimulation connue par une action libre avec une stimulation"
+  }
+}

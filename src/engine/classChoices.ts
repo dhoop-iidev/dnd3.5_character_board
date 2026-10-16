@@ -60,6 +60,38 @@ export function choicesAt(char: Character, rules: Rules, L: number): ClassChoice
       })
     return out
   }
+  // Swordsage discipline focus at 1st (Weapon Focus), 4th/12th (insightful strike), 8th/16th (defensive stance): one of
+  // the swordsage's disciplines (Tome of Battle p. 16).
+  if (cls?.id === 'swordsage' && [1, 4, 8, 12, 16].includes(n)) {
+    const kind =
+      n === 1
+        ? { en: 'Weapon Focus', fr: 'Arme de prédilection' }
+        : n === 4 || n === 12
+          ? { en: 'insightful strike', fr: 'frappe perspicace' }
+          : { en: 'defensive stance', fr: 'posture défensive' }
+    return [
+      {
+        key: 'disciplineFocus',
+        label: { en: `Discipline focus: ${kind.en}`, fr: `Focalisation de discipline : ${kind.fr}` },
+        options: (cls.disciplines ?? []).map((d) => ({ id: d, name: rules.disciplines.get(d as never)?.name ?? { en: d, fr: d } })),
+        srdUrl: '',
+      },
+    ]
+  }
+  // Prestige class advancing a martial progression: which martial adept class it advances (Tome of Battle p. 96), when
+  // the character has more than one.
+  if (cls?.martialAdvance && n === 1) {
+    const martial = [...new Set(char.levels.slice(0, L - 1).map((l) => l.classId))].filter((id) => ['crusader', 'swordsage', 'warblade'].includes(id))
+    if (martial.length > 1)
+      return [
+        {
+          key: 'martialClass',
+          label: { en: 'Martial progression advanced', fr: 'Progression martiale améliorée' },
+          options: martial.map((id) => ({ id, name: rules.classes.get(id)?.name ?? { en: id, fr: id } })),
+          srdUrl: '',
+        },
+      ]
+  }
   // Rogue special ability at 10th, 13th, 16th and 19th; skill mastery and the bonus feat can be taken again
   // (https://www.d20srd.org/srd/classes/rogue.htm#specialAbilities).
   if (cls?.id === 'rogue') {

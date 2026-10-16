@@ -1,0 +1,269 @@
+{
+  "classId": "crusader",
+  "grantedAtStart": 2,
+  "levels": [
+    {
+      "level": 1,
+      "maneuversKnown": 5,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 1,
+      "highestManeuverLevel": 1,
+      "maneuverSwap": false,
+      "delayedDamagePool": 5
+    },
+    {
+      "level": 2,
+      "maneuversKnown": 5,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 1,
+      "maneuverSwap": false,
+      "delayedDamagePool": 5
+    },
+    {
+      "level": 3,
+      "maneuversKnown": 6,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 2,
+      "maneuverSwap": false,
+      "delayedDamagePool": 5
+    },
+    {
+      "level": 4,
+      "maneuversKnown": 6,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 2,
+      "maneuverSwap": true,
+      "delayedDamagePool": 10
+    },
+    {
+      "level": 5,
+      "maneuversKnown": 7,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 3,
+      "maneuverSwap": false,
+      "delayedDamagePool": 10
+    },
+    {
+      "level": 6,
+      "maneuversKnown": 7,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 3,
+      "maneuverSwap": true,
+      "delayedDamagePool": 10
+    },
+    {
+      "level": 7,
+      "maneuversKnown": 8,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 4,
+      "maneuverSwap": false,
+      "delayedDamagePool": 10
+    },
+    {
+      "level": 8,
+      "maneuversKnown": 8,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 4,
+      "maneuverSwap": true,
+      "delayedDamagePool": 15
+    },
+    {
+      "level": 9,
+      "maneuversKnown": 9,
+      "maneuversReadied": 5,
+      "maneuversGranted": 2,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 5,
+      "maneuverSwap": false,
+      "delayedDamagePool": 15
+    },
+    {
+      "level": 10,
+      "maneuversKnown": 9,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 5,
+      "maneuverSwap": true,
+      "delayedDamagePool": 15
+    },
+    {
+      "level": 11,
+      "maneuversKnown": 10,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 6,
+      "maneuverSwap": false,
+      "delayedDamagePool": 15
+    },
+    {
+      "level": 12,
+      "maneuversKnown": 10,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 6,
+      "maneuverSwap": true,
+      "delayedDamagePool": 20
+    },
+    {
+      "level": 13,
+      "maneuversKnown": 11,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 7,
+      "maneuverSwap": false,
+      "delayedDamagePool": 20
+    },
+    {
+      "level": 14,
+      "maneuversKnown": 11,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 7,
+      "maneuverSwap": true,
+      "delayedDamagePool": 20
+    },
+    {
+      "level": 15,
+      "maneuversKnown": 12,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 8,
+      "maneuverSwap": false,
+      "delayedDamagePool": 20
+    },
+    {
+      "level": 16,
+      "maneuversKnown": 12,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 8,
+      "maneuverSwap": true,
+      "delayedDamagePool": 25
+    },
+    {
+      "level": 17,
+      "maneuversKnown": 13,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": false,
+      "delayedDamagePool": 25
+    },
+    {
+      "level": 18,
+      "maneuversKnown": 13,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": true,
+      "delayedDamagePool": 25
+    },
+    {
+      "level": 19,
+      "maneuversKnown": 14,
+      "maneuversReadied": 6,
+      "maneuversGranted": 3,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": false,
+      "delayedDamagePool": 25
+    },
+    {
+      "level": 20,
+      "maneuversKnown": 14,
+      "maneuversReadied": 7,
+      "maneuversGranted": 4,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": true,
+      "delayedDamagePool": 30
+    }
+  ],
+  "highestManeuverLevelByInitiatorLevel": [
+    {
+      "minInitiatorLevel": 1,
+      "maxInitiatorLevel": 2,
+      "maneuverLevel": 1
+    },
+    {
+      "minInitiatorLevel": 3,
+      "maxInitiatorLevel": 4,
+      "maneuverLevel": 2
+    },
+    {
+      "minInitiatorLevel": 5,
+      "maxInitiatorLevel": 6,
+      "maneuverLevel": 3
+    },
+    {
+      "minInitiatorLevel": 7,
+      "maxInitiatorLevel": 8,
+      "maneuverLevel": 4
+    },
+    {
+      "minInitiatorLevel": 9,
+      "maxInitiatorLevel": 10,
+      "maneuverLevel": 5
+    },
+    {
+      "minInitiatorLevel": 11,
+      "maxInitiatorLevel": 12,
+      "maneuverLevel": 6
+    },
+    {
+      "minInitiatorLevel": 13,
+      "maxInitiatorLevel": 14,
+      "maneuverLevel": 7
+    },
+    {
+      "minInitiatorLevel": 15,
+      "maxInitiatorLevel": 16,
+      "maneuverLevel": 8
+    },
+    {
+      "minInitiatorLevel": 17,
+      "maxInitiatorLevel": 99,
+      "maneuverLevel": 9
+    }
+  ],
+  "maneuversGrantedNote": {
+    "en": "maneuversGranted = readied maneuvers granted at the start of each encounter and after each recovery (the number in brackets in Table 1–1: 2, 3 from 10th, 4 at 20th; p. 10). grantedAtStart is the 1st-level value. delayedDamagePool = steely resolve capacity (p. 10).",
+    "fr": "maneuversGranted = manœuvres préparées accordées au début de chaque rencontre et après chaque récupération (le nombre entre parenthèses de la table 1–1 : 2, 3 dès le niveau 10, 4 au niveau 20 ; p. 10). grantedAtStart est la valeur du niveau 1. delayedDamagePool = capacité de la résolution d’acier (p. 10)."
+  },
+  "initiatorLevel": {
+    "en": "Initiator level for the crusader = crusader level + 1/2 of all other class levels (rounded down, minimum 1st); without any martial adept level it is 1/2 character level (p. 39). highestManeuverLevel above assumes a single-class crusader (initiator level = class level).",
+    "fr": "Niveau d’initiateur de croisé = niveau de croisé + 1/2 des niveaux des autres classes (arrondi à l’inférieur, minimum 1) ; sans niveau de classe martiale, il vaut 1/2 niveau global (p. 39). Le champ highestManeuverLevel suppose un croisé monoclassé (niveau d’initiateur = niveau de classe)."
+  },
+  "source": {
+    "book": "Tome of Battle",
+    "page": 10
+  },
+  "sourceInitiatorTable": {
+    "book": "Tome of Battle",
+    "page": 39
+  }
+}

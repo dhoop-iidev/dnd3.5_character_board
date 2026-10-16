@@ -97,6 +97,7 @@ export const ROGUE_REPEATABLE = ['skill-mastery', 'feat']
 /** Alignments a class requires to take a new level. */
 export const CLASS_ALIGNMENT: Record<string, { ok: (a: Alignment) => boolean; text: I18n; url: string }> = {
   barbarian: { ok: (a) => a.order !== 'lawful', text: { en: 'any nonlawful', fr: 'tout sauf loyal' }, url: `${SRD}barbarian.htm#exBarbarians` },
+  crusader: { ok: (a) => !(a.order === 'neutral' && a.moral === 'neutral'), text: { en: 'any except true neutral', fr: 'tout sauf neutre strict' }, url: '' },
   bard: { ok: (a) => a.order !== 'lawful', text: { en: 'any nonlawful', fr: 'tout sauf loyal' }, url: `${SRD}bard.htm#exBards` },
   druid: { ok: (a) => a.order === 'neutral' || a.moral === 'neutral', text: { en: 'neutral on at least one axis', fr: 'neutre sur au moins un axe' }, url: `${SRD}druid.htm#exDruids` },
   monk: { ok: (a) => a.order === 'lawful', text: { en: 'any lawful', fr: 'tout loyal' }, url: `${SRD}monk.htm#exMonks` },

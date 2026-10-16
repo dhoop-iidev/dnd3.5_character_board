@@ -1,0 +1,262 @@
+{
+  "classSpecial:bloodclaw-master:Shifting 1/day": {
+    "en": "1/day, free action: +2 Str and two 1d4 claws for Con modifier + class level rounds",
+    "fr": "1/jour, action libre : +2 For et deux griffes 1d4 pendant mod. de Con + niveau de classe rounds"
+  },
+  "classSpecial:bloodclaw-master:Claws of the beast": {
+    "en": "Full Str bonus on off-hand damage with two daggers or Tiger Claw weapons",
+    "fr": "Bonus de For complet aux dégâts de la main non directrice avec deux dagues ou armes de la Griffe du tigre"
+  },
+  "classSpecial:bloodclaw-master:Superior two-weapon fighting": {
+    "en": "No −2 two-weapon attack penalty with two daggers or Tiger Claw weapons",
+    "fr": "Pas de malus de −2 du combat à deux armes avec deux dagues ou armes de la Griffe du tigre"
+  },
+  "classSpecial:bloodclaw-master:Tiger claw synergy (stance)": {
+    "en": "In a Tiger Claw stance: +1 dodge bonus to AC or +10 ft base speed, chosen on entering it",
+    "fr": "En posture de la Griffe du tigre : +1 d’esquive à la CA ou +3 m de vitesse de base, au choix en l’adoptant"
+  },
+  "classSpecial:bloodclaw-master:Pouncing strike": {
+    "en": "Standard action or end of a charge: one attack with each of two weapons at full bonus; expends a readied Tiger Claw strike",
+    "fr": "Action simple ou fin de charge : une attaque avec chacune des deux armes au bonus maximal ; dépense une frappe de la Griffe du tigre préparée"
+  },
+  "classSpecial:bloodclaw-master:Low-light vision": {
+    "en": "Gains low-light vision",
+    "fr": "Obtient la vision nocturne"
+  },
+  "classSpecial:bloodclaw-master:Shifting 2/day": {
+    "en": "2/day, free action: +2 Str and two 1d4 claws for Con modifier + class level rounds",
+    "fr": "2/jour, action libre : +2 For et deux griffes 1d4 pendant mod. de Con + niveau de classe rounds"
+  },
+  "classSpecial:bloodclaw-master:Tiger claw synergy (strike)": {
+    "en": "+1 on attack rolls of Tiger Claw strikes",
+    "fr": "+1 aux jets d’attaque des frappes de la Griffe du tigre"
+  },
+  "classSpecial:bloodclaw-master:Rending claws": {
+    "en": "While shifting, both weapons hit in a round: second hit +2d6 damage; expends a readied Tiger Claw boost",
+    "fr": "En mue, les deux armes touchent dans le round : +2d6 dégâts au second coup ; dépense une manœuvre de soutien de la Griffe du tigre préparée"
+  },
+  "classSpecial:bloodclaw-master:Scent": {
+    "en": "Gains the scent ability (MM 314)",
+    "fr": "Obtient l’odorat (Manuel des monstres p. 314)"
+  },
+  "classSpecial:bloodclaw-master:Shifting 3/day": {
+    "en": "3/day, free action: +2 Str and two 1d4 claws for Con modifier + class level rounds",
+    "fr": "3/jour, action libre : +2 For et deux griffes 1d4 pendant mod. de Con + niveau de classe rounds"
+  },
+  "classSpecial:bloodstorm-blade:Returning attacks": {
+    "en": "Thrown weapons act as returning (DMG 225); each use expends a readied Iron Heart strike",
+    "fr": "Les armes lancées ont la propriété « retour » (Guide du Maître p. 225) ; chaque utilisation dépense une frappe du Cœur de fer préparée"
+  },
+  "classSpecial:bloodstorm-blade:Throw Anything": {
+    "en": "Bonus feat Throw Anything: throw any proficient melee weapon, range increment 10 ft",
+    "fr": "Don supplémentaire Lancer n’importe quoi : lancer toute arme de corps à corps maniée, facteur de portée 3 m"
+  },
+  "classSpecial:bloodstorm-blade:Weapon aptitude": {
+    "en": "Fighter level for feat prerequisites = warblade + bloodstorm blade levels − 2; can reassign single-weapon feats each morning",
+    "fr": "Niveau de guerrier pour les conditions des dons = niveaux de lame de bataille + lame de la tempête sanglante − 2 ; peut réattribuer chaque matin les dons liés à une arme"
+  },
+  "classSpecial:bloodstorm-blade:Martial throw": {
+    "en": "Can initiate a single-target Iron Heart strike with a thrown weapon",
+    "fr": "Peut initier une frappe du Cœur de fer à cible unique avec une arme lancée"
+  },
+  "classSpecial:bloodstorm-blade:Thunderous throw": {
+    "en": "Swift action: thrown attacks use the melee attack bonus this turn; 1½ Str and Power Attack ×2 with a two-handed thrown weapon",
+    "fr": "Action rapide : les attaques lancées utilisent le bonus d’attaque au corps à corps ce tour ; 1,5 × For et Attaque en puissance ×2 avec une arme lancée à deux mains"
+  },
+  "classSpecial:bloodstorm-blade:Bonus fighter feat": {
+    "en": "Bonus feat from the fighter bonus feat list (prerequisites apply)",
+    "fr": "Don supplémentaire choisi dans la liste des dons supplémentaires du guerrier (conditions requises applicables)"
+  },
+  "classSpecial:bloodstorm-blade:Lightning ricochet": {
+    "en": "Thrown weapons return at once on your turn: full attack with thrown weapons or a mix",
+    "fr": "Les armes lancées reviennent aussitôt pendant votre tour : attaque à outrance avec armes lancées ou mixte"
+  },
+  "classSpecial:bloodstorm-blade:Blood wind ricochet": {
+    "en": "Full-round: full attack with a thrown weapon, each attack on a different foe; expends a readied Iron Heart strike",
+    "fr": "Action complexe : attaque à outrance avec une arme lancée, chaque attaque sur un ennemi différent ; dépense une frappe du Cœur de fer préparée"
+  },
+  "classSpecial:bloodstorm-blade:Eye of the storm": {
+    "en": "Replaces an Iron Heart stance: +4 dodge AC vs ranged, +2 competence on Reflex, swift-action melee riposte; move ≤ 10 ft",
+    "fr": "Remplace une posture du Cœur de fer : +4 d’esquive à la CA contre les attaques à distance, +2 d’aptitude en Réflexes, riposte au corps à corps par une action rapide ; déplacement ≤ 3 m"
+  },
+  "classSpecial:bloodstorm-blade:Blood rain": {
+    "en": "Replaces an Iron Heart stance: creatures you damage bleed 3 hp at the start of your turn",
+    "fr": "Remplace une posture du Cœur de fer : les créatures blessées saignent 3 pv au début de votre tour"
+  },
+  "classSpecial:bloodstorm-blade:Blade storm": {
+    "en": "Full-round: one thrown attack at full bonus against each of any number of targets; expends a readied Iron Heart strike",
+    "fr": "Action complexe : une attaque lancée au bonus maximal contre autant de cibles que voulu ; dépense une frappe du Cœur de fer préparée"
+  },
+  "classSpecial:deepstone-sentinel:Mountain fortress stance": {
+    "en": "Replaces a Stone Dragon stance: 5-ft earth pillar under you, adjacent squares difficult terrain (DC 10 Balance or prone)",
+    "fr": "Remplace une posture du Dragon de pierre : pilier de terre de 1,50 m sous vous, cases adjacentes en terrain difficile (Équilibre DD 10 ou à terre)"
+  },
+  "classSpecial:deepstone-sentinel:Passwall": {
+    "en": "Passwall as a spell-like ability 1/day per class level, caster level = class level",
+    "fr": "Passe-muraille en pouvoir magique 1/jour par niveau de classe, niveau de lanceur = niveau de classe"
+  },
+  "classSpecial:deepstone-sentinel:Crashing mountain juggernaut": {
+    "en": "Full-round, ends the stance: DC 15 Balance or prone around you, and a charge dealing +2d6",
+    "fr": "Action complexe, met fin à la posture : Équilibre DD 15 ou à terre autour de vous, et une charge à +2d6 dégâts"
+  },
+  "classSpecial:deepstone-sentinel:Indomitable redoubt": {
+    "en": "In mountain fortress stance, also keep one Stone Dragon stance active",
+    "fr": "En posture de la forteresse montagne, garde aussi une posture du Dragon de pierre active"
+  },
+  "classSpecial:deepstone-sentinel:Stone curse": {
+    "en": "Immediate action on a melee hit: Will save or speed 0 (except fly) for 1 round",
+    "fr": "Action immédiate sur un coup au corps à corps : jet de Volonté ou vitesse 0 (sauf vol) pendant 1 round"
+  },
+  "classSpecial:deepstone-sentinel:Dragon’s tooth": {
+    "en": "Standard action: stone pillar within 60 ft; a creature on it saves (Reflex) or falls prone",
+    "fr": "Action simple : pilier de pierre à 18 m ; une créature sur la case fait un jet de Réflexes ou tombe à terre"
+  },
+  "classSpecial:deepstone-sentinel:Awaken the stone dragon": {
+    "en": "1/encounter, swift: enemies within 60 ft take 12d6 and fall prone (Reflex half, stays standing)",
+    "fr": "1/rencontre, action rapide : les ennemis à 18 m subissent 12d6 et tombent à terre (Réflexes : moitié, reste debout)"
+  },
+  "classSpecial:eternal-blade:Blade guide": {
+    "en": "Fine incorporeal spirit companion (AC 18, your hp, fly 30 ft perfect); most class features need it",
+    "fr": "Esprit compagnon intangible de taille Infime (CA 18, vos pv, vol 9 m parfaite) ; la plupart des aptitudes en dépendent"
+  },
+  "classSpecial:eternal-blade:Eternal training 1/day": {
+    "en": "1/day (max 1/encounter): insight bonus = Int bonus on attack and damage vs one creature type, or one Devoted Spirit/Diamond Mind maneuver for the encounter",
+    "fr": "1/jour (max 1/rencontre) : bonus d’intuition = bonus d’Int à l’attaque et aux dégâts contre un type de créature, ou une manœuvre d’Esprit dévoué/Esprit de diamant pour la rencontre"
+  },
+  "classSpecial:eternal-blade:Guided strike": {
+    "en": "Swift action: ignore one foe’s damage reduction for the rest of the turn",
+    "fr": "Action rapide : ignore la réduction des dégâts d’un adversaire jusqu’à la fin du tour"
+  },
+  "classSpecial:eternal-blade:Armored uncanny dodge": {
+    "en": "Uncanny dodge (or improved if you have it), even in medium or heavy armor, while the guide is present",
+    "fr": "Esquive instinctive (ou supérieure si déjà acquise), même en armure intermédiaire ou lourde, tant que le guide est présent"
+  },
+  "classSpecial:eternal-blade:Eternal training 2/day": {
+    "en": "2/day (max 1/encounter): insight bonus = Int bonus on attack and damage vs one creature type, or one Devoted Spirit/Diamond Mind maneuver for the encounter",
+    "fr": "2/jour (max 1/rencontre) : bonus d’intuition = bonus d’Int à l’attaque et aux dégâts contre un type de créature, ou une manœuvre d’Esprit dévoué/Esprit de diamant pour la rencontre"
+  },
+  "classSpecial:eternal-blade:Eternal knowledge": {
+    "en": "Guide makes Knowledge checks at class level + Int modifier in 2 areas (+1 area at 6th, 8th, 10th)",
+    "fr": "Le guide fait des tests de Connaissances à niveau de classe + mod. d’Int dans 2 domaines (+1 domaine aux niv. 6, 8, 10)"
+  },
+  "classSpecial:eternal-blade:Eternal training 3/day": {
+    "en": "3/day (max 1/encounter): insight bonus = Int bonus on attack and damage vs one creature type, or one Devoted Spirit/Diamond Mind maneuver for the encounter",
+    "fr": "3/jour (max 1/rencontre) : bonus d’intuition = bonus d’Int à l’attaque et aux dégâts contre un type de créature, ou une manœuvre d’Esprit dévoué/Esprit de diamant pour la rencontre"
+  },
+  "classSpecial:eternal-blade:Defensive insight": {
+    "en": "Swift action: dodge bonus to AC = Int bonus against one foe until your next turn",
+    "fr": "Action rapide : bonus d’esquive à la CA = bonus d’Int contre un adversaire jusqu’à votre prochain tour"
+  },
+  "classSpecial:eternal-blade:Eternal training 4/day": {
+    "en": "4/day (max 1/encounter): insight bonus = Int bonus on attack and damage vs one creature type, or one Devoted Spirit/Diamond Mind maneuver for the encounter",
+    "fr": "4/jour (max 1/rencontre) : bonus d’intuition = bonus d’Int à l’attaque et aux dégâts contre un type de créature, ou une manœuvre d’Esprit dévoué/Esprit de diamant pour la rencontre"
+  },
+  "classSpecial:eternal-blade:Tactical insight": {
+    "en": "Swift action: foes you hit in melee this turn take −Int bonus to AC against your allies for 1 round",
+    "fr": "Action rapide : les adversaires touchés au corps à corps ce tour subissent −bonus d’Int à la CA contre vos alliés pendant 1 round"
+  },
+  "classSpecial:eternal-blade:Eternal training 5/day": {
+    "en": "5/day (max 1/encounter): insight bonus = Int bonus on attack and damage vs one creature type, or one Devoted Spirit/Diamond Mind maneuver for the encounter",
+    "fr": "5/jour (max 1/rencontre) : bonus d’intuition = bonus d’Int à l’attaque et aux dégâts contre un type de créature, ou une manœuvre d’Esprit dévoué/Esprit de diamant pour la rencontre"
+  },
+  "classSpecial:eternal-blade:Island in time": {
+    "en": "1/encounter: take a full turn as an immediate action, initiative unchanged",
+    "fr": "1/rencontre : jouer un tour complet par une action immédiate, sans changer d’initiative"
+  },
+  "classSpecial:jade-phoenix-mage:Arcane wrath": {
+    "en": "Swift: spend an arcane spell or slot for +4 on one attack or strike and +1d10 damage per spell level",
+    "fr": "Action rapide : sacrifier un sort ou emplacement profane pour +4 à une attaque ou frappe et +1d10 dégâts par niveau de sort"
+  },
+  "classSpecial:jade-phoenix-mage:Rite of waking": {
+    "en": "+2 on Knowledge checks (usable untrained), +2 on saves against death and fear effects",
+    "fr": "+2 aux tests de Connaissances (utilisables sans formation), +2 aux jets de sauvegarde contre la mort et la terreur"
+  },
+  "classSpecial:jade-phoenix-mage:Mystic phoenix stance": {
+    "en": "Replaces a stance: +1 arcane caster level, +2 dodge AC; spend a slot for DR 2 × spell level/evil (max 10)",
+    "fr": "Remplace une posture : +1 niveau de lanceur profane, +2 d’esquive à la CA ; sacrifier un emplacement pour RD 2 × niveau du sort/mal (max 10)"
+  },
+  "classSpecial:jade-phoenix-mage:Empowering strike": {
+    "en": "1/encounter: after a strike hits, your next arcane spell (before end of next turn) is empowered for free",
+    "fr": "1/rencontre : après une frappe réussie, votre prochain sort profane (avant la fin du tour suivant) bénéficie gratuitement d’Extension d’effet"
+  },
+  "classSpecial:jade-phoenix-mage:Firebird stance": {
+    "en": "Replaces a stance: fire resistance 10, +3 caster level for fire spells; spend a slot for a 10-ft aura of 1d6/spell level for 1 minute",
+    "fr": "Remplace une posture : résistance au feu 10, +3 niveaux de lanceur pour les sorts de feu ; sacrifier un emplacement pour une aura de 3 m à 1d6/niveau de sort pendant 1 minute"
+  },
+  "classSpecial:jade-phoenix-mage:Jade Phoenix master": {
+    "en": "Can perform the Rite of Waking; senses the nearest Jade Phoenix mage after 1 minute of meditation",
+    "fr": "Peut accomplir le Rite de l’éveil ; perçoit le mage du phénix de jade le plus proche après 1 minute de méditation"
+  },
+  "classSpecial:jade-phoenix-mage:Quickening strike": {
+    "en": "1/encounter: after a strike hits, your next arcane spell of level ≤ 5 (before end of next turn) is quickened for free",
+    "fr": "1/rencontre : après une frappe réussie, votre prochain sort profane de niveau ≤ 5 (avant la fin du tour suivant) bénéficie gratuitement d’Incantation rapide"
+  },
+  "classSpecial:jade-phoenix-mage:Emerald immolation": {
+    "en": "1/week: 20d6 blast in 20 ft (half fire), dismisses extraplanar foes; you re-form 1d6 rounds later fully healed",
+    "fr": "1/semaine : explosion de 20d6 sur 6 m (moitié feu), renvoie les créatures extraplanaires ; vous vous reformez 1d6 rounds plus tard, entièrement soigné"
+  },
+  "classSpecial:master-of-nine:Dual stance": {
+    "en": "Keep a stance while entering one from another discipline: 2 rounds per class level per day",
+    "fr": "Garder une posture en adoptant celle d’une autre discipline : 2 rounds par niveau de classe et par jour"
+  },
+  "classSpecial:master-of-nine:Perfect form": {
+    "en": "+1 to the save DC of every maneuver you initiate",
+    "fr": "+1 au DD de sauvegarde de toutes vos manœuvres"
+  },
+  "classSpecial:master-of-nine:Counter stance": {
+    "en": "Change stance as part of a counter, even outside your turn",
+    "fr": "Changer de posture dans le cadre d’une manœuvre de riposte, même hors de votre tour"
+  },
+  "classSpecial:master-of-nine:Mastery of nine": {
+    "en": "Strikes: +2 on attack and + damage equal to the number of disciplines you readied maneuvers from",
+    "fr": "Frappes : +2 à l’attaque et + dégâts égaux au nombre de disciplines de vos manœuvres préparées"
+  },
+  "classSpecial:ruby-knight-vindicator:Divine recovery": {
+    "en": "Swift action: spend a turn/rebuke undead attempt to recover one expended maneuver",
+    "fr": "Action rapide : dépenser une tentative de renvoi/intimidation des morts-vivants pour récupérer une manœuvre utilisée"
+  },
+  "classSpecial:ruby-knight-vindicator:Armored stealth": {
+    "en": "No armor check penalty on Hide checks",
+    "fr": "Pas de malus d’armure aux tests de Discrétion"
+  },
+  "classSpecial:ruby-knight-vindicator:Divine impetus": {
+    "en": "Spend a turn/rebuke attempt: one extra swift action this round",
+    "fr": "Dépenser une tentative de renvoi/intimidation : une action rapide supplémentaire ce round"
+  },
+  "classSpecial:ruby-knight-vindicator:Divine fury": {
+    "en": "Free action, spend a turn/rebuke attempt: +4 sacred (profane if evil) on one strike’s attack and +1d10 damage",
+    "fr": "Action libre, dépenser une tentative de renvoi/intimidation : +4 sacré (malfaisant si mauvais) à l’attaque d’une frappe et +1d10 dégâts"
+  },
+  "classSpecial:shadow-sun-ninja:Monk abilities": {
+    "en": "Class levels stack with monk for AC bonus, unarmed damage, fast movement, flurry penalty and Stunning Fist uses",
+    "fr": "Les niveaux s’ajoutent à ceux de moine pour le bonus à la CA, les dégâts à mains nues, le déplacement accéléré, le malus du déluge de coups et les utilisations de Coup étourdissant"
+  },
+  "classSpecial:shadow-sun-ninja:Touch of the Shadow Sun": {
+    "en": "Melee touch: negative energy = unarmed damage + Wis modifier; next round heal that much on a touch",
+    "fr": "Contact au corps à corps : énergie négative = dégâts à mains nues + mod. de Sag ; au round suivant, soigne autant par un contact"
+  },
+  "classSpecial:shadow-sun-ninja:Flame of the Shadow Sun": {
+    "en": "Immediate: cold resistance 10 until your next turn; if it absorbs damage, swift 2d6 fire ranged touch bolt",
+    "fr": "Action immédiate : résistance au froid 10 jusqu’à votre prochain tour ; si elle absorbe des dégâts, trait de feu de 2d6 (contact à distance) par une action rapide"
+  },
+  "classSpecial:shadow-sun-ninja:Light within darkness": {
+    "en": "Melee attack the round after a successful Hide: foes who missed you within 60 ft save (Fort) or are blinded 1 round",
+    "fr": "Attaque au corps à corps le round après un test de Discrétion réussi : les ennemis à 18 m qui ne vous ont pas repéré font un jet de Vigueur ou sont aveuglés 1 round"
+  },
+  "classSpecial:shadow-sun-ninja:Darkness within light": {
+    "en": "While blinded: against blinded foes no blindness drawbacks, +4 melee attack and damage, −2 on their saves vs Stunning Fist",
+    "fr": "En étant aveuglé : contre des ennemis aveuglés, pas d’inconvénient, +4 à l’attaque et aux dégâts au corps à corps, −2 à leurs jets contre Coup étourdissant"
+  },
+  "classSpecial:shadow-sun-ninja:Void of the Shadow Sun": {
+    "en": "Swift: +2 deflection AC until your next turn; if hit through it, next round 8d6 cold burst 30 ft (Fort half)",
+    "fr": "Action rapide : +2 de parade à la CA jusqu’à votre prochain tour ; si vous êtes touché malgré tout, au round suivant explosion de froid de 8d6 sur 9 m (Vigueur : moitié)"
+  },
+  "classSpecial:shadow-sun-ninja:Child of shadow and light": {
+    "en": "Replaces a Setting Sun/Shadow Hand stance: alternating 60-ft dazzling light and total darkness each round",
+    "fr": "Remplace une posture du Soleil couchant/de la Main de l’ombre : alternance chaque round de lumière éblouissante et de ténèbres totales sur 18 m"
+  },
+  "classSpecial:shadow-sun-ninja:Balance of light and dark": {
+    "en": "1/day, swift, 1 minute: shadow form with immunities, +8 Hide, +4 attack in darkness, unarmed hits bestow negative levels",
+    "fr": "1/jour, action rapide, 1 minute : forme d’ombre avec immunités, +8 en Discrétion, +4 à l’attaque dans l’obscurité, coups à mains nues infligeant des niveaux négatifs"
+  }
+}

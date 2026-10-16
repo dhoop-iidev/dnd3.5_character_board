@@ -33,8 +33,10 @@ export function unmetPrereqs(
     if (weapon && !proficientWith(sheet.proficiency, weapon))
       out.push({ en: `proficiency with ${weapon.name.en}`, fr: `maniement de ${weapon.name.fr}` })
   }
-  // Weapon aptitude (Tome of Battle p. 22): warblade level − 2 stacks with fighter levels for feat prerequisites.
-  const fighterLevel = (sheet.classLevels['fighter'] ?? 0) + Math.max(0, (sheet.classLevels['warblade'] ?? 0) - 2)
+  // Weapon aptitude (Tome of Battle pp. 22, 102): warblade levels, plus Bloodstorm Blade levels, − 2 stack with fighter
+  // levels for feat prerequisites.
+  const aptitude = (sheet.classLevels['warblade'] ?? 0) + (sheet.classLevels['bloodstorm-blade'] ?? 0)
+  const fighterLevel = (sheet.classLevels['fighter'] ?? 0) + Math.max(0, aptitude - 2)
   if (prereq.fighterLevel && fighterLevel < prereq.fighterLevel)
     out.push({ en: `Fighter level ${prereq.fighterLevel}`, fr: `Guerrier niveau ${prereq.fighterLevel}` })
   if (prereq.characterLevel && sheet.characterLevel < prereq.characterLevel)
@@ -46,10 +48,61 @@ export function unmetPrereqs(
       out.push({ en: `${name.en} ${min} ranks (has ${ranks})`, fr: `${name.fr} ${min} degrés (a ${ranks})` })
     }
   }
+  // Tome of Battle prestige classes (p. 96): maneuvers and stances known, by discipline. A stance counts as a maneuver
+  // for these requirements (p. 43). Each entry is checked on its own.
+  const m = prereq.martial
+  if (m) {
+    const known = sheet.martial.known
+    const discName = (ids?: string[]) => {
+      const n = (ids ?? []).map((d) => rules.disciplines.get(d)?.name ?? { en: d, fr: d })
+      return { en: n.map((x) => x.en).join(' or '), fr: n.map((x) => x.fr).join(' ou ') }
+    }
+    for (const r of m.maneuvers ?? []) {
+      const have = known.filter(
+        (k) => (!r.disciplines || r.disciplines.includes(k.discipline)) && k.level >= (r.minLevel ?? 1) && (!r.type || k.type === r.type),
+      ).length
+      if (have < r.count) {
+        const d = discName(r.disciplines)
+        const lv = r.minLevel ? { en: ` of level ${r.minLevel}+`, fr: ` de niveau ${r.minLevel}+` } : { en: '', fr: '' }
+        const kind = r.type === 'strike' ? { en: 'strike', fr: 'frappe' } : { en: 'maneuver', fr: 'manœuvre' }
+        out.push({
+          en: `${r.count} ${d.en} ${kind.en}(s)${lv.en} (has ${have})`.replace('  ', ' '),
+          fr: `${r.count} ${kind.fr}(s) ${d.fr}${lv.fr} (a ${have})`.replace('  ', ' '),
+        })
+      }
+    }
+    for (const r of m.stances ?? []) {
+      const have = known.filter((k) => k.type === 'stance' && (!r.disciplines || r.disciplines.includes(k.discipline))).length
+      if (have < r.count) {
+        const d = discName(r.disciplines)
+        out.push({ en: `${r.count} ${d.en} stance(s) (has ${have})`.replace('  ', ' '), fr: `${r.count} posture(s) ${d.fr} (a ${have})`.replace('  ', ' ') })
+      }
+    }
+    if (m.anyManeuverLevel && !known.some((k) => k.level >= m.anyManeuverLevel!))
+      out.push({ en: `a maneuver of level ${m.anyManeuverLevel}+`, fr: `une manœuvre de niveau ${m.anyManeuverLevel}+` })
+    if (m.distinctDisciplines) {
+      const n = new Set(known.map((k) => k.discipline)).size
+      if (n < m.distinctDisciplines)
+        out.push({ en: `maneuvers from ${m.distinctDisciplines} disciplines (has ${n})`, fr: `manœuvres de ${m.distinctDisciplines} disciplines (a ${n})` })
+    }
+    if (m.keySkills) {
+      const keys = new Set([...rules.disciplines.values()].map((d) => d.keySkill))
+      const n = [...keys].filter((k) => (sheet.skills.find((s) => s.key === k)?.ranks ?? 0) >= m.keySkills!.ranks).length
+      if (n < m.keySkills.count)
+        out.push({
+          en: `${m.keySkills.ranks} ranks in ${m.keySkills.count} discipline key skills (has ${n})`,
+          fr: `${m.keySkills.ranks} degrés dans ${m.keySkills.count} compétences clés de discipline (a ${n})`,
+        })
+    }
+  }
   // "Other" prerequisites that the sheet can answer: turning ability (Extra/Improved Turning) and caster level
   // (item creation feats, https://www.d20srd.org/srd/feats.htm#itemCreationFeats).
   for (const o of prereq.other ?? []) {
     if (/turn or rebuke/i.test(o.en) && !sheet.turning)
+      out.push(o)
+    const race = o.en.match(/^Race: (\w+)/i)
+    // A half-elf counts as an elf for every effect related to race (https://www.d20srd.org/srd/races.htm#halfElves).
+    if (race && sheet.race.id !== race[1].toLowerCase() && !(race[1].toLowerCase() === 'elf' && sheet.race.id === 'half-elf'))
       out.push(o)
     if (/^wild shape ability/i.test(o.en) && (sheet.classLevels['druid'] ?? 0) < 5) out.push(o)
     if (/^Wizard level 1/i.test(o.en) && !sheet.classLevels['wizard']) out.push(o)

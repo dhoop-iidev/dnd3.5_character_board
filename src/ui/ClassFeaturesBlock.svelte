@@ -24,13 +24,32 @@
   const ragedThisEncounter = $derived(!!c.dailyUsesSpent[RAGE_ENCOUNTER_KEY])
 
   // Smite evil: spend a use and switch the bonus on for this turn's melee attack (turned off at the end of the turn).
-  const smite = $derived(f.abilities.find((a) => a.id === 'smite-evil'))
-  function useSmite() {
-    if (!smite) return
-    spend(smite, 1)
-    app.character.toggles.smite = true
+  // Paladin smite evil and crusader smite (ToB p. 11) work the same way at the table.
+  const SMITES = { 'smite-evil': 'smite', 'crusader-smite': 'crusaderSmite' } as const
+  type SmiteId = keyof typeof SMITES
+  const smites = $derived(f.abilities.filter((a): a is ClassAbility & { id: SmiteId } => a.id in SMITES))
+  function useSmite(a: ClassAbility & { id: SmiteId }) {
+    spend(a, 1)
+    app.character.toggles[SMITES[a.id]] = true
   }
-  const pools = $derived(f.abilities.filter((a) => a.id !== 'smite-evil'))
+  const pools = $derived(f.abilities.filter((a) => !(a.id in SMITES)))
+
+  // Crusader steely resolve (ToB p. 10): damage from attacks goes into the delayed damage pool, up to its cap; the
+  // overflow is taken at once. The pool is taken at the end of the turn (Turn bar).
+  const steely = $derived(f.steelyResolve)
+  let incoming = $state(0)
+  function delayDamage(n: number) {
+    if (!steely || n <= 0) return
+    const m = app.character.martial
+    const into = Math.min(n, steely.cap - (m.pool ?? 0))
+    m.pool = (m.pool ?? 0) + into
+    if (n > into) app.character.hp.damage += n - into
+    incoming = 0
+  }
+  function healPool(n: number) {
+    const m = app.character.martial
+    m.pool = Math.max(0, (m.pool ?? 0) - n)
+  }
   const info = (a: ClassAbility) => openPopup({ title: a.name, lines: a.lines, source: a.source, noteKey: `class:${a.id}` })
 </script>
 
@@ -93,20 +112,41 @@
     </div>
   {/if}
 
-  {#if smite}
+  {#each smites as smite (smite.id)}
     <div class="row">
       <strong>{tr(smite.name)}</strong>
       <span>{tr({ en: 'Today', fr: 'Aujourd’hui' })} : {smite.max - usedOf(smite)} / {smite.max}</span>
-      {#if c.toggles.smite}
+      {#if c.toggles[SMITES[smite.id]]}
         <span class="on">{tr({ en: 'next melee attack', fr: 'prochaine attaque au corps à corps' })}</span>
-        <button onclick={() => (app.character.toggles.smite = false)}>{tr({ en: 'Cancel', fr: 'Annuler' })}</button>
+        <button onclick={() => (app.character.toggles[SMITES[smite.id]] = false)}>{tr({ en: 'Cancel', fr: 'Annuler' })}</button>
       {:else}
-        <button class="go" disabled={usedOf(smite) >= smite.max} onclick={useSmite}
+        <button class="go" disabled={usedOf(smite) >= smite.max} onclick={() => useSmite(smite)}
           >{tr({ en: 'Smite (this attack)', fr: 'Châtier (cette attaque)' })}</button
         >
       {/if}
       <button class="link" onclick={() => info(smite)}>ⓘ</button>
     </div>
+  {/each}
+
+  {#if steely}
+    <div class="row">
+      <strong>{tr({ en: 'Steely resolve', fr: 'Résolution d’acier' })}</strong>
+      <span>{tr({ en: 'Delayed damage', fr: 'Dégâts différés' })} : <strong>{steely.pool}</strong> / {steely.cap}</span>
+      {#if steely.furious}<span class="on">{tr({ en: 'Furious counterstrike', fr: 'Riposte furieuse' })} +{steely.furious}</span>{/if}
+      <input type="number" min="0" bind:value={incoming} aria-label={tr({ en: 'Damage', fr: 'Dégâts' })} />
+      <button class="go" disabled={!incoming} onclick={() => delayDamage(incoming)}>{tr({ en: 'Take (delayed)', fr: 'Subir (différé)' })}</button>
+      <button disabled={!incoming || !steely.pool} onclick={() => {
+        healPool(incoming)
+        incoming = 0
+      }}>{tr({ en: 'Heal the pool', fr: 'Soigner la réserve' })}</button>
+    </div>
+    <p class="note">
+      {tr({
+        en: 'Damage from attacks goes into the pool up to its cap (the rest is taken at once); the pool is taken at the end of your next turn (Turn bar). Furious counterstrike: + pool ÷ 5 (min. +1, max. +6) on attack and damage during your turn.',
+        fr: 'Les dégâts des attaques vont dans la réserve jusqu’à son plafond (le reste est subi aussitôt) ; la réserve est subie à la fin de votre prochain tour (barre de tour). Riposte furieuse : + réserve ÷ 5 (min. +1, max. +6) à l’attaque et aux dégâts pendant votre tour.',
+      })}
+      <small>Tome of Battle p. 10</small>
+    </p>
   {/if}
 
   {#if f.sneakAttack}
@@ -171,6 +211,11 @@
 </section>
 
 <style>
+  input[type='number'] {
+    width: 4.5rem;
+    min-height: 2.4rem;
+    font: inherit;
+  }
   .row {
     display: flex;
     flex-wrap: wrap;

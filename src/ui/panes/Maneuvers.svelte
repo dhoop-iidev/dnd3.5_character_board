@@ -1,8 +1,9 @@
 <script lang="ts">
-  // Tome of Battle: what the warblade knows, readies and can learn (house rule #15).
+  // Tome of Battle: what a martial adept (crusader, swordsage, warblade, and the prestige classes that advance them)
+  // knows, readies and can learn (house rule #15).
   import { rules } from '../../data/rules'
   import type { ManeuverDef } from '../../data/types'
-  import { WARBLADE_RECOVERY, knownManeuvers, learnBlockers, martialCaps, setStance } from '../../engine/martial'
+  import { disciplinesAt, knownManeuvers, learnBlockers, martialCaps, martialOwner, readiedOf, RECOVERY, setStance } from '../../engine/martial'
   import { app, tr, view } from '../../state.svelte'
   import WarningList from '../WarningList.svelte'
   import { ACTION_LABEL, disciplineName, maneuverName, maneuverPopup, TYPE_LABEL } from '../maneuvers'
@@ -14,14 +15,19 @@
   const knownStances = $derived(known.filter((k) => k.type === 'stance'))
   const martial = $derived(app.character.martial)
 
-  // Character levels taken as warblade (where maneuvers are learned).
-  const warbladeLevels = $derived(
-    app.character.levels.map((l, i) => ({ l, L: i + 1 })).filter((x) => x.l.classId === 'warblade'),
+  const className = (id: string) => tr(rules.classes.get(id)?.name ?? { en: id, fr: id })
+  // Character levels where maneuvers are learned: martial adept levels and prestige levels advancing one (p. 96).
+  const martialLevels = $derived(
+    app.character.levels
+      .map((l, i) => ({ l, L: i + 1, owner: martialOwner(app.character, rules, i + 1) }))
+      .filter((x): x is typeof x & { owner: string } => !!x.owner),
   )
   let targetLevel = $state(0)
-  const level = $derived(targetLevel || warbladeLevels.at(-1)?.L || 0)
-  const levelCaps = $derived(level ? martialCaps(app.character, rules, level) : null)
-  const prevCaps = $derived(level ? martialCaps(app.character, rules, level - 1) : null)
+  const level = $derived(targetLevel || martialLevels.at(-1)?.L || 0)
+  const owner = $derived(level ? martialOwner(app.character, rules, level) : undefined)
+  const allowed = $derived(level ? disciplinesAt(app.character, rules, level) : [])
+  const levelCaps = $derived(level && owner ? martialCaps(app.character, rules, level, owner) : null)
+  const prevCaps = $derived(level && owner ? martialCaps(app.character, rules, level - 1, owner) : null)
   const learnedHere = $derived((app.character.levels[level - 1]?.maneuversLearned ?? []).map((id) => rules.maneuvers.get(id)).filter((m): m is ManeuverDef => !!m))
   const slotsManeuvers = $derived((levelCaps?.maneuversKnown ?? 0) - (prevCaps?.maneuversKnown ?? 0))
   const slotsStances = $derived((levelCaps?.stancesKnown ?? 0) - (prevCaps?.stancesKnown ?? 0))
@@ -35,7 +41,7 @@
     [...rules.maneuvers.values()]
       .filter((m) => !discipline || m.discipline === discipline)
       .filter((m) => !kind || (kind === 'stance' ? m.type === 'stance' : m.type !== 'stance'))
-      .map((m) => ({ m, blockers: levelCaps ? learnBlockers(m, [...knownBefore, ...learnedHere], levelCaps, rules) : ['no warblade level'] }))
+      .map((m) => ({ m, blockers: levelCaps ? learnBlockers(m, [...knownBefore, ...learnedHere], levelCaps, rules, allowed) : ['no martial level'] }))
       .filter((x) => !onlyLearnable || !x.blockers.length)
       .sort((a, b) => a.m.level - b.m.level || maneuverName(a.m).localeCompare(maneuverName(b.m))),
   )
@@ -51,19 +57,24 @@
     m.readied = m.readied.filter((x) => x !== id)
     if (m.stance === id) delete m.stance
   }
+  /** Martial class whose progression a known maneuver belongs to. */
+  const ownerOf = (id: string) =>
+    s.martial.all.find((c) => knownManeuvers(app.character, rules, app.character.levels.length, c.classId).some((k) => k.id === id))
   function toggleReadied(id: string) {
     const m = app.character.martial
+    const c = ownerOf(id)
     if (m.readied.includes(id)) m.readied = m.readied.filter((x) => x !== id)
-    else if (m.readied.length < (caps?.maneuversReadied ?? 0)) m.readied = [...m.readied, id]
+    else if (c && readiedOf(app.character, rules, c.classId).length < c.maneuversReadied) m.readied = [...m.readied, id]
   }
   const learnedAt = (id: string) =>
     app.character.levels.findIndex((l) => (l.maneuversLearned ?? []).includes(id) || l.maneuverSwap?.to === id) + 1
 
-  // Maneuver swap (warblade 4, 6, 8…; p. 21)
+  // Maneuver swap at the levels of the martial class table that allow it (crusader p. 9, swordsage p. 16, warblade p. 21)
   const swapLevel = $derived(
-    warbladeLevels.filter((x) => {
-      const n = app.character.levels.slice(0, x.L).filter((l) => l.classId === 'warblade').length
-      return n >= 4 && n % 2 === 0
+    martialLevels.filter((x) => {
+      if (x.l.classId !== x.owner) return false
+      const n = app.character.levels.slice(0, x.L).filter((l) => l.classId === x.owner).length
+      return !!rules.martialProgression.get(x.owner)?.levels.find((r) => r.level === n)?.maneuverSwap
     }),
   )
 </script>
@@ -71,24 +82,33 @@
 {#if !caps}
   <p class="empty">
     {tr({
-      en: 'No warblade level yet. Choose the warblade class at a level-up (Progression, General tab) to learn maneuvers.',
-      fr: 'Pas encore de niveau de lame de bataille. Choisissez la classe lame de bataille lors d’un passage de niveau (Progression, onglet Général) pour apprendre des manœuvres.',
+      en: 'No martial adept level yet. Choose crusader, swordsage or warblade at a level-up (Progression, General tab) to learn maneuvers.',
+      fr: 'Pas encore de niveau d’adepte martial. Choisissez croisé, maître des lames ou lame de bataille lors d’un passage de niveau (Progression, onglet Général) pour apprendre des manœuvres.',
     })}
   </p>
 {:else}
   <div class="grid">
     <section class="box wide">
-      <h3>{tr({ en: 'Warblade', fr: 'Lame de bataille (Warblade)' })} {caps.classLevel}</h3>
-      <div class="caps">
-        <div><span>{tr({ en: 'Initiator level', fr: "Niveau d'initiateur" })}</span><strong>{caps.initiatorLevel}</strong></div>
-        <div><span>{tr({ en: 'Highest maneuver level', fr: 'Niveau de manœuvre max' })}</span><strong>{caps.maxManeuverLevel}</strong></div>
-        <div><span>{tr({ en: 'Maneuvers known', fr: 'Manœuvres connues' })}</span><strong>{knownManeuversOnly.length} / {caps.maneuversKnown}</strong></div>
-        <div><span>{tr({ en: 'Readied', fr: 'Préparées' })}</span><strong>{martial.readied.length} / {caps.maneuversReadied}</strong></div>
-        <div><span>{tr({ en: 'Stances known', fr: 'Postures connues' })}</span><strong>{knownStances.length} / {caps.stancesKnown}</strong></div>
-      </div>
+      {#each s.martial.all as c (c.classId)}
+        {@const mine = knownManeuvers(app.character, rules, app.character.levels.length, c.classId)}
+        <h3>
+          {className(c.classId)} {c.classLevel}{#if c.advanceLevels}<small> + {c.advanceLevels} {tr({ en: 'prestige', fr: 'prestige' })}</small>{/if}
+        </h3>
+        <div class="caps">
+          <div><span>{tr({ en: 'Initiator level', fr: "Niveau d'initiateur" })}</span><strong>{c.initiatorLevel}</strong></div>
+          <div><span>{tr({ en: 'Highest maneuver level', fr: 'Niveau de manœuvre max' })}</span><strong>{c.maxManeuverLevel}</strong></div>
+          <div><span>{tr({ en: 'Maneuvers known', fr: 'Manœuvres connues' })}</span><strong>{mine.filter((k) => k.type !== 'stance').length} / {c.maneuversKnown}</strong></div>
+          <div><span>{tr({ en: 'Readied', fr: 'Préparées' })}</span><strong>{readiedOf(app.character, rules, c.classId).length} / {c.maneuversReadied}</strong></div>
+          <div><span>{tr({ en: 'Stances known', fr: 'Postures connues' })}</span><strong>{mine.filter((k) => k.type === 'stance').length} / {c.stancesKnown}</strong></div>
+        </div>
+        <p class="note">{tr(RECOVERY[c.classId])} <small>Tome of Battle p. 40</small></p>
+      {/each}
       <p class="note">
-        {tr({ en: 'Initiator level = warblade level + ½ other class levels (rounded down).', fr: "Niveau d'initiateur = niveau de lame de bataille + ½ niveaux des autres classes (arrondi à l'inférieur)." })}
-        {tr(WARBLADE_RECOVERY)} <small>Tome of Battle p. 22, 40</small>
+        {tr({
+          en: 'Initiator level = martial class level + levels of prestige classes advancing it + ½ other class levels (rounded down). With several martial classes, each keeps its own maneuvers known, readied and recovery (p. 40).',
+          fr: "Niveau d'initiateur = niveau de la classe martiale + niveaux des classes de prestige qui la font progresser + ½ niveaux des autres classes (arrondi à l'inférieur). Avec plusieurs classes martiales, chacune garde ses propres manœuvres connues, préparées et sa récupération (p. 40).",
+        })}
+        <small>Tome of Battle p. 39, 96</small>
       </p>
       <WarningList areas={['maneuvers']} />
     </section>
@@ -125,7 +145,7 @@
               <input type="checkbox" checked={martial.readied.includes(m.id)} onchange={() => toggleReadied(m.id)} />
             </label>
             <button class="link" onclick={() => maneuverPopup(m)}>{maneuverName(m)}</button>
-            <small>{disciplineName(m.discipline)} · {tr(TYPE_LABEL[m.type])} · {tr({ en: 'level', fr: 'niv.' })} {m.level} · {tr(ACTION_LABEL[m.action])}</small>
+            <small>{disciplineName(m.discipline)} · {tr(TYPE_LABEL[m.type])} · {tr({ en: 'level', fr: 'niv.' })} {m.level} · {tr(ACTION_LABEL[m.action])}{#if s.martial.all.length > 1} · {className(ownerOf(m.id)?.classId ?? '')}{/if}</small>
             <button class="del" onclick={() => unlearn(m.id, learnedAt(m.id))} aria-label={tr({ en: 'Forget', fr: 'Oublier' })}>✕</button>
           </li>
         {:else}
@@ -140,7 +160,7 @@
         <label>
           {tr({ en: 'At level', fr: 'Au niveau' })}
           <select value={level} onchange={(e) => (targetLevel = Number(e.currentTarget.value))}>
-            {#each warbladeLevels as x (x.L)}<option value={x.L}>{x.L}</option>{/each}
+            {#each martialLevels as x (x.L)}<option value={x.L}>{x.L} ({className(x.l.classId)})</option>{/each}
           </select>
         </label>
         <label>
@@ -197,11 +217,11 @@
     {#if swapLevel.length}
       <section class="box wide">
         <h3>{tr({ en: 'Maneuver swap', fr: 'Échange de manœuvre' })}</h3>
-        <p class="note">{tr({ en: 'At warblade levels 4, 6, 8…, one known maneuver (not a stance) can be exchanged for another (p. 21).', fr: 'Aux niveaux 4, 6, 8… de lame de bataille, une manœuvre connue (pas une posture) peut être échangée contre une autre (p. 21).' })}</p>
+        <p class="note">{tr({ en: 'At the martial class levels marked in its table, one known maneuver (not a stance) can be exchanged for another of a level you can learn (crusader p. 9, swordsage p. 16, warblade p. 21).', fr: 'Aux niveaux de classe martiale indiqués dans sa table, une manœuvre connue (pas une posture) peut être échangée contre une autre d’un niveau accessible (croisé p. 9, maître des lames p. 16, lame de bataille p. 21).' })}</p>
         {#each swapLevel as x (x.L)}
           {@const entry = app.character.levels[x.L - 1]}
           <div class="swap">
-            <strong>{tr({ en: 'Level', fr: 'Niveau' })} {x.L}</strong>
+            <strong>{tr({ en: 'Level', fr: 'Niveau' })} {x.L} ({className(x.owner)})</strong>
             <select value={entry.maneuverSwap?.from ?? ''} onchange={(e) => (entry.maneuverSwap = e.currentTarget.value ? { from: e.currentTarget.value, to: entry.maneuverSwap?.to ?? '' } : undefined)}>
               <option value="">— {tr({ en: 'no swap', fr: 'pas d’échange' })} —</option>
               {#each knownManeuvers(app.character, rules, x.L - 1).filter((k) => k.type !== 'stance') as k (k.id)}<option value={k.id}>{maneuverName(k)}</option>{/each}

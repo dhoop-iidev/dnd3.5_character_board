@@ -1,0 +1,285 @@
+{
+  "id": "crusader",
+  "name": {
+    "en": "Crusader",
+    "fr": "Croisé"
+  },
+  "prestige": false,
+  "hitDie": 10,
+  "skillPoints": 4,
+  "classSkills": [
+    "balance",
+    "concentration",
+    "craft",
+    "diplomacy",
+    "intimidate",
+    "jump",
+    "knowledge-history",
+    "knowledge-religion",
+    "martial-lore",
+    "ride"
+  ],
+  "proficiencies": {
+    "weapons": [
+      "simple",
+      "martial"
+    ],
+    "armor": [
+      "light",
+      "medium",
+      "heavy",
+      "shield",
+      "tower"
+    ]
+  },
+  "table": [
+    {
+      "level": 1,
+      "bab": 1,
+      "fort": 2,
+      "ref": 0,
+      "will": 0,
+      "special": [
+        {
+          "en": "Furious counterstrike",
+          "fr": "Riposte furieuse"
+        },
+        {
+          "en": "Steely resolve 5",
+          "fr": "Résolution d’acier 5"
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "bab": 2,
+      "fort": 3,
+      "ref": 0,
+      "will": 0,
+      "special": [
+        {
+          "en": "Indomitable soul",
+          "fr": "Âme indomptable"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "bab": 3,
+      "fort": 3,
+      "ref": 1,
+      "will": 1,
+      "special": [
+        {
+          "en": "Zealous surge",
+          "fr": "Sursaut de ferveur"
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "bab": 4,
+      "fort": 4,
+      "ref": 1,
+      "will": 1,
+      "special": [
+        {
+          "en": "Steely resolve 10",
+          "fr": "Résolution d’acier 10"
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "bab": 5,
+      "fort": 4,
+      "ref": 1,
+      "will": 1,
+      "special": []
+    },
+    {
+      "level": 6,
+      "bab": 6,
+      "fort": 5,
+      "ref": 2,
+      "will": 2,
+      "special": [
+        {
+          "en": "Smite 1/day",
+          "fr": "Châtiment 1/jour"
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "bab": 7,
+      "fort": 5,
+      "ref": 2,
+      "will": 2,
+      "special": []
+    },
+    {
+      "level": 8,
+      "bab": 8,
+      "fort": 6,
+      "ref": 2,
+      "will": 2,
+      "special": [
+        {
+          "en": "Steely resolve 15",
+          "fr": "Résolution d’acier 15"
+        }
+      ]
+    },
+    {
+      "level": 9,
+      "bab": 9,
+      "fort": 6,
+      "ref": 3,
+      "will": 3,
+      "special": []
+    },
+    {
+      "level": 10,
+      "bab": 10,
+      "fort": 7,
+      "ref": 3,
+      "will": 3,
+      "special": [
+        {
+          "en": "Die hard",
+          "fr": "Dur à cuire"
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "bab": 11,
+      "fort": 7,
+      "ref": 3,
+      "will": 3,
+      "special": []
+    },
+    {
+      "level": 12,
+      "bab": 12,
+      "fort": 8,
+      "ref": 4,
+      "will": 4,
+      "special": [
+        {
+          "en": "Steely resolve 20",
+          "fr": "Résolution d’acier 20"
+        }
+      ]
+    },
+    {
+      "level": 13,
+      "bab": 13,
+      "fort": 8,
+      "ref": 4,
+      "will": 4,
+      "special": [
+        {
+          "en": "Mettle",
+          "fr": "Cran"
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "bab": 14,
+      "fort": 9,
+      "ref": 4,
+      "will": 4,
+      "special": []
+    },
+    {
+      "level": 15,
+      "bab": 15,
+      "fort": 9,
+      "ref": 5,
+      "will": 5,
+      "special": []
+    },
+    {
+      "level": 16,
+      "bab": 16,
+      "fort": 10,
+      "ref": 5,
+      "will": 5,
+      "special": [
+        {
+          "en": "Steely resolve 25",
+          "fr": "Résolution d’acier 25"
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "bab": 17,
+      "fort": 10,
+      "ref": 5,
+      "will": 5,
+      "special": []
+    },
+    {
+      "level": 18,
+      "bab": 18,
+      "fort": 11,
+      "ref": 6,
+      "will": 6,
+      "special": [
+        {
+          "en": "Smite 2/day",
+          "fr": "Châtiment 2/jour"
+        }
+      ]
+    },
+    {
+      "level": 19,
+      "bab": 19,
+      "fort": 11,
+      "ref": 6,
+      "will": 6,
+      "special": []
+    },
+    {
+      "level": 20,
+      "bab": 20,
+      "fort": 12,
+      "ref": 6,
+      "will": 6,
+      "special": [
+        {
+          "en": "Steely resolve 30",
+          "fr": "Résolution d’acier 30"
+        }
+      ]
+    }
+  ],
+  "grantedFeats": [
+    {
+      "level": 10,
+      "feat": "diehard"
+    }
+  ],
+  "disciplines": [
+    "devoted-spirit",
+    "stone-dragon",
+    "white-raven"
+  ],
+  "alignment": {
+    "en": "Any except true neutral",
+    "fr": "Tout sauf neutre strict"
+  },
+  "text": {
+    "en": "<p>Non-SRD base class from <i>Tome of Battle</i> pp. 8–14 (summary in our own words).</p><p><b>Proficiencies:</b> simple and martial weapons, all armor, all shields (tower shield included). <b>Alignment:</b> any but true neutral.</p><p><b>Maneuvers:</b> Devoted Spirit, Stone Dragon, White Raven. Known, readied and stances per Table 1–1; highest maneuver level per initiator level (Table 3–1, p. 39). Extraordinary unless noted, ignore spell resistance, never provoke when initiated. At 4th level and every even level after, swap one known maneuver (not a stance). <b>Readying:</b> 5 minutes of prayer. <b>Granted maneuvers:</b> the crusader doesn't choose which readied maneuvers are available. Before her first action in an encounter, 2 random readied maneuvers are granted (3 from 10th, 4 at 20th) and the rest are withheld. At the end of each of her turns, one random withheld maneuver is granted, used or not. When none is left to grant at the end of a turn, all expended maneuvers are recovered and a new random set is granted. <b>Stances:</b> one 1st-level stance at 1st, more at 2nd, 8th and 14th; changed as a swift action, never swapped.</p><p><b>Steely resolve (1st):</b> hit point damage from attacks goes into a delayed damage pool (empty at the start of each encounter), taken in full at the end of her next turn. Capacity 5, +5 at 4th, 8th, 12th, 16th and 20th; damage beyond it is taken at once. Healing may reduce the pool, the hit points or both. Effects riding on the attack (poison, stun, drain…) apply at once.</p><p><b>Furious counterstrike (1st):</b> during her turn, bonus on attack and damage rolls = pool ÷ 5 rounded down (minimum +1, maximum +6).</p><p><b>Indomitable soul (2nd):</b> Cha bonus on Will saves; doesn't stack with a paladin's divine grace.</p><p><b>Zealous surge (3rd):</b> once per day, reroll one saving throw (no action), decided before knowing the result; the second roll stands.</p><p><b>Smite (6th):</b> once per day (twice from 18th), the next melee attack gets + Cha bonus on the attack and + crusader level on damage.</p><p><b>Die hard (10th):</b> Diehard as a bonus feat.</p><p><b>Mettle (13th):</b> a successful Fortitude or Will save against an effect that would still partly work on a success (half, partial) negates it; not while unconscious or asleep.</p>",
+    "fr": "<p>Classe de base hors DRS du <i>Tome of Battle</i> p. 8–14 (résumé avec nos propres mots ; noms français : traduction maison, le livre n’a pas été traduit).</p><p><b>Armes et armures :</b> armes courantes et de guerre, toutes les armures, tous les boucliers (pavois compris). <b>Alignement :</b> tout sauf neutre strict.</p><p><b>Manœuvres :</b> Esprit dévoué, Dragon de pierre, Corbeau blanc. Connues, préparées et postures selon la table 1–1 ; niveau maximal de manœuvre selon le niveau d’initiateur (table 3–1, p. 39). Extraordinaires sauf mention contraire, ignorent la résistance à la magie, ne provoquent jamais d’attaque d’opportunité quand on les initie. Au niveau 4 puis à chaque niveau pair, échange d’une manœuvre connue (pas une posture). <b>Préparation :</b> 5 minutes de prière. <b>Manœuvres accordées :</b> le croisé ne choisit pas quelles manœuvres préparées sont disponibles. Avant sa première action d’une rencontre, 2 manœuvres préparées tirées au hasard lui sont accordées (3 dès le niveau 10, 4 au niveau 20), les autres sont retenues. À la fin de chacun de ses tours, une manœuvre retenue tirée au hasard est accordée, qu’il ait agi ou non. Quand il n’en reste plus à accorder en fin de tour, toutes les manœuvres utilisées sont récupérées et un nouveau tirage est accordé. <b>Postures :</b> une posture du niveau 1 au niveau 1, d’autres aux niveaux 2, 8 et 14 ; changées par une action rapide, jamais échangées.</p><p><b>Résolution d’acier (1) :</b> les dégâts (points de vie) des attaques vont dans une réserve de dégâts différés (vide au début de chaque rencontre), subie en totalité à la fin de son tour suivant. Capacité 5, +5 aux niveaux 4, 8, 12, 16 et 20 ; l’excédent est subi immédiatement. Les soins peuvent réduire la réserve, rendre des points de vie, ou les deux. Les effets portés par l’attaque (poison, étourdissement, absorption…) s’appliquent tout de suite.</p><p><b>Riposte furieuse (1) :</b> pendant son tour, bonus aux jets d’attaque et de dégâts = réserve ÷ 5 arrondi à l’inférieur (minimum +1, maximum +6).</p><p><b>Âme indomptable (2) :</b> bonus de Cha aux jets de Volonté ; ne se cumule pas avec la grâce divine du paladin.</p><p><b>Sursaut de ferveur (3) :</b> une fois par jour, relance d’un jet de sauvegarde (aucune action), décidée avant de connaître le résultat ; le second jet compte.</p><p><b>Châtiment (6) :</b> une fois par jour (deux fois dès le niveau 18), la prochaine attaque au corps à corps gagne + bonus de Cha à l’attaque et + niveau de croisé aux dégâts.</p><p><b>Dur à cuire (10) :</b> le don Dur à cuire en don supplémentaire.</p><p><b>Cran (13) :</b> un jet de Vigueur ou de Volonté réussi contre un effet qui agirait encore en partie sur une réussite (moitié, partiel) l’annule ; pas inconscient ni endormi.</p>"
+  },
+  "source": {
+    "book": "Tome of Battle",
+    "page": 9,
+    "frRef": "traduction maison"
+  }
+}

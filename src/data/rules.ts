@@ -50,12 +50,23 @@ import classSkillOverrides from './custom/class-skill-overrides.json'
 import itemProperties from './srd/item-properties.json'
 import materials from './custom/materials.json'
 import warblade from './custom/tob/warblade.json'
+import crusader from './custom/tob/crusader.json'
+import swordsage from './custom/tob/swordsage.json'
+import crusaderProgression from './custom/tob/crusader-progression.json'
+import swordsageProgression from './custom/tob/swordsage-progression.json'
+import tobClassSummaries from './custom/tob/summaries-classes.json'
+import tobPrestige from './custom/tob/prestige-classes.json'
+import tobPrestigeSummaries from './custom/tob/summaries-prestige.json'
 import summaries from './custom/summaries.json'
 import warbladeProgression from './custom/tob/warblade-progression.json'
 import disciplines from './custom/tob/disciplines.json'
 import tobSkills from './custom/tob/skills.json'
 import diamondMind from './custom/tob/maneuvers-diamond-mind.json'
 import ironHeart from './custom/tob/maneuvers-iron-heart.json'
+import desertWind from './custom/tob/maneuvers-desert-wind.json'
+import devotedSpirit from './custom/tob/maneuvers-devoted-spirit.json'
+import settingSun from './custom/tob/maneuvers-setting-sun.json'
+import shadowHand from './custom/tob/maneuvers-shadow-hand.json'
 import stoneDragon from './custom/tob/maneuvers-stone-dragon.json'
 import tigerClaw from './custom/tob/maneuvers-tiger-claw.json'
 import whiteRaven from './custom/tob/maneuvers-white-raven.json'
@@ -93,7 +104,21 @@ function index<T extends { id: string }>(list: T[]): Map<string, T> {
 }
 
 export function buildRules(): Rules {
-  const classList = [...(classes as unknown as ClassDef[]), weaponMaster as ClassDef, warblade as unknown as ClassDef].map((c) => {
+  // Tome of Battle classes (house rule #15). A fixed bonus feat ("grantedFeats": crusader Die Hard) becomes a class
+  // feature that grants it.
+  const tobClasses = [warblade, crusader, swordsage].map((c) => {
+    const x = c as unknown as ClassDef & { grantedFeats?: { level: number; feat: string }[] }
+    const granted = (x.grantedFeats ?? []).map((g) => ({
+      id: `granted-${g.feat}`,
+      level: g.level,
+      name: (feats as FeatDef[]).find((f) => f.id === g.feat)?.name ?? { en: g.feat, fr: g.feat },
+      text: { en: '', fr: '' },
+      source: x.source,
+      grantsFeats: [g.feat],
+    }))
+    return granted.length ? ({ ...x, features: [...(x.features ?? []), ...granted] } as ClassDef) : (x as ClassDef)
+  })
+  const classList = [...(classes as unknown as ClassDef[]), weaponMaster as ClassDef, ...tobClasses, ...(tobPrestige as unknown as ClassDef[])].map((c) => {
     // House rule #4: homebrew class skills added to some classes.
     const extra = (classSkillOverrides as Record<string, string[]>)[c.id] ?? []
     return { ...c, classSkills: [...new Set([...c.classSkills, ...extra])] }
@@ -113,9 +138,21 @@ export function buildRules(): Rules {
     materials: index(materials as MaterialDef[]),
     disciplines: index(disciplines as DisciplineDef[]),
     maneuvers: index(
-      [...diamondMind, ...ironHeart, ...stoneDragon, ...tigerClaw, ...whiteRaven] as unknown as ManeuverDef[],
+      [
+        ...desertWind,
+        ...devotedSpirit,
+        ...diamondMind,
+        ...ironHeart,
+        ...settingSun,
+        ...shadowHand,
+        ...stoneDragon,
+        ...tigerClaw,
+        ...whiteRaven,
+      ] as unknown as ManeuverDef[],
     ),
-    martialProgression: new Map([['warblade', warbladeProgression as unknown as MartialProgression]]),
+    martialProgression: new Map(
+      [warbladeProgression, crusaderProgression, swordsageProgression].map((p) => [p.classId, p as unknown as MartialProgression]),
+    ),
     races: index(races as unknown as RaceDef[]),
     spells: index(spells as unknown as SpellDef[]),
     creatures: index(creatures as unknown as CreatureDef[]),
@@ -123,7 +160,7 @@ export function buildRules(): Rules {
     summonLists: summonLists as unknown as SummonList[],
     domains: index(domains as unknown as DomainDef[]),
     templates: index(templates as unknown as TemplateDef[]),
-    summaries: new Map(Object.entries(summaries as Record<string, I18n>)),
+    summaries: new Map(Object.entries({ ...(summaries as Record<string, I18n>), ...(tobClassSummaries as Record<string, I18n>), ...(tobPrestigeSummaries as Record<string, I18n>) })),
   }
 }
 

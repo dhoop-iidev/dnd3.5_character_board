@@ -209,7 +209,7 @@ def material(where, x):
 
 
 def prereq(where, p, feat_ids, skill_ids):
-    allowed = {"abilities", "bab", "feats", "fighterLevel", "characterLevel", "skills", "proficiency", "masterworkWeapon", "other"}
+    allowed = {"abilities", "bab", "feats", "fighterLevel", "characterLevel", "skills", "proficiency", "masterworkWeapon", "other", "martial"}
     if set(p) - allowed:
         err(where, f"bad prereq keys {set(p) - allowed}")
     for a in p.get("abilities", {}):
@@ -641,7 +641,7 @@ def main():
             prereq(w, c["requirements"], feat_ids, skill_ids)
     for cid in overrides:
         known = {c["id"] for c in files["classes.json"]} | {"weapon-master"} | {
-            json.loads(f.read_text(encoding="utf-8")).get("id") for f in (CUSTOM / "tob").glob("warblade.json")}
+            json.loads(f.read_text(encoding="utf-8")).get("id") for f in (CUSTOM / "tob").glob("*.json") if f.name in ("warblade.json", "crusader.json", "swordsage.json")}
         if cid not in known:
             err("class-skill-overrides", f"unknown class {cid}")
 
@@ -773,6 +773,10 @@ def main():
         for r in c.get("replaces", []):
             if r not in {x["id"] for x in custom["conditions.json"]}:
                 err(w, f"replaces unknown {r}")
+
+    import validate_tob
+    validate_tob.check(err, WARN.append, skill_ids | {x["id"] for x in json.loads((CUSTOM / "tob" / "skills.json").read_text(encoding="utf-8"))},
+                       feat_ids, {x["id"] for x in files["weapons.json"]})
 
     spot_checks(files, custom)
     if used_ext:

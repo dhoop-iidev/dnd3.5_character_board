@@ -1,0 +1,1216 @@
+[
+  {
+    "id": "assassins-stance",
+    "name": {
+      "en": "Assassin’s Stance",
+      "fr": "Posture de l’assassin"
+    },
+    "discipline": "shadow-hand",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: sneak attack +2d6 (or +2d6 to your existing sneak attack).",
+      "fr": "Posture : attaque sournoise +2d6 (ou +2d6 à votre attaque sournoise existante)."
+    },
+    "text": {
+      "en": "<p>While in this stance you gain <strong>sneak attack +2d6</strong>, as the rogue class feature. If you already have sneak attack, it deals <strong>+2d6</strong> more.</p>",
+      "fr": "<p>Dans cette posture, vous gagnez une <strong>attaque sournoise de +2d6</strong>, comme l’aptitude de classe du roublard. Si vous avez déjà l’attaque sournoise, elle inflige <strong>+2d6</strong> de plus.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6",
+        "type": {
+          "en": "sneak attack",
+          "fr": "attaque sournoise"
+        },
+        "condition": {
+          "en": "Only when sneak attack applies (target denied its Dex bonus to AC, or flanked)",
+          "fr": "Seulement quand l’attaque sournoise s’applique (cible privée de son bonus de Dex à la CA, ou prise en tenaille)"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Sneak attack rules: https://www.d20srd.org/srd/classes/rogue.htm (PH 50).",
+      "fr": "Règles de l’attaque sournoise : https://www.d20srd.org/srd/classes/rogue.htm (Manuel des Joueurs p. 50)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 75,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "balance-on-the-sky",
+    "name": {
+      "en": "Balance on the Sky",
+      "fr": "Équilibre sur le ciel"
+    },
+    "discipline": "shadow-hand",
+    "type": "stance",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Stance: air walk on yourself (one hand free; climbing costs 10 ft. per 5 ft. of height).",
+      "fr": "Posture : marche dans les airs sur vous-même (une main libre ; monter coûte 3 m par 1,50 m de hauteur)."
+    },
+    "text": {
+      "en": "<p>While in this stance you can use <strong><em>air walk</em></strong> on yourself only. Keep at least <strong>one hand empty</strong>. Going up costs <strong>10 ft. of movement per 5 ft.</strong> of height gained. If the stance ends while you are in mid-air, you fall.</p>",
+      "fr": "<p>Dans cette posture, vous bénéficiez de <strong><em>marche dans les airs</em></strong> sur vous seul. Gardez au moins <strong>une main libre</strong>. Monter coûte <strong>3 m de déplacement par 1,50 m</strong> de hauteur gagnée. Si la posture prend fin alors que vous êtes en l’air, vous tombez.</p>"
+    },
+    "notes": {
+      "en": "Air walk: https://www.d20srd.org/srd/spells/airWalk.htm (PH 196).",
+      "fr": "Marche dans les airs : https://www.d20srd.org/srd/spells/airWalk.htm (Manuel des Joueurs p. 196)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 75,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "bloodletting-strike",
+    "name": {
+      "en": "Bloodletting Strike",
+      "fr": "Frappe saignante"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude partial, DC 15 + Wis mod",
+      "fr": "Vigueur partiel, DD 15 + mod. de Sag"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit, 4 Con damage (Fortitude: 2).",
+      "fr": "Attaque au contact ; si elle touche, affaiblissement temporaire de 4 points de Con (Vigueur : 2)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, the target takes normal damage plus <strong>4 points of Constitution damage</strong>. A <strong>Fortitude save (DC 15 + your Wis modifier)</strong> reduces the Constitution damage to <strong>2</strong>; the normal damage still applies.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux plus un <strong>affaiblissement temporaire de 4 points de Constitution</strong>. Un <strong>jet de Vigueur (DD 15 + mod. de Sag)</strong> réduit l’affaiblissement à <strong>2</strong> points ; les dégâts normaux s’appliquent quand même.</p>"
+    },
+    "notes": {
+      "en": "The entry says strike; the book’s summary list (p. 49) says boost. Entered as a strike (full entry, standard action, includes the attack).",
+      "fr": "L’entrée dit frappe ; la liste récapitulative du livre (p. 49) dit coup de pouce. Saisie comme frappe (entrée complète, action simple, comprend l’attaque)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 75,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "child-of-shadow",
+    "name": {
+      "en": "Child of Shadow",
+      "fr": "Enfant de l’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Stance: if you move at least 10 ft. on your turn, you have concealment until your next turn.",
+      "fr": "Posture : si vous vous déplacez d’au moins 3 m pendant votre tour, vous bénéficiez d’un camouflage jusqu’à votre prochain tour."
+    },
+    "text": {
+      "en": "<p>If you move <strong>at least 10 ft.</strong> during your turn, you gain <strong>concealment</strong> (20% miss chance) against melee and ranged attacks until the start of your next turn, with its normal benefits. It does not let you hide in plain sight: you still need terrain that allows a Hide check. Foes still know where you are.</p>",
+      "fr": "<p>Si vous vous déplacez d’<strong>au moins 3 m</strong> pendant votre tour, vous bénéficiez d’un <strong>camouflage</strong> (20 % de chances de rater) contre les attaques au corps à corps et à distance jusqu’au début de votre prochain tour, avec ses avantages normaux. Cela ne permet pas de se cacher à découvert : il vous faut toujours un élément de terrain permettant un test de Discrétion. Les adversaires savent toujours où vous êtes.</p>"
+    },
+    "notes": {
+      "en": "Concealment: https://www.d20srd.org/srd/combat/combatModifiers.htm#concealment.",
+      "fr": "Camouflage : https://www.d20srd.org/srd/combat/combatModifiers.htm#concealment."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 76,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "clinging-shadow-strike",
+    "name": {
+      "en": "Clinging Shadow Strike",
+      "fr": "Frappe de l’ombre tenace"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude partial, DC 11 + Wis mod",
+      "fr": "Vigueur partiel, DD 11 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack +1d6; Fortitude save or the target has a 20% miss chance on its attacks for 1 round.",
+      "fr": "Attaque au contact +1d6 ; jet de Vigueur ou la cible a 20 % de chances de rater ses attaques pendant 1 round."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, it deals <strong>+1d6</strong> damage and the target must succeed on a <strong>Fortitude save (DC 11 + your Wis modifier)</strong> or have a <strong>20% miss chance</strong> on all its melee and ranged attacks for <strong>1 round</strong>. A successful save negates the miss chance, not the extra damage.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, elle inflige <strong>+1d6</strong> points de dégâts et la cible doit réussir un <strong>jet de Vigueur (DD 11 + mod. de Sag)</strong> ou avoir <strong>20 % de chances de rater</strong> toutes ses attaques au corps à corps et à distance pendant <strong>1 round</strong>. La réussite annule la chance de rater, pas les dégâts supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "1d6"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 76,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "cloak-of-deception",
+    "name": {
+      "en": "Cloak of Deception",
+      "fr": "Manteau de tromperie"
+    },
+    "discipline": "shadow-hand",
+    "type": "boost",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "You become invisible (as greater invisibility) until the end of your turn.",
+      "fr": "Vous devenez invisible (comme invisibilité suprême) jusqu’à la fin de votre tour."
+    },
+    "text": {
+      "en": "<p>You turn <strong>invisible</strong>, as the <em>greater invisibility</em> spell, until the <strong>end of your current turn</strong>; attacking does not end it.</p>",
+      "fr": "<p>Vous devenez <strong>invisible</strong>, comme avec le sort <em>invisibilité suprême</em>, jusqu’à la <strong>fin de votre tour</strong> ; attaquer n’y met pas fin.</p>"
+    },
+    "notes": {
+      "en": "Greater invisibility: https://www.d20srd.org/srd/spells/invisibilityGreater.htm (PH 245). Invisible attackers get +2 on attack rolls and ignore the target’s Dex bonus to AC (https://www.d20srd.org/srd/combat/combatModifiers.htm).",
+      "fr": "Invisibilité suprême : https://www.d20srd.org/srd/spells/invisibilityGreater.htm (Manuel des Joueurs p. 245). Un attaquant invisible gagne +2 à l’attaque et ignore le bonus de Dex à la CA de la cible (https://www.d20srd.org/srd/combat/combatModifiers.htm)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 76,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "dance-of-the-spider",
+    "name": {
+      "en": "Dance of the Spider",
+      "fr": "Danse de l’araignée"
+    },
+    "discipline": "shadow-hand",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: climb speed 20 ft., walk on walls and ceilings without Climb checks (one hand free).",
+      "fr": "Posture : VD d’escalade de 6 m, marche sur les murs et plafonds sans test d’Escalade (une main libre)."
+    },
+    "text": {
+      "en": "<p>While in this stance you gain a benefit like <em>spider climb</em>: a <strong>climb speed of 20 ft.</strong>, and no Climb check is needed to move on vertical or horizontal surfaces, even upside down on a ceiling. You keep your Dex bonus to AC while climbing, you take no penalties and foes get no bonus against you. You need <strong>at least one hand free</strong>, and you cannot run while climbing this way.</p>",
+      "fr": "<p>Dans cette posture, vous bénéficiez d’un effet proche de <em>pattes d’araignée</em> : une <strong>VD d’escalade de 6 m</strong>, et aucun test d’Escalade n’est nécessaire sur une surface verticale ou horizontale, même au plafond. Vous gardez votre bonus de Dex à la CA en escaladant, vous ne subissez aucun malus et vos adversaires n’ont aucun bonus contre vous. Il vous faut <strong>au moins une main libre</strong>, et vous ne pouvez pas courir en escaladant ainsi.</p>"
+    },
+    "notes": {
+      "en": "Spider climb: https://www.d20srd.org/srd/spells/spiderClimb.htm (PH 283). The book does not call this maneuver supernatural, so it is entered as extraordinary (maneuvers are extraordinary unless stated, pp. 39–40).",
+      "fr": "Pattes d’araignée : https://www.d20srd.org/srd/spells/spiderClimb.htm (Manuel des Joueurs p. 283). Le livre ne qualifie pas cette manœuvre de surnaturelle : elle est saisie comme extraordinaire (les manœuvres sont extraordinaires sauf mention contraire, p. 39–40)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 76,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "death-in-the-dark",
+    "name": {
+      "en": "Death in the Dark",
+      "fr": "La mort dans le noir"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude partial, DC 17 + Wis mod",
+      "fr": "Vigueur partiel, DD 17 + mod. de Sag"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Against a flat-footed foe: melee attack, then Fortitude save or +15d6 damage (+5d6 on a success).",
+      "fr": "Contre un adversaire pris au dépourvu : attaque au contact, puis jet de Vigueur ou +15d6 dégâts (+5d6 en cas de réussite)."
+    },
+    "text": {
+      "en": "<p>Works only against a <strong>flat-footed</strong> opponent who is <strong>vulnerable to critical hits</strong>. Make one melee attack. If it hits, the target takes normal damage and makes a <strong>Fortitude save (DC 17 + your Wis modifier)</strong>: on a failure it takes an extra <strong>15d6</strong>, on a success an extra <strong>5d6</strong>.</p>",
+      "fr": "<p>Ne fonctionne que contre un adversaire <strong>pris au dépourvu</strong> et <strong>sensible aux coups critiques</strong>. Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux et fait un <strong>jet de Vigueur (DD 17 + mod. de Sag)</strong> : en cas d’échec, elle subit <strong>15d6</strong> points de dégâts supplémentaires, en cas de réussite <strong>5d6</strong>.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "15d6",
+        "condition": {
+          "en": "Target fails its Fortitude save",
+          "fr": "La cible rate son jet de Vigueur"
+        }
+      },
+      {
+        "dice": "5d6",
+        "condition": {
+          "en": "Target succeeds on its Fortitude save (instead of 15d6)",
+          "fr": "La cible réussit son jet de Vigueur (au lieu de 15d6)"
+        }
+      }
+    ],
+    "notes": {
+      "en": "No prerequisite is printed for this 7th-level maneuver (same situation as rulings-tob T4).",
+      "fr": "Aucun prérequis n’est imprimé pour cette manœuvre de niveau 7 (même cas que rulings-tob T4)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 76,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "drain-vitality",
+    "name": {
+      "en": "Drain Vitality",
+      "fr": "Drain de vitalité"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude negates, DC 12 + Wis mod",
+      "fr": "Vigueur annule, DD 12 + mod. de Sag"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; on a hit, Fortitude save or 2 Con damage.",
+      "fr": "Attaque au contact ; si elle touche, jet de Vigueur ou affaiblissement temporaire de 2 points de Con."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, the target takes normal damage and must succeed on a <strong>Fortitude save (DC 12 + your Wis modifier)</strong> or take <strong>2 points of Constitution damage</strong>. A successful save negates only the Constitution damage.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux et doit réussir un <strong>jet de Vigueur (DD 12 + mod. de Sag)</strong> ou subir un <strong>affaiblissement temporaire de 2 points de Constitution</strong>. La réussite n’annule que l’affaiblissement.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 77,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "enervating-shadow-strike",
+    "name": {
+      "en": "Enervating Shadow Strike",
+      "fr": "Frappe de l’ombre débilitante"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude negates, DC 18 + Wis mod",
+      "fr": "Vigueur annule, DD 18 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack; on a hit, Fortitude save or 1d4 negative levels; you gain 5 temporary hp per level.",
+      "fr": "Attaque au contact ; si elle touche, jet de Vigueur ou 1d4 niveaux négatifs ; vous gagnez 5 pv temporaires par niveau."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, the target takes normal damage and must succeed on a <strong>Fortitude save (DC 18 + your Wis modifier)</strong> or gain <strong>1d4 negative levels</strong>, which vanish after <strong>24 hours</strong>. You gain <strong>5 temporary hit points</strong> per negative level bestowed, until the end of the encounter. A creature with as many negative levels as Hit Dice dies.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux et doit réussir un <strong>jet de Vigueur (DD 18 + mod. de Sag)</strong> ou gagner <strong>1d4 niveaux négatifs</strong>, qui disparaissent au bout de <strong>24 heures</strong>. Vous gagnez <strong>5 points de vie temporaires</strong> par niveau négatif infligé, jusqu’à la fin de la rencontre. Une créature qui a autant de niveaux négatifs que de DV meurt.</p>"
+    },
+    "notes": {
+      "en": "Each negative level: −1 on attack rolls, saves, skill and ability checks and effective level; a spellcaster loses one spell or slot of her highest level (https://www.d20srd.org/srd/specialAbilities.htm#energyDrainandNegativeLevels).",
+      "fr": "Chaque niveau négatif : −1 aux jets d’attaque, de sauvegarde, aux tests de compétence et de caractéristique et au niveau effectif ; un lanceur de sorts perd un sort ou un emplacement de son plus haut niveau (https://www.d20srd.org/srd/specialAbilities.htm#energyDrainandNegativeLevels)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 77,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "five-shadow-creeping-ice-enervation-strike",
+    "name": {
+      "en": "Five-Shadow Creeping Ice Enervation Strike",
+      "fr": "Frappe débilitante des cinq ombres de glace rampante"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 9,
+    "prereqCount": 5,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 minute",
+      "fr": "1 minute"
+    },
+    "save": {
+      "en": "Fortitude partial, DC 19 + Wis mod; see text",
+      "fr": "Vigueur partiel, DD 19 + mod. de Sag ; voir texte"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack +15d6, plus a d20 roll for ability damage and a special effect (Fortitude partial).",
+      "fr": "Attaque au contact +15d6, plus un d20 pour un affaiblissement de caractéristique et un effet spécial (Vigueur partiel)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. On a hit it deals <strong>+15d6</strong> and you roll <strong>d20</strong>: <strong>1–7</strong> legs: 2d6 Dex damage, speed 0; <strong>8–14</strong> arms: 2d6 Str damage, −6 on attack rolls and Concentration checks; <strong>15–20</strong> heart: 2d6 Dex and 2d6 Str damage, plus 2d6 Con damage. Works on any anatomy. A <strong>Fortitude save (DC 19 + your Wis modifier)</strong> negates the special effect and halves the ability damage (the 15d6 still applies). Special effects last <strong>1d6 rounds</strong>.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, elle inflige <strong>+15d6</strong> et vous lancez <strong>1d20</strong> : <strong>1–7</strong> jambes : affaiblissement de 2d6 Dex, VD 0 ; <strong>8–14</strong> bras : affaiblissement de 2d6 For, −6 aux jets d’attaque et aux tests de Concentration ; <strong>15–20</strong> cœur : affaiblissement de 2d6 Dex et 2d6 For, plus 2d6 Con. Fonctionne quelle que soit l’anatomie. Un <strong>jet de Vigueur (DD 19 + mod. de Sag)</strong> annule l’effet spécial et réduit de moitié l’affaiblissement (les 15d6 restent). Les effets spéciaux durent <strong>1d6 rounds</strong>.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "15d6"
+      }
+    ],
+    "notes": {
+      "en": "Ability damage here is temporary ability damage. The header gives a 1-minute duration; the special effects themselves last 1d6 rounds.",
+      "fr": "Il s’agit d’affaiblissements temporaires de caractéristique. L’en-tête indique une durée de 1 minute ; les effets spéciaux eux-mêmes durent 1d6 rounds."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 77,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "ghost-blade",
+    "name": {
+      "en": "Ghost Blade",
+      "fr": "Lame fantôme"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack; the target is flat-footed against it.",
+      "fr": "Attaque au contact ; la cible est prise au dépourvu contre elle."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. An illusory double of your weapon draws the foe’s guard: the target is <strong>flat-footed</strong> against this attack.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Un double illusoire de votre arme détourne la garde de l’adversaire : la cible est <strong>prise au dépourvu</strong> contre cette attaque.</p>"
+    },
+    "notes": {
+      "en": "Flat-footed: the target loses its Dex bonus to AC against this attack, so sneak attack applies.",
+      "fr": "Pris au dépourvu : la cible perd son bonus de Dex à la CA contre cette attaque, l’attaque sournoise s’applique donc."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 77,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "hand-of-death",
+    "name": {
+      "en": "Hand of Death",
+      "fr": "Main de la mort"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Touch",
+      "fr": "Contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "Créature touchée"
+    },
+    "duration": {
+      "en": "1d3 rounds",
+      "fr": "1d3 rounds"
+    },
+    "save": {
+      "en": "Fortitude negates, DC 14 + Wis mod",
+      "fr": "Vigueur annule, DD 14 + mod. de Sag"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Against a flat-footed foe: melee touch attack, Fortitude save or paralyzed for 1d3 rounds.",
+      "fr": "Contre un adversaire pris au dépourvu : attaque de contact au corps à corps, jet de Vigueur ou paralysé pendant 1d3 rounds."
+    },
+    "text": {
+      "en": "<p>Works only against a <strong>flat-footed</strong> opponent. Make a <strong>melee touch attack</strong>. If it hits, the target must succeed on a <strong>Fortitude save (DC 14 + your Wis modifier)</strong> or be <strong>paralyzed for 1d3 rounds</strong>.</p>",
+      "fr": "<p>Ne fonctionne que contre un adversaire <strong>pris au dépourvu</strong>. Faites une <strong>attaque de contact au corps à corps</strong>. Si elle touche, la cible doit réussir un <strong>jet de Vigueur (DD 14 + mod. de Sag)</strong> ou être <strong>paralysée pendant 1d3 rounds</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 77,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "island-of-blades",
+    "name": {
+      "en": "Island of Blades",
+      "fr": "Île de lames"
+    },
+    "discipline": "shadow-hand",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: you and an ally adjacent to the same foe flank it.",
+      "fr": "Posture : un allié et vous, adjacents au même adversaire, le prenez en tenaille."
+    },
+    "text": {
+      "en": "<p>While in this stance, whenever you and an ally are both <strong>adjacent to the same creature</strong>, you both get the benefit of <strong>flanking</strong> it, wherever you stand. This works against several foes at once, and your allies benefit as well.</p>",
+      "fr": "<p>Dans cette posture, chaque fois qu’un allié et vous êtes tous deux <strong>adjacents à la même créature</strong>, vous bénéficiez tous deux de la <strong>prise en tenaille</strong> contre elle, quelle que soit votre position. Cela fonctionne contre plusieurs adversaires à la fois, et vos alliés en profitent aussi.</p>"
+    },
+    "notes": {
+      "en": "Flanking gives +2 on melee attack rolls and enables sneak attack (https://www.d20srd.org/srd/combat/combatModifiers.htm#flanking). Not entered as an effect, to avoid counting flanking twice.",
+      "fr": "La prise en tenaille donne +2 aux jets d’attaque au corps à corps et permet l’attaque sournoise (https://www.d20srd.org/srd/combat/combatModifiers.htm#flanking). Non saisie comme effet, pour ne pas compter la tenaille deux fois."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 78,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "obscuring-shadow-veil",
+    "name": {
+      "en": "Obscuring Shadow Veil",
+      "fr": "Voile d’ombre aveuglant"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "Fortitude partial, DC 14 + Wis mod",
+      "fr": "Vigueur partiel, DD 14 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack +5d6; Fortitude save or the target has a 50% miss chance on its attacks for 1 round.",
+      "fr": "Attaque au contact +5d6 ; jet de Vigueur ou la cible a 50 % de chances de rater ses attaques pendant 1 round."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, it deals <strong>+5d6</strong> damage and the target must succeed on a <strong>Fortitude save (DC 14 + your Wis modifier)</strong> or have a <strong>50% miss chance</strong> on all its melee and ranged attacks for <strong>1 round</strong>. A successful save negates the miss chance, not the extra damage.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, elle inflige <strong>+5d6</strong> points de dégâts et la cible doit réussir un <strong>jet de Vigueur (DD 14 + mod. de Sag)</strong> ou avoir <strong>50 % de chances de rater</strong> toutes ses attaques au corps à corps et à distance pendant <strong>1 round</strong>. La réussite annule la chance de rater, pas les dégâts supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "5d6"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 78,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "one-with-shadow",
+    "name": {
+      "en": "One with Shadow",
+      "fr": "Ne faire qu’un avec l’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "counter",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Until the start of your next turn",
+      "fr": "Jusqu’au début de votre prochain tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "You become incorporeal, with your gear, until the start of your next turn.",
+      "fr": "Vous devenez intangible, avec votre équipement, jusqu’au début de votre prochain tour."
+    },
+    "text": {
+      "en": "<p>You become <strong>incorporeal</strong> until the <strong>start of your next turn</strong>, with all the benefits and drawbacks of the incorporeal subtype (book sidebar, p. 79, from <em>Monster Manual III</em>). Your gear becomes incorporeal too, but not a living creature you touch or carry.</p>",
+      "fr": "<p>Vous devenez <strong>intangible</strong> jusqu’au <strong>début de votre prochain tour</strong>, avec tous les avantages et inconvénients du sous-type intangible (encadré du livre p. 79, repris du <em>Manuel des Monstres III</em>). Votre équipement devient aussi intangible, mais pas une créature vivante que vous touchez ou portez.</p>"
+    },
+    "notes": {
+      "en": "Incorporeal in short: hurt only by magic weapons, spells and supernatural effects, with 50% to ignore damage from corporeal sources; can pass through solid objects; your non-magical weapons cannot affect corporeal foes. SRD: https://www.d20srd.org/srd/specialAbilities.htm#incorporeality. The book does not call this maneuver supernatural, so it is entered as extraordinary (maneuvers are extraordinary unless stated, pp. 39–40).",
+      "fr": "L’intangibilité en bref : seuls les armes magiques, les sorts et les effets surnaturels vous blessent, avec 50 % de chances d’ignorer les dégâts d’une source matérielle ; vous traversez les objets solides ; vos armes non magiques n’affectent pas les adversaires matériels. DRS : https://www.d20srd.org/srd/specialAbilities.htm#incorporeality. Le livre ne qualifie pas cette manœuvre de surnaturelle : elle est saisie comme extraordinaire (les manœuvres sont extraordinaires sauf mention contraire, p. 39–40)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 78,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-blade-technique",
+    "name": {
+      "en": "Shadow Blade Technique",
+      "fr": "Technique de la lame d’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Roll 2d20 for the attack: use the higher normally, or the lower (or a tie) for +1d6 cold damage.",
+      "fr": "Lancez 2d20 pour l’attaque : gardez le plus haut normalement, ou le plus bas (ou un double) pour +1d6 dégâts de froid."
+    },
+    "text": {
+      "en": "<p>Make one melee attack rolling <strong>2d20</strong> and pick one die. With the <strong>higher</strong> die, resolve the attack normally. With the <strong>lower</strong> die, or if both dice match, the attack deals <strong>+1d6 cold</strong> damage if it hits.</p>",
+      "fr": "<p>Faites une attaque au corps à corps en lançant <strong>2d20</strong> et choisissez un dé. Avec le dé <strong>le plus haut</strong>, l’attaque se résout normalement. Avec le dé <strong>le plus bas</strong>, ou si les deux dés sont égaux, l’attaque inflige <strong>+1d6 points de dégâts de froid</strong> si elle touche.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "1d6",
+        "type": {
+          "en": "cold",
+          "fr": "froid"
+        },
+        "condition": {
+          "en": "Only if you use the lower d20 (or both dice match)",
+          "fr": "Seulement si vous gardez le d20 le plus bas (ou si les deux dés sont égaux)"
+        }
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 78,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-blink",
+    "name": {
+      "en": "Shadow Blink",
+      "fr": "Clignotement d’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "other",
+    "descriptors": [
+      "teleportation"
+    ],
+    "level": 7,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "50 ft.",
+      "fr": "15 m"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Teleport up to 50 ft. (line of sight and effect) as a swift action.",
+      "fr": "Téléportation jusqu’à 15 m (ligne de vue et d’effet) par une action rapide."
+    },
+    "text": {
+      "en": "<p>As <em>shadow jaunt</em>, but initiated as a <strong>swift action</strong>. You vanish in a cloud of darkness and <strong>teleport up to 50 ft.</strong> You need line of sight and line of effect to the destination. If the destination is occupied, you do not move and the maneuver is expended for nothing.</p>",
+      "fr": "<p>Comme <em>escapade d’ombre</em>, mais initiée par une <strong>action rapide</strong>. Vous disparaissez dans un nuage de ténèbres et vous <strong>téléportez à 15 m au plus</strong>. Il vous faut une ligne de vue et une ligne d’effet vers la destination. Si elle est occupée, vous ne bougez pas et la manœuvre est dépensée pour rien.</p>"
+    },
+    "notes": {
+      "en": "The book gives no maneuver type (only the [Teleportation] descriptor) and no prerequisite. The book does not call this maneuver supernatural, so it is entered as extraordinary (maneuvers are extraordinary unless stated, pp. 39–40).",
+      "fr": "Le livre ne donne pas de type de manœuvre (seulement le descripteur [téléportation]) ni de prérequis. Le livre ne qualifie pas cette manœuvre de surnaturelle : elle est saisie comme extraordinaire (les manœuvres sont extraordinaires sauf mention contraire, p. 39–40)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 78,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-garrote",
+    "name": {
+      "en": "Shadow Garrote",
+      "fr": "Garrot d’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "60 ft.",
+      "fr": "18 m"
+    },
+    "target": {
+      "en": "One living creature",
+      "fr": "Une créature vivante"
+    },
+    "duration": {
+      "en": "See text",
+      "fr": "Voir texte"
+    },
+    "save": {
+      "en": "Fortitude partial, DC 13 + Wis mod",
+      "fr": "Vigueur partiel, DD 13 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Ranged touch attack (60 ft.): 5d6 damage; Fortitude save or flat-footed until its next turn. Living targets only.",
+      "fr": "Attaque de contact à distance (18 m) : 5d6 dégâts ; jet de Vigueur ou pris au dépourvu jusqu’à son prochain tour. Créatures vivantes seulement."
+    },
+    "text": {
+      "en": "<p>Hurl a strand of shadow: make a <strong>ranged touch attack</strong> against a creature within <strong>60 ft.</strong> On a hit it takes <strong>5d6</strong> damage and must succeed on a <strong>Fortitude save (DC 13 + your Wis modifier)</strong> or be <strong>flat-footed</strong> until the start of its next turn. No effect on nonliving creatures such as constructs and undead.</p>",
+      "fr": "<p>Lancez un filament d’ombre : faites une <strong>attaque de contact à distance</strong> contre une créature à <strong>18 m</strong> au plus. Si elle touche, la cible subit <strong>5d6</strong> points de dégâts et doit réussir un <strong>jet de Vigueur (DD 13 + mod. de Sag)</strong> ou être <strong>prise au dépourvu</strong> jusqu’au début de son prochain tour. Sans effet sur les créatures non vivantes comme les créatures artificielles et les morts-vivants.</p>"
+    },
+    "notes": {
+      "en": "The 5d6 is the maneuver’s own damage (no weapon damage).",
+      "fr": "Les 5d6 sont les dégâts propres de la manœuvre (pas de dégâts d’arme)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 78,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-jaunt",
+    "name": {
+      "en": "Shadow Jaunt",
+      "fr": "Escapade d’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "other",
+    "descriptors": [
+      "teleportation"
+    ],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "50 ft.",
+      "fr": "15 m"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Teleport up to 50 ft. (line of sight and effect) as a standard action.",
+      "fr": "Téléportation jusqu’à 15 m (ligne de vue et d’effet) par une action simple."
+    },
+    "text": {
+      "en": "<p>You vanish in a cloud of darkness and <strong>teleport up to 50 ft.</strong> You need line of sight and line of effect to the destination. If the destination is occupied, you do not move and the maneuver is expended for nothing.</p>",
+      "fr": "<p>Vous disparaissez dans un nuage de ténèbres et vous <strong>téléportez à 15 m au plus</strong>. Il vous faut une ligne de vue et une ligne d’effet vers la destination. Si elle est occupée, vous ne bougez pas et la manœuvre est dépensée pour rien.</p>"
+    },
+    "notes": {
+      "en": "The book gives no maneuver type (only the [Teleportation] descriptor). The book does not call this maneuver supernatural, so it is entered as extraordinary (maneuvers are extraordinary unless stated, pp. 39–40).",
+      "fr": "Le livre ne donne pas de type de manœuvre (seulement le descripteur [téléportation]). Le livre ne qualifie pas cette manœuvre de surnaturelle : elle est saisie comme extraordinaire (les manœuvres sont extraordinaires sauf mention contraire, p. 39–40)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 79,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-noose",
+    "name": {
+      "en": "Shadow Noose",
+      "fr": "Nœud coulant d’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "60 ft.",
+      "fr": "18 m"
+    },
+    "target": {
+      "en": "One flat-footed living creature",
+      "fr": "Une créature vivante prise au dépourvu"
+    },
+    "duration": {
+      "en": "1 round",
+      "fr": "1 round"
+    },
+    "save": {
+      "en": "Fortitude partial, DC 16 + Wis mod",
+      "fr": "Vigueur partiel, DD 16 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Ranged touch attack (60 ft.) on a flat-footed living foe: 8d6 damage; Fortitude save or stunned 1 round.",
+      "fr": "Attaque de contact à distance (18 m) contre un adversaire vivant pris au dépourvu : 8d6 dégâts ; jet de Vigueur ou étourdi 1 round."
+    },
+    "text": {
+      "en": "<p>Works only against a <strong>flat-footed</strong> target. Make a <strong>ranged touch attack</strong> against it within <strong>60 ft.</strong> On a hit it takes <strong>8d6</strong> damage and must succeed on a <strong>Fortitude save (DC 16 + your Wis modifier)</strong> or be <strong>stunned for 1 round</strong>; a success negates only the stun. No effect on nonliving creatures such as constructs and undead.</p>",
+      "fr": "<p>Ne fonctionne que contre une cible <strong>prise au dépourvu</strong>. Faites une <strong>attaque de contact à distance</strong> contre elle à <strong>18 m</strong> au plus. Si elle touche, la cible subit <strong>8d6</strong> points de dégâts et doit réussir un <strong>jet de Vigueur (DD 16 + mod. de Sag)</strong> ou être <strong>étourdie pendant 1 round</strong> ; la réussite n’annule que l’étourdissement. Sans effet sur les créatures non vivantes comme les créatures artificielles et les morts-vivants.</p>"
+    },
+    "notes": {
+      "en": "The 8d6 is the maneuver’s own damage (no weapon damage). No prerequisite is printed.",
+      "fr": "Les 8d6 sont les dégâts propres de la manœuvre (pas de dégâts d’arme). Aucun prérequis n’est imprimé."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 79,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shadow-stride",
+    "name": {
+      "en": "Shadow Stride",
+      "fr": "Foulée d’ombre"
+    },
+    "discipline": "shadow-hand",
+    "type": "other",
+    "descriptors": [
+      "teleportation"
+    ],
+    "level": 5,
+    "prereqCount": 0,
+    "action": "move",
+    "range": {
+      "en": "50 ft.",
+      "fr": "15 m"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Teleport up to 50 ft. (line of sight and effect) as a move action.",
+      "fr": "Téléportation jusqu’à 15 m (ligne de vue et d’effet) par une action de mouvement."
+    },
+    "text": {
+      "en": "<p>As <em>shadow jaunt</em>, but initiated as a <strong>move action</strong>. You vanish in a cloud of darkness and <strong>teleport up to 50 ft.</strong> You need line of sight and line of effect to the destination. If the destination is occupied, you do not move and the maneuver is expended for nothing.</p>",
+      "fr": "<p>Comme <em>escapade d’ombre</em>, mais initiée par une <strong>action de mouvement</strong>. Vous disparaissez dans un nuage de ténèbres et vous <strong>téléportez à 15 m au plus</strong>. Il vous faut une ligne de vue et une ligne d’effet vers la destination. Si elle est occupée, vous ne bougez pas et la manœuvre est dépensée pour rien.</p>"
+    },
+    "notes": {
+      "en": "The book gives no maneuver type (only the [Teleportation] descriptor) and no prerequisite. The book does not call this maneuver supernatural, so it is entered as extraordinary (maneuvers are extraordinary unless stated, pp. 39–40).",
+      "fr": "Le livre ne donne pas de type de manœuvre (seulement le descripteur [téléportation]) ni de prérequis. Le livre ne qualifie pas cette manœuvre de surnaturelle : elle est saisie comme extraordinaire (les manœuvres sont extraordinaires sauf mention contraire, p. 39–40)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 80,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "stalker-in-the-night",
+    "name": {
+      "en": "Stalker in the Night",
+      "fr": "Le traqueur dans la nuit"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 0,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Move up to your speed and attack once at any point; if hidden, you keep your Hide and Move Silently results.",
+      "fr": "Déplacez-vous jusqu’à votre VD et attaquez une fois à n’importe quel moment ; si vous étiez caché, vous gardez vos résultats de Discrétion et de Déplacement silencieux."
+    },
+    "text": {
+      "en": "<p>Move up to <strong>your speed</strong> and make <strong>one melee attack</strong> at any point of the move. If you were hidden before, you <strong>keep your Hide and Move Silently results</strong> despite moving and attacking: if you end your turn where you can hide, foes must make Spot and Listen checks as usual to notice you.</p>",
+      "fr": "<p>Déplacez-vous jusqu’à <strong>votre VD</strong> et portez <strong>une attaque au corps à corps</strong> à n’importe quel moment du déplacement. Si vous étiez caché, vous <strong>gardez vos résultats de Discrétion et de Déplacement silencieux</strong> malgré le déplacement et l’attaque : si vous finissez votre tour à un endroit où vous pouvez vous cacher, les adversaires doivent faire des tests de Détection et de Perception auditive comme d’habitude pour vous repérer.</p>"
+    },
+    "notes": {
+      "en": "No prerequisite is printed for this 6th-level maneuver.",
+      "fr": "Aucun prérequis n’est imprimé pour cette manœuvre de niveau 6."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 80,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "step-of-the-dancing-moth",
+    "name": {
+      "en": "Step of the Dancing Moth",
+      "fr": "Pas de la phalène dansante"
+    },
+    "discipline": "shadow-hand",
+    "type": "stance",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: walk up to 5 ft. above the ground at speed 20 ft., ignoring terrain (even water); no running.",
+      "fr": "Posture : marchez jusqu’à 1,50 m au-dessus du sol à une VD de 6 m, en ignorant le terrain (même l’eau) ; pas de course."
+    },
+    "text": {
+      "en": "<p>While in this stance you can walk up to <strong>5 ft. above the ground</strong>. Your speed becomes <strong>20 ft.</strong> and you cannot run. You ignore any terrain feature no higher than 5 ft. (difficult terrain, lava, water…). You also ignore the usual Hide and Move Silently penalties for moving quickly.</p>",
+      "fr": "<p>Dans cette posture, vous pouvez marcher jusqu’à <strong>1,50 m au-dessus du sol</strong>. Votre VD devient <strong>6 m</strong> et vous ne pouvez pas courir. Vous ignorez tout élément de terrain qui ne dépasse pas 1,50 m (terrain difficile, lave, eau…). Vous ignorez aussi les malus habituels de Discrétion et de Déplacement silencieux dus à un déplacement rapide.</p>"
+    },
+    "notes": {
+      "en": "Speed is set to 20 ft. (not a bonus): not computed by the app. The book does not call this maneuver supernatural, so it is entered as extraordinary (maneuvers are extraordinary unless stated, pp. 39–40).",
+      "fr": "La VD est fixée à 6 m (pas un bonus) : non calculé par l’application. Le livre ne qualifie pas cette manœuvre de surnaturelle : elle est saisie comme extraordinaire (les manœuvres sont extraordinaires sauf mention contraire, p. 39–40)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 80,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "strength-draining-strike",
+    "name": {
+      "en": "Strength Draining Strike",
+      "fr": "Frappe draineuse de force"
+    },
+    "discipline": "shadow-hand",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Fortitude half, DC 13 + Wis mod",
+      "fr": "Vigueur 1/2, DD 13 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack; on a hit, 4 Str damage (Fortitude halves).",
+      "fr": "Attaque au contact ; si elle touche, affaiblissement temporaire de 4 points de For (Vigueur : moitié)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. Besides normal damage, it deals <strong>4 points of Strength damage</strong>. A <strong>Fortitude save (DC 13 + your Wis modifier)</strong> halves the Strength damage; the normal damage is unaffected.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. En plus des dégâts normaux, elle inflige un <strong>affaiblissement temporaire de 4 points de Force</strong>. Un <strong>jet de Vigueur (DD 13 + mod. de Sag)</strong> réduit l’affaiblissement de moitié ; les dégâts normaux ne changent pas.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 80,
+      "frRef": "traduction maison"
+    }
+  }
+]

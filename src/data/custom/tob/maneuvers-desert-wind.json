@@ -1,0 +1,1461 @@
+[
+  {
+    "id": "blistering-flourish",
+    "name": {
+      "en": "Blistering Flourish",
+      "fr": "Moulinet aveuglant"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "1 minute",
+      "fr": "1 minute"
+    },
+    "save": {
+      "en": "Fortitude negates, DC 11 + Wis mod",
+      "fr": "Vigueur annule, DD 11 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Flash of light: every other creature within 30 ft. is dazzled for 1 minute (Fort negates).",
+      "fr": "Éclair de lumière : toute autre créature à 9 m ou moins est éblouie 1 minute (Vigueur annule)."
+    },
+    "text": {
+      "en": "<p>Your weapon flares and releases a blinding flash in a <strong>30-ft.-radius burst</strong> centered on you. Every creature in the area except you makes a <strong>Fortitude save (DC 11 + your Wis modifier)</strong> or is <strong>dazzled for 1 minute</strong>. No attack roll and no damage.</p>",
+      "fr": "<p>Votre arme s’embrase et libère un éclair aveuglant dans une <strong>explosion de 9 m de rayon</strong> centrée sur vous. Toute créature dans la zone, sauf vous, fait un <strong>jet de Vigueur (DD 11 + mod. de Sag)</strong> ou est <strong>éblouie pendant 1 minute</strong>. Ni jet d’attaque ni dégâts.</p>"
+    },
+    "area": {
+      "en": "30-ft.-radius burst centered on you",
+      "fr": "Explosion de 9 m de rayon centrée sur vous"
+    },
+    "notes": {
+      "en": "Dazzled: −1 on attack rolls and on Search and Spot checks (SRD condition).",
+      "fr": "Ébloui : −1 aux jets d’attaque et aux tests de Fouille et de Détection (état préjudiciable du SRD)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 52,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "burning-blade",
+    "name": {
+      "en": "Burning Blade",
+      "fr": "Lame ardente"
+    },
+    "discipline": "desert-wind",
+    "type": "boost",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Boost: until the end of your turn, melee attacks deal +1d6 fire + 1 per initiator level.",
+      "fr": "Boost : jusqu’à la fin du tour, vos attaques au corps à corps infligent +1d6 de feu + 1 par niveau d’initiateur."
+    },
+    "text": {
+      "en": "<p>Fire runs along your melee weapon. Until the end of your turn, each of your melee attacks deals an extra <strong>1d6 fire damage + 1 point per initiator level</strong>.</p>",
+      "fr": "<p>Le feu court le long de votre arme de corps à corps. Jusqu’à la fin de votre tour, chacune de vos attaques au corps à corps inflige <strong>1d6 points de dégâts de feu + 1 par niveau d’initiateur</strong> supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "1d6",
+        "type": {
+          "en": "fire",
+          "fr": "feu"
+        },
+        "condition": {
+          "en": "plus 1 per initiator level; every melee attack this turn",
+          "fr": "plus 1 par niveau d’initiateur ; chaque attaque au corps à corps de ce tour"
+        }
+      }
+    ],
+    "notes": {
+      "en": "The flat part (+1 per initiator level) is fire damage too; add it by hand.",
+      "fr": "La part fixe (+1 par niveau d’initiateur) est aussi du feu ; ajoutez-la à la main."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 52,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "burning-brand",
+    "name": {
+      "en": "Burning Brand",
+      "fr": "Brandon de feu"
+    },
+    "discipline": "desert-wind",
+    "type": "boost",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Boost: until the end of your turn, +5 ft. reach and your melee damage becomes fire damage.",
+      "fr": "Boost : jusqu’à la fin du tour, allonge +1,50 m et vos dégâts au corps à corps deviennent des dégâts de feu."
+    },
+    "text": {
+      "en": "<p>For the rest of your turn your weapon becomes a blade of flame. Your <strong>reach increases by 5 ft.</strong>, and melee attacks with it deal their normal damage (Strength, feats and other bonuses included) as <strong>fire damage</strong> instead of their usual type. Otherwise you attack normally.</p>",
+      "fr": "<p>Jusqu’à la fin de votre tour, votre arme devient une lame de flammes. Votre <strong>allonge augmente de 1,50 m</strong>, et vos attaques au corps à corps avec elle infligent leurs dégâts normaux (Force, dons et autres bonus compris) sous forme de <strong>dégâts de feu</strong> au lieu de leur type habituel. Pour le reste, vous attaquez normalement.</p>"
+    },
+    "notes": {
+      "en": "Reach +5 ft. and damage type change are not computed.",
+      "fr": "Allonge +1,50 m et changement de type de dégâts non calculés."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 52,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "death-mark",
+    "name": {
+      "en": "Death Mark",
+      "fr": "Marque de mort"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 3,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "Reflex half, DC 13 + Wis mod; see text",
+      "fr": "Réflexes 1/2 dégâts, DD 13 + mod. de Sag ; voir texte"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack; the target explodes: 6d6 fire to all in a spread sized by the target (Reflex half).",
+      "fr": "Attaque au corps à corps ; la cible explose : 6d6 de feu à tous dans une étendue selon sa taille (Réflexes 1/2)."
+    },
+    "text": {
+      "en": "<p>Make one melee attack; it deals normal damage. Fire then erupts from the target in a <strong>spread centered on it</strong>: radius 5 ft. (Small or smaller), 10 ft. (Medium), 20 ft. (Large), 30 ft. (Huge), 40 ft. (Gargantuan), 50 ft. (Colossal). Every creature in it, the target included, takes <strong>6d6 fire damage</strong>, <strong>Reflex half (DC 13 + your Wis modifier)</strong>. You are immune to your own death mark.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps aux dégâts normaux. Le feu jaillit alors de la cible dans une <strong>étendue centrée sur elle</strong> : rayon 1,50 m (P ou moins), 3 m (M), 6 m (G), 9 m (TG), 12 m (Gig), 15 m (C). Toute créature dans la zone, cible comprise, subit <strong>6d6 points de dégâts de feu</strong>, <strong>Réflexes 1/2 (DD 13 + mod. de Sag)</strong>. Vous êtes immunisé contre votre propre marque de mort.</p>"
+    },
+    "area": {
+      "en": "Spread centered on the target, radius by its size; see text",
+      "fr": "Étendue centrée sur la cible, rayon selon sa taille ; voir texte"
+    },
+    "notes": {
+      "en": "The 6d6 fire is an area effect with a save, not extra weapon dice: roll it separately.",
+      "fr": "Les 6d6 de feu sont un effet de zone avec jet de sauvegarde, pas des dés d’arme en plus : lancez-les à part."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 52,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "desert-tempest",
+    "name": {
+      "en": "Desert Tempest",
+      "fr": "Tempête du désert"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Move up to your speed; one melee attack against each foe as you leave a square next to it.",
+      "fr": "Déplacement jusqu’à votre vitesse ; une attaque au corps à corps contre chaque adversaire en quittant une case adjacente."
+    },
+    "text": {
+      "en": "<p>Move up to your speed. Each time you are about to leave a square adjacent to an enemy, you may first make <strong>one melee attack</strong> against it. You can attack each enemy only <strong>once</strong> this way. The movement provokes attacks of opportunity normally.</p>",
+      "fr": "<p>Vous vous déplacez jusqu’à votre vitesse. Chaque fois que vous allez quitter une case adjacente à un ennemi, vous pouvez d’abord lui porter <strong>une attaque au corps à corps</strong>. Vous ne pouvez attaquer chaque ennemi <strong>qu’une fois</strong> ainsi. Le déplacement provoque normalement des attaques d’opportunité.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 52,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "distracting-ember",
+    "name": {
+      "en": "Distracting Ember",
+      "fr": "Braise de diversion"
+    },
+    "discipline": "desert-wind",
+    "type": "boost",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "Effect: one summoned Small fire elemental",
+      "fr": "Effet : un petit élémentaire du Feu convoqué"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Boost: a Small fire elemental appears within 30 ft. until the end of your turn, to flank.",
+      "fr": "Boost : un petit élémentaire du Feu apparaît à 9 m ou moins jusqu’à la fin du tour, pour prendre en tenaille."
+    },
+    "text": {
+      "en": "<p>A <strong>Small fire elemental</strong> (MM p. 99) appears in any space within 30 ft. and stays until the <strong>end of your turn</strong>. It threatens every creature within its reach, so it can give you or an ally a <strong>flanking</strong> position. It takes no actions and makes no attacks of opportunity during your turn.</p>",
+      "fr": "<p>Un <strong>petit élémentaire du Feu</strong> (MM p. 99) apparaît dans n’importe quel espace à 9 m ou moins et reste jusqu’à la <strong>fin de votre tour</strong>. Il menace toutes les créatures à son allonge, ce qui peut vous offrir, à vous ou à un allié, une position de <strong>prise en tenaille</strong>. Il n’agit pas et ne porte pas d’attaque d’opportunité pendant votre tour.</p>"
+    },
+    "notes": {
+      "en": "Flanking: +2 on melee attack rolls against the flanked foe (not applied automatically).",
+      "fr": "Prise en tenaille : +2 aux jets d’attaque au corps à corps contre l’adversaire pris en tenaille (non appliqué automatiquement)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 52,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "dragons-flame",
+    "name": {
+      "en": "Dragon’s Flame",
+      "fr": "Flamme du dragon"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "Reflex half, DC 15 + Wis mod",
+      "fr": "Réflexes 1/2 dégâts, DD 15 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "30-ft. cone of fire: 6d6 fire (Reflex half).",
+      "fr": "Cône de feu de 9 m : 6d6 de feu (Réflexes 1/2)."
+    },
+    "text": {
+      "en": "<p>You breathe out your ki as a <strong>30-ft. cone</strong> of fire, like a dragon’s breath. Everything in the cone takes <strong>6d6 fire damage</strong>, <strong>Reflex half (DC 15 + your Wis modifier)</strong>. No attack roll.</p>",
+      "fr": "<p>Vous projetez votre ki en un <strong>cône de feu de 9 m</strong>, comme un souffle de dragon. Tout ce qui se trouve dans le cône subit <strong>6d6 points de dégâts de feu</strong>, <strong>Réflexes 1/2 (DD 15 + mod. de Sag)</strong>. Pas de jet d’attaque.</p>"
+    },
+    "area": {
+      "en": "30-ft. cone",
+      "fr": "Cône de 9 m"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 53,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "fan-the-flames",
+    "name": {
+      "en": "Fan the Flames",
+      "fr": "Attiser les flammes"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Ranged touch attack within 30 ft.: 6d6 fire.",
+      "fr": "Attaque de contact à distance à 9 m ou moins : 6d6 de feu."
+    },
+    "text": {
+      "en": "<p>You hurl a fist-sized ball of white-hot fire at one creature within 30 ft. Make a <strong>ranged touch attack</strong>; on a hit it takes <strong>6d6 fire damage</strong>. No weapon damage.</p>",
+      "fr": "<p>Vous lancez une boule de feu chauffée à blanc, grosse comme un poing, sur une créature à 9 m ou moins. Faites une <strong>attaque de contact à distance</strong> ; si elle touche, la cible subit <strong>6d6 points de dégâts de feu</strong>. Aucun dégât d’arme.</p>"
+    },
+    "notes": {
+      "en": "Ranged touch attack: BAB + Dex modifier against touch AC.",
+      "fr": "Attaque de contact à distance : BBA + mod. de Dex contre la CA de contact."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 53,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "fiery-assault",
+    "name": {
+      "en": "Fiery Assault",
+      "fr": "Assaut ardent"
+    },
+    "discipline": "desert-wind",
+    "type": "stance",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Stance: every melee attack deals +1d6 fire.",
+      "fr": "Posture : chaque attaque au corps à corps inflige +1d6 de feu."
+    },
+    "text": {
+      "en": "<p>While you hold this stance, every melee attack you make deals an extra <strong>1d6 fire damage</strong>.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, chacune de vos attaques au corps à corps inflige <strong>1d6 points de dégâts de feu</strong> supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "1d6",
+        "type": {
+          "en": "fire",
+          "fr": "feu"
+        },
+        "condition": {
+          "en": "every melee attack while in the stance",
+          "fr": "chaque attaque au corps à corps tant que la posture est active"
+        }
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 53,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "fire-riposte",
+    "name": {
+      "en": "Fire Riposte",
+      "fr": "Riposte de feu"
+    },
+    "discipline": "desert-wind",
+    "type": "counter",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Counter: when hit in melee, make a melee touch attack for 4d6 fire.",
+      "fr": "Contre : quand on vous touche au corps à corps, attaque de contact au corps à corps de 4d6 de feu."
+    },
+    "text": {
+      "en": "<p>When a creature hits you with a melee or natural weapon, you can respond at once with a <strong>melee touch attack</strong>. If it hits, the target takes <strong>4d6 fire damage</strong>.</p>",
+      "fr": "<p>Quand une créature vous touche avec une arme de corps à corps ou une arme naturelle, vous pouvez riposter aussitôt par une <strong>attaque de contact au corps à corps</strong>. Si elle touche, la cible subit <strong>4d6 points de dégâts de feu</strong>.</p>"
+    },
+    "notes": {
+      "en": "The 4d6 fire replaces weapon damage (touch attack, not a weapon attack).",
+      "fr": "Les 4d6 de feu remplacent les dégâts d’arme (attaque de contact, pas attaque armée)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 53,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "firesnake",
+    "name": {
+      "en": "Firesnake",
+      "fr": "Serpent de feu"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "60 ft.",
+      "fr": "18 m"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "Reflex half, DC 14 + Wis mod",
+      "fr": "Réflexes 1/2 dégâts, DD 14 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "A 60-ft. snaking line of fire along the ground: 6d6 fire to each creature it enters (Reflex half).",
+      "fr": "Une ligne de feu de 18 m qui serpente au sol : 6d6 de feu à chaque créature traversée (Réflexes 1/2)."
+    },
+    "text": {
+      "en": "<p>A line of fire starts in a square adjacent to you and crawls up to <strong>60 ft.</strong> along the ground, turning as you wish; it may leave your line of sight. Each creature whose space it enters takes <strong>6d6 fire damage</strong>, <strong>Reflex half (DC 14 + your Wis modifier)</strong>, only once per round. It cannot fly and pays normal costs for difficult terrain.</p>",
+      "fr": "<p>Une ligne de feu part d’une case adjacente et rampe sur <strong>18 m</strong> au sol, en tournant à votre gré ; elle peut sortir de votre champ de vision. Toute créature dont elle traverse l’espace subit <strong>6d6 points de dégâts de feu</strong>, <strong>Réflexes 1/2 (DD 14 + mod. de Sag)</strong>, une seule fois par round. Elle ne vole pas et paie le coût normal des terrains difficiles.</p>"
+    },
+    "area": {
+      "en": "Special: 60-ft. bending line along the ground",
+      "fr": "Spéciale : ligne sinueuse de 18 m au sol"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 53,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "flames-blessing",
+    "name": {
+      "en": "Flame’s Blessing",
+      "fr": "Bénédiction de la flamme"
+    },
+    "discipline": "desert-wind",
+    "type": "stance",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Stance: fire resistance by Tumble ranks (5 / 10 / 20, immunity at 19 ranks).",
+      "fr": "Posture : résistance au feu selon les degrés d’Acrobaties (5 / 10 / 20, immunité à 19 degrés)."
+    },
+    "text": {
+      "en": "<p>While you hold this stance you gain <strong>fire resistance</strong> based on your ranks in Tumble: <strong>4–8 ranks: 5</strong>; <strong>9–13: 10</strong>; <strong>14–18: 20</strong>; <strong>19 or more: immunity to fire</strong>. Fewer than 4 ranks: no benefit.</p>",
+      "fr": "<p>Tant que vous tenez cette posture, vous gagnez une <strong>résistance au feu</strong> qui dépend de vos degrés d’Acrobaties : <strong>4 à 8 degrés : 5</strong> ; <strong>9 à 13 : 10</strong> ; <strong>14 à 18 : 20</strong> ; <strong>19 ou plus : immunité contre le feu</strong>. Moins de 4 degrés : aucun effet.</p>"
+    },
+    "notes": {
+      "en": "Uses Tumble ranks (not the check total). Resistance not added automatically.",
+      "fr": "Se base sur les degrés d’Acrobaties (pas le total du test). Résistance non ajoutée automatiquement."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 53,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "flashing-sun",
+    "name": {
+      "en": "Flashing Sun",
+      "fr": "Soleil fulgurant"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Full attack with one extra attack at your highest bonus; all attacks this round at −2.",
+      "fr": "Attaque à outrance avec une attaque de plus à votre meilleur bonus ; toutes les attaques du round à −2."
+    },
+    "text": {
+      "en": "<p>Make a full attack with your melee attacks, plus <strong>one extra attack at your highest attack bonus</strong>. Every attack you make this round, the extra one included, takes a <strong>−2 penalty</strong>.</p>",
+      "fr": "<p>Vous portez une attaque à outrance au corps à corps, plus <strong>une attaque supplémentaire à votre meilleur bonus d’attaque</strong>. Toutes vos attaques de ce round, la supplémentaire comprise, subissent un <strong>malus de −2</strong>.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.extra",
+          "bonusType": "untyped",
+          "value": 1
+        },
+        "duration": "endOfTurn",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "endOfTurn",
+        "appliesTo": "self"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 54,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "hatchlings-flame",
+    "name": {
+      "en": "Hatchling’s Flame",
+      "fr": "Flamme du dragonnet"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "Reflex half (DC not printed)",
+      "fr": "Réflexes 1/2 dégâts (DD non indiqué)"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "30-ft. cone of fire: 2d6 fire (Reflex half).",
+      "fr": "Cône de feu de 9 m : 2d6 de feu (Réflexes 1/2)."
+    },
+    "text": {
+      "en": "<p>A sphere of energy gathers at the tip of your blade, then bursts into a <strong>30-ft. cone</strong> of flame. Everything in the cone takes <strong>2d6 fire damage</strong>, <strong>Reflex half</strong>. No attack roll.</p>",
+      "fr": "<p>Une sphère d’énergie se forme à la pointe de votre lame, puis éclate en un <strong>cône de flammes de 9 m</strong>. Tout ce qui se trouve dans le cône subit <strong>2d6 points de dégâts de feu</strong>, <strong>Réflexes 1/2</strong>. Pas de jet d’attaque.</p>"
+    },
+    "area": {
+      "en": "30-ft. cone",
+      "fr": "Cône de 9 m"
+    },
+    "notes": {
+      "en": "The book (and the official card) give no save DC. The other Desert Wind DCs follow 10 + maneuver level + Wis mod, which would be DC 12 + Wis mod: ask the DM.",
+      "fr": "Le livre (et la carte officielle) n’indiquent pas de DD. Les autres DD du Vent du désert suivent 10 + niveau de la manœuvre + mod. de Sag, soit DD 12 + mod. de Sag : demandez au MJ."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 54,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "holocaust-cloak",
+    "name": {
+      "en": "Holocaust Cloak",
+      "fr": "Manteau de brasier"
+    },
+    "discipline": "desert-wind",
+    "type": "stance",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Stance: an adjacent foe that hits you in melee takes 5 fire damage.",
+      "fr": "Posture : un adversaire adjacent qui vous touche au corps à corps subit 5 points de dégâts de feu."
+    },
+    "text": {
+      "en": "<p>Flames hang in the air around you. While you hold this stance, any <strong>adjacent</strong> opponent that hits you with a melee attack takes <strong>5 fire damage</strong>. A creature attacking you with a reach weapon is not harmed.</p>",
+      "fr": "<p>Des flammes flottent autour de vous. Tant que vous tenez cette posture, tout adversaire <strong>adjacent</strong> qui vous touche avec une attaque au corps à corps subit <strong>5 points de dégâts de feu</strong>. Une créature qui vous attaque avec une arme à allonge n’est pas blessée.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 54,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "inferno-blade",
+    "name": {
+      "en": "Inferno Blade",
+      "fr": "Lame infernale"
+    },
+    "discipline": "desert-wind",
+    "type": "boost",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 7,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Boost: until the end of your turn, melee attacks deal +3d6 fire + 1 per initiator level.",
+      "fr": "Boost : jusqu’à la fin du tour, vos attaques au corps à corps infligent +3d6 de feu + 1 par niveau d’initiateur."
+    },
+    "text": {
+      "en": "<p>Your weapon briefly turns to burning magma. Until the end of your turn, each of your melee attacks deals an extra <strong>3d6 fire damage + 1 point per initiator level</strong>.</p>",
+      "fr": "<p>Votre arme se change un instant en magma brûlant. Jusqu’à la fin de votre tour, chacune de vos attaques au corps à corps inflige <strong>3d6 points de dégâts de feu + 1 par niveau d’initiateur</strong> supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "3d6",
+        "type": {
+          "en": "fire",
+          "fr": "feu"
+        },
+        "condition": {
+          "en": "plus 1 per initiator level; every melee attack this turn",
+          "fr": "plus 1 par niveau d’initiateur ; chaque attaque au corps à corps de ce tour"
+        }
+      }
+    ],
+    "notes": {
+      "en": "No prerequisite is printed (book and official card). The flat part (+1 per initiator level) is fire damage too; add it by hand.",
+      "fr": "Aucune condition n’est indiquée (livre et carte officielle). La part fixe (+1 par niveau d’initiateur) est aussi du feu ; ajoutez-la à la main."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 54,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "inferno-blast",
+    "name": {
+      "en": "Inferno Blast",
+      "fr": "Déflagration infernale"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 9,
+    "prereqCount": 5,
+    "action": "fullRound",
+    "range": {
+      "en": "60 ft.",
+      "fr": "18 m"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "Reflex half (DC not printed)",
+      "fr": "Réflexes 1/2 dégâts (DD non indiqué)"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "60-ft. burst centered on you: 100 fire damage to every creature (Reflex half); you are unharmed.",
+      "fr": "Explosion de 18 m centrée sur vous : 100 points de dégâts de feu à chaque créature (Réflexes 1/2) ; vous êtes épargné."
+    },
+    "text": {
+      "en": "<p>You release your ki as a blast of fire in a <strong>60-ft.-radius burst</strong> centered on you. Every creature in the area takes <strong>100 fire damage</strong> (a flat amount, no dice); the save line is <strong>Reflex half</strong>. Your own inferno blast does not harm you.</p>",
+      "fr": "<p>Vous libérez votre ki en une déflagration de feu, <strong>explosion de 18 m de rayon</strong> centrée sur vous. Toute créature dans la zone subit <strong>100 points de dégâts de feu</strong> (valeur fixe, sans dés) ; la ligne de sauvegarde indique <strong>Réflexes 1/2</strong>. Votre propre déflagration ne vous blesse pas.</p>"
+    },
+    "area": {
+      "en": "60-ft.-radius burst centered on you",
+      "fr": "Explosion de 18 m de rayon centrée sur vous"
+    },
+    "notes": {
+      "en": "The book (and the official card) give no save DC. The other Desert Wind DCs follow 10 + maneuver level + Wis mod, which would be DC 19 + Wis mod: ask the DM. Hits allies in the area too.",
+      "fr": "Le livre (et la carte officielle) n’indiquent pas de DD. Les autres DD du Vent du désert suivent 10 + niveau de la manœuvre + mod. de Sag, soit DD 19 + mod. de Sag : demandez au MJ. Touche aussi les alliés dans la zone."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 55,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "leaping-flame",
+    "name": {
+      "en": "Leaping Flame",
+      "fr": "Flamme bondissante"
+    },
+    "discipline": "desert-wind",
+    "type": "counter",
+    "descriptors": [
+      "teleportation"
+    ],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Counter: after a foe attacks you, teleport up to 100 ft. to a square adjacent to it.",
+      "fr": "Contre : après l’attaque d’un adversaire, vous vous téléportez jusqu’à 30 m dans une case adjacente à lui."
+    },
+    "text": {
+      "en": "<p>When a creature attacks you with a melee or ranged attack, after the attack is resolved you vanish in flame and reappear in a <strong>square adjacent to the attacker</strong>, up to <strong>100 ft.</strong> away. The square must be free of creatures and objects. If no such square can be reached, the maneuver fails but is still expended.</p>",
+      "fr": "<p>Quand une créature vous attaque au corps à corps ou à distance, une fois l’attaque résolue vous disparaissez dans les flammes et réapparaissez dans une <strong>case adjacente à l’attaquant</strong>, jusqu’à <strong>30 m</strong> de distance. La case doit être libre de toute créature et de tout objet. Si c’est impossible, la manœuvre échoue mais est quand même dépensée.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 55,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "lingering-inferno",
+    "name": {
+      "en": "Lingering Inferno",
+      "fr": "Brasier persistant"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "3 rounds; see text",
+      "fr": "3 rounds ; voir texte"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Melee attack +2d6 fire; on a hit the target burns for 2d6 fire at the start of its turn for 3 rounds.",
+      "fr": "Attaque au corps à corps +2d6 de feu ; si elle touche, la cible brûle : 2d6 de feu au début de son tour pendant 3 rounds."
+    },
+    "text": {
+      "en": "<p>Make one melee attack that deals an extra <strong>2d6 fire damage</strong>. If it hits, the flames cling to the target, which takes another <strong>2d6 fire damage at the start of each of its turns for 3 rounds</strong>.</p>",
+      "fr": "<p>Vous portez une attaque au corps à corps qui inflige <strong>2d6 points de dégâts de feu</strong> supplémentaires. Si elle touche, les flammes restent accrochées à la cible, qui subit encore <strong>2d6 points de dégâts de feu au début de chacun de ses tours pendant 3 rounds</strong>.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6",
+        "type": {
+          "en": "fire",
+          "fr": "feu"
+        }
+      }
+    ],
+    "notes": {
+      "en": "Target: 2d6 fire at the start of its next 3 turns (track by hand).",
+      "fr": "Cible : 2d6 de feu au début de ses 3 prochains tours (à suivre à la main)."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 55,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "ring-of-fire",
+    "name": {
+      "en": "Ring of Fire",
+      "fr": "Cercle de feu"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "fullRound",
+    "range": {
+      "en": "Special; see text",
+      "fr": "Spéciale ; voir texte"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Reflex half, DC 16 + Wis mod",
+      "fr": "Réflexes 1/2 dégâts, DD 16 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Move up to twice your speed leaving a fire trail; closing a loop deals 12d6 fire inside (Reflex half).",
+      "fr": "Déplacement jusqu’à deux fois votre vitesse en laissant une traînée de feu ; boucler la boucle inflige 12d6 de feu à l’intérieur (Réflexes 1/2)."
+    },
+    "text": {
+      "en": "<p>Move up to <strong>twice your speed</strong>, entirely along continuous solid ground, leaving a trail of flame. The trail does nothing unless it <strong>closes an area</strong>: the first time it does, an inferno fills that area and every creature inside takes <strong>12d6 fire damage</strong>, <strong>Reflex half (DC 16 + your Wis modifier)</strong>. Only one area per move.</p>",
+      "fr": "<p>Vous vous déplacez jusqu’à <strong>deux fois votre vitesse</strong>, uniquement sur un sol solide et continu, en laissant une traînée de flammes. La traînée n’a d’effet que si elle <strong>referme une zone</strong> : la première fois, un brasier remplit cette zone et toute créature à l’intérieur subit <strong>12d6 points de dégâts de feu</strong>, <strong>Réflexes 1/2 (DD 16 + mod. de Sag)</strong>. Une seule zone par déplacement.</p>"
+    },
+    "area": {
+      "en": "Special: the area enclosed by your path",
+      "fr": "Spéciale : la zone enfermée par votre trajet"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 55,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "rising-phoenix",
+    "name": {
+      "en": "Rising Phoenix",
+      "fr": "Envol du phénix"
+    },
+    "discipline": "desert-wind",
+    "type": "stance",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Stance: hover up to 10 ft. above a surface, fly speed = land speed (perfect); full attack while hovering in place deals 3d6 fire around you.",
+      "fr": "Posture : flotter jusqu’à 3 m au-dessus d’une surface, vol = vitesse au sol (parfaite) ; attaque à outrance en vol stationnaire : 3d6 de feu autour de vous."
+    },
+    "text": {
+      "en": "<p>A column of hot air holds you up. You can hover up to <strong>10 ft. above any solid or liquid surface</strong> and gain a <strong>fly speed equal to your land speed (perfect maneuverability)</strong>, staying within 10 ft. of the surface. If you hover in place and make a <strong>full attack</strong>, creatures in or adjacent to the column (including those adjacent to your square) take <strong>3d6 fire damage</strong>; you don’t. If you ever end up more than 10 ft. above the surface, the stance ends and you fall.</p>",
+      "fr": "<p>Une colonne d’air brûlant vous soutient. Vous pouvez flotter jusqu’à <strong>3 m au-dessus de toute surface solide ou liquide</strong> et gagnez une <strong>vitesse de vol égale à votre vitesse au sol (manœuvrabilité parfaite)</strong>, en restant à 3 m au plus de la surface. Si vous faites du surplace et portez une <strong>attaque à outrance</strong>, les créatures dans la colonne ou adjacentes (y compris adjacentes à votre case) subissent <strong>3d6 points de dégâts de feu</strong> ; pas vous. Si vous vous retrouvez à plus de 3 m de la surface, la posture prend fin et vous tombez.</p>"
+    },
+    "notes": {
+      "en": "Fly speed not computed. The 3d6 fire is an area effect around you, not extra weapon dice.",
+      "fr": "Vitesse de vol non calculée. Les 3d6 de feu sont un effet de zone autour de vous, pas des dés d’arme en plus."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 55,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "salamander-charge",
+    "name": {
+      "en": "Salamander Charge",
+      "fr": "Charge de la salamandre"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "fullRound",
+    "range": {
+      "en": "Special",
+      "fr": "Spéciale"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "Instantaneous; wall 5 rounds (D); see text",
+      "fr": "Instantanée ; mur 5 rounds (T) ; voir texte"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Charge that need not be straight, ignoring difficult terrain; leaves a wall of fire (6d6 in it, 3d6 adjacent) for 5 rounds.",
+      "fr": "Charge sans ligne droite, qui ignore les terrains difficiles ; laisse un mur de feu (6d6 dedans, 3d6 à côté) pendant 5 rounds."
+    },
+    "text": {
+      "en": "<p>Make a charge (double speed, one attack, +2 on the attack, −2 AC until your next turn), but your path <strong>need not be straight</strong> and ignores difficult terrain and other creatures; you may use Tumble to avoid attacks of opportunity or pass through foes’ squares. A <strong>wall of fire</strong> fills every square of your path for up to <strong>5 rounds</strong>: <strong>6d6 fire</strong> to a creature in it at the start of its turn or entering it, <strong>3d6 fire</strong> to one adjacent at the start of its turn. It doesn’t block sight. You can dismiss it as a swift action.</p>",
+      "fr": "<p>Vous chargez (double vitesse, une attaque, +2 à l’attaque, −2 à la CA jusqu’à votre prochain tour), mais votre trajet <strong>n’a pas à être droit</strong> et ignore les terrains difficiles et les créatures ; vous pouvez utiliser Acrobaties pour éviter les attaques d’opportunité ou traverser les cases ennemies. Un <strong>mur de feu</strong> occupe chaque case du trajet jusqu’à <strong>5 rounds</strong> : <strong>6d6 de feu</strong> à qui s’y trouve au début de son tour ou y entre, <strong>3d6 de feu</strong> à qui est adjacent au début de son tour. Il ne bloque pas la vue. Vous pouvez le dissiper par une action rapide.</p>"
+    },
+    "area": {
+      "en": "One 5-ft. square per 5 ft. of movement",
+      "fr": "Une case de 1,50 m par 1,50 m de déplacement"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "round",
+        "stacksAs": "charge"
+      }
+    ],
+    "notes": {
+      "en": "The +2 attack / −2 AC are the normal charge modifiers. A new salamander charge dispels the previous wall.",
+      "fr": "Le +2 à l’attaque et le −2 à la CA sont les modificateurs normaux de charge. Une nouvelle charge de la salamandre dissipe le mur précédent."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 55,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "searing-blade",
+    "name": {
+      "en": "Searing Blade",
+      "fr": "Lame brûlante"
+    },
+    "discipline": "desert-wind",
+    "type": "boost",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Boost: until the end of your turn, melee attacks deal +2d6 fire + 1 per initiator level.",
+      "fr": "Boost : jusqu’à la fin du tour, vos attaques au corps à corps infligent +2d6 de feu + 1 par niveau d’initiateur."
+    },
+    "text": {
+      "en": "<p>Your ki flows down your arms and wreathes your weapon in flame. Until the end of your turn, each of your melee attacks deals an extra <strong>2d6 fire damage + 1 point per initiator level</strong>.</p>",
+      "fr": "<p>Votre ki coule le long de vos bras et enveloppe votre arme de flammes. Jusqu’à la fin de votre tour, chacune de vos attaques au corps à corps inflige <strong>2d6 points de dégâts de feu + 1 par niveau d’initiateur</strong> supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "2d6",
+        "type": {
+          "en": "fire",
+          "fr": "feu"
+        },
+        "condition": {
+          "en": "plus 1 per initiator level; every melee attack this turn",
+          "fr": "plus 1 par niveau d’initiateur ; chaque attaque au corps à corps de ce tour"
+        }
+      }
+    ],
+    "notes": {
+      "en": "The book and the official card both print a standard action (not swift) for this boost. The flat part (+1 per initiator level) is fire damage too; add it by hand.",
+      "fr": "Le livre et la carte officielle indiquent tous deux une action simple (et non rapide) pour ce boost. La part fixe (+1 par niveau d’initiateur) est aussi du feu ; ajoutez-la à la main."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 56,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "searing-charge",
+    "name": {
+      "en": "Searing Charge",
+      "fr": "Charge brûlante"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "fullRound",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "Charge flying (perfect, at land speed); on a hit +5d6 fire.",
+      "fr": "Charge en volant (parfaite, à la vitesse au sol) ; si elle touche, +5d6 de feu."
+    },
+    "text": {
+      "en": "<p>You must charge an opponent. During the charge you can <strong>fly at your base land speed with perfect maneuverability</strong>. Resolve the charge normally; on a hit the target takes an extra <strong>5d6 fire damage</strong>.</p>",
+      "fr": "<p>Vous devez charger un adversaire. Pendant la charge, vous pouvez <strong>voler à votre vitesse au sol de base, avec une manœuvrabilité parfaite</strong>. La charge se résout normalement ; si elle touche, la cible subit <strong>5d6 points de dégâts de feu</strong> supplémentaires.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.melee",
+          "bonusType": "untyped",
+          "value": 2
+        },
+        "duration": "endOfTurn",
+        "stacksAs": "charge"
+      },
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "untyped",
+          "value": -2
+        },
+        "duration": "round",
+        "stacksAs": "charge"
+      }
+    ],
+    "extraDamage": [
+      {
+        "dice": "5d6",
+        "type": {
+          "en": "fire",
+          "fr": "feu"
+        }
+      }
+    ],
+    "notes": {
+      "en": "The +2 attack / −2 AC are the normal charge modifiers.",
+      "fr": "Le +2 à l’attaque et le −2 à la CA sont les modificateurs normaux de charge."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 56,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "wind-stride",
+    "name": {
+      "en": "Wind Stride",
+      "fr": "Foulée du vent"
+    },
+    "discipline": "desert-wind",
+    "type": "boost",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "End of turn",
+      "fr": "Fin du tour"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Boost: +10 ft. enhancement bonus to land speed until the end of your turn.",
+      "fr": "Boost : bonus d’altération de +3 m à la vitesse au sol jusqu’à la fin du tour."
+    },
+    "text": {
+      "en": "<p>Until the end of your turn you gain a <strong>+10-ft. enhancement bonus to your land speed</strong>.</p>",
+      "fr": "<p>Jusqu’à la fin de votre tour, vous gagnez un <strong>bonus d’altération de +3 m à votre vitesse au sol</strong>.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "speed",
+          "bonusType": "enhancement",
+          "value": 10
+        },
+        "duration": "endOfTurn",
+        "appliesTo": "self"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 56,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "wyrms-flame",
+    "name": {
+      "en": "Wyrm’s Flame",
+      "fr": "Flamme du grand dragon"
+    },
+    "discipline": "desert-wind",
+    "type": "strike",
+    "descriptors": [
+      "fire"
+    ],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "30 ft.",
+      "fr": "9 m"
+    },
+    "target": {
+      "en": "",
+      "fr": ""
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "Instantanée"
+    },
+    "save": {
+      "en": "Reflex half, DC 18 + Wis mod",
+      "fr": "Réflexes 1/2 dégâts, DD 18 + mod. de Sag"
+    },
+    "supernatural": true,
+    "summary": {
+      "en": "30-ft. cone of fire: 10d6 fire (Reflex half).",
+      "fr": "Cône de feu de 9 m : 10d6 de feu (Réflexes 1/2)."
+    },
+    "text": {
+      "en": "<p>You whirl your blade until flames build along it, then release them as a <strong>30-ft. cone</strong>. Everything in the cone takes <strong>10d6 fire damage</strong>, <strong>Reflex half (DC 18 + your Wis modifier)</strong>. No attack roll.</p>",
+      "fr": "<p>Vous faites tournoyer votre lame jusqu’à ce que les flammes s’y accumulent, puis les libérez en un <strong>cône de 9 m</strong>. Tout ce qui se trouve dans le cône subit <strong>10d6 points de dégâts de feu</strong>, <strong>Réflexes 1/2 (DD 18 + mod. de Sag)</strong>. Pas de jet d’attaque.</p>"
+    },
+    "area": {
+      "en": "30-ft. cone",
+      "fr": "Cône de 9 m"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 56,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "zephyr-dance",
+    "name": {
+      "en": "Zephyr Dance",
+      "fr": "Danse du zéphyr"
+    },
+    "discipline": "desert-wind",
+    "type": "counter",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Instantaneous; see text",
+      "fr": "Instantanée ; voir texte"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Counter: +4 dodge bonus to AC against one attack.",
+      "fr": "Contre : bonus d’esquive de +4 à la CA contre une attaque."
+    },
+    "text": {
+      "en": "<p>You gain a <strong>+4 dodge bonus to AC against a single attack</strong>. You can use it after the opponent has rolled the attack but before damage is determined.</p>",
+      "fr": "<p>Vous gagnez un <strong>bonus d’esquive de +4 à la CA contre une seule attaque</strong>. Vous pouvez l’utiliser après le jet d’attaque de l’adversaire, mais avant la détermination des dégâts.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "ac",
+          "bonusType": "dodge",
+          "value": 4,
+          "condition": {
+            "en": "against one attack only",
+            "fr": "contre une seule attaque"
+          }
+        },
+        "duration": "attack",
+        "appliesTo": "self"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 57,
+      "frRef": "traduction maison"
+    }
+  }
+]

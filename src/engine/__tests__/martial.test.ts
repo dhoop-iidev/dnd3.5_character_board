@@ -26,8 +26,8 @@ describe('learning maneuvers at warblade 1 (initiator level 5)', () => {
     expect(ids(c)).toEqual([])
   })
   it('missing picks and empty readied slots are flagged', () => {
-    expect(ids(learned(['steel-wind']))).toEqual(['maneuvers-missing-9', 'stances-missing-9', 'maneuvers-readied-missing'])
-    expect(ids(learned(['steel-wind', 'mountain-hammer', 'steely-strike', 'punishing-stance']))).toContain('maneuvers-readied-missing')
+    expect(ids(learned(['steel-wind']))).toEqual(['maneuvers-missing-9', 'stances-missing-9', 'maneuvers-readied-missing-warblade'])
+    expect(ids(learned(['steel-wind', 'mountain-hammer', 'steely-strike', 'punishing-stance']))).toContain('maneuvers-readied-missing-warblade')
   })
   it('a 4th-level maneuver is above the initiator-level cap; a prerequisite needs earlier maneuvers of the discipline', () => {
     const fourth = [...rules.maneuvers.values()].find((m) => m.level === 4 && m.type !== 'stance')!
@@ -38,7 +38,7 @@ describe('learning maneuvers at warblade 1 (initiator level 5)', () => {
   it('maneuvers can only be learned at warblade levels', () => {
     const c = learned(['steel-wind', 'mountain-hammer', 'steely-strike', 'punishing-stance'])
     c.levels[0].maneuversLearned = ['steel-wind']
-    expect(ids(c)).toContain('maneuvers-not-warblade-1')
+    expect(ids(c)).toContain('maneuvers-not-martial-1')
   })
 })
 

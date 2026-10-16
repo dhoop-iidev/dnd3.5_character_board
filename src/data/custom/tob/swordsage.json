@@ -1,0 +1,318 @@
+{
+  "id": "swordsage",
+  "name": {
+    "en": "Swordsage",
+    "fr": "Maître des lames"
+  },
+  "prestige": false,
+  "hitDie": 8,
+  "skillPoints": 6,
+  "classSkills": [
+    "balance",
+    "climb",
+    "concentration",
+    "craft",
+    "heal",
+    "hide",
+    "intimidate",
+    "jump",
+    "knowledge-history",
+    "knowledge-local",
+    "knowledge-nature",
+    "knowledge-nobility-and-royalty",
+    "listen",
+    "martial-lore",
+    "move-silently",
+    "profession",
+    "ride",
+    "sense-motive",
+    "swim",
+    "tumble"
+  ],
+  "proficiencies": {
+    "weapons": [
+      "simple",
+      "battleaxe",
+      "falchion",
+      "flail",
+      "glaive",
+      "greataxe",
+      "greatclub",
+      "greatsword",
+      "guisarme",
+      "halberd",
+      "handaxe",
+      "heavy-flail",
+      "heavy-pick",
+      "kukri",
+      "lance",
+      "light-hammer",
+      "light-pick",
+      "longsword",
+      "ranseur",
+      "rapier",
+      "sap",
+      "scimitar",
+      "scythe",
+      "short-sword",
+      "throwing-axe",
+      "trident",
+      "warhammer"
+    ],
+    "armor": [
+      "light"
+    ]
+  },
+  "table": [
+    {
+      "level": 1,
+      "bab": 0,
+      "fort": 0,
+      "ref": 2,
+      "will": 2,
+      "special": [
+        {
+          "en": "Quick to act +1",
+          "fr": "Prompt à agir +1"
+        },
+        {
+          "en": "Discipline focus (Weapon Focus)",
+          "fr": "Focalisation de discipline (Arme de prédilection)"
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "bab": 1,
+      "fort": 0,
+      "ref": 3,
+      "will": 3,
+      "special": [
+        {
+          "en": "AC bonus",
+          "fr": "Bonus à la CA"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "bab": 2,
+      "fort": 1,
+      "ref": 3,
+      "will": 3,
+      "special": []
+    },
+    {
+      "level": 4,
+      "bab": 3,
+      "fort": 1,
+      "ref": 4,
+      "will": 4,
+      "special": [
+        {
+          "en": "Discipline focus (insightful strike)",
+          "fr": "Focalisation de discipline (frappe intuitive)"
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "bab": 3,
+      "fort": 1,
+      "ref": 4,
+      "will": 4,
+      "special": [
+        {
+          "en": "Quick to act +2",
+          "fr": "Prompt à agir +2"
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "bab": 4,
+      "fort": 2,
+      "ref": 5,
+      "will": 5,
+      "special": []
+    },
+    {
+      "level": 7,
+      "bab": 5,
+      "fort": 2,
+      "ref": 5,
+      "will": 5,
+      "special": [
+        {
+          "en": "Sense magic",
+          "fr": "Sens de la magie"
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "bab": 6,
+      "fort": 2,
+      "ref": 6,
+      "will": 6,
+      "special": [
+        {
+          "en": "Discipline focus (defensive stance)",
+          "fr": "Focalisation de discipline (posture défensive)"
+        }
+      ]
+    },
+    {
+      "level": 9,
+      "bab": 6,
+      "fort": 3,
+      "ref": 6,
+      "will": 6,
+      "special": [
+        {
+          "en": "Evasion",
+          "fr": "Esquive totale"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "bab": 7,
+      "fort": 3,
+      "ref": 7,
+      "will": 7,
+      "special": [
+        {
+          "en": "Quick to act +3",
+          "fr": "Prompt à agir +3"
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "bab": 8,
+      "fort": 3,
+      "ref": 7,
+      "will": 7,
+      "special": []
+    },
+    {
+      "level": 12,
+      "bab": 9,
+      "fort": 4,
+      "ref": 8,
+      "will": 8,
+      "special": [
+        {
+          "en": "Discipline focus (second insightful strike)",
+          "fr": "Focalisation de discipline (seconde frappe intuitive)"
+        }
+      ]
+    },
+    {
+      "level": 13,
+      "bab": 10,
+      "fort": 4,
+      "ref": 8,
+      "will": 8,
+      "special": []
+    },
+    {
+      "level": 14,
+      "bab": 10,
+      "fort": 4,
+      "ref": 9,
+      "will": 9,
+      "special": []
+    },
+    {
+      "level": 15,
+      "bab": 11,
+      "fort": 5,
+      "ref": 9,
+      "will": 9,
+      "special": [
+        {
+          "en": "Quick to act +4",
+          "fr": "Prompt à agir +4"
+        }
+      ]
+    },
+    {
+      "level": 16,
+      "bab": 12,
+      "fort": 5,
+      "ref": 10,
+      "will": 10,
+      "special": [
+        {
+          "en": "Discipline focus (second defensive stance)",
+          "fr": "Focalisation de discipline (seconde posture défensive)"
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "bab": 13,
+      "fort": 5,
+      "ref": 10,
+      "will": 10,
+      "special": [
+        {
+          "en": "Improved evasion",
+          "fr": "Esquive extraordinaire"
+        }
+      ]
+    },
+    {
+      "level": 18,
+      "bab": 13,
+      "fort": 6,
+      "ref": 11,
+      "will": 11,
+      "special": []
+    },
+    {
+      "level": 19,
+      "bab": 14,
+      "fort": 6,
+      "ref": 11,
+      "will": 11,
+      "special": []
+    },
+    {
+      "level": 20,
+      "bab": 15,
+      "fort": 6,
+      "ref": 12,
+      "will": 12,
+      "special": [
+        {
+          "en": "Dual boost 3/day",
+          "fr": "Double stimulation 3/jour"
+        },
+        {
+          "en": "Quick to act +5",
+          "fr": "Prompt à agir +5"
+        }
+      ]
+    }
+  ],
+  "disciplines": [
+    "desert-wind",
+    "diamond-mind",
+    "setting-sun",
+    "shadow-hand",
+    "stone-dragon",
+    "tiger-claw"
+  ],
+  "text": {
+    "en": "<p>Non-SRD base class from <i>Tome of Battle</i> pp. 15–19 (summary in our own words).</p><p><b>Proficiencies:</b> simple weapons, martial <i>melee</i> weapons (including those that can be thrown), light armor; no shields.</p><p><b>Maneuvers:</b> Desert Wind, Diamond Mind, Setting Sun, Shadow Hand, Stone Dragon, Tiger Claw. Known, readied and stances per Table 1–2; highest maneuver level per initiator level (Table 3–1, p. 39). Extraordinary unless noted, ignore spell resistance, never provoke when initiated. At 4th level and every even level after, swap one known maneuver (not a stance). <b>Readying:</b> 5 minutes of meditation and exercise. <b>Recovery:</b> a full-round action of meditation (no attack of opportunity) refreshes <i>one</i> expended maneuver of your choice, usable from a later round. <b>Stances:</b> one 1st-level stance at 1st, more at 2nd, 5th, 9th, 14th and 20th; changed as a swift action, never swapped.</p><p><b>Quick to act (1st):</b> +1 on initiative, +1 more at 5th, 10th, 15th and 20th.</p><p><b>Discipline focus:</b> each time, pick one swordsage discipline in which you know a maneuver; earlier picks never change. <i>Weapon Focus</i> (1st): the feat's benefit with the discipline's associated weapons. <i>Insightful strike</i> (4th, second discipline at 12th): + Wis modifier on damage of strikes from that discipline. <i>Defensive stance</i> (8th, second discipline at 16th): +2 on saves while in a stance from that discipline. Also +2 on Martial Lore checks about a focused discipline.</p><p><b>AC bonus (2nd):</b> + Wis modifier to AC in light armor, unencumbered and without a shield; works vs touch attacks and when flat-footed; lost when immobilized or helpless.</p><p><b>Sense magic (7th, Su):</b> 10 minutes studying a weapon or armor and a level check vs DC 10 + its caster level identify its properties (artifacts and legacy weapons only show as very powerful).</p><p><b>Evasion (9th):</b> no damage on a successful Reflex save against a half-damage effect; light or no armor, not when helpless. <b>Improved evasion (17th):</b> also half damage on a failed save.</p><p><b>Dual boost (20th):</b> 3 times per day, when initiating a boost, initiate another known boost as a free action; both are expended.</p>",
+    "fr": "<p>Classe de base hors DRS du <i>Tome of Battle</i> p. 15–19 (résumé avec nos propres mots ; noms français : traduction maison, le livre n’a pas été traduit).</p><p><b>Armes et armures :</b> armes courantes, armes de guerre <i>de corps à corps</i> (y compris celles qui peuvent être lancées), armures légères ; aucun bouclier.</p><p><b>Manœuvres :</b> Vent du désert, Esprit de diamant, Soleil couchant, Main de l’ombre, Dragon de pierre, Griffe du tigre. Connues, préparées et postures selon la table 1–2 ; niveau maximal de manœuvre selon le niveau d’initiateur (table 3–1, p. 39). Extraordinaires sauf mention contraire, ignorent la résistance à la magie, ne provoquent jamais d’attaque d’opportunité quand on les initie. Au niveau 4 puis à chaque niveau pair, échange d’une manœuvre connue (pas une posture). <b>Préparation :</b> 5 minutes de méditation et d’exercice. <b>Récupération :</b> une action complexe de méditation (sans attaque d’opportunité) rend <i>une</i> manœuvre utilisée au choix, utilisable à partir d’un round suivant. <b>Postures :</b> une posture du niveau 1 au niveau 1, d’autres aux niveaux 2, 5, 9, 14 et 20 ; changées par une action rapide, jamais échangées.</p><p><b>Prompt à agir (1) :</b> +1 à l’initiative, +1 de plus aux niveaux 5, 10, 15 et 20.</p><p><b>Focalisation de discipline :</b> à chaque fois, choisir une discipline du maître des lames dont vous connaissez une manœuvre ; les choix précédents ne changent jamais. <i>Arme de prédilection</i> (1) : l’effet du don avec les armes associées à la discipline. <i>Frappe intuitive</i> (4, seconde discipline au 12) : + modificateur de Sag aux dégâts des frappes de cette discipline. <i>Posture défensive</i> (8, seconde discipline au 16) : +2 aux jets de sauvegarde en tenant une posture de cette discipline. Aussi +2 aux tests de Savoir martial sur une discipline focalisée.</p><p><b>Bonus à la CA (2) :</b> + modificateur de Sag à la CA en armure légère, sans encombrement et sans bouclier ; vaut contre les attaques de contact et si pris au dépourvu ; perdu si immobilisé ou sans défense.</p><p><b>Sens de la magie (7, Sur) :</b> 10 minutes d’étude d’une arme ou d’une armure et un test de niveau contre DD 10 + son niveau de lanceur de sorts révèlent ses propriétés (artefacts et armes légendaires : seulement « très puissant »).</p><p><b>Esquive totale (9) :</b> aucun dégât sur un jet de Réflexes réussi contre un effet à demi-dégâts ; armure légère ou sans armure, pas sans défense. <b>Esquive extraordinaire (17) :</b> en plus, demi-dégâts sur un jet raté.</p><p><b>Double stimulation (20) :</b> 3 fois par jour, en initiant une stimulation, en initier une autre connue par une action libre ; les deux sont dépensées.</p>"
+  },
+  "source": {
+    "book": "Tome of Battle",
+    "page": 15,
+    "frRef": "traduction maison"
+  }
+}

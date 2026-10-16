@@ -1,0 +1,224 @@
+{
+  "classId": "swordsage",
+  "levels": [
+    {
+      "level": 1,
+      "maneuversKnown": 6,
+      "maneuversReadied": 4,
+      "stancesKnown": 1,
+      "highestManeuverLevel": 1,
+      "maneuverSwap": false
+    },
+    {
+      "level": 2,
+      "maneuversKnown": 7,
+      "maneuversReadied": 4,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 1,
+      "maneuverSwap": false
+    },
+    {
+      "level": 3,
+      "maneuversKnown": 8,
+      "maneuversReadied": 5,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 2,
+      "maneuverSwap": false
+    },
+    {
+      "level": 4,
+      "maneuversKnown": 9,
+      "maneuversReadied": 5,
+      "stancesKnown": 2,
+      "highestManeuverLevel": 2,
+      "maneuverSwap": true
+    },
+    {
+      "level": 5,
+      "maneuversKnown": 10,
+      "maneuversReadied": 6,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 3,
+      "maneuverSwap": false
+    },
+    {
+      "level": 6,
+      "maneuversKnown": 11,
+      "maneuversReadied": 6,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 3,
+      "maneuverSwap": true
+    },
+    {
+      "level": 7,
+      "maneuversKnown": 12,
+      "maneuversReadied": 6,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 4,
+      "maneuverSwap": false
+    },
+    {
+      "level": 8,
+      "maneuversKnown": 13,
+      "maneuversReadied": 7,
+      "stancesKnown": 3,
+      "highestManeuverLevel": 4,
+      "maneuverSwap": true
+    },
+    {
+      "level": 9,
+      "maneuversKnown": 14,
+      "maneuversReadied": 7,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 5,
+      "maneuverSwap": false
+    },
+    {
+      "level": 10,
+      "maneuversKnown": 15,
+      "maneuversReadied": 8,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 5,
+      "maneuverSwap": true
+    },
+    {
+      "level": 11,
+      "maneuversKnown": 16,
+      "maneuversReadied": 8,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 6,
+      "maneuverSwap": false
+    },
+    {
+      "level": 12,
+      "maneuversKnown": 17,
+      "maneuversReadied": 8,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 6,
+      "maneuverSwap": true
+    },
+    {
+      "level": 13,
+      "maneuversKnown": 18,
+      "maneuversReadied": 9,
+      "stancesKnown": 4,
+      "highestManeuverLevel": 7,
+      "maneuverSwap": false
+    },
+    {
+      "level": 14,
+      "maneuversKnown": 19,
+      "maneuversReadied": 9,
+      "stancesKnown": 5,
+      "highestManeuverLevel": 7,
+      "maneuverSwap": true
+    },
+    {
+      "level": 15,
+      "maneuversKnown": 20,
+      "maneuversReadied": 10,
+      "stancesKnown": 5,
+      "highestManeuverLevel": 8,
+      "maneuverSwap": false
+    },
+    {
+      "level": 16,
+      "maneuversKnown": 21,
+      "maneuversReadied": 10,
+      "stancesKnown": 5,
+      "highestManeuverLevel": 8,
+      "maneuverSwap": true
+    },
+    {
+      "level": 17,
+      "maneuversKnown": 22,
+      "maneuversReadied": 10,
+      "stancesKnown": 5,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": false
+    },
+    {
+      "level": 18,
+      "maneuversKnown": 23,
+      "maneuversReadied": 11,
+      "stancesKnown": 5,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": true
+    },
+    {
+      "level": 19,
+      "maneuversKnown": 24,
+      "maneuversReadied": 11,
+      "stancesKnown": 5,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": false
+    },
+    {
+      "level": 20,
+      "maneuversKnown": 25,
+      "maneuversReadied": 12,
+      "stancesKnown": 6,
+      "highestManeuverLevel": 9,
+      "maneuverSwap": true
+    }
+  ],
+  "highestManeuverLevelByInitiatorLevel": [
+    {
+      "minInitiatorLevel": 1,
+      "maxInitiatorLevel": 2,
+      "maneuverLevel": 1
+    },
+    {
+      "minInitiatorLevel": 3,
+      "maxInitiatorLevel": 4,
+      "maneuverLevel": 2
+    },
+    {
+      "minInitiatorLevel": 5,
+      "maxInitiatorLevel": 6,
+      "maneuverLevel": 3
+    },
+    {
+      "minInitiatorLevel": 7,
+      "maxInitiatorLevel": 8,
+      "maneuverLevel": 4
+    },
+    {
+      "minInitiatorLevel": 9,
+      "maxInitiatorLevel": 10,
+      "maneuverLevel": 5
+    },
+    {
+      "minInitiatorLevel": 11,
+      "maxInitiatorLevel": 12,
+      "maneuverLevel": 6
+    },
+    {
+      "minInitiatorLevel": 13,
+      "maxInitiatorLevel": 14,
+      "maneuverLevel": 7
+    },
+    {
+      "minInitiatorLevel": 15,
+      "maxInitiatorLevel": 16,
+      "maneuverLevel": 8
+    },
+    {
+      "minInitiatorLevel": 17,
+      "maxInitiatorLevel": 99,
+      "maneuverLevel": 9
+    }
+  ],
+  "initiatorLevel": {
+    "en": "Initiator level for the swordsage = swordsage level + 1/2 of all other class levels (rounded down, minimum 1st); without any martial adept level it is 1/2 character level (p. 39). highestManeuverLevel above assumes a single-class swordsage (initiator level = class level).",
+    "fr": "Niveau d’initiateur de maître des lames = niveau de maître des lames + 1/2 des niveaux des autres classes (arrondi à l’inférieur, minimum 1) ; sans niveau de classe martiale, il vaut 1/2 niveau global (p. 39). Le champ highestManeuverLevel suppose un maître des lames monoclassé (niveau d’initiateur = niveau de classe)."
+  },
+  "source": {
+    "book": "Tome of Battle",
+    "page": 16
+  },
+  "sourceInitiatorTable": {
+    "book": "Tome of Battle",
+    "page": 39
+  }
+}

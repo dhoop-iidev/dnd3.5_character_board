@@ -82,6 +82,17 @@ export interface Prereq {
   masterworkWeapon?: boolean
   /** Prerequisites that cannot be checked automatically; shown as text. */
   other?: I18n[]
+  /** Tome of Battle prestige classes: maneuvers/stances known from some disciplines, highest maneuver level. */
+  martial?: {
+    /** Missing `disciplines`: any discipline. Stances count as maneuvers here (Tome of Battle p. 43). */
+    maneuvers?: { count: number; disciplines?: string[]; minLevel?: number; type?: 'strike' }[]
+    stances?: { count: number; disciplines?: string[] }[]
+    anyManeuverLevel?: number
+    /** Knows at least one maneuver from this many different disciplines (Master of Nine). */
+    distinctDisciplines?: number
+    /** Has this many ranks in the key skills of this many disciplines (Master of Nine). */
+    keySkills?: { count: number; ranks: number }
+  }
 }
 
 export interface SkillDef {
@@ -200,6 +211,15 @@ export interface ClassDef {
   /** Monk: bonus feats taken without meeting their prerequisites. */
   bonusFeatIgnorePrereqs?: boolean
   requirements?: Prereq
+  /** Tome of Battle martial adept class: the disciplines it learns maneuvers from. */
+  disciplines?: string[]
+  /** Tome of Battle prestige class: how its levels advance a martial progression (p. 96). */
+  martialAdvance?: {
+    disciplines: string[]
+    /** How the prestige class levels count toward the initiator level ("full": added in full). */
+    initiatorLevel: 'full' | 'half' | string
+    levels: { level: number; known: number; readied: number; stances: number }[]
+  }
   /** Class features by level (generic class model; mechanics flagged with `computed`). */
   features?: ClassFeatureDef[]
   spellcasting?: SpellcastingDef
@@ -427,7 +447,16 @@ export interface MaterialDef {
 // Tome of Battle (non-SRD, allowed by house rules): martial disciplines, maneuvers and stances.
 // Only numbers and short summaries in our own words, with book page references (never the book text).
 
-export type DisciplineId = 'diamond-mind' | 'iron-heart' | 'stone-dragon' | 'tiger-claw' | 'white-raven'
+export type DisciplineId =
+  | 'desert-wind'
+  | 'devoted-spirit'
+  | 'diamond-mind'
+  | 'iron-heart'
+  | 'setting-sun'
+  | 'shadow-hand'
+  | 'stone-dragon'
+  | 'tiger-claw'
+  | 'white-raven'
 export type ManeuverType = 'boost' | 'counter' | 'strike' | 'stance' | 'other'
 export type InitiationAction = 'swift' | 'immediate' | 'move' | 'standard' | 'fullRound' | 'other'
 
@@ -498,6 +527,8 @@ export interface ManeuverDef {
 /** Per-level progression of a martial adept class (Tome of Battle Table 1–3) and Table 3–1. */
 export interface MartialProgression {
   classId: string
+  /** Crusader: maneuvers granted at the start of an encounter (p. 9). */
+  grantedAtStart?: number
   levels: { level: number; maneuversKnown: number; maneuversReadied: number; stancesKnown: number; highestManeuverLevel: number; maneuverSwap: boolean }[]
   highestManeuverLevelByInitiatorLevel: { minInitiatorLevel: number; maxInitiatorLevel: number; maneuverLevel: number }[]
   initiatorLevel: I18n

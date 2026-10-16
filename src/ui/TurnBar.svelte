@@ -2,7 +2,7 @@
   // Turn tracker: round counter, end of my turn (effect durations count down, maneuvers advance), start of my next
   // turn, end of the encounter. Durations in rounds: https://www.d20srd.org/srd/combat/initiative.htm
   import { rules } from '../data/rules'
-  import { advanceManeuvers } from '../engine/martial'
+  import { advanceManeuvers, crusaderEndTurn, crusaderGranted, readiedOf } from '../engine/martial'
   import { app, tr, view } from '../state.svelte'
   import { endRage, RAGE_ENCOUNTER_KEY } from './classActions'
   import { effectName } from './effects'
@@ -11,10 +11,27 @@
 
   function endTurn() {
     const c = app.character
-    if (c.martial) advanceManeuvers(c.martial, rules, 'endOfTurn')
-    // Smite evil applies to one attack: switched off after the turn.
+    const notes: string[] = []
+    if (c.martial) {
+      advanceManeuvers(c.martial, rules, 'endOfTurn')
+      // Crusader (ToB pp. 9–10): one withheld maneuver granted, or recovery and a new draw when none is left.
+      const crusader = view.sheet.classLevels['crusader'] ?? 0
+      if (crusader) {
+        const r = crusaderEndTurn(c.martial, readiedOf(c, rules, 'crusader'), crusaderGranted(rules, crusader))
+        if (r === 'granted') notes.push(tr({ en: 'one maneuver granted', fr: 'une manœuvre accordée' }))
+        if (r === 'recovered') notes.push(tr({ en: 'crusader maneuvers recovered, new draw', fr: 'manœuvres de croisé récupérées, nouveau tirage' }))
+      }
+      // Steely resolve (ToB p. 10): the delayed damage is taken at the end of the turn.
+      if (c.martial.pool) {
+        c.hp.damage += c.martial.pool
+        notes.push(tr({ en: `${c.martial.pool} delayed damage taken`, fr: `${c.martial.pool} dégâts différés subis` }))
+        c.martial.pool = 0
+      }
+    }
+    // Smite applies to one attack: switched off after the turn.
     c.toggles.smite = false
-    message = ''
+    c.toggles.crusaderSmite = false
+    message = notes.join(' · ')
   }
   // A duration in rounds ends just before the initiative count it began on: count it down when your next turn starts
   // (also while switched off: a duration keeps running).
@@ -61,6 +78,10 @@
     if (c.martial) {
       c.martial.expended = []
       c.martial.active = []
+      delete c.martial.granted
+      // Delayed damage still pending is taken when the encounter ends.
+      if (c.martial.pool) c.hp.damage += c.martial.pool
+      delete c.martial.pool
     }
     message = tr({
       en: 'Encounter over: maneuvers recovered, running maneuvers ended.',

@@ -1,0 +1,987 @@
+[
+  {
+    "id": "baffling-defense",
+    "name": {
+      "en": "Baffling Defense",
+      "fr": "Défense déroutante"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 1,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "When a foe attacks you on its turn, a Sense Motive check replaces your AC against that one attack.",
+      "fr": "Quand un adversaire vous attaque pendant son tour, un test de Psychologie remplace votre CA contre cette attaque."
+    },
+    "text": {
+      "en": "<p>When an opponent attacks you on his turn, you can replace your AC against that <strong>one attack</strong> with the result of a <strong>Sense Motive check</strong>. Decide after the attack is declared but <strong>before</strong> you know its result. You must be aware of the attack, and you cannot use this counter if you are flat-footed against it.</p>",
+      "fr": "<p>Quand un adversaire vous attaque pendant son tour, vous pouvez remplacer votre CA contre <strong>cette seule attaque</strong> par le résultat d’un <strong>test de Psychologie</strong>. Vous décidez une fois l’attaque annoncée mais <strong>avant</strong> d’en connaître le résultat. Vous devez être conscient de l’attaque, et vous ne pouvez pas utiliser cette contre-attaque si vous êtes pris au dépourvu face à elle.</p>"
+    },
+    "skillCheck": {
+      "skill": "sense-motive",
+      "note": {
+        "en": "The Sense Motive result is your AC against one attack.",
+        "fr": "Le résultat du test de Psychologie sert de CA contre une attaque."
+      }
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 70,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "ballista-throw",
+    "name": {
+      "en": "Ballista Throw",
+      "fr": "Projection baliste"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Touch and 60 ft.; see text",
+      "fr": "Contact et 18 m ; voir texte"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "Créature touchée"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "area": {
+      "en": "60-ft. line",
+      "fr": "Ligne de 18 m"
+    },
+    "summary": {
+      "en": "Touch attack and trip (+4): throw the foe along a 60-ft. line, 6d6 to him and every creature in the line.",
+      "fr": "Attaque de contact puis croc-en-jambe (+4) : projetez l’adversaire sur une ligne de 18 m, 6d6 à lui et à chaque créature de la ligne."
+    },
+    "text": {
+      "en": "<p>Works like <em>mighty throw</em>, with these changes. Make a <strong>melee touch attack</strong>, then a trip attempt with <strong>+4</strong> on the ability check. If the trip succeeds, the foe flies along a <strong>60-ft. line</strong>: he and every creature in that line take <strong>6d6</strong> damage. He lands <strong>prone</strong> at the end of the line, in an empty space (or the nearest open space to the endpoint).</p>",
+      "fr": "<p>Fonctionne comme <em>projection puissante</em>, avec ces changements. Faites une <strong>attaque de contact au corps à corps</strong>, puis un croc-en-jambe avec <strong>+4</strong> au test de caractéristique. Si le croc-en-jambe réussit, l’adversaire est projeté sur une <strong>ligne de 18 m</strong> : lui et chaque créature de cette ligne subissent <strong>6d6</strong> points de dégâts. Il retombe <strong>à terre</strong> au bout de la ligne, dans un espace libre (ou l’espace libre le plus proche du bout).</p>"
+    },
+    "notes": {
+      "en": "The 6d6 is the throw’s own damage, not extra weapon damage. The throw is resolved as a trip attempt (PH 158): no attack of opportunity, and the foe cannot trip you back if you lose. Use the higher of your Str or Dex modifier, +4 on the check. The app does not compute this check.",
+      "fr": "Les 6d6 sont les dégâts de la projection, pas des dégâts d’arme supplémentaires. La projection se résout comme un croc-en-jambe (Manuel des Joueurs p. 158) : pas d’attaque d’opportunité, et l’adversaire ne peut pas vous renverser si vous perdez. Utilisez le meilleur de vos modificateurs de For ou de Dex, +4 au test. L’application ne calcule pas ce test."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 70,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "clever-positioning",
+    "name": {
+      "en": "Clever Positioning",
+      "fr": "Placement astucieux"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 2,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Reflex partial, DC 12 + Dex mod",
+      "fr": "Réflexes partiel, DD 12 + mod. de Dex"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; if it hits and the foe fails a Reflex save, you swap places with him.",
+      "fr": "Attaque au contact ; si elle touche et que l’adversaire rate un jet de Réflexes, vous échangez vos places."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, the target takes normal damage and makes a <strong>Reflex save (DC 12 + your Dex modifier)</strong>. On a failure you <strong>swap positions</strong>: against a Large or larger foe you take any square of its space, and it takes your former square. Not usable if either of you would end up sharing a space with another creature or an obstacle such as a wall.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux et fait un <strong>jet de Réflexes (DD 12 + mod. de Dex)</strong>. En cas d’échec, vous <strong>échangez vos positions</strong> : contre un adversaire de taille G ou plus, vous prenez n’importe quelle case de son espace et il prend votre ancienne case. Impossible si l’un de vous deux finirait dans l’espace d’une autre créature ou d’un obstacle comme un mur.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 70,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "comet-throw",
+    "name": {
+      "en": "Comet Throw",
+      "fr": "Projection comète"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Touch",
+      "fr": "Contact"
+    },
+    "target": {
+      "en": "Creature touched; see text",
+      "fr": "Créature touchée ; voir texte"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Reflex partial, DC 14 + Str mod; see text",
+      "fr": "Réflexes partiel, DD 14 + mod. de For ; voir texte"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Touch attack and trip (+4): throw the foe 10 ft. (+5 ft. per 5 points of margin), 4d6; can hit a second foe.",
+      "fr": "Attaque de contact puis croc-en-jambe (+4) : projetez l’adversaire à 3 m (+1,50 m par tranche de 5 points de marge), 4d6 ; peut percuter un second adversaire."
+    },
+    "text": {
+      "en": "<p>Works like <em>mighty throw</em>, with these changes. <strong>Melee touch attack</strong>, then a trip attempt at <strong>+4</strong>. On a success you throw the foe up to <strong>10 ft.</strong> in a direction of your choice, <strong>+5 ft. per 5 points</strong> by which you win; he lands <strong>prone</strong> and takes <strong>4d6</strong>. You may throw him into a second foe’s space: that foe also takes 4d6 and falls prone (<strong>Reflex DC 14 + your Str modifier</strong> halves the damage and keeps him standing); the thrown foe then lands prone in a clear square next to him.</p>",
+      "fr": "<p>Fonctionne comme <em>projection puissante</em>, avec ces changements. <strong>Attaque de contact au corps à corps</strong>, puis croc-en-jambe à <strong>+4</strong>. En cas de réussite, vous projetez l’adversaire jusqu’à <strong>3 m</strong> dans la direction de votre choix, <strong>+1,50 m par tranche de 5 points</strong> de marge ; il retombe <strong>à terre</strong> et subit <strong>4d6</strong>. Vous pouvez le projeter dans l’espace d’un second adversaire : celui-ci subit aussi 4d6 et tombe à terre (<strong>Réflexes DD 14 + mod. de For</strong> : moitié des dégâts et reste debout) ; l’adversaire projeté retombe à terre dans une case libre adjacente.</p>"
+    },
+    "notes": {
+      "en": "The 4d6 is the throw’s own damage, not extra weapon damage. The throw is resolved as a trip attempt (PH 158): no attack of opportunity, and the foe cannot trip you back if you lose. Use the higher of your Str or Dex modifier, +4 on the check. The app does not compute this check.",
+      "fr": "Les 4d6 sont les dégâts de la projection, pas des dégâts d’arme supplémentaires. La projection se résout comme un croc-en-jambe (Manuel des Joueurs p. 158) : pas d’attaque d’opportunité, et l’adversaire ne peut pas vous renverser si vous perdez. Utilisez le meilleur de vos modificateurs de For ou de Dex, +4 au test. L’application ne calcule pas ce test."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 71,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "counter-charge",
+    "name": {
+      "en": "Counter Charge",
+      "fr": "Contre-charge"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "immediate",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Against a foe charging you: opposed Str or Dex check; win and its attack is lost and you move it 2 squares.",
+      "fr": "Contre un adversaire qui vous charge : test opposé de For ou de Dex ; si vous gagnez, son attaque est perdue et vous le déplacez de 2 cases."
+    },
+    "text": {
+      "en": "<p>Just before a creature’s charge attack against you, make an opposed <strong>Strength or Dexterity check</strong> (your choice; it uses the same ability). <strong>+4</strong> on a Strength check if you are larger than it, <strong>+4</strong> on a Dexterity check if you are smaller. If you win, it <strong>does not attack</strong> you and you can move it up to <strong>2 squares</strong> away from you. If you lose, it gets <strong>+2</strong> on its charge attack, on top of the normal charge bonus.</p>",
+      "fr": "<p>Juste avant l’attaque de charge d’une créature contre vous, faites un <strong>test opposé de Force ou de Dextérité</strong> (à votre choix ; elle utilise la même caractéristique). <strong>+4</strong> au test de Force si vous êtes plus grand qu’elle, <strong>+4</strong> au test de Dextérité si vous êtes plus petit. Si vous gagnez, elle <strong>ne vous attaque pas</strong> et vous pouvez la déplacer de <strong>2 cases</strong> au plus en l’éloignant de vous. Si vous perdez, elle gagne <strong>+2</strong> à son attaque de charge, en plus du bonus de charge normal.</p>"
+    },
+    "notes": {
+      "en": "Size-based +4 on the opposed check is not computed by the app.",
+      "fr": "Le +4 lié à la taille sur le test opposé n’est pas calculé par l’application."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 71,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "devastating-throw",
+    "name": {
+      "en": "Devastating Throw",
+      "fr": "Projection dévastatrice"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "standard",
+    "range": {
+      "en": "Touch",
+      "fr": "Contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "Créature touchée"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Move at least 15 ft., touch attack and trip (+4): throw the foe 10 ft. (+5 ft. per 5 points of margin), 2d6.",
+      "fr": "Déplacez-vous d’au moins 4,50 m, attaque de contact puis croc-en-jambe (+4) : projetez l’adversaire à 3 m (+1,50 m par tranche de 5 points de marge), 2d6."
+    },
+    "text": {
+      "en": "<p>Works like <em>mighty throw</em>, with these changes. You must first <strong>move at least 15 ft.</strong> Then a <strong>melee touch attack</strong> and a trip attempt at <strong>+4</strong>. On a success you throw the foe up to <strong>10 ft.</strong>, <strong>+5 ft. per 5 points</strong> by which you win, into an empty space you choose; he lands <strong>prone</strong> and takes <strong>2d6</strong>. Without enough distance to reach a clear space, he falls prone where he stands.</p>",
+      "fr": "<p>Fonctionne comme <em>projection puissante</em>, avec ces changements. Vous devez d’abord vous <strong>déplacer d’au moins 4,50 m</strong>. Puis <strong>attaque de contact au corps à corps</strong> et croc-en-jambe à <strong>+4</strong>. En cas de réussite, vous projetez l’adversaire jusqu’à <strong>3 m</strong>, <strong>+1,50 m par tranche de 5 points</strong> de marge, dans un espace libre de votre choix ; il retombe <strong>à terre</strong> et subit <strong>2d6</strong>. Sans distance suffisante pour atteindre un espace libre, il tombe à terre sur place.</p>"
+    },
+    "notes": {
+      "en": "The 2d6 is the throw’s own damage, not extra weapon damage. The throw is resolved as a trip attempt (PH 158): no attack of opportunity, and the foe cannot trip you back if you lose. Use the higher of your Str or Dex modifier, +4 on the check. The app does not compute this check.",
+      "fr": "Les 2d6 sont les dégâts de la projection, pas des dégâts d’arme supplémentaires. La projection se résout comme un croc-en-jambe (Manuel des Joueurs p. 158) : pas d’attaque d’opportunité, et l’adversaire ne peut pas vous renverser si vous perdez. Utilisez le meilleur de vos modificateurs de For ou de Dex, +4 au test. L’application ne calcule pas ce test."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 71,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "feigned-opening",
+    "name": {
+      "en": "Feigned Opening",
+      "fr": "Fausse ouverture"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "When a foe takes an attack of opportunity on you: if it misses, it provokes from you; if it hits, from your allies.",
+      "fr": "Quand un adversaire vous porte une attaque d’opportunité : s’il rate, il en provoque une de votre part ; s’il touche, de vos alliés."
+    },
+    "text": {
+      "en": "<p>Initiate this counter when an enemy makes an <strong>attack of opportunity</strong> against you, before you know its result. If that attack <strong>misses</strong>, the enemy provokes an attack of opportunity <strong>from you</strong>. If it <strong>hits</strong>, she provokes an attack of opportunity from <strong>each of your allies</strong> who threaten her.</p>",
+      "fr": "<p>Initiez cette contre-attaque quand un ennemi vous porte une <strong>attaque d’opportunité</strong>, avant d’en connaître le résultat. Si cette attaque <strong>rate</strong>, l’ennemi provoque une attaque d’opportunité <strong>de votre part</strong>. Si elle <strong>touche</strong>, il provoque une attaque d’opportunité de <strong>chacun de vos alliés</strong> qui le menacent.</p>"
+    },
+    "notes": {
+      "en": "The entry prints \"1 swift action\", but the book’s summary list (p. 49) says immediate action, and a counter used on the foe’s turn must be immediate: entered as immediate.",
+      "fr": "L’entrée indique « 1 action rapide », mais la liste récapitulative du livre (p. 49) dit action immédiate, et une contre-attaque utilisée pendant le tour adverse doit être immédiate : saisie comme immédiate."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 72,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "fools-strike",
+    "name": {
+      "en": "Fool’s Strike",
+      "fr": "Frappe de la dupe"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "immediate",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "When a foe attacks you on its turn, opposed attack rolls: if you win, the foe takes its own attack’s damage.",
+      "fr": "Quand un adversaire vous attaque pendant son tour, jets d’attaque opposés : si vous gagnez, il subit les dégâts de sa propre attaque."
+    },
+    "text": {
+      "en": "<p>When an enemy attacks you on its turn, make an <strong>opposed attack roll</strong>. If the foe’s result is higher, its attack proceeds normally. If yours is higher, the foe rolls the attack’s damage as usual and <strong>takes it himself</strong>.</p>",
+      "fr": "<p>Quand un ennemi vous attaque pendant son tour, faites un <strong>jet d’attaque opposé</strong>. Si son résultat est le plus haut, son attaque se déroule normalement. Si le vôtre est le plus haut, il lance les dégâts de l’attaque comme d’habitude et <strong>les subit lui-même</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 72,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "ghostly-defense",
+    "name": {
+      "en": "Ghostly Defense",
+      "fr": "Défense fantomatique"
+    },
+    "discipline": "setting-sun",
+    "type": "stance",
+    "descriptors": [],
+    "level": 8,
+    "prereqCount": 3,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: when an attack misses you because of a miss chance (concealment), redirect it to a creature next to you.",
+      "fr": "Posture : quand une attaque vous rate à cause d’une chance de rater (camouflage), redirigez-la vers une créature adjacente."
+    },
+    "text": {
+      "en": "<p>Whenever a melee or ranged attack <strong>misses you because of a miss chance</strong> (such as concealment), you can make another eligible creature its target. Melee: the new target is adjacent to you and within the attacker’s reach. Ranged: adjacent to you, with the attacker having line of effect to it. The original attack roll is used, with no new miss chance. Once per attack; an attack redirected to a creature in this stance cannot be redirected again. Not usable against attacks you are unaware of or that catch you flat-footed.</p>",
+      "fr": "<p>Chaque fois qu’une attaque au corps à corps ou à distance <strong>vous rate à cause d’une chance de rater</strong> (par exemple un camouflage), vous pouvez en faire viser une autre créature admissible. Corps à corps : la nouvelle cible vous est adjacente et à l’allonge de l’attaquant. Distance : elle vous est adjacente et l’attaquant a une ligne d’effet vers elle. On garde le jet d’attaque d’origine, sans nouvelle chance de rater. Une fois par attaque ; une attaque redirigée vers une créature dans cette posture ne peut pas l’être à nouveau. Inutilisable contre les attaques dont vous n’avez pas conscience ou qui vous prennent au dépourvu.</p>"
+    },
+    "notes": {
+      "en": "Needs a miss chance from another source (concealment, blur, displacement…); the stance does not grant one.",
+      "fr": "Nécessite une chance de rater venant d’ailleurs (camouflage, flou, déplacement…) ; la posture n’en donne pas."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 72,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "giant-killing-style",
+    "name": {
+      "en": "Giant Killing Style",
+      "fr": "Style tueur de géants"
+    },
+    "discipline": "setting-sun",
+    "type": "stance",
+    "descriptors": [],
+    "level": 3,
+    "prereqCount": 1,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: +2 on attack rolls and +4 on damage rolls against foes larger than you.",
+      "fr": "Posture : +2 aux jets d’attaque et +4 aux jets de dégâts contre les adversaires plus grands que vous."
+    },
+    "text": {
+      "en": "<p>While in this stance you get <strong>+2 on attack rolls</strong> and <strong>+4 on damage rolls</strong> against opponents of a <strong>larger size category</strong> than yours.</p>",
+      "fr": "<p>Dans cette posture, vous gagnez <strong>+2 aux jets d’attaque</strong> et <strong>+4 aux jets de dégâts</strong> contre les adversaires d’une <strong>catégorie de taille supérieure</strong> à la vôtre.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.all",
+          "bonusType": "untyped",
+          "value": 2,
+          "condition": {
+            "en": "against a foe larger than you",
+            "fr": "contre un adversaire plus grand que vous"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "damage.all",
+          "bonusType": "untyped",
+          "value": 4,
+          "condition": {
+            "en": "against a foe larger than you",
+            "fr": "contre un adversaire plus grand que vous"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      }
+    ],
+    "notes": {
+      "en": "The entry adds that the bonus \"applies to all attacks you make for the rest of your turn\"; a stance lasts until you end it, so the app keeps the bonus for the whole stance.",
+      "fr": "L’entrée ajoute que le bonus « s’applique à toutes vos attaques jusqu’à la fin du tour » ; une posture dure jusqu’à ce que vous la quittiez, l’application garde donc le bonus pendant toute la posture."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 72,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "hydra-slaying-strike",
+    "name": {
+      "en": "Hydra Slaying Strike",
+      "fr": "Frappe tueuse d’hydre"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 7,
+    "prereqCount": 3,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack; if it hits, the target cannot make a full attack on its next turn.",
+      "fr": "Attaque au contact ; si elle touche, la cible ne peut pas faire d’attaque à outrance à son prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack. If it hits, the target takes normal damage and <strong>cannot make a full attack</strong> on its next turn. On a miss, it acts normally.</p>",
+      "fr": "<p>Faites une attaque au corps à corps. Si elle touche, la cible subit les dégâts normaux et <strong>ne peut pas faire d’attaque à outrance</strong> à son prochain tour. En cas d’échec, elle agit normalement.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 73,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "mighty-throw",
+    "name": {
+      "en": "Mighty Throw",
+      "fr": "Projection puissante"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "standard",
+    "range": {
+      "en": "Touch",
+      "fr": "Contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "Créature touchée"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Touch attack and trip (+4, Str or Dex): throw the foe up to 10 ft.; he lands prone.",
+      "fr": "Attaque de contact puis croc-en-jambe (+4, For ou Dex) : projetez l’adversaire jusqu’à 3 m ; il retombe à terre."
+    },
+    "text": {
+      "en": "<p>Make a <strong>melee touch attack</strong>, then resolve a <strong>trip</strong> attempt that provokes no attack of opportunity and cannot be turned against you if you lose. Use the higher of your <strong>Str or Dex</strong> modifier, with <strong>+4</strong> on the check. On a success you throw the foe up to <strong>10 ft.</strong> into an empty space you choose, and he lands <strong>prone</strong> (or falls prone where he stands if no clear space is in reach). The thrown foe provokes no attacks of opportunity on the way and can pass over occupied squares.</p>",
+      "fr": "<p>Faites une <strong>attaque de contact au corps à corps</strong>, puis un <strong>croc-en-jambe</strong> qui ne provoque pas d’attaque d’opportunité et ne peut pas se retourner contre vous si vous perdez. Utilisez le meilleur de vos modificateurs de <strong>For ou de Dex</strong>, avec <strong>+4</strong> au test. En cas de réussite, vous projetez l’adversaire jusqu’à <strong>3 m</strong> dans un espace libre de votre choix et il retombe <strong>à terre</strong> (ou tombe à terre sur place si aucun espace libre n’est à portée). L’adversaire projeté ne provoque pas d’attaque d’opportunité en chemin et peut passer au-dessus de cases occupées.</p>"
+    },
+    "notes": {
+      "en": "Trip rules: PH 158 (https://www.d20srd.org/srd/combat/specialAttacks.htm#trip). The app does not compute the +4 trip check.",
+      "fr": "Règles du croc-en-jambe : Manuel des Joueurs p. 158 (https://www.d20srd.org/srd/combat/specialAttacks.htm#trip). L’application ne calcule pas le test de croc-en-jambe à +4."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 73,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "mirrored-pursuit",
+    "name": {
+      "en": "Mirrored Pursuit",
+      "fr": "Poursuite en miroir"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "When an adjacent foe moves, you move next to it when it stops (up to your speed), without provoking.",
+      "fr": "Quand un adversaire adjacent se déplace, vous le rejoignez quand il s’arrête (jusqu’à votre VD), sans provoquer."
+    },
+    "text": {
+      "en": "<p>When an adjacent opponent moves, initiate this counter to move to any square <strong>adjacent to it</strong> as soon as it stops, as long as the distance is no more than <strong>your speed</strong>. This movement provokes <strong>no attacks of opportunity</strong>.</p>",
+      "fr": "<p>Quand un adversaire adjacent se déplace, initiez cette contre-attaque pour aller dans n’importe quelle case <strong>adjacente à lui</strong> dès qu’il s’arrête, si la distance ne dépasse pas <strong>votre VD</strong>. Ce déplacement ne provoque <strong>pas d’attaque d’opportunité</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 73,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "scorpion-parry",
+    "name": {
+      "en": "Scorpion Parry",
+      "fr": "Parade du scorpion"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 6,
+    "prereqCount": 2,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "When a foe attacks you, opposed attack rolls: if you win, its attack hits a creature next to you instead.",
+      "fr": "Quand un adversaire vous attaque, jets d’attaque opposés : si vous gagnez, son attaque vise une créature adjacente à la place."
+    },
+    "text": {
+      "en": "<p>When an opponent attacks you, make an <strong>opposed attack roll</strong>. If his result is higher, he attacks you normally. If yours is higher, choose a creature <strong>adjacent to you</strong> and within the opponent’s threatened area: it becomes the <strong>new target</strong>, and the original attack roll decides whether it is hit.</p>",
+      "fr": "<p>Quand un adversaire vous attaque, faites un <strong>jet d’attaque opposé</strong>. Si son résultat est le plus haut, il vous attaque normalement. Si le vôtre est le plus haut, choisissez une créature <strong>adjacente à vous</strong> et dans la zone qu’il menace : elle devient la <strong>nouvelle cible</strong>, et le jet d’attaque d’origine décide si elle est touchée.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 73,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "shifting-defense",
+    "name": {
+      "en": "Shifting Defense",
+      "fr": "Défense mouvante"
+    },
+    "discipline": "setting-sun",
+    "type": "stance",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: each time a foe attacks you, take an immediate 5-ft. step (uses one attack of opportunity).",
+      "fr": "Posture : chaque fois qu’un adversaire vous attaque, faites un pas de placement de 1,50 m immédiat (consomme une attaque d’opportunité)."
+    },
+    "text": {
+      "en": "<p>While in this stance, each time an opponent attacks you, you can take an immediate <strong>5-ft. step</strong>. Each step uses up one of your <strong>attacks of opportunity</strong> for the round, so you cannot do it with none left. The step provokes no attacks of opportunity.</p>",
+      "fr": "<p>Dans cette posture, chaque fois qu’un adversaire vous attaque, vous pouvez faire immédiatement un <strong>pas de placement de 1,50 m</strong>. Chaque pas consomme une de vos <strong>attaques d’opportunité</strong> du round : impossible s’il ne vous en reste plus. Le pas ne provoque pas d’attaque d’opportunité.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 73,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "soaring-throw",
+    "name": {
+      "en": "Soaring Throw",
+      "fr": "Projection aérienne"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Touch",
+      "fr": "Contact"
+    },
+    "target": {
+      "en": "Creature touched",
+      "fr": "Créature touchée"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Touch attack and trip (+4, Str or Dex): throw the foe 20 ft. (+5 ft. per 5 points of margin), 8d6.",
+      "fr": "Attaque de contact puis croc-en-jambe (+4, For ou Dex) : projetez l’adversaire à 6 m (+1,50 m par tranche de 5 points de marge), 8d6."
+    },
+    "text": {
+      "en": "<p><strong>Melee touch attack</strong>, then a trip attempt (no attack of opportunity, cannot be turned against you) using the higher of your <strong>Str or Dex</strong> modifier, at <strong>+4</strong>. On a success you throw the foe up to <strong>20 ft.</strong>, <strong>+5 ft. per 5 points</strong> by which you win, into an empty space you choose; he lands <strong>prone</strong> and takes <strong>8d6</strong> (prone in place if no clear space is in reach). He provokes no attacks of opportunity on the way and can pass over occupied squares.</p>",
+      "fr": "<p><strong>Attaque de contact au corps à corps</strong>, puis croc-en-jambe (sans attaque d’opportunité, ne peut pas se retourner contre vous) avec le meilleur de vos modificateurs de <strong>For ou de Dex</strong>, à <strong>+4</strong>. En cas de réussite, vous projetez l’adversaire jusqu’à <strong>6 m</strong>, <strong>+1,50 m par tranche de 5 points</strong> de marge, dans un espace libre de votre choix ; il retombe <strong>à terre</strong> et subit <strong>8d6</strong> (à terre sur place si aucun espace libre n’est à portée). Il ne provoque pas d’attaque d’opportunité en chemin et peut passer au-dessus de cases occupées.</p>"
+    },
+    "notes": {
+      "en": "The 8d6 is the throw’s own damage, not extra weapon damage. The app does not compute the trip check.",
+      "fr": "Les 8d6 sont les dégâts de la projection, pas des dégâts d’arme supplémentaires. L’application ne calcule pas le test de croc-en-jambe."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 73,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "stalking-shadow",
+    "name": {
+      "en": "Stalking Shadow",
+      "fr": "Ombre traqueuse"
+    },
+    "discipline": "setting-sun",
+    "type": "counter",
+    "descriptors": [],
+    "level": 5,
+    "prereqCount": 2,
+    "action": "immediate",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "When an adjacent foe moves, 5-ft. step into the space it left, without provoking.",
+      "fr": "Quand un adversaire adjacent se déplace, pas de placement de 1,50 m dans l’espace qu’il quitte, sans provoquer."
+    },
+    "text": {
+      "en": "<p>When an opponent in an adjacent square moves, initiate this counter to take a <strong>5-ft. step</strong> into the space (or one of the squares) it occupied. This movement provokes <strong>no attacks of opportunity</strong>.</p>",
+      "fr": "<p>Quand un adversaire situé dans une case adjacente se déplace, initiez cette contre-attaque pour faire un <strong>pas de placement de 1,50 m</strong> dans l’espace (ou l’une des cases) qu’il occupait. Ce déplacement ne provoque <strong>pas d’attaque d’opportunité</strong>.</p>"
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 74,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "step-of-the-wind",
+    "name": {
+      "en": "Step of the Wind",
+      "fr": "Pas du vent"
+    },
+    "discipline": "setting-sun",
+    "type": "stance",
+    "descriptors": [],
+    "level": 1,
+    "prereqCount": 0,
+    "action": "swift",
+    "range": {
+      "en": "Personal",
+      "fr": "Personnelle"
+    },
+    "target": {
+      "en": "You",
+      "fr": "Vous"
+    },
+    "duration": {
+      "en": "Stance",
+      "fr": "Posture"
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Stance: ignore difficult terrain; +2 on attacks and +4 on bull rush/trip checks against foes slowed by it.",
+      "fr": "Posture : ignorez les terrains difficiles ; +2 aux attaques et +4 aux tests de bousculade/croc-en-jambe contre les adversaires qu’ils ralentissent."
+    },
+    "text": {
+      "en": "<p>While in this stance you ignore the penalties to speed, movement and movement skills (Tumble, Jump, Climb…) caused by <strong>difficult terrain</strong>. Against a foe standing on difficult terrain who takes a movement penalty for it, you get <strong>+2 on attack rolls</strong> and <strong>+4 on Str or Dex checks</strong> to make or resist a <strong>bull rush or trip</strong>.</p>",
+      "fr": "<p>Dans cette posture, vous ignorez les malus de vitesse, de déplacement et de compétences de mouvement (Acrobaties, Saut, Escalade…) dus aux <strong>terrains difficiles</strong>. Contre un adversaire sur un terrain difficile qui subit un malus de déplacement à cause de lui, vous gagnez <strong>+2 aux jets d’attaque</strong> et <strong>+4 aux tests de For ou de Dex</strong> pour tenter ou contrer une <strong>bousculade ou un croc-en-jambe</strong>.</p>"
+    },
+    "effects": [
+      {
+        "spec": {
+          "target": "attack.all",
+          "bonusType": "untyped",
+          "value": 2,
+          "condition": {
+            "en": "against a foe slowed by difficult terrain",
+            "fr": "contre un adversaire ralenti par un terrain difficile"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "check.str",
+          "bonusType": "untyped",
+          "value": 4,
+          "condition": {
+            "en": "bull rush or trip (made or resisted) against a foe slowed by difficult terrain",
+            "fr": "bousculade ou croc-en-jambe (tenté ou subi) contre un adversaire ralenti par un terrain difficile"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      },
+      {
+        "spec": {
+          "target": "check.dex",
+          "bonusType": "untyped",
+          "value": 4,
+          "condition": {
+            "en": "bull rush or trip (made or resisted) against a foe slowed by difficult terrain",
+            "fr": "bousculade ou croc-en-jambe (tenté ou subi) contre un adversaire ralenti par un terrain difficile"
+          }
+        },
+        "duration": "stance",
+        "appliesTo": "self"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 74,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "strike-of-the-broken-shield",
+    "name": {
+      "en": "Strike of the Broken Shield",
+      "fr": "Frappe du bouclier brisé"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 4,
+    "prereqCount": 2,
+    "action": "standard",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One creature",
+      "fr": "Une créature"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "Reflex partial, DC 14 + Str mod",
+      "fr": "Réflexes partiel, DD 14 + mod. de For"
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Melee attack +4d6; Reflex save or the target is flat-footed until its next turn.",
+      "fr": "Attaque au contact +4d6 ; jet de Réflexes ou la cible est prise au dépourvu jusqu’à son prochain tour."
+    },
+    "text": {
+      "en": "<p>Make one melee attack that deals <strong>+4d6</strong> damage. The target must also make a <strong>Reflex save (DC 14 + your Str modifier)</strong> or be <strong>flat-footed</strong> until the start of its next turn. The damage applies even on a successful save. A target that cannot be caught flat-footed (uncanny dodge…) still takes the extra damage.</p>",
+      "fr": "<p>Faites une attaque au corps à corps qui inflige <strong>+4d6</strong> points de dégâts. La cible doit aussi réussir un <strong>jet de Réflexes (DD 14 + mod. de For)</strong> ou être <strong>prise au dépourvu</strong> jusqu’au début de son prochain tour. Les dégâts s’appliquent même si le jet réussit. Une cible qui ne peut pas être prise au dépourvu (esquive instinctive…) subit quand même les dégâts supplémentaires.</p>"
+    },
+    "extraDamage": [
+      {
+        "dice": "4d6"
+      }
+    ],
+    "source": {
+      "book": "Tome of Battle",
+      "page": 74,
+      "frRef": "traduction maison"
+    }
+  },
+  {
+    "id": "tornado-throw",
+    "name": {
+      "en": "Tornado Throw",
+      "fr": "Projection tornade"
+    },
+    "discipline": "setting-sun",
+    "type": "strike",
+    "descriptors": [],
+    "level": 9,
+    "prereqCount": 5,
+    "action": "fullRound",
+    "range": {
+      "en": "Melee attack",
+      "fr": "Attaque au corps à corps"
+    },
+    "target": {
+      "en": "One or more creatures",
+      "fr": "Une ou plusieurs créatures"
+    },
+    "duration": {
+      "en": "",
+      "fr": ""
+    },
+    "save": {
+      "en": "",
+      "fr": ""
+    },
+    "supernatural": false,
+    "summary": {
+      "en": "Move up to double speed, throwing foes after every 10 ft. (touch attack + trip, +2 per 5 ft. moved), 2d6 +1d6 per 5 points of margin.",
+      "fr": "Déplacez-vous jusqu’au double de votre VD en projetant des adversaires tous les 3 m (contact + croc-en-jambe, +2 par 1,50 m parcouru), 2d6 +1d6 par tranche de 5 points de marge."
+    },
+    "text": {
+      "en": "<p>Move up to <strong>double your speed</strong> (movement provokes normally); you must move <strong>10 ft.</strong> before the first throw, and after every <strong>10 ft.</strong> you can try another throw on the same or another foe. Each throw: <strong>melee touch attack</strong>, then a trip (no attack of opportunity, cannot be turned against you) with the higher of <strong>Str or Dex</strong>, at <strong>+2 per 5 ft.</strong> moved this turn. On a success the foe flies <strong>10 ft.</strong> into an empty space you choose, lands prone and takes <strong>2d6</strong>; each 5 points of margin adds <strong>5 ft. and 1d6</strong>. Thrown foes provoke nothing and can pass over occupied squares.</p>",
+      "fr": "<p>Déplacez-vous jusqu’au <strong>double de votre VD</strong> (le déplacement provoque normalement) ; vous devez parcourir <strong>3 m</strong> avant la première projection, puis tous les <strong>3 m</strong> vous pouvez en tenter une autre, sur le même adversaire ou un autre. Chaque projection : <strong>attaque de contact au corps à corps</strong>, puis croc-en-jambe (sans attaque d’opportunité, ne peut pas se retourner contre vous) avec le meilleur de <strong>For ou Dex</strong>, à <strong>+2 par 1,50 m</strong> parcouru ce tour. En cas de réussite, l’adversaire vole à <strong>3 m</strong> dans un espace libre de votre choix, retombe à terre et subit <strong>2d6</strong> ; chaque tranche de 5 points de marge ajoute <strong>1,50 m et 1d6</strong>. Les adversaires projetés ne provoquent rien et peuvent passer au-dessus de cases occupées.</p>"
+    },
+    "notes": {
+      "en": "Throw damage is the throw’s own, not extra weapon damage. If a throw fails, you can still keep moving.",
+      "fr": "Les dégâts sont ceux de la projection, pas des dégâts d’arme supplémentaires. Si une projection échoue, vous pouvez continuer à vous déplacer."
+    },
+    "source": {
+      "book": "Tome of Battle",
+      "page": 75,
+      "frRef": "traduction maison"
+    }
+  }
+]
