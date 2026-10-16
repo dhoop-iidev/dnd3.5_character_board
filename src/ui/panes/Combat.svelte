@@ -14,6 +14,8 @@
   import SummonBlock from '../SummonBlock.svelte'
   import WildShapeBlock from '../WildShapeBlock.svelte'
   import TurningBlock from '../TurningBlock.svelte'
+  import ClassFeaturesBlock from '../ClassFeaturesBlock.svelte'
+  import { endRage } from '../classActions'
   import { effectName } from '../effects'
 
   const s = $derived(view.sheet)
@@ -50,7 +52,8 @@
     app.character.dailyUsesSpent[id] = Math.min(max, Math.max(0, used(id) + delta))
   }
   function newDay() {
-    app.character.dailyUsesSpent = {}
+    // Weekly uses (remove disease, quivering palm) are kept.
+    for (const k of Object.keys(app.character.dailyUsesSpent)) if (!k.startsWith('week:')) delete app.character.dailyUsesSpent[k]
   }
 
   // ---- loadout editing
@@ -101,6 +104,8 @@
     else e.rounds = n
   }
   function removeEffect(uid: string) {
+    const e = app.character.activeEffects.find((x) => x.uid === uid)
+    if (e?.kind === 'class' && e.refId === 'rage') return endRage(app.character, s.classFeatures.rage?.tireless ?? false)
     app.character.activeEffects = app.character.activeEffects.filter((e) => e.uid !== uid)
   }
 
@@ -231,7 +236,7 @@
     {#if hasFeat('combat-expertise')}
       <label class="slider">
         <span>{tr({ en: 'Combat Expertise', fr: 'Expertise du combat' })} : <strong>{t.combatExpertise}</strong></span>
-        <input type="range" min="0" max={maxCe} bind:value={app.character.toggles.combatExpertise} disabled={t.totalDefense} />
+        <input type="range" min="0" max={maxCe} bind:value={app.character.toggles.combatExpertise} disabled={t.totalDefense || s.flags.includes('raging')} />
       </label>
     {/if}
     <label class="check">
@@ -250,6 +255,12 @@
       <input type="checkbox" bind:checked={app.character.toggles.situational['flatFooted']} />
       {tr(UI.flatFooted)}
     </label>
+    {#if s.attacks.some((a) => a.weapon.id === 'lance')}
+      <label class="check">
+        <input type="checkbox" bind:checked={app.character.toggles.mounted} />
+        {tr({ en: 'Mounted (lance in one hand)', fr: 'En selle (lance à une main)' })}
+      </label>
+    {/if}
     {#if s.feats.some((f) => f.featId === 'rapid-shot')}
       <label class="check">
         <input type="checkbox" bind:checked={app.character.toggles.rapidShot} />
@@ -292,8 +303,9 @@
     </div>
   </section>
 
+  {#if s.classFeatures.rage || s.classFeatures.flurry || s.classFeatures.sneakAttack || s.classFeatures.abilities.length || s.classFeatures.notes.length}<div class="wide"><ClassFeaturesBlock /></div>{/if}
   {#if s.turning}<div class="wide"><TurningBlock /></div>{/if}
-  {#if (s.classLevels['druid'] ?? 0) >= 5 || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
+  {#if ((s.classLevels['druid'] ?? 0) >= 5 && !s.lostClasses.includes('druid')) || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
   {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
   {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
 
@@ -435,12 +447,12 @@
     <ul class="effects">
       {#each c.activeEffects as e (e.uid)}
         <li class:off={!e.enabled}>
-          <input type="checkbox" bind:checked={e.enabled} aria-label={tr(effectName(e))} />
+          <input type="checkbox" bind:checked={e.enabled} disabled={e.kind === 'class'} aria-label={tr(effectName(e))} />
           <button class="link" onclick={() => effectPopup(e)}>{tr(effectName(e))}</button>
           {#if e.kind === 'custom'}<small
               >{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small
             >{/if}
-          <span
+          {#if e.kind === 'class'}<small>{e.rounds} {tr({ en: 'rd', fr: 'rd' })}</small>{:else}<span
             class="rounds"
             title={tr({
               en: 'Rounds left (blank = no set duration)',
@@ -460,7 +472,7 @@
               aria-label={tr({ en: 'Rounds left', fr: 'Rounds restants' })}
             />
             <small>{tr({ en: 'rd', fr: 'rd' })}</small>
-          </span>
+          </span>{/if}
           <button class="del" onclick={() => removeEffect(e.uid)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}
             >✕</button
           >

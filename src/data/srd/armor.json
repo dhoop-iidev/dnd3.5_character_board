@@ -184,7 +184,7 @@
     "costGp": 1500,
     "text": {
       "en": "<p>Heavy armor: armor bonus +8, maximum Dex bonus +1, armor check penalty -6, arcane spell failure 35%, speed 20 ft. (base 30 ft.) / 15 ft. (base 20 ft.).</p><p>The suit includes gauntlets, heavy leather boots, a visored helmet, and a thick layer of padding that is worn underneath the armor. Each suit of full plate must be individually fitted to its owner by a master armorsmith, although a captured suit can be resized to fit a new owner at a cost of 200 to 800 (2d4x100) gold pieces.</p>",
-      "fr": "<p>Armure lourde : bonus d’armure +8, bonus de Dex maximal +1, malus d’armure aux tests -6, risque d’échec des sorts profanes 35 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Harnois.</b> Cette armure inclut des gantelets, des bottes en cuir épais, un heaume (casque à visière) et une épaisse tunique rembourrée sur laquelle elle se porte. Chaque harnois doit être adapté aux mensurations de son porteur par un maître artisan. Il est possible de modifier la taille d’un harnois trouvé ou pris à l’ennemi pour 200–800 po (2d4 100).</p>"
+      "fr": "<p>Armure lourde : bonus d’armure +8, bonus de Dex maximal +1, malus d’armure aux tests -6, risque d’échec des sorts profanes 35 %, vitesse 6 m (base 9 m) / 4,5 m (base 6 m).</p><p><b>Harnois.</b> Cette armure inclut des gantelets, des bottes en cuir épais, un heaume (casque à visière) et une épaisse tunique rembourrée sur laquelle elle se porte. Chaque harnois doit être adapté aux mensurations de son porteur par un maître artisan. Il est possible de modifier la taille d’un harnois trouvé ou pris à l’ennemi pour 200–800 po (2d4 × 100).</p>"
     },
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/equipment/armor.htm#fullPlate",

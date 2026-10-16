@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Grok Fend-Crâne",
+    "player": "",
+    "race": "half-orc",
+    "deity": "Kord",
+    "alignment": "CN",
+    "gender": "m",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Jaunes",
+    "hair": "Noirs",
+    "homeland": "Steppes de Cendre",
+    "title": "Hurleur des Steppes",
+    "motto": "Plus fort que l’orage",
+    "languages": [
+      "Commun",
+      "Orque"
+    ],
+    "skin": "Grise"
+  },
+  "xp": 28000,
+  "baseAbilities": {
+    "str": 16,
+    "dex": 14,
+    "con": 14,
+    "int": 10,
+    "wis": 12,
+    "cha": 10
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 4,
+        "intimidate": 4,
+        "listen": 4
+      },
+      "feats": [
+        {
+          "featId": "power-attack",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": [
+        {
+          "featId": "cleave",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": [],
+      "abilityIncrease": "str"
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": [
+        {
+          "featId": "weapon-focus",
+          "slot": "general",
+          "choice": "greataxe"
+        }
+      ]
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "barbarian",
+      "skillRanks": {
+        "climb": 1,
+        "intimidate": 1,
+        "listen": 1
+      },
+      "feats": [],
+      "abilityIncrease": "con"
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "axe",
+      "kind": "weapon",
+      "refId": "greataxe",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 1
+    },
+    {
+      "uid": "javelins",
+      "kind": "weapon",
+      "refId": "javelin",
+      "quantity": 3,
+      "location": "carried"
+    },
+    {
+      "uid": "breast",
+      "kind": "armor",
+      "refId": "breastplate",
+      "quantity": 1,
+      "location": "worn",
+      "enhancement": 1
+    },
+    {
+      "uid": "cloak",
+      "kind": "magic",
+      "refId": "cloak-of-resistance-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "amulet",
+      "kind": "magic",
+      "refId": "amulet-of-natural-armor-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "clw",
+      "kind": "magic",
+      "refId": "potion-of-cure-moderate-wounds",
+      "quantity": 2,
+      "location": "pack"
+    },
+    {
+      "uid": "backpack",
+      "kind": "gear",
+      "refId": "backpack",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "bedroll",
+      "kind": "gear",
+      "refId": "bedroll",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "rations",
+      "kind": "gear",
+      "refId": "trail-rations",
+      "quantity": 4,
+      "location": "stored"
+    },
+    {
+      "uid": "water",
+      "kind": "gear",
+      "refId": "waterskin",
+      "quantity": 1,
+      "location": "stored"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Greataxe",
+        "fr": "Grande hache"
+      },
+      "weapons": [
+        "axe",
+        "javelins"
+      ]
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 40,
+    "gp": 180,
+    "pp": 0,
+    "other": ""
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [],
+  "summons": []
+}

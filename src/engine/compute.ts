@@ -21,6 +21,21 @@ import { raceOf } from './race'
 import { classSkillsOf, clericChoices, domainFeats, domainsOf, TURNING_TABLE } from './cleric'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
 import { spellcastingOf, type Spellcasting } from './spells'
+import { parseAlignment } from './alignment'
+import {
+  barbarianDR,
+  flurryStats,
+  kiStrike,
+  MONK_WEAPONS,
+  monkUnarmedDice,
+  RAGE_SKILL_EXCEPTIONS,
+  rageStats,
+  removeDiseasePerWeek,
+  slowFallFt,
+  smitePerDay,
+  sneakAttackDice,
+  ROGUE_SPECIAL_LEVELS,
+} from './classFeatures'
 import type { CreatureDef, DomainDef, RaceDef } from '../data/types'
 import type { ManeuverDef } from '../data/types'
 
@@ -63,6 +78,41 @@ export interface SkillLine {
   classSkill: boolean
   usable: boolean
   total: Stat
+}
+
+/** A class ability with limited uses: per day or per week, or a pool of points (lay on hands, wholeness of body). */
+export interface ClassAbility {
+  id: string
+  name: I18n
+  max: number
+  period: 'day' | 'week'
+  /** The uses are points (hit points healed, rounds) rather than activations. */
+  pool?: boolean
+  lines: I18n[]
+  source: Source
+}
+
+export interface ClassFeatures {
+  rage?: {
+    name: I18n
+    perDay: number
+    strCon: number
+    will: number
+    tireless: boolean
+    /** Duration if started now (or the running rage's total): 3 + the raged Con modifier. */
+    rounds: number
+    active: boolean
+    /** False for a lawful barbarian (ex-barbarian: no rage). */
+    available: boolean
+  }
+  flurry?: { penalty: number; extra: number; available: boolean; on: boolean }
+  /** Sneak attack dice, e.g. "3d6". */
+  sneakAttack?: string
+  abilities: ClassAbility[]
+  immunities: I18n[]
+  /** Described-only features worth having at hand (auras, evasion, slow fall…). */
+  notes: { name: I18n; text: I18n; source: Source }[]
+  spellResistance?: number
 }
 
 export interface AttackLine {
@@ -152,6 +202,10 @@ export interface Sheet {
   }
   /** Cleric domains chosen. */
   domains: DomainDef[]
+  /** Classes whose abilities are lost by alignment (ex-paladin, ex-druid). */
+  lostClasses: string[]
+  /** Barbarian, monk, paladin and rogue features: rage, flurry, sneak attack, tracked uses, immunities, notes. */
+  classFeatures: ClassFeatures
   /** Weapon and armor proficiencies (classes, race, feats). */
   proficiency: Proficiencies
   /** Spellcasting classes: caster level, spells per day (with bonus spells), save DCs. */
@@ -186,6 +240,7 @@ const LOAD_EFFECTS: Record<'medium' | 'heavy', { maxDex: number; acp: number; sp
   heavy: { maxDex: 1, acp: -6, speed30: 20, speed20: 15 },
 }
 
+const SMALL_QUARTER = /^(backpack|bedroll|winter-blanket|belt-pouch|trail-rations|sack|tent|waterskin|climbers-kit|disguise-kit|.*-outfit|.*musical-instrument)$/
 /** Item weight, lb and kg as printed (house rule #5: kg from the French books). Stored items weigh nothing. Weapons
  * and armor made for a Small character weigh half (https://www.d20srd.org/srd/equipment/weapons.htm#weaponSize,
  * https://www.d20srd.org/srd/equipment/armor.htm#armorforUnusualCreatures). */
@@ -199,6 +254,12 @@ function itemWeight(rules: Rules, item: ItemInstance, size: Size = 'medium'): We
   else if (item.custom) w = lbToWeight(item.custom.weightLb)
   let factor = (item.material && rules.materials.get(item.material)?.effects.weightMultiplier) || 1
   if (size === 'small' && (item.kind === 'weapon' || item.kind === 'armor')) factor /= 2
+  // Gear made for Small characters: a quarter (backpack, bedroll, rations, outfits…), ammunition half
+  // (https://www.d20srd.org/srd/equipment/goodsAndServices.htm, Table: Goods and Services, note 1).
+  if (size === 'small' && item.kind === 'gear') {
+    if (SMALL_QUARTER.test(item.refId)) factor /= 4
+    else if (/^(arrows|crossbow-bolts|sling-bullets)/.test(item.refId)) factor /= 2
+  }
   return { lb: (w?.lb ?? 0) * item.quantity * factor, kg: (w?.kg ?? 0) * item.quantity * factor }
 }
 
@@ -342,6 +403,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const hasFeat = (id: string, choice?: string) =>
     feats.some((f) => f.featId === id && (choice === undefined || f.choice === choice))
   const wmLevel = classLevels['weapon-master'] ?? 0
+  // Alignment-bound class abilities: a paladin who isn't lawful good loses them (ex-paladin), a lawful barbarian can't
+  // rage (https://www.d20srd.org/srd/classes/paladin.htm#exPaladins, barbarian.htm#exBarbarians). An unknown alignment
+  // keeps them.
+  const alignment = parseAlignment(char.identity.alignment)
+  const paladinGood = !alignment || (alignment.order === 'lawful' && alignment.moral === 'good')
+  // Ex-druid: all druid spells and abilities lost, companion included (https://www.d20srd.org/srd/classes/druid.htm#exDruids).
+  const exDruid = (classLevels['druid'] ?? 0) > 0 && !!alignment && alignment.order !== 'neutral' && alignment.moral !== 'neutral'
 
   // ---- collect modifiers from feats, worn items and active effects
   const mods: ModSource[] = []
@@ -466,6 +534,19 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       const def = rules.magicItems.get(eff.refId ?? '')
       for (const spec of def?.modifiers ?? [])
         mods.push({ spec, sourceId: `effect:${eff.refId}`, label: def!.name, source: def!.source })
+    } else if (eff.kind === 'class' && eff.refId === 'rage' && (classLevels['barbarian'] ?? 0) > 0 && alignment?.order !== 'lawful') {
+      // Rage: +4 Str and Con (+6 greater, +8 mighty), +2 morale on Will (+3, +4), −2 AC
+      // (https://www.d20srd.org/srd/classes/barbarian.htm#rage).
+      const r = rageStats(classLevels['barbarian'])
+      const source = src('classes/barbarian.htm#rage')
+      for (const spec of [
+        { target: 'ability.str', bonusType: 'untyped' as const, value: r.strCon },
+        { target: 'ability.con', bonusType: 'untyped' as const, value: r.strCon },
+        { target: 'save.will', bonusType: 'morale' as const, value: r.will },
+        { target: 'ac', bonusType: 'untyped' as const, value: -2 },
+      ])
+        mods.push({ spec, sourceId: 'rage', label: r.name, source })
+      flags.push('raging')
     } else if (eff.custom) {
       for (const spec of eff.custom.modifiers) mods.push({ spec, sourceId: `effect:${eff.uid}`, label: eff.custom.name })
     }
@@ -605,6 +686,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Trap sense: +1 at barbarian 3 / rogue 3, +1 every 3 levels; levels of both classes stack
   // (https://www.d20srd.org/srd/classes/barbarian.htm#trapSense).
   const trapSense = ['barbarian', 'rogue'].reduce((n, id) => n + Math.floor((classLevels[id] ?? 0) / 3), 0)
+  const trapSenseUrl = (classLevels['rogue'] ?? 0) >= 3 ? 'classes/rogue.htm#trapSense' : 'classes/barbarian.htm#trapSense'
 
   // ---- saves
   const saveAbility: Record<SaveId, AbilityId> = { fort: 'con', ref: 'dex', will: 'wis' }
@@ -624,13 +706,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         source: { book: 'Tome of Battle', page: 22 },
       })
     // Paladin divine grace (2nd): Charisma bonus on all saves (https://www.d20srd.org/srd/classes/paladin.htm#divineGrace).
-    if ((classLevels['paladin'] ?? 0) >= 2 && mod('cha') > 0)
+    if ((classLevels['paladin'] ?? 0) >= 2 && mod('cha') > 0 && paladinGood)
       extra.push({ sourceId: 'divine-grace', label: i18n('Divine grace', 'Grâce divine'), value: mod('cha'), bonusType: 'untyped', source: src('classes/paladin.htm#divineGrace') })
     // Trap sense (barbarian, rogue; stacks between classes): Reflex vs traps.
     if (s === 'ref' && trapSense > 0)
-      extra.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'untyped', source: src('classes/rogue.htm#trapSense'), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ref'] ?? false, toggleKey: 'trap-sense|ref' })
+      extra.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'untyped', source: src(trapSenseUrl), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ref'] ?? false, toggleKey: 'trap-sense|ref' })
     // Barbarian indomitable will (14th): +4 Will vs enchantment while raging.
-    if (s === 'will' && (classLevels['barbarian'] ?? 0) >= 14)
+    if (s === 'will' && (classLevels['barbarian'] ?? 0) >= 14 && flags.includes('raging'))
       extra.push({ sourceId: 'indomitable-will', label: i18n('Indomitable will', 'Volonté indomptable'), value: 4, bonusType: 'untyped', source: src('classes/barbarian.htm#indomitableWill'), condition: i18n('vs enchantment, while raging', 'contre les enchantements, en rage'), situationalOn: toggles.situational['indomitable-will|will'] ?? false, toggleKey: 'indomitable-will|will' })
     saves[s] = resolve([...tableSum(s), abilityPart(saveAbility[s]), ...extra, ...partsFor([`save.${s}`, 'save.all'])])
   }
@@ -707,12 +789,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
 
   // Speed: racial base (https://www.d20srd.org/srd/races.htm), then the worse of armor and load (30-ft or 20-ft
   // column). Dwarves keep their speed in medium/heavy armor and loads.
-  // Fast movement is added before armor and load (https://www.d20srd.org/srd/classes/barbarian.htm#fastMovement):
+  // Fast movement is added before armor and load (https://www.d20srd.org/srd/classes/barbarian.htm#barbarianFastMovement):
   // barbarian +10 ft. unless in heavy armor or heavy load; monk +10 ft. per 3 levels, unarmored and light load.
   const barbarianFast = (classLevels['barbarian'] ?? 0) >= 1 && armor?.category !== 'heavy' && band !== 'heavy' && band !== 'overloaded'
   const monkLevel = classLevels['monk'] ?? 0
   const monkUnencumbered = !armor && band === 'light'
-  const monkFast = monkLevel >= 3 && monkUnencumbered ? Math.floor(monkLevel / 3) * 10 : 0
+  const monkFast = monkLevel >= 3 && monkUnencumbered && !shield ? Math.floor(monkLevel / 3) * 10 : 0
   // Wild shape: the form's land speed (its other movement modes are shown with the form).
   const baseFt = (shape ? shape.speed.land : race.speed) + (barbarianFast ? 10 : 0) + monkFast
   let speedFt = baseFt
@@ -733,7 +815,13 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   }
   // Speed bonuses follow the stacking rules; haste-like enhancement bonuses cap at twice the normal speed
   // (https://www.d20srd.org/srd/spells/haste.htm).
-  const speedBonus = resolve(partsFor(['speed'])).total
+  // Monk fast movement is an enhancement bonus (https://www.d20srd.org/srd/classes/monk.htm#fastMovement): another
+  // enhancement bonus to speed (boots, haste) only counts for what exceeds it.
+  const speedParts = partsFor(['speed'])
+  const otherEnh = Math.max(0, ...speedParts.filter((p) => p.bonusType === 'enhancement' && (!p.condition || p.situationalOn)).map((p) => p.value))
+  if (monkFast && otherEnh)
+    speedParts.push({ sourceId: 'monk-fast-overlap', label: i18n('Monk fast movement (enhancement, doesn’t stack)', 'Déplacement accéléré du moine (altération, non cumulable)'), value: -Math.min(monkFast, otherEnh), bonusType: 'untyped', source: src('classes/monk.htm#monkFastMovement') })
+  const speedBonus = resolve(speedParts).total
   speedFt += speedBonus > 0 ? Math.min(speedBonus, speedFt) : speedBonus
   if (sumTarget('speed.half') > 0) speedFt = Math.floor(speedFt / 2 / 5) * 5
   if (band === 'overloaded') speedFt = 5
@@ -781,20 +869,22 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Tumble 5+ ranks: +3 dodge when fighting defensively, +6 in total defense (https://www.d20srd.org/srd/skills/tumble.htm).
   const tumbleRanks = levels.reduce((n, l) => n + (l.skillRanks['tumble'] ?? 0), 0)
   const tumble5 = tumbleRanks >= 5
-  if (hasFeat('combat-expertise') && toggles.combatExpertise > 0 && !toggles.totalDefense)
+  // Combat Expertise: not during total defense (ruling R16) nor while raging.
+  const expertiseOn = hasFeat('combat-expertise') && toggles.combatExpertise > 0 && !flags.includes('raging')
+  if (expertiseOn && !toggles.totalDefense)
     acParts.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: toggles.combatExpertise, bonusType: 'dodge', source: src('feats.htm#combatExpertise') })
   if (toggles.fightingDefensively)
     acParts.push({ sourceId: 'fighting-defensively', label: tumble5 ? i18n('Fighting defensively (Tumble 5 ranks)', 'Combat sur la défensive (Acrobaties 5 degrés)') : i18n('Fighting defensively', 'Combat sur la défensive'), value: tumble5 ? 3 : 2, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#fightDefensively') })
   if (toggles.totalDefense)
     acParts.push({ sourceId: 'total-defense', label: tumble5 ? i18n('Total defense (Tumble 5 ranks)', 'Défense totale (Acrobaties 5 degrés)') : i18n('Total defense', 'Défense totale'), value: tumble5 ? 6 : 4, bonusType: 'dodge', source: src('combat/actionsInCombat.htm#totalDefense') })
   // Monk AC bonus: Wis bonus + 1 per 5 monk levels, unarmored, no shield, light load; kept when flat-footed and vs
-  // touch, lost when immobilized or helpless (https://www.d20srd.org/srd/classes/monk.htm#acBonus).
+  // touch, lost when immobilized or helpless (https://www.d20srd.org/srd/classes/monk.htm#aCBonus).
   if (monkLevel >= 1 && monkUnencumbered && !shield && !flags.some((f) => ['immobile', 'helpless'].includes(f))) {
     const v = Math.max(0, mod('wis')) + Math.floor(monkLevel / 5)
-    if (v) acParts.push({ sourceId: 'monk-ac', label: i18n('Monk AC bonus', 'Bonus à la CA du moine'), value: v, bonusType: 'untyped', source: src('classes/monk.htm#acBonus') })
+    if (v) acParts.push({ sourceId: 'monk-ac', label: i18n('Monk AC bonus', 'Bonus à la CA du moine'), value: v, bonusType: 'untyped', source: src('classes/monk.htm#aCBonus') })
   }
   if (trapSense > 0)
-    acParts.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'dodge', source: src('classes/rogue.htm#trapSense'), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ac'] ?? false, toggleKey: 'trap-sense|ac' })
+    acParts.push({ sourceId: 'trap-sense', label: i18n('Trap sense', 'Sens des pièges'), value: trapSense, bonusType: 'dodge', source: src(trapSenseUrl), condition: i18n('vs traps', 'contre les pièges'), situationalOn: toggles.situational['trap-sense|ac'] ?? false, toggleKey: 'trap-sense|ac' })
   acParts.push(...partsFor(['ac']))
   // Uncanny dodge (warblade 2, Tome of Battle p. 22): keeps the Dex bonus when caught flat-footed (or by an invisible
   // attacker), not when it is lost for another reason (stunned, blinded, cowering, pinned…).
@@ -901,7 +991,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           parts.push({ sourceId: `feat:${f.featId}:${f.choice}`, label: fdef!.name, value: spec.value, bonusType: spec.bonusType, source: fdef!.source })
     }
     parts.push(...partsFor([`skill.${id}`, `skill.${key}`, 'skill.all', ...strdex]))
-    skills.push({ key, def, subtype, ranks, classSkill: isClassSkill(id), usable: !def.trainedOnly || ranks > 0, total: resolve(parts) })
+    // While raging: no Cha-, Dex- or Int-based skill (except Balance, Escape Artist, Intimidate, Ride), no Concentration.
+    const rageBlocked =
+      flags.includes('raging') &&
+      (id === 'concentration' || (['cha', 'dex', 'int'].includes(def.ability) && !RAGE_SKILL_EXCEPTIONS.includes(id)))
+    skills.push({ key, def, subtype, ranks, classSkill: isClassSkill(id), usable: (!def.trainedOnly || ranks > 0) && !rageBlocked, total: resolve(parts) })
   }
   skills.sort((a, b) => a.def.name.en.localeCompare(b.def.name.en))
 
@@ -910,19 +1004,59 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Two-weapon fighting (https://www.d20srd.org/srd/combat/specialAttacks.htm#twoWeaponFighting): the first two melee
   // weapons in hand are the primary and off hand when the loadout says so.
   // Wild shape: no manufactured weapons (they meld); the form's natural attacks are added below.
-  const wielded = shape ? [] : (loadout?.weapons ?? []).filter((uid) => char.inventory.some((i) => i.uid === uid && i.location !== 'stored'))
+  // Monk: her unarmed strike is always an attack (no item needed), with the monk damage and ki strike; an amulet of
+  // mighty fists gives its enhancement (https://www.d20srd.org/srd/classes/monk.htm#unarmedStrike).
+  const MONK_UID = 'monk-unarmed'
+  const fists = char.inventory.find((i) => i.location === 'worn' && /^amulet-of-mighty-fists-\d$/.test(i.refId))
+  const virtualItems = new Map<string, ItemInstance>(
+    monkLevel > 0 && !shape
+      ? [[MONK_UID, { uid: MONK_UID, kind: 'weapon', refId: 'unarmed-strike', quantity: 1, location: 'carried', enhancement: fists ? Number(fists.refId.slice(-1)) : 0 }]]
+      : [],
+  )
+  const findItem = (uid: string) => virtualItems.get(uid) ?? char.inventory.find((i) => i.uid === uid)
+  const wielded = shape
+    ? []
+    : [
+        ...virtualItems.keys(),
+        ...(loadout?.weapons ?? []).filter((uid) =>
+          char.inventory.some((i) => i.uid === uid && i.location !== 'stored' && !(monkLevel > 0 && i.refId === 'unarmed-strike')),
+        ),
+      ]
+  // Flurry of blows: unarmored, no shield, light load; unarmed strikes and special monk weapons only
+  // (https://www.d20srd.org/srd/classes/monk.htm#flurryofBlows).
+  const flurry = monkLevel > 0 ? { ...flurryStats(monkLevel), available: monkUnencumbered && !shield } : undefined
+  const flurryOn = !!flurry?.available && toggles.flurry === true
+  // Smite evil: one melee attack, + Cha bonus to attack, + paladin level to damage
+  // (https://www.d20srd.org/srd/classes/paladin.htm#smiteEvil).
+  const paladinLvl = classLevels['paladin'] ?? 0
+  const paladinOk = paladinLvl > 0 && paladinGood
+  const smiteOn = paladinOk && toggles.smite === true
+  const rogueLevel = classLevels['rogue'] ?? 0
+  const sneak = sneakAttackDice(rogueLevel)
+  const sneakLine = sneak
+    ? [{
+        dice: `${sneak}d6`,
+        type: i18n('sneak attack', 'attaque sournoise'),
+        condition: i18n('target denied its Dex bonus or flanked; ranged within 30 ft; not on a critical', 'cible privée de son bonus de Dex ou prise en tenaille ; à distance à 9 m ou moins ; non multiplié sur un critique'),
+        source: i18n('Rogue', 'Roublard'),
+      }]
+    : []
   const meleeInHand = wielded.filter((uid) => {
-    const it = char.inventory.find((i) => i.uid === uid)
+    const it = uid === MONK_UID ? undefined : findItem(uid)
     return it && rules.weapons.get(it.refId)?.kind === 'melee'
   })
-  const twf = !!loadout?.twoWeapon && meleeInHand.length >= 2
-  const [primaryUid, offUid] = twf ? meleeInHand : []
-  const offWeapon = offUid ? rules.weapons.get(char.inventory.find((i) => i.uid === offUid)!.refId) : undefined
+  // A monk with one melee weapon can use her unarmed strike as the off-hand weapon (FAQ 6/30/2008 pp. 19-20).
+  const twfPool = meleeInHand.length === 1 && virtualItems.has(MONK_UID) ? [...meleeInHand, MONK_UID] : meleeInHand
+  const twf = !!loadout?.twoWeapon && twfPool.length >= 2
+  const [primaryUid, offUid] = twf ? twfPool : []
+  const offWeapon = offUid ? rules.weapons.get(findItem(offUid)!.refId) : undefined
   const offLight = offWeapon?.handedness === 'light' || offWeapon?.handedness === 'unarmed'
   const twfSource = src('combat/specialAttacks.htm#twoWeaponFighting')
   for (const uid of wielded) {
-    const item = char.inventory.find((i) => i.uid === uid)
+    const item = findItem(uid)
     const weapon = item && rules.weapons.get(item.refId)
+    const monkUnarmed = uid === MONK_UID
+    const inFlurry = flurryOn && !!weapon && MONK_WEAPONS.includes(weapon.id)
     if (!item || !weapon) continue
     const melee = weapon.kind === 'melee'
     const hand: 'primary' | 'off' | undefined = twf && uid === primaryUid ? 'primary' : twf && uid === offUid ? 'off' : undefined
@@ -943,12 +1077,27 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const masterwork = item.masterwork || enh > 0 || !!mat?.effects.masterwork
     const choiceFeat = (id: string) => feats.find((f) => f.featId === id && f.choice === weapon.id)
     const weaponOfChoice = wmActive && char.weaponOfChoice === weapon.id && masterwork
-    const name: I18n = item.name ?? { en: `${weapon.name.en}${enh ? ` +${enh}` : ''}`, fr: `${weapon.name.fr}${enh ? ` +${enh}` : ''}` }
+    const name: I18n = monkUnarmed
+      ? { en: `Unarmed strike (monk)${enh ? ` +${enh}` : ''}`, fr: `Combat à mains nues (moine)${enh ? ` +${enh}` : ''}` }
+      : (item.name ?? { en: `${weapon.name.en}${enh ? ` +${enh}` : ''}`, fr: `${weapon.name.fr}${enh ? ` +${enh}` : ''}` })
     // A one-handed weapon can be gripped two-handed (Str x1.5, Power Attack x2).
+    // A lance is wielded in one hand while mounted (https://www.d20srd.org/srd/equipment/weapons.htm#lance).
+    const mountedLance = weapon.id === 'lance' && toggles.mounted === true
     const twoHands =
-      !hand && (weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid)))
+      !hand &&
+      !mountedLance &&
+      (weapon.handedness === 'twoHanded' || (weapon.handedness === 'oneHanded' && (loadout?.twoHanded ?? []).includes(uid)))
 
-    const atk: Part[] = [...tableSum('bab'), abilityPart(melee ? 'str' : 'dex')]
+    // Weapon Finesse: Dex instead of Str with a light weapon, rapier, whip or spiked chain (when better); a shield's
+    // armor check penalty then applies to the attack (https://www.d20srd.org/srd/feats.htm#weaponFinesse).
+    const finesse =
+      melee &&
+      hasFeat('weapon-finesse') &&
+      (weapon.handedness === 'light' || weapon.handedness === 'unarmed' || ['rapier', 'whip', 'spiked-chain'].includes(weapon.id)) &&
+      mod('dex') + (shield ? itemAcp(shield) : 0) > mod('str')
+    const atk: Part[] = [...tableSum('bab'), finesse ? { ...abilityPart('dex'), label: i18n('Dexterity (Weapon Finesse)', 'Dextérité (Attaque en finesse)') } : abilityPart(melee ? 'str' : 'dex')]
+    if (finesse && shield && itemAcp(shield))
+      atk.push({ sourceId: 'finesse-shield', label: i18n(`Shield check penalty (Weapon Finesse): ${shield.def.name.en}`, `Malus d’armure du bouclier (Attaque en finesse) : ${shield.def.name.fr}`), value: itemAcp(shield), bonusType: 'untyped', source: src('feats.htm#weaponFinesse') })
     if (SIZE_MOD[size]) atk.push(sizePart(SIZE_MOD[size]))
     if (hand) {
       // Normal −6/−10; light off-hand weapon −4/−8; Two-Weapon Fighting feat −2/−2 better each.
@@ -979,7 +1128,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     // A bastard sword or dwarven waraxe used two-handed is a martial weapon
     // (https://www.d20srd.org/srd/equipment/weapons.htm#bastardSword).
     const martialGrip = twoHands && ['bastard-sword', 'dwarven-waraxe'].includes(weapon.id)
-    const proficient = proficientWith(proficiency, weapon) || (martialGrip && proficiency.weapons.has('martial'))
+    // The monk's unarmed strike is a class feature (Improved Unarmed Strike as a bonus feat): no nonproficiency penalty.
+    const proficient = monkUnarmed || proficientWith(proficiency, weapon) || (martialGrip && proficiency.weapons.has('martial'))
     if (!proficient)
       atk.push({ sourceId: 'nonproficient-weapon', label: i18n('Not proficient with the weapon', 'Arme non maîtrisée'), value: -4, bonusType: 'untyped', source: src('equipment/weapons.htm#weaponCategories') })
     // Nonproficient armor or shield: its armor check penalty applies to attack rolls (rulings R24).
@@ -998,8 +1148,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const powerAttackAllowed = melee && hasFeat('power-attack') && (weapon.handedness !== 'light' || weapon.id.startsWith('unarmed'))
     if (powerAttackOn)
       atk.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: -toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
-    if (melee && hasFeat('combat-expertise') && toggles.combatExpertise > 0)
+    if (melee && expertiseOn)
       atk.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: -toggles.combatExpertise, bonusType: 'untyped', source: src('feats.htm#combatExpertise') })
+    if (inFlurry && melee && toggles.rapidShot === true && hasFeat('rapid-shot') && wielded.some((u) => findItem(u)?.refId === 'shuriken-5'))
+      atk.push({ sourceId: 'rapid-shot', label: i18n('Rapid Shot (shuriken in the flurry)', 'Tir rapide (shuriken dans le déluge)'), value: -2, bonusType: 'untyped', source: src('feats.htm#rapidShot') })
+    if (inFlurry && flurry!.penalty)
+      atk.push({ sourceId: 'flurry', label: i18n('Flurry of blows', 'Déluge de coups'), value: flurry!.penalty, bonusType: 'untyped', source: src('classes/monk.htm#flurryofBlows') })
+    if (smiteOn && melee && mod('cha') > 0)
+      atk.push({ sourceId: 'smite-evil', label: i18n('Smite evil (Cha)', 'Châtiment du Mal (Cha)'), value: mod('cha'), bonusType: 'untyped', source: src('classes/paladin.htm#smiteEvil') })
     // Fighting defensively: -4 on all attacks (https://www.d20srd.org/srd/combat/actionsInCombat.htm#fightDefensively).
     if (toggles.fightingDefensively)
       atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
@@ -1024,12 +1180,18 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const rapid = rapidShot ? [attack.total] : []
     // Off hand: one attack, plus one at −5 (Improved TWF) and one at −10 (Greater TWF).
     const offHand = [attack.total, ...(hasFeat('improved-two-weapon-fighting') ? [attack.total - 5] : []), ...(hasFeat('greater-two-weapon-fighting') ? [attack.total - 10] : [])]
-    const iterative = hand === 'off' ? offHand : [...extra, ...rapid, ...iterativeBab.map((b) => attack.total - (bab.total - b))]
+    // Flurry: one extra attack at the highest bonus (two from 11th).
+    const flurryExtra = inFlurry ? Array.from({ length: flurry!.extra }, () => attack.total) : []
+    const iterativeAll = hand === 'off' ? offHand : [...flurryExtra, ...extra, ...rapid, ...iterativeBab.map((b) => attack.total - (bab.total - b))]
+    // Smite evil is one attack: only the first of a full attack gets it (https://www.d20srd.org/srd/classes/paladin.htm#smiteEvil).
+    const smiteAtk = smiteOn && melee ? Math.max(0, mod('cha')) : 0
+    const iterative = iterativeAll.map((b, i) => (i === 0 ? b : b - smiteAtk))
 
     const dmg: Part[] = []
     const strMod = mod('str')
     let strDmg = strMod
-    if (family === 'melee' && twoHands && strMod > 0) strDmg = Math.floor(strMod * 1.5)
+    // In a flurry, Str ×1 with any monk weapon, even two-handed (quarterstaff).
+    if (family === 'melee' && twoHands && strMod > 0 && !inFlurry) strDmg = Math.floor(strMod * 1.5)
     // Off hand: ½ Str bonus (a penalty applies in full).
     if (hand === 'off' && strMod > 0) strDmg = Math.floor(strMod / 2)
     if (family === 'bow') strDmg = Math.min(0, strMod)
@@ -1040,7 +1202,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         label:
           hand === 'off' && strMod > 0
             ? i18n('Strength ×½ (off hand)', 'Force ×½ (main non directrice)')
-            : family === 'melee' && twoHands && strMod > 0
+            : family === 'melee' && twoHands && strMod > 0 && !inFlurry
               ? i18n('Strength ×1.5 (two hands)', 'Force ×1,5 (à deux mains)')
               : ABILITY_NAMES.str,
       })
@@ -1090,7 +1252,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       attack,
       iterative,
       // Small characters use Small weapons (https://www.d20srd.org/srd/equipment/weapons.htm#weaponSize).
-      damageDice: size === 'small' ? weapon.damage.S : weapon.damage.M,
+      damageDice: monkUnarmed || (monkLevel > 0 && weapon.id === 'gauntlet') ? monkUnarmedDice(monkLevel, size) : size === 'small' ? weapon.damage.S : weapon.damage.M,
       damage,
       critRange: 21 - span,
       critMult,
@@ -1100,6 +1262,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       powerAttackAllowed,
       extraDamage: [
         ...props.flatMap((pr) => (pr.effects.extraDamage ?? []).map((x) => ({ ...x, source: pr.name }))),
+        ...sneakLine,
+        ...(smiteOn && melee
+          ? [{ dice: `${paladinLvl}`, type: i18n('smite evil', 'châtiment du Mal'), condition: i18n('first attack only, vs evil', 'première attaque seulement, contre le Mal'), source: i18n('Paladin', 'Paladin') }]
+          : []),
         // Strikes/boosts/stances add dice to melee attacks (not multiplied on a critical, Tome of Battle p. 43).
         ...(melee
           ? [...(stance ? [stance] : []), ...strikeDice].flatMap((d) =>
@@ -1114,8 +1280,24 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           const [n, die] = pr.effects.critExtraDamage!.dice.split('d')
           return { dice: `${Number(n) * (weapon.critMult - 1)}d${die}`, type: pr.effects.critExtraDamage!.type, source: pr.name }
         }),
-      bypassDR: [...(mat?.effects.bypassDR ? [mat.effects.bypassDR] : []), ...(enh > 0 ? ['magic'] : [])],
-      notes: props.filter((pr) => pr.effects.notes).map((pr) => ({ name: pr.name, text: pr.effects.notes! })),
+      bypassDR: [
+        ...new Set([...(mat?.effects.bypassDR ? [mat.effects.bypassDR] : []), ...(enh > 0 ? ['magic'] : []), ...(monkUnarmed ? kiStrike(monkLevel) : [])]),
+      ],
+      notes: [
+        ...props.filter((pr) => pr.effects.notes).map((pr) => ({ name: pr.name, text: pr.effects.notes! })),
+        ...(flurryOn && !inFlurry
+          ? [{ name: i18n('Flurry of blows', 'Déluge de coups'), text: i18n('Not a monk weapon: can’t be used in a flurry.', 'Pas une arme de moine : inutilisable pendant un déluge de coups.') }]
+          : []),
+        ...(smiteOn && melee
+          ? [{ name: i18n('Smite evil', 'Châtiment du Mal'), text: i18n(`+${paladinLvl} damage on the first attack; on a critical hit, multiplied or not: DM to decide (house rule #28, pending).`, `+${paladinLvl} aux dégâts de la première attaque ; sur un coup critique, multiplié ou non : au MJ de décider (règle maison n° 28, en attente).`) }]
+          : []),
+        ...(mountedLance
+          ? [{ name: i18n('Lance (mounted)', 'Lance (monté)'), text: i18n('One-handed while mounted; double damage on a mounted charge.', 'À une main en selle ; dégâts doublés lors d’une charge montée.') }]
+          : []),
+        ...(monkUnarmed
+          ? [{ name: i18n('Unarmed strike', 'Combat à mains nues'), text: i18n('Lethal or nonlethal at will; no off-hand penalty, full Str bonus on every strike.', 'Létal ou non létal au choix ; pas de main non directrice, bonus de For complet à chaque coup.') }]
+          : []),
+      ],
       // Battle ardor (warblade 3, Tome of Battle p. 22): insight = Int bonus on critical confirmation rolls.
       critConfirmBonus: caps && caps.classLevel >= 3 ? Math.max(0, mod('int')) : 0,
       hand,
@@ -1145,7 +1327,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         }
         if (toggles.fightingDefensively)
           atk.push({ sourceId: 'fighting-defensively', label: i18n('Fighting defensively', 'Combat sur la défensive'), value: -4, bonusType: 'untyped', source: src('combat/actionsInCombat.htm#fightDefensively') })
-        if (!ranged && hasFeat('combat-expertise') && toggles.combatExpertise > 0)
+        if (!ranged && expertiseOn)
           atk.push({ sourceId: 'combat-expertise', label: i18n('Combat Expertise', 'Expertise du combat'), value: -toggles.combatExpertise, bonusType: 'untyped', source: src('feats.htm#combatExpertise') })
         const pa = !ranged && hasFeat('power-attack') && toggles.powerAttack > 0
         if (pa) atk.push({ sourceId: 'power-attack', label: i18n('Power Attack', 'Attaque en puissance'), value: -toggles.powerAttack, bonusType: 'untyped', source: src('feats.htm#powerAttack') })
@@ -1194,7 +1376,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
           critMult: resolve([{ sourceId: 'form', label: shape.name, value: mult, bonusType: 'base', source: shape.source }]),
           weaponOfChoice: false,
           powerAttackAllowed: !ranged && hasFeat('power-attack'),
-          extraDamage: a.extra ? [{ dice: '', type: a.extra, source: shape.name }] : [],
+          extraDamage: [...(a.extra ? [{ dice: '', type: a.extra, source: shape.name }] : []), ...sneakLine],
           critExtraDamage: [],
           bypassDR: [],
           notes: [],
@@ -1210,6 +1392,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- class-feature checks: wild empathy = d20 + druid/ranger level + Cha (https://www.d20srd.org/srd/classes/ranger.htm#wildEmpathy)
   const featureStats: Sheet['featureStats'] = []
   const empathyClasses = Object.entries(classLevels).filter(([id]) =>
+    !(id === 'druid' && exDruid) &&
     rules.classes.get(id)?.features?.some((f) => f.id === 'wild-empathy'),
   )
   if (empathyClasses.length) {
@@ -1240,7 +1423,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Paladins turn undead from 4th level as a cleric of 3 levels lower; a cleric/paladin adds both
   // (https://www.d20srd.org/srd/classes/multiclass.htm#classFeatures).
   const paladinLevel = classLevels['paladin'] ?? 0
-  const paladinTurning = paladinLevel >= 4 ? paladinLevel - 3 : 0
+  const paladinTurning = paladinLevel >= 4 && paladinGood ? paladinLevel - 3 : 0
   // Improved Turning: "as if you were one level higher" (https://www.d20srd.org/srd/feats.htm#improvedTurning).
   const improvedTurning = clericLevel + paladinTurning > 0 && hasFeat('improved-turning') ? 1 : 0
   const turningLevel = clericLevel + paladinTurning + improvedTurning
@@ -1286,7 +1469,114 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     }
   }
 
+  // ---- barbarian, monk, paladin, rogue: rage, flurry, tracked uses, immunities and notes
+  const classFeatures: ClassFeatures = { abilities: [], immunities: [], notes: [] }
+  const note = (name: I18n, text: I18n, url: string) => classFeatures.notes.push({ name, text, source: src(url) })
+  const barbLevel = classLevels['barbarian'] ?? 0
+  if (barbLevel) {
+    const r = rageStats(barbLevel)
+    const active = char.activeEffects.some((e) => e.enabled && e.kind === 'class' && e.refId === 'rage')
+    const con = abilities.con.score.total + (active ? 0 : r.strCon)
+    classFeatures.rage = {
+      name: r.name,
+      perDay: r.perDay,
+      strCon: r.strCon,
+      will: r.will,
+      tireless: r.tireless,
+      rounds: Math.max(1, 3 + abilityMod(con)),
+      active,
+      available: alignment?.order !== 'lawful',
+    }
+    if (levels.every((l) => l.classId === 'barbarian'))
+      note(i18n('Illiteracy', 'Illettrisme'), i18n('Can’t read or write: 2 skill points to learn, or a level in another class.', 'Ne sait ni lire ni écrire : 2 points de compétence pour apprendre, ou un niveau dans une autre classe.'), 'classes/barbarian.htm#illiteracy')
+  }
+  // Improved uncanny dodge: barbarian 5, rogue 8, or uncanny dodge from two classes; the levels of the classes that
+  // grant uncanny dodge stack (https://www.d20srd.org/srd/classes/barbarian.htm#improvedUncannyDodge).
+  // Warblade: uncanny dodge at 2nd, improved at 6th, as the barbarian feature (Tome of Battle p. 22).
+  const wbLevel = classLevels['warblade'] ?? 0
+  const udClasses = [barbLevel >= 2, rogueLevel >= 4, wbLevel >= 2].filter(Boolean).length
+  if (barbLevel >= 5 || rogueLevel >= 8 || wbLevel >= 6 || udClasses >= 2) {
+    const udLevels = (barbLevel >= 2 ? barbLevel : 0) + (rogueLevel >= 4 ? rogueLevel : 0) + (wbLevel >= 2 ? wbLevel : 0)
+    note(i18n('Improved uncanny dodge', 'Esquive instinctive supérieure'), i18n(`Can’t be flanked, except by a rogue of level ${udLevels + 4}+.`, `Ne peut pas être pris en tenaille, sauf par un roublard de niveau ${udLevels + 4} ou plus.`), barbLevel >= 5 ? 'classes/barbarian.htm#improvedUncannyDodge' : 'classes/rogue.htm#improvedUncannyDodge')
+  }
+  // Evasion (monk 2, rogue 2) / improved evasion (monk 9, rogue special ability): the best one; two sources of evasion
+  // don't make improved evasion (FAQ p. 9).
+  const rogueSpecials = levels
+    .filter((l, i) => l.classId === 'rogue' && ROGUE_SPECIAL_LEVELS.includes(levels.slice(0, i + 1).filter((x) => x.classId === 'rogue').length))
+    .map((l) => l.classChoices?.specialAbility)
+    .filter((x): x is string => !!x)
+  const improvedEvasion = monkLevel >= 9 || rogueSpecials.includes('improved-evasion')
+  if (improvedEvasion || monkLevel >= 2 || rogueLevel >= 2)
+    note(
+      improvedEvasion ? i18n('Improved evasion', 'Esquive extraordinaire') : i18n('Evasion', 'Esquive totale'),
+      improvedEvasion
+        ? i18n('Reflex for half: no damage on a success, half on a failure (light or no armor; not helpless).', 'Réflexes pour moitié : aucun dégât en cas de réussite, moitié en cas d’échec (armure légère ou aucune ; pas sans défense).')
+        : i18n('Reflex for half: no damage on a success (light or no armor; not helpless).', 'Réflexes pour moitié : aucun dégât en cas de réussite (armure légère ou aucune ; pas sans défense).'),
+      monkLevel >= 2 ? (improvedEvasion && monkLevel >= 9 ? 'classes/monk.htm#monkImprovedEvasion' : 'classes/monk.htm#monkEvasion') : 'classes/rogue.htm#rogueEvasion',
+    )
+
+  if (monkLevel) {
+    classFeatures.flurry = { penalty: flurry!.penalty, extra: flurry!.extra, available: flurry!.available, on: flurryOn }
+    if (monkLevel >= 7)
+      classFeatures.abilities.push({ id: 'wholeness-of-body', name: i18n('Wholeness of body', 'Plénitude physique'), max: 2 * monkLevel, period: 'day', pool: true, lines: [i18n('Heal your own wounds, spread over several uses (standard action).', 'Soigne vos propres blessures, en plusieurs fois (action simple).')], source: src('classes/monk.htm#wholenessofBody') })
+    if (monkLevel >= 12)
+      classFeatures.abilities.push({ id: 'abundant-step', name: i18n('Abundant step', 'Pas chassé'), max: 1, period: 'day', lines: [i18n(`Dimension door, caster level ${Math.floor(monkLevel / 2)}.`, `Porte dimensionnelle, niveau de lanceur ${Math.floor(monkLevel / 2)}.`)], source: src('classes/monk.htm#abundantStep') })
+    if (monkLevel >= 15)
+      classFeatures.abilities.push({ id: 'quivering-palm', name: i18n('Quivering palm', 'Paume vibratoire'), max: 1, period: 'week', lines: [i18n(`Announce before the attack; later, Fort DC ${10 + Math.floor(monkLevel / 2) + mod('wis')} or die (within ${monkLevel} days).`, `À annoncer avant l’attaque ; ensuite, Vigueur DD ${10 + Math.floor(monkLevel / 2) + mod('wis')} ou mort (dans les ${monkLevel} jours).`)], source: src('classes/monk.htm#quiveringPalm') })
+    if (monkLevel >= 19)
+      classFeatures.abilities.push({ id: 'empty-body', name: i18n('Empty body', 'Désertion de l’âme'), max: monkLevel, period: 'day', pool: true, lines: [i18n('Ethereal (as etherealness), rounds per day, spread out.', 'Éthéré (comme forme éthérée), en rounds par jour, fractionnables.')], source: src('classes/monk.htm#emptyBody') })
+    if (monkLevel >= 4) {
+      const ft = slowFallFt(monkLevel)
+      note(i18n('Slow fall', 'Chute ralentie'), ft === Infinity ? i18n('Next to a wall: any distance without harm.', 'Près d’une paroi : n’importe quelle hauteur sans dommage.') : i18n(`Next to a wall: falls ${ft} ft shorter.`, `Près d’une paroi : chute réduite de ${ft * 0.3} m.`), 'classes/monk.htm#slowFall')
+    }
+    if (monkLevel >= 5) classFeatures.immunities.push(i18n('nonmagical diseases', 'maladies non magiques'))
+    if (monkLevel >= 11) classFeatures.immunities.push(i18n('poisons', 'poisons'))
+    if (monkLevel >= 13) classFeatures.spellResistance = 10 + monkLevel
+    if (monkLevel >= 17) note(i18n('Timeless body, tongue of the sun and moon', 'Éternelle jeunesse, langues du soleil et de la lune'), i18n('No aging penalties; speaks with any living creature.', 'Plus de malus liés à l’âge ; parle avec toute créature vivante.'), 'classes/monk.htm#monkTimelessBody')
+    if (monkLevel >= 20) note(i18n('Perfect self', 'Perfection de l’être'), i18n('Treated as an outsider for spells and magical effects; damage reduction 10/magic.', 'Considéré comme un Extérieur pour les sorts et effets magiques ; réduction des dégâts 10/magie.'), 'classes/monk.htm#perfectSelf')
+  }
+  // Stunning Fist: a monk gets monk level + 1 per 4 other levels uses per day; anyone else 1 per 4 levels
+  // (https://www.d20srd.org/srd/feats.htm#stunningFist, https://www.d20srd.org/srd/classes/monk.htm#bonusFeat).
+  if (hasFeat('stunning-fist')) {
+    const uses = monkLevel ? monkLevel + Math.floor((characterLevel - monkLevel) / 4) : Math.floor(characterLevel / 4)
+    classFeatures.abilities.push({ id: 'stunning-fist', name: i18n('Stunning Fist', 'Coup étourdissant'), max: uses, period: 'day', lines: [i18n(`Declare before the attack roll; Fort DC ${10 + Math.floor(characterLevel / 2) + mod('wis')} or stunned 1 round; 1 per round.`, `À annoncer avant le jet d’attaque ; Vigueur DD ${10 + Math.floor(characterLevel / 2) + mod('wis')} ou étourdi 1 round ; 1 par round.`)], source: src('feats.htm#stunningFist') })
+  }
+
+  if (paladinLvl) {
+    const lost = !paladinGood
+    if (lost)
+      note(i18n('Ex-paladin', 'Ancien paladin'), i18n('Not lawful good: all paladin spells and abilities are lost until atonement.', 'Pas loyal bon : tous les sorts et pouvoirs de paladin sont perdus jusqu’à une pénitence.'), 'classes/paladin.htm#exPaladins')
+    else {
+      classFeatures.abilities.push({ id: 'smite-evil', name: i18n('Smite evil', 'Châtiment du Mal'), max: smitePerDay(paladinLvl), period: 'day', lines: [i18n(`One melee attack: +${Math.max(0, mod('cha'))} attack, +${paladinLvl} damage; wasted on a non-evil target.`, `Une attaque au corps à corps : +${Math.max(0, mod('cha'))} à l’attaque, +${paladinLvl} aux dégâts ; perdu contre une cible non mauvaise.`)], source: src('classes/paladin.htm#smiteEvil') })
+      if (paladinLvl >= 2 && mod('cha') > 0)
+        classFeatures.abilities.push({ id: 'lay-on-hands', name: i18n('Lay on hands', 'Imposition des mains'), max: paladinLvl * mod('cha'), period: 'day', pool: true, lines: [i18n('Heal by touch (standard action), or damage undead (melee touch).', 'Soigne par contact (action simple), ou blesse un mort-vivant (contact au corps à corps).')], source: src('classes/paladin.htm#layonHands') })
+      if (paladinLvl >= 6)
+        classFeatures.abilities.push({ id: 'remove-disease', name: i18n('Remove disease', 'Guérison des maladies'), max: removeDiseasePerWeek(paladinLvl), period: 'week', lines: [i18n('As the spell.', 'Comme le sort.')], source: src('classes/paladin.htm#removeDisease') })
+      note(i18n('Aura of good, detect evil', 'Aura de Bien, détection du Mal'), i18n(`Aura of good as a cleric of level ${paladinLvl}; detect evil at will.`, `Aura de Bien comme un prêtre de niveau ${paladinLvl} ; détection du Mal à volonté.`), 'classes/paladin.htm#auraofGood')
+      if (paladinLvl >= 3) {
+        note(i18n('Aura of courage', 'Aura de bravoure'), i18n('Immune to fear; allies within 10 ft +4 morale on saves vs fear (while conscious).', 'Immunisé contre la terreur ; alliés à 3 m ou moins +4 de moral aux jets contre la terreur (si conscient).'), 'classes/paladin.htm#auraofCourage')
+        classFeatures.immunities.push(i18n('fear', 'terreur'), i18n('diseases', 'maladies'))
+      }
+    }
+  }
+
+  if (rogueLevel) {
+    classFeatures.sneakAttack = `${sneak}d6`
+    const specials = rogueSpecials
+    note(i18n('Trapfinding', 'Recherche des pièges'), i18n('Search for traps of DC above 20; Disable Device on magic traps.', 'Fouille des pièges de DD supérieur à 20 ; Désamorçage/sabotage des pièges magiques.'), 'classes/rogue.htm#trapfinding')
+    const rogueCls = rules.classes.get('rogue')
+    const named = (id: string) => rogueCls?.choices?.specialAbility?.find((o) => o.id === id)?.name ?? { en: id, fr: id }
+    if (specials.includes('crippling-strike')) note(named('crippling-strike'), i18n('A sneak attack that deals damage also deals 2 Str damage.', 'Une attaque sournoise qui inflige des dégâts inflige aussi 2 points de dégâts de Force.'), 'classes/rogue.htm#specialAbilities')
+    if (specials.includes('defensive-roll'))
+      classFeatures.abilities.push({ id: 'defensive-roll', name: named('defensive-roll'), max: 1, period: 'day', lines: [i18n('When a blow would drop you to 0 hp or less: Reflex (DC = damage) for half; not if denied your Dex bonus.', 'Quand un coup vous ferait tomber à 0 pv ou moins : Réflexes (DD = dégâts) pour moitié ; pas si privé du bonus de Dex.')], source: src('classes/rogue.htm#specialAbilities') })
+    if (specials.includes('opportunist')) note(named('opportunist'), i18n('Once per round, an attack of opportunity against a foe just damaged in melee by someone else.', 'Une fois par round, une attaque d’opportunité contre un adversaire qui vient d’être blessé au corps à corps par un autre.'), 'classes/rogue.htm#specialAbilities')
+    if (specials.includes('skill-mastery')) note(named('skill-mastery'), i18n(`Take 10 under stress with ${3 + mod('int')} chosen skills per time taken.`, `Faire 10 même sous la pression avec ${3 + mod('int')} compétences choisies à chaque fois.`), 'classes/rogue.htm#specialAbilities')
+    if (specials.includes('slippery-mind')) note(named('slippery-mind'), i18n('A failed save vs an enchantment can be rerolled once, 1 round later.', 'Un jet de sauvegarde raté contre un enchantement peut être retenté une fois, 1 round plus tard.'), 'classes/rogue.htm#specialAbilities')
+  }
+
   return {
+    lostClasses: [...(paladinLvl && !paladinGood ? ['paladin'] : []), ...(exDruid ? ['druid'] : [])],
+    classFeatures,
     characterLevel,
     classLevels,
     feats,
@@ -1294,7 +1584,11 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     size,
     wildShape: shape ? { def: shape, rounds: char.wildShape!.rounds } : undefined,
     proficiency,
-    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))),
+    // An ex-paladin (not lawful good) or ex-druid (alignment not neutral on one axis) loses the class's spells
+    // (https://www.d20srd.org/srd/classes/paladin.htm#exPaladins, druid.htm#exDruids).
+    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))).filter(
+      (sc) => !(sc.classId === 'paladin' && !paladinGood) && !(sc.classId === 'druid' && exDruid),
+    ),
     featureStats,
     turning,
     domains,
@@ -1333,6 +1627,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     shield,
     martial: { caps, known, stance, active: runningManeuvers },
     damageReduction: [
+      ...(barbarianDR(barbLevel) ? [{ value: `${barbarianDR(barbLevel)}/—`, source: i18n('Barbarian', 'Barbare') }] : []),
+      ...(monkLevel >= 20 ? [{ value: '10/magic', source: i18n('Monk (perfect self)', 'Moine (perfection de l’être)') }] : []),
       ...[...(stance ? [stance] : []), ...maneuverDR]
         .filter((d) => d.damageReduction)
         .map((d) => ({

@@ -3,7 +3,8 @@
   // turn, end of the encounter. Durations in rounds: https://www.d20srd.org/srd/combat/initiative.htm
   import { rules } from '../data/rules'
   import { advanceManeuvers } from '../engine/martial'
-  import { app, tr } from '../state.svelte'
+  import { app, tr, view } from '../state.svelte'
+  import { endRage, RAGE_ENCOUNTER_KEY } from './classActions'
   import { effectName } from './effects'
 
   let message = $state('')
@@ -11,6 +12,8 @@
   function endTurn() {
     const c = app.character
     if (c.martial) advanceManeuvers(c.martial, rules, 'endOfTurn')
+    // Smite evil applies to one attack: switched off after the turn.
+    c.toggles.smite = false
     message = ''
   }
   // A duration in rounds ends just before the initiative count it began on: count it down when your next turn starts
@@ -19,12 +22,18 @@
     const c = app.character
     c.round = (c.round ?? 1) + 1
     const expired: string[] = []
+    let rageOver = false
     for (const e of c.activeEffects) {
       if (e.rounds === undefined) continue
       e.rounds -= 1
-      if (e.rounds <= 0) expired.push(tr(effectName(e)))
+      if (e.rounds <= 0) {
+        expired.push(tr(effectName(e)))
+        if (e.kind === 'class' && e.refId === 'rage') rageOver = true
+      }
     }
     c.activeEffects = c.activeEffects.filter((e) => e.rounds === undefined || e.rounds > 0)
+    // The end of a rage leaves the barbarian fatigued for the encounter (not from 17th level: tireless rage).
+    if (rageOver) endRage(c, view.sheet.classFeatures.rage?.tireless ?? false)
     // Summoned creatures: 1 round per caster level, gone when it runs out.
     for (const x of c.summons ?? []) {
       x.rounds -= 1
@@ -46,6 +55,9 @@
     const c = app.character
     delete c.round
     c.summons = []
+    // Effects that last the encounter (fatigue after a rage) end; rage is allowed again in the next encounter.
+    c.activeEffects = c.activeEffects.filter((e) => !e.encounter)
+    delete c.dailyUsesSpent[RAGE_ENCOUNTER_KEY]
     if (c.martial) {
       c.martial.expended = []
       c.martial.active = []

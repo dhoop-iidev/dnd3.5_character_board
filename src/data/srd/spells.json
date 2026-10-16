@@ -1719,6 +1719,59 @@
     }
   },
   {
+    "id": "bless-weapon",
+    "name": {
+      "en": "Bless Weapon",
+      "fr": "Bénédiction d’arme"
+    },
+    "school": {
+      "en": "Transmutation",
+      "fr": "Transmutation"
+    },
+    "level": {
+      "paladin": 1
+    },
+    "schoolId": "transmutation",
+    "descriptors": [],
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Weapon touched",
+      "fr": "arme touchée"
+    },
+    "duration": {
+      "en": "1 min./level",
+      "fr": "1 minute/niveau"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Weapon strikes true against evil foes.",
+      "fr": "Arme plus efficace contre les adversaires d’alignement mauvais."
+    },
+    "text": {
+      "en": "<p>This transmutation makes a weapon strike true against evil foes. The weapon is treated as having a +1 enhancement bonus for the purpose of bypassing the damage reduction of evil creatures or striking evil incorporeal creatures (though the spell doesn't grant an actual enhancement bonus). The weapon also becomes good, which means it can bypass the damage reduction of certain creatures. (This effect overrides and suppresses any other alignment the weapon might have.) Individual arrows or bolts can be transmuted, but affected projectile weapons (such as bows) don't confer the benefit to the projectiles they shoot.</p><p>In addition, all critical hit rolls against evil foes are automatically successful, so every threat is a critical hit. This last effect does not apply to any weapon that already has a magical effect related to critical hits, such as a keen weapon or a vorpal sword.</p>",
+      "fr": "<p>Ce sort rend l’arme ciblée particulièrement puissante contre les créatures maléfiques. Elle annule la réduction de dégâts dont bénéficient certaines créatures et frappe les êtres maléfiques intangibles comme si elle bénéficiait d’un bonus d’altération de +1 (mais le sort ne confère pas un réel bonus d’altération). L’arme est bonne, ce qui lui permet de passer outre la réduction des dégâts de certaines créatures, en particulier les Extérieurs mauvais (cet effet réprime et remplace l’éventuel alignement de l’arme). Il est possible d’utiliser ce sort sur une flèche ou un carreau d’arbalète, mais une arme à projectile (arc, etc.) affectée ne transmet pas ses propriétés aux projectiles qu’elle tire.</p><p>En outre, elle réussit automatiquement les coups critiques (ce qui signifie que tout critique possible en devient un sans qu’il soit nécessaire de jeter le dé). Toutefois, cet effet ne peut pas affecter les armes bénéficiant déjà d’un effet magique lié aux coups critiques, comme c’est le cas pour les armes acérées ou les épées vorpales.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/blessWeapon.htm",
+      "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
     "id": "blight",
     "name": {
       "en": "Blight",
@@ -9519,6 +9572,60 @@
     }
   },
   {
+    "id": "heal-mount",
+    "name": {
+      "en": "Heal Mount",
+      "fr": "Guérison de destrier"
+    },
+    "school": {
+      "en": "Conjuration (Healing)",
+      "fr": "Invocation (guérison)"
+    },
+    "level": {
+      "paladin": 3
+    },
+    "schoolId": "conjuration",
+    "subschool": "healing",
+    "descriptors": [],
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Your mount touched",
+      "fr": "la monture du paladin"
+    },
+    "duration": {
+      "en": "Instantaneous",
+      "fr": "instantanée"
+    },
+    "save": {
+      "en": "Will negates (harmless)",
+      "fr": "Volonté, annule (inoffensif)"
+    },
+    "spellResistance": {
+      "en": "Yes (harmless)",
+      "fr": "oui (inoffensif)"
+    },
+    "summary": {
+      "en": "As heal on warhorse or other special mount.",
+      "fr": "Guérison suprême sur la monture du PJ."
+    },
+    "text": {
+      "en": "<p>This spell functions like <i>heal</i>, but it affects only the paladin's special mount (typically a warhorse).</p>",
+      "fr": "<p>Ce sort est semblable à guérison suprême, mais il n’affecte que le destrier du paladin (il s’agit généralement d’un cheval de guerre).</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/healMount.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
+    }
+  },
+  {
     "id": "heat-metal",
     "name": {
       "en": "Heat Metal",
@@ -10072,6 +10179,61 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/spells/holySmite.htm",
       "frRef": "DRS 22a (sorts I), DRS 21 (listes de sorts)"
+    }
+  },
+  {
+    "id": "holy-sword",
+    "name": {
+      "en": "Holy Sword",
+      "fr": "Épée sainte"
+    },
+    "school": {
+      "en": "Evocation [Good]",
+      "fr": "Évocation"
+    },
+    "level": {
+      "paladin": 4
+    },
+    "schoolId": "evocation",
+    "descriptors": [
+      "good"
+    ],
+    "components": "V, S",
+    "castingTime": {
+      "en": "1 standard action",
+      "fr": "1 action simple"
+    },
+    "range": {
+      "en": "Touch",
+      "fr": "contact"
+    },
+    "target": {
+      "en": "Melee weapon touched",
+      "fr": "arme de corps à corps touchée"
+    },
+    "duration": {
+      "en": "1 round/level",
+      "fr": "1 round/niveau"
+    },
+    "save": {
+      "en": "None",
+      "fr": "aucun"
+    },
+    "spellResistance": {
+      "en": "No",
+      "fr": "non"
+    },
+    "summary": {
+      "en": "Weapon becomes +5, deals +2d6 damage against evil.",
+      "fr": "L’arme devient +5 et inflige +2d6 points de dégâts contre le Mal."
+    },
+    "text": {
+      "en": "<p>This spell allows you to channel holy power into your sword, or any other melee weapon you choose. The weapon acts as a <i>+5 holy weapon</i> (+5 enhancement bonus on attack and damage rolls, extra 2d6 damage against evil opponents). It also emits a <i>magic circle against evil</i> effect (as the spell). If the <i>magic circle</i> ends, the sword creates a new one on your turn as a free action. The spell is automatically canceled 1 round after the weapon leaves your hand. You cannot have more than one <i>holy sword</i> at a time.</p><p>If this spell is cast on a magic weapon, the powers of the spell supersede any that the weapon normally has, rendering the normal enhancement bonus and powers of the weapon inoperative for the duration of the spell. This spell is not cumulative with <i>bless weapon</i> or any other spell that might modify the weapon in any way.</p><p>This spell does not work on artifacts.</p><p><i>Note:</i> A masterwork weapon's bonus to attack does not stack with an enhancement bonus to attack.</p>",
+      "fr": "<p>Grâce à ce sort, le paladin peut canaliser la puissance de son dieu dans son épée ou toute autre arme de corps à corps de son choix. Celle-ci devient alors une arme sainte +5 (bonus d’altération de +5 aux jets d’attaque et de dégâts, 2d6 points de dégâts supplémentaires contre les adversaires d’alignement mauvais). De plus, elle émet un cercle magique contre le Mal (semblable au sort du même nom). Si le cercle magique disparaît pour une raison quelconque, l’arme en crée un autre dès le prochain tour de jeu du paladin (il s’agit d’une action libre). Le sort s’interrompt de lui-même 1 round après que l’arme a quitté la main du personnage. Il est impossible d’avoir plus d’une épée sainte à la fois.</p><p>Si ce sort est lancé sur une arme magique, sa puissance prend le pas sur l’enchantement de l’arme, dont le bonus d’altération normal et les éventuels pouvoirs cessent de fonctionner tant que le sort fait effet. Épée sainte n’est pas cumulative avec bénédiction d’arme ou tout autre sort pouvant modifier l’arme enchantée de quelque façon que ce soit.</p><p>Ce sort ne fonctionne pas sur les artefacts.</p><p>Note. Le bonus au jet d’attaque d’une arme de maître n’est pas cumulatif avec un bonus d’altération au jet d’attaque.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/spells/holySword.htm",
+      "frRef": "DRS 22b (sorts II), DRS 21 (listes de sorts)"
     }
   },
   {

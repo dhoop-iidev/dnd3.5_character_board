@@ -59,7 +59,7 @@
   }
   const speedText = $derived(
     [
-      fmtDistance(ftToDistance(d.speed.land), lang()),
+      fmtDistance(ftToDistance(s.landSpeed), lang()),
       ...(d.speed.fly
         ? [
             `${tr({ en: 'fly', fr: 'vol' })} ${fmtDistance(ftToDistance(d.speed.fly), lang())}${d.speed.flyManeuver ? ` (${d.speed.flyManeuver})` : ''}`,

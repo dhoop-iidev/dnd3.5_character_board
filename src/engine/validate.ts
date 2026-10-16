@@ -10,6 +10,7 @@ import { choicesAt } from './classChoices'
 import { raceOf } from './race'
 import { parseAlignment, opposedDescriptors } from './alignment'
 import { domainsOf } from './cleric'
+import { CLASS_ALIGNMENT, NO_RETURN_CLASSES, ROGUE_SPECIAL_LEVELS } from './classFeatures'
 
 export { unmetPrereqs }
 
@@ -288,6 +289,57 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     }
   }
 
+  // ---- class alignment (https://www.d20srd.org/srd/classes/): no new level out of alignment; a paladin also loses her
+  // abilities, a barbarian his rage, a druid his spells and abilities (monk: keeps them).
+  {
+    const al = parseAlignment(char.identity.alignment)
+    const taken = new Set(char.levels.map((l) => l.classId))
+    if (al)
+      for (const [id, rule] of Object.entries(CLASS_ALIGNMENT)) {
+        if (!taken.has(id) || rule.ok(al)) continue
+        const cls = rules.classes.get(id)
+        const lost: Record<string, { en: string; fr: string }> = {
+          paladin: { en: 'all paladin spells and abilities are lost', fr: 'tous les sorts et pouvoirs de paladin sont perdus' },
+          barbarian: { en: 'no rage', fr: 'plus de rage' },
+          druid: { en: 'all druid spells and abilities are lost, animal companion included', fr: 'tous les sorts et pouvoirs de druide sont perdus, compagnon animal compris' },
+          bard: { en: 'abilities kept', fr: 'pouvoirs conservés' },
+          monk: { en: 'abilities kept', fr: 'pouvoirs conservés' },
+        }
+        out.push(w(`class-alignment-${id}`, 'warning', 'levels',
+          `${cls?.name.en ?? id} requires ${rule.text.en} (${char.identity.alignment}): no new ${cls?.name.en ?? id} level; ${lost[id]?.en ?? ''}`,
+          `${cls?.name.fr ?? id} exige ${rule.text.fr} (${char.identity.alignment}) : plus de nouveau niveau de ${cls?.name.fr ?? id} ; ${lost[id]?.fr ?? ''}`,
+          { srdUrl: rule.url }))
+      }
+    // Monk, paladin: after a level in another class, never again a level in this one.
+    for (const id of NO_RETURN_CLASSES) {
+      let seen = false
+      let left = false
+      char.levels.forEach((l, i) => {
+        if (l.classId === id) {
+          if (left)
+            out.push(w(`no-return-${id}-${i + 1}`, 'error', 'levels',
+              `Level ${i + 1}: a multiclass ${id} can't take a new ${id} level after a level in another class`,
+              `Niveau ${i + 1} : un ${rules.classes.get(id)?.name.fr ?? id} multiclassé ne peut plus reprendre de niveau de ${rules.classes.get(id)?.name.fr ?? id} après un niveau dans une autre classe`,
+              { level: i + 1, srdUrl: CLASS_ALIGNMENT[id].url, actionable: true }))
+          seen = true
+        } else if (seen) left = true
+      })
+    }
+  }
+
+  // A rogue special ability recorded at a level that doesn't grant one (after levels were reordered) is ignored.
+  {
+    let rogueN = 0
+    char.levels.forEach((l, i) => {
+      if (l.classId === 'rogue') rogueN++
+      if (l.classChoices?.specialAbility && !(l.classId === 'rogue' && ROGUE_SPECIAL_LEVELS.includes(rogueN)))
+        out.push(w(`rogue-special-stray-${i + 1}`, 'warning', 'levels',
+          `Level ${i + 1}: a rogue special ability is recorded here, but only rogue levels 10, 13, 16 and 19 grant one (ignored)`,
+          `Niveau ${i + 1} : une aptitude spéciale de roublard est notée ici, mais seuls les niveaux 10, 13, 16 et 19 de roublard en donnent (ignorée)`,
+          { level: i + 1, srdUrl: `${SRD}classes/rogue.htm#specialAbilities`, actionable: true }))
+    })
+  }
+
   // ---- class-feature choices (ranger favored enemy, combat style)
   char.levels.forEach((lvl, i) => {
     const L = i + 1
@@ -341,9 +393,13 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
     })
   if (now.feats.some((f) => f.featId === 'spring-attack') && now.armor?.category === 'heavy')
     loseFeat('spring-attack', { en: 'wearing heavy armor (still counts as a prerequisite)', fr: 'armure lourde portée (compte toujours comme condition)' })
+  // Feats taken as a bonus feat that ignores prerequisites (monk) can't lose them.
+  const noPrereq = new Set(
+    char.levels.flatMap((l) => (rules.classes.get(l.classId)?.bonusFeatIgnorePrereqs ? l.feats.filter((p) => p.slot === 'class').map((p) => p.featId) : [])),
+  )
   for (const f of now.feats) {
     const def = rules.feats.get(f.featId)
-    if (!def?.prereq.abilities) continue
+    if (!def?.prereq.abilities || noPrereq.has(f.featId)) continue
     const unmet = unmetPrereqs({ abilities: def.prereq.abilities }, now, rules, [], f.choice)
     if (unmet.length) loseFeat(f.featId, { en: `prerequisite lost (${unmet.map((u) => u.en).join(', ')})`, fr: `condition perdue (${unmet.map((u) => u.fr).join(', ')})` })
   }

@@ -88,6 +88,8 @@ export interface CreatureState {
 }
 
 export interface CompanionState extends CreatureState {
+  /** "mount": the paladin's special mount (advances with paladin level); default: an animal companion. */
+  kind?: 'mount'
   /** Tricks taught with Handle Animal (free text ids/names). */
   tricks?: string[]
 }
@@ -155,13 +157,15 @@ export interface Loadout {
 
 export interface ActiveEffect {
   uid: string
-  kind: 'condition' | 'magic' | 'custom'
-  /** Condition id or magic item id (e.g. a potion). */
+  kind: 'condition' | 'magic' | 'custom' | 'class'
+  /** Condition id, magic item id (e.g. a potion) or class ability id ("rage"). */
   refId?: string
   custom?: { name: I18n; modifiers: ModifierSpec[] }
   enabled: boolean
   /** Rounds left (counted down at the start of each of your turns by the turn bar); undefined = no set duration. */
   rounds?: number
+  /** Lasts until the end of the encounter (the fatigue after a barbarian's rage). */
+  encounter?: boolean
   note?: string
 }
 
@@ -179,6 +183,12 @@ export interface CombatToggles {
   totalDefense: boolean
   /** Rapid Shot: one extra ranged attack at the highest bonus, −2 on all ranged attacks this round. */
   rapidShot?: boolean
+  /** Monk flurry of blows (full attack). */
+  flurry?: boolean
+  /** Paladin smite evil on the next melee attack. */
+  smite?: boolean
+  /** Mounted: a lance is wielded in one hand. */
+  mounted?: boolean
   /** Situational modifiers switched on by the user (key = modifier key from the engine, e.g. "feat:dodge"). */
   situational: Record<string, boolean>
 }

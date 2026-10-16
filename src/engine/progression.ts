@@ -4,6 +4,7 @@ import type { FeatDef } from '../data/types'
 import type { Character, FeatPick, FeatSlot } from '../model/character'
 import { compute } from './compute'
 import { unmetPrereqs } from './prereq'
+import { ROGUE_SPECIAL_LEVELS } from './classFeatures'
 import { raceOf } from './race'
 import { classSkillsOf } from './cleric'
 
@@ -38,7 +39,9 @@ export function featSlotsAt(char: Character, rules: Rules, level: number): Recor
     // Human bonus feat at 1st level (https://www.d20srd.org/srd/races.htm#humans).
     race: level === 1 && raceOf(char, rules).bonusFeat ? 1 : 0,
     // Class bonus feats (fighter, warblade…).
-    class: cls?.bonusFeatLevels?.includes(classLevelAt(char, level)) ? 1 : 0,
+    // Rogue: a bonus feat in place of a special ability (https://www.d20srd.org/srd/classes/rogue.htm#specialAbilities).
+    class:
+      cls?.bonusFeatLevels?.includes(classLevelAt(char, level)) || (cls?.id === 'rogue' && entry.classChoices?.specialAbility === 'feat' && ROGUE_SPECIAL_LEVELS.includes(classLevelAt(char, level))) ? 1 : 0,
   }
 }
 
@@ -103,6 +106,8 @@ function featsBefore(char: Character, level: number, pick?: FeatPick): FeatPick[
 export function classBonusFeatList(char: Character, rules: Rules, level: number): string[] | undefined {
   const cls = rules.classes.get(char.levels[level - 1]?.classId ?? '')
   if (!cls || cls.id === 'fighter') return undefined
+  // Rogue bonus feat (special ability): any feat, prerequisites apply.
+  if (cls.id === 'rogue') return [...rules.feats.keys()]
   return cls.bonusFeatListByLevel?.[String(classLevelAt(char, level))] ?? cls.bonusFeatList
 }
 

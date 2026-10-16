@@ -33,6 +33,8 @@ export function proficiencies(classLevels: Record<string, number>, feats: FeatPi
   // Racial proficiencies (elf: longsword, rapier, bows) and weapon familiarity (dwarven waraxe/urgrosh, gnome hooked
   // hammer count as martial weapons: proficient when proficient with all martial weapons).
   for (const id of race.weaponProficiencies ?? []) weapons.add(id)
+  // Monk: her unarmed strike is a class feature (https://www.d20srd.org/srd/classes/monk.htm#unarmedStrike).
+  if (classLevels['monk']) weapons.add('unarmed-strike')
   if (weapons.has('martial')) for (const id of race.weaponFamiliarity ?? []) weapons.add(id)
   return { weapons, armor }
 }

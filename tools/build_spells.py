@@ -104,6 +104,9 @@ FR_LIST_ALIAS = {"Morsure magique suprême": "Morsure magique aggravée",  # dru
 # The French header uses another of the target / area / effect lines than the English SRD: English field -> French field.
 FR_FIELD_FROM = {"Blight": {"target": "effect"}, "Ironwood": {"effect": "target"}, "Stone Tell": {"target": "area"},
                  "Storm of Vengeance": {"effect": "area"}}
+# DRS 21 paladin list misprint: "Restauration partielle" printed at 4th level, where the SRD has restoration (Pal 4)
+# and lesser restoration at 1st (https://www.d20srd.org/srd/spells/restoration.htm, restorationLesser.htm). SRD kept.
+FR_LIST_MISPRINT = {("Restauration partielle", "paladin"), ("Restauration", "paladin")}
 FR_LIST_MISSING = {("Soins importants de groupe", "druid"), ("Détection du poison", "ranger"),
                    ("Annihilation de mort-vivant", "cleric")}
 FIELDS = {  # French header label -> SpellDef field
@@ -134,9 +137,9 @@ FR_ERRATA = {
     "forbiddance": [("(Loi/Chaos et Bien/Mal) : la créature perd 6d6 points de vie", "(Loi/Chaos et Bien/Mal) : la créature perd 12d6 points de vie")],
 }
 # DRS 21 list headings checked against each built spell (the French entry must be on the list at the same level).
-LIST_HEAD_FR = {"Sorts de prêtre": "cleric", "Sorts de druide": "druid", "Sorts de rôdeur": "ranger"}
+LIST_HEAD_FR = {"Sorts de prêtre": "cleric", "Sorts de druide": "druid", "Sorts de rôdeur": "ranger", "Sorts de paladin": "paladin"}
 # Spell lists built in full (every spell on these lists is in spells.json; the domain lists too).
-BUILT_LISTS = ("cleric", "druid", "ranger")
+BUILT_LISTS = ("cleric", "druid", "ranger", "paladin")
 # dnd35.db references kept: the core spell chapters (psionic and epic spells are not core; the extra-domain chapter
 # repeats Undeath to Death, whose core entry is in SpellsT-Z).
 CORE_REFS = ("SRD 3.5 Spells",)
@@ -263,6 +266,12 @@ def split_alignments(name: str) -> list[str]:
     """DRS 21 lines that group the four alignment spells: 'Détection de la Loi/du Bien/du Chaos/du Mal' ->
     ['Détection de la Loi', 'Détection du Bien', 'Détection du Chaos', 'Détection du Mal']."""
     parts = name.split("/")
+    # Paladin list: 'Protection contre le Chaos/Mal' (no article after the slash: same as the first part).
+    m0 = re.match(r"^(.*?\s(?:de la|du|la|le))\s(?:Loi|Bien|Chaos|Mal)$", parts[0])
+    if m0 and len(parts) > 1 and all(re.match(r"^(?:Loi|Bien|Chaos|Mal)$", x) for x in parts[1:]):
+        art = m0.group(1).rsplit(" ", 1)[-1]
+        art = "le" if art in ("la", "le") and parts[1] in ("Chaos", "Mal") else art
+        return [parts[0]] + [f"{m0.group(1).rsplit(' ', 1)[0]} {art} {x}" for x in parts[1:]]
     m = re.match(r"^(.*?)\s(?:de la|du|la|le)\s(?:Loi|Bien|Chaos|Mal)$", parts[0])
     if len(parts) < 2 or not m or not all(re.match(r"^(?:de la|du|la|le)\s(?:Loi|Bien|Chaos|Mal)$", x) for x in parts[1:]):
         return [name]
@@ -367,6 +376,9 @@ def build_spells() -> list[dict]:
             NOTES.append(f"spells: {en} / {fr['name']}: DRS 22 domain levels {fr_dom} differ from the SRD {lvd} (SRD kept)")
         for lst in BUILT_LISTS:
             if lst not in lv:
+                continue
+            if (fr["name"], lst) in FR_LIST_MISPRINT:
+                NOTES.append(f"spells: {fr['name']} ({en}): DRS 21 paladin list misprint (restauration partielle at 4th); SRD level {lv[lst]} kept")
                 continue
             if (fr["name"], lst) in FR_LIST_MISSING:
                 assert fr_list_level(fr_lists[lst], fr["name"]) is None, (en, lst)

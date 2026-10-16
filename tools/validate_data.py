@@ -833,8 +833,11 @@ def spot_checks(files, custom):
     sp = by["spells.json"]
     rl = [x for x in sp.values() if "ranger" in x["level"]]
     dl = [x for x in sp.values() if "druid" in x["level"]]
-    expect("383 spells: cleric 231, druid 169, ranger 51 (19/12/13/7 by level 1-4), and the domain spells",
-           len(sp) == 383 and sum(1 for x in sp.values() if "cleric" in x["level"]) == 231 and len(dl) == 169 and len(rl) == 51 and [
+    pl = [x for x in sp.values() if "paladin" in x["level"]]
+    expect("paladin list: 45 spells (dnd35.db), incl. bless weapon, heal mount, holy sword",
+           len(pl) == 45 and all(i in sp for i in ("bless-weapon", "heal-mount", "holy-sword")))
+    expect("386 spells: cleric 231, druid 169, ranger 51 (19/12/13/7 by level 1-4), and the domain spells",
+           len(sp) == 386 and sum(1 for x in sp.values() if "cleric" in x["level"]) == 231 and len(dl) == 169 and len(rl) == 51 and [
         sum(1 for x in rl if x["level"]["ranger"] == lv) for lv in (1, 2, 3, 4)] == [19, 12, 13, 7])
     expect("entangle: druid 1 / ranger 1, Enchevêtrement",
            sp["entangle"]["level"] == {"domain:plant": 1, "druid": 1, "ranger": 1} and sp["entangle"]["name"]["fr"] == "Enchevêtrement")

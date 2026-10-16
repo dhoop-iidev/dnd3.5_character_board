@@ -93,3 +93,36 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 - SRD Sun: "Once per day, you can perform a greater turning against undead in place of a regular turning… the undead creatures that would be turned are destroyed instead" (https://www.d20srd.org/srd/spells/clericDomains.htm#sun). A cleric who channels negative energy rebukes and never turns; FAQ pp. 10–11: turn or rebuke is fixed. No core "greater rebuking"; books print it explicitly where intended (Eberron Deathless domain).
 - **As written:** no effect for a rebuking cleric. **Alternative for the DM:** once per day a greater rebuke, where undead that would be rebuked are commanded instead.
 - **App:** shown with a note "no effect as written (pending)".
+
+## C15. Monk flurry of blows — **total BAB, monk-level penalty and extra attacks** (high)
+- SRD: "one extra attack in a round at her highest base attack bonus, but this attack takes a −2 penalty, as does each other attack made that round" (https://www.d20srd.org/srd/classes/monk.htm#flurryofBlows). FAQ 6/30/2008 p. 21: a multiclass example uses the total BAB.
+- FAQ pp. 19–21: flurry combines with two-weapon fighting (penalties stack) and Rapid Shot (shuriken); natural weapons and non-monk weapons (gauntlet) can't be part of it; quarterstaff: Str ×1, each end a separate weapon. Haste's extra attack: allowed by the wording (full attack), no official ruling.
+- **App:** a flurry toggle; the monk's unarmed strike and monk weapons get the penalty and the extra attack(s); other weapons are flagged. Lost in armor, with a shield or a medium/heavy load.
+
+## C16. Monk unarmed strike — **light weapon, Power Attack ×1, amulet of mighty fists, size table** (high)
+- SRD equipment: "An unarmed strike is always considered a light weapon." Power Attack: no bonus with a light weapon "except with unarmed strikes or natural weapon attacks" (https://www.d20srd.org/srd/feats.htm#powerAttack). FAQ p. 21: the amulet of mighty fists applies to the monk's unarmed strike. SRD Table: Small or Large Monk Unarmed Damage.
+- **App:** the unarmed strike is always an attack for a monk (no item needed), with the monk damage by level and size, ki strike, the amulet's enhancement, no nonproficiency penalty.
+
+## C17. Barbarian rage — **Str/Con bonuses untyped, Will bonus morale; once per encounter** (high)
+- SRD: "+4 bonus to Strength, a +4 bonus to Constitution, and a +2 morale bonus on Will saves… −2 penalty to Armor Class… 3 + the character's (newly improved) Constitution modifier… A barbarian can fly into a rage only once per encounter" (https://www.d20srd.org/srd/classes/barbarian.htm#rage). Morale Str/Con is the Pathfinder rule, not 3.5. FAQ p. 10: rage doesn't end when the barbarian falls unconscious.
+- **App:** a timed effect (rounds counted by the turn bar); at its end, fatigued until the end of the encounter (not from 17th level). Skills that can't be used are marked; Combat Expertise is switched off. Stacking with the *rage* spell (morale) follows the bonus types; DM may rule it the same effect.
+
+## C18. Paladin — **smite melee only, class level only for smite/lay on hands/mount** (high)
+- SRD smite evil: "one normal melee attack… Charisma bonus (if any)… 1 extra point of damage per paladin level" (https://www.d20srd.org/srd/classes/paladin.htm#smiteEvil). FAQ p. 9: smite, lay on hands and the mount use paladin level. Mount Int is set (not added), Str adjustment added; a Small paladin gets a warpony.
+- Smite damage on a critical hit: **pending house rule #28** (the books don't settle whether this flat extra damage is multiplied).
+
+## C19. Rogue — **sneak attack on every qualifying attack; special abilities** (high)
+- FAQ p. 24: every attack that qualifies (iteratives, Rapid Shot) deals sneak attack damage; ranged within 30 ft; not multiplied on a critical.
+- Special abilities: only skill mastery says it can be taken again; "Feat: A rogue may gain a bonus feat in place of a special ability" — any feat, prerequisites apply; each special ability can be replaced by a feat, so the feat option can recur (https://www.d20srd.org/srd/classes/rogue.htm#specialAbilities).
+- Uncanny dodge from two classes: improved uncanny dodge, barbarian and rogue levels stack (SRD barbarian); evasion from two classes does not improve (FAQ p. 9).
+
+## C20. Alignment and multiclass restrictions — **RAW** (high)
+- Barbarian, bard: any nonlawful; druid: neutral on one axis; monk: any lawful; paladin: lawful good. Out of alignment: no new level; ex-paladin loses spells and abilities, a lawful barbarian can't rage, an ex-druid loses spells (monk keeps abilities). Monk and paladin: no new level of the class after a level in another class (SRD Ex-Monks, Ex-Paladins).
+- **App:** warnings under Levels; ex-paladin and ex-druid spells, divine grace, paladin turning and smite are removed while out of alignment (an unknown alignment keeps everything).
+
+## C21. Warblade uncanny dodge and improved uncanny dodge — **as the barbarian's, levels stack** (high)
+- *Tome of Battle* p. 22: uncanny dodge at 2nd, improved uncanny dodge at 6th, "See the barbarian class feature (PH 26) for more information". The barbarian text: uncanny dodge from a second class gives improved uncanny dodge, and the levels of the classes that grant uncanny dodge stack (https://www.d20srd.org/srd/classes/barbarian.htm#improvedUncannyDodge).
+- **App:** barbarian (2+), rogue (4+) and warblade (2+) levels stack for the flanking threshold; two such classes give improved uncanny dodge.
+
+## C22. Review fixes of 2026-10-16 (classes) — **RAW, see docs/reviews/um_actually-2026-10-16-classes.md**
+- Smite evil applies to one attack (first of a full attack); a lance is one-handed while mounted; the mount shares the paladin's better base saves (FAQ p. 22); monk fast movement is an enhancement bonus (no stacking with boots of striding and springing or haste) and is lost with a shield; a fatigued barbarian whose rage ends becomes exhausted; Weapon Finesse is used only when better than Str after the shield's penalty; an ex-druid loses wild empathy, wild shape and the companion; Small characters' gear (backpack, bedroll, rations, outfits…) weighs a quarter, ammunition half (Table: Goods and Services).

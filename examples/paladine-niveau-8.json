@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Dame Isolde de Valclair",
+    "player": "",
+    "race": "human",
+    "deity": "Heironeous",
+    "alignment": "LG",
+    "gender": "f",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Bleus",
+    "hair": "Blonds",
+    "homeland": "Valclair",
+    "title": "Lame de l’Aube",
+    "motto": "Droit et sans peur",
+    "languages": [
+      "Commun"
+    ],
+    "skin": "Claire"
+  },
+  "xp": 28000,
+  "baseAbilities": {
+    "str": 16,
+    "dex": 10,
+    "con": 14,
+    "int": 8,
+    "wis": 12,
+    "cha": 14
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 4,
+        "diplomacy": 4
+      },
+      "feats": [
+        {
+          "featId": "power-attack",
+          "slot": "general"
+        },
+        {
+          "featId": "mounted-combat",
+          "slot": "race"
+        }
+      ]
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": [
+        {
+          "featId": "ride-by-attack",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": [],
+      "abilityIncrease": "str"
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": [
+        {
+          "featId": "weapon-focus",
+          "slot": "general",
+          "choice": "longsword"
+        }
+      ]
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "paladin",
+      "skillRanks": {
+        "ride": 1,
+        "diplomacy": 1
+      },
+      "feats": [],
+      "abilityIncrease": "cha"
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "sword",
+      "kind": "weapon",
+      "refId": "longsword",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 1
+    },
+    {
+      "uid": "lance",
+      "kind": "weapon",
+      "refId": "lance",
+      "quantity": 1,
+      "location": "carried",
+      "masterwork": true
+    },
+    {
+      "uid": "plate",
+      "kind": "armor",
+      "refId": "full-plate",
+      "quantity": 1,
+      "location": "worn",
+      "enhancement": 1
+    },
+    {
+      "uid": "shield",
+      "kind": "armor",
+      "refId": "heavy-steel-shield",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 1
+    },
+    {
+      "uid": "cloak",
+      "kind": "magic",
+      "refId": "cloak-of-resistance-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "symbol",
+      "kind": "gear",
+      "refId": "silver-holy-symbol",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "clw",
+      "kind": "magic",
+      "refId": "potion-of-cure-moderate-wounds",
+      "quantity": 2,
+      "location": "pack"
+    },
+    {
+      "uid": "backpack",
+      "kind": "gear",
+      "refId": "backpack",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "bedroll",
+      "kind": "gear",
+      "refId": "bedroll",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "rations",
+      "kind": "gear",
+      "refId": "trail-rations",
+      "quantity": 4,
+      "location": "stored"
+    },
+    {
+      "uid": "water",
+      "kind": "gear",
+      "refId": "waterskin",
+      "quantity": 1,
+      "location": "stored"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Sword and shield",
+        "fr": "Épée et écu"
+      },
+      "weapons": [
+        "sword"
+      ],
+      "shield": "shield"
+    },
+    {
+      "id": "mounted",
+      "name": {
+        "en": "Lance (mounted)",
+        "fr": "Lance (monté)"
+      },
+      "weapons": [
+        "lance"
+      ],
+      "shield": "shield"
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "gp": 210,
+    "pp": 0,
+    "other": ""
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [
+    {
+      "uid": "mount",
+      "creatureId": "warhorse-heavy",
+      "kind": "mount",
+      "name": "Aubépine",
+      "maxHp": true,
+      "damage": 0
+    }
+  ],
+  "spells": {
+    "paladin": {
+      "prepared": {
+        "1": [
+          {
+            "id": "divine-favor",
+            "cast": false
+          },
+          {
+            "id": "bless",
+            "cast": false
+          }
+        ]
+      }
+    }
+  },
+  "summons": []
+}

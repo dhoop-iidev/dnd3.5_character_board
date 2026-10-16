@@ -16,7 +16,7 @@ export function parseAlignment(text: string | undefined): Alignment | undefined 
     .trim()
   if (!t) return undefined
   // Abbreviations: LG/NG/CG/LN/N/CN/LE/NE/CE and the French LB/NB/CB/LN/N/CN/LM/NM/CM.
-  const abbr = t.replace(/[\s.]/g, '').toUpperCase()
+  const abbr = t.replace(/[\s.]/g, '').toUpperCase().replace(/^TN$/, 'N')
   if (/^[LNC][GBNEM]?$/.test(abbr)) {
     const order = abbr[0] === 'L' ? 'lawful' : abbr[0] === 'C' ? 'chaotic' : 'neutral'
     const m = abbr[1] ?? (abbr[0] === 'N' ? 'N' : '')
@@ -25,7 +25,8 @@ export function parseAlignment(text: string | undefined): Alignment | undefined 
     return { order, moral }
   }
   const order = /lawful|loyal/.test(t) ? 'lawful' : /chaotic|chaotique/.test(t) ? 'chaotic' : /neutr/.test(t) ? 'neutral' : undefined
-  const moral = /good|\bbon\b/.test(t) ? 'good' : /evil|mauvais/.test(t) ? 'evil' : /neutr/.test(t) ? 'neutral' : undefined
+  // French feminine forms too (loyale, bonne, mauvaise).
+  const moral = /good|\bbonn?e?\b/.test(t) ? 'good' : /evil|mauvais/.test(t) ? 'evil' : /neutr/.test(t) ? 'neutral' : undefined
   if (!order || !moral) return undefined
   return { order, moral }
 }

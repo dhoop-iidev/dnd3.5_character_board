@@ -64,6 +64,9 @@ class _State:
 
 def parse_rtf(path: Path) -> list[Para]:
     data = path.read_bytes()
+    # Word "SYMBOL 180" fields (Symbol font ×) carry no text in their result: replace them with a multiplication sign
+    # (e.g. "(2 + modificateur d'Int) × 4", lay on hands "niveau × bonus de Charisme").
+    data = re.sub(rb"\{\\field\{\\\*\\fldinst SYMBOL 180 [^}]*\}\{\\fldrslt[^}]*\}\}", rb"\\u215?", data)
     stack: list[_State] = []
     st = _State()
     paras: list[Para] = []

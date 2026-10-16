@@ -154,6 +154,13 @@
   }
 </script>
 
+{#if s.flags.includes('raging')}
+  <p class="rage-warn">
+    {tr({ en: 'Raging: no spellcasting (barbarian rage).', fr: 'En rage : aucun sort ne peut être lancé (rage de berserker).' })}
+    <a href="https://www.d20srd.org/srd/classes/barbarian.htm#rage" target="_blank" rel="noopener">d20srd</a>
+  </p>
+{/if}
+
 {#if s.spellcasting.length > 1}
   <section class="box wide">
     <h3>{tr({ en: 'Several spellcasting classes', fr: 'Plusieurs classes de lanceur de sorts' })}</h3>
@@ -335,6 +342,10 @@
 {/each}
 
 <style>
+  .rage-warn {
+    color: var(--accent);
+    font-weight: 600;
+  }
   .caps {
     display: flex;
     flex-wrap: wrap;

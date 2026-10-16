@@ -77,7 +77,10 @@
     TABS.filter(
       (t) => (t.id !== 'maneuvers' || view.sheet.martial.caps) && (t.id !== 'spells' || view.sheet.spellcasting.length) &&
         // Companions: druid 1 or ranger 4 (or companions already recorded).
-        (t.id !== 'companions' || companionLevel(view.sheet.classLevels) > 0 || (app.character.companions ?? []).length),
+        (t.id !== 'companions' ||
+          companionLevel(view.sheet.classLevels) > 0 ||
+          ((view.sheet.classLevels['paladin'] ?? 0) >= 5 && !view.sheet.lostClasses.includes('paladin')) ||
+          (app.character.companions ?? []).length),
     ),
   )
 </script>

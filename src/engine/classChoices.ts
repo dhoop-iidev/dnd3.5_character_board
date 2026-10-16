@@ -4,6 +4,7 @@ import type { Rules } from '../data/rules'
 import type { ChoiceOption, I18n } from '../data/types'
 import type { Character } from '../model/character'
 import { classLevelAt } from './progression'
+import { ROGUE_REPEATABLE, ROGUE_SPECIAL_LEVELS } from './classFeatures'
 
 export interface ClassChoice {
   /** Key in LevelEntry.classChoices. */
@@ -58,6 +59,26 @@ export function choicesAt(char: Character, rules: Rules, L: number): ClassChoice
         srdUrl: 'https://www.d20srd.org/srd/divine/domains.htm#war',
       })
     return out
+  }
+  // Rogue special ability at 10th, 13th, 16th and 19th; skill mastery and the bonus feat can be taken again
+  // (https://www.d20srd.org/srd/classes/rogue.htm#specialAbilities).
+  if (cls?.id === 'rogue') {
+    if (!ROGUE_SPECIAL_LEVELS.includes(n)) return []
+    const before = new Set(
+      char.levels
+        .slice(0, L - 1)
+        .filter((l) => l.classId === 'rogue')
+        .map((l) => l.classChoices?.specialAbility)
+        .filter((x): x is string => !!x && !ROGUE_REPEATABLE.includes(x)),
+    )
+    return [
+      {
+        key: 'specialAbility',
+        label: { en: 'Rogue special ability', fr: 'Aptitude spéciale du roublard' },
+        options: (cls.choices?.specialAbility ?? []).filter((o) => !before.has(o.id)),
+        srdUrl: 'https://www.d20srd.org/srd/classes/rogue.htm#specialAbilities',
+      },
+    ]
   }
   if (!cls || cls.id !== 'ranger') return []
   const out: ClassChoice[] = []

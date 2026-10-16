@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Sœur Lian",
+    "player": "",
+    "race": "human",
+    "deity": "",
+    "alignment": "LN",
+    "gender": "f",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Noirs",
+    "hair": "Rasés",
+    "homeland": "Monastère du Lotus",
+    "title": "Main de Jade",
+    "motto": "Le vent ne se bat pas",
+    "languages": [
+      "Commun"
+    ],
+    "skin": "Mate"
+  },
+  "xp": 28000,
+  "baseAbilities": {
+    "str": 14,
+    "dex": 14,
+    "con": 12,
+    "int": 10,
+    "wis": 16,
+    "cha": 8
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 4,
+        "jump": 4,
+        "listen": 4,
+        "spot": 4,
+        "move-silently": 4
+      },
+      "feats": [
+        {
+          "featId": "dodge",
+          "slot": "general"
+        },
+        {
+          "featId": "mobility",
+          "slot": "race"
+        },
+        {
+          "featId": "stunning-fist",
+          "slot": "class"
+        }
+      ]
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": [
+        {
+          "featId": "deflect-arrows",
+          "slot": "class"
+        }
+      ]
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": [
+        {
+          "featId": "power-attack",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": [],
+      "abilityIncrease": "wis"
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": [
+        {
+          "featId": "weapon-focus",
+          "slot": "general",
+          "choice": "unarmed-strike"
+        },
+        {
+          "featId": "improved-trip",
+          "slot": "class"
+        }
+      ]
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "monk",
+      "skillRanks": {
+        "tumble": 1,
+        "jump": 1,
+        "listen": 1,
+        "spot": 1,
+        "move-silently": 1
+      },
+      "feats": [],
+      "abilityIncrease": "wis"
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "amf",
+      "kind": "magic",
+      "refId": "amulet-of-mighty-fists-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "bracers",
+      "kind": "magic",
+      "refId": "bracers-of-armor-2",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "cloak",
+      "kind": "magic",
+      "refId": "cloak-of-resistance-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "kama",
+      "kind": "weapon",
+      "refId": "kama",
+      "quantity": 1,
+      "location": "carried",
+      "masterwork": true
+    },
+    {
+      "uid": "shuriken",
+      "kind": "weapon",
+      "refId": "shuriken-5",
+      "quantity": 10,
+      "location": "carried"
+    },
+    {
+      "uid": "clw",
+      "kind": "magic",
+      "refId": "potion-of-cure-light-wounds",
+      "quantity": 3,
+      "location": "pack"
+    },
+    {
+      "uid": "backpack",
+      "kind": "gear",
+      "refId": "backpack",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "bedroll",
+      "kind": "gear",
+      "refId": "bedroll",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "rations",
+      "kind": "gear",
+      "refId": "trail-rations",
+      "quantity": 4,
+      "location": "stored"
+    },
+    {
+      "uid": "water",
+      "kind": "gear",
+      "refId": "waterskin",
+      "quantity": 1,
+      "location": "stored"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Unarmed and kama",
+        "fr": "Mains nues et kama"
+      },
+      "weapons": [
+        "kama",
+        "shuriken"
+      ]
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 10,
+    "gp": 95,
+    "pp": 0,
+    "other": ""
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [],
+  "summons": []
+}

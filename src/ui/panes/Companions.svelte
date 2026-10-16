@@ -2,13 +2,16 @@
   // Animal companions (druid; ranger from 4th at half his level): choice of animal, SRD advancement, stat block.
   // https://www.d20srd.org/srd/classes/druid.htm#animalCompanion
   import { rules } from '../../data/rules'
-  import { companionAdvancement, companionLevel, computeCreature } from '../../engine/creature'
+  import { companionAdvancement, companionLevel, computeCreature, paladinMountAdvancement } from '../../engine/creature'
   import type { CompanionState } from '../../model/character'
   import { app, tr, view } from '../../state.svelte'
   import CreatureCard from '../CreatureCard.svelte'
   import { newUid } from '../items'
 
-  const level = $derived(companionLevel(view.sheet.classLevels))
+  // An ex-druid loses her companion (https://www.d20srd.org/srd/classes/druid.htm#exDruids).
+  const level = $derived(
+    companionLevel(view.sheet.lostClasses.includes('druid') ? { ...view.sheet.classLevels, druid: 0 } : view.sheet.classLevels),
+  )
   const options = $derived(
     (rules.companions?.options ?? [])
       .filter((o) => o.minLevel <= level && rules.creatures.has(o.creatureId))
@@ -29,6 +32,36 @@
     })
     pick = ''
   }
+  // Paladin's special mount (5th level): heavy warhorse for a Medium paladin, warpony for a Small one; the table uses
+  // the paladin level only (https://www.d20srd.org/srd/classes/paladin.htm#specialMount; 3.5 FAQ p. 9).
+  // An ex-paladin loses the mount's service (https://www.d20srd.org/srd/classes/paladin.htm#exPaladins).
+  const paladinLevel = $derived(view.sheet.lostClasses.includes('paladin') ? 0 : (view.sheet.classLevels['paladin'] ?? 0))
+  const mountRow = $derived(paladinMountAdvancement(paladinLevel))
+  const mountDefault = $derived(view.sheet.race.size === 'small' ? 'pony-war' : 'warhorse-heavy')
+  const mounts = $derived((app.character.companions ?? []).filter((x) => x.kind === 'mount'))
+  const animals = $derived((app.character.companions ?? []).filter((x) => x.kind !== 'mount'))
+  function addMount() {
+    ;(app.character.companions ??= []).push({
+      uid: newUid(),
+      creatureId: mountDefault,
+      kind: 'mount',
+      maxHp: app.character.settings.maxHitDice !== false,
+      damage: 0,
+    })
+  }
+  const mountSheet = (c: CompanionState) => {
+    const m = paladinMountAdvancement(paladinLevel)
+    // Share saving throws: the better of its own base saves and the paladin's
+    // (https://www.d20srd.org/srd/classes/paladin.htm#specialMount; FAQ p. 22).
+    const base = (id: 'fort' | 'ref' | 'will') => view.sheet.saves[id].parts.filter((p) => p.bonusType === 'base').reduce((n, p) => n + p.value, 0)
+    return computeCreature(rules.creatures.get(c.creatureId)!, {
+      advancement: m?.advancement,
+      mount: m?.mount,
+      masterBaseSaves: paladinLevel >= 5 ? { fort: base('fort'), ref: base('ref'), will: base('will') } : undefined,
+      maxHp: c.maxHp,
+      hpManual: c.hpManual,
+    })
+  }
   function remove(uid: string) {
     app.character.companions = (app.character.companions ?? []).filter((x) => x.uid !== uid)
   }
@@ -44,6 +77,34 @@
   }
 </script>
 
+{#if paladinLevel >= 5 || mounts.length}
+  <section class="box wide">
+    <h3>{tr({ en: 'Special mount (paladin)', fr: 'Monture (paladin)' })}</h3>
+    <p class="note">
+      {tr({
+        en: `Called once per day (full-round action) for 2 hours per paladin level (${2 * paladinLevel} h), in full health; treated as a magical beast. Paladin ${paladinLevel}: ${mountRow ? `+${mountRow.advancement.bonusHD} HD, natural armor +${mountRow.advancement.naturalArmorAdj}, Str +${mountRow.mount.strAdj}, Int ${mountRow.mount.int}` : '—'}${paladinLevel >= 15 ? `, spell resistance ${paladinLevel + 5}` : ''}. If it dies: no new mount for 30 days or until the next paladin level, −1 on attack and weapon damage meanwhile.`,
+        fr: `Appelée une fois par jour (action complexe) pour 2 heures par niveau de paladin (${2 * paladinLevel} h), en pleine santé ; considérée comme une créature magique. Paladin ${paladinLevel} : ${mountRow ? `+${mountRow.advancement.bonusHD} DV, armure naturelle +${mountRow.advancement.naturalArmorAdj}, For +${mountRow.mount.strAdj}, Int ${mountRow.mount.int}` : '—'}${paladinLevel >= 15 ? `, résistance à la magie ${paladinLevel + 5}` : ''}. Si elle meurt : pas de nouvelle monture pendant 30 jours ou jusqu’au niveau de paladin suivant, −1 aux jets d’attaque et de dégâts d’arme entre-temps.`,
+      })}
+      <a href="https://www.d20srd.org/srd/classes/paladin.htm#specialMount" target="_blank" rel="noopener">d20srd</a>
+    </p>
+    {#if !mounts.length && rules.creatures.has(mountDefault)}
+      <button class="addmount" onclick={addMount}
+        >＋ {tr(rules.creatures.get(mountDefault)!.name)}</button
+      >
+    {/if}
+  </section>
+  {#each mounts as c (c.uid)}
+    <section class="box wide">
+      <h3>{c.name || tr(rules.creatures.get(c.creatureId)?.name)}</h3>
+      {#if rules.creatures.has(c.creatureId)}
+        <label class="name">{tr({ en: 'Name', fr: 'Nom' })} <input bind:value={c.name} /></label>
+        <CreatureCard state={c} sheet={() => mountSheet(c)} onremove={() => remove(c.uid)} />
+      {/if}
+    </section>
+  {/each}
+{/if}
+
+{#if level > 0 || animals.length || paladinLevel < 5}
 <section class="box wide">
   <h3>{tr({ en: 'Animal companion', fr: 'Compagnon animal' })}</h3>
   <p class="note">
@@ -76,8 +137,9 @@
     </div>
   {/if}
 </section>
+{/if}
 
-{#each app.character.companions ?? [] as c (c.uid)}
+{#each animals as c (c.uid)}
   {@const adv = companionAdvancement(rules, level, adjOf(c))}
   <section class="box wide">
     <h3>{c.name || tr(rules.creatures.get(c.creatureId)?.name)}</h3>
@@ -129,6 +191,10 @@
   input {
     min-height: 2.6rem;
     padding: 0 0.5rem;
+  }
+  .addmount {
+    min-height: 2.6rem;
+    padding: 0 1rem;
   }
   .add button {
     min-height: 2.6rem;

@@ -6,10 +6,12 @@ import type { Rules } from '../data/rules'
 import type { AbilityId, CompanionAdvancementRow, CreatureAttack, CreatureDef, I18n, TemplateDef } from '../data/types'
 import { ABILITIES } from '../data/types'
 import { i18n, resolve, type Part, type Stat } from './stacking'
+import { PALADIN_MOUNT } from './classFeatures'
 
 const mod = (score: number | null) => (score === null ? 0 : Math.floor((score - 10) / 2))
 const DRUID = 'https://www.d20srd.org/srd/classes/druid.htm#animalCompanion'
 const AUGMENT = 'https://www.d20srd.org/srd/feats.htm#augmentSummoning'
+const MOUNT = 'https://www.d20srd.org/srd/classes/paladin.htm#specialMount'
 const TYPES = 'https://www.d20srd.org/srd/typesSubtypesAbilities.htm'
 
 /** Base attack progression and good saves per creature type (https://www.d20srd.org/srd/typesSubtypesAbilities.htm). */
@@ -34,6 +36,11 @@ export interface CreatureOptions {
   advancement?: CompanionAdvancementRow
   /** Augment Summoning: +4 enhancement bonus to Str and Con. */
   augment?: boolean
+  /** Paladin's mount: Str adjustment and Int score from Table: The Paladin's Mount (the bonus HD and natural armor come
+   * through `advancement`). https://www.d20srd.org/srd/classes/paladin.htm#specialMount */
+  mount?: { strAdj: number; int: number; speedBonus?: number }
+  /** Paladin's base saves (share saving throws: the mount uses the better base save). */
+  masterBaseSaves?: Record<'fort' | 'ref' | 'will', number>
   /** Maximum hit points for every hit die (otherwise `hpManual`, or the printed average). */
   maxHp?: boolean
   hpManual?: number
@@ -74,6 +81,8 @@ export interface CreatureSheet {
   special: { id: string; name: I18n; text: I18n }[]
   /** Type line, after a template (a celestial/fiendish animal or vermin becomes a magical beast). */
   typeText: I18n
+  /** Land speed in feet (a paladin's mount from 8th level: +10 ft, improved speed). */
+  landSpeed: number
   /** Companion bonus Hit Dice: feats, ability increases and skill points they entitle to (described only, not applied;
    * https://www.d20srd.org/srd/improvingMonsters.htm). */
   bonusHdGains?: { feats: number; abilityIncreases: number; skillPoints: number }
@@ -91,7 +100,7 @@ const strToDamage = (m: number, f: number) => (f === 0 ? 0 : m > 0 ? Math.floor(
 export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): CreatureSheet {
   const adv = opts.advancement
   const src = def.source
-  const advSource = { srdUrl: DRUID }
+  const advSource = { srdUrl: opts.mount ? MOUNT : DRUID }
   const printed = (label: I18n, value: number): Part => ({ sourceId: 'statblock', label, value, bonusType: 'base', source: src })
   const STAT = i18n('Stat block', 'Profil')
 
@@ -104,6 +113,10 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
     if (base !== null) parts.push(printed(STAT, base))
     if (base !== null && adv?.strDexAdj && (a === 'str' || a === 'dex'))
       parts.push({ sourceId: 'companion', label: i18n('Companion Str/Dex adjustment', 'Ajustement For/Dex du compagnon'), value: adv.strDexAdj, bonusType: 'base', source: advSource })
+    if (base !== null && opts.mount && a === 'str')
+      parts.push({ sourceId: 'mount', label: i18n('Paladin’s mount Str adjustment', 'Ajustement de For de la monture'), value: opts.mount.strAdj, bonusType: 'base', source: { srdUrl: MOUNT } })
+    if (base !== null && opts.mount && a === 'int' && opts.mount.int > base)
+      parts.push({ sourceId: 'mount', label: i18n('Paladin’s mount Int', 'Int de la monture'), value: opts.mount.int - base, bonusType: 'base', source: { srdUrl: MOUNT } })
     if (base !== null && opts.augment && (a === 'str' || a === 'con'))
       parts.push({ sourceId: 'augment', label: i18n('Augment Summoning', 'Convocation suprême'), value: 4, bonusType: 'enhancement', source: { srdUrl: AUGMENT } })
     // Celestial/fiendish: Intelligence at least 3.
@@ -124,7 +137,7 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
   const totalHd = hd + extraHd
   const dBab = babFor(def.type, hd) - babFor(def.type, def.hitDice.count)
   const babParts: Part[] = [printed(STAT, def.bab)]
-  if (dBab) babParts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD} HD (companion)`, `+${bonusHD} DV (compagnon)`), value: dBab, bonusType: 'base', source: advSource })
+  if (dBab) babParts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD} HD (${opts.mount ? 'mount' : 'companion'})`, `+${bonusHD} DV (${opts.mount ? 'monture' : 'compagnon'})`), value: dBab, bonusType: 'base', source: advSource })
   const bab = resolve(babParts)
 
   // ---- hit points
@@ -163,6 +176,11 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
     const parts: Part[] = [printed(STAT, def.saves[s])]
     const dBase = saveFor(isGood(s), hd) - saveFor(isGood(s), def.hitDice.count)
     if (dBase) parts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD} HD`, `+${bonusHD} DV`), value: dBase, bonusType: 'base', source: advSource })
+    // Share saving throws: the master's base save when it is better.
+    const own = saveFor(isGood(s), hd)
+    const master = opts.masterBaseSaves?.[s] ?? 0
+    if (master > own)
+      parts.push({ sourceId: 'share-saves', label: i18n('Share saving throws (paladin’s base save)', 'Transfert de jet de sauvegarde (base du paladin)'), value: master - own, bonusType: 'base', source: advSource })
     const d = delta[saveAbility[s]]
     if (d) parts.push({ sourceId: 'ability', label: i18n(`${saveAbility[s].toUpperCase()} change`, `Variation de ${saveAbility[s].toUpperCase()}`), value: d, bonusType: 'ability' })
     saves[s] = resolve(parts)
@@ -171,7 +189,7 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
   // ---- AC, initiative, grapple
   const acParts: Part[] = [printed(STAT, def.ac.total)]
   if (adv?.naturalArmorAdj)
-    acParts.push({ sourceId: 'natural', label: i18n('Companion natural armor', 'Armure naturelle du compagnon'), value: adv.naturalArmorAdj, bonusType: 'naturalArmor', source: advSource })
+    acParts.push({ sourceId: 'natural', label: (opts.mount ? i18n('Mount natural armor', 'Armure naturelle de la monture') : i18n('Companion natural armor', 'Armure naturelle du compagnon')), value: adv.naturalArmorAdj, bonusType: 'naturalArmor', source: advSource })
   if (delta.dex) acParts.push({ sourceId: 'dex', label: i18n('Dex change', 'Variation de Dex'), value: delta.dex, bonusType: 'ability' })
   const ac = resolve(acParts)
   const touch = resolve([printed(STAT, def.ac.touch), ...(delta.dex ? [{ ...acParts.at(-1)! }] : [])])
@@ -232,7 +250,9 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
         en: def.typeText.en.replace(/\b(animal|vermin)\b/i, (w) => `magical beast (augmented ${w.toLowerCase()})`),
         fr: def.typeText.fr.replace(/\b(animal|vermine)\b/i, (w) => `créature magique (${w.toLowerCase()} augmenté${/vermine/i.test(w) ? 'e' : ''})`),
       }
-    : def.typeText
+    : opts.mount
+      ? { en: `${def.typeText.en} (magical beast for effects)`, fr: `${def.typeText.fr} (créature magique pour les effets)` }
+      : def.typeText
   // Companion bonus HD: a feat per 3 HD, an ability increase per 4 HD, skill points per HD (animal: 2 + Int, min 1)
   // (https://www.d20srd.org/srd/improvingMonsters.htm).
   const bonusHdGains = bonusHD
@@ -242,7 +262,8 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
         skillPoints: bonusHD * Math.max(1, 2 + abilities.int.mod),
       }
     : undefined
-  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains }
+  const landSpeed = def.speed.land + (def.speed.land ? (opts.mount?.speedBonus ?? 0) : 0)
+  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains, landSpeed }
 }
 
 /** Effective druid level for the animal companion: druid level + ½ ranger level from ranger 4 (FAQ p. 29). */
@@ -258,4 +279,17 @@ export function companionAdvancement(rules: Rules, effectiveLevel: number, level
   const row = rows.find((r) => lvl >= r.minLevel && lvl <= r.maxLevel)
   // Special abilities accumulate: each band of the table lists only the new ones.
   return row && { ...row, special: rows.filter((r) => r.minLevel <= row.minLevel).flatMap((r) => r.special) }
+}
+
+/** Paladin's mount advancement for a paladin level (bonus HD, natural armor, cumulative special abilities) and its Str
+ * adjustment and Int (https://www.d20srd.org/srd/classes/paladin.htm#specialMount). */
+export function paladinMountAdvancement(paladinLevel: number): { advancement: CompanionAdvancementRow; mount: { strAdj: number; int: number; speedBonus: number } } | undefined {
+  const row = PALADIN_MOUNT.find((r) => paladinLevel >= r.minLevel && paladinLevel <= r.maxLevel)
+  if (!row) return undefined
+  const special = PALADIN_MOUNT.filter((r) => r.minLevel <= row.minLevel).flatMap((r) => r.special)
+  return {
+    advancement: { minLevel: row.minLevel, maxLevel: row.maxLevel, bonusHD: row.bonusHD, naturalArmorAdj: row.naturalArmorAdj, strDexAdj: 0, bonusTricks: 0, special },
+    // Improved speed (8th): +10 ft.
+    mount: { strAdj: row.strAdj, int: row.int, speedBonus: paladinLevel >= 8 ? 10 : 0 },
+  }
 }

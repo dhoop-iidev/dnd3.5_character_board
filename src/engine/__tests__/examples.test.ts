@@ -5,6 +5,10 @@ import druidJson from '../../../examples/druide-niveau-10.json'
 import clericJson from '../../../examples/pretre-niveau-15.json'
 import rangerJson from '../../../examples/rodeur-niveau-12.json'
 import fighterJson from '../../../examples/guerriere-niveau-10.json'
+import barbarianJson from '../../../examples/barbare-niveau-8.json'
+import monkJson from '../../../examples/moine-niveau-8.json'
+import paladinJson from '../../../examples/paladine-niveau-8.json'
+import rogueJson from '../../../examples/roublard-niveau-10.json'
 import { migrate } from '../../model/migrate'
 import { compute } from '../compute'
 import { companionAdvancement, companionLevel, computeCreature } from '../creature'
@@ -91,6 +95,10 @@ describe.each([
   ['pretre-niveau-15.json', clericJson],
   ['rodeur-niveau-12.json', rangerJson],
   ['guerriere-niveau-10.json', fighterJson],
+  ['barbare-niveau-8.json', barbarianJson],
+  ['moine-niveau-8.json', monkJson],
+  ['paladine-niveau-8.json', paladinJson],
+  ['roublard-niveau-10.json', rogueJson],
 ])('examples/%s', (_, json) => {
   it('is a legal, complete build: no warning at all', () => {
     const c = migrate(structuredClone(json))
@@ -119,5 +127,37 @@ describe('examples: core numbers', () => {
     const axe = s.attacks.find((a) => a.itemUid === 'axe')!
     expect([axe.attack.total, axe.damage.total, axe.damageDice]).toEqual([19, 9, '1d10'])
     expect([s.ac.total, s.hpMax.total]).toEqual([26, 130])
+  })
+})
+
+describe('examples: barbarian, monk, paladin, rogue', () => {
+  it('half-orc barbarian 8: greataxe +14/+9 1d12+7, rage 3/day for 3 + 4 rounds, DR 1/—', () => {
+    const s = compute(migrate(structuredClone(barbarianJson)), rules)
+    expect(s.attacks[0].iterative).toEqual([14, 9])
+    expect(s.classFeatures.rage).toMatchObject({ perDay: 3, strCon: 4, rounds: 7 })
+    expect(s.damageReduction[0].value).toBe('1/—')
+    expect(s.speed.current.ft).toBe(30) // 30 + 10 fast movement, breastplate
+  })
+  it('human monk 8: unarmed 1d10, +10/+5, flurry +9/+9/+4, speed 50 ft, AC 19', () => {
+    const c = migrate(structuredClone(monkJson))
+    const s = compute(c, rules)
+    const u = s.attacks.find((a) => a.itemUid === 'monk-unarmed')!
+    expect([u.damageDice, ...u.iterative]).toEqual(['1d10', 10, 5])
+    expect([s.speed.current.ft, s.ac.total]).toEqual([50, 19])
+    c.toggles.flurry = true
+    expect(compute(c, rules).attacks.find((a) => a.itemUid === 'monk-unarmed')!.iterative).toEqual([9, 9, 4])
+  })
+  it('human paladin 8: smite +2/+8, lay on hands 16 (Cha 15), caster level 4', () => {
+    const c = migrate(structuredClone(paladinJson))
+    const s = compute(c, rules)
+    expect(s.classFeatures.abilities.find((a) => a.id === 'smite-evil')?.max).toBe(2)
+    expect(s.classFeatures.abilities.find((a) => a.id === 'lay-on-hands')?.max).toBe(8 * 2)
+    expect(s.spellcasting[0].casterLevel.total).toBe(4)
+  })
+  it('halfling rogue 10: short sword +15/+10 (Weapon Finesse), sneak attack 5d6, improved evasion', () => {
+    const s = compute(migrate(structuredClone(rogueJson)), rules)
+    expect(s.attacks[0].iterative).toEqual([15, 10])
+    expect(s.classFeatures.sneakAttack).toBe('5d6')
+    expect(s.classFeatures.notes.some((n) => n.name.en === 'Improved evasion')).toBe(true)
   })
 })
