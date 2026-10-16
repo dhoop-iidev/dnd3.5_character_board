@@ -90,7 +90,7 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 - **App:** as implemented (the domain slot of a blocked level offers lower, castable domain spells).
 
 ## C14. Sun domain greater turning for a cleric who rebukes — **pending: house rule #26**
-- SRD Sun: "Once per day, you can perform a greater turning against undead in place of a regular turning… the undead creatures that would be turned are destroyed instead" (https://www.d20srd.org/srd/spells/clericDomains.htm#sun). A cleric who channels negative energy rebukes and never turns; FAQ pp. 10–11: turn or rebuke is fixed. No core "greater rebuking"; books print it explicitly where intended (Eberron Deathless domain).
+- SRD Sun: "Once per day, you can perform a greater turning against undead in place of a regular turning… the undead creatures that would be turned are destroyed instead" (https://www.d20srd.org/srd/spells/clericDomains.htm#sun). A cleric who channels negative energy rebukes; but PHB p. 159 / SRD: "Regardless of the effect, the general term for the activity is 'turning'" (corrected 2026-10-16, see C25). FAQ pp. 10–11: turn or rebuke is fixed. No core "greater rebuking"; books print it explicitly where intended (Eberron Deathless domain).
 - **As written:** no effect for a rebuking cleric. **Alternative for the DM:** once per day a greater rebuke, where undead that would be rebuked are commanded instead.
 - **App:** shown with a note "no effect as written (pending)".
 
@@ -134,3 +134,100 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 ## C24. Weapon Finesse with a nonproficient shield — **the shield penalty applies once** (high)
 - FAQ 6/30/2008 p. 51: the armor check penalty for nonproficiency "overrides the normal armor check penalty", applying an equal penalty on Str and Dex checks and attack rolls. Weapon Finesse ("If you carry a shield, its armor check penalty applies to your attack rolls") puts the same penalty from the same item on the attack: once. FAQ p. 23: different penalties for different reasons stack; this is one penalty.
 - **App:** with a nonproficient shield, only the nonproficiency penalty applies; with a proficient one, Finesse adds the shield's penalty. House rule #30 closed.
+
+## C25. Deep dive of the open questions (2026-10-16) — **texts and common understanding; all still DM decisions**
+
+**Method:** five parallel searches.
+- **Local SRD copies:** English RTF, English HTML and French DRS. All three are the 3.5 SRD; the French DRS keeps a few 3.0 sentences.
+- **Official sources:** `dnd35.db`, PHB errata, the official FAQ of 6/30/2008, the 3.0→3.5 conversion guide.
+- ***Rules Compendium*:** quoted from forums, not checked on a scan.
+- **Forums:** EN World, rpg.stackexchange, Usenet, Min/Max, and GiantITP when reachable. Pathfinder only as contrast.
+
+### #29 Quarterstaff in a flurry: Power Attack
+**Texts**
+- **Monk:** "Strength bonus (not Str bonus x 1-1/2 or x 1/2)… whether she wields a weapon in one or both hands".
+- **Monk:** "each end counts as a separate weapon for the purpose of using the flurry of blows ability". This covers flurry eligibility only.
+- **Power Attack** (https://www.d20srd.org/srd/feats.htm#powerAttack): "(Normally, you treat a double weapon as a one-handed weapon and a light weapon. If you choose to use a double weapon like a two-handed weapon, attacking with only one end of it in a round, you treat it as a two-handed weapon.)"
+- **FAQ p. 54:** a double weapon "follows the normal rules" either way.
+- **FAQ p. 68:** a single attack with a double weapon is two-handed.
+
+**Community** (split; everyone agrees on Str ×1)
+- EN World 2005: leaned ×1 (https://www.enworld.org/threads/monk-flurry-two-handed-weapon-power-attack.126552/).
+- Usenet 2005: unresolved (https://groups.google.com/g/rec.games.frp.dnd/c/seGrAcjtQmQ).
+- EN World 2007, Hypersmurf: ×2, undisputed (https://www.enworld.org/threads/strength-power-attack-and-quarterstaffs.190434/).
+
+**Strongest reading (~60%): judged per round.**
+- One end only that round: ×2.
+- Both ends: ×1 on one end, nothing on the other. Which end is "light" in a flurry with no off hand is unclear.
+
+### #23 Dwarf against a poison spell
+**For +4**
+- PHB p. 171 / SRD Magic Overview: "With the exception of dodge bonuses, most circumstance bonuses, and racial bonuses, only the better bonus works".
+- The same sentence is reprinted in the *Expanded Psionics Handbook* and the French DRS 20.
+- The dwarf has two separate traits.
+
+**For +2**
+- PHB glossary "stack": only dodge and circumstance bonuses stack.
+- DMG p. 21.
+- *Rules Compendium* p. 21: "Bonuses that have identical types don't stack, except for dodge bonuses and some circumstance bonuses". The RC claims precedence over older books.
+- SRD demilich: "(this overlaps with the previous racial bonus gained by the lich; it does not stack)".
+- The designers avoided the case elsewhere: the svirfneblin and duergar traits "replace" the older bonus.
+
+**Community** (split; no FAQ, errata or Sage Advice)
+- rpg.stackexchange 2019: the accepted answer says "RAW, we have a mess" and stacks them at that table (https://rpg.stackexchange.com/questions/157146/do-racial-bonuses-stack).
+- EN World 2007/2008 moderators: they stack (https://www.enworld.org/threads/do-racial-bonuses-stack.195972/).
+
+**Assessment:** about 50/50. "Specific beats general" gives +4; "the latest book wins" gives +2.
+
+### #25 Horse, pony or camel companion at the Multiattack band
+**Texts**
+- **Companion:** "…gains a second attack with its primary natural weapon, albeit at a –5 penalty".
+- **Animals:** "A noncombative herbivore uses its natural weapons as a secondary attack".
+- **Horse:** "A horse not trained for war does not normally use its hooves to attack". The pony has the same note; the camel has no such condition.
+- **Primary weapon:** chosen "usually by virtue of the creature's physiology, training, or innate talent".
+- **FAQ p. 97:** "A secondary natural weapon is always a secondary natural weapon".
+
+**Community** (thin)
+- EN World 2003 (Diirk, FireLance): a horse taught the combat tricks loses the −5 (https://www.enworld.org/threads/druid-and-warhorse-animal-companion.72429/).
+- Pathfinder later rewrote the clause to "one of its natural weapons", which confirms the 3.5 gap.
+
+**Assessment**
+- The books are silent (high confidence).
+- The strict reading gives nothing (medium-high).
+- For horses, the training route is the option closest to the books (medium).
+
+### #26 Sun domain for a rebuking cleric
+**Texts**
+- **3.5 Sun domain:** "…in place of a regular turning… the undead creatures that would be turned are destroyed instead".
+- **PHB p. 159:** "Regardless of the effect, the general term for the activity is 'turning'".
+- **Evil clerics:** "Undead that would be turned are rebuked instead".
+- **Official 3.0 SRD:** "(or rebuking)… turned (or rebuked or commanded) are destroyed instead".
+- **French DRS 21 (3.5):** "s'utilise comme une tentative de renvoi, d'intimidation ou de contrôle des morts-vivants, sauf que les créatures affectées sont automatiquement détruites". This is word for word the 3.0 text, probably carried over: the French DRS has other 3.0 leftovers.
+
+**Deities**
+- The PHB has only Pelor (NG) with the Sun domain.
+- A neutral cleric of a LN Sun god may choose negative energy (Amaunator, *Lost Empires of Faerûn*).
+- Eberron allows clerics of any alignment.
+
+**Community:** no consensus. Mostly "it does nothing / not intended", with "commanded" as a house rule. Nobody cited the 3.0 or French wording.
+
+**Assessment:** destroyed ~55% (3.0 SRD + French DRS), no effect ~25%, commanded ~20%.
+
+### #27 Homebrew Knowledge skill
+**Texts**
+- **Knowledge skill:** "Like the Craft and Profession skills, Knowledge actually encompasses a number of unrelated skills… Below are listed typical fields of study". The list is open.
+- **French DRS 04:** "Vous pouvez en inventer d'autres".
+- **Knowledge domain:** "Add all Knowledge skills".
+
+**Precedents**
+- The 3.0→3.5 conversion guide names every class that gained Knowledge (dungeoneering), except the bard and the wizard: they got it automatically through "all Knowledge".
+- The psion lists "Knowledge (all skills, taken individually)*", while the other psionic classes name Knowledge (psionics) explicitly.
+
+**Community**
+- "All Knowledge" covers every category in play, e.g. the bard and Knowledge (psionics) on EN World (https://www.enworld.org/threads/creating-a-warmind.134711/). No dissent found.
+- A 2003 preview of 3.5 said: "There's no Knowledge (monsters) skill". Monster lore was split by creature type on purpose.
+
+**Assessment**
+- As a Knowledge category, it is a class skill for the bard, the wizard and the Knowledge domain (~85%).
+- The DM may keep it fighter-only, as an explicit house rule.
+- Overlap with the SRD split by type: suggest it as an alternative check, never added on top, possibly limited to combat information.
