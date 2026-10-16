@@ -46,6 +46,7 @@
       if (e.rounds <= 0) {
         expired.push(tr(effectName(e)))
         if (e.kind === 'class' && e.refId === 'rage') rageOver = true
+        if (e.tempHp) c.hp.temp = Math.max(0, c.hp.temp - e.tempHp)
       }
     }
     c.activeEffects = c.activeEffects.filter((e) => e.rounds === undefined || e.rounds > 0)

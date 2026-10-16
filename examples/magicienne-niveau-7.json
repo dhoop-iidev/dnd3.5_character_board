@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Isaure Valcendre",
+    "player": "",
+    "race": "human",
+    "deity": "Boccob",
+    "alignment": "NB",
+    "gender": "f",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Gris",
+    "hair": "Gris cendré",
+    "homeland": "La Tour Grise",
+    "title": "Évocatrice de la Tour Grise",
+    "motto": "La flamme obéit au savoir",
+    "languages": [
+      "Commun",
+      "Draconien",
+      "Elfe",
+      "Céleste",
+      "Nain"
+    ],
+    "skin": "Claire"
+  },
+  "xp": 21000,
+  "baseAbilities": {
+    "str": 8,
+    "dex": 14,
+    "con": 14,
+    "int": 17,
+    "wis": 12,
+    "cha": 10
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 4,
+        "spellcraft": 4,
+        "knowledge-arcana": 4,
+        "knowledge-the-planes": 4,
+        "knowledge-history": 4,
+        "decipher-script": 4
+      },
+      "feats": [
+        {
+          "featId": "combat-casting",
+          "slot": "general"
+        },
+        {
+          "featId": "spell-focus",
+          "slot": "race",
+          "choice": "evocation"
+        }
+      ],
+      "spellsLearned": [
+        "magic-missile",
+        "mage-armor",
+        "shield",
+        "grease",
+        "burning-hands",
+        "identify"
+      ],
+      "classChoices": {
+        "school": "evocation",
+        "prohibited1": "enchantment",
+        "prohibited2": "illusion"
+      }
+    },
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "knowledge-arcana": 1,
+        "knowledge-the-planes": 1,
+        "knowledge-history": 1,
+        "decipher-script": 1
+      },
+      "feats": [],
+      "spellsLearned": [
+        "expeditious-retreat",
+        "shocking-grasp"
+      ]
+    },
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "knowledge-arcana": 1,
+        "knowledge-the-planes": 1,
+        "knowledge-history": 1,
+        "decipher-script": 1
+      },
+      "feats": [
+        {
+          "featId": "empower-spell",
+          "slot": "general"
+        }
+      ],
+      "spellsLearned": [
+        "scorching-ray",
+        "glitterdust"
+      ]
+    },
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "knowledge-arcana": 1,
+        "knowledge-the-planes": 1,
+        "knowledge-history": 1,
+        "decipher-script": 1,
+        "knowledge-religion": 1
+      },
+      "feats": [],
+      "abilityIncrease": "int",
+      "spellsLearned": [
+        "web",
+        "bulls-strength"
+      ]
+    },
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "knowledge-arcana": 1,
+        "knowledge-the-planes": 1,
+        "knowledge-history": 1,
+        "decipher-script": 1,
+        "knowledge-religion": 1
+      },
+      "feats": [
+        {
+          "featId": "craft-wondrous-item",
+          "slot": "class"
+        }
+      ],
+      "spellsLearned": [
+        "fireball",
+        "haste"
+      ]
+    },
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "knowledge-arcana": 1,
+        "knowledge-the-planes": 1,
+        "knowledge-history": 1,
+        "decipher-script": 1,
+        "knowledge-religion": 1
+      },
+      "feats": [
+        {
+          "featId": "extend-spell",
+          "slot": "general"
+        }
+      ],
+      "spellsLearned": [
+        "dispel-magic",
+        "fly"
+      ]
+    },
+    {
+      "classId": "wizard",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "knowledge-arcana": 1,
+        "knowledge-the-planes": 1,
+        "knowledge-history": 1,
+        "decipher-script": 1,
+        "knowledge-religion": 1
+      },
+      "feats": [],
+      "spellsLearned": [
+        "ice-storm",
+        "stoneskin"
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "staff",
+      "kind": "weapon",
+      "refId": "quarterstaff",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "dagger",
+      "kind": "weapon",
+      "refId": "dagger",
+      "quantity": 1,
+      "location": "carried"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Quarterstaff",
+        "fr": "Bâton"
+      },
+      "weapons": [
+        "staff",
+        "dagger"
+      ]
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "gp": 240,
+    "pp": 5,
+    "other": "Grimoire de voyage ; composantes : diamant pour peau de pierre (250 po)."
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [
+    {
+      "uid": "cat",
+      "creatureId": "cat",
+      "kind": "familiar",
+      "name": "Cendre",
+      "maxHp": true,
+      "damage": 0
+    }
+  ],
+  "summons": [],
+  "spells": {
+    "wizard": {
+      "prepared": {
+        "0": [
+          {
+            "id": "ray-of-frost",
+            "cast": false
+          },
+          {
+            "id": "detect-magic",
+            "cast": false
+          },
+          {
+            "id": "light",
+            "cast": false
+          },
+          {
+            "id": "acid-splash",
+            "cast": false
+          },
+          {
+            "id": "read-magic",
+            "cast": false
+          }
+        ],
+        "1": [
+          {
+            "id": "magic-missile",
+            "cast": false
+          },
+          {
+            "id": "magic-missile",
+            "cast": false
+          },
+          {
+            "id": "shield",
+            "cast": false
+          },
+          {
+            "id": "mage-armor",
+            "cast": false
+          },
+          {
+            "id": "grease",
+            "cast": false
+          },
+          {
+            "id": "burning-hands",
+            "cast": false
+          }
+        ]
+      }
+    }
+  }
+}

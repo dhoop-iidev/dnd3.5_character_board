@@ -27,6 +27,12 @@ export interface LevelEntry {
   maneuversLearned?: string[]
   /** Warblade 4th, 6th, 8th… level: one known maneuver (not a stance) exchanged for another (ToB p. 21). */
   maneuverSwap?: { from: string; to: string }
+  /** Spells learned at this level: bard and sorcerer spells known; wizard spells added to the spellbook for free (at
+   * the first wizard level, the 1st-level spells of the starting spellbook; 0-level spells are all in it). */
+  spellsLearned?: string[]
+  /** Sorcerer 4th, 6th, 8th… / bard 5th, 8th, 11th… level: one spell known exchanged for another of the same level
+   * (https://www.d20srd.org/srd/classes/sorcerer.htm#sorcererSpells, bard.htm#bardSpells). */
+  spellSwap?: { from: string; to: string }
   /** Hit points rolled at this level, when maximum hit dice (house rule #9) is switched off. */
   hpRoll?: number
   /**
@@ -71,8 +77,10 @@ export interface MartialState {
 export interface SpellcastingState {
   /** Spell level -> prepared slots (spell id, cast today or not). */
   prepared: Record<number, { id: string; cast: boolean; spontaneous?: string }[]>
-  /** Spontaneous casters: spells cast today per spell level. */
+  /** Spontaneous casters: spell slots used today per slot level. */
   castCount?: Record<number, number>
+  /** Wizard: spells copied into the spellbook from scrolls or other spellbooks (besides the free spells per level). */
+  spellbook?: string[]
 }
 
 /** A creature with the character: animal companion or summoned creature (stat block from creatures.json). */
@@ -92,8 +100,9 @@ export interface CreatureState {
 }
 
 export interface CompanionState extends CreatureState {
-  /** "mount": the paladin's special mount (advances with paladin level); default: an animal companion. */
-  kind?: 'mount'
+  /** "mount": the paladin's special mount (advances with paladin level); "familiar": a sorcerer's or wizard's
+   * familiar (advances with their combined level); default: an animal companion. */
+  kind?: 'mount' | 'familiar'
   /** Horse or pony trained for war (combat riding): primary hooves (house rule #25). */
   warTrained?: boolean
   /** Tricks taught with Handle Animal (free text ids/names). */
@@ -208,6 +217,8 @@ export interface ActiveEffect {
   rounds?: number
   /** Lasts until the end of the encounter (the fatigue after a barbarian's rage). */
   encounter?: boolean
+  /** Temporary hit points the effect gave (inspire greatness), lost when it ends. */
+  tempHp?: number
   note?: string
 }
 
@@ -261,6 +272,8 @@ export interface Character {
     title?: string
     /** Motto written under the coat of arms. */
     motto?: string
+    /** Character background (history, origins), free text shown beside the coat of arms. */
+    background?: string
     languages?: string[]
   }
   /** Experience points; reaching the next threshold offers a level-up (https://www.d20srd.org/srd/xp.htm). */

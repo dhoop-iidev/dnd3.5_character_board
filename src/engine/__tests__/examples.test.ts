@@ -9,6 +9,9 @@ import barbarianJson from '../../../examples/barbare-niveau-8.json'
 import monkJson from '../../../examples/moine-niveau-8.json'
 import paladinJson from '../../../examples/paladine-niveau-8.json'
 import rogueJson from '../../../examples/roublard-niveau-10.json'
+import wizardJson from '../../../examples/magicienne-niveau-7.json'
+import sorcererJson from '../../../examples/ensorceleur-niveau-6.json'
+import bardJson from '../../../examples/barde-niveau-6.json'
 import { migrate } from '../../model/migrate'
 import { compute } from '../compute'
 import { companionAdvancement, companionLevel, computeCreature } from '../creature'
@@ -159,5 +162,26 @@ describe('examples: barbarian, monk, paladin, rogue', () => {
     expect(s.attacks[0].iterative).toEqual([15, 10])
     expect(s.classFeatures.sneakAttack).toBe('5d6')
     expect(s.classFeatures.notes.some((n) => n.name.en === 'Improved evasion')).toBe(true)
+  })
+})
+
+describe('arcane examples: magicienne-niveau-7 (evoker), ensorceleur-niveau-6, barde-niveau-6', () => {
+  const load = (j: unknown) => migrate(structuredClone(j))
+  it('are legal, complete builds (spells learned, prohibited schools, swap)', () => {
+    for (const j of [wizardJson, sorcererJson, bardJson]) {
+      const c = load(j)
+      expect(validate(c, rules).filter((w) => w.actionable || w.severity === 'error').map((w) => w.id)).toEqual([])
+    }
+  })
+  it('spells per day with bonus spells (and the evoker’s extra spell at every level)', () => {
+    expect(compute(load(wizardJson), rules).spellcasting[0].slots.map((x) => x.total)).toEqual([5, 6, 5, 4, 3])
+    expect(compute(load(sorcererJson), rules).spellcasting[0].slots.map((x) => x.total)).toEqual([6, 7, 6, 4])
+    expect(compute(load(bardJson), rules).spellcasting[0].slots.map((x) => x.total)).toEqual([3, 4, 3])
+  })
+  it('bard: chain shirt without arcane spell failure; bardic music 6/day, inspire courage and competence', () => {
+    const s = compute(load(bardJson), rules)
+    expect(s.spellcasting[0].spellFailure!.total).toBe(0)
+    expect(s.classFeatures.bardicMusic!.perDay).toBe(6)
+    expect(s.classFeatures.bardicMusic!.songs.filter((x) => x.available).map((x) => x.id)).toEqual(['countersong', 'fascinate', 'inspire-courage', 'inspire-competence', 'suggestion'])
   })
 })

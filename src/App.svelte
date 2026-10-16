@@ -7,6 +7,7 @@
   import Maneuvers from './ui/panes/Maneuvers.svelte'
   import Spells from './ui/panes/Spells.svelte'
   import Companions from './ui/panes/Companions.svelte'
+  import { familiarLevel } from './engine/arcane'
   import { companionLevel } from './engine/creature'
   import Equipment from './ui/panes/Equipment.svelte'
   import General from './ui/panes/General.svelte'
@@ -67,18 +68,20 @@
 
   // Badge: only choices the player has to make (pending level-up included), not informative warnings.
   const errors = $derived(
-    view.warnings.filter((w) => w.actionable && w.area !== 'maneuvers').length +
+    view.warnings.filter((w) => w.actionable && w.area !== 'maneuvers' && w.area !== 'spells').length +
       (levelForXp(app.character.xp) > app.character.levels.length ? 1 : 0),
   )
   const maneuverErrors = $derived(view.warnings.filter((w) => w.actionable && w.area === 'maneuvers').length)
+  const spellErrors = $derived(view.warnings.filter((w) => w.actionable && w.area === 'spells').length)
   // The Maneuvers tab only exists once the character has a martial adept level (crusader, swordsage, warblade).
   // The Spells tab only exists once the character has a spellcasting class.
   const tabs = $derived(
     TABS.filter(
       (t) => (t.id !== 'maneuvers' || view.sheet.martial.caps) && (t.id !== 'spells' || view.sheet.spellcasting.length) &&
-        // Companions: druid 1 or ranger 4 (or companions already recorded).
+        // Companions: druid 1 or ranger 4, paladin 5 (mount), sorcerer or wizard (familiar), or companions recorded.
         (t.id !== 'companions' ||
           companionLevel(view.sheet.classLevels) > 0 ||
+          familiarLevel(view.sheet.classLevels) > 0 ||
           ((view.sheet.classLevels['paladin'] ?? 0) >= 5 && !view.sheet.lostClasses.includes('paladin')) ||
           (app.character.companions ?? []).length),
     ),
@@ -140,6 +143,9 @@
         {#if t.id === 'maneuvers' && maneuverErrors}<span
             class="count"
             title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}>{maneuverErrors}</span
+          >{/if}
+        {#if t.id === 'spells' && spellErrors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}
+            >{spellErrors}</span
           >{/if}
         {#if t.id === 'general' && errors}<span class="count" title={tr({ en: 'Choices to make', fr: 'Choix à faire' })}
             >{errors}</span

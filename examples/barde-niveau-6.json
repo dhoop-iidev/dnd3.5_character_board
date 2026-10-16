@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Lisandre Chantebrume",
+    "player": "",
+    "race": "human",
+    "deity": "Fharlanghn",
+    "alignment": "CB",
+    "gender": "f",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Verts",
+    "hair": "Châtain",
+    "homeland": "Trois-Ponts",
+    "title": "Voix des Trois Ponts",
+    "motto": "Que la chanson porte plus loin que l’épée",
+    "languages": [
+      "Commun",
+      "Elfe",
+      "Halfelin"
+    ],
+    "skin": "Claire"
+  },
+  "xp": 15000,
+  "baseAbilities": {
+    "str": 10,
+    "dex": 14,
+    "con": 12,
+    "int": 12,
+    "wis": 10,
+    "cha": 16
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "bard",
+      "skillRanks": {
+        "perform:sing": 4,
+        "diplomacy": 4,
+        "knowledge-history": 4,
+        "concentration": 4,
+        "tumble": 4,
+        "use-magic-device": 4,
+        "gather-information": 4,
+        "sense-motive": 4
+      },
+      "feats": [
+        {
+          "featId": "improved-initiative",
+          "slot": "general"
+        },
+        {
+          "featId": "dodge",
+          "slot": "race"
+        }
+      ],
+      "spellsLearned": [
+        "detect-magic",
+        "light",
+        "mage-hand",
+        "prestidigitation"
+      ]
+    },
+    {
+      "classId": "bard",
+      "skillRanks": {
+        "perform:sing": 1,
+        "diplomacy": 1,
+        "knowledge-history": 1,
+        "concentration": 1,
+        "tumble": 1,
+        "use-magic-device": 1,
+        "gather-information": 1,
+        "sense-motive": 1
+      },
+      "feats": [],
+      "spellsLearned": [
+        "daze",
+        "cure-light-wounds",
+        "charm-person"
+      ]
+    },
+    {
+      "classId": "bard",
+      "skillRanks": {
+        "perform:sing": 1,
+        "diplomacy": 1,
+        "knowledge-history": 1,
+        "concentration": 1,
+        "tumble": 1,
+        "use-magic-device": 1,
+        "gather-information": 1,
+        "sense-motive": 1
+      },
+      "feats": [
+        {
+          "featId": "combat-casting",
+          "slot": "general"
+        }
+      ],
+      "spellsLearned": [
+        "message",
+        "grease"
+      ]
+    },
+    {
+      "classId": "bard",
+      "skillRanks": {
+        "perform:sing": 1,
+        "diplomacy": 1,
+        "knowledge-history": 1,
+        "concentration": 1,
+        "tumble": 1,
+        "use-magic-device": 1,
+        "gather-information": 1,
+        "sense-motive": 1
+      },
+      "feats": [],
+      "abilityIncrease": "cha",
+      "spellsLearned": [
+        "invisibility",
+        "glitterdust"
+      ]
+    },
+    {
+      "classId": "bard",
+      "skillRanks": {
+        "perform:sing": 1,
+        "diplomacy": 1,
+        "knowledge-history": 1,
+        "concentration": 1,
+        "tumble": 1,
+        "use-magic-device": 1,
+        "gather-information": 1,
+        "sense-motive": 1
+      },
+      "feats": [],
+      "spellsLearned": [
+        "sleep",
+        "cure-moderate-wounds"
+      ]
+    },
+    {
+      "classId": "bard",
+      "skillRanks": {
+        "perform:sing": 1,
+        "diplomacy": 1,
+        "knowledge-history": 1,
+        "concentration": 1,
+        "tumble": 1,
+        "use-magic-device": 1,
+        "gather-information": 1,
+        "sense-motive": 1
+      },
+      "feats": [
+        {
+          "featId": "weapon-focus",
+          "slot": "general",
+          "choice": "rapier"
+        }
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "rapier",
+      "kind": "weapon",
+      "refId": "rapier",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 1
+    },
+    {
+      "uid": "bow",
+      "kind": "weapon",
+      "refId": "shortbow",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "shirt",
+      "kind": "armor",
+      "refId": "chain-shirt",
+      "quantity": 1,
+      "location": "worn",
+      "masterwork": true
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Rapier",
+        "fr": "Rapière"
+      },
+      "weapons": [
+        "rapier",
+        "bow"
+      ]
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 30,
+    "gp": 210,
+    "pp": 2,
+    "other": "Luth de maître."
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [],
+  "summons": []
+}

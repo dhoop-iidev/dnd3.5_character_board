@@ -489,9 +489,11 @@ COMPUTED = {
     "paladin": {"divine-grace", "spells"},
     "ranger": {"wild-empathy", "spells"},
     "rogue": {"trap-sense", "uncanny-dodge"},
-    "wizard": {"bonus-feat", "scribe-scroll", "spells"},
-    "sorcerer": {"spells"},
-    "bard": {"spells"},
+    "wizard": {"bonus-feat", "scribe-scroll", "spells", "spellbooks", "school-specialization", "summon-familiar"},
+    "sorcerer": {"spells", "summon-familiar"},
+    "bard": {"spells", "bardic-knowledge", "bardic-music", "countersong", "fascinate", "inspire-courage",
+             "inspire-competence", "suggestion", "inspire-greatness", "song-of-freedom", "inspire-heroics",
+             "mass-suggestion"},
 }
 
 

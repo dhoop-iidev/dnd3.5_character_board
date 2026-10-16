@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { classSpellLevel } from '../engine/spells'
   // Summoned creatures (Summon Nature's Ally, Summon Monster): pick the spell (and the casting class when several can
   // cast it: the caster level sets the duration), the creature and its template, then track each one's hit points and
   // the rounds left (1 round per caster level, counted down at the start of your turn by the turn bar).
@@ -28,7 +29,7 @@
         sc.slots.some((x) => x.spellLevel === lvl && x.total > 0 && !x.blocked && (!domainOnly || x.extra > 0))
       return s.spellcasting
         .filter((sc) => {
-          const lvl = spell.level[sc.def.list]
+          const lvl = classSpellLevel(spell, sc.classId, sc.def.list)
           if (lvl !== undefined && usable(sc, lvl, false)) return true
           if (sc.classId !== 'cleric') return false
           return s.domains.some((d) => {

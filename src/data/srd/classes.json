@@ -1515,7 +1515,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#bardicKnowledge",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "bardic-music",
@@ -1531,7 +1532,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#bardicMusic",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "countersong",
@@ -1547,7 +1549,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#countersong",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "fascinate",
@@ -1563,7 +1566,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#fascinate",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-courage",
@@ -1579,7 +1583,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireCourage",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "spells",
@@ -1612,7 +1617,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireCompetence",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "suggestion",
@@ -1628,7 +1634,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#suggestion",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-courage-8",
@@ -1644,7 +1651,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireCourage",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-greatness",
@@ -1660,7 +1668,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireGreatness",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "song-of-freedom",
@@ -1676,7 +1685,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#songofFreedom",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-courage-14",
@@ -1692,7 +1702,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireCourage",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-heroics",
@@ -1708,7 +1719,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireHeroics",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "mass-suggestion",
@@ -1724,7 +1736,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#massSuggestion",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "inspire-courage-20",
@@ -1740,7 +1753,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/bard.htm#inspireCourage",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       }
     ],
     "spellcasting": {
@@ -8102,7 +8116,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#sorcererFamiliar",
           "frRef": "DRS 03a (classes I)"
-        }
+        },
+        "computed": true
       }
     ],
     "spellcasting": {
@@ -8604,7 +8619,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#schoolSpecialization",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "scribe-scroll",
@@ -8640,7 +8656,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#spellbooks",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "spells",
@@ -8673,7 +8690,8 @@
         "source": {
           "srdUrl": "https://www.d20srd.org/srd/classes/sorcererWizard.htm#wizardFamiliar",
           "frRef": "DRS 03b (classes II)"
-        }
+        },
+        "computed": true
       },
       {
         "id": "bonus-feat",

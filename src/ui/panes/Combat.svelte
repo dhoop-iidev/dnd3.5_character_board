@@ -484,7 +484,7 @@
     </section>
   {/if}
 
-  {#if s.classFeatures.rage || s.classFeatures.steelyResolve || s.classFeatures.flurry || s.classFeatures.sneakAttack || s.classFeatures.abilities.length || s.classFeatures.notes.length}<div class="wide"><ClassFeaturesBlock /></div>{/if}
+  {#if s.classFeatures.rage || s.classFeatures.bardicMusic || s.classFeatures.steelyResolve || s.classFeatures.flurry || s.classFeatures.sneakAttack || s.classFeatures.abilities.length || s.classFeatures.notes.length}<div class="wide"><ClassFeaturesBlock /></div>{/if}
   {#if c.inventory.some((i) => i.spells?.length && i.location !== 'stored')}<div class="wide"><SpellItemsBlock /></div>{/if}
   {#if s.turning}<div class="wide"><TurningBlock /></div>{/if}
   {#if ((s.classLevels['druid'] ?? 0) >= 5 && !s.lostClasses.includes('druid')) || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
@@ -503,7 +503,7 @@
             {#if e.kind === 'custom'}<small
                 >{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small
               >{/if}
-            {#if e.kind === 'class'}<small>{e.rounds} {tr({ en: 'rd', fr: 'rd' })}</small>{:else}<span
+            {#if e.kind === 'class'}<small>{e.rounds === undefined ? tr({ en: 'while singing', fr: 'pendant le chant' }) : `${e.rounds} ${tr({ en: 'rd', fr: 'rd' })}`}</small>{:else}<span
               class="rounds"
               title={tr({
                 en: 'Rounds left (blank = no set duration)',

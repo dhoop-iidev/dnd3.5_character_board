@@ -227,7 +227,7 @@ def prereq(where, p, feat_ids, skill_ids):
 
 
 ARMOR_PROF = {"light", "medium", "heavy", "shield", "tower"}
-LISTS = {"bard", "cleric", "druid", "paladin", "ranger", "sorcerer-wizard"}
+LISTS = {"bard", "cleric", "druid", "paladin", "ranger", "sorcerer-wizard", "wizard"}  # wizard: wizard-only spells
 
 
 def class_extras(w, c, skill_ids, feat_ids, weapon_ids, used_ext):
@@ -726,9 +726,11 @@ def main():
         for lst, lv in x["level"].items():
             if lst.startswith("domain:"):
                 continue  # domain levels: validate_spells_domains
-            if lst not in spell_lists:
+            # "wizard" (wizard-only spells) belongs to the wizard class, whose list is sorcerer-wizard
+            owner = spell_lists.get("sorcerer-wizard" if lst == "wizard" else lst)
+            if owner is None:
                 err(f"spell {x['id']}", f"unknown spell list {lst}")
-            elif not 0 <= lv <= spell_lists[lst]["spellcasting"]["maxSpellLevel"]:
+            elif not 0 <= lv <= owner["spellcasting"]["maxSpellLevel"]:
                 err(f"spell {x['id']}", f"level {lv} out of range for {lst}")
     for lst, c in spell_lists.items():
         if lst == "ranger":
@@ -866,8 +868,10 @@ def spot_checks(files, custom):
     pl = [x for x in sp.values() if "paladin" in x["level"]]
     expect("paladin list: 45 spells (dnd35.db), incl. bless weapon, heal mount, holy sword",
            len(pl) == 45 and all(i in sp for i in ("bless-weapon", "heal-mount", "holy-sword")))
-    expect("386 spells: cleric 231, druid 169, ranger 51 (19/12/13/7 by level 1-4), and the domain spells",
-           len(sp) == 386 and sum(1 for x in sp.values() if "cleric" in x["level"]) == 231 and len(dl) == 169 and len(rl) == 51 and [
+    expect("605 spells: cleric 231, druid 169, ranger 51 (19/12/13/7 by level 1-4), bard 164, sorcerer/wizard 375, wizard only 2, "
+           "and the domain spells (dnd35.db counts)",
+           len(sp) == 605 and sum(1 for x in sp.values() if "cleric" in x["level"]) == 231 and len(dl) == 169 and len(rl) == 51
+           and [sum(1 for x in sp.values() if k in x["level"]) for k in ("bard", "sorcerer-wizard", "wizard")] == [164, 375, 2] and [
         sum(1 for x in rl if x["level"]["ranger"] == lv) for lv in (1, 2, 3, 4)] == [19, 12, 13, 7])
     expect("entangle: druid 1 / ranger 1, Enchevêtrement",
            sp["entangle"]["level"] == {"domain:plant": 1, "druid": 1, "ranger": 1} and sp["entangle"]["name"]["fr"] == "Enchevêtrement")

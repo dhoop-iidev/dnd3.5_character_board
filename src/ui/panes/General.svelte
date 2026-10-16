@@ -123,10 +123,10 @@
   ])
 </script>
 
-<!-- Top: images and identity. Then every number used in play in one band (abilities, saves, AC, initiative,
-     hit points). Then skills, the abilities lists and the progression. -->
+<!-- Top: portrait and identity. Then every number used in play in one band (abilities, saves, AC, initiative,
+     hit points). Then skills, the abilities lists, the background with the coat of arms, and the progression. -->
 <section class="top">
-  <div class="portrait"><Portraits /></div>
+  <div class="portrait"><Portraits kinds={['face']} /></div>
   <div class="ident"><IdentityCard /></div>
 </section>
 
@@ -295,19 +295,64 @@
     <WarningList areas={['feats']} />
   </section>
 
+  <section class="box wide">
+    <h3>{tr({ en: 'Background', fr: 'Historique' })}</h3>
+    <div class="background">
+      <div class="arms"><Portraits kinds={['coatOfArms']} /></div>
+      <textarea
+        rows="10"
+        bind:value={app.character.identity.background}
+        lang={lang()}
+        placeholder={tr({
+          en: 'Where the character comes from, what shaped them, what they are after…',
+          fr: 'D’où vient le personnage, ce qui l’a forgé, ce qu’il recherche…',
+        })}
+        aria-label={tr({ en: 'Background', fr: 'Historique' })}
+      ></textarea>
+    </div>
+  </section>
+
   <div class="wide"><LevelEditor /></div>
 </div>
 
 <style>
   .top {
     display: grid;
-    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
     gap: 1.25rem;
     align-items: start;
     margin-bottom: 1.25rem;
   }
   .stats-band {
     margin-bottom: 1.25rem;
+  }
+  .background {
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .background textarea {
+    width: 100%;
+    min-height: 16rem;
+    box-sizing: border-box;
+    padding: 0.6rem 0.7rem;
+    font: inherit;
+    line-height: 1.5;
+    resize: vertical;
+    background: var(--box);
+    color: var(--ink);
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+  }
+  @media (max-width: 40rem) {
+    .background {
+      grid-template-columns: 1fr;
+    }
+    .arms {
+      width: min(100%, 13rem);
+      justify-self: center;
+    }
   }
   .band {
     display: flex;
@@ -360,7 +405,7 @@
     }
     /* Images stay moderate on a tablet so the numbers come up sooner. */
     .portrait {
-      width: min(100%, 24rem);
+      width: min(100%, 16rem);
       justify-self: center;
     }
   }

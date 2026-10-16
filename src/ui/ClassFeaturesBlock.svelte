@@ -4,7 +4,8 @@
   // https://www.d20srd.org/srd/classes/barbarian.htm, monk.htm, paladin.htm, rogue.htm
   import type { ClassAbility } from '../engine/compute'
   import { app, tr, view } from '../state.svelte'
-  import { endRage, isRaging, newDayClassUses, newWeekClassUses, RAGE_ENCOUNTER_KEY, RAGE_KEY, startRage } from './classActions'
+  import { BARDIC_KEY, endRage, isRaging, newDayClassUses, newWeekClassUses, RAGE_ENCOUNTER_KEY, RAGE_KEY, removeSongs, songEffects, startRage, startSong, stopSong, useBardicMusic } from './classActions'
+  import { BARD_URL, type BardicSong } from '../engine/arcane'
   import { openPopup } from './popupState.svelte'
 
   const s = $derived(view.sheet)
@@ -50,6 +51,26 @@
     const m = app.character.martial
     m.pool = Math.max(0, (m.pool ?? 0) - n)
   }
+  // Bardic music: uses per day = bard level; songs need Perform ranks.
+  const music = $derived(f.bardicMusic)
+  const musicUsed = $derived(c.dailyUsesSpent[BARDIC_KEY] ?? 0)
+  const songOf = (id: string) => songEffects(c).find((e) => e.refId === id)
+  let greatnessHp = $state(0)
+  function addGreatnessHp() {
+    const e = songOf('inspire-greatness')
+    if (!e || greatnessHp <= 0) return
+    if (e.tempHp) app.character.hp.temp = Math.max(0, app.character.hp.temp - e.tempHp)
+    e.tempHp = greatnessHp
+    app.character.hp.temp += greatnessHp
+    greatnessHp = 0
+  }
+  const songInfo = (x: BardicSong) =>
+    openPopup({
+      title: x.name,
+      lines: [x.text, { en: `Bard level ${x.minLevel}, ${x.ranks} Perform ranks`, fr: `Barde niveau ${x.minLevel}, ${x.ranks} degrés de Représentation` }],
+      source: { srdUrl: BARD_URL },
+      noteKey: `class:${x.id}`,
+    })
   const info = (a: ClassAbility) => openPopup({ title: a.name, lines: a.lines, source: a.source, noteKey: `class:${a.id}` })
 </script>
 
@@ -82,6 +103,50 @@
           >{tr({ en: 'Already raged this encounter.', fr: 'Déjà entré en rage pendant cette rencontre.' })}</em
         >{/if}
       <a href="https://www.d20srd.org/srd/classes/barbarian.htm#rage" target="_blank" rel="noopener">d20srd</a>
+    </p>
+  {/if}
+
+  {#if music}
+    <div class="row">
+      <strong>{tr({ en: 'Bardic music', fr: 'Musique de barde' })}</strong>
+      <span>{tr({ en: 'Today', fr: 'Aujourd’hui' })} : {music.perDay - musicUsed} / {music.perDay}</span>
+      <span class="note">{tr({ en: 'Perform ranks', fr: 'Degrés de Représentation' })} : {music.performRanks}</span>
+    </div>
+    {#each music.songs as x (x.id)}
+      {@const running = songOf(x.id)}
+      <div class="row song">
+        <button class="link" onclick={() => songInfo(x)}>{tr(x.name)}</button>
+        {#if !x.available}
+          <span class="note warn">{tr({ en: `needs ${x.ranks} Perform ranks`, fr: `il faut ${x.ranks} degrés de Représentation` })}</span>
+        {:else if running}
+          {#if running.rounds === undefined}
+            <span class="on">{tr({ en: 'singing', fr: 'en train de chanter' })}</span>
+            <button onclick={() => stopSong(running)}>{tr({ en: 'Stop (5 more rounds)', fr: 'Arrêter (encore 5 rounds)' })}</button>
+          {:else}
+            <span class="on">{running.rounds} {tr({ en: 'rd left', fr: 'rd restants' })}</span>
+          {/if}
+          <button onclick={() => removeSongs(app.character, (e) => e.refId === x.id)}>{tr({ en: 'End', fr: 'Fin' })}</button>
+          {#if x.id === 'inspire-greatness'}
+            <input type="number" min="0" bind:value={greatnessHp} aria-label={tr({ en: 'Temporary hit points', fr: 'Points de vie temporaires' })} />
+            <button disabled={!greatnessHp} onclick={addGreatnessHp}
+              >{tr({ en: `Temp. hp (2d10 + ${2 * view.sheet.abilities.con.mod})`, fr: `PV temp. (2d10 + ${2 * view.sheet.abilities.con.mod})` })}</button
+            >
+            {#if running.tempHp}<span class="note">+{running.tempHp} {tr({ en: 'temp. hp', fr: 'PV temp.' })}</span>{/if}
+          {/if}
+        {:else if x.effect}
+          <button class="go" disabled={musicUsed >= music.perDay} onclick={() => startSong(app.character, x.id)}>{tr({ en: 'Sing', fr: 'Chanter' })}</button>
+        {:else if !x.free}
+          <button disabled={musicUsed >= music.perDay} onclick={() => useBardicMusic(app.character)}>{tr({ en: 'Use', fr: 'Utiliser' })}</button>
+        {/if}
+        <span class="note">{tr(x.text)}</span>
+      </div>
+    {/each}
+    <p class="note">
+      {tr({
+        en: 'Starting a song is a standard action. While singing you can’t cast spells or use scrolls or wands. One song at a time: starting another stops the singing of the first, whose effect lasts 5 more rounds (house rule #35, pending).',
+        fr: 'Commencer un chant est une action simple. Tant que vous chantez, pas de sort ni de parchemin ou de baguette. Un chant à la fois : en commencer un autre arrête le premier, dont l’effet dure encore 5 rounds (règle maison n° 35, en attente).',
+      })}
+      <a href={BARD_URL} target="_blank" rel="noopener">d20srd</a>
     </p>
   {/if}
 

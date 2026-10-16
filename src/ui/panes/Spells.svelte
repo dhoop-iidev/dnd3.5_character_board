@@ -4,7 +4,11 @@
   import { rules } from '../../data/rules'
   import type { DomainDef, SpellDef } from '../../data/types'
   import { clericChoices, domainCasterLevelBonus } from '../../engine/cleric'
-  import type { Spellcasting } from '../../engine/spells'
+  import { classSpellLevel, type Spellcasting } from '../../engine/spells'
+  import { hasSomatic, LEARNING_CLASSES, preparable, wizardSchools } from '../../engine/arcane'
+  import { knownUpTo } from '../../engine/spellLearning'
+  import SpellLearning from '../SpellLearning.svelte'
+  import WarningList from '../WarningList.svelte'
   import { app, tr, view } from '../../state.svelte'
   import { openPopup } from '../popupState.svelte'
   import StatValue from '../StatValue.svelte'
@@ -19,11 +23,19 @@
     cha: { en: 'Cha', fr: 'Cha' },
   }
 
+  const lvlIn = (sp: SpellDef, sc: Spellcasting) => classSpellLevel(sp, sc.classId, sc.def.list)
+  // A wizard never uses spells of her prohibited schools (https://www.d20srd.org/srd/classes/wizard.htm#schoolSpecialization).
+  const prohibited = $derived(wizardSchools(app.character).prohibited)
   function spellsOf(sc: Spellcasting, level: number): SpellDef[] {
     return [...rules.spells.values()]
-      .filter((sp) => sp.level[sc.def.list] === level)
+      .filter((sp) => lvlIn(sp, sc) === level && !(sc.classId === 'wizard' && prohibited.includes(sp.schoolId ?? '')))
       .sort((a, b) => tr(a.name).localeCompare(tr(b.name)))
   }
+  // Wizard: only spells in the spellbook can be prepared (read magic from memory); bard and sorcerer: spells known.
+  const book = $derived(preparable(app.character, rules, knownUpTo(app.character, rules, 'wizard')))
+  const knownOf = (sc: Spellcasting) => knownUpTo(app.character, rules, sc.classId)
+  const prepList = (sc: Spellcasting, level: number) =>
+    spellsOf(sc, level).filter((sp) => sc.classId !== 'wizard' || book.has(sp.id))
   /** A slot can hold a spell of its level or lower (https://www.d20srd.org/srd/magicOverview/castingSpells.htm#spellSlots);
    * if the key ability is too low for that level, only lower-level spells it can cast. */
   function slotOptions(sc: Spellcasting, slotLevel: number, blocked: boolean): { level: number; spells: SpellDef[] }[] {
@@ -31,7 +43,7 @@
     const out: { level: number; spells: SpellDef[] }[] = []
     // Only levels the caster can cast (a blocked level stays blocked in a higher slot too).
     for (let l = blocked ? slotLevel - 1 : slotLevel; l >= 0; l--)
-      if (usable.includes(l)) out.push({ level: l, spells: spellsOf(sc, l) })
+      if (usable.includes(l)) out.push({ level: l, spells: prepList(sc, l) })
     return out.filter((g) => g.spells.length)
   }
   const SCHOOL_NAME: Record<string, { en: string; fr: string }> = {
@@ -60,13 +72,14 @@
       string,
       string
     >
-    for (let l = blocked ? slotLevel - 1 : slotLevel; l >= 1; l--) {
+    // Cleric domain slots from 1st level; the specialist's extra spell at every level, 0 included (rulings-classes.md C26).
+    for (let l = blocked ? slotLevel - 1 : slotLevel; l >= (sc.classId === 'cleric' ? 1 : 0); l--) {
       if (sc.slots.some((x) => x.spellLevel === l && x.blocked)) continue
       const spells = [...rules.spells.values()]
         .filter((sp) =>
           sc.classId === 'cleric'
             ? s.domains.some((d) => sp.level[`domain:${d.id}`] === l)
-            : sp.level[sc.def.list] === l && sp.schoolId === choices.school,
+            : lvlIn(sp, sc) === l && sp.schoolId === choices.school && (sc.classId !== 'wizard' || book.has(sp.id)),
         )
         .sort((a, b) => tr(a.name).localeCompare(tr(b.name)))
       if (spells.length) out.push({ level: l, spells })
@@ -120,7 +133,8 @@
     const dom = domainOf(sp)
     // In a domain slot the spell is cast at its domain level (fire storm: Fire 7, cleric 8).
     const domainLevel = Math.min(...s.domains.map((d) => sp.level[`domain:${d.id}`] ?? 99))
-    const lvl = (domainSlot && domainLevel < 99 ? domainLevel : undefined) ?? sp.level[sc.def.list] ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
+    const lvl = (domainSlot && domainLevel < 99 ? domainLevel : undefined) ?? lvlIn(sp, sc) ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
+    const asf = sc.spellFailure?.total ?? 0
     // Caster level for this spell: the class's, + domain bonus (Good, Evil, Law, Chaos, Healing, Knowledge).
     const clBonus = sc.classId === 'cleric' ? domainCasterLevelBonus(sp, s.domains) : { value: 0, domain: undefined }
     const cl = sc.casterLevel.total + clBonus.value
@@ -139,6 +153,11 @@
           fr: `Niveau de lanceur ${cl}${clBonus.value ? ` (+${clBonus.value} domaine ${clBonus.domain?.name.fr})` : ''}`,
         },
         { en: `Components: ${sp.components}`, fr: `Composantes : ${sp.components}` },
+        ...(sc.def.kind === 'arcane' && asf
+          ? [hasSomatic(sp)
+              ? { en: `Arcane spell failure ${asf}% (somatic component)`, fr: `Échec des sorts profanes ${asf} % (composante gestuelle)` }
+              : { en: 'No somatic component: no arcane spell failure', fr: 'Pas de composante gestuelle : pas d’échec des sorts profanes' }]
+          : []),
         ...line('Casting time', 'Temps d’incantation', sp.castingTime),
         ...line('Range', 'Portée', sp.range),
         ...line('Target', 'Cible', sp.target),
@@ -154,9 +173,33 @@
     })
   }
 
+  // ---- spontaneous casters (bard, sorcerer): slots used per slot level; a known spell can use a slot of its level or
+  // higher (https://www.d20srd.org/srd/magicOverview/castingSpells.htm#spellSlots; rulings-classes.md C27).
+  const usedAt = (sc: Spellcasting, lvl: number) => app.character.spells?.[sc.classId]?.castCount?.[lvl] ?? 0
+  function setUsed(sc: Spellcasting, lvl: number, n: number) {
+    const st = ((app.character.spells ??= {})[sc.classId] ??= { prepared: {} })
+    const total = sc.slots.find((x) => x.spellLevel === lvl)?.total ?? 0
+    ;(st.castCount ??= {})[lvl] = Math.max(0, Math.min(total, n))
+  }
+  /** Lowest slot level with a slot left for a spell of this level. */
+  const slotFor = (sc: Spellcasting, spellLevel: number) =>
+    sc.slots.find((x) => x.spellLevel >= spellLevel && x.total - usedAt(sc, x.spellLevel) > 0)?.spellLevel
+  const knownByLevel = (sc: Spellcasting) => {
+    const ids = knownOf(sc)
+    const out: { level: number; spells: SpellDef[] }[] = []
+    for (const id of ids) {
+      const sp = rules.spells.get(id)
+      const l = sp && lvlIn(sp, sc)
+      if (!sp || l === undefined) continue
+      ;(out.find((g) => g.level === l) ?? out[out.push({ level: l, spells: [] }) - 1]).spells.push(sp)
+    }
+    return out.sort((a, b) => a.level - b.level)
+  }
+
   function newDay(sc: Spellcasting) {
     const cls = app.character.spells?.[sc.classId]
     if (!cls) return
+    cls.castCount = {}
     for (const list of Object.values(cls.prepared))
       for (const slot of list) {
         slot.cast = false
@@ -169,6 +212,13 @@
   <p class="rage-warn">
     {tr({ en: 'Raging: no spellcasting (barbarian rage).', fr: 'En rage : aucun sort ne peut être lancé (rage de berserker).' })}
     <a href="https://www.d20srd.org/srd/classes/barbarian.htm#rage" target="_blank" rel="noopener">d20srd</a>
+  </p>
+{/if}
+
+{#if s.flags.includes('bardic-music')}
+  <p class="rage-warn">
+    {tr({ en: 'Singing (bardic music): no spellcasting, no scrolls or wands until you stop.', fr: 'En train de chanter (musique de barde) : pas de sort, ni parchemin ni baguette tant que vous chantez.' })}
+    <a href="https://www.d20srd.org/srd/classes/bard.htm#bardicMusic" target="_blank" rel="noopener">d20srd</a>
   </p>
 {/if}
 
@@ -209,6 +259,16 @@
         <small>{tr({ en: 'Key ability', fr: 'Caractéristique' })}</small>
         <strong>{tr(ABILITY[sc.ability])} {sc.abilityMod >= 0 ? '+' : ''}{sc.abilityMod}</strong>
       </div>
+      {#if sc.spellFailure?.parts.length}
+        <div>
+          <small>{tr({ en: 'Arcane spell failure', fr: 'Échec des sorts profanes' })}</small>
+          <StatValue
+            stat={() => view.sheet.spellcasting.find((x) => x.classId === sc.classId)!.spellFailure!}
+            title={{ en: 'Arcane spell failure (%)', fr: 'Échec des sorts profanes (%)' }}
+            signed={false}
+          />
+        </div>
+      {/if}
       <div>
         <small>{tr({ en: 'Kind', fr: 'Type' })}</small>
         <strong>
@@ -246,7 +306,44 @@
       </p>
     {/if}
 
-    {#each sc.slots.filter((x) => x.total > 0) as slot (slot.spellLevel)}
+    {#if sc.def.style === 'spontaneous'}
+      <div class="spont-slots">
+        {#each sc.slots.filter((x) => x.total > 0) as slot (slot.spellLevel)}
+          <div class="slotcount" class:spent={usedAt(sc, slot.spellLevel) >= slot.total}>
+            <strong>{tr({ en: 'Level', fr: 'Niveau' })} {slot.spellLevel}</strong>
+            <span>{slot.total - usedAt(sc, slot.spellLevel)} / {slot.total}</span>
+            <small>({slot.base} + {slot.bonus} {tr({ en: 'bonus', fr: 'bonus' })}) · {tr({ en: 'DC', fr: 'DD' })} {sc.dc(slot.spellLevel)}</small>
+            <button onclick={() => setUsed(sc, slot.spellLevel, usedAt(sc, slot.spellLevel) - 1)} aria-label={tr({ en: 'Give back a slot', fr: 'Rendre un emplacement' })}>−</button>
+            <button onclick={() => setUsed(sc, slot.spellLevel, usedAt(sc, slot.spellLevel) + 1)} aria-label={tr({ en: 'Use a slot', fr: 'Utiliser un emplacement' })}>＋</button>
+          </div>
+        {/each}
+      </div>
+      {#each knownByLevel(sc) as g (g.level)}
+        <div class="level">
+          <h4>{tr({ en: 'Known, level', fr: 'Connus, niveau' })} {g.level}</h4>
+          <ul class="slots">
+            {#each g.spells as sp (sp.id)}
+              {@const slotLvl = slotFor(sc, g.level)}
+              <li class="school-row school-{sp.schoolId ?? 'none'}" title={tr(sp.school)}>
+                <button class="link" onclick={() => spellPopup(sp, sc)}><strong>{tr(sp.name)}</strong> ⓘ {tr(sp.summary)}</button>
+                <button
+                  class="cast"
+                  disabled={slotLvl === undefined}
+                  onclick={() => slotLvl !== undefined && setUsed(sc, slotLvl, usedAt(sc, slotLvl) + 1)}
+                  >{tr({ en: 'Cast', fr: 'Lancer' })}{slotLvl !== undefined && slotLvl > g.level
+                    ? ` (${tr({ en: 'level', fr: 'niv.' })} ${slotLvl})`
+                    : ''}</button
+                >
+              </li>
+            {/each}
+          </ul>
+        </div>
+      {:else}
+        <p class="note">{tr({ en: 'No spells known yet: learn them below.', fr: 'Aucun sort connu : apprenez-les ci-dessous.' })}</p>
+      {/each}
+    {/if}
+
+    {#each sc.def.style === 'prepared' ? sc.slots.filter((x) => x.total > 0) : [] as slot (slot.spellLevel)}
       <div class="level">
         <h4>
           {tr({ en: 'Level', fr: 'Niveau' })}
@@ -335,6 +432,10 @@
       </div>
     {/each}
 
+    {#if LEARNING_CLASSES.includes(sc.classId)}
+      <SpellLearning {sc} onspell={(sp) => spellPopup(sp, sc)} />
+    {/if}
+
     <div class="actions">
       <button onclick={() => newDay(sc)}
         >☀ {tr({ en: 'New day (spells available again)', fr: 'Nouveau jour (sorts de nouveau disponibles)' })}</button
@@ -359,6 +460,8 @@
     </details>
   </section>
 {/each}
+
+<WarningList areas={['spells']} />
 
 <style>
   .legend {
@@ -435,6 +538,33 @@
   .spont {
     min-height: 2.4rem;
     font-size: 0.9rem;
+  }
+  .spont-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+  .slotcount {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .slotcount.spent span {
+    color: var(--accent);
+    text-decoration: line-through;
+  }
+  .slotcount small {
+    color: var(--ink-soft);
+  }
+  .slotcount button,
+  .cast {
+    min-height: 2.4rem;
+    min-width: 2.4rem;
+    padding: 0 0.6rem;
+  }
+  .cast {
+    margin-left: auto;
   }
   .domains {
     display: flex;

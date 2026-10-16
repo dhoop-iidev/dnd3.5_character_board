@@ -1,7 +1,9 @@
 <script lang="ts">
   // Animal companions (druid; ranger from 4th at half his level): choice of animal, SRD advancement, stat block.
   // https://www.d20srd.org/srd/classes/druid.htm#animalCompanion
+  // Sorcerer/wizard familiar: https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars
   import { rules } from '../../data/rules'
+  import { familiarAdvancement, familiarLevel, FAMILIAR_URL, FAMILIARS } from '../../engine/arcane'
   import { companionAdvancement, companionLevel, computeCreature, paladinMountAdvancement, WAR_TRAINABLE } from '../../engine/creature'
   import type { CompanionState } from '../../model/character'
   import { app, tr, view } from '../../state.svelte'
@@ -40,7 +42,35 @@
   const mountRow = $derived(paladinMountAdvancement(paladinLevel))
   const mountDefault = $derived(view.sheet.race.size === 'small' ? 'pony-war' : 'warhorse-heavy')
   const mounts = $derived((app.character.companions ?? []).filter((x) => x.kind === 'mount'))
-  const animals = $derived((app.character.companions ?? []).filter((x) => x.kind !== 'mount'))
+  const animals = $derived((app.character.companions ?? []).filter((x) => !x.kind))
+
+  // Familiar: sorcerer and wizard levels stack; one familiar at a time.
+  const famLevel = $derived(familiarLevel(view.sheet.classLevels))
+  const familiars = $derived((app.character.companions ?? []).filter((x) => x.kind === 'familiar'))
+  let famPick = $state('')
+  function addFamiliar() {
+    if (!famPick) return
+    ;(app.character.companions ??= []).push({ uid: newUid(), creatureId: famPick, kind: 'familiar', maxHp: true, damage: 0 })
+    famPick = ''
+  }
+  const baseSave = (id: 'fort' | 'ref' | 'will') =>
+    view.sheet.saves[id].parts.filter((p) => p.bonusType === 'base').reduce((n, p) => n + p.value, 0)
+  const familiarSheet = (c: CompanionState) => {
+    const f = familiarAdvancement(famLevel)
+    return computeCreature(rules.creatures.get(c.creatureId)!, {
+      advancement: f?.advancement,
+      familiar: f && {
+        int: f.int,
+        // Total hit points, not temporary ones (the master's maximum).
+        masterHp: view.sheet.hpMax.total,
+        masterBab: view.sheet.bab.total,
+        masterLevel: view.sheet.characterLevel,
+        sr: f.sr,
+      },
+      masterBaseSaves: { fort: baseSave('fort'), ref: baseSave('ref'), will: baseSave('will') },
+      maxHp: true,
+    })
+  }
   function addMount() {
     if (!app.character.companions) app.character.companions = []
     app.character.companions.push({
@@ -107,7 +137,48 @@
   {/each}
 {/if}
 
-{#if level > 0 || animals.length || paladinLevel < 5}
+{#if famLevel > 0 || familiars.length}
+  <section class="box wide">
+    <h3>{tr({ en: 'Familiar', fr: 'Familier' })}</h3>
+    <p class="note">
+      {tr({
+        en: `Master level ${famLevel} (sorcerer + wizard). Half your hit points, your base attack bonus, your base saves when better, your skill ranks when better (with its own ability modifiers); treated as a magical beast; Hit Dice for effects: your character level. Obtaining one takes 24 hours and 100 gp; if it dies or is dismissed: Fortitude DC 15 or lose 200 XP per sorcerer/wizard level (half on a success), no new familiar for a year and a day.`,
+        fr: `Niveau du maître ${famLevel} (ensorceleur + magicien). La moitié de vos points de vie, votre bonus de base à l’attaque, vos bonus de base aux jets de sauvegarde s’ils sont meilleurs, vos degrés de maîtrise s’ils sont meilleurs (avec ses propres modificateurs) ; considéré comme une créature magique ; DV pour les effets : votre niveau global. L’obtenir prend 24 heures et 100 po ; s’il meurt ou est renvoyé : Vigueur DD 15 ou perte de 200 PX par niveau d’ensorceleur/magicien (moitié en cas de réussite), pas de nouveau familier avant un an et un jour.`,
+      })}
+      <a href={FAMILIAR_URL} target="_blank" rel="noopener">d20srd</a>
+    </p>
+    {#if !familiars.length}
+      <div class="add">
+        <select bind:value={famPick} aria-label={tr({ en: 'Familiar', fr: 'Familier' })}>
+          <option value="">— {tr({ en: 'choose a familiar', fr: 'choisir un familier' })} —</option>
+          {#each FAMILIARS.filter((f) => rules.creatures.has(f.id)) as f (f.id)}
+            <option value={f.id}>{tr(rules.creatures.get(f.id)!.name)} — {tr(f.text)}</option>
+          {/each}
+        </select>
+        <button disabled={!famPick} onclick={addFamiliar}>＋ {tr({ en: 'Add', fr: 'Ajouter' })}</button>
+      </div>
+    {/if}
+  </section>
+  {#each familiars as c (c.uid)}
+    {@const fs = familiarSheet(c)}
+    <section class="box wide">
+      <h3>{c.name || tr(rules.creatures.get(c.creatureId)?.name)}</h3>
+      {#if rules.creatures.has(c.creatureId)}
+        <label class="name">{tr({ en: 'Name', fr: 'Nom' })} <input bind:value={c.name} /></label>
+        <p class="note">
+          <strong>{tr({ en: 'Master’s benefit', fr: 'Avantage du maître' })} :</strong>
+          {tr(FAMILIARS.find((f) => f.id === c.creatureId)?.text ?? { en: '—', fr: '—' })}
+          {tr({ en: '(within 1 mile; applied to your sheet)', fr: '(à 1,5 km ou moins ; appliqué à votre feuille)' })}
+          · {tr({ en: 'HD for effects', fr: 'DV pour les effets' })} {fs.effectHd}
+          {#if fs.spellResistance}· {tr({ en: 'SR', fr: 'RM' })} {fs.spellResistance}{/if}
+        </p>
+        <CreatureCard state={c} sheet={() => familiarSheet(c)} onremove={() => remove(c.uid)} fixedHp specialUrl={FAMILIAR_URL} />
+      {/if}
+    </section>
+  {/each}
+{/if}
+
+{#if level > 0 || animals.length || (paladinLevel < 5 && famLevel === 0)}
 <section class="box wide">
   <h3>{tr({ en: 'Animal companion', fr: 'Compagnon animal' })}</h3>
   <p class="note">

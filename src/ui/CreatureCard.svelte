@@ -16,12 +16,18 @@
     subtitle,
     onremove,
     removeLabel,
+    fixedHp = false,
+    specialUrl = 'https://www.d20srd.org/srd/classes/druid.htm#animalCompanion',
   }: {
     state: CreatureState
     sheet: () => CreatureSheet
     subtitle?: string
     onremove?: () => void
     removeLabel?: I18n
+    /** Hit points set by a rule (familiar: half the master's): no max-hit-dice / manual entry. */
+    fixedHp?: boolean
+    /** Source of the special abilities (companion, mount, familiar). */
+    specialUrl?: string
   } = $props()
 
   const s = $derived(sheet())
@@ -104,11 +110,13 @@
         <button onclick={() => (state.damage = Math.max(0, state.damage - n))}>{n > 0 ? `+${n}` : `−${-n}`}</button>
       {/each}
     </div>
+    {#if !fixedHp}
     <label class="check">
       <input type="checkbox" bind:checked={state.maxHp} />
       {tr({ en: 'max hit dice', fr: 'dés de vie max' })}
     </label>
-    {#if !state.maxHp}
+    {/if}
+    {#if !state.maxHp && !fixedHp}
       <label class="manual">
         {tr({ en: 'hp entered', fr: 'pv saisis' })}
         <input
@@ -264,7 +272,7 @@
             openPopup({
               title: sp.name,
               html: sp.text,
-              source: { srdUrl: 'https://www.d20srd.org/srd/classes/druid.htm#animalCompanion' },
+              source: { srdUrl: specialUrl },
             })}>{tr(sp.name)}</button
         >
       {/each}

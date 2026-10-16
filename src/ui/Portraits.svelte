@@ -5,6 +5,8 @@
   import { imageToDataUrl } from './images'
 
   type Kind = 'coatOfArms' | 'face'
+  // Which pictures to show: the portrait sits at the top of the General pane, the coat of arms beside the background.
+  let { kinds = ['face', 'coatOfArms'] }: { kinds?: Kind[] } = $props()
   async function pick(kind: Kind, e: Event) {
     const input = e.currentTarget as HTMLInputElement
     const file = input.files?.[0]
@@ -23,8 +25,8 @@
   }
 </script>
 
-<div class="portraits">
-  {#each ['face', 'coatOfArms'] as const as kind (kind)}
+<div class="portraits" class:single={kinds.length === 1}>
+  {#each kinds as kind (kind)}
     {@const src = app.character.images?.[kind]}
     <figure class={kind}>
       <div class="frame">
@@ -70,6 +72,9 @@
     grid-template-columns: 1.25fr 1fr;
     gap: 1rem;
     align-items: end;
+  }
+  .portraits.single {
+    grid-template-columns: 1fr;
   }
   figure {
     margin: 0;

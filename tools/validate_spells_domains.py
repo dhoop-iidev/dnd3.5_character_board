@@ -32,11 +32,16 @@ SRD = ROOT / "src" / "data" / "srd"
 DB = ROOT / "sources" / "dnd35.db"
 ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
-CORE_LISTS = {"bard", "cleric", "druid", "paladin", "ranger", "sorcerer-wizard"}
-MAX_LEVEL = {"bard": 6, "cleric": 9, "druid": 9, "paladin": 4, "ranger": 4, "sorcerer-wizard": 9}
+# "wizard": the wizard-only spells of the sorcerer/wizard list (mnemonic enhancer, mage's lucubration).
+CORE_LISTS = {"bard", "cleric", "druid", "paladin", "ranger", "sorcerer-wizard", "wizard"}
+MAX_LEVEL = {"bard": 6, "cleric": 9, "druid": 9, "paladin": 4, "ranger": 4, "sorcerer-wizard": 9, "wizard": 9}
+# dnd35.db level names -> list ids
+DB_LISTS = {"Bard": "bard", "Cleric": "cleric", "Druid": "druid", "Paladin": "paladin", "Ranger": "ranger",
+            "Sorcerer/Wizard": "sorcerer-wizard", "Wizard": "wizard"}
 DOMAIN_IDS = {"air", "animal", "chaos", "death", "destruction", "earth", "evil", "fire", "good", "healing", "knowledge",
               "law", "luck", "magic", "plant", "protection", "strength", "sun", "travel", "trickery", "war", "water"}
-SCHOOLS = {"abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation"}
+SCHOOLS = {"abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation",
+           "universal"}
 # https://www.d20srd.org/srd/magicOverview/spellDescriptions.htm (subschools and descriptors).
 SUBSCHOOLS = {"calling", "creation", "healing", "summoning", "teleportation", "scrying", "charm", "compulsion", "figment",
               "glamer", "pattern", "phantasm", "shadow"}
@@ -124,7 +129,7 @@ def check_spells(err, spells):
 
 
 def check_against_db(err, spells, warn=None):
-    """Every cleric-list and core-domain spell of dnd35.db is in spells.json with the same levels."""
+    """Every core class list and core-domain spell of dnd35.db is in spells.json with the same levels."""
     if not DB.exists():
         (warn or print)("sources/dnd35.db not found: cleric list / domain completeness against the database skipped")
         return
@@ -135,20 +140,20 @@ def check_against_db(err, spells, warn=None):
         want = {}
         for lst, n in re.findall(r"([A-Za-z/ ]+?)\s+(\d)", levels or ""):
             lst = lst.strip(" ,")
-            if lst == "Cleric":
-                want["cleric"] = int(n)
+            if lst in DB_LISTS:
+                want[DB_LISTS[lst]] = int(n)
             elif lst in domain_en:
                 want[domain_en[lst]] = int(n)
         if not want:
             continue
         x = by_name.get(name)
         if x is None:
-            err("spells.json", f"cleric / domain spell {name} (dnd35.db) missing")
+            err("spells.json", f"class list / domain spell {name} (dnd35.db) missing")
             continue
         for k, v in want.items():
             if x["level"].get(k) != v:
                 err(f"spell {x['id']}", f"level.{k} {x['level'].get(k)} != {v} (dnd35.db)")
-        extra = {k for k in x["level"] if (k == "cleric" or k.startswith("domain:")) and k not in want}
+        extra = {k for k in x["level"] if (k in CORE_LISTS or k.startswith("domain:")) and k not in want}
         if extra:
             err(f"spell {x['id']}", f"levels {sorted(extra)} not in dnd35.db")
     con.close()

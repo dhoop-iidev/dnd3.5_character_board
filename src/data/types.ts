@@ -220,6 +220,9 @@ export interface ClassDef {
     initiatorLevel: 'full' | 'half' | string
     levels: { level: number; known: number; readied: number; stances: number }[]
   }
+  /** Prestige class levels that add a level of spellcasting to an existing spellcasting class of that kind ("+1 level of
+   * existing arcane spellcasting class": spells per day, spells known, caster level; Tome of Battle Jade Phoenix Mage). */
+  spellcastingAdvance?: { kind: 'arcane' | 'divine'; levels: number[] }
   /** Class features by level (generic class model; mechanics flagged with `computed`). */
   features?: ClassFeatureDef[]
   spellcasting?: SpellcastingDef

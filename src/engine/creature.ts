@@ -12,6 +12,7 @@ const mod = (score: number | null) => (score === null ? 0 : Math.floor((score - 
 const DRUID = 'https://www.d20srd.org/srd/classes/druid.htm#animalCompanion'
 const AUGMENT = 'https://www.d20srd.org/srd/feats.htm#augmentSummoning'
 const MOUNT = 'https://www.d20srd.org/srd/classes/paladin.htm#specialMount'
+const FAMILIAR = 'https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars'
 const TYPES = 'https://www.d20srd.org/srd/typesSubtypesAbilities.htm'
 
 /** Base attack progression and good saves per creature type (https://www.d20srd.org/srd/typesSubtypesAbilities.htm). */
@@ -39,7 +40,11 @@ export interface CreatureOptions {
   /** Paladin's mount: Str adjustment and Int score from Table: The Paladin's Mount (the bonus HD and natural armor come
    * through `advancement`). https://www.d20srd.org/srd/classes/paladin.htm#specialMount */
   mount?: { strAdj: number; int: number; speedBonus?: number }
-  /** Paladin's base saves (share saving throws: the mount uses the better base save). */
+  /** Sorcerer/wizard familiar: Int from the familiar table, half the master's hit points, the master's base attack
+   * bonus, the familiar's Str or Dex for its natural attacks (natural armor and abilities come through `advancement`,
+   * the master's base saves through `masterBaseSaves`). https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars */
+  familiar?: { int: number; masterHp: number; masterBab: number; masterLevel: number; sr: number }
+  /** Paladin's (or familiar master's) base saves (share saving throws: the mount uses the better base save). */
   masterBaseSaves?: Record<'fort' | 'ref' | 'will', number>
   /** Maximum hit points for every hit die (otherwise `hpManual`, or the printed average). */
   maxHp?: boolean
@@ -83,6 +88,10 @@ export interface CreatureSheet {
   special: { id: string; name: I18n; text: I18n }[]
   /** Type line, after a template (a celestial/fiendish animal or vermin becomes a magical beast). */
   typeText: I18n
+  /** Familiar: Hit Dice used for effects (the master's character level if higher). */
+  effectHd?: number
+  /** Familiar from master level 11: spell resistance = master level + 5. */
+  spellResistance?: number
   /** Land speed in feet (a paladin's mount from 8th level: +10 ft, improved speed). */
   landSpeed: number
   /** Companion bonus Hit Dice: feats, ability increases and skill points they entitle to (described only, not applied;
@@ -121,7 +130,8 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
   const def = opts.warTrained && WAR_TRAINABLE.includes(def0.id) ? trainedForWar(def0) : def0
   const adv = opts.advancement
   const src = def.source
-  const advSource = { srdUrl: opts.mount ? MOUNT : DRUID }
+  const fam = opts.familiar
+  const advSource = { srdUrl: opts.mount ? MOUNT : fam ? FAMILIAR : DRUID }
   const printed = (label: I18n, value: number): Part => ({ sourceId: 'statblock', label, value, bonusType: 'base', source: src })
   const STAT = i18n('Stat block', 'Profil')
 
@@ -138,6 +148,8 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
       parts.push({ sourceId: 'mount', label: i18n('Paladin’s mount Str adjustment', 'Ajustement de For de la monture'), value: opts.mount.strAdj, bonusType: 'base', source: { srdUrl: MOUNT } })
     if (base !== null && opts.mount && a === 'int' && opts.mount.int > base)
       parts.push({ sourceId: 'mount', label: i18n('Paladin’s mount Int', 'Int de la monture'), value: opts.mount.int - base, bonusType: 'base', source: { srdUrl: MOUNT } })
+    if (base !== null && fam && a === 'int' && fam.int !== base)
+      parts.push({ sourceId: 'familiar', label: i18n('Familiar Int', 'Int du familier'), value: fam.int - base, bonusType: 'base', source: advSource })
     if (base !== null && opts.augment && (a === 'str' || a === 'con'))
       parts.push({ sourceId: 'augment', label: i18n('Augment Summoning', 'Convocation suprême'), value: 4, bonusType: 'enhancement', source: { srdUrl: AUGMENT } })
     // Celestial/fiendish: Intelligence at least 3.
@@ -156,16 +168,21 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
   const extraGroups = def.hitDice.extra ?? []
   const extraHd = extraGroups.reduce((n, g) => n + g.count, 0)
   const totalHd = hd + extraHd
-  const dBab = babFor(def.type, hd) - babFor(def.type, def.hitDice.count)
+  // A familiar uses its master's base attack bonus.
+  const dBab = fam ? fam.masterBab - def.bab : babFor(def.type, hd) - babFor(def.type, def.hitDice.count)
   const babParts: Part[] = [printed(STAT, def.bab)]
-  if (dBab) babParts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD} HD (${opts.mount ? 'mount' : 'companion'})`, `+${bonusHD} DV (${opts.mount ? 'monture' : 'compagnon'})`), value: dBab, bonusType: 'base', source: advSource })
+  if (dBab && fam) babParts.push({ sourceId: 'master-bab', label: i18n(`Master’s base attack bonus (+${fam.masterBab})`, `Bonus de base à l’attaque du maître (+${fam.masterBab})`), value: dBab, bonusType: 'base', source: advSource })
+  else if (dBab) babParts.push({ sourceId: 'bonus-hd', label: i18n(`+${bonusHD} HD (${opts.mount ? 'mount' : 'companion'})`, `+${bonusHD} DV (${opts.mount ? 'monture' : 'compagnon'})`), value: dBab, bonusType: 'base', source: advSource })
   const bab = resolve(babParts)
 
   // ---- hit points
   const conMod = abilities.con.mod
   const extra = def.hitDice.bonus - mod(def.abilities.con) * (def.hitDice.count + extraHd) // Toughness etc. in the printed bonus
   const hpParts: Part[] = []
-  if (opts.maxHp) {
+  if (fam) {
+    // Half the master's total hit points (not temporary ones), rounded down, whatever its Hit Dice.
+    hpParts.push({ sourceId: 'familiar', label: i18n(`Half the master’s hit points (${fam.masterHp} ÷ 2)`, `Moitié des points de vie du maître (${fam.masterHp} ÷ 2)`), value: Math.floor(fam.masterHp / 2), bonusType: 'base', source: advSource })
+  } else if (opts.maxHp) {
     const dice = [`${hd}d${def.hitDice.die}`, ...extraGroups.map((g) => `${g.count}d${g.die}`)].join(' + ')
     const maxDice = hd * def.hitDice.die + extraGroups.reduce((n, g) => n + g.count * g.die, 0)
     hpParts.push({ sourceId: 'hd', label: i18n(`${dice} maximum`, `${dice} au maximum`), value: maxDice, bonusType: 'base', source: { srdUrl: TYPES } })
@@ -179,7 +196,7 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
     if (delta.con) hpParts.push({ sourceId: 'con', label: i18n(`Con change × ${totalHd} HD`, `Variation de Con × ${totalHd} DV`), value: delta.con * totalHd, bonusType: 'ability' })
   }
   const hpMax = resolve(hpParts)
-  hpMax.total = Math.max(totalHd, hpMax.total)
+  if (!fam) hpMax.total = Math.max(totalHd, hpMax.total)
 
   // ---- saves
   const saveAbility = { fort: 'con', ref: 'dex', will: 'wis' } as const
@@ -201,7 +218,13 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
     const own = saveFor(isGood(s), hd)
     const master = opts.masterBaseSaves?.[s] ?? 0
     if (master > own)
-      parts.push({ sourceId: 'share-saves', label: i18n('Share saving throws (paladin’s base save)', 'Transfert de jet de sauvegarde (base du paladin)'), value: master - own, bonusType: 'base', source: advSource })
+      parts.push({
+        sourceId: 'share-saves',
+        label: fam ? i18n('Master’s base save', 'Bonus de base du maître') : i18n('Share saving throws (paladin’s base save)', 'Transfert de jet de sauvegarde (base du paladin)'),
+        value: master - own,
+        bonusType: 'base',
+        source: advSource,
+      })
     const d = delta[saveAbility[s]]
     if (d) parts.push({ sourceId: 'ability', label: i18n(`${saveAbility[s].toUpperCase()} change`, `Variation de ${saveAbility[s].toUpperCase()}`), value: d, bonusType: 'ability' })
     saves[s] = resolve(parts)
@@ -210,7 +233,13 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
   // ---- AC, initiative, grapple
   const acParts: Part[] = [printed(STAT, def.ac.total)]
   if (adv?.naturalArmorAdj)
-    acParts.push({ sourceId: 'natural', label: (opts.mount ? i18n('Mount natural armor', 'Armure naturelle de la monture') : i18n('Companion natural armor', 'Armure naturelle du compagnon')), value: adv.naturalArmorAdj, bonusType: 'naturalArmor', source: advSource })
+    acParts.push({
+      sourceId: 'natural',
+      label: opts.mount ? i18n('Mount natural armor', 'Armure naturelle de la monture') : fam ? i18n('Familiar natural armor', 'Armure naturelle du familier') : i18n('Companion natural armor', 'Armure naturelle du compagnon'),
+      value: adv.naturalArmorAdj,
+      bonusType: 'naturalArmor',
+      source: advSource,
+    })
   if (delta.dex) acParts.push({ sourceId: 'dex', label: i18n('Dex change', 'Variation de Dex'), value: delta.dex, bonusType: 'ability' })
   const ac = resolve(acParts)
   const touch = resolve([printed(STAT, def.ac.touch), ...(delta.dex ? [{ ...acParts.at(-1)! }] : [])])
@@ -237,6 +266,9 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
     if (dBab) parts.push({ ...babParts[1] })
     const dA = delta[atk.attackAbility]
     if (dA) parts.push({ sourceId: 'ability', label: i18n(`${atk.attackAbility.toUpperCase()} change`, `Variation de ${atk.attackAbility === 'str' ? 'For' : 'Dex'}`), value: dA, bonusType: 'ability' })
+    // Familiar: its Str or Dex modifier, whichever is greater, on melee natural attacks.
+    if (fam && atk.attackAbility === 'str' && atk.role !== 'weapon' && abilities.dex.mod > abilities.str.mod)
+      parts.push({ sourceId: 'familiar-dex', label: i18n('Dex instead of Str (familiar)', 'Dex au lieu de For (familier)'), value: abilities.dex.mod - abilities.str.mod, bonusType: 'ability', source: advSource })
     // Companion multiattack: secondary natural attacks at −2 instead of −5 (https://www.d20srd.org/srd/monsterFeats.htm#multiattack).
     if (multiattack && atk.role === 'secondary')
       parts.push({ sourceId: 'multiattack', label: i18n('Multiattack', 'Attaques multiples'), value: 3, bonusType: 'untyped', source: { srdUrl: 'https://www.d20srd.org/srd/monsterFeats.htm#multiattack' } })
@@ -271,7 +303,7 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
         en: def.typeText.en.replace(/\b(animal|vermin)\b/i, (w) => `magical beast (augmented ${w.toLowerCase()})`),
         fr: def.typeText.fr.replace(/\b(animal|vermine)\b/i, (w) => `créature magique (${w.toLowerCase()} augmenté${/vermine/i.test(w) ? 'e' : ''})`),
       }
-    : opts.mount
+    : opts.mount || fam
       ? { en: `${def.typeText.en} (magical beast for effects)`, fr: `${def.typeText.fr} (créature magique pour les effets)` }
       : def.typeText
   // Companion bonus HD: a feat per 3 HD, an ability increase per 4 HD, skill points per HD (animal: 2 + Int, min 1)
@@ -283,8 +315,10 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
         skillPoints: bonusHD * Math.max(1, 2 + abilities.int.mod),
       }
     : undefined
+  // Familiar: Hit Dice used for effects = the master's character level or its own, whichever is higher.
+  const effectHd = fam ? Math.max(fam.masterLevel, totalHd) : undefined
   const landSpeed = def.speed.land + (def.speed.land ? (opts.mount?.speedBonus ?? 0) : 0)
-  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains, landSpeed }
+  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains, landSpeed, effectHd, spellResistance: fam?.sr || undefined }
 }
 
 /** Effective druid level for the animal companion: druid level + ½ ranger level from ranger 4 (FAQ p. 29). */

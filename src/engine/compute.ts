@@ -20,7 +20,8 @@ import { effectLive, knownManeuvers, martialCapsAll, type MartialCaps } from './
 import { raceOf } from './race'
 import { classSkillsOf, clericChoices, domainFeats, domainsOf, TURNING_TABLE } from './cleric'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
-import { spellcastingOf, type Spellcasting } from './spells'
+import { spellcastingAdvance, spellcastingOf, type Spellcasting } from './spells'
+import { BARD_URL, bardicSongs, FAMILIAR_URL, FAMILIARS, familiarLevel, songModifiers, SONG_EFFECTS, spellFailure, type BardicSong } from './arcane'
 import { parseAlignment } from './alignment'
 import {
   barbarianDR,
@@ -113,6 +114,8 @@ export interface ClassFeatures {
   /** Described-only features worth having at hand (auras, evasion, slow fall…). */
   notes: { name: I18n; text: I18n; source: Source }[]
   spellResistance?: number
+  /** Bard: bardic music uses per day, best Perform ranks and the songs (available or not for lack of ranks). */
+  bardicMusic?: { perDay: number; performRanks: number; songs: (BardicSong & { available: boolean })[]; performing: string[] }
   /** Crusader steely resolve: delayed damage pool (cap, current) and the furious counterstrike bonus. */
   steelyResolve?: { cap: number; pool: number; furious: number }
 }
@@ -579,9 +582,29 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       ])
         mods.push({ spec, sourceId: 'rage', label: r.name, source })
       flags.push('raging')
+    } else if (eff.kind === 'class' && SONG_EFFECTS.includes(eff.refId ?? '') && (classLevels['bard'] ?? 0) > 0) {
+      // Bardic music on the bard (https://www.d20srd.org/srd/classes/bard.htm#bardicMusic). While singing (no rounds
+      // counted down yet) the bard can't cast spells or use spell-completion / command-word items.
+      const song = bardicSongs(classLevels['bard'], 0).find((x) => x.id === eff.refId)
+      if (song) {
+        for (const spec of songModifiers(song.id, classLevels['bard'])) mods.push({ spec, sourceId: `song:${song.id}`, label: song.name, source: { srdUrl: BARD_URL } })
+        if (eff.rounds === undefined) flags.push('bardic-music')
+      }
     } else if (eff.custom) {
       for (const spec of eff.custom.modifiers) mods.push({ spec, sourceId: `effect:${eff.uid}`, label: eff.custom.name })
     }
+  }
+  // Familiar: the master's benefit while within 1 mile, and Alertness while it is within arm's reach (a situational
+  // toggle; nothing more if the master already has the feat). https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars
+  const familiar = familiarLevel(classLevels) > 0 ? (char.companions ?? []).find((c) => c.kind === 'familiar') : undefined
+  const familiarDef = familiar && FAMILIARS.find((f) => f.id === familiar.creatureId)
+  if (familiar && familiarDef) {
+    const name = rules.creatures.get(familiar.creatureId)?.name ?? i18n(familiar.creatureId, familiar.creatureId)
+    const label = i18n(`Familiar (${familiar.name || name.en})`, `Familier (${familiar.name || name.fr})`)
+    for (const spec of familiarDef.master) mods.push({ spec, sourceId: 'familiar', label, source: { srdUrl: FAMILIAR_URL } })
+    if (!feats.some((f) => f.featId === 'alertness'))
+      for (const target of ['skill.listen', 'skill.spot'])
+        mods.push({ spec: { target, bonusType: 'untyped', value: 2, condition: i18n('familiar within arm’s reach (Alertness)', 'familier à portée de main (Vigilance)') }, sourceId: 'familiar-alertness', label, source: { srdUrl: FAMILIAR_URL } })
   }
   // Situational toggle key: source + target (+ condition text, e.g. prone vs melee / vs ranged).
   const keyOf = (m: ModSource) =>
@@ -1503,6 +1526,23 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       ]),
     })
   }
+  // Bardic knowledge: d20 + bard level + Int modifier, +2 with 5 ranks of Knowledge (history); no taking 10 or 20
+  // (https://www.d20srd.org/srd/classes/bard.htm#bardicKnowledge).
+  const bardLevel = classLevels['bard'] ?? 0
+  if (bardLevel) {
+    const f = rules.classes.get('bard')!.features!.find((x) => x.id === 'bardic-knowledge')!
+    featureStats.push({
+      id: 'bardic-knowledge',
+      name: f.name,
+      stat: resolve([
+        { sourceId: 'class:bard', label: i18n(`Bard ${bardLevel}`, `Barde ${bardLevel}`), value: bardLevel, bonusType: 'base', source: f.source },
+        abilityPart('int'),
+        ...(levels.reduce((n, l) => n + (l.skillRanks['knowledge-history'] ?? 0), 0) >= 5
+          ? [{ sourceId: 'knowledge-history', label: i18n('Knowledge (history) 5 ranks', 'Connaissances (histoire) 5 degrés'), value: 2, bonusType: 'untyped' as const, source: f.source }]
+          : []),
+      ]),
+    })
+  }
   const rangerStyle = styleId ? ranger?.choices?.combatStyle?.find((o) => o.id === styleId) : undefined
 
   // ---- cleric: turn (positive energy) or rebuke (negative energy) undead, 3 + Cha mod per day (+4 per Extra
@@ -1680,6 +1720,21 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     })
   }
 
+  // Bard: bardic music, once per day per bard level; each song needs a bard level and ranks in one Perform skill
+  // (https://www.d20srd.org/srd/classes/bard.htm#bardicMusic).
+  if (bardLevel) {
+    const perform: Record<string, number> = {}
+    for (const l of levels)
+      for (const [k, v] of Object.entries(l.skillRanks)) if (k === 'perform' || k.startsWith('perform:')) perform[k] = (perform[k] ?? 0) + v
+    const performRanks = Math.max(0, ...Object.values(perform))
+    classFeatures.bardicMusic = {
+      perDay: bardLevel,
+      performRanks,
+      songs: bardicSongs(bardLevel, mod('cha')).map((x) => ({ ...x, available: performRanks >= x.ranks })),
+      performing: char.activeEffects.filter((e) => e.kind === 'class' && SONG_EFFECTS.includes(e.refId ?? '')).map((e) => e.refId!),
+    }
+  }
+
   if (rogueLevel) {
     classFeatures.sneakAttack = `${sneak}d6`
     const specials = rogueSpecials
@@ -1706,9 +1761,23 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     proficiency,
     // An ex-paladin (not lawful good) or ex-druid (alignment not neutral on one axis) loses the class's spells
     // (https://www.d20srd.org/srd/classes/paladin.htm#exPaladins, druid.htm#exDruids).
-    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {}))).filter(
-      (sc) => !(sc.classId === 'paladin' && !paladinGood) && !(sc.classId === 'druid' && exDruid),
-    ),
+    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {})), spellcastingAdvance(levels, rules))
+      .filter((sc) => !(sc.classId === 'paladin' && !paladinGood) && !(sc.classId === 'druid' && exDruid))
+      .map((sc) => {
+        if (sc.def.kind !== 'arcane') return sc
+        // Arcane spell failure: armor (category after mithral) and shield, each less its material reduction.
+        const asf = (x: { item: ItemInstance; def: ArmorDef }) =>
+          Math.max(0, x.def.arcaneFailure - ((x.item.material && rules.materials.get(x.item.material)?.effects.arcaneFailureReduction) || 0))
+        const nameOf = (x: { item: ItemInstance; def: ArmorDef }) => x.item.name ?? x.def.name
+        return {
+          ...sc,
+          spellFailure: spellFailure(
+            sc.classId,
+            armor && { name: nameOf(armor), asf: asf(armor), category: armor.category },
+            shield && { name: nameOf(shield), asf: asf(shield) },
+          ),
+        }
+      }),
     featureStats,
     turning,
     domains,

@@ -7,6 +7,7 @@ import type { Rules } from '../data/rules'
 import type { I18n, SpellDef } from '../data/types'
 import type { ItemInstance, SpellItemType, StoredSpell } from '../model/character'
 import type { Sheet } from './compute'
+import { classSpellLevel } from './spells'
 
 const i18n = (en: string, fr: string): I18n => ({ en, fr })
 
@@ -57,11 +58,11 @@ export interface StoredSpellUse {
 /** How the character can use a stored spell: save DC, caster level, list, Use Magic Device and caster level checks. */
 export function storedSpellUse(item: ItemInstance, s: StoredSpell, sheet: Sheet, rules: Rules): StoredSpellUse {
   const sp = rules.spells.get(s.spellId)
-  const lists = sheet.spellcasting.filter((sc) => sp && sp.level[sc.def.list] !== undefined)
+  const lists = sheet.spellcasting.filter((sc) => sp && classSpellLevel(sp, sc.classId, sc.def.list) !== undefined)
   // Any class level counts for a spell trigger item, even without spells yet (a 3rd-level paladin).
   const classesWithList = Object.keys(sheet.classLevels).filter((id) => {
     const list = rules.classes.get(id)?.spellcasting?.list
-    return !!list && !!sp && sp.level[list] !== undefined
+    return !!list && !!sp && classSpellLevel(sp, id, list) !== undefined
   })
   let dc = itemSaveDc(s.level)
   let cl = s.casterLevel
@@ -83,7 +84,7 @@ export function storedSpellUse(item: ItemInstance, s: StoredSpell, sheet: Sheet,
   // Scroll: a caster of too low a level makes a caster level check (DC = scroll caster level + 1).
   if (s.activation === 'completion' && usable) {
     const best = Math.max(0, ...lists.map((sc) => sc.casterLevel.total))
-    const canCast = lists.some((sc) => sc.slots.some((x) => x.spellLevel === (sp?.level[sc.def.list] ?? 99) && x.total > 0))
+    const canCast = lists.some((sc) => sc.slots.some((x) => x.spellLevel === ((sp && classSpellLevel(sp, sc.classId, sc.def.list)) ?? 99) && x.total > 0))
     if (!canCast || best < s.casterLevel)
       notes.push(i18n(`Caster level check: 1d20 + ${best} vs DC ${s.casterLevel + 1} (mishap on a failure)`, `Test de niveau de lanceur : 1d20 + ${best} contre DD ${s.casterLevel + 1} (incident en cas d’échec)`))
   }

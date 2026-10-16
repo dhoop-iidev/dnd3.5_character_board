@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Corvin Brisebraise",
+    "player": "",
+    "race": "human",
+    "deity": "Wee Jas",
+    "alignment": "CN",
+    "gender": "m",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "Ambre",
+    "hair": "Roux",
+    "homeland": "Les Marches",
+    "title": "Sang-de-dragon",
+    "motto": "Le feu ne s’apprend pas",
+    "languages": [
+      "Commun",
+      "Draconien"
+    ],
+    "skin": "Claire"
+  },
+  "xp": 15000,
+  "baseAbilities": {
+    "str": 10,
+    "dex": 14,
+    "con": 14,
+    "int": 12,
+    "wis": 10,
+    "cha": 17
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "sorcerer",
+      "skillRanks": {
+        "concentration": 4,
+        "spellcraft": 4,
+        "bluff": 4,
+        "knowledge-arcana": 4
+      },
+      "feats": [
+        {
+          "featId": "improved-initiative",
+          "slot": "general"
+        },
+        {
+          "featId": "point-blank-shot",
+          "slot": "race"
+        }
+      ],
+      "spellsLearned": [
+        "detect-magic",
+        "light",
+        "ray-of-frost",
+        "mage-hand",
+        "magic-missile",
+        "mage-armor"
+      ]
+    },
+    {
+      "classId": "sorcerer",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "bluff": 1,
+        "knowledge-arcana": 1
+      },
+      "feats": [],
+      "spellsLearned": [
+        "prestidigitation"
+      ]
+    },
+    {
+      "classId": "sorcerer",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "bluff": 1,
+        "knowledge-arcana": 1
+      },
+      "feats": [
+        {
+          "featId": "precise-shot",
+          "slot": "general"
+        }
+      ],
+      "spellsLearned": [
+        "shield"
+      ]
+    },
+    {
+      "classId": "sorcerer",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "bluff": 1,
+        "knowledge-arcana": 1
+      },
+      "feats": [],
+      "abilityIncrease": "cha",
+      "spellsLearned": [
+        "read-magic",
+        "scorching-ray"
+      ]
+    },
+    {
+      "classId": "sorcerer",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "bluff": 1,
+        "knowledge-arcana": 1
+      },
+      "feats": [],
+      "spellsLearned": [
+        "sleep",
+        "invisibility"
+      ]
+    },
+    {
+      "classId": "sorcerer",
+      "skillRanks": {
+        "concentration": 1,
+        "spellcraft": 1,
+        "bluff": 1,
+        "knowledge-arcana": 1
+      },
+      "feats": [
+        {
+          "featId": "empower-spell",
+          "slot": "general"
+        }
+      ],
+      "spellsLearned": [
+        "acid-splash",
+        "fireball"
+      ],
+      "spellSwap": {
+        "from": "light",
+        "to": "message"
+      }
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "xbow",
+      "kind": "weapon",
+      "refId": "light-crossbow",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "dagger",
+      "kind": "weapon",
+      "refId": "dagger",
+      "quantity": 1,
+      "location": "carried"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Crossbow",
+        "fr": "Arbalète"
+      },
+      "weapons": [
+        "xbow",
+        "dagger"
+      ]
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [],
+  "money": {
+    "cp": 0,
+    "sp": 15,
+    "gp": 180,
+    "pp": 0,
+    "other": ""
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr",
+    "maxHitDice": true
+  },
+  "companions": [
+    {
+      "uid": "raven",
+      "creatureId": "raven",
+      "kind": "familiar",
+      "name": "Suie",
+      "maxHp": true,
+      "damage": 0
+    }
+  ],
+  "summons": []
+}
