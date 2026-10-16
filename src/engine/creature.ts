@@ -42,6 +42,8 @@ export interface CreatureOptions {
 export interface CreatureAttackLine {
   attack: CreatureAttack
   bonus: Stat
+  /** Bonuses of the iterative attacks after the first (weapons: +9/+4). */
+  iterative: number[]
   damage: string
   /** Damage bonus explanation. */
   damageBonus: Stat
@@ -59,7 +61,10 @@ export interface CreatureSheet {
   bab: Stat
   grapple: Stat
   saves: Record<'fort' | 'ref' | 'will', Stat>
+  /** Full attack (first routine). */
   attacks: CreatureAttackLine[]
+  /** Alternative full attacks ("or" in the stat block). */
+  altAttacks: CreatureAttackLine[][]
   /** Companion special abilities gained (link, share spells, evasion…). */
   special: { id: string; name: I18n; text: I18n }[]
 }
@@ -159,7 +164,7 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
   // ---- attacks: printed bonus + BAB change + attack ability change; damage: Str change × its factor
   const special = adv?.special ?? []
   const multiattack = special.some((x) => x.id === 'multiattack')
-  const attacks: CreatureAttackLine[] = def.attacks.map((atk) => {
+  const attackLine = (atk: CreatureAttack): CreatureAttackLine => {
     const parts: Part[] = [printed(STAT, atk.bonus)]
     if (dBab) parts.push({ ...babParts[1] })
     const dA = delta[atk.attackAbility]
@@ -176,10 +181,16 @@ export function computeCreature(def: CreatureDef, opts: CreatureOptions = {}): C
       printed(i18n('Damage bonus (stat block)', 'Bonus aux dégâts (profil)'), bonus),
       ...(dDmg ? [{ sourceId: 'str', label: i18n(`Str change × ${f}`, `Variation de For × ${f}`), value: dDmg, bonusType: 'ability' as const }] : []),
     ])
-    return { attack: atk, bonus: resolve(parts), damage: fmtDmg(dice, damageBonus.total), damageBonus }
-  })
+    const total = resolve(parts)
+    // Iterative attacks (+9/+4): each one moves with the first.
+    const iterative = (atk.iterative ?? []).map((b) => b + total.total - atk.bonus)
+    return { attack: atk, bonus: total, iterative, damage: fmtDmg(dice, damageBonus.total), damageBonus }
+  }
+  const attacks = def.attacks.map(attackLine)
+  // Alternative full attacks ("or" in the stat block).
+  const altAttacks = (def.altAttacks ?? []).map((r) => r.map(attackLine))
 
-  return { def, hitDice: hd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, special }
+  return { def, hitDice: hd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, special }
 }
 
 /** Effective druid level for the animal companion: druid level + ½ ranger level from ranger 4 (FAQ p. 29). */

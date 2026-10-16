@@ -522,6 +522,8 @@ export interface CreatureAttack {
   strDamageFactor: number
   /** Critical as "20/×2"-style text when not the default. */
   critical?: string
+  /** Iterative attacks of a weapon after the first, as printed (e.g. [4] for "+9/+4"). */
+  iterative?: number[]
 }
 
 export interface CreatureDef {
@@ -541,7 +543,10 @@ export interface CreatureDef {
   ac: { total: number; touch: number; flatFooted: number; natural: number; dexMod: number; sizeMod: number; other: number }
   bab: number
   grapple: number
+  /** Full attack (first routine of the stat block). */
   attacks: CreatureAttack[]
+  /** Alternative full attacks ("or" in the stat block), e.g. a ray instead of the bite. */
+  altAttacks?: CreatureAttack[][]
   space: number
   reach: number
   saves: { fort: number; ref: number; will: number }

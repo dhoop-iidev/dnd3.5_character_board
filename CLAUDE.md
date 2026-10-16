@@ -66,4 +66,5 @@ Character data: `docs/character-baseline.md` (user-provided, authoritative). `DD
 - Live app: https://dhoop-iidev.github.io/dnd3.5_character_board/ (repo github.com/dhoop-iidev/dnd3.5_character_board, public).
 - Deployment: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build, GitHub Pages). The build uses relative paths (`base: './'`) and is an installable offline PWA (`vite-plugin-pwa`).
 - **No character ships with the app** (the user wants it private): it opens on a welcome screen that imports a character JSON; "Fermer le personnage" clears it from the browser. The build used by the tests is `src/engine/__tests__/fixtures/chikibidouille.json`. `character_saves/` is gitignored: never commit it.
+- `examples/` holds generic example characters (e.g. `druide-niveau-10.json`, human druid 10) to import from the welcome screen; `src/engine/__tests__/examples.test.ts` keeps them legal (no actionable warning).
 - DM sharing: "Partager avec le MJ" makes a read-only link `?share=<deflate+base64url character>` (no pictures, notes optional; `src/model/share.ts`); a shared view never saves over the local character.

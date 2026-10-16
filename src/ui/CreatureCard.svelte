@@ -186,30 +186,39 @@
     </div>
   </div>
 
-  <ul class="attacks">
-    {#each s.attacks as a, i (i)}
-      <li>
-        <span>{a.attack.count > 1 ? `${a.attack.count} × ` : ''}{tr(a.attack.name)}</span>
-        <StatValue stat={() => sheet().attacks[i].bonus} title={a.attack.name} />
-        <span class="dmg-text"
-          >{a.damage}{a.attack.extra ? ` ${tr(a.attack.extra)}` : ''}{a.attack.critical
-            ? ` · ${a.attack.critical}`
-            : ''}</span
-        >
-        <small
-          >{a.attack.kind === 'melee'
-            ? tr({ en: 'melee', fr: 'corps à corps' })
-            : a.attack.kind === 'touch'
-              ? tr({ en: 'melee touch', fr: 'contact' })
-              : a.attack.kind === 'rangedTouch'
-                ? tr({ en: 'ranged touch', fr: 'contact à distance' })
-                : tr({ en: 'ranged', fr: 'distance' })}{a.attack.role === 'secondary'
-            ? ` · ${tr({ en: 'secondary', fr: 'secondaire' })}`
-            : ''}</small
-        >
-      </li>
-    {/each}
-  </ul>
+  {#each [s.attacks, ...s.altAttacks] as routine, r (r)}
+    {#if r > 0}<p class="or">{tr({ en: 'or (alternative full attack)', fr: 'ou (autre attaque à outrance)' })}</p>{/if}
+    <ul class="attacks">
+      {#each routine as a, i (i)}
+        <li>
+          <span>{a.attack.count > 1 ? `${a.attack.count} × ` : ''}{tr(a.attack.name)}</span>
+          <StatValue
+            stat={() => (r === 0 ? sheet().attacks : sheet().altAttacks[r - 1])[i].bonus}
+            title={a.attack.name}
+          />
+          {#if a.iterative.length}<span class="iter"
+              >/{a.iterative.map((b) => (b >= 0 ? `+${b}` : `${b}`)).join('/')}</span
+            >{/if}
+          <span class="dmg-text"
+            >{a.damage}{a.attack.extra ? ` ${tr(a.attack.extra)}` : ''}{a.attack.critical
+              ? ` · ${a.attack.critical}`
+              : ''}</span
+          >
+          <small
+            >{a.attack.kind === 'melee'
+              ? tr({ en: 'melee', fr: 'corps à corps' })
+              : a.attack.kind === 'touch'
+                ? tr({ en: 'melee touch', fr: 'contact' })
+                : a.attack.kind === 'rangedTouch'
+                  ? tr({ en: 'ranged touch', fr: 'contact à distance' })
+                  : tr({ en: 'ranged', fr: 'distance' })}{a.attack.role === 'secondary'
+              ? ` · ${tr({ en: 'secondary', fr: 'secondaire' })}`
+              : ''}</small
+          >
+        </li>
+      {/each}
+    </ul>
+  {/each}
 
   <p class="line">
     {#each ['str', 'dex', 'con', 'int', 'wis', 'cha'] as const as a (a)}
@@ -346,6 +355,17 @@
   }
   .attacks small {
     color: var(--ink-soft);
+  }
+  .or {
+    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .iter {
+    font-family: var(--font-num);
+    color: var(--ink-soft);
+    margin-left: -0.3rem;
   }
   .dmg-text {
     font-family: var(--font-num);

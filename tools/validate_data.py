@@ -352,7 +352,7 @@ def creature(w, x, feat_ids):
     req = {"id", "name", "size", "type", "typeText", "hitDice", "hp", "initiative", "speed", "ac", "bab", "grapple",
            "attacks", "space", "reach", "saves", "abilities", "skills", "feats", "featIds", "specialAttacks",
            "specialQualities", "specialAbilities", "alignment", "cr", "text", "source"}
-    if set(x) != req:
+    if not req <= set(x) or set(x) - req - {"altAttacks"}:
         err(w, f"keys {set(x) ^ req}")
         return
     for k in ("name", "typeText", "skills", "feats", "specialAttacks", "specialQualities", "alignment"):
@@ -382,9 +382,13 @@ def creature(w, x, feat_ids):
         err(w, f"AC total != 10 + components {ac}")
     if not x["attacks"]:
         err(w, "no attack")
-    for a in x["attacks"]:
+    if "altAttacks" in x and (not isinstance(x["altAttacks"], list) or not all(x["altAttacks"])):
+        err(w, "altAttacks must be a list of non-empty routines")
+    for a in x["attacks"] + [b for r in x.get("altAttacks", []) for b in r]:
         wa = f"{w} attack {a.get('name', {}).get('en')}"
-        allowed = {"name", "bonus", "damage", "extra", "kind", "role", "count", "attackAbility", "strDamageFactor", "critical"}
+        allowed = {"name", "bonus", "damage", "extra", "kind", "role", "count", "attackAbility", "strDamageFactor", "critical", "iterative"}
+        if "iterative" in a and not (isinstance(a["iterative"], list) and a["iterative"] and all(isinstance(v, int) and v < a["bonus"] for v in a["iterative"])):
+            err(wa, f"bad iterative {a.get('iterative')}")
         if not {"name", "bonus", "damage", "kind", "role", "count", "attackAbility", "strDamageFactor"} <= set(a) or set(a) - allowed:
             err(wa, f"keys {set(a)}")
             continue

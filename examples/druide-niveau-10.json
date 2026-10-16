@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 6,
+  "identity": {
+    "name": "Sylvanor",
+    "player": "",
+    "race": "human",
+    "deity": "",
+    "alignment": "N",
+    "gender": "",
+    "age": 0,
+    "height": {
+      "m": 0
+    },
+    "weight": {
+      "kg": 0
+    },
+    "eyes": "",
+    "hair": "",
+    "homeland": "Bois-Ancien",
+    "title": "Gardien du Bois-Ancien",
+    "motto": "",
+    "languages": [
+      "Commun",
+      "Druidique",
+      "Sylvestre"
+    ]
+  },
+  "xp": 45000,
+  "baseAbilities": {
+    "str": 12,
+    "dex": 14,
+    "con": 14,
+    "int": 10,
+    "wis": 16,
+    "cha": 8
+  },
+  "abilityDamage": {},
+  "abilityDrain": {},
+  "levels": [
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 4,
+        "knowledge-nature": 4,
+        "spot": 4,
+        "listen": 4,
+        "survival": 4
+      },
+      "feats": [
+        {
+          "featId": "spell-focus",
+          "slot": "race",
+          "choice": "conjuration"
+        },
+        {
+          "featId": "augment-summoning",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": [
+        {
+          "featId": "combat-casting",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": [],
+      "abilityIncrease": "wis"
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": [
+        {
+          "featId": "natural-spell",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": []
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": [],
+      "abilityIncrease": "wis"
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": [
+        {
+          "featId": "extend-spell",
+          "slot": "general"
+        }
+      ]
+    },
+    {
+      "classId": "druid",
+      "skillRanks": {
+        "concentration": 1,
+        "knowledge-nature": 1,
+        "spot": 1,
+        "listen": 1,
+        "survival": 1
+      },
+      "feats": []
+    }
+  ],
+  "inventory": [
+    {
+      "uid": "hide",
+      "kind": "armor",
+      "refId": "hide",
+      "quantity": 1,
+      "location": "worn",
+      "enhancement": 2
+    },
+    {
+      "uid": "shield",
+      "kind": "armor",
+      "refId": "light-wooden-shield",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 1
+    },
+    {
+      "uid": "scimitar",
+      "kind": "weapon",
+      "refId": "scimitar",
+      "quantity": 1,
+      "location": "carried",
+      "enhancement": 1
+    },
+    {
+      "uid": "sling",
+      "kind": "weapon",
+      "refId": "sling",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "bullets",
+      "kind": "gear",
+      "refId": "sling-bullets-10",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "periapt",
+      "kind": "magic",
+      "refId": "periapt-of-wisdom-2",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "cloak",
+      "kind": "magic",
+      "refId": "cloak-of-resistance-2",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "ring",
+      "kind": "magic",
+      "refId": "ring-of-protection-1",
+      "quantity": 1,
+      "location": "worn"
+    },
+    {
+      "uid": "clw",
+      "kind": "magic",
+      "refId": "potion-of-cure-moderate-wounds",
+      "quantity": 2,
+      "location": "pack"
+    },
+    {
+      "uid": "backpack",
+      "kind": "gear",
+      "refId": "backpack",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "pouch",
+      "kind": "gear",
+      "refId": "spell-component-pouch",
+      "quantity": 1,
+      "location": "carried"
+    },
+    {
+      "uid": "bedroll",
+      "kind": "gear",
+      "refId": "bedroll",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "rations",
+      "kind": "gear",
+      "refId": "trail-rations",
+      "quantity": 4,
+      "location": "stored"
+    },
+    {
+      "uid": "water",
+      "kind": "gear",
+      "refId": "waterskin",
+      "quantity": 1,
+      "location": "stored"
+    },
+    {
+      "uid": "healer",
+      "kind": "gear",
+      "refId": "healers-kit",
+      "quantity": 1,
+      "location": "stored"
+    }
+  ],
+  "loadouts": [
+    {
+      "id": "main",
+      "name": {
+        "en": "Main",
+        "fr": "Principal"
+      },
+      "weapons": [
+        "scimitar",
+        "sling"
+      ],
+      "shield": "shield"
+    }
+  ],
+  "activeLoadout": "main",
+  "activeEffects": [],
+  "hp": {
+    "damage": 0,
+    "nonlethal": 0,
+    "temp": 0
+  },
+  "dailyUsesSpent": {},
+  "toggles": {
+    "powerAttack": 0,
+    "combatExpertise": 0,
+    "fightingDefensively": false,
+    "totalDefense": false,
+    "situational": {}
+  },
+  "notes": [
+    {
+      "id": "n1",
+      "date": "2026-10-16",
+      "title": "Exemple",
+      "body": "Druide humain de niveau 10 créé comme exemple (achat de 28 points : For 12, Dex 14, Con 14, Int 10, Sag 16, Cha 8 ; +1 Sag aux niveaux 4 et 8). Forme animale (3/jour, taille G possible) : à gérer à la table, elle n'est pas encore calculée par l'application. Le sac à dos et le matériel de camp sont « rangés » : portés par le compagnon."
+    }
+  ],
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "gp": 25,
+    "pp": 0,
+    "other": "Gemmes et bijoux pour 1 335 po ; sac à dos et matériel de camp portés par Croc-de-Lune (« rangé »)."
+  },
+  "defenses": {
+    "dr": "",
+    "sr": "",
+    "resistances": ""
+  },
+  "conditionalModifiers": "",
+  "annotations": {},
+  "images": {
+    "doll": null
+  },
+  "martial": {
+    "readied": [],
+    "expended": [],
+    "active": []
+  },
+  "settings": {
+    "lang": "fr"
+  },
+  "spells": {
+    "druid": {
+      "prepared": {
+        "0": [
+          {
+            "id": "detect-magic",
+            "cast": false
+          },
+          {
+            "id": "guidance",
+            "cast": false
+          },
+          {
+            "id": "cure-minor-wounds",
+            "cast": false
+          },
+          {
+            "id": "cure-minor-wounds",
+            "cast": false
+          },
+          {
+            "id": "create-water",
+            "cast": false
+          },
+          {
+            "id": "know-direction",
+            "cast": false
+          }
+        ],
+        "1": [
+          {
+            "id": "entangle",
+            "cast": false
+          },
+          {
+            "id": "produce-flame",
+            "cast": false
+          },
+          {
+            "id": "cure-light-wounds",
+            "cast": false
+          },
+          {
+            "id": "cure-light-wounds",
+            "cast": false
+          },
+          {
+            "id": "faerie-fire",
+            "cast": false
+          },
+          {
+            "id": "longstrider",
+            "cast": false
+          }
+        ],
+        "2": [
+          {
+            "id": "barkskin",
+            "cast": false
+          },
+          {
+            "id": "flame-blade",
+            "cast": false
+          },
+          {
+            "id": "bears-endurance",
+            "cast": false
+          },
+          {
+            "id": "owls-wisdom",
+            "cast": false
+          },
+          {
+            "id": "summon-natures-ally-ii",
+            "cast": false
+          }
+        ],
+        "3": [
+          {
+            "id": "call-lightning",
+            "cast": false
+          },
+          {
+            "id": "cure-moderate-wounds",
+            "cast": false
+          },
+          {
+            "id": "spike-growth",
+            "cast": false
+          },
+          {
+            "id": "summon-natures-ally-iii",
+            "cast": false
+          }
+        ],
+        "4": [
+          {
+            "id": "flame-strike",
+            "cast": false
+          },
+          {
+            "id": "freedom-of-movement",
+            "cast": false
+          },
+          {
+            "id": "dispel-magic",
+            "cast": false
+          },
+          {
+            "id": "summon-natures-ally-iv",
+            "cast": false
+          }
+        ],
+        "5": [
+          {
+            "id": "tree-stride",
+            "cast": false
+          },
+          {
+            "id": "wall-of-thorns",
+            "cast": false
+          },
+          {
+            "id": "summon-natures-ally-v",
+            "cast": false
+          }
+        ]
+      }
+    }
+  },
+  "companions": [
+    {
+      "uid": "wolf",
+      "creatureId": "dire-wolf",
+      "name": "Croc-de-Lune",
+      "maxHp": true,
+      "damage": 0,
+      "tricks": [
+        "attaquer",
+        "au pied",
+        "défendre",
+        "garder",
+        "pister",
+        "rester"
+      ]
+    }
+  ]
+}

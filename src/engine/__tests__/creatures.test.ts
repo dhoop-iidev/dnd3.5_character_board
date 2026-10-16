@@ -53,3 +53,19 @@ describe('summoned creatures', () => {
     expect(s.saves.fort.total).toBe(7)
   })
 })
+
+describe('alternative full attacks and iterative attacks', () => {
+  it('janni: scimitar +9/+4, or longbow; Augment Summoning moves both iteratives (+2 Str → +1)', () => {
+    const janni = rules.creatures.get('janni')!
+    const s = computeCreature(janni)
+    expect([s.attacks[0].bonus.total, ...s.attacks[0].iterative]).toEqual([9, 4])
+    expect(s.altAttacks).toHaveLength(1)
+    const aug = computeCreature(janni, { augment: true })
+    expect([aug.attacks[0].bonus.total, ...aug.attacks[0].iterative]).toEqual([11, 6])
+  })
+  it('arrowhawk: electricity ray, or bite', () => {
+    const s = computeCreature(rules.creatures.get('arrowhawk-juvenile')!)
+    expect(s.attacks[0].attack.kind).toBe('rangedTouch')
+    expect(s.altAttacks[0][0].attack.name.en.toLowerCase()).toContain('bite')
+  })
+})

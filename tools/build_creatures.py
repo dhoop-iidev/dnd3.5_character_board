@@ -722,9 +722,10 @@ def _weapon_names(weapons: list[dict]) -> dict[str, dict]:
     return {w["name"]["en"].lower(): w for w in weapons}
 
 
-def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_ids, size, bab, weapons, exc) -> list[dict]:
-    """First full-attack routine -> CreatureAttack[], with the consistency checks (exceptions appended to `exc`)."""
-    routine, fr_routine = en_routines[0], fr_routines[0] if fr_routines else None
+def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_ids, size, bab, weapons, exc, idx=0) -> list[dict]:
+    """Full-attack routine `idx` ("or" alternatives) -> CreatureAttack[], with the consistency checks (exceptions
+    appended to `exc`)."""
+    routine, fr_routine = en_routines[idx], fr_routines[idx] if fr_routines else None
     if fr_routine is not None:
         assert len(fr_routine) == len(routine), (cid, routine, fr_routine)
     wnames = _weapon_names(weapons)
@@ -770,8 +771,6 @@ def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_
             exc.append(f"{cid}: {a['name']} (weapon) attack +{bonus} != computed +{expected}")
         if not w and not ray:
             first_natural = False
-        if len(a["bonuses"]) > 1:
-            exc.append(f"{cid}: {a['name']} has iterative attacks {'/'.join(f'{b:+d}' for b in a['bonuses'])} (only the first bonus is stored)")
         # Str on damage (https://www.d20srd.org/srd/combat/actionsInCombat.htm#strengthBonus,
         # https://www.d20srd.org/srd/monsters/intro.htm natural weapons: sole attack 1.5, secondary 0.5)
         if ray or a["damage"] == "0" or (w is not None and w["kind"] == "ranged"):
@@ -815,6 +814,9 @@ def build_attacks(cid: str, r, en_routines, fr_routines, abil, feat_names, feat_
                  strDamageFactor=factor)
         if a["critical"]:
             d["critical"] = a["critical"]
+        # Iterative attacks of a weapon (+9/+4): the following bonuses, as printed.
+        if len(a["bonuses"]) > 1:
+            d["iterative"] = a["bonuses"][1:]
         out.append(d)
     return out
 
@@ -949,9 +951,10 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         fr_routines = parse_fr_attacks(ff["Attaque à outrance"]) if fr else None
         if fr_routines is not None:
             assert len(fr_routines) == len(en_routines), (cid, r["full_attack"], ff["Attaque à outrance"])
-        if len(en_routines) > 1:
-            exc.append(f"{cid}: alternative full attacks, only the first is stored: {r['full_attack']}")
         attacks = build_attacks(cid, r, en_routines, fr_routines, abil, feat_names + bonus_names, fids, size, bab, weapons, exc)
+        # Alternative full attacks ("or" in the stat block), e.g. arrowhawk: electricity ray or bite.
+        alt_attacks = [build_attacks(cid, r, en_routines, fr_routines, abil, feat_names + bonus_names, fids, size, bab, weapons, exc, i)
+                       for i in range(1, len(en_routines))]
 
         # Texts
         feats_en = ", ".join(sorted(feat_names + [f"{b} (B)" for b in bonus_names], key=str.lower)) or "—"
@@ -985,7 +988,7 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
         d = {
             "id": cid, "name": i18n(dbname, name_fr), "size": size, "type": typ, "typeText": i18n(type_en, type_fr),
             "hitDice": hd, "hp": hp, "initiative": signed(r["initiative"]), "speed": speed, "ac": ac, "bab": bab,
-            "grapple": grapple, "attacks": attacks, "space": parse_feet(r["space"]), "reach": parse_feet(r["reach"]),
+            "grapple": grapple, "attacks": attacks, **({"altAttacks": alt_attacks} if alt_attacks else {}), "space": parse_feet(r["space"]), "reach": parse_feet(r["reach"]),
             "saves": saves, "abilities": abil, "skills": i18n(skills_en, skills_fr), "feats": i18n(feats_en, feats_fr),
             "featIds": fids, "specialAttacks": i18n(dash(r["special_attacks"]), sa_fr),
             "specialQualities": i18n(dash(r["special_qualities"]), sq_fr),

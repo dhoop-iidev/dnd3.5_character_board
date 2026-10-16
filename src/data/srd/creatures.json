@@ -164,6 +164,23 @@
         "strDamageFactor": 0
       }
     ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Bite",
+            "fr": "Morsure"
+          },
+          "bonus": 12,
+          "damage": "1d8+3",
+          "kind": "melee",
+          "role": "primary",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 1.5
+        }
+      ]
+    ],
     "space": 5,
     "reach": 5,
     "saves": {
@@ -267,6 +284,23 @@
         "attackAbility": "dex",
         "strDamageFactor": 0
       }
+    ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Bite",
+            "fr": "Morsure"
+          },
+          "bonus": 20,
+          "damage": "2d6+9",
+          "kind": "melee",
+          "role": "primary",
+          "count": 1,
+          "attackAbility": "str",
+          "strDamageFactor": 1.5
+        }
+      ]
     ],
     "space": 10,
     "reach": 5,
@@ -375,6 +409,23 @@
         "attackAbility": "dex",
         "strDamageFactor": 0
       }
+    ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Bite",
+            "fr": "Morsure"
+          },
+          "bonus": 9,
+          "damage": "1d6+1",
+          "kind": "melee",
+          "role": "primary",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 1.5
+        }
+      ]
     ],
     "space": 5,
     "reach": 5,
@@ -1355,6 +1406,23 @@
         "strDamageFactor": 1.5
       }
     ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Tail slap",
+            "fr": "Queue"
+          },
+          "bonus": 6,
+          "damage": "1d12+6",
+          "kind": "melee",
+          "role": "primary",
+          "count": 1,
+          "attackAbility": "str",
+          "strDamageFactor": 1.5
+        }
+      ]
+    ],
     "space": 5,
     "reach": 5,
     "saves": {
@@ -1456,6 +1524,23 @@
         "attackAbility": "str",
         "strDamageFactor": 1.5
       }
+    ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Tail slap",
+            "fr": "Queue"
+          },
+          "bonus": 11,
+          "damage": "1d12+12",
+          "kind": "melee",
+          "role": "primary",
+          "count": 1,
+          "attackAbility": "str",
+          "strDamageFactor": 1.5
+        }
+      ]
     ],
     "space": 15,
     "reach": 10,
@@ -6215,6 +6300,23 @@
         "strDamageFactor": 0.5
       }
     ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Gore",
+            "fr": "Défenses"
+          },
+          "bonus": 16,
+          "damage": "2d8+15",
+          "kind": "melee",
+          "role": "primary",
+          "count": 1,
+          "attackAbility": "str",
+          "strDamageFactor": 1.5
+        }
+      ]
+    ],
     "space": 15,
     "reach": 10,
     "saves": {
@@ -6552,6 +6654,24 @@
         "strDamageFactor": 1,
         "critical": "19-20/×2"
       }
+    ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Longbow",
+            "fr": "Arc long"
+          },
+          "bonus": 6,
+          "damage": "1d4-3",
+          "kind": "ranged",
+          "role": "weapon",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 0,
+          "critical": "×3"
+        }
+      ]
     ],
     "space": 2.5,
     "reach": 0,
@@ -7178,8 +7298,32 @@
         "count": 1,
         "attackAbility": "str",
         "strDamageFactor": 1,
-        "critical": "18-20/×2"
+        "critical": "18-20/×2",
+        "iterative": [
+          4
+        ]
       }
+    ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Longbow",
+            "fr": "Arc long"
+          },
+          "bonus": 8,
+          "damage": "1d8",
+          "kind": "ranged",
+          "role": "weapon",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 0,
+          "critical": "×3",
+          "iterative": [
+            3
+          ]
+        }
+      ]
     ],
     "space": 5,
     "reach": 5,
@@ -7846,6 +7990,24 @@
         "critical": "19-20/×2"
       }
     ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Light crossbow",
+            "fr": "Arbalète légère"
+          },
+          "bonus": 4,
+          "damage": "1d6",
+          "kind": "ranged",
+          "role": "weapon",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 0,
+          "critical": "19-20/×2"
+        }
+      ]
+    ],
     "space": 5,
     "reach": 5,
     "saves": {
@@ -8398,6 +8560,24 @@
         "critical": "19-20/×2"
       }
     ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Longbow",
+            "fr": "Arc long"
+          },
+          "bonus": 5,
+          "damage": "1d6-2",
+          "kind": "ranged",
+          "role": "weapon",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 0,
+          "critical": "×3"
+        }
+      ]
+    ],
     "space": 5,
     "reach": 5,
     "saves": {
@@ -8925,7 +9105,10 @@
         "count": 1,
         "attackAbility": "str",
         "strDamageFactor": 1.5,
-        "critical": "×3"
+        "critical": "×3",
+        "iterative": [
+          6
+        ]
       },
       {
         "name": {
@@ -9172,7 +9355,11 @@
         "count": 1,
         "attackAbility": "str",
         "strDamageFactor": 1.5,
-        "critical": "×3"
+        "critical": "×3",
+        "iterative": [
+          18,
+          13
+        ]
       },
       {
         "name": {
@@ -9310,6 +9497,24 @@
         "strDamageFactor": 1,
         "critical": "19-20/×2"
       }
+    ],
+    "altAttacks": [
+      [
+        {
+          "name": {
+            "en": "Shortbow",
+            "fr": "Arc court"
+          },
+          "bonus": 3,
+          "damage": "1d6",
+          "kind": "ranged",
+          "role": "weapon",
+          "count": 1,
+          "attackAbility": "dex",
+          "strDamageFactor": 0,
+          "critical": "×3"
+        }
+      ]
     ],
     "space": 5,
     "reach": 5,
