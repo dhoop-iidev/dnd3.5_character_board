@@ -330,6 +330,17 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   if (SIZE_HIDE[size])
     // Size modifier on Hide (https://www.d20srd.org/srd/skills/hide.htm): Small +4, Large −4…
     mods.push({ spec: { target: 'skill.hide', bonusType: 'size', value: SIZE_HIDE[size] }, sourceId: 'size', label: sizeLabel, source: { srdUrl: 'https://www.d20srd.org/srd/skills/hide.htm' } })
+  // ---- wild shape: the +8 racial bonus that comes with a climb or swim speed (house rule #24: part of the movement
+  // mode; https://www.d20srd.org/srd/specialAbilities.htm#movementModes, skills/climb.htm, skills/swim.htm).
+  if (shape?.speed.climb)
+    mods.push({ spec: { target: 'skill.climb', bonusType: 'racial', value: 8 }, sourceId: 'wild-shape-climb', label: i18n(`Climb speed (${shape.name.en})`, `Vitesse d’escalade (${shape.name.fr})`), source: { srdUrl: 'https://www.d20srd.org/srd/skills/climb.htm', houseRule: 24 } })
+  if (shape?.speed.swim)
+    mods.push({
+      spec: { target: 'skill.swim', bonusType: 'racial', value: 8, condition: i18n('special action or hazard (can always take 10)', 'action spéciale ou danger (peut toujours faire 10)') },
+      sourceId: 'wild-shape-swim',
+      label: i18n(`Swim speed (${shape.name.en})`, `Vitesse de nage (${shape.name.fr})`),
+      source: { srdUrl: 'https://www.d20srd.org/srd/skills/swim.htm', houseRule: 24 },
+    })
   // ---- class features with modifiers
   for (const [classId, n] of Object.entries(classLevels))
     for (const f of rules.classes.get(classId)?.features ?? [])

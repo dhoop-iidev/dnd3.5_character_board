@@ -40,4 +40,10 @@ Open questions from the um_actually review of 2026-10-15 (`docs/reviews/um_actua
 - Wild armor keeps its armor bonus (and enhancement) in wild shape (https://www.d20srd.org/srd/magicItems/magicArmor.htm#wild); other items stop working. Barkskin (a spell) still adds to the form's natural armor.
 - Attacks: her BAB + the form's Str (Dex with her own Weapon Finesse) + new size; secondary natural attacks −5 (−2 with her own Multiattack) and ½ Str; a sole natural attack 1½ Str; the form's damage dice.
 - **App:** abilities, size modifiers, natural armor, land speed and natural attacks come from the form; hit points are those of her own form; all gear is melded (treated as stored) except wild armor/shields and items the player ticks (DM's choice); the form's feats, special qualities and racial skill bonuses are not applied.
-- **Open:** the form's +8 racial bonus on Climb/Swim that comes with a climb or swim speed — part of the movement mode or a racial skill bonus? → house rule #24 (pending).
+- The form's +8 Climb/Swim from a climb/swim speed: see C5 (house rule #24).
+
+## C5. Wild shape and the +8 Climb/Swim of a climb/swim speed — **decided: house rule #24 (gained)** (medium)
+- SRD ties the bonus to the speed: "A creature with a climb speed has a +8 racial bonus on all Climb checks"; a creature with a swim speed "gains a +8 racial bonus on any Swim check to perform a special action or avoid a hazard", can always take 10 and can run while swimming (https://www.d20srd.org/srd/specialAbilities.htm#movementModes, https://www.d20srd.org/srd/skills/swim.htm).
+- Errata'd Alternate Form gives the form's movement modes and keeps the original's skill ranks; it says nothing on racial skill modifiers. FAQ p. 88 (racial traits retained, new ones not gained) is about the character's own race. No FAQ entry on swim/climb speeds in wild shape.
+- Community: EN World "Druid Wildshape?" (Oct 2006, right after the errata: the +8 comes with the speed); some Paizo posts read the errata as removing all racial skill bonuses.
+- **App:** +8 racial on Climb with a climb speed; +8 racial on Swim (situational: special action or hazard) with a swim speed. Other racial skill bonuses of the form (e.g. a cat's Balance) are not gained.

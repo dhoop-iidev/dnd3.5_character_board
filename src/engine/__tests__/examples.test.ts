@@ -76,4 +76,10 @@ describe('wild shape (druid 10 → dire wolf; PHB/MM errata 2006, docs/rules/rul
     delete c.wildShape
     expect(compute(c, rules).ac.total).toBe(20)
   })
+  it('house rule #24: a form with a climb speed gives +8 racial on Climb', () => {
+    const c = migrate(structuredClone(druidJson))
+    startWildShape(c, 'ape')
+    const climb = compute(c, rules).skills.find((k) => k.key === 'climb')!.total
+    expect(climb.parts.some((p) => p.sourceId === 'wild-shape-climb' && p.value === 8)).toBe(true)
+  })
 })
