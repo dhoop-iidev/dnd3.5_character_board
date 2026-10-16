@@ -52,7 +52,7 @@
             {@const sp = rules.spells.get(s.spellId)}
             {@const u = storedSpellUse(item, s, view.sheet, rules)}
             {#if sp}
-              <li class="school-{sp.schoolId}" class:spent={!u.left}>
+              <li class="school-row school-{sp.schoolId}" class:spent={!u.left}>
                 <button class="link" onclick={() => popup(item, s, sp)}>{tr(sp.name)}</button>
                 <small
                   >{tr({ en: `level ${s.level} · CL ${u.casterLevel} · DC ${u.dc}`, fr: `niv. ${s.level} · NLS ${u.casterLevel} · DD ${u.dc}` })}
@@ -103,8 +103,6 @@
     gap: 0.3rem 0.7rem;
     align-items: center;
     padding: 0.25rem 0.5rem;
-    border-left: 4px solid var(--school, var(--rule-strong));
-    background: var(--paper-2);
   }
   li.spent {
     opacity: 0.55;

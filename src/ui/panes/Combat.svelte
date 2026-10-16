@@ -201,6 +201,7 @@
     <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
     <div class="cell">
       <span>{tr({ en: 'BAB', fr: 'BBA' })}</span><StatValue stat={() => view.sheet.bab} title={UI.bab} />
+      {#if s.iterativeBab.length > 1}<small>{s.iterativeBab.map(fmt).join(' / ')}</small>{/if}
     </div>
     <div class="cell">
       <span>{tr(UI.grapple)}</span><StatValue stat={() => view.sheet.grapple} title={UI.grapple} />
@@ -214,6 +215,14 @@
     </div>
     <div class="cell">
       <span>{tr(UI.speed)}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong>
+      <small>{tr(s.speed.from)}</small>
+    </div>
+    <div class="cell">
+      <span>{tr({ en: 'Armor check', fr: 'Malus d’armure' })}</span><StatValue stat={() => view.sheet.armorCheckPenalty} title={UI.armorPenalty} />
+    </div>
+    <div class="cell">
+      <span>{tr({ en: 'Max Dex', fr: 'Dex max' })}</span><strong class="plain">{s.maxDex.value === null ? '—' : fmt(s.maxDex.value)}</strong>
+      <small>{tr(s.maxDex.from)}</small>
     </div>
   </div>
   {#if s.flags.some((f) => FLAGS[f])}<p class="flags">

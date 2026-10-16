@@ -189,7 +189,7 @@
         >
         {#each stored as s, i (i)}
           {@const sp = rules.spells.get(s.spellId)}
-          <div class="stored school-{sp?.schoolId}">
+          <div class="stored school-row school-{sp?.schoolId}">
             <strong>{tr(sp?.name)}</strong>
             <label class="inline">{tr({ en: 'level', fr: 'niveau' })}<input type="number" min="0" max="9" bind:value={s.level} /></label>
             <label class="inline">{tr({ en: 'caster level', fr: 'NLS' })}<input type="number" min="1" max="20" bind:value={s.casterLevel} /></label>
@@ -341,8 +341,6 @@
     gap: 0.5rem;
     align-items: center;
     padding: 0.3rem 0.5rem;
-    border-left: 4px solid var(--school, var(--rule-strong));
-    background: var(--paper-2);
   }
   label.inline {
     flex-direction: row;

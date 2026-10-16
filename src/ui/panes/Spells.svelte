@@ -278,7 +278,7 @@
           {#each slotsFor(sc, slot.spellLevel, slot.total) as prep, j (j)}
             {@const def = rules.spells.get(prep.id)}
             {@const extra = isExtraSlot(slot, j)}
-            <li class:cast={prep.cast} class:extra class="school-{def?.schoolId ?? 'none'}" title={def ? tr(def.school) : undefined}>
+            <li class:cast={prep.cast} class:extra class="school-row school-{def?.schoolId ?? 'none'}" title={def ? tr(def.school) : undefined}>
               {#if extra}<span class="tag"
                   >{sc.classId === 'cleric'
                     ? tr({ en: 'domain', fr: 'domaine' })
@@ -347,7 +347,7 @@
         <h4>{tr({ en: 'Level', fr: 'Niveau' })} {lvl}</h4>
         <ul class="list">
           {#each spellsOf(sc, lvl) as sp (sp.id)}
-            <li class="school-{sp.schoolId}" title={tr(sp.school)}>
+            <li class="school-row school-{sp.schoolId}" title={tr(sp.school)}>
               <button class="link" onclick={() => spellPopup(sp, sc)}>{tr(sp.name)}</button>
               <small>{tr(sp.summary)}</small>
             </li>
@@ -369,9 +369,10 @@
     font-size: 0.85rem;
   }
   .legend span {
-    border-left: 4px solid var(--school);
-    padding-left: 0.35rem;
-    color: var(--ink-soft);
+    background: color-mix(in srgb, var(--school) 18%, transparent);
+    border-left: 6px solid var(--school);
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
   }
   .rage-warn {
     color: var(--accent);
@@ -413,19 +414,18 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    padding: 0.3rem 0 0.3rem 0.5rem;
-    border-bottom: 1px solid var(--rule);
-    border-left: 4px solid var(--school, transparent);
+    padding: 0.3rem 0.4rem 0.3rem 0.6rem;
+    margin-bottom: 2px;
+    border-radius: 2px;
   }
   .slots li.extra {
-    background: var(--paper-2);
+    outline: 1px dashed var(--accent);
+    outline-offset: -1px;
   }
   .list li {
-    border-left: 4px solid var(--school, transparent);
-    padding-left: 0.5rem;
-  }
-  .list li .link {
-    color: var(--school, var(--ink));
+    padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+    margin-bottom: 2px;
+    border-radius: 2px;
   }
   .tag {
     font-size: 0.8rem;

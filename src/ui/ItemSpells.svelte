@@ -49,7 +49,7 @@
 <div class="itemspells">
   {#each item.spells ?? [] as s, i (i)}
     {@const sp = rules.spells.get(s.spellId)}
-    <div class="row school-{sp?.schoolId}">
+    <div class="row school-row school-{sp?.schoolId}">
       <strong>{tr(sp?.name) || s.spellId}</strong>
       <label>{tr({ en: 'level', fr: 'niveau' })}<input type="number" min="0" max="9" bind:value={s.level} /></label>
       <label>{tr({ en: 'caster level', fr: 'NLS' })}<input type="number" min="1" max="30" bind:value={s.casterLevel} /></label>
@@ -94,8 +94,7 @@
     align-items: center;
   }
   .row[class*='school-'] {
-    border-left: 4px solid var(--school, var(--rule-strong));
-    padding-left: 0.4rem;
+    padding: 0.2rem 0.4rem;
   }
   label {
     display: flex;

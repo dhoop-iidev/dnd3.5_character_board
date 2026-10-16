@@ -5,7 +5,6 @@
   import { unmetPrereqs } from '../../engine/validate'
   import { SUBTYPES, UI } from '../../i18n/ui'
   import { app, lang, tr, view } from '../../state.svelte'
-  import { fmtDistance } from '../format'
   import { openPopup } from '../popupState.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
@@ -124,14 +123,26 @@
   ])
 </script>
 
-<!-- Hero: abilities | portrait | vital statistics (inspired by ornate character sheets) -->
+<!-- Hero: abilities and saves | portrait | vital statistics (in-play numbers first; inspired by ornate sheets) -->
 <section class="hero">
-  <div class="col abilities">
-    {#each ABILITIES as a (a)}
-      <Medallion label={tr(ABILITY_LABEL[a])} sub={fmt(s.abilities[a].mod)} size="sm">
-        <StatValue stat={() => view.sheet.abilities[a].score} title={ABILITY_NAME[a]} signed={false} />
-      </Medallion>
-    {/each}
+  <div class="col stats">
+    <div class="abilities">
+      {#each ABILITIES as a (a)}
+        <Medallion label={tr(ABILITY_LABEL[a])} sub={fmt(s.abilities[a].mod)} size="sm">
+          <StatValue stat={() => view.sheet.abilities[a].score} title={ABILITY_NAME[a]} signed={false} />
+        </Medallion>
+      {/each}
+    </div>
+    <div class="saves-hero">
+      <div class="mini-title">{tr(UI.saves)}</div>
+      <div class="saves">
+        {#each SAVES as sv (sv.id)}
+          <Medallion label={tr(sv.label)} size="sm">
+            <StatValue stat={() => view.sheet.saves[sv.id]} title={sv.label} />
+          </Medallion>
+        {/each}
+      </div>
+    </div>
   </div>
 
   <div class="portrait">
@@ -186,41 +197,7 @@
 </section>
 <WarningList areas={['abilities']} />
 
-<IdentityCard />
-
 <div class="grid">
-  <section class="box">
-    <h3>{tr(UI.saves)}</h3>
-    <div class="saves">
-      {#each SAVES as sv (sv.id)}
-        <Medallion label={tr(sv.label)} size="sm">
-          <StatValue stat={() => view.sheet.saves[sv.id]} title={sv.label} />
-        </Medallion>
-      {/each}
-    </div>
-  </section>
-
-  <section class="box">
-    <h3>{tr({ en: 'Combat', fr: 'Combat' })}</h3>
-    <dl>
-      <dt>{tr(UI.bab)}</dt>
-      <dd>
-        <StatValue stat={() => view.sheet.bab} title={UI.bab} />
-        <span class="iter">{s.iterativeBab.map(fmt).join(' / ')}</span>
-      </dd>
-      <dt>{tr(UI.grapple)}</dt>
-      <dd><StatValue stat={() => view.sheet.grapple} title={UI.grapple} /></dd>
-      <dt>{tr(UI.speed)}</dt>
-      <dd>{fmtDistance(s.speed.current, lang())} <small>({tr(s.speed.from)})</small></dd>
-      <dt>{tr(UI.aoo)}</dt>
-      <dd><StatValue stat={() => view.sheet.attacksOfOpportunity} title={UI.aoo} signed={false} /></dd>
-      <dt>{tr(UI.armorPenalty)}</dt>
-      <dd><StatValue stat={() => view.sheet.armorCheckPenalty} title={UI.armorPenalty} /></dd>
-      <dt>{tr(UI.maxDex)}</dt>
-      <dd>{s.maxDex.value === null ? '—' : fmt(s.maxDex.value)} <small>({tr(s.maxDex.from)} · {tr({ en: 'AC only', fr: 'CA uniquement' })})</small></dd>
-    </dl>
-  </section>
-
   <section class="box wide">
     <h3>{tr(UI.skills)}</h3>
     <label class="toggle"><input type="checkbox" bind:checked={showAllSkills} /> {tr(UI.showAllSkills)}</label>
@@ -253,24 +230,7 @@
     <WarningList areas={['skills']} />
   </section>
 
-  <section class="box">
-    <h3>{tr(UI.feats)}</h3>
-    <ul class="feats">
-      {#each featLevels as f (f.featId + f.level)}
-        <li class:unusable={unusable(f.featId)}>
-          <button class="link" onclick={() => featPopup(f.featId, f.choice, f.level)}>
-            {tr(rules.feats.get(f.featId)?.name) || f.featId}{f.choice ? ` (${f.choice})` : ''}
-          </button>
-          <small>{f.level ? `${tr(UI.level)} ${f.level} · ` : ''}{tr(UI.slot[f.slot])}</small>
-          {#if unusable(f.featId)}<small class="badge">{tr(UI.unusable)}</small>{/if}
-          {#if rules.feats.get(f.featId)?.summary}<span class="sum">{tr(rules.feats.get(f.featId)!.summary)}</span>{/if}
-        </li>
-      {/each}
-    </ul>
-    <WarningList areas={['feats']} />
-  </section>
-
-  <section class="box">
+  <section class="box wide">
     <h3>{tr({ en: 'Racial traits', fr: 'Traits raciaux' })} — {tr(s.race.name)}</h3>
     <ul class="feats">
       {#each s.race.traits as t (t.name.en)}
@@ -286,7 +246,7 @@
     </ul>
   </section>
 
-  <section class="box">
+  <section class="box wide">
     <h3>{tr({ en: 'Class features', fr: 'Capacités de classe' })}</h3>
     <ul class="feats">
       {#each features as f (f.classId + f.level + f.name.en)}
@@ -316,6 +276,25 @@
     {/each}
   </section>
 
+  <section class="box wide">
+    <h3>{tr(UI.feats)}</h3>
+    <ul class="feats">
+      {#each featLevels as f (f.featId + f.level)}
+        <li class:unusable={unusable(f.featId)}>
+          <button class="link" onclick={() => featPopup(f.featId, f.choice, f.level)}>
+            {tr(rules.feats.get(f.featId)?.name) || f.featId}{f.choice ? ` (${f.choice})` : ''}
+          </button>
+          <small>{f.level ? `${tr(UI.level)} ${f.level} · ` : ''}{tr(UI.slot[f.slot])}</small>
+          {#if unusable(f.featId)}<small class="badge">{tr(UI.unusable)}</small>{/if}
+          {#if rules.feats.get(f.featId)?.summary}<span class="sum">{tr(rules.feats.get(f.featId)!.summary)}</span>{/if}
+        </li>
+      {/each}
+    </ul>
+    <WarningList areas={['feats']} />
+  </section>
+
+  <div class="wide"><IdentityCard /></div>
+
   <div class="wide"><LevelEditor /></div>
 </div>
 
@@ -333,10 +312,24 @@
     align-items: center;
     gap: 1rem;
   }
+  .stats {
+    gap: 1.1rem;
+  }
   .abilities {
     display: grid;
     grid-template-columns: repeat(2, auto);
     gap: 1rem 0.9rem;
+  }
+  .saves-hero {
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .mini-title {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
   }
   .pair,
   .saves {
@@ -436,38 +429,6 @@
     border-color: var(--frame);
     background: var(--paper-2);
   }
-  dl {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: stretch;
-    margin: 0;
-  }
-  dt,
-  dd {
-    min-height: 3.1rem;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--rule);
-  }
-  dt:last-of-type,
-  dd:last-of-type {
-    border-bottom: none;
-  }
-  dd {
-    margin: 0;
-    justify-content: flex-end;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    text-align: right;
-  }
-  dd small {
-    color: var(--ink-soft);
-  }
-  .iter {
-    color: var(--ink-soft);
-    font-family: var(--font-num);
-    font-size: 0.85em;
-  }
   .link {
     font: inherit;
     background: none;
@@ -521,10 +482,14 @@
   .extra.off {
     color: var(--ink-soft);
   }
+  /* Page-wide lists: two or three columns on a wide screen, one on a phone. */
   .feats {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    column-gap: 1.75rem;
   }
   .feats li {
     display: flex;

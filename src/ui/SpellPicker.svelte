@@ -24,7 +24,7 @@
       {#each results as sp (sp.id)}
         <li>
           <button
-            class="school-{sp.schoolId}"
+            class="school-row school-{sp.schoolId}"
             onclick={() => {
               onpick(sp)
               query = ''
@@ -66,10 +66,8 @@
     font: inherit;
     min-height: 2.4rem;
     padding: 0 0.6rem;
-    border: 1px solid var(--rule);
-    border-left: 4px solid var(--school, var(--rule-strong));
+    border: none;
     border-radius: 3px;
-    background: var(--box);
     color: var(--ink);
     cursor: pointer;
   }

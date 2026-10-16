@@ -28,15 +28,15 @@
   --warn: #9a6400;
   --danger: #a3241a;
   --shadow-pop: 0 12px 40px rgb(26 23 20 / 0.18), 0 2px 6px rgb(26 23 20 / 0.08);
-  /* Schools of magic: muted, distinct hues (visual cue on spell rows; text keeps the ink colour). */
-  --school-abjuration: #3b6c8c;
-  --school-conjuration: #9a6a1f;
-  --school-divination: #6b7b33;
-  --school-enchantment: #985079;
-  --school-evocation: #a3452f;
-  --school-illusion: #6650a0;
-  --school-necromancy: #45574c;
-  --school-transmutation: #2d7a68;
+  /* Schools of magic: distinct hues, used as a row tint and a thick edge (text keeps the ink colour). */
+  --school-abjuration: #2c6ba3;
+  --school-conjuration: #b8730f;
+  --school-divination: #6a8a1c;
+  --school-enchantment: #b23f7c;
+  --school-evocation: #c4432a;
+  --school-illusion: #6a4bbd;
+  --school-necromancy: #4d5563;
+  --school-transmutation: #11857a;
   --school-universal: #7a746b;
   /* Magic items: a discreet arcane tint. */
   --arcane: #5f4ea3;
@@ -72,29 +72,29 @@
     --warn: #e0a84a;
     --danger: #ef7b70;
     --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.6);
-    --school-abjuration: #7eaccc;
-    --school-conjuration: #d5a35a;
-    --school-divination: #a9b96c;
-    --school-enchantment: #d290b6;
-    --school-evocation: #e08467;
-    --school-illusion: #a796dc;
-    --school-necromancy: #93a99b;
-    --school-transmutation: #6cbfa9;
-    --school-universal: #b0a99d;
+    --school-abjuration: #6aaae8;
+    --school-conjuration: #f0a53c;
+    --school-divination: #a9cb4c;
+    --school-enchantment: #f07db8;
+    --school-evocation: #ff7d5f;
+    --school-illusion: #a991f2;
+    --school-necromancy: #a3aec0;
+    --school-transmutation: #42cfb8;
+    --school-universal: #b8b0a4;
     --arcane: #ab9ce6;
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
-  --school-abjuration: #7eaccc;
-  --school-conjuration: #d5a35a;
-  --school-divination: #a9b96c;
-  --school-enchantment: #d290b6;
-  --school-evocation: #e08467;
-  --school-illusion: #a796dc;
-  --school-necromancy: #93a99b;
-  --school-transmutation: #6cbfa9;
-  --school-universal: #b0a99d;
+  --school-abjuration: #6aaae8;
+  --school-conjuration: #f0a53c;
+  --school-divination: #a9cb4c;
+  --school-enchantment: #f07db8;
+  --school-evocation: #ff7d5f;
+  --school-illusion: #a991f2;
+  --school-necromancy: #a3aec0;
+  --school-transmutation: #42cfb8;
+  --school-universal: #b8b0a4;
   --arcane: #ab9ce6;
 
   --page: #0b0a09;
@@ -260,4 +260,10 @@ a:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .arcane { animation: none; }
+}
+
+/* A spell row of a given school: tinted background and a thick coloured edge. */
+.school-row {
+  background: color-mix(in srgb, var(--school, transparent) 15%, transparent);
+  border-left: 6px solid var(--school, var(--rule-strong));
 }
