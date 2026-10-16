@@ -123,9 +123,16 @@
   ])
 </script>
 
-<!-- Hero: abilities and saves | portrait | vital statistics (in-play numbers first; inspired by ornate sheets) -->
-<section class="hero">
-  <div class="col stats">
+<!-- Top: images and identity. Then every number used in play in one band (abilities, saves, AC, initiative,
+     hit points). Then skills, the abilities lists and the progression. -->
+<section class="top">
+  <div class="portrait"><Portraits /></div>
+  <div class="ident"><IdentityCard /></div>
+</section>
+
+<section class="box wide stats-band">
+  <h3>{tr({ en: 'In play', fr: 'En jeu' })}</h3>
+  <div class="band">
     <div class="abilities">
       {#each ABILITIES as a (a)}
         <Medallion label={tr(ABILITY_LABEL[a])} sub={fmt(s.abilities[a].mod)} size="sm">
@@ -143,13 +150,7 @@
         {/each}
       </div>
     </div>
-  </div>
-
-  <div class="portrait">
-    <Portraits />
-  </div>
-
-  <div class="col vitals">
+    <div class="col defense">
     <Medallion label={tr(UI.acShort)} size="lg">
       <StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} />
     </Medallion>
@@ -160,10 +161,11 @@
       <Medallion label={tr({ en: 'Flat', fr: 'Dépourvu' })} size="sm">
         <StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} />
       </Medallion>
+      <Medallion label={tr(UI.initiative)} size="sm">
+        <StatValue stat={() => view.sheet.initiative} title={UI.initiative} />
+      </Medallion>
     </div>
-    <Medallion label={tr(UI.initiative)} size="sm">
-      <StatValue stat={() => view.sheet.initiative} title={UI.initiative} />
-    </Medallion>
+    </div>
     <div class="hp-block">
       <div class="hp-title">{tr(UI.hp)}</div>
       <div class="hp">
@@ -293,18 +295,26 @@
     <WarningList areas={['feats']} />
   </section>
 
-  <div class="wide"><IdentityCard /></div>
-
   <div class="wide"><LevelEditor /></div>
 </div>
 
 <style>
-  .hero {
+  .top {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 1.5rem;
-    align-items: center;
-    margin-bottom: 1rem;
+    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+    margin-bottom: 1.25rem;
+  }
+  .stats-band {
+    margin-bottom: 1.25rem;
+  }
+  .band {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 1.25rem 2rem;
   }
   .col {
     display: flex;
@@ -312,17 +322,12 @@
     align-items: center;
     gap: 1rem;
   }
-  .stats {
-    gap: 1.1rem;
-  }
   .abilities {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(3, auto);
     gap: 1rem 0.9rem;
   }
   .saves-hero {
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--rule);
     text-align: center;
   }
   .mini-title {
@@ -338,13 +343,9 @@
     justify-content: center;
     flex-wrap: wrap;
   }
-  .saves {
-    padding: 0.25rem 0 0.25rem;
-  }
   .hp-block {
     text-align: center;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--rule);
+    min-width: 14rem;
   }
   .hp-title {
     font-family: var(--font-title);
@@ -352,25 +353,15 @@
     letter-spacing: 0.06em;
     color: var(--ink);
   }
-  /* Tablet portrait and phones: portrait on top, medallions below. */
+  /* Tablet portrait and phones: images, then identity, then the band wraps. */
   @media (max-width: 52rem) {
-    .hero {
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem 1rem;
-      align-items: start;
-    }
-    .portrait {
-      grid-column: 1 / -1;
-      order: -1;
-    }
-    .abilities {
-      grid-template-columns: repeat(3, auto);
-      justify-content: center;
-    }
-  }
-  @media (max-width: 30rem) {
-    .hero {
+    .top {
       grid-template-columns: 1fr;
+    }
+    /* Images stay moderate on a tablet so the numbers come up sooner. */
+    .portrait {
+      width: min(100%, 24rem);
+      justify-self: center;
     }
   }
 

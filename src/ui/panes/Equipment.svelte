@@ -83,66 +83,7 @@
 <div class="grid">
   <EquipmentDoll />
 
-  <section class="box wide">
-    <h3>{tr(UI.load)}</h3>
-    <div class="load">
-      <strong>{fmtWeight(load.carried, lang())}</strong>
-      <span class="band {load.band}">{tr(UI.loadBand[load.band])}</span>
-      <span class="limits">
-        {tr(UI.loadBand.light)} ≤ {fmtWeight(load.limits.light, lang())} ·
-        {tr(UI.loadBand.medium)} ≤ {fmtWeight(load.limits.medium, lang())} ·
-        {tr(UI.loadBand.heavy)} ≤ {fmtWeight(load.limits.heavy, lang())}
-      </span>
-    </div>
-    <div class="bar" role="meter" aria-valuenow={load.carried.lb} aria-valuemin={0} aria-valuemax={load.limits.heavy.lb}>
-      <div class="fill {load.band}" style="width: {pct}%"></div>
-      <div class="mark" style="left: {(load.limits.light.lb / load.limits.heavy.lb) * 100}%"></div>
-      <div class="mark" style="left: {(load.limits.medium.lb / load.limits.heavy.lb) * 100}%"></div>
-    </div>
-    <p class="total">
-      {tr({ en: 'Lift over head', fr: 'Soulever au-dessus de la tête' })} {fmtWeight(load.limits.heavy, lang())} ·
-      {tr({ en: 'lift off the ground', fr: 'soulever du sol' })} {fmtWeight({ lb: load.limits.heavy.lb * 2, kg: load.limits.heavy.kg * 2 }, lang())} ·
-      {tr({ en: 'push or drag', fr: 'pousser ou tirer' })} {fmtWeight({ lb: load.limits.heavy.lb * 5, kg: load.limits.heavy.kg * 5 }, lang())}
-      <a href="https://www.d20srd.org/srd/carryingCapacity.htm#liftingandDragging" target="_blank" rel="noopener">d20srd</a>
-    </p>
-    <p class="total">{tr({ en: 'Total value of items', fr: 'Valeur totale des objets' })} : {fmtGp(totalGp)}</p>
-    <WarningList areas={['inventory']} />
-  </section>
-
-  <section class="box wide">
-    <h3>{tr({ en: 'Add an item', fr: 'Ajouter un objet' })}</h3>
-    <input
-      type="search"
-      bind:value={query}
-      placeholder={tr({ en: 'Search weapons, armor, gear, magic items…', fr: 'Chercher armes, armures, matériel, objets magiques…' })}
-    />
-    {#if results.length}
-      <ul class="results">
-        {#each results as r (r.kind + r.id)}
-          <li><button onclick={() => add(r.kind, r.id)}>＋ {tr(r.name)} <small>{r.kind}</small></button></li>
-        {/each}
-      </ul>
-    {/if}
-    <CustomItemForm />
-  </section>
-
-  <section class="box wide">
-    <h3>{tr({ en: 'Money', fr: 'Argent' })}</h3>
-    <div class="money">
-      {#each [['pp', 'pp', 'pp'], ['gp', 'gp', 'po'], ['sp', 'sp', "pa"], ['cp', 'cp', 'pc']] as const as [key, en, fr] (key)}
-        <label>{tr({ en, fr })}<input type="number" min="0" bind:value={app.character.money[key]} /></label>
-      {/each}
-      <p class="total">
-        = {fmtGp(app.character.money.pp * 10 + app.character.money.gp + app.character.money.sp / 10 + app.character.money.cp / 100)}
-        · {tr({ en: 'coins weigh 50 per lb (counted in the load)', fr: 'les pièces pèsent 100 au kg (comptées dans la charge)' })}
-      </p>
-      <label class="other">
-        {tr({ en: 'Gems, art and other wealth', fr: 'Gemmes, objets d’art et autres richesses' })}
-        <textarea rows="2" bind:value={app.character.money.other}></textarea>
-      </label>
-    </div>
-  </section>
-
+  <!-- What is carried first; money, load and adding items at the end. -->
   {#each LOCATIONS as loc (loc.id)}
     {@const items = app.character.inventory.filter((i) => i.location === loc.id)}
     {#if items.length}
@@ -211,6 +152,66 @@
       </section>
     {/if}
   {/each}
+
+  <section class="box wide">
+    <h3>{tr({ en: 'Money', fr: 'Argent' })}</h3>
+    <div class="money">
+      {#each [['pp', 'pp', 'pp'], ['gp', 'gp', 'po'], ['sp', 'sp', "pa"], ['cp', 'cp', 'pc']] as const as [key, en, fr] (key)}
+        <label>{tr({ en, fr })}<input type="number" min="0" bind:value={app.character.money[key]} /></label>
+      {/each}
+      <p class="total">
+        = {fmtGp(app.character.money.pp * 10 + app.character.money.gp + app.character.money.sp / 10 + app.character.money.cp / 100)}
+        · {tr({ en: 'coins weigh 50 per lb (counted in the load)', fr: 'les pièces pèsent 100 au kg (comptées dans la charge)' })}
+      </p>
+      <label class="other">
+        {tr({ en: 'Gems, art and other wealth', fr: 'Gemmes, objets d’art et autres richesses' })}
+        <textarea rows="2" bind:value={app.character.money.other}></textarea>
+      </label>
+    </div>
+  </section>
+
+  <section class="box wide">
+    <h3>{tr(UI.load)}</h3>
+    <div class="load">
+      <strong>{fmtWeight(load.carried, lang())}</strong>
+      <span class="band {load.band}">{tr(UI.loadBand[load.band])}</span>
+      <span class="limits">
+        {tr(UI.loadBand.light)} ≤ {fmtWeight(load.limits.light, lang())} ·
+        {tr(UI.loadBand.medium)} ≤ {fmtWeight(load.limits.medium, lang())} ·
+        {tr(UI.loadBand.heavy)} ≤ {fmtWeight(load.limits.heavy, lang())}
+      </span>
+    </div>
+    <div class="bar" role="meter" aria-valuenow={load.carried.lb} aria-valuemin={0} aria-valuemax={load.limits.heavy.lb}>
+      <div class="fill {load.band}" style="width: {pct}%"></div>
+      <div class="mark" style="left: {(load.limits.light.lb / load.limits.heavy.lb) * 100}%"></div>
+      <div class="mark" style="left: {(load.limits.medium.lb / load.limits.heavy.lb) * 100}%"></div>
+    </div>
+    <p class="total">
+      {tr({ en: 'Lift over head', fr: 'Soulever au-dessus de la tête' })} {fmtWeight(load.limits.heavy, lang())} ·
+      {tr({ en: 'lift off the ground', fr: 'soulever du sol' })} {fmtWeight({ lb: load.limits.heavy.lb * 2, kg: load.limits.heavy.kg * 2 }, lang())} ·
+      {tr({ en: 'push or drag', fr: 'pousser ou tirer' })} {fmtWeight({ lb: load.limits.heavy.lb * 5, kg: load.limits.heavy.kg * 5 }, lang())}
+      <a href="https://www.d20srd.org/srd/carryingCapacity.htm#liftingandDragging" target="_blank" rel="noopener">d20srd</a>
+    </p>
+    <p class="total">{tr({ en: 'Total value of items', fr: 'Valeur totale des objets' })} : {fmtGp(totalGp)}</p>
+    <WarningList areas={['inventory']} />
+  </section>
+
+  <section class="box wide">
+    <h3>{tr({ en: 'Add an item', fr: 'Ajouter un objet' })}</h3>
+    <input
+      type="search"
+      bind:value={query}
+      placeholder={tr({ en: 'Search weapons, armor, gear, magic items…', fr: 'Chercher armes, armures, matériel, objets magiques…' })}
+    />
+    {#if results.length}
+      <ul class="results">
+        {#each results as r (r.kind + r.id)}
+          <li><button onclick={() => add(r.kind, r.id)}>＋ {tr(r.name)} <small>{r.kind}</small></button></li>
+        {/each}
+      </ul>
+    {/if}
+    <CustomItemForm />
+  </section>
 </div>
 
 <style>
@@ -224,17 +225,18 @@
     display: block;
     color: var(--arcane);
   }
-  /* Stored-spell editor: discreet on ordinary gear, tinted on items that hold spells. */
-  .spellbtn {
+  /* Stored-spell editor: discreet on ordinary gear, tinted on items that hold spells
+     (more specific than ".actions button"). */
+  .actions .spellbtn {
     border-color: transparent;
     background: none;
     color: var(--rule-strong);
     font-size: 0.85rem;
   }
-  .spellbtn.has {
+  .actions .spellbtn.has {
     color: var(--arcane);
   }
-  .spellbtn.on {
+  .actions .spellbtn.on {
     border-color: var(--rule-strong);
     color: var(--arcane);
   }

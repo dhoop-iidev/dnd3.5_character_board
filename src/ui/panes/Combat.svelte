@@ -214,7 +214,7 @@
       />
     </div>
     <div class="cell">
-      <span>{tr(UI.speed)}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong>
+      <span>{tr({ en: 'Speed', fr: 'Vitesse' })}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong>
       <small>{tr(s.speed.from)}</small>
     </div>
     <div class="cell">
@@ -236,90 +236,71 @@
 <TurnBar />
 
 <div class="grid">
-  <section class="box">
-    <h3>{tr({ en: 'Combat options', fr: 'Options de combat' })}</h3>
-    {#if hasFeat('power-attack')}
-      <label class="slider">
-        <span>{tr({ en: 'Power Attack', fr: 'Attaque en puissance' })} : <strong>{t.powerAttack}</strong></span>
-        <input type="range" min="0" max={maxPa} bind:value={app.character.toggles.powerAttack} />
-      </label>
-    {/if}
-    {#if hasFeat('combat-expertise')}
-      <label class="slider">
-        <span>{tr({ en: 'Combat Expertise', fr: 'Expertise du combat' })} : <strong>{t.combatExpertise}</strong></span>
-        <input type="range" min="0" max={maxCe} bind:value={app.character.toggles.combatExpertise} disabled={t.totalDefense || s.flags.includes('raging')} />
-      </label>
-    {/if}
-    <label class="check">
-      <input type="checkbox" bind:checked={app.character.toggles.fightingDefensively} disabled={t.totalDefense} />
-      {tumble5
-        ? tr({ en: 'Fighting defensively (−4 attack, +3 AC with Tumble)', fr: 'Combat sur la défensive (−4 attaque, +3 CA avec Acrobaties)' })
-        : tr({ en: 'Fighting defensively (−4 attack, +2 AC)', fr: 'Combat sur la défensive (−4 attaque, +2 CA)' })}
-    </label>
-    <label class="check">
-      <input type="checkbox" bind:checked={app.character.toggles.totalDefense} disabled={t.fightingDefensively} />
-      {tumble5
-        ? tr({ en: 'Total defense (+6 AC with Tumble, no attack)', fr: 'Défense totale (+6 CA avec Acrobaties, pas d’attaque)' })
-        : tr({ en: 'Total defense (+4 AC, no attack)', fr: 'Défense totale (+4 CA, pas d’attaque)' })}
-    </label>
-    <label class="check">
-      <input type="checkbox" bind:checked={app.character.toggles.situational['flatFooted']} />
-      {tr(UI.flatFooted)}
-    </label>
-    {#if s.attacks.some((a) => a.weapon.id === 'lance')}
-      <label class="check">
-        <input type="checkbox" bind:checked={app.character.toggles.mounted} />
-        {tr({ en: 'Mounted (lance in one hand)', fr: 'En selle (lance à une main)' })}
-      </label>
-    {/if}
-    {#if s.feats.some((f) => f.featId === 'rapid-shot')}
-      <label class="check">
-        <input type="checkbox" bind:checked={app.character.toggles.rapidShot} />
+  <!-- In play first: weapons in hand and attacks; then the combat options and class blocks; the rest last. -->
+  {#if app.character.wildShape}
+    <section class="box wide">
+      <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
+      <p class="note">
         {tr({
-          en: 'Rapid Shot (extra ranged attack, −2 on all)',
-          fr: 'Tir rapide (attaque à distance supplémentaire, −2 à toutes)',
+          en: 'In wild shape: weapons and shield are melded into the form; the natural attacks of the form are used.',
+          fr: 'Sous forme animale : armes et bouclier sont fondus dans la forme ; les attaques naturelles de la forme sont utilisées.',
         })}
+      </p>
+    </section>
+  {:else}
+    <!-- A full-width strip (checkboxes side by side), so the attacks come right after it. -->
+    <section class="box wide">
+      <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
+      <div class="inhand-row">
+      <p class="note">{tr({ en: 'Weapons in hand:', fr: 'Armes en main :' })}</p>
+      {#each weapons as w (w.uid)}
+        <label class="check">
+          <input type="checkbox" checked={loadout.weapons.includes(w.uid)} onchange={() => toggleWeapon(w.uid)} />
+          {tr(itemInfo(w).name)}
+        </label>
+        {#if loadout.weapons.includes(w.uid) && rules.weapons.get(w.refId)?.handedness === 'oneHanded'}
+          <label class="check grip">
+            <input
+              type="checkbox"
+              checked={(loadout.twoHanded ?? []).includes(w.uid)}
+              onchange={() => toggleGrip(w.uid)}
+            />
+            {tr({ en: 'held in two hands (Str ×1.5)', fr: 'tenue à deux mains (For ×1,5)' })}
+          </label>
+        {/if}
+      {/each}
+      {#if meleeInHand >= 2}
+        <label class="check">
+          <input
+            type="checkbox"
+            checked={!!loadout.twoWeapon}
+            onchange={(e) =>
+              (app.character.loadouts.find((x) => x.id === loadout.id)!.twoWeapon = e.currentTarget.checked)}
+          />
+          {tr({
+            en: 'Fight with two weapons (first ticked = primary hand)',
+            fr: 'Combattre à deux armes (la première cochée = main directrice)',
+          })}
+        </label>
+      {/if}
+      <label class="field">
+        {tr({ en: 'Shield strapped on', fr: 'Bouclier au bras' })}
+        <select
+          value={loadout.shield ?? ''}
+          onchange={(e) => {
+            const l = app.character.loadouts.find((x) => x.id === loadout.id)!
+            const v = e.currentTarget.value
+            if (v) l.shield = v
+            else delete l.shield
+          }}
+        >
+          <option value="">—</option>
+          {#each shields as sh (sh.uid)}<option value={sh.uid}>{tr(itemInfo(sh).name)}</option>{/each}
+        </select>
       </label>
-    {/if}
-  </section>
-
-  <section class="box">
-    <h3>{tr({ en: 'Resistances & conditional modifiers', fr: 'Résistances et modificateurs conditionnels' })}</h3>
-    <div class="fields">
-      <label>
-        {tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}
-        {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong
-          >{/each}
-        <input bind:value={app.character.defenses.dr} placeholder="—" />
-      </label>
-      <label
-        >{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input
-          bind:value={app.character.defenses.sr}
-          placeholder="—"
-        /></label
-      >
-      <label class="wide"
-        >{tr({ en: 'Energy resistances', fr: 'Résistances aux énergies' })}<input
-          bind:value={app.character.defenses.resistances}
-          placeholder="—"
-        /></label
-      >
-      <label class="wide">
-        {tr({
-          en: 'Conditional modifiers (e.g. +2 vs fear)',
-          fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)',
-        })}
-        <textarea rows="3" bind:value={app.character.conditionalModifiers}></textarea>
-      </label>
-    </div>
-  </section>
-
-  {#if s.classFeatures.rage || s.classFeatures.flurry || s.classFeatures.sneakAttack || s.classFeatures.abilities.length || s.classFeatures.notes.length}<div class="wide"><ClassFeaturesBlock /></div>{/if}
-  {#if c.inventory.some((i) => i.spells?.length && i.location !== 'stored')}<div class="wide"><SpellItemsBlock /></div>{/if}
-  {#if s.turning}<div class="wide"><TurningBlock /></div>{/if}
-  {#if ((s.classLevels['druid'] ?? 0) >= 5 && !s.lostClasses.includes('druid')) || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
-  {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
-  {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
+      </div>
+    </section>
+  {/if}
 
   <section class="box wide">
     <h3>{tr({ en: 'Attacks', fr: 'Attaques' })}</h3>
@@ -410,50 +391,52 @@
     <WarningList areas={['combat']} />
   </section>
 
-  {#if s.weaponMaster.level > 0}
-    <section class="box">
-      <h3>{tr({ en: 'Weapon Master', fr: "Maître d'armes" })} {s.weaponMaster.level}</h3>
-      {#if !s.weaponMaster.active}
-        <p class="inactive">
-          {tr({
-            en: 'Class features suspended: requirements no longer met (Complete Warrior p.16).',
-            fr: 'Pouvoirs suspendus : conditions de la classe plus remplies (Complete Warrior p.16).',
-          })}
-        </p>
-      {/if}
-      <div class="uses">
-        <span>{tr({ en: 'Ki damage', fr: 'Dégâts ki' })}</span>
-        <button onclick={() => spend('ki-damage', -1, s.weaponMaster.kiDamagePerDay)}>−</button>
-        <strong>{s.weaponMaster.kiDamagePerDay - used('ki-damage')} / {s.weaponMaster.kiDamagePerDay}</strong>
-        <button onclick={() => spend('ki-damage', 1, s.weaponMaster.kiDamagePerDay)}
-          >{tr({ en: 'Use', fr: 'Utiliser' })}</button
-        >
-      </div>
-      {#if s.weaponMaster.increasedMultiplierPerDay}
-        <div class="uses">
-          <span>{tr({ en: 'Increased multiplier', fr: 'Multiplicateur accru' })}</span>
-          <button onclick={() => spend('increased-multiplier', -1, s.weaponMaster.increasedMultiplierPerDay)}>−</button>
-          <strong
-            >{s.weaponMaster.increasedMultiplierPerDay - used('increased-multiplier')} / {s.weaponMaster
-              .increasedMultiplierPerDay}</strong
-          >
-          <button onclick={() => spend('increased-multiplier', 1, s.weaponMaster.increasedMultiplierPerDay)}
-            >{tr({ en: 'Use', fr: 'Utiliser' })}</button
-          >
-        </div>
-      {/if}
-      <p class="note">
+  <section class="box">
+    <h3>{tr({ en: 'Combat options', fr: 'Options de combat' })}</h3>
+    {#if hasFeat('power-attack')}
+      <label class="slider">
+        <span>{tr({ en: 'Power Attack', fr: 'Attaque en puissance' })} : <strong>{t.powerAttack}</strong></span>
+        <input type="range" min="0" max={maxPa} bind:value={app.character.toggles.powerAttack} />
+      </label>
+    {/if}
+    {#if hasFeat('combat-expertise')}
+      <label class="slider">
+        <span>{tr({ en: 'Combat Expertise', fr: 'Expertise du combat' })} : <strong>{t.combatExpertise}</strong></span>
+        <input type="range" min="0" max={maxCe} bind:value={app.character.toggles.combatExpertise} disabled={t.totalDefense || s.flags.includes('raging')} />
+      </label>
+    {/if}
+    <label class="check">
+      <input type="checkbox" bind:checked={app.character.toggles.fightingDefensively} disabled={t.totalDefense} />
+      {tumble5
+        ? tr({ en: 'Fighting defensively (−4 attack, +3 AC with Tumble)', fr: 'Combat sur la défensive (−4 attaque, +3 CA avec Acrobaties)' })
+        : tr({ en: 'Fighting defensively (−4 attack, +2 AC)', fr: 'Combat sur la défensive (−4 attaque, +2 CA)' })}
+    </label>
+    <label class="check">
+      <input type="checkbox" bind:checked={app.character.toggles.totalDefense} disabled={t.fightingDefensively} />
+      {tumble5
+        ? tr({ en: 'Total defense (+6 AC with Tumble, no attack)', fr: 'Défense totale (+6 CA avec Acrobaties, pas d’attaque)' })
+        : tr({ en: 'Total defense (+4 AC, no attack)', fr: 'Défense totale (+4 CA, pas d’attaque)' })}
+    </label>
+    <label class="check">
+      <input type="checkbox" bind:checked={app.character.toggles.situational['flatFooted']} />
+      {tr(UI.flatFooted)}
+    </label>
+    {#if s.attacks.some((a) => a.weapon.id === 'lance')}
+      <label class="check">
+        <input type="checkbox" bind:checked={app.character.toggles.mounted} />
+        {tr({ en: 'Mounted (lance in one hand)', fr: 'En selle (lance à une main)' })}
+      </label>
+    {/if}
+    {#if s.feats.some((f) => f.featId === 'rapid-shot')}
+      <label class="check">
+        <input type="checkbox" bind:checked={app.character.toggles.rapidShot} />
         {tr({
-          en: 'Ki damage: maximum weapon damage instead of rolling; not on a critical hit; Power Attack is rolled normally. Increased multiplier: declare before rolling damage.',
-          fr: "Dégâts ki : dégâts maximum de l'arme au lieu de lancer les dés ; pas sur un coup critique ; l'Attaque en puissance s'ajoute normalement. Multiplicateur accru : à annoncer avant de lancer les dégâts.",
+          en: 'Rapid Shot (extra ranged attack, −2 on all)',
+          fr: 'Tir rapide (attaque à distance supplémentaire, −2 à toutes)',
         })}
-        <small>Sword and Fist p. 39</small>
-      </p>
-      <button class="newday" onclick={newDay}
-        >☀ {tr({ en: 'New day (reset uses)', fr: 'Nouveau jour (réinitialiser)' })}</button
-      >
-    </section>
-  {/if}
+      </label>
+    {/if}
+  </section>
 
   <section class="box">
     <h3>{tr({ en: 'Active effects', fr: 'Effets actifs' })}</h3>
@@ -519,70 +502,101 @@
     </details>
   </section>
 
-  {#if app.character.wildShape}
+  {#if s.weaponMaster.level > 0}
     <section class="box">
-      <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
+      <h3>{tr({ en: 'Weapon Master', fr: "Maître d'armes" })} {s.weaponMaster.level}</h3>
+      {#if !s.weaponMaster.active}
+        <p class="inactive">
+          {tr({
+            en: 'Class features suspended: requirements no longer met (Complete Warrior p.16).',
+            fr: 'Pouvoirs suspendus : conditions de la classe plus remplies (Complete Warrior p.16).',
+          })}
+        </p>
+      {/if}
+      <div class="uses">
+        <span>{tr({ en: 'Ki damage', fr: 'Dégâts ki' })}</span>
+        <button onclick={() => spend('ki-damage', -1, s.weaponMaster.kiDamagePerDay)}>−</button>
+        <strong>{s.weaponMaster.kiDamagePerDay - used('ki-damage')} / {s.weaponMaster.kiDamagePerDay}</strong>
+        <button onclick={() => spend('ki-damage', 1, s.weaponMaster.kiDamagePerDay)}
+          >{tr({ en: 'Use', fr: 'Utiliser' })}</button
+        >
+      </div>
+      {#if s.weaponMaster.increasedMultiplierPerDay}
+        <div class="uses">
+          <span>{tr({ en: 'Increased multiplier', fr: 'Multiplicateur accru' })}</span>
+          <button onclick={() => spend('increased-multiplier', -1, s.weaponMaster.increasedMultiplierPerDay)}>−</button>
+          <strong
+            >{s.weaponMaster.increasedMultiplierPerDay - used('increased-multiplier')} / {s.weaponMaster
+              .increasedMultiplierPerDay}</strong
+          >
+          <button onclick={() => spend('increased-multiplier', 1, s.weaponMaster.increasedMultiplierPerDay)}
+            >{tr({ en: 'Use', fr: 'Utiliser' })}</button
+          >
+        </div>
+      {/if}
       <p class="note">
         {tr({
-          en: 'In wild shape: weapons and shield are melded into the form; the natural attacks of the form are used.',
-          fr: 'Sous forme animale : armes et bouclier sont fondus dans la forme ; les attaques naturelles de la forme sont utilisées.',
+          en: 'Ki damage: maximum weapon damage instead of rolling; not on a critical hit; Power Attack is rolled normally. Increased multiplier: declare before rolling damage.',
+          fr: "Dégâts ki : dégâts maximum de l'arme au lieu de lancer les dés ; pas sur un coup critique ; l'Attaque en puissance s'ajoute normalement. Multiplicateur accru : à annoncer avant de lancer les dégâts.",
         })}
+        <small>Sword and Fist p. 39</small>
       </p>
-    </section>
-  {:else}
-    <section class="box">
-      <h3>{tr({ en: 'Weapons and shield in hand', fr: 'Armes et bouclier en main' })}</h3>
-      <p class="note">{tr({ en: 'Weapons in hand:', fr: 'Armes en main :' })}</p>
-      {#each weapons as w (w.uid)}
-        <label class="check">
-          <input type="checkbox" checked={loadout.weapons.includes(w.uid)} onchange={() => toggleWeapon(w.uid)} />
-          {tr(itemInfo(w).name)}
-        </label>
-        {#if loadout.weapons.includes(w.uid) && rules.weapons.get(w.refId)?.handedness === 'oneHanded'}
-          <label class="check grip">
-            <input
-              type="checkbox"
-              checked={(loadout.twoHanded ?? []).includes(w.uid)}
-              onchange={() => toggleGrip(w.uid)}
-            />
-            {tr({ en: 'held in two hands (Str ×1.5)', fr: 'tenue à deux mains (For ×1,5)' })}
-          </label>
-        {/if}
-      {/each}
-      {#if meleeInHand >= 2}
-        <label class="check">
-          <input
-            type="checkbox"
-            checked={!!loadout.twoWeapon}
-            onchange={(e) =>
-              (app.character.loadouts.find((x) => x.id === loadout.id)!.twoWeapon = e.currentTarget.checked)}
-          />
-          {tr({
-            en: 'Fight with two weapons (first ticked = primary hand)',
-            fr: 'Combattre à deux armes (la première cochée = main directrice)',
-          })}
-        </label>
-      {/if}
-      <label class="field">
-        {tr({ en: 'Shield strapped on', fr: 'Bouclier au bras' })}
-        <select
-          value={loadout.shield ?? ''}
-          onchange={(e) => {
-            const l = app.character.loadouts.find((x) => x.id === loadout.id)!
-            const v = e.currentTarget.value
-            if (v) l.shield = v
-            else delete l.shield
-          }}
-        >
-          <option value="">—</option>
-          {#each shields as sh (sh.uid)}<option value={sh.uid}>{tr(itemInfo(sh).name)}</option>{/each}
-        </select>
-      </label>
+      <button class="newday" onclick={newDay}
+        >☀ {tr({ en: 'New day (reset uses)', fr: 'Nouveau jour (réinitialiser)' })}</button
+      >
     </section>
   {/if}
+
+  {#if s.classFeatures.rage || s.classFeatures.flurry || s.classFeatures.sneakAttack || s.classFeatures.abilities.length || s.classFeatures.notes.length}<div class="wide"><ClassFeaturesBlock /></div>{/if}
+  {#if c.inventory.some((i) => i.spells?.length && i.location !== 'stored')}<div class="wide"><SpellItemsBlock /></div>{/if}
+  {#if s.turning}<div class="wide"><TurningBlock /></div>{/if}
+  {#if ((s.classLevels['druid'] ?? 0) >= 5 && !s.lostClasses.includes('druid')) || app.character.wildShape}<div class="wide"><WildShapeBlock /></div>{/if}
+  {#if s.spellcasting.length || (app.character.summons ?? []).length}<div class="wide"><SummonBlock /></div>{/if}
+  {#if s.martial.caps}<div class="wide"><ManeuverBlock /></div>{/if}
+
+  <section class="box wide">
+    <h3>{tr({ en: 'Resistances & conditional modifiers', fr: 'Résistances et modificateurs conditionnels' })}</h3>
+    <div class="fields">
+      <label>
+        {tr({ en: 'Damage reduction', fr: 'Réduction des dégâts' })}
+        {#each s.damageReduction as d, i (i)}<strong class="dr">{d.value} <small>({tr(d.source)})</small></strong
+          >{/each}
+        <input bind:value={app.character.defenses.dr} placeholder="—" />
+      </label>
+      <label
+        >{tr({ en: 'Spell resistance', fr: 'Résistance à la magie' })}<input
+          bind:value={app.character.defenses.sr}
+          placeholder="—"
+        /></label
+      >
+      <label class="wide"
+        >{tr({ en: 'Energy resistances', fr: 'Résistances aux énergies' })}<input
+          bind:value={app.character.defenses.resistances}
+          placeholder="—"
+        /></label
+      >
+      <label class="wide">
+        {tr({
+          en: 'Conditional modifiers (e.g. +2 vs fear)',
+          fr: 'Modificateurs conditionnels (ex. +2 contre la terreur)',
+        })}
+        <textarea rows="3" bind:value={app.character.conditionalModifiers}></textarea>
+      </label>
+    </div>
+  </section>
+
 </div>
 
 <style>
+  .inhand-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 1.4rem;
+  }
+  .inhand-row .note {
+    margin: 0;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
