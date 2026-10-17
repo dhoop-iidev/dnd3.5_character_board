@@ -6,7 +6,6 @@
   import { SUBTYPES, UI } from '../../i18n/ui'
   import { app, lang, tr, view } from '../../state.svelte'
   import { openPopup } from '../popupState.svelte'
-  import HitPoints from '../HitPoints.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
   import LevelEditor from '../LevelEditor.svelte'
@@ -144,6 +143,14 @@
           </Medallion>
         {/each}
       </div>
+      <!-- Hit points at a glance; damage, healing and nonlethal damage are tracked in the Combat pane. -->
+      <div class="hp-mini" title={tr({ en: 'Damage and healing: Combat pane', fr: 'Dégâts et soins : onglet Combat' })}>
+        <span class="hp-label">{tr(UI.hpShort)}</span>
+        <span class="hp-now" class:low={s.hpMax.total - app.character.hp.damage <= s.hpMax.total / 4}>{s.hpMax.total - app.character.hp.damage}</span>
+        <span class="hp-sep">/</span>
+        <StatValue stat={() => view.sheet.hpMax} title={UI.hp} signed={false} />
+        {#if app.character.hp.temp}<span class="hp-temp">+{app.character.hp.temp}</span>{/if}
+      </div>
     </div>
     <div class="col defense">
     <Medallion label={tr(UI.acShort)} size="lg">
@@ -161,7 +168,6 @@
       </Medallion>
     </div>
     </div>
-    <HitPoints />
   </div>
 </section>
 <WarningList areas={['abilities']} />
@@ -341,6 +347,36 @@
   }
   .saves-hero {
     text-align: center;
+  }
+  .hp-mini {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    font-family: var(--font-num);
+  }
+  .hp-label {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+  .hp-now {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  .hp-now.low {
+    color: var(--danger);
+  }
+  .hp-sep {
+    color: var(--ink-soft);
+  }
+  .hp-temp {
+    color: var(--accent);
+    font-size: 0.9rem;
   }
   .mini-title {
     font-family: var(--font-title);
