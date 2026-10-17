@@ -4,7 +4,7 @@
   import { rules } from '../../data/rules'
   import type { DomainDef, SpellDef } from '../../data/types'
   import { clericChoices, domainCasterLevelBonus } from '../../engine/cleric'
-  import { classSpellLevel, type Spellcasting } from '../../engine/spells'
+  import { classSpellLevel, spellLevelFor, type Spellcasting } from '../../engine/spells'
   import { hasSomatic, LEARNING_CLASSES, preparable, wizardSchools } from '../../engine/arcane'
   import { knownUpTo, masteredSpells } from '../../engine/spellLearning'
   import {
@@ -159,16 +159,13 @@
   // the feats' adjustments or higher; a bard or sorcerer applies them when casting (full-round action, no Quicken).
   const owned = $derived(ownedMetamagic(s.feats))
   /** Spell level in this class (a cleric domain slot: the domain level). */
-  function baseLevel(sp: SpellDef, sc: Spellcasting, domainSlot = false): number {
-    const domain = Math.min(...s.domains.map((d) => sp.level[`domain:${d.id}`] ?? 99))
-    return (domainSlot && domain < 99 ? domain : undefined) ?? lvlIn(sp, sc) ?? (domain < 99 ? domain : 0)
-  }
+  const baseLevel = (sp: SpellDef, sc: Spellcasting, domainSlot = false): number =>
+    spellLevelFor(sp, sc.classId, sc.def.list, s.domains.map((d) => d.id), domainSlot) ?? 0
   const isBlocked = (sc: Spellcasting, l: number) => !!sc.slots.find((x) => x.spellLevel === l)?.blocked
   const mmOpts = (sc: Spellcasting, spontaneous: boolean) => ({ owned, spontaneous, bard: sc.classId === 'bard', maxLevel: sc.def.maxSpellLevel })
   const illegal = (sp: SpellDef, sc: Spellcasting, base: number, c: MetamagicChoice, spontaneous: boolean) =>
     metamagicProblems(sp, base, c, mmOpts(sc, spontaneous)).filter((p) => p.kind === 'illegal')
-  /** Heighten Spell: the levels a spell can be raised to in a slot of this level (not a level the key ability is too
-   * low for; house rule #40). */
+  /** Heighten Spell: the levels a spell can be raised to in a slot of this level. */
   function heightenLevels(sc: Spellcasting, base: number, c: MetamagicChoice, maxSlot: number): number[] {
     const others = slotLevel(base, { ...c, metamagic: (c.metamagic ?? []).filter((x) => x !== 'heighten-spell') }) - base
     const out: number[] = []
@@ -177,6 +174,8 @@
   }
   /** Adding (or removing) a feat on a prepared spell, if the spell still fits its slot. */
   function withFeat(sc: Spellcasting, base: number, c: MetamagicChoice, id: string, on: boolean, maxSlot: number): MetamagicChoice | undefined {
+    // Never in a slot of a level the key ability is too low for (house rule #40).
+    if (on && isBlocked(sc, maxSlot)) return undefined
     const ids = on ? [...(c.metamagic ?? []), id] : (c.metamagic ?? []).filter((x) => x !== id)
     const next: MetamagicChoice = { metamagic: ids.length ? ids : undefined, heighten: ids.includes('heighten-spell') ? c.heighten : undefined }
     if (on && id === 'heighten-spell') next.heighten = heightenLevels(sc, base, next, maxSlot)[0]
@@ -198,10 +197,7 @@
   }
 
   function spellPopup(sp: SpellDef, sc: Spellcasting, domainSlot = false, mm: MetamagicChoice = {}, spontaneous = false) {
-    const dom = domainOf(sp)
-    // In a domain slot the spell is cast at its domain level (fire storm: Fire 7, cleric 8).
-    const domainLevel = Math.min(...s.domains.map((d) => sp.level[`domain:${d.id}`] ?? 99))
-    const lvl = (domainSlot && domainLevel < 99 ? domainLevel : undefined) ?? lvlIn(sp, sc) ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
+    const lvl = baseLevel(sp, sc, domainSlot)
     const asf = sc.spellFailure?.total ?? 0
     const withMm = !!mm.metamagic?.length
     // Heighten Spell raises the actual level (save DC); the other feats only the slot.
@@ -212,7 +208,8 @@
         ? spontaneousCastingTime(sp)
         : sp.castingTime
     // Caster level for this spell: the class's, + domain bonus (Good, Evil, Law, Chaos, Healing, Knowledge).
-    const clBonus = sc.classId === 'cleric' ? domainCasterLevelBonus(sp, s.domains) : { value: 0, domain: undefined }
+    // Domain caster level bonus (Good, Healing…): every spell the cleric casts, whatever the class (3.5 FAQ 6/30/2008).
+    const clBonus = domainCasterLevelBonus(sp, s.domains)
     const cl = sc.casterLevel.total + clBonus.value
     const line = (en: string, fr: string, v?: { en: string; fr: string }) =>
       v && (v.en || v.fr) ? [{ en: `${en}: ${v.en}`, fr: `${fr} : ${v.fr}` }] : []
@@ -221,8 +218,8 @@
       summary: sp.summary,
       lines: [
         {
-          en: `${sp.school.en}, level ${dcLevel}${hasSave(sp) ? ` · save DC ${sc.dc(dcLevel)}` : ''}`,
-          fr: `${sp.school.fr}, niveau ${dcLevel}${hasSave(sp) ? ` · DD ${sc.dc(dcLevel)}` : ''}`,
+          en: `${sp.school.en}, level ${dcLevel}${hasSave(sp) ? ` · save DC ${sc.dc(dcLevel, sp.schoolId)}` : ''}`,
+          fr: `${sp.school.fr}, niveau ${dcLevel}${hasSave(sp) ? ` · DD ${sc.dc(dcLevel, sp.schoolId)}` : ''}`,
         },
         ...(withMm
           ? [
@@ -268,8 +265,8 @@
     ;(st.castCount ??= {})[lvl] = Math.max(0, Math.min(total, n))
   }
   /** Lowest slot level with a slot left for a spell of this level. */
-  const slotFor = (sc: Spellcasting, spellLevel: number) =>
-    sc.slots.find((x) => x.spellLevel >= spellLevel && x.total - usedAt(sc, x.spellLevel) > 0)?.spellLevel
+  const slotFor = (sc: Spellcasting, spellLevel: number, metamagic = false) =>
+    sc.slots.find((x) => x.spellLevel >= spellLevel && x.total - usedAt(sc, x.spellLevel) > 0 && !(metamagic && x.blocked))?.spellLevel
   const knownByLevel = (sc: Spellcasting) => {
     const ids = knownOf(sc)
     const out: { level: number; spells: SpellDef[] }[] = []
@@ -437,7 +434,7 @@
               {@const c = mmOf(sc)}
               {@const bad = c.metamagic?.length ? illegal(sp, sc, g.level, c, true) : []}
               {@const need = slotLevel(g.level, c)}
-              {@const slotLvl = bad.length ? undefined : slotFor(sc, need)}
+              {@const slotLvl = bad.length ? undefined : slotFor(sc, need, !!c.metamagic?.length)}
               <li class="school-row school-{sp.schoolId ?? 'none'}" title={tr(sp.school)}>
                 <button class="link" onclick={() => spellPopup(sp, sc, false, c, true)}><strong>{tr(sp.name)}</strong> ⓘ {tr(sp.summary)}</button>
                 <button

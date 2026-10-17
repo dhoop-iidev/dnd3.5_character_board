@@ -46,6 +46,51 @@ export function choicesAt(char: Character, rules: Rules, L: number): ClassChoice
     }
     return out
   }
+  // Cleric 1st level: two domains, positive or negative energy (good: positive, evil: negative, neutral: choice),
+  // and the deity's favored weapon if the War domain is taken (https://www.d20srd.org/srd/classes/cleric.htm).
+  if (cls?.id === 'cleric' && n === 1) {
+    const domains = [...rules.domains.values()].map((d) => ({ id: d.id, name: d.name }))
+    const ch = entry.classChoices ?? {}
+    const out: ClassChoice[] = [
+      { key: 'domain1', label: { en: 'Domain 1', fr: 'Domaine 1' }, options: domains.filter((d) => d.id !== ch.domain2), srdUrl: 'https://www.d20srd.org/srd/divine/domains.htm' },
+      { key: 'domain2', label: { en: 'Domain 2', fr: 'Domaine 2' }, options: domains.filter((d) => d.id !== ch.domain1), srdUrl: 'https://www.d20srd.org/srd/divine/domains.htm' },
+      {
+        key: 'channel',
+        label: { en: 'Energy (turn or rebuke undead, cure or inflict)', fr: 'Énergie (renvoi ou intimidation, soins ou blessures)' },
+        options: [
+          { id: 'positive', name: { en: 'Positive: turn undead, spontaneous cure spells', fr: 'Positive : renvoi des morts-vivants, sorts de soins spontanés' } },
+          { id: 'negative', name: { en: 'Negative: rebuke undead, spontaneous inflict spells', fr: 'Négative : intimidation des morts-vivants, sorts de blessure spontanés' } },
+        ],
+        srdUrl: 'https://www.d20srd.org/srd/classes/cleric.htm#spontaneousCasting',
+      },
+    ]
+    if (ch.domain1 === 'war' || ch.domain2 === 'war')
+      out.push({
+        key: 'deityWeapon',
+        label: { en: 'Deity’s favored weapon (War domain)', fr: 'Arme de prédilection du dieu (domaine de la Guerre)' },
+        options: [...rules.weapons.values()].map((w) => ({ id: w.id, name: w.name })),
+        srdUrl: 'https://www.d20srd.org/srd/divine/domains.htm#war',
+      })
+    return out
+  }
+  // Swordsage discipline focus at 1st (Weapon Focus), 4th/12th (insightful strike), 8th/16th (defensive stance): one of
+  // the swordsage's disciplines (Tome of Battle p. 16).
+  if (cls?.id === 'swordsage' && [1, 4, 8, 12, 16].includes(n)) {
+    const kind =
+      n === 1
+        ? { en: 'Weapon Focus', fr: 'Arme de prédilection' }
+        : n === 4 || n === 12
+          ? { en: 'insightful strike', fr: 'frappe perspicace' }
+          : { en: 'defensive stance', fr: 'posture défensive' }
+    return [
+      {
+        key: 'disciplineFocus',
+        label: { en: `Discipline focus: ${kind.en}`, fr: `Focalisation de discipline : ${kind.fr}` },
+        options: (cls.disciplines ?? []).map((d) => ({ id: d, name: rules.disciplines.get(d as never)?.name ?? { en: d, fr: d } })),
+        srdUrl: '',
+      },
+    ]
+  }
   // Prestige class advancing a martial progression: which martial adept class it advances (Tome of Battle p. 96), when
   // the character has more than one.
   // Prestige class adding spellcasting levels ("+1 level of existing arcane/divine spellcasting class"): which class it

@@ -122,6 +122,8 @@ export interface CompanionState extends CreatureState {
   warTrained?: boolean
   /** Tricks taught with Handle Animal (free text ids/names). */
   tricks?: string[]
+  /** Familiar: celestial or fiendish template (Improved Familiar, templates.json id). */
+  template?: string
 }
 
 export interface SummonState extends CreatureState {
@@ -232,8 +234,10 @@ export interface ActiveEffect {
   rounds?: number
   /** Lasts until the end of the encounter (the fatigue after a barbarian's rage). */
   encounter?: boolean
-  /** Temporary hit points the effect gave (inspire greatness), lost when it ends. */
+  /** Temporary hit points the effect gave (inspire greatness) and not lost yet; what is left goes when it ends. */
   tempHp?: number
+  /** Energy drained: number of negative levels (the condition's modifiers are applied this many times). */
+  count?: number
   note?: string
 }
 

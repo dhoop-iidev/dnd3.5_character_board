@@ -10,8 +10,10 @@
     FAMILIARS,
     IMPROVED_FAMILIAR_URL,
     IMPROVED_FAMILIARS,
-    improvedFamiliarBlockers,
+    improvedFamiliarCheck,
     isImprovedFamiliar,
+    isNewFamiliarKind,
+    TEMPLATE_FAMILIARS,
   } from '../../engine/arcane'
   import WarningList from '../WarningList.svelte'
   import { companionAdvancement, companionLevel, computeCreature, paladinMountAdvancement, WAR_TRAINABLE } from '../../engine/creature'
@@ -58,27 +60,40 @@
   const famLevel = $derived(familiarLevel(view.sheet.classLevels))
   const familiars = $derived((app.character.companions ?? []).filter((x) => x.kind === 'familiar'))
   let famPick = $state('')
+  // A pick is a creature id, or "<template>:<creature id>" for a celestial or fiendish standard familiar.
   function addFamiliar() {
     if (!famPick) return
-    ;(app.character.companions ??= []).push({ uid: newUid(), creatureId: famPick, kind: 'familiar', maxHp: true, damage: 0 })
+    const [template, creatureId] = famPick.includes(':') ? famPick.split(':') : [undefined, famPick]
+    ;(app.character.companions ??= []).push({ uid: newUid(), creatureId, kind: 'familiar', maxHp: true, damage: 0, ...(template ? { template } : {}) })
     famPick = ''
   }
   // Improved Familiar (https://www.d20srd.org/srd/feats.htm#improvedFamiliar): more creatures, from an arcane
-  // spellcaster level, alignment within one step.
+  // spellcaster level; by alignment (within one step) or by the master's type or subtype (house rule #38).
   const hasImproved = $derived(view.sheet.feats.some((f) => f.featId === 'improved-familiar'))
   const arcaneLevel = $derived(Math.max(0, ...view.sheet.spellcasting.filter((x) => x.def.kind === 'arcane').map((x) => x.casterLevel.total)))
-  const improvedOptions = $derived(
-    IMPROVED_FAMILIARS.filter((f) => rules.creatures.has(f.id)).map((f) => ({
-      ...f,
-      why: improvedFamiliarBlockers(f.id, { hasFeat: hasImproved, arcaneLevel, alignment: app.character.identity.alignment }),
-    })),
-  )
+  const checkOf = (id: string, template?: string) =>
+    improvedFamiliarCheck(id, { hasFeat: hasImproved, arcaneLevel, alignment: app.character.identity.alignment, template })
+  const improvedOptions = $derived([
+    ...IMPROVED_FAMILIARS.filter((f) => rules.creatures.has(f.id)).map((f) => {
+      const { blockers, check } = checkOf(f.id)
+      const cond = [f.alignment, f.subtype && tr(f.subtype)].filter(Boolean).join(' / ')
+      return { value: f.id, name: tr(rules.creatures.get(f.id)!.name), cond, level: f.level, why: blockers, check }
+    }),
+    ...Object.entries(TEMPLATE_FAMILIARS).flatMap(([t, info]) =>
+      FAMILIARS.filter((f) => rules.creatures.has(f.id)).map((f) => {
+        const { blockers, check } = checkOf(f.id, t)
+        const tpl = rules.templates.get(t)?.name
+        return { value: `${t}:${f.id}`, name: `${tr(rules.creatures.get(f.id)!.name)} (${tpl ? tr(tpl) : t})`, cond: tr(info.subtype), level: info.level, why: blockers, check }
+      }),
+    ),
+  ])
   const baseSave = (id: 'fort' | 'ref' | 'will') =>
     view.sheet.saves[id].parts.filter((p) => p.bonusType === 'base').reduce((n, p) => n + p.value, 0)
   const familiarSheet = (c: CompanionState) => {
-    const improved = isImprovedFamiliar(c.creatureId)
+    const improved = isImprovedFamiliar(c.creatureId, c.template)
     const f = familiarAdvancement(famLevel, improved)
     return computeCreature(rules.creatures.get(c.creatureId)!, {
+      template: c.template ? rules.templates.get(c.template) : undefined,
       advancement: f?.advancement,
       familiar: f && {
         int: f.int,
@@ -87,7 +102,7 @@
         masterBab: view.sheet.bab.total,
         masterLevel: view.sheet.characterLevel,
         sr: f.sr,
-        improved,
+        improved: improved && isNewFamiliarKind(c.creatureId),
       },
       masterBaseSaves: { fort: baseSave('fort'), ref: baseSave('ref'), will: baseSave('will') },
       maxHp: true,
@@ -178,9 +193,9 @@
           {/each}
           {#if hasImproved}
             <optgroup label={tr({ en: 'Improved Familiar', fr: 'Familier supérieur' })}>
-              {#each improvedOptions as f (f.id)}
-                <option value={f.id} disabled={!!f.why.length}
-                  >{tr(rules.creatures.get(f.id)!.name)} — {f.alignment}, {tr({ en: 'arcane level', fr: 'niveau profane' })} {f.level}{f.why.length
+              {#each improvedOptions as f (f.value)}
+                <option value={f.value} disabled={!!f.why.length}
+                  >{f.name} — {f.cond}, {tr({ en: 'arcane level', fr: 'niveau profane' })} {f.level}{f.why.length
                     ? ` (${f.why.map((x) => tr(x)).join(', ')})`
                     : ''}</option
                 >
@@ -195,12 +210,12 @@
   {#each familiars as c (c.uid)}
     {@const fs = familiarSheet(c)}
     <section class="box wide">
-      <h3>{c.name || tr(rules.creatures.get(c.creatureId)?.name)}</h3>
+      <h3>{c.name || tr(rules.creatures.get(c.creatureId)?.name)}{c.template ? ` (${tr(rules.templates.get(c.template)?.name ?? { en: c.template, fr: c.template })})` : ''}</h3>
       {#if rules.creatures.has(c.creatureId)}
         <label class="name">{tr({ en: 'Name', fr: 'Nom' })} <input bind:value={c.name} /></label>
         <p class="note">
           <strong>{tr({ en: 'Master’s benefit', fr: 'Avantage du maître' })} :</strong>
-          {#if isImprovedFamiliar(c.creatureId)}
+          {#if isNewFamiliarKind(c.creatureId)}
             {tr({
               en: 'none besides Alertness (improved familiar: keeps its own type, no speech with animals of its kind)',
               fr: 'aucun en dehors de Vigilance (familier supérieur : garde son type, pas de communication avec les animaux de son espèce)',

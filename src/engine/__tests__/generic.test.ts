@@ -5,6 +5,7 @@ import type { Character, ItemInstance } from '../../model/character'
 import { newCharacter } from '../../model/newCharacter'
 import { compute } from '../compute'
 import { validate } from '../validate'
+import { choicesAt } from '../classChoices'
 
 const ABIL = { str: 14, dex: 14, con: 12, int: 10, wis: 12, cha: 10 }
 const fresh = (race = 'human', classId = 'fighter', abilities = ABIL) => newCharacter({ name: 'Test', race, classId, abilities, lang: 'en' })
@@ -286,5 +287,24 @@ describe('Summon Monster templates (https://www.d20srd.org/srd/monsters/celestia
     const sm = rules.summonLists.filter((l) => l.spellId.startsWith('summon-monster-'))
     expect(sm).toHaveLength(9)
     for (const l of sm) for (const id of Object.keys(l.templates ?? {})) expect(rules.creatures.has(id)).toBe(true)
+  })
+})
+
+// Regression (um_actually 2026-10-17 classes M1): the cleric's and swordsage's class choices must stay offered.
+describe('class choices offered at 1st level', () => {
+  const at1 = (classId: string) => {
+    const c = newCharacter({ name: 'T', race: 'human', classId, abilities: { str: 10, dex: 10, con: 10, int: 10, wis: 14, cha: 10 }, lang: 'en', alignment: 'N' })
+    c.levels = [{ classId, skillRanks: {}, feats: [] }]
+    return c
+  }
+  it('cleric: two domains and the energy; missing ones are flagged', () => {
+    const c = at1('cleric')
+    expect(choicesAt(c, rules, 1).map((x) => x.key)).toEqual(['domain1', 'domain2', 'channel'])
+    const ids = validate(c, rules).map((w) => w.id)
+    expect(ids).toContain('choice-missing-domain1-1')
+    expect(ids).toContain('choice-missing-channel-1')
+  })
+  it('swordsage: discipline focus', () => {
+    expect(choicesAt(at1('swordsage'), rules, 1).map((x) => x.key)).toEqual(['disciplineFocus'])
   })
 })

@@ -11,10 +11,10 @@ import { raceOf } from './race'
 import { parseAlignment, opposedDescriptors } from './alignment'
 import { domainsOf } from './cleric'
 import { CLASS_ALIGNMENT, NO_RETURN_CLASSES, ROGUE_SPECIAL_LEVELS } from './classFeatures'
-import { FAMILIARS, IMPROVED_FAMILIAR_URL, improvedFamiliarBlockers, isImprovedFamiliar, listLevel, preparable, prohibitedCount, wizardSchools } from './arcane'
+import { FAMILIARS, familiarLevel, IMPROVED_FAMILIAR_URL, improvedFamiliarCheck, isImprovedFamiliar, listLevel, preparable, prohibitedCount, wizardSchools } from './arcane'
 import { knownUpTo, learningProblems, masteredSpells, masteryProblems, spellLearning, spellMasteryPicks, SPELL_MASTERY_URL, swapProblems } from './spellLearning'
 import { METAMAGIC_URL, metamagicProblems, ownedMetamagic, slotLevel } from './metamagic'
-import { classSpellLevel } from './spells'
+import { spellLevelFor } from './spells'
 
 export { unmetPrereqs }
 
@@ -52,6 +52,7 @@ function permanent(char: Character): Character {
     ...char,
     activeEffects: [],
     abilityDamage: {},
+    wildShape: undefined,
     toggles: { ...char.toggles, powerAttack: 0, combatExpertise: 0, fightingDefensively: false, totalDefense: false },
   }
 }
@@ -64,6 +65,9 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
   const rankTotals: Record<string, number> = {}
   const feats: { featId: string; choice?: string }[] = []
   let deityFeats = 0
+  // The build's sheet at each level, computed once (level L's "after" is level L + 1's "before").
+  const sheets = new Map<number, ReturnType<typeof compute>>()
+  const sheetAt = (L: number) => sheets.get(L) ?? sheets.set(L, compute(perm, rules, { level: L })).get(L)!
 
   char.levels.forEach((lvl, i) => {
     const L = i + 1
@@ -72,14 +76,15 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       out.push(w(`unknown-class-${L}`, 'error', 'levels', `Level ${L}: unknown class "${lvl.classId}"`, `Niveau ${L} : classe inconnue « ${lvl.classId} »`, { level: L }))
       return
     }
-    const before = compute(perm, rules, { level: L - 1 })
+    const before = sheetAt(L - 1)
     classCount[cls.id] = (classCount[cls.id] ?? 0) + 1
     const classLevel = classCount[cls.id]
-    const after = compute(perm, rules, { level: L })
+    const after = sheetAt(L)
 
     // Prestige class entry requirements, checked on the state before its first level.
     if (cls.prestige && classLevel === 1) {
-      const unmet = unmetPrereqs(cls.requirements, before, rules, feats, perm.weaponOfChoice)
+      const owned = [...feats, ...before.feats.filter((f) => f.slot === 'granted'), ...before.inactiveStyleFeats]
+      const unmet = unmetPrereqs(cls.requirements, before, rules, owned, perm.weaponOfChoice)
       if (cls.requirements?.masterworkWeapon) {
         const hasMw = char.inventory.some(
           (it) =>
@@ -467,17 +472,21 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
   // spell's level + the feats' adjustments or higher, each feat's restrictions.
   {
     const owned = ownedMetamagic(now.feats)
+    const domainIds = domainsOf(char, rules).map((d) => d.id)
     for (const sc of now.spellcasting) {
       if (sc.def.style !== 'prepared') continue
       for (const [lvl, list] of Object.entries(char.spells?.[sc.classId]?.prepared ?? {}))
         list.forEach((slot, j) => {
           const sp = slot.id ? rules.spells.get(slot.id) : undefined
           if (!sp || !slot.metamagic?.length) return
-          const own = classSpellLevel(sp, sc.classId, sc.def.list)
-          const domain = Math.min(...Object.entries(sp.level).filter(([k]) => k.startsWith('domain:')).map(([, v]) => v))
-          const base = own ?? (Number.isFinite(domain) ? domain : Number(lvl))
+          const slotInfo = sc.slots.find((x) => x.spellLevel === Number(lvl))
+          const domainSlot = sc.classId === 'cleric' && !!slotInfo?.extra && j >= slotInfo.total - slotInfo.extra
+          const base = spellLevelFor(sp, sc.classId, sc.def.list, domainIds, domainSlot) ?? Number(lvl)
           const id = `prepared-metamagic-${sc.classId}-${lvl}-${j}`
           const need = slotLevel(base, slot)
+          // House rule #40: never in a slot of a level the key ability is too low for.
+          if (sc.slots.find((x) => x.spellLevel === Number(lvl))?.blocked)
+            out.push(w(`${id}-blocked`, 'error', 'spells', `${sp.name.en} with metamagic: key ability too low for level ${lvl} slots (house rule #40)`, `${sp.name.fr} avec métamagie : caractéristique trop basse pour les emplacements de niveau ${lvl} (règle maison n° 40)`, { srdUrl: METAMAGIC_URL }))
           if (need > Number(lvl))
             out.push(w(`${id}-slot`, 'error', 'spells', `${sp.name.en} with metamagic needs a level ${need} slot (prepared in a level ${lvl} slot)`, `${sp.name.fr} avec métamagie demande un emplacement de niveau ${need} (préparé dans un emplacement de niveau ${lvl})`, { srdUrl: METAMAGIC_URL }))
           for (const p of metamagicProblems(sp, base, slot, { owned, spontaneous: false, bard: false, maxLevel: sc.def.maxSpellLevel }))
@@ -485,15 +494,22 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
         })
     }
   }
+  // Improved Familiar: "Ability to acquire a new familiar" (sorcerer or wizard), https://www.d20srd.org/srd/feats.htm#improvedFamiliar.
+  if (now.feats.some((f) => f.featId === 'improved-familiar') && familiarLevel(now.classLevels) === 0)
+    out.push(w('improved-familiar-no-familiar', 'error', 'feats', 'Improved Familiar needs the ability to acquire a familiar (sorcerer or wizard)', 'Familier supérieur demande de pouvoir obtenir un familier (ensorceleur ou magicien)', { srdUrl: IMPROVED_FAMILIAR_URL }))
   // Familiar: an improved familiar needs the feat, the arcane spellcaster level and an alignment close enough
   // (https://www.d20srd.org/srd/feats.htm#improvedFamiliar); otherwise one of the ten standard familiars.
   for (const c of (char.companions ?? []).filter((x) => x.kind === 'familiar')) {
     const name = rules.creatures.get(c.creatureId)?.name ?? { en: c.creatureId, fr: c.creatureId }
-    if (isImprovedFamiliar(c.creatureId)) {
+    if (isImprovedFamiliar(c.creatureId, c.template)) {
       const arcaneLevel = Math.max(0, ...now.spellcasting.filter((s) => s.def.kind === 'arcane').map((s) => s.casterLevel.total))
-      const why = improvedFamiliarBlockers(c.creatureId, { hasFeat: now.feats.some((f) => f.featId === 'improved-familiar'), arcaneLevel, alignment: char.identity.alignment })
+      const { blockers: why, check } = improvedFamiliarCheck(c.creatureId, { hasFeat: now.feats.some((f) => f.featId === 'improved-familiar'), arcaneLevel, alignment: char.identity.alignment, template: c.template })
       if (why.length)
         out.push(w(`familiar-improved-${c.uid}`, 'error', 'companions', `${name.en} as a familiar: ${why.map((x) => x.en).join(', ')}`, `${name.fr} comme familier : ${why.map((x) => x.fr).join(', ')}`, { srdUrl: IMPROVED_FAMILIAR_URL }))
+      else if (check)
+        out.push(w(`familiar-check-${c.uid}`, 'info', 'companions', `${name.en} as a familiar: ${check.en}`, `${name.fr} comme familier : ${check.fr}`, { srdUrl: IMPROVED_FAMILIAR_URL }))
+      if (c.template && !FAMILIARS.some((f) => f.id === c.creatureId))
+        out.push(w(`familiar-template-${c.uid}`, 'error', 'companions', `${name.en}: only an animal of the standard familiar list can be celestial or fiendish`, `${name.fr} : seul un animal de la liste des familiers peut être céleste ou fiélon`, { srdUrl: IMPROVED_FAMILIAR_URL }))
     } else if (!FAMILIARS.some((f) => f.id === c.creatureId))
       out.push(w(`familiar-not-allowed-${c.uid}`, 'error', 'companions', `${name.en} is not on the familiar lists`, `${name.fr} n’est pas sur les listes de familiers`, { srdUrl: IMPROVED_FAMILIAR_URL }))
   }
@@ -540,6 +556,18 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
       out.push(w('weapon-of-choice', 'error', 'combat', 'Weapon of choice must be a Weapon Focus weapon', "L'arme de prédilection doit être celle du don Arme de prédilection", { book: 'Sword and Fist p.38' }))
   }
 
+  // Druid: no metal armor (padded, leather or hide), wooden shields only; otherwise no druid spells nor supernatural or
+  // spell-like class abilities while wearing it and for 24 hours after (https://www.d20srd.org/srd/classes/druid.htm).
+  if ((now.classLevels['druid'] ?? 0) > 0)
+    for (const x of [now.armor, now.shield]) {
+      if (!x) continue
+      const wooden = ['padded', 'leather', 'hide', 'light-wooden-shield', 'heavy-wooden-shield'].includes(x.def.id) || x.item.material === 'darkwood'
+      if (!wooden)
+        out.push(w(`druid-metal-${x.item.uid}`, 'error', 'inventory',
+          `Druid in ${x.def.name.en}: metal armor or shield — no druid spells, wild shape or other supernatural or spell-like class abilities while worn and for 24 hours after`,
+          `Druide avec ${x.def.name.fr} : armure ou bouclier métallique — ni sorts de druide, ni forme animale, ni autre pouvoir surnaturel ou magique de classe tant qu’il est porté et 24 heures après`,
+          { srdUrl: `${SRD}classes/druid.htm` }))
+    }
   // Equipment: proficiency, load, max Dex, slots.
   const profArmor = now.proficiency.armor
   // Mithral armor: one category lighter for proficiency too (FAQ 6/30/2008 pp. 53–54, rulings C35).

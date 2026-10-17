@@ -103,12 +103,12 @@ export function metamagicProblems(
     none('Enlarge Spell: range not close, medium or long', 'Extension de portée : portée ni courte, ni moyenne, ni longue')
   if (ids.includes('extend-spell') && /^(instantaneous|permanent|concentration)\b/i.test(sp.duration.en.trim()) && !/\d/.test(sp.duration.en))
     none('Extend Spell: instantaneous, permanent or concentration duration', 'Extension de durée : durée instantanée, permanente ou concentration')
-  if (ids.includes('widen-spell') && !/\b(burst|emanation|line|spread)\b/i.test(sp.area?.en ?? ''))
-    none('Widen Spell: no burst, emanation, line or spread area', 'Extension de zone : pas de zone en explosion, émanation, ligne ou étendue')
+  if (ids.includes('widen-spell') && !/\b(burst|emanation|line|spreads?)\b/i.test([sp.area?.en, sp.effect?.en, sp.target?.en].join(' ')))
+    none('Widen Spell: no burst, emanation, line or spread area', 'Extension de zone d’effet : pas de zone en rayonnement, émanation, ligne ou étendue')
   if (ids.includes('heighten-spell') && (c.heighten === undefined || c.heighten <= spellLevel))
-    bad('Heighten Spell: choose a level above the spell’s', 'Quintessence : choisir un niveau supérieur à celui du sort')
+    bad('Heighten Spell: choose a level above the spell’s', 'Augmentation d’intensité : choisir un niveau supérieur à celui du sort')
   const slot = slotLevel(spellLevel, c)
-  if (actualLevel(spellLevel, c) > 9) bad('Heighten Spell: 9th level at most', 'Quintessence : 9e niveau au maximum')
+  if (actualLevel(spellLevel, c) > 9) bad('Heighten Spell: 9th level at most', 'Augmentation d’intensité : 9e niveau au maximum')
   if (slot > opts.maxLevel) bad(`needs a level ${slot} slot (the class has none above ${opts.maxLevel})`, `il faut un emplacement de niveau ${slot} (la classe n’en a pas au-delà du niveau ${opts.maxLevel})`)
   return out
 }

@@ -383,7 +383,18 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/feats.htm#combatCasting",
       "frRef": "DRS 05 (dons)"
-    }
+    },
+    "modifiers": [
+      {
+        "target": "skill.concentration",
+        "bonusType": "untyped",
+        "value": 4,
+        "condition": {
+          "en": "casting defensively, or while grappling or pinned",
+          "fr": "pour lancer un sort sur la défensive, en situation de lutte ou immobilisé"
+        }
+      }
+    ]
   },
   {
     "id": "combat-expertise",

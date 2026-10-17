@@ -7,6 +7,7 @@
   import { fmtDistance } from '../format'
   import { itemInfo, newUid } from '../items'
   import { openPopup } from '../popupState.svelte'
+  import HitPoints from '../HitPoints.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
   import ManeuverBlock from '../ManeuverBlock.svelte'
@@ -40,10 +41,6 @@
     'cold iron': { en: 'cold iron', fr: 'fer froid' },
     silver: { en: 'silver', fr: 'argent' },
     magic: { en: 'magic', fr: 'magie' },
-  }
-  const hpCurrent = $derived(s.hpMax.total - c.hp.damage)
-  function adjustHp(delta: number) {
-    app.character.hp.damage = Math.max(0, app.character.hp.damage - delta)
   }
 
   const crit = (range: number, mult: number) => `${range < 20 ? `${range}–20` : '20'}/×${mult}`
@@ -163,66 +160,59 @@
   }
 </script>
 
-<!-- Quick reference: the combat numbers of the main sheet in one strip. -->
+<!-- Quick reference: hit points, then the combat numbers in four groups (defense, saves, offense, movement). -->
 <section class="box summary">
   <h3>{tr({ en: 'At a glance', fr: "En un coup d'œil" })}</h3>
-  <div class="strip">
-    <div class="cell hp">
-      <span>{tr(UI.hpShort)}</span>
-      <strong class:low={hpCurrent <= s.hpMax.total / 4}>{hpCurrent}</strong>
-      <small
-        >/ {s.hpMax.total}{c.hp.nonlethal ? ` · ${c.hp.nonlethal} NL` : ''}{c.hp.temp
-          ? ` · +${c.hp.temp} temp`
-          : ''}</small
-      >
-      <div class="hpbtn">
-        <button onclick={() => adjustHp(-5)}>−5</button><button onclick={() => adjustHp(-1)}>−1</button>
-        <button onclick={() => adjustHp(1)}>+1</button><button onclick={() => adjustHp(5)}>+5</button>
+  <div class="glance">
+    <HitPoints compact />
+    <div class="groups">
+      <div class="group">
+        <h4>{tr({ en: 'Defense', fr: 'Défense' })}</h4>
+        <div class="cells">
+          <div class="cell"><span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big /></div>
+          <div class="cell"><span>{tr(UI.touch)}</span><StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} /></div>
+          <div class="cell">
+            <span>{tr({ en: 'Flat-footed', fr: 'Dépourvu' })}</span><StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="cell">
-      <span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big />
-    </div>
-    <div class="cell">
-      <span>{tr(UI.touch)}</span><StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} />
-    </div>
-    <div class="cell">
-      <span>{tr({ en: 'Flat-footed', fr: 'Dépourvu' })}</span><StatValue
-        stat={() => view.sheet.flatFootedAc}
-        title={UI.flatFooted}
-        signed={false}
-      />
-    </div>
-    <div class="cell">
-      <span>{tr(UI.initiative)}</span><StatValue stat={() => view.sheet.initiative} title={UI.initiative} />
-    </div>
-    <div class="cell"><span>{tr(UI.fort)}</span><StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></div>
-    <div class="cell"><span>{tr(UI.ref)}</span><StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></div>
-    <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
-    <div class="cell">
-      <span>{tr({ en: 'BAB', fr: 'BBA' })}</span><StatValue stat={() => view.sheet.bab} title={UI.bab} />
-      {#if s.iterativeBab.length > 1}<small>{s.iterativeBab.map(fmt).join(' / ')}</small>{/if}
-    </div>
-    <div class="cell">
-      <span>{tr(UI.grapple)}</span><StatValue stat={() => view.sheet.grapple} title={UI.grapple} />
-    </div>
-    <div class="cell">
-      <span>{tr({ en: 'AoO / round', fr: 'AO / round' })}</span><StatValue
-        stat={() => view.sheet.attacksOfOpportunity}
-        title={UI.aoo}
-        signed={false}
-      />
-    </div>
-    <div class="cell">
-      <span>{tr({ en: 'Speed', fr: 'Vitesse' })}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong>
-      <small>{tr(s.speed.from)}</small>
-    </div>
-    <div class="cell">
-      <span>{tr({ en: 'Armor check', fr: 'Malus d’armure' })}</span><StatValue stat={() => view.sheet.armorCheckPenalty} title={UI.armorPenalty} />
-    </div>
-    <div class="cell">
-      <span>{tr({ en: 'Max Dex', fr: 'Dex max' })}</span><strong class="plain">{s.maxDex.value === null ? '—' : fmt(s.maxDex.value)}</strong>
-      <small>{tr(s.maxDex.from)}</small>
+      <div class="group">
+        <h4>{tr({ en: 'Saves', fr: 'Sauvegardes' })}</h4>
+        <div class="cells">
+          <div class="cell"><span>{tr(UI.fort)}</span><StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></div>
+          <div class="cell"><span>{tr(UI.ref)}</span><StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></div>
+          <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
+        </div>
+      </div>
+      <div class="group">
+        <h4>{tr({ en: 'Offense', fr: 'Attaque' })}</h4>
+        <div class="cells">
+          <div class="cell"><span>{tr(UI.initiative)}</span><StatValue stat={() => view.sheet.initiative} title={UI.initiative} /></div>
+          <div class="cell">
+            <span>{tr({ en: 'BAB', fr: 'BBA' })}</span><StatValue stat={() => view.sheet.bab} title={UI.bab} />
+            {#if s.iterativeBab.length > 1}<small>{s.iterativeBab.map(fmt).join(' / ')}</small>{/if}
+          </div>
+          <div class="cell"><span>{tr(UI.grapple)}</span><StatValue stat={() => view.sheet.grapple} title={UI.grapple} /></div>
+          <div class="cell">
+            <span>{tr({ en: 'AoO / round', fr: 'AO / round' })}</span><StatValue stat={() => view.sheet.attacksOfOpportunity} title={UI.aoo} signed={false} />
+          </div>
+        </div>
+      </div>
+      <div class="group">
+        <h4>{tr({ en: 'Movement and armor', fr: 'Déplacement et armure' })}</h4>
+        <div class="cells">
+          <div class="cell" title={tr(s.speed.from)}>
+            <span>{tr({ en: 'Speed', fr: 'Vitesse' })}</span><strong class="plain">{fmtDistance(s.speed.current, lang())}</strong>
+          </div>
+          <div class="cell">
+            <span>{tr({ en: 'Armor check', fr: 'Malus d’armure' })}</span><StatValue stat={() => view.sheet.armorCheckPenalty} title={UI.armorPenalty} />
+          </div>
+          <div class="cell" title={tr(s.maxDex.from)}>
+            <span>{tr({ en: 'Max Dex', fr: 'Dex max' })}</span><strong class="plain">{s.maxDex.value === null ? '—' : fmt(s.maxDex.value)}</strong>
+          </div>
+        </div>
+        {#if s.speed.from}<p class="why">{tr({ en: 'Speed', fr: 'Vitesse' })} : {tr(s.speed.from)}{s.maxDex.value !== null ? ` · ${tr({ en: 'Max Dex', fr: 'Dex max' })} : ${tr(s.maxDex.from)}` : ''}</p>{/if}
+      </div>
     </div>
   </div>
   {#if s.flags.some((f) => FLAGS[f])}<p class="flags">
@@ -375,10 +365,11 @@
             </div>
           {/if}
           {#if a.kiDamageMax !== undefined}
+            {@const pa = a.damage.parts.find((p) => p.sourceId === 'power-attack')?.value ?? 0}
             <div class="line">
               <span>{tr({ en: 'Ki damage (max)', fr: 'Dégâts ki (max)' })}</span> <strong>{a.kiDamageMax}</strong>
-              {#if t.powerAttack && a.powerAttackAllowed}<small
-                  >+ {t.powerAttack * (a.weapon.handedness === 'twoHanded' ? 2 : 1)}
+              {#if pa}<small
+                  >+ {pa}
                   {tr({ en: 'Power Attack', fr: 'Attaque en puissance' })}</small
                 >{/if}
             </div>
@@ -502,6 +493,16 @@
             <button class="link" onclick={() => effectPopup(e)}>{tr(effectName(e))}</button>
             {#if e.kind === 'custom'}<small
                 >{e.custom?.modifiers.map((m) => `${m.target} ${fmt(m.value)} (${m.bonusType})`).join(', ')}</small
+              >{/if}
+            {#if e.kind === 'condition' && rules.conditions.get(e.refId ?? '')?.flags.includes('perNegativeLevel')}<label class="rounds"
+                ><input
+                  type="number"
+                  min="1"
+                  inputmode="numeric"
+                  value={e.count ?? 1}
+                  onchange={(ev) => (e.count = Math.max(1, Math.floor(Number(ev.currentTarget.value) || 1)))}
+                  aria-label={tr({ en: 'Negative levels', fr: 'Niveaux négatifs' })}
+                /><small>{tr({ en: 'neg. levels', fr: 'niv. négatifs' })}</small></label
               >{/if}
             {#if e.kind === 'class'}<small>{e.rounds === undefined ? tr({ en: 'while singing', fr: 'pendant le chant' }) : `${e.rounds} ${tr({ en: 'rd', fr: 'rd' })}`}</small>{:else}<span
               class="rounds"
@@ -861,11 +862,36 @@
   .summary {
     margin-bottom: 1.25rem;
   }
-  .strip {
+  /* Hit points on the left, the four groups in a 2 × 2 grid; stacked on a phone. */
+  .glance {
+    display: grid;
+    grid-template-columns: minmax(16rem, auto) 1fr;
+    gap: 1rem 1.5rem;
+    align-items: start;
+  }
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.8rem 1.2rem;
+  }
+  .group h4 {
+    margin: 0 0 0.3rem;
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cells {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem 1.1rem;
+    gap: 0.4rem 1.1rem;
     align-items: flex-end;
+  }
+  @media (max-width: 40rem) {
+    .glance {
+      grid-template-columns: 1fr;
+    }
   }
   .cell {
     display: flex;
@@ -873,34 +899,22 @@
     align-items: center;
     gap: 0.15rem;
   }
+  .why {
+    margin: 0.3rem 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
   .cell > span {
     font-family: var(--font-title);
     font-size: 0.85rem;
     color: var(--ink-soft);
     white-space: nowrap;
   }
-  .cell.hp strong {
-    font-family: var(--font-num);
-    font-size: 1.8rem;
-    line-height: 1;
-  }
-  .cell.hp strong.low {
-    color: var(--danger);
-  }
   .cell .plain {
     font-family: var(--font-num);
     min-height: 2.75rem;
     display: grid;
     place-items: center;
-  }
-  .hpbtn {
-    display: flex;
-    gap: 0.2rem;
-  }
-  .hpbtn button {
-    min-width: 2.6rem;
-    min-height: 2.4rem;
-    padding: 0;
   }
   .fields {
     display: grid;

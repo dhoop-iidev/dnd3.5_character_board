@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
 import type { Character } from '../../model/character'
 import { newCharacter } from '../../model/newCharacter'
-import { familiarAdvancement, improvedFamiliarBlockers } from '../arcane'
+import { familiarAdvancement, improvedFamiliarBlockers, improvedFamiliarCheck } from '../arcane'
 import { compute } from '../compute'
 import { computeCreature } from '../creature'
 import { actualLevel, metamagicProblems, slotLevel } from '../metamagic'
@@ -87,6 +87,15 @@ describe('Improved Familiar', () => {
     expect(improvedFamiliarBlockers('imp', { hasFeat: false, arcaneLevel: 7, alignment: 'LN' }).length).toBe(1)
     expect(improvedFamiliarBlockers('stirge', { hasFeat: true, arcaneLevel: 5, alignment: 'CE' })).toEqual([])
   })
+  it('type/subtype table (house rule #38): level checked, subtype left to the DM', () => {
+    const fire = improvedFamiliarCheck('elemental-small-fire', { hasFeat: true, arcaneLevel: 5, alignment: 'LG' })
+    expect(fire.blockers).toEqual([])
+    expect(fire.check?.en).toMatch(/Fire/)
+    expect(improvedFamiliarBlockers('mephit-ice', { hasFeat: true, arcaneLevel: 6, alignment: 'N' }).length).toBe(1)
+    // Celestial hawk from arcane level 3; a shocker lizard for a lawful good master (alignment table fails, subtype one stands).
+    expect(improvedFamiliarCheck('hawk', { hasFeat: true, arcaneLevel: 3, alignment: 'CE', template: 'celestial' }).blockers).toEqual([])
+    expect(improvedFamiliarBlockers('shocker-lizard', { hasFeat: true, arcaneLevel: 5, alignment: 'LG' })).toEqual([])
+  })
   it('pseudodragon: keeps its type, Alertness for the master, no speech with animals; rule check', () => {
     const c = make(times('wizard', 7))
     c.levels[5].feats = [{ featId: 'improved-familiar', slot: 'general' }]
@@ -105,5 +114,16 @@ describe('Improved Familiar', () => {
     expect(sheet.hpMax.total).toBe(20)
     c.identity.alignment = 'LE'
     expect(validate(c, rules).map((w) => w.id)).toContain('familiar-improved-f')
+  })
+})
+
+describe('house rule #40: no metamagic in a slot the key ability is too low for', () => {
+  it('flags it', () => {
+    const c = make(times('wizard', 5))
+    c.baseAbilities.int = 12 // 2nd-level spells at most: 3rd-level slots are blocked
+    c.levels[0].feats = [{ featId: 'empower-spell', slot: 'general' }]
+    c.levels[0].spellsLearned = ['magic-missile']
+    c.spells = { wizard: { prepared: { 3: [{ id: 'magic-missile', cast: false, metamagic: ['empower-spell'] }] } } }
+    expect(validate(c, rules).map((w) => w.id)).toContain('prepared-metamagic-wizard-3-0-blocked')
   })
 })

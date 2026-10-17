@@ -7,6 +7,7 @@
   import { BARDIC_KEY, endRage, isRaging, newDayClassUses, newWeekClassUses, RAGE_ENCOUNTER_KEY, RAGE_KEY, removeSongs, songEffects, startRage, startSong, stopSong, useBardicMusic } from './classActions'
   import { BARD_URL, type BardicSong } from '../engine/arcane'
   import { openPopup } from './popupState.svelte'
+  import { takeDamage } from '../engine/hitPoints'
 
   const s = $derived(view.sheet)
   const f = $derived(s.classFeatures)
@@ -44,7 +45,7 @@
     const m = app.character.martial
     const into = Math.min(n, steely.cap - (m.pool ?? 0))
     m.pool = (m.pool ?? 0) + into
-    if (n > into) app.character.hp.damage += n - into
+    if (n > into) takeDamage(app.character.hp, n - into, app.character.activeEffects)
     incoming = 0
   }
   function healPool(n: number) {

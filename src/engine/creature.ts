@@ -41,7 +41,7 @@ export interface CreatureOptions {
    * through `advancement`). https://www.d20srd.org/srd/classes/paladin.htm#specialMount */
   mount?: { strAdj: number; int: number; speedBonus?: number }
   /** Sorcerer/wizard familiar: Int from the familiar table (an improved familiar too, even below its own: house rule
-   * #39, pending), half the master's hit points, the master's base attack
+   * #39), half the master's hit points, the master's base attack
    * bonus, the familiar's Str or Dex for its natural attacks (natural armor and abilities come through `advancement`,
    * the master's base saves through `masterBaseSaves`). https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars */
   familiar?: { int: number; masterHp: number; masterBab: number; masterLevel: number; sr: number; improved?: boolean }
@@ -126,6 +126,9 @@ function trainedForWar(def: CreatureDef): CreatureDef {
     }),
   }
 }
+
+/** Spell resistance printed in the special qualities ("spell resistance 19"). */
+const ownSr = (def: CreatureDef) => Number(/spell resistance (\d+)/i.exec(def.specialQualities.en)?.[1] ?? 0)
 
 export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): CreatureSheet {
   const def = opts.warTrained && WAR_TRAINABLE.includes(def0.id) ? trainedForWar(def0) : def0
@@ -319,7 +322,7 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
   // Familiar: Hit Dice used for effects = the master's character level or its own, whichever is higher.
   const effectHd = fam ? Math.max(fam.masterLevel, totalHd) : undefined
   const landSpeed = def.speed.land + (def.speed.land ? (opts.mount?.speedBonus ?? 0) : 0)
-  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains, landSpeed, effectHd, spellResistance: fam?.sr || undefined }
+  return { def, hitDice: totalHd, hpMax, abilities, ac, touch, flatFooted, initiative, bab, grapple, saves, attacks, altAttacks, template, special, typeText, bonusHdGains, landSpeed, effectHd, spellResistance: fam ? Math.max(fam.sr, ownSr(def)) || undefined : undefined }
 }
 
 /** Effective druid level for the animal companion: druid level + ½ ranger level from ranger 4 (FAQ p. 29). */

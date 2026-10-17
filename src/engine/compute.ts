@@ -21,7 +21,7 @@ import { raceOf } from './race'
 import { classSkillsOf, clericChoices, domainFeats, domainsOf, TURNING_TABLE } from './cleric'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
 import { spellcastingAdvance, spellcastingOf, type Spellcasting } from './spells'
-import { BARD_URL, bardicSongs, FAMILIAR_URL, FAMILIARS, familiarLevel, isImprovedFamiliar, songModifiers, SONG_EFFECTS, spellFailure, type BardicSong } from './arcane'
+import { BARD_URL, bardicSongs, FAMILIAR_URL, FAMILIARS, familiarLevel, isNewFamiliarKind, songModifiers, SONG_EFFECTS, spellFailure, type BardicSong } from './arcane'
 import { parseAlignment } from './alignment'
 import {
   barbarianDR,
@@ -439,11 +439,16 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // ---- collect modifiers from feats, worn items and active effects
   const mods: ModSource[] = []
   const flags: string[] = []
+  // A feat taken several times without a choice (Toughness, Extra Turning): each pick is its own source, its effects
+  // stack (https://www.d20srd.org/srd/feats.htm#toughness).
+  const featPickNo: Record<string, number> = {}
   for (const f of feats) {
     const def = rules.feats.get(f.featId)
+    const n = (featPickNo[f.featId] = (featPickNo[f.featId] ?? 0) + 1)
+    const sourceId = def?.multiple && !f.choice && n > 1 ? `feat:${f.featId}#${n}` : `feat:${f.featId}`
     for (const spec of def?.modifiers ?? []) {
       if (spec.target.endsWith('.choice')) continue // handled per weapon
-      mods.push({ spec, sourceId: `feat:${f.featId}`, label: def!.name, source: def!.source })
+      mods.push({ spec, sourceId, label: def!.name, source: def!.source })
     }
   }
   // A custom weapon's bonuses apply while it is wielded (in the active loadout).
@@ -558,7 +563,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
       if (!def || replaced.has(def.id)) continue
       activeConditions.push(def.id)
       flags.push(...def.flags)
-      for (const spec of def.modifiers) mods.push({ spec, sourceId: `condition:${def.id}`, label: def.name, source: def.source })
+      // Energy drained: the modifiers apply once per negative level (https://www.d20srd.org/srd/conditionSummary.htm#energyDrained).
+      const times = def.flags.includes('perNegativeLevel') ? Math.max(1, Math.floor(eff.count ?? 1)) : 1
+      const label = times > 1 ? i18n(`${def.name.en} ×${times}`, `${def.name.fr} ×${times}`) : def.name
+      for (const spec of def.modifiers) mods.push({ spec: { ...spec, value: spec.value * times }, sourceId: `condition:${def.id}`, label, source: def.source })
       // A condition that makes you helpless brings the helpless condition's own modifiers (−4 AC vs melee…)
       // (https://www.d20srd.org/srd/conditionSummary.htm#helpless).
       const helpless = rules.conditions.get('helpless')
@@ -598,7 +606,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // toggle; nothing more if the master already has the feat). https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars
   const familiar = familiarLevel(classLevels) > 0 ? (char.companions ?? []).find((c) => c.kind === 'familiar') : undefined
   // An improved familiar (Improved Familiar feat) gives Alertness but no other master's benefit.
-  const familiarDef = familiar && (FAMILIARS.find((f) => f.id === familiar.creatureId) ?? (isImprovedFamiliar(familiar.creatureId) ? { master: [] } : undefined))
+  const familiarDef = familiar && (FAMILIARS.find((f) => f.id === familiar.creatureId) ?? (isNewFamiliarKind(familiar.creatureId) ? { master: [] } : undefined))
   if (familiar && familiarDef) {
     const name = rules.creatures.get(familiar.creatureId)?.name ?? i18n(familiar.creatureId, familiar.creatureId)
     const label = i18n(`Familiar (${familiar.name || name.en})`, `Familier (${familiar.name || name.fr})`)
@@ -749,6 +757,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const saves = {} as Record<SaveId, Stat>
   // Flat-footed proper (the condition or the combat toggle), not every loss of Dex to AC (stunned, blinded…).
   const flatFootedNow = activeConditions.includes('flat-footed') || toggles.situational['flatFooted'] === true
+  // A flat-footed character can't make attacks of opportunity (https://www.d20srd.org/srd/conditionSummary.htm#flatFooted).
+  if (toggles.situational['flatFooted'] === true && !flags.includes('noAoO')) flags.push('noAoO')
   for (const s of ['fort', 'ref', 'will'] as SaveId[]) {
     const extra: Part[] = []
     // Warblade battle clarity (Tome of Battle p. 22): insight bonus = Int bonus (max warblade level) on Reflex
@@ -864,8 +874,12 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   let speedFt = baseFt
   let speedFrom = barbarianFast || monkFast ? i18n('base + fast movement', 'base + déplacement accéléré') : i18n('base', 'base')
   const slow = baseFt <= 20
-  // Armor and load tables give 20 and 30 ft. columns; a faster base loses the same as 30 ft. (40 → 30).
-  const reduced = (d?: { ft: number } | null) => (d ? (slow ? d.ft : d.ft + Math.max(0, baseFt - 30)) : undefined)
+  // Armor and load tables give 20 and 30 ft. columns; other base speeds use the SRD table "Armor and Encumbrance for
+  // Other Base Speeds" (50 → 35, 60 → 40…, rounded down to its 10-ft. rows;
+  // https://www.d20srd.org/srd/carryingCapacity.htm).
+  const REDUCED: Record<number, number> = { 30: 20, 40: 30, 50: 35, 60: 40, 70: 50, 80: 55, 90: 60, 100: 70 }
+  const reducedOf = (ft: number) => (ft <= 100 ? (REDUCED[Math.floor(ft / 10) * 10] ?? 20) : Math.floor((ft * 0.7) / 5) * 5)
+  const reduced = (d?: { ft: number } | null) => (d ? (slow ? d.ft : d.ft >= 30 ? baseFt : reducedOf(baseFt)) : undefined)
   const armorSpeed = armor && (slow ? armor.def.speed20 : armor.def.speed30)
   const armorFt = reduced(armorSpeed)
   if (!race.speedNotReducedByArmor && armor && ['medium', 'heavy'].includes(armor.category) && armorFt !== undefined && armorFt < speedFt) {
@@ -891,7 +905,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   if (band === 'overloaded') speedFt = 5
 
   // ---- AC
-  const loseDex = flags.includes('loseDexToAc') || sumTarget('ac.noDex') > 0 || toggles.situational['flatFooted'] === true
+  // Overloaded: "loses any Dexterity bonus to AC" (https://www.d20srd.org/srd/carryingCapacity.htm).
+  const loseDex = flags.includes('loseDexToAc') || sumTarget('ac.noDex') > 0 || toggles.situational['flatFooted'] === true || band === 'overloaded'
   // Helpless / pinned: treated as Dex 0 (−5) for AC (rulings R14, R15).
   const dexZero = flags.includes('dexZeroForAc') || flags.includes('helpless')
   const dexToAc = dexZero ? abilityMod(0) : maxDex.value === null ? mod('dex') : Math.min(mod('dex'), maxDex.value)
@@ -1557,7 +1572,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   const paladinTurning = paladinLevel >= 4 && paladinGood ? paladinLevel - 3 : 0
   // Improved Turning: "as if you were one level higher" (https://www.d20srd.org/srd/feats.htm#improvedTurning).
   const improvedTurning = clericLevel + paladinTurning > 0 && hasFeat('improved-turning') ? 1 : 0
-  const turningLevel = clericLevel + paladinTurning + improvedTurning
+  // Phylactery of undead turning: "as if his class level were four levels higher"
+  // (https://www.d20srd.org/srd/magicItems/wondrousItems.htm#phylacteryofUndeadTurning).
+  const phylactery = clericLevel + paladinTurning > 0 && char.inventory.some((i) => i.location === 'worn' && i.refId === 'phylactery-of-undead-turning') ? 4 : 0
+  const turningLevel = clericLevel + paladinTurning + improvedTurning + phylactery
   let turning: Sheet['turning']
   if (turningLevel) {
     const tsrc = src('combat/specialAttacks.htm#turnOrRebukeUndead')
@@ -1579,6 +1597,7 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
         ...(clericLevel ? [{ sourceId: 'class:cleric', label: i18n(`Cleric ${clericLevel}`, `Prêtre ${clericLevel}`), value: clericLevel, bonusType: 'base' as const, source: tsrc }] : []),
         ...(paladinTurning ? [{ sourceId: 'class:paladin', label: i18n(`Paladin ${paladinLevel} − 3`, `Paladin ${paladinLevel} − 3`), value: paladinTurning, bonusType: 'base' as const, source: src('classes/paladin.htm#turnUndead') }] : []),
         ...(improvedTurning ? [{ sourceId: 'feat:improved-turning', label: i18n('Improved Turning', 'Science du renvoi'), value: 1, bonusType: 'untyped' as const, source: src('feats.htm#improvedTurning') }] : []),
+        ...(phylactery ? [{ sourceId: 'item:phylactery', label: rules.magicItems.get('phylactery-of-undead-turning')!.name, value: 4, bonusType: 'untyped' as const, source: rules.magicItems.get('phylactery-of-undead-turning')!.source }] : []),
         abilityPart('cha'),
       ]),
       table: TURNING_TABLE.map((r) => ({ max: r.max, hd: turningLevel + r.delta })),
@@ -1763,7 +1782,14 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     proficiency,
     // An ex-paladin (not lawful good) or ex-druid (alignment not neutral on one axis) loses the class's spells
     // (https://www.d20srd.org/srd/classes/paladin.htm#exPaladins, druid.htm#exDruids).
-    spellcasting: spellcastingOf(classLevels, rules, (a) => abilities[a], Object.assign({}, ...levels.map((l) => l.classChoices ?? {})), spellcastingAdvance(levels, rules))
+    spellcasting: spellcastingOf(
+      classLevels,
+      rules,
+      (a) => abilities[a],
+      Object.assign({}, ...levels.map((l) => l.classChoices ?? {})),
+      spellcastingAdvance(levels, rules),
+      (school) => feats.filter((f) => (f.featId === 'spell-focus' || f.featId === 'greater-spell-focus') && f.choice === school).length,
+    )
       .filter((sc) => !(sc.classId === 'paladin' && !paladinGood) && !(sc.classId === 'druid' && exDruid))
       .map((sc) => {
         if (sc.def.kind !== 'arcane') return sc

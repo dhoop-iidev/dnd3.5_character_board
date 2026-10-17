@@ -6,6 +6,7 @@
   import { SUBTYPES, UI } from '../../i18n/ui'
   import { app, lang, tr, view } from '../../state.svelte'
   import { openPopup } from '../popupState.svelte'
+  import HitPoints from '../HitPoints.svelte'
   import StatValue from '../StatValue.svelte'
   import WarningList from '../WarningList.svelte'
   import LevelEditor from '../LevelEditor.svelte'
@@ -40,12 +41,6 @@
 
   // Default view: skills with ranks + every class skill of the character's classes.
   const skills = $derived(s.skills.filter((k) => showAllSkills || k.ranks > 0 || k.classSkill))
-  const hpCurrent = $derived(s.hpMax.total - app.character.hp.damage)
-
-  function adjustHp(delta: number) {
-    const hp = app.character.hp
-    hp.damage = Math.max(0, hp.damage - delta)
-  }
 
   function featPopup(featId: string, choice?: string, level?: number) {
     const def = rules.feats.get(featId)
@@ -166,35 +161,7 @@
       </Medallion>
     </div>
     </div>
-    <div class="hp-block">
-      <div class="hp-title">{tr(UI.hp)}</div>
-      <div class="hp">
-        <span class="hp-current" class:low={hpCurrent <= s.hpMax.total / 4}>{hpCurrent}</span>
-        <span>/</span>
-        <StatValue stat={() => view.sheet.hpMax} title={UI.hp} signed={false} />
-      </div>
-      <div class="hp-buttons">
-        {#each [-10, -5, -1] as d (d)}<button onclick={() => adjustHp(d)}>{d}</button>{/each}
-        {#each [1, 5, 10] as d (d)}<button onclick={() => adjustHp(d)}>+{d}</button>{/each}
-      </div>
-      <div class="hp-extra">
-        <label>
-          {tr({ en: 'Nonlethal', fr: 'Non létaux' })}
-          <input type="number" min="0" bind:value={app.character.hp.nonlethal} />
-        </label>
-        <label>
-          {tr({ en: 'Temporary HP', fr: 'PV temporaires' })}
-          <input type="number" min="0" bind:value={app.character.hp.temp} />
-        </label>
-      </div>
-      {#if app.character.hp.nonlethal > 0 && app.character.hp.nonlethal >= hpCurrent}
-        <p class="hp-state">
-          {app.character.hp.nonlethal === hpCurrent
-            ? tr({ en: 'Staggered (nonlethal = current HP)', fr: 'Chancelant (non létaux = PV actuels)' })
-            : tr({ en: 'Unconscious (nonlethal > current HP)', fr: 'Inconscient (non létaux > PV actuels)' })}
-        </p>
-      {/if}
-    </div>
+    <HitPoints />
   </div>
 </section>
 <WarningList areas={['abilities']} />
@@ -388,16 +355,6 @@
     justify-content: center;
     flex-wrap: wrap;
   }
-  .hp-block {
-    text-align: center;
-    min-width: 14rem;
-  }
-  .hp-title {
-    font-family: var(--font-title);
-    font-size: 1rem;
-    letter-spacing: 0.06em;
-    color: var(--ink);
-  }
   /* Tablet portrait and phones: images, then identity, then the band wraps. */
   @media (max-width: 52rem) {
     .top {
@@ -422,48 +379,6 @@
   }
   .num {
     text-align: right;
-  }
-  .hp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-family: var(--font-num);
-    font-size: 1.3em;
-    color: var(--ink-soft);
-  }
-  .hp-current {
-    font-family: var(--font-num);
-    font-weight: 700;
-    font-size: 1.6em;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-  }
-  .hp-current.low {
-    color: var(--danger);
-  }
-  .hp-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 2.9rem);
-    gap: 0.3rem;
-    justify-content: center;
-    margin: 0.5rem 0;
-  }
-  .hp-buttons button {
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    font-family: var(--font-num);
-    font-weight: 700;
-    font-size: 0.9rem;
-    border: 1px solid var(--rule-strong);
-    background: var(--box);
-    color: var(--ink);
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .hp-buttons button:hover {
-    border-color: var(--frame);
-    background: var(--paper-2);
   }
   .link {
     font: inherit;
@@ -563,34 +478,6 @@
   }
   small {
     font-size: 0.82em;
-  }
-  .hp-extra {
-    display: flex;
-    gap: 0.6rem;
-    justify-content: center;
-    margin-top: 0.4rem;
-  }
-  .hp-extra label {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-  }
-  .hp-extra input {
-    width: 5rem;
-    font: inherit;
-    font-size: 1rem;
-    min-height: 2.4rem;
-    text-align: center;
-    color: var(--ink);
-    background: var(--box);
-    border: 1px solid var(--rule-strong);
-    border-radius: 3px;
-  }
-  .hp-state {
-    margin: 0.3rem 0 0;
-    color: var(--danger);
-    font-size: 0.9rem;
   }
   :global(.identity) {
     margin: 1rem 0;

@@ -739,6 +739,9 @@ FR_FIELD_ERRATA = {
     # https://www.d20srd.org/srd/monsters/treant.htm: "Damage reduction 10/slashing" (DRS 39: 10/perforant)
     "treant": [("Particularités", "réduction des dégâts (10/perforant)", "réduction des dégâts (10/tranchant)")],
     "fungus-violet": [("Particularités", "vison nocturne", "vision nocturne")],  # misprint
+    # https://www.d20srd.org/srd/monsters/devil.htm#imp: "fire resistance 5" (DRS 37 also prints "résistance au feu (20)")
+    "imp": [("Particularités", "immunité contre le poison, guérison accélérée (2), résistance au feu (20), réduction des dégâts (5/Bien ou argent), résistance au feu (5), vision dans le noir (18 m), transformation",
+             "immunité contre le poison, guérison accélérée (2), réduction des dégâts (5/Bien ou argent), résistance au feu (5), vision dans le noir (18 m), transformation")],
     # https://www.d20srd.org/srd/monsters/xill.htm: "2 short swords +5 melee (1d6+2/19-20, 1d6+1/19-20)" (DRS 40 prints
     # only the primary hand damage)
     "xill": [("Attaque à outrance", "2 épées courtes (+5 corps à corps, 1d6+2/19–20)",

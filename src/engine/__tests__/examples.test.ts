@@ -114,7 +114,7 @@ describe('examples: core numbers', () => {
     const s = compute(migrate(structuredClone(clericJson)), rules)
     expect([s.hpMax.total, s.ac.total, s.bab.total]).toEqual([150, 26, 11])
     expect([s.saves.fort.total, s.saves.ref.total, s.saves.will.total]).toEqual([14, 7, 18])
-    expect(s.turning!.level).toBe(16) // Improved Turning
+    expect(s.turning!.level).toBe(20) // Improved Turning, phylactery of undead turning (+4)
     expect(s.turning!.usesPerDay.total).toBe(3 + 2 + 4)
     expect(s.spellcasting[0].slots.find((x) => x.spellLevel === 8)!.total).toBe(2)
   })

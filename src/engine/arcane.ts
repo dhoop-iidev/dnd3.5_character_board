@@ -166,38 +166,90 @@ export const FAMILIARS: { id: string; master: ModifierSpec[]; text: I18n }[] = [
 ]
 
 // ---- Improved Familiar (https://www.d20srd.org/srd/feats.htm#improvedFamiliar): more familiars from an arcane
-// spellcaster level, for a master whose alignment is at most one step away on each axis. They keep their own type and
-// don't speak with animals of their kind; no master's benefit is listed for them. The feat's second table (familiars by
-// the master's type or subtype) is presented as a DM option: not offered (house rule #38, pending).
+// spellcaster level. First table: by alignment, the master's at most one step away on each axis. Second table (house
+// rule #38, confirmed): by the master's type or subtype; the races don't record subtypes, so that condition is shown
+// for the DM to check, not tested. Improved familiars keep their own type (if not an animal) and don't speak with
+// animals of their kind; no master's benefit is listed for the new creatures (a celestial or fiendish animal from the
+// standard list keeps its own).
 
 export const IMPROVED_FAMILIAR_URL = `${SRD}feats.htm#improvedFamiliar`
 
-export const IMPROVED_FAMILIARS: { id: string; alignment: string; level: number }[] = [
-  { id: 'shocker-lizard', alignment: 'N', level: 5 },
+export interface ImprovedFamiliar {
+  id: string
+  /** Arcane spellcaster level. */
+  level: number
+  /** First table: the familiar's alignment. */
+  alignment?: string
+  /** Second table: the master's type or subtype. */
+  subtype?: I18n
+  /** Celestial or fiendish template on an animal of the standard list (second table). */
+  template?: string
+  note?: I18n
+}
+
+const SUB = (en: string, fr: string) => i18n(en, fr)
+export const IMPROVED_FAMILIARS: ImprovedFamiliar[] = [
+  { id: 'shocker-lizard', alignment: 'N', subtype: SUB('Electricity', 'Électricité'), level: 5 },
   { id: 'stirge', alignment: 'N', level: 5 },
   { id: 'formian-worker', alignment: 'LN', level: 7 },
   { id: 'imp', alignment: 'LE', level: 7 },
   { id: 'pseudodragon', alignment: 'NG', level: 7 },
   { id: 'quasit', alignment: 'CE', level: 7 },
+  { id: 'elemental-small-air', subtype: SUB('Air', 'Air'), level: 5 },
+  { id: 'elemental-small-earth', subtype: SUB('Earth', 'Terre'), level: 5 },
+  { id: 'elemental-small-fire', subtype: SUB('Fire', 'Feu'), level: 5 },
+  { id: 'elemental-small-water', subtype: SUB('Water', 'Eau'), level: 5 },
+  { id: 'homunculus', subtype: SUB('Undead', 'Mort-vivant'), level: 7, note: i18n('the master must create it first', 'le maître doit d’abord le créer') },
+  { id: 'mephit-ice', subtype: SUB('Cold', 'Froid'), level: 7 },
 ]
+/** Celestial (master: Good) or fiendish (Evil) animal from the standard familiar list, from arcane level 3. */
+export const TEMPLATE_FAMILIARS: Record<string, { subtype: I18n; level: number }> = {
+  celestial: { subtype: SUB('Good', 'Bien'), level: 3 },
+  fiendish: { subtype: SUB('Evil', 'Mal'), level: 3 },
+}
 
-export const isImprovedFamiliar = (id: string) => IMPROVED_FAMILIARS.some((f) => f.id === id)
+export const isImprovedFamiliar = (id: string, template?: string) => !!template || IMPROVED_FAMILIARS.some((f) => f.id === id)
+/** A creature of its own kind (not a standard animal with a template): keeps its type, no master's benefit. */
+export const isNewFamiliarKind = (id: string) => IMPROVED_FAMILIARS.some((f) => f.id === id)
 
 const AXIS = { lawful: -1, chaotic: 1, good: -1, evil: 1, neutral: 0 } as const
 
-/** Why the master can't have this improved familiar (empty = she can). `arcaneLevel`: her arcane spellcaster level. */
-export function improvedFamiliarBlockers(id: string, opts: { hasFeat: boolean; arcaneLevel: number; alignment?: string }): I18n[] {
+/** Why the master can't have this improved familiar (empty = she can), and what the DM has to check (`check`).
+ * `arcaneLevel`: her arcane spellcaster level. */
+export function improvedFamiliarBlockers(
+  id: string,
+  opts: { hasFeat: boolean; arcaneLevel: number; alignment?: string; template?: string },
+): I18n[] {
+  return improvedFamiliarCheck(id, opts).blockers
+}
+
+export function improvedFamiliarCheck(
+  id: string,
+  opts: { hasFeat: boolean; arcaneLevel: number; alignment?: string; template?: string },
+): { blockers: I18n[]; check?: I18n } {
+  const t = opts.template ? TEMPLATE_FAMILIARS[opts.template] : undefined
   const f = IMPROVED_FAMILIARS.find((x) => x.id === id)
-  if (!f) return []
+  if (!t && !f) return { blockers: [] }
   const out: I18n[] = []
   if (!opts.hasFeat) out.push(i18n('needs the Improved Familiar feat', 'il faut le don Familier supérieur'))
-  if (opts.arcaneLevel < f.level) out.push(i18n(`arcane spellcaster level ${f.level}`, `niveau ${f.level} de lanceur de sorts profanes`))
-  const a = parseAlignment(opts.alignment)
-  const b = parseAlignment(f.alignment)!
-  if (!a) out.push(i18n(`alignment within one step of ${f.alignment} (none given)`, `alignement à un cran au plus de ${f.alignment} (non indiqué)`))
-  else if (Math.abs(AXIS[a.order] - AXIS[b.order]) > 1 || Math.abs(AXIS[a.moral] - AXIS[b.moral]) > 1)
-    out.push(i18n(`alignment within one step of ${f.alignment}`, `alignement à un cran au plus de ${f.alignment}`))
-  return out
+  const level = t?.level ?? f!.level
+  if (opts.arcaneLevel < level) out.push(i18n(`arcane spellcaster level ${level}`, `niveau ${level} de lanceur de sorts profanes`))
+  const subtype = t?.subtype ?? f?.subtype
+  const sub = subtype && i18n(`the master must have the ${subtype.en} type or subtype (DM)`, `le maître doit avoir le type ou sous-type ${subtype.fr} (MJ)`)
+  const note = f?.note
+  const check = sub && note ? i18n(`${sub.en}; ${note.en}`, `${sub.fr} ; ${note.fr}`) : (sub ?? note)
+  // By alignment (first table), unless the creature is also on the type/subtype table.
+  if (!t && f?.alignment) {
+    const a = parseAlignment(opts.alignment)
+    const b = parseAlignment(f.alignment)!
+    const far = !a || Math.abs(AXIS[a.order] - AXIS[b.order]) > 1 || Math.abs(AXIS[a.moral] - AXIS[b.moral]) > 1
+    if (far && !f.subtype)
+      out.push(a
+        ? i18n(`alignment within one step of ${f.alignment}`, `alignement à un cran au plus de ${f.alignment}`)
+        : i18n(`alignment within one step of ${f.alignment} (none given)`, `alignement à un cran au plus de ${f.alignment} (non indiqué)`))
+    if (!far) return { blockers: out, check: note }
+  }
+  return { blockers: out, check }
 }
 
 const FAMILIAR_SPECIAL: Record<string, { name: I18n; text: I18n }> = {
@@ -266,7 +318,7 @@ export function bardicSongs(bardLevel: number, chaMod: number): BardicSong[] {
   const ic = inspireCourageBonus(bardLevel)
   const suggestionDc = 10 + Math.floor(bardLevel / 2) + chaMod
   return [
-    { id: 'countersong', name: i18n('Countersong', 'Contre-chant'), minLevel: 1, ranks: 3, text: i18n('10 rounds: allies within 30 ft may use your Perform check instead of their save vs sonic or language-dependent magic.', '10 rounds : les alliés à 9 m peuvent utiliser votre test de Représentation à la place de leur jet contre la magie sonore ou dépendant du langage.') },
+    { id: 'countersong', name: i18n('Countersong', 'Contre-chant'), minLevel: 1, ranks: 3, text: i18n('10 rounds: any creature within 30 ft (you included) hit by a sonic or language-dependent magical attack may use your Perform check result instead of its save, if higher.', '10 rounds : toute créature à 9 m (vous compris) visée par une attaque magique sonore ou dépendant du langage peut utiliser le résultat de votre test de Représentation à la place de son jet de sauvegarde, s’il est meilleur.') },
     { id: 'fascinate', name: i18n('Fascinate', 'Fascination'), minLevel: 1, ranks: 3, text: i18n(`Up to ${1 + Math.floor((bardLevel - 1) / 3)} creature(s) within 90 ft: Will save vs your Perform check or fascinated (1 round per bard level while you concentrate).`, `Jusqu’à ${1 + Math.floor((bardLevel - 1) / 3)} créature(s) à 27 m : jet de Volonté contre votre test de Représentation ou fascinée(s) (1 round par niveau de barde tant que vous vous concentrez).`) },
     { id: 'inspire-courage', name: i18n('Inspire courage', 'Inspiration vaillante'), minLevel: 1, ranks: 3, effect: true, text: i18n(`Allies (and you) who hear you: +${ic} morale on attack and weapon damage, +${ic} on saves vs charm and fear; while they hear you and 5 rounds after.`, `Alliés (et vous) qui vous entendent : +${ic} de moral à l’attaque et aux dégâts des armes, +${ic} aux jets contre le charme et la terreur ; tant qu’ils vous entendent et 5 rounds après.`) },
     { id: 'inspire-competence', name: i18n('Inspire competence', 'Inspiration talentueuse'), minLevel: 3, ranks: 6, text: i18n('One ally within 30 ft (not you): +2 competence on one skill while you concentrate, up to 2 minutes.', 'Un allié à 9 m (pas vous) : +2 d’aptitude à une compétence tant que vous vous concentrez, jusqu’à 2 minutes.') },

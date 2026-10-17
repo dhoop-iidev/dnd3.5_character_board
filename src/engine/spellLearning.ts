@@ -6,6 +6,7 @@ import type { I18n } from '../data/types'
 import type { Character } from '../model/character'
 import { castableLevels, isSwapLevel, knownCaps, LEARNING_CLASSES, listLevel, spellbook, spellLearnBlockers, wizardSchools } from './arcane'
 import { compute } from './compute'
+import { permanentScores } from './progression'
 import { spellcastingAdvance } from './spells'
 import { i18n } from './stacking'
 
@@ -57,7 +58,8 @@ export function spellLearning(char: Character, rules: Rules, L: number): SpellLe
   const def = owner && rules.classes.get(owner)?.spellcasting
   if (!owner || !def) return undefined
   const n = castingLevelAt(char, rules, owner, L)
-  const sheet = compute(char, rules, { level: L })
+  // Permanent scores: a fox's cunning or a headband doesn't change past picks.
+  const sheet = compute(permanentScores(char, rules), rules, { level: L })
   const castable = castableLevels(rules, owner, n, sheet.abilities[def.ability].score.total)
   const highest = Math.max(-1, ...castable)
   const entry = char.levels[L - 1]
@@ -167,7 +169,7 @@ export function spellMasteryPicks(char: Character, rules: Rules): MasteryPick[] 
     lvl.feats.forEach((f, index) => {
       if (f.featId !== 'spell-mastery') return
       const L = i + 1
-      out.push({ L, index, spells: f.spells ?? [], allowed: Math.max(0, compute(char, rules, { level: L }).abilities.int.mod) })
+      out.push({ L, index, spells: f.spells ?? [], allowed: Math.max(0, compute(permanentScores(char, rules), rules, { level: L }).abilities.int.mod) })
     }),
   )
   return out

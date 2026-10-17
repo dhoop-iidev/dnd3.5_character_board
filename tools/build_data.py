@@ -233,6 +233,10 @@ def feat_modifiers(fid: str) -> list[dict] | None:
         "great-fortitude": [{"target": "save.fort", "bonusType": "untyped", "value": 2}],
         "lightning-reflexes": [{"target": "save.ref", "bonusType": "untyped", "value": 2}],
         "toughness": [{"target": "hp.max", "bonusType": "untyped", "value": 3}],
+        # https://www.d20srd.org/srd/feats.htm#combatCasting
+        "combat-casting": [{"target": "skill.concentration", "bonusType": "untyped", "value": 4,
+                            "condition": i18n("casting defensively, or while grappling or pinned",
+                                              "pour lancer un sort sur la défensive, en situation de lutte ou immobilisé")}],
         "skill-focus": [{"target": "skill.choice", "bonusType": "untyped", "value": 3}],
         "dodge": [{"target": "ac", "bonusType": "dodge", "value": 1,
                    "condition": i18n("vs designated opponent", "contre l’adversaire désigné")}],

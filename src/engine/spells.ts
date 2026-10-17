@@ -12,6 +12,14 @@ export function classSpellLevel(sp: SpellDef, classId: string, list: string): nu
   return sp.level[list] ?? sp.level[classId]
 }
 
+/** Level of a spell for a casting class: its class list level; in a cleric domain slot, or for a spell only on the
+ * character's domain lists, the lowest of its domain levels (fire storm in a domain slot: Fire 7, not cleric 8). */
+export function spellLevelFor(sp: SpellDef, classId: string, list: string, domainIds: string[] = [], domainSlot = false): number | undefined {
+  const domain = Math.min(...domainIds.map((d) => sp.level[`domain:${d}`] ?? 99))
+  if (domainSlot && domain < 99) return domain
+  return classSpellLevel(sp, classId, list) ?? (domain < 99 ? domain : undefined)
+}
+
 export interface SpellSlots {
   spellLevel: number
   /** From the class table (0 = only bonus spells). */
@@ -38,8 +46,11 @@ export interface Spellcasting {
   ability: AbilityId
   abilityMod: number
   slots: SpellSlots[]
-  /** Save DC = 10 + spell level + ability modifier. */
-  dc: (spellLevel: number) => number
+  /** Save DC = 10 + spell level + ability modifier, + 1 each for Spell Focus and Greater Spell Focus in the spell's
+   * school (https://www.d20srd.org/srd/feats.htm#spellFocus, #greaterSpellFocus). */
+  dc: (spellLevel: number, school?: string) => number
+  /** Wizard: prohibited schools (their spells are not on her list, scrolls and wands included). */
+  prohibited: string[]
   /** Arcane spell failure chance (%) for this class's spells with a somatic component (set by compute). */
   spellFailure?: Stat
 }
@@ -83,6 +94,8 @@ export function spellcastingOf(
   choices: Record<string, string> = {},
   /** Spellcasting levels added by prestige classes (spellcastingAdvance). */
   advance: Record<string, number> = {},
+  /** Save DC bonus for a school (Spell Focus, Greater Spell Focus). */
+  focus: (school: string) => number = () => 0,
 ): Spellcasting[] {
   const out: Spellcasting[] = []
   for (const [classId, own] of Object.entries(classLevels)) {
@@ -139,7 +152,12 @@ export function spellcastingOf(
       ability: def.ability,
       abilityMod: mod,
       slots,
-      dc: (spellLevel) => 10 + spellLevel + mod,
+      dc: (spellLevel, school) => 10 + spellLevel + mod + (school ? focus(school) : 0),
+      // https://www.d20srd.org/srd/classes/wizard.htm#schoolSpecialization
+      prohibited:
+        classId === 'wizard' && choices.school && choices.school !== 'universal'
+          ? [choices.prohibited1, choices.prohibited2].filter((x): x is string => !!x)
+          : [],
     })
   }
   return out

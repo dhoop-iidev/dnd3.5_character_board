@@ -5,6 +5,7 @@
   import { advanceManeuvers, crusaderEndTurn, crusaderGranted, readiedOf } from '../engine/martial'
   import { app, tr, view } from '../state.svelte'
   import { endRage, RAGE_ENCOUNTER_KEY } from './classActions'
+  import { takeDamage } from '../engine/hitPoints'
   import { effectName } from './effects'
 
   let message = $state('')
@@ -23,7 +24,7 @@
       }
       // Steely resolve (ToB p. 10): the delayed damage is taken at the end of the turn.
       if (c.martial.pool) {
-        c.hp.damage += c.martial.pool
+        takeDamage(c.hp, c.martial.pool, c.activeEffects)
         notes.push(tr({ en: `${c.martial.pool} delayed damage taken`, fr: `${c.martial.pool} dégâts différés subis` }))
         c.martial.pool = 0
       }
@@ -81,7 +82,7 @@
       c.martial.active = []
       delete c.martial.granted
       // Delayed damage still pending is taken when the encounter ends.
-      if (c.martial.pool) c.hp.damage += c.martial.pool
+      if (c.martial.pool) takeDamage(c.hp, c.martial.pool, c.activeEffects)
       delete c.martial.pool
     }
     message = tr({

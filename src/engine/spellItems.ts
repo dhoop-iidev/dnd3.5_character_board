@@ -58,11 +58,16 @@ export interface StoredSpellUse {
 /** How the character can use a stored spell: save DC, caster level, list, Use Magic Device and caster level checks. */
 export function storedSpellUse(item: ItemInstance, s: StoredSpell, sheet: Sheet, rules: Rules): StoredSpellUse {
   const sp = rules.spells.get(s.spellId)
-  const lists = sheet.spellcasting.filter((sc) => sp && classSpellLevel(sp, sc.classId, sc.def.list) !== undefined)
+  // A specialist wizard's prohibited schools are off her list: scrolls and wands of them need Use Magic Device
+  // (https://www.d20srd.org/srd/classes/wizard.htm#schoolSpecialization).
+  const prohibitedFor = (classId: string) => sheet.spellcasting.find((sc) => sc.classId === classId)?.prohibited ?? []
+  const onList = (classId: string, list: string) =>
+    !!sp && classSpellLevel(sp, classId, list) !== undefined && !prohibitedFor(classId).includes(sp.schoolId ?? '')
+  const lists = sheet.spellcasting.filter((sc) => onList(sc.classId, sc.def.list))
   // Any class level counts for a spell trigger item, even without spells yet (a 3rd-level paladin).
   const classesWithList = Object.keys(sheet.classLevels).filter((id) => {
     const list = rules.classes.get(id)?.spellcasting?.list
-    return !!list && !!sp && classSpellLevel(sp, id, list) !== undefined
+    return !!list && onList(id, list)
   })
   let dc = itemSaveDc(s.level)
   let cl = s.casterLevel
@@ -70,7 +75,7 @@ export function storedSpellUse(item: ItemInstance, s: StoredSpell, sheet: Sheet,
   // Staffs: the wielder's caster level and save DC when higher (https://www.d20srd.org/srd/magicItems/staffs.htm).
   if (item.spellItem === 'staff')
     for (const sc of lists) {
-      dc = Math.max(dc, sc.dc(s.level))
+      dc = Math.max(dc, sc.dc(s.level, sp?.schoolId))
       cl = Math.max(cl, sc.casterLevel.total)
     }
   const needsList = s.activation === 'completion' || s.activation === 'trigger'

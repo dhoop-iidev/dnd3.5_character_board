@@ -93,11 +93,8 @@
     if (a?.order === 'chaotic') out.push('chaotic')
     return [...new Set(out)]
   })
-  const clBonus = $derived(
-    chosen?.caster.classId === 'cleric'
-      ? domainCasterLevelBonus({ descriptors: alignDescriptors } as unknown as SpellDef, s.domains)
-      : { value: 0, domain: undefined },
-  )
+  // Domain caster level bonus: every spell the cleric casts, whatever its class (3.5 FAQ 6/30/2008).
+  const clBonus = $derived(domainCasterLevelBonus({ descriptors: alignDescriptors } as unknown as SpellDef, s.domains))
   const opposed = $derived.by(() => {
     if (chosen?.caster.classId !== 'cleric') return []
     const me = parseAlignment(app.character.identity.alignment)
