@@ -429,7 +429,7 @@ export interface MaterialDef {
     damage?: number
     /** Damage reduction this material overcomes, e.g. "adamantine", "cold iron", "silver". */
     bypassDR?: string
-    /** Armor: number of categories lighter (mithral: 1) — for movement and other limitations, not proficiency. */
+    /** Armor: number of categories lighter (mithral: 1) — for every purpose, proficiency included (FAQ 6/30/2008 pp. 53–54). */
     armorCategoryShift?: number
     maxDexBonus?: number
     /** Armor check penalty reduced by this amount (positive number). */

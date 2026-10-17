@@ -37,7 +37,7 @@ export function newWeekClassUses(c: Character) {
 
 // ---- bardic music (https://www.d20srd.org/srd/classes/bard.htm#bardicMusic): once per day per bard level. A song
 // with an effect lasts while the bard sings and 5 rounds after; one song at a time: starting another one stops the
-// singing of the current one, whose effect lingers 5 rounds (house rule #35, pending; rulings-classes.md C29).
+// singing of the current one, whose effect lingers 5 rounds (house rule #35, confirmed; rulings-classes.md C29).
 export const BARDIC_KEY = 'class:bardic-music'
 export const songEffects = (c: Character) => c.activeEffects.filter((e) => e.kind === 'class' && SONG_EFFECTS.includes(e.refId ?? ''))
 

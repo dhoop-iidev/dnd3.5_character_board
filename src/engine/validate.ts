@@ -492,8 +492,9 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
 
   // Equipment: proficiency, load, max Dex, slots.
   const profArmor = now.proficiency.armor
+  // Mithral armor: one category lighter for proficiency too (FAQ 6/30/2008 pp. 53–54, rulings C35).
   for (const x of [now.armor, now.shield]) {
-    if (x && !profArmor.has(x.def.category))
+    if (x && !profArmor.has(x === now.armor ? now.armor.category : x.def.category))
       out.push(w(`armor-prof-${x.item.uid}`, 'error', 'inventory', `Not proficient with ${x.def.name.en}`, `Pas de maniement de ${x.def.name.fr}`, { srdUrl: `${SRD}equipment/armor.htm` }))
   }
   for (const a of now.attacks)

@@ -1227,9 +1227,10 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
     const proficient = monkUnarmed || proficientWith(proficiency, weapon) || (martialGrip && proficiency.weapons.has('martial'))
     if (!proficient)
       atk.push({ sourceId: 'nonproficient-weapon', label: i18n('Not proficient with the weapon', 'Arme non maîtrisée'), value: -4, bonusType: 'untyped', source: src('equipment/weapons.htm#weaponCategories') })
-    // Nonproficient armor or shield: its armor check penalty applies to attack rolls (rulings R24).
+    // Nonproficient armor or shield: its armor check penalty applies to attack rolls (rulings R24). Mithral armor is
+    // one category lighter for proficiency too (FAQ 6/30/2008 pp. 53–54, rulings C35); a mithral shield keeps its own.
     for (const x of [armor, shield])
-      if (x && !profArmor.has(x.def.category) && itemAcp(x))
+      if (x && !profArmor.has(x === armor ? armor.category : x.def.category) && itemAcp(x))
         atk.push({ sourceId: `nonproficient:${x.item.uid}`, label: { en: `Not proficient: ${x.def.name.en}`, fr: `Non maîtrisé : ${x.def.name.fr}` }, value: itemAcp(x), bonusType: 'untyped', source: src('equipment/armor.htm#armorProficiency') })
     // Buckler + weapon in the off hand or two-handed: −1 attack (https://www.d20srd.org/srd/equipment/armor.htm#buckler).
     if (shield?.def.id === 'buckler' && melee && (twoHands || hand === 'off'))

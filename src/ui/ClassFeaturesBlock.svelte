@@ -143,8 +143,8 @@
     {/each}
     <p class="note">
       {tr({
-        en: 'Starting a song is a standard action. While singing you can’t cast spells or use scrolls or wands. One song at a time: starting another stops the singing of the first, whose effect lasts 5 more rounds (house rule #35, pending).',
-        fr: 'Commencer un chant est une action simple. Tant que vous chantez, pas de sort ni de parchemin ou de baguette. Un chant à la fois : en commencer un autre arrête le premier, dont l’effet dure encore 5 rounds (règle maison n° 35, en attente).',
+        en: 'Starting a song is a standard action. While singing you can’t cast spells or use scrolls or wands. One song at a time: starting another stops the singing of the first, whose effect lasts 5 more rounds (house rule #35).',
+        fr: 'Commencer un chant est une action simple. Tant que vous chantez, pas de sort ni de parchemin ou de baguette. Un chant à la fois : en commencer un autre arrête le premier, dont l’effet dure encore 5 rounds (règle maison n° 35).',
       })}
       <a href={BARD_URL} target="_blank" rel="noopener">d20srd</a>
     </p>

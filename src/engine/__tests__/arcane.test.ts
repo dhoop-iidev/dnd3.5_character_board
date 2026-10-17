@@ -116,6 +116,19 @@ describe('arcane spell failure', () => {
     wear(b, 'buckler', true)
     expect(compute(b, rules).spellcasting[0].spellFailure!.total).toBe(5)
   })
+  it('mithral breastplate: light armor for every purpose (FAQ pp. 53–54, C35): bard none and proficient; sorcerer 15%', () => {
+    const mithral = (c: Character) => {
+      c.inventory.push({ uid: 'bp', kind: 'armor', refId: 'breastplate', location: 'worn', quantity: 1, material: 'mithral' })
+      return c
+    }
+    const b = mithral(make(['bard']))
+    expect(compute(b, rules).spellcasting[0].spellFailure!.total).toBe(0)
+    expect(validate(b, rules).some((w) => w.id === 'armor-prof-bp')).toBe(false)
+    const s = mithral(make(['sorcerer']))
+    expect(compute(s, rules).spellcasting[0].spellFailure!.total).toBe(15)
+    // A sorcerer is proficient with no armor: still nonproficient in light armor.
+    expect(validate(s, rules).some((w) => w.id === 'armor-prof-bp')).toBe(true)
+  })
 })
 
 describe('familiar', () => {
