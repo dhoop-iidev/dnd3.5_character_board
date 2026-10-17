@@ -909,9 +909,13 @@
       "handle-animal",
       "intimidate",
       "jump",
+      "knowledge-arcana",
+      "knowledge-history",
+      "knowledge-religion",
       "martial-lore",
       "ride",
       "sense-motive",
+      "spellcraft",
       "tumble"
     ],
     "proficiencies": {
@@ -938,11 +942,11 @@
       "martial": {
         "maneuvers": [
           {
-            "count": 2
-          },
-          {
             "count": 1,
             "type": "strike"
+          },
+          {
+            "count": 1
           }
         ],
         "stances": [

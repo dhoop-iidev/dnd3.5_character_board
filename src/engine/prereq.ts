@@ -49,8 +49,8 @@ export function unmetPrereqs(
     }
   }
   // Tome of Battle prestige classes (p. 96): maneuvers and stances known, by discipline. Stances count as maneuvers only
-  // for maneuver prerequisites (p. 44), so here a stance fills only the stance entries (rulings-tob.md T20). Each
-  // entry is checked on its own (house rule #33 pending).
+  // for maneuver prerequisites (p. 44), so here a stance fills only the stance entries (rulings-tob.md T20). Each entry
+  // needs its own maneuvers: one maneuver never fills two entries (house rule #33).
   const m = prereq.martial
   if (m) {
     const known = sheet.martial.known
@@ -58,14 +58,28 @@ export function unmetPrereqs(
       const n = (ids ?? []).map((d) => rules.disciplines.get(d)?.name ?? { en: d, fr: d })
       return { en: n.map((x) => x.en).join(' or '), fr: n.map((x) => x.fr).join(' ou ') }
     }
-    for (const r of m.maneuvers ?? []) {
-      const have = known.filter(
-        (k) =>
-          k.type !== 'stance' &&
-          (!r.disciplines || r.disciplines.includes(k.discipline)) &&
-          k.level >= (r.minLevel ?? 1) &&
-          (!r.type || k.type === r.type),
-      ).length
+    // Maximum matching of the maneuvers known to the entries' slots (augmenting paths; a few dozen items at most).
+    const reqs = m.maneuvers ?? []
+    const pool = known.filter((k) => k.type !== 'stance')
+    const fits = (r: (typeof reqs)[number], k: (typeof pool)[number]) =>
+      (!r.disciplines || r.disciplines.includes(k.discipline)) && k.level >= (r.minLevel ?? 1) && (!r.type || k.type === r.type)
+    const slots = reqs.flatMap((r, i) => Array.from({ length: r.count }, () => i))
+    const owner: number[] = pool.map(() => -1) // maneuver index -> slot index
+    const tryFill = (s: number, seen: Set<number>): boolean => {
+      for (let k = 0; k < pool.length; k++) {
+        if (seen.has(k) || !fits(reqs[slots[s]], pool[k])) continue
+        seen.add(k)
+        if (owner[k] < 0 || tryFill(owner[k], seen)) {
+          owner[k] = s
+          return true
+        }
+      }
+      return false
+    }
+    slots.forEach((_, s) => tryFill(s, new Set()))
+    const filled = reqs.map((_, i) => owner.filter((s) => s >= 0 && slots[s] === i).length)
+    for (const [i, r] of reqs.entries()) {
+      const have = filled[i]
       if (have < r.count) {
         const d = discName(r.disciplines)
         const lv = r.minLevel ? { en: ` of level ${r.minLevel}+`, fr: ` de niveau ${r.minLevel}+` } : { en: '', fr: '' }

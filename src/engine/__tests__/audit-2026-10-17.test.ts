@@ -11,6 +11,7 @@ import { spellLearning } from '../spellLearning'
 import { hpState, takeDamage } from '../hitPoints'
 import { metamagicProblems } from '../metamagic'
 import { validate } from '../validate'
+import { unmetPrereqs } from '../prereq'
 import fenrirJson from './fixtures/chikibidouille.json'
 
 const fenrir = fenrirJson as unknown as Character
@@ -134,5 +135,22 @@ describe('house rules #41 and #42', () => {
   it('#42: arcane spellcaster level = the highest single arcane class level (sorcerer 3 / wizard 4 = 4)', () => {
     const c = make([...times('sorcerer', 3), ...times('wizard', 4)])
     expect(arcaneSpellcasterLevel(compute(c, rules).classLevels, rules)).toBe(4)
+  })
+})
+
+describe('house rules #33 and #34 (Tome of Battle)', () => {
+  const ninja = () => rules.classes.get('shadow-sun-ninja')!.requirements
+  const sheetKnowing = (ids: string[]) =>
+    ({ ...compute(make(['fighter']), rules), martial: { ...compute(make(['fighter']), rules).martial, known: ids.map((id) => rules.maneuvers.get(id)!) } }) as ReturnType<typeof compute>
+  const martialUnmet = (ids: string[]) =>
+    unmetPrereqs({ martial: ninja()!.martial }, sheetKnowing(ids), rules, []).map((u) => u.en)
+  it('#33: Shadow Sun Ninja needs three distinct maneuvers', () => {
+    // A 2nd-level Setting Sun maneuver can't fill both the 2nd-level line and the Setting Sun line.
+    expect(martialUnmet(['clever-positioning', 'shadow-blade-technique']).length).toBeGreaterThan(0)
+    expect(martialUnmet(['clever-positioning', 'mighty-throw', 'shadow-blade-technique'])).toEqual([])
+  })
+  it('#34: Jade Phoenix Mage gets Knowledge (arcana) and Spellcraft as class skills', () => {
+    const skills = rules.classes.get('jade-phoenix-mage')!.classSkills
+    expect(skills).toEqual(expect.arrayContaining(['knowledge-arcana', 'knowledge-history', 'knowledge-religion', 'spellcraft']))
   })
 })

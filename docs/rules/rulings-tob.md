@@ -150,3 +150,9 @@ Status words: **RAW** = the book's own text settles it; **FAQ** = official FAQ; 
 ### Side findings
 - Swordsage skill points: the book prints "(6 + Int) ×6 at 1st level" (p. 16). CS confirmed this is a misprint for the normal ×4. The app already uses ×4.
 - CS (unofficial): a prestige class adds its full levels to initiator level only if its text says so. Otherwise it adds half its levels.
+
+## Decisions of 2026-10-17 (house rules #31–#34)
+- **T13 / #31:** the app as it is: the player types the damage the table accepts into the pool.
+- **T14 / #32:** the app as it is: the pool is taken at the end of each of the crusader's turns, and at the end of the encounter.
+- **T20 / #33:** distinct maneuvers. Each requirement entry needs its own maneuvers (`prereq.ts`: a maximum matching of the maneuvers known to the entries). Jade Phoenix Mage's "two maneuvers, including one strike" is encoded as one strike plus one other maneuver.
+- **T21 / #34:** Jade Phoenix Mage class skills: Knowledge (arcana), (history), (religion) and Spellcraft added to the printed list.
