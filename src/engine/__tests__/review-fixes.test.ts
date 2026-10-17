@@ -10,7 +10,7 @@ import { validate } from '../validate'
 const fenrir = fenrirJson as unknown as Character
 const at8 = (c: Partial<Character> = {}) => compute({ ...fenrir, ...c }, rules, { level: 8 })
 const cond = (...ids: string[]): ActiveEffect[] => ids.map((id, i) => ({ uid: `c${i}`, kind: 'condition', refId: id, enabled: true }))
-const weapon = (refId: string, extra: Partial<ItemInstance> = {}): ItemInstance => ({ uid: refId, kind: 'weapon', refId, quantity: 1, location: 'carried', ...extra })
+const weapon = (refId: string, extra: Partial<ItemInstance> = {}): ItemInstance => ({ uid: refId, kind: 'weapon', refId, quantity: 1, location: 'worn', ...extra })
 const withWeapons = (items: ItemInstance[], extraLoadout: object = {}) => ({
   inventory: [...fenrir.inventory, ...items],
   loadouts: [{ id: 't', name: { en: 't', fr: 't' }, weapons: items.map((i) => i.uid), ...extraLoadout }],
@@ -170,7 +170,7 @@ describe('special materials and abilities', () => {
   })
   it('alchemical silver: −1 damage', () => expect(atk(at8(withSword({ material: 'alchemical-silver' })), 'greatsword').damage.total).toBe(7))
   it('special ability on a non-magic weapon is flagged; total over +10 too', () => {
-    const c1 = { ...fenrir, inventory: [...fenrir.inventory, { uid: 'k', kind: 'weapon' as const, refId: 'longsword', quantity: 1, location: 'carried' as const, properties: ['keen'] }] }
+    const c1 = { ...fenrir, inventory: [...fenrir.inventory, { uid: 'k', kind: 'weapon' as const, refId: 'longsword', quantity: 1, location: 'worn' as const, properties: ['keen'] }] }
     expect(validate(c1, rules).some((w) => w.id === 'props-need-enh-k')).toBe(true)
   })
 })

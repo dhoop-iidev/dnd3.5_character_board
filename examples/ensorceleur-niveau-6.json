@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Corvin Brisebraise",
     "player": "",
@@ -154,14 +154,14 @@
       "kind": "weapon",
       "refId": "light-crossbow",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "dagger",
       "kind": "weapon",
       "refId": "dagger",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     }
   ],
   "loadouts": [

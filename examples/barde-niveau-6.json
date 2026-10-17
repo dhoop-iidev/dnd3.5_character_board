@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Lisandre Chantebrume",
     "player": "",
@@ -173,7 +173,7 @@
       "kind": "weapon",
       "refId": "rapier",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 1
     },
     {
@@ -181,7 +181,7 @@
       "kind": "weapon",
       "refId": "shortbow",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "shirt",

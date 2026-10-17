@@ -46,5 +46,19 @@ export function migrate(raw: unknown): Character {
       }
     c.schemaVersion = 6
   }
+  // v6 -> v7: three item locations. Old 'carried' (hands, belt) -> 'worn', except magic items and custom items with a
+  // slot or bonuses, which go to the backpack so that they don't start giving bonuses or filling a slot; old 'pack'
+  // (backpack) -> 'carried'. Weapons and shields a loadout uses go on the body, where they must now be to be in hand.
+  if (c.schemaVersion < 7) {
+    const inHand = new Set((c.loadouts ?? []).flatMap((l) => [...l.weapons, ...(l.shield ? [l.shield] : [])]))
+    for (const i of c.inventory ?? []) {
+      const loc = i.location as string
+      if (loc !== 'stored' && inHand.has(i.uid)) i.location = 'worn'
+      else if (loc === 'pack') i.location = 'carried'
+      else if (loc === 'carried')
+        i.location = i.kind === 'magic' || (i.kind === 'custom' && (i.custom?.slot || i.custom?.modifiers?.length)) ? 'carried' : 'worn'
+    }
+    c.schemaVersion = 7
+  }
   return c
 }

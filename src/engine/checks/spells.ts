@@ -182,6 +182,40 @@ export function checkSpells(ctx: CheckContext): void {
           )
       }
   }
+  // Extra slots: a cleric's domain slot holds a spell of one of her domains
+  // (https://www.d20srd.org/srd/classes/cleric.htm#domainsandDomainSpells), a specialist wizard's extra slot a spell of
+  // the specialty school (https://www.d20srd.org/srd/classes/wizard.htm#schoolSpecialization).
+  {
+    const domains = domainsOf(char, rules)
+    const { specialty } = wizardSchools(char)
+    for (const sc of now.spellcasting) {
+      if (sc.classId !== 'cleric' && !(sc.classId === 'wizard' && specialty)) continue
+      for (const [lvl, list] of Object.entries(char.spells?.[sc.classId]?.prepared ?? {})) {
+        const slotInfo = sc.slots.find((x) => x.spellLevel === Number(lvl))
+        if (!slotInfo?.extra) continue
+        list.forEach((slot, j) => {
+          const sp = slot.id ? rules.spells.get(slot.id) : undefined
+          if (!sp || j < slotInfo.total - slotInfo.extra) return
+          const cleric = sc.classId === 'cleric'
+          if (cleric ? domains.some((d) => sp.level[`domain:${d.id}`] !== undefined) : sp.schoolId === specialty) return
+          out.push(
+            w(
+              `extra-slot-${sc.classId}-${lvl}-${j}`,
+              'error',
+              'spells',
+              cleric
+                ? `${sp.name.en} in a domain slot: not a spell of your domains`
+                : `${sp.name.en} in the specialty slot: not a spell of your specialty school`,
+              cleric
+                ? `${sp.name.fr} dans un emplacement de domaine : ce n'est pas un sort de vos domaines`
+                : `${sp.name.fr} dans l'emplacement de spécialité : ce n'est pas un sort de votre école de spécialité`,
+              { srdUrl: cleric ? `${SRD}classes/cleric.htm#domainsandDomainSpells` : `${SRD}classes/wizard.htm#schoolSpecialization` },
+            ),
+          )
+        })
+      }
+    }
+  }
   // Metamagic on prepared spells (https://www.d20srd.org/srd/feats.htm#metamagicFeats): feats known, the slot is of the
   // spell's level + the feats' adjustments or higher, each feat's restrictions.
   {

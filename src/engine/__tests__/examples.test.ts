@@ -185,3 +185,16 @@ describe('arcane examples: magicienne-niveau-7 (evoker), ensorceleur-niveau-6, b
     expect(s.classFeatures.bardicMusic!.songs.filter((x) => x.available).map((x) => x.id)).toEqual(['countersong', 'fascinate', 'inspire-courage', 'inspire-competence', 'suggestion'])
   })
 })
+
+describe('extra spell slots', () => {
+  it("the specialty slot needs a spell of the specialty school; the domain slot a domain spell", () => {
+    const wiz = migrate(structuredClone(wizardJson))
+    const cantrips = wiz.spells!.wizard.prepared[0]
+    cantrips[cantrips.length - 1] = { id: 'read-magic', cast: false } // divination, specialist in evocation
+    expect(validate(wiz, rules).map((x) => x.id)).toContain(`extra-slot-wizard-0-${cantrips.length - 1}`)
+    const cleric = migrate(structuredClone(clericJson))
+    const first = cleric.spells!.cleric.prepared[1]
+    first[first.length - 1] = { id: 'bless', cast: false } // not a spell of her domains
+    expect(validate(cleric, rules).map((x) => x.id)).toContain(`extra-slot-cleric-1-${first.length - 1}`)
+  })
+})

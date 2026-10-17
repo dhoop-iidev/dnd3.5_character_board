@@ -73,7 +73,7 @@ describe('arcane', () => {
   it('a specialist can’t use a scroll of a prohibited school without Use Magic Device', () => {
     const c = make(['wizard'])
     c.levels[0].classChoices = { school: 'evocation', prohibited1: 'enchantment', prohibited2: 'illusion' }
-    const scroll = { uid: 'sc', kind: 'gear' as const, refId: 'scroll', quantity: 1, location: 'carried' as const, spellItem: 'scroll' as const, spells: [{ spellId: 'color-spray', level: 1, casterLevel: 1, activation: 'completion', uses: 'single' }] }
+    const scroll = { uid: 'sc', kind: 'gear' as const, refId: 'scroll', quantity: 1, location: 'worn' as const, spellItem: 'scroll' as const, spells: [{ spellId: 'color-spray', level: 1, casterLevel: 1, activation: 'completion', uses: 'single' }] }
     c.inventory.push(scroll as never)
     expect(storedSpellUse(scroll as never, scroll.spells[0] as never, compute(c, rules), rules).usable).toBe(false)
   })

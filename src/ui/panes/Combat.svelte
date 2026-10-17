@@ -56,10 +56,14 @@
   }
 
   // ---- loadout editing
-  const weapons = $derived(c.inventory.filter((i) => i.kind === 'weapon' && i.location !== 'stored'))
+  // Weapons and shields in hand are picked among the worn ones (a weapon in the backpack must be retrieved first).
+  const weapons = $derived(c.inventory.filter((i) => i.kind === 'weapon' && i.location === 'worn'))
   const shields = $derived(
     c.inventory.filter(
-      (i) => i.kind === 'armor' && ['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? ''),
+      (i) =>
+        i.kind === 'armor' &&
+        i.location === 'worn' &&
+        ['shield', 'tower'].includes(rules.armor.get(i.refId)?.category ?? ''),
     ),
   )
   function toggleGrip(uid: string) {
@@ -70,7 +74,7 @@
   const meleeInHand = $derived(
     loadout.weapons.filter((uid) => {
       const it = c.inventory.find((i) => i.uid === uid)
-      return it && rules.weapons.get(it.refId)?.kind === 'melee'
+      return it?.location === 'worn' && rules.weapons.get(it.refId)?.kind === 'melee'
     }).length,
   )
   function toggleWeapon(uid: string) {
@@ -258,6 +262,13 @@
             {tr({ en: 'held in two hands (Str ×1.5)', fr: 'tenue à deux mains (For ×1,5)' })}
           </label>
         {/if}
+      {:else}
+        <p class="note">
+          {tr({
+            en: 'No worn weapon: put weapons in the “Worn” section of the Equipment pane.',
+            fr: 'Aucune arme portée : placez des armes dans la section « Porté » du volet Équipement.',
+          })}
+        </p>
       {/each}
       {#if meleeInHand >= 2}
         <label class="check">

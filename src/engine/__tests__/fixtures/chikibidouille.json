@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Chikibidouille",
     "player": "Gaspard",
@@ -163,7 +163,7 @@
       "kind": "weapon",
       "refId": "greatsword",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 2
     },
     {
@@ -171,14 +171,14 @@
       "kind": "weapon",
       "refId": "short-sword",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "longbow",
       "kind": "weapon",
       "refId": "longbow",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "arrows",
@@ -189,7 +189,7 @@
         "fr": "Flèches (14)"
       },
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "custom": {
         "weightLb": 2.1,
         "costGp": 0.7,
@@ -212,7 +212,7 @@
       "kind": "armor",
       "refId": "heavy-steel-shield",
       "quantity": 1,
-      "location": "pack"
+      "location": "worn"
     },
     {
       "uid": "amulet",
@@ -233,63 +233,63 @@
       "kind": "gear",
       "refId": "waterskin",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "belt-pouch",
       "kind": "gear",
       "refId": "belt-pouch",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "backpack",
       "kind": "gear",
       "refId": "backpack",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "grappling-hook",
       "kind": "gear",
       "refId": "grappling-hook",
       "quantity": 1,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "flask",
       "kind": "gear",
       "refId": "flask",
       "quantity": 1,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "potion-invisibility",
       "kind": "magic",
       "refId": "potion-of-invisibility",
       "quantity": 1,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "potion-bulls-strength",
       "kind": "magic",
       "refId": "potion-of-bulls-strength",
       "quantity": 1,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "potion-levitate",
       "kind": "magic",
       "refId": "potion-of-levitate",
       "quantity": 1,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "potion-clw",
       "kind": "magic",
       "refId": "potion-of-cure-light-wounds",
       "quantity": 2,
-      "location": "pack"
+      "location": "carried"
     }
   ],
   "loadouts": [

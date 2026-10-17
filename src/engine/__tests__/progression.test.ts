@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { rules } from '../../data/rules'
 import fenrirJson from './fixtures/chikibidouille.json'
-import type { Character } from '../../model/character'
+import { SCHEMA_VERSION, type Character } from '../../model/character'
 import { migrate } from '../../model/migrate'
 import { classOptions, featOptions, featSlotsAt, levelForXp, skillBudget, xpForLevel } from '../progression'
 
@@ -76,7 +76,36 @@ describe('save migration', () => {
     const v1 = { ...clone(), schemaVersion: 1 } as Partial<Character>
     delete v1.xp
     const c = migrate(v1)
-    expect(c.schemaVersion).toBe(6)
+    expect(c.schemaVersion).toBe(SCHEMA_VERSION)
     expect(c.xp).toBe(36000)
+  })
+
+  it('v6 -> v7: three item locations; weapons and shields in a loadout go on the body', () => {
+    const item = (uid: string, kind: Character['inventory'][number]['kind'], location: string, extra = {}) =>
+      ({ uid, kind, refId: uid, quantity: 1, location, ...extra }) as Character['inventory'][number]
+    const v6 = {
+      ...clone(),
+      schemaVersion: 6,
+      inventory: [
+        item('sword', 'weapon', 'carried'),
+        item('shield', 'armor', 'pack'),
+        item('rope', 'gear', 'pack'),
+        item('torch', 'gear', 'carried'),
+        item('ring', 'magic', 'carried'),
+        item('charm', 'custom', 'carried', { custom: { weightLb: 0, costGp: 0, text: { en: '', fr: '' }, modifiers: [{}] } }),
+        item('axe', 'weapon', 'stored'),
+      ],
+      loadouts: [{ id: 'a', name: { en: 'A', fr: 'A' }, weapons: ['sword', 'axe'], shield: 'shield' }],
+    }
+    const loc = Object.fromEntries(migrate(v6).inventory.map((i) => [i.uid, i.location]))
+    expect(loc).toEqual({
+      sword: 'worn',
+      shield: 'worn', // was in the pack but strapped on in a loadout
+      rope: 'carried',
+      torch: 'worn', // hands/belt -> on the body
+      ring: 'carried', // a magic item doesn't start working: backpack
+      charm: 'carried',
+      axe: 'stored',
+    })
   })
 })

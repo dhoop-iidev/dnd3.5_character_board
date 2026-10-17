@@ -23,7 +23,7 @@
   let cost = $state(0)
   let text = $state('')
   let slot = $state<Slot | ''>('')
-  let location = $state<ItemLocation>('pack')
+  let location = $state<ItemLocation>('carried')
   let mods = $state<ModifierSpec[]>([])
 
   // ---- weapon
@@ -110,7 +110,7 @@
         refId: base.id,
         name: { en: n, fr: n },
         quantity: 1,
-        location: 'carried',
+        location: 'worn',
         ...(quality === 'mw' ? { masterwork: true } : {}),
         ...(enh ? { enhancement: enh } : {}),
         ...(material ? { material } : {}),
@@ -134,7 +134,7 @@
         refId: '',
         name: { en: n, fr: n },
         quantity: 1,
-        location: spellType === 'staff' ? 'carried' : 'pack',
+        location: spellType === 'staff' ? 'worn' : 'carried',
         spellItem: spellType,
         spells: $state.snapshot(stored),
         ...(t.charges ? { charges: { left: t.charges, max: t.charges } } : {}),
@@ -266,8 +266,8 @@
         <label>
           {tr({ en: 'Where', fr: 'Où' })}
           <select bind:value={location}>
-            <option value="carried">{tr({ en: 'Carried', fr: 'Transporté' })}</option>
-            <option value="pack">{tr({ en: 'Backpack', fr: 'Sac à dos' })}</option>
+            <option value="worn">{tr({ en: 'Worn (on the body)', fr: 'Porté (sur soi)' })}</option>
+            <option value="carried">{tr({ en: 'Carried (backpack)', fr: 'Transporté (sac à dos)' })}</option>
             <option value="stored">{tr({ en: 'Stored', fr: 'Entreposé' })}</option>
           </select>
         </label>

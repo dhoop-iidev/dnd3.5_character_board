@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Sœur Lian",
     "player": "",
@@ -187,7 +187,7 @@
       "kind": "weapon",
       "refId": "kama",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "masterwork": true
     },
     {
@@ -195,14 +195,14 @@
       "kind": "weapon",
       "refId": "shuriken-5",
       "quantity": 10,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "clw",
       "kind": "magic",
       "refId": "potion-of-cure-light-wounds",
       "quantity": 3,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "backpack",

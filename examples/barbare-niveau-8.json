@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Grok Fend-Crâne",
     "player": "",
@@ -134,7 +134,7 @@
       "kind": "weapon",
       "refId": "greataxe",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 1
     },
     {
@@ -142,7 +142,7 @@
       "kind": "weapon",
       "refId": "javelin",
       "quantity": 3,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "breast",
@@ -171,7 +171,7 @@
       "kind": "magic",
       "refId": "potion-of-cure-moderate-wounds",
       "quantity": 2,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "backpack",

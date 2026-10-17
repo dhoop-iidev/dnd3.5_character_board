@@ -65,7 +65,7 @@ describe('#29 quarterstaff in a flurry, per round', () => {
   it('one end: Power Attack ×2; both ends: ×1', () => {
     const m = make('monk', 6)
     m.levels[0].feats = [{ featId: 'power-attack', slot: 'general' }]
-    m.inventory = [{ uid: 'q', kind: 'weapon', refId: 'quarterstaff', quantity: 1, location: 'carried' }]
+    m.inventory = [{ uid: 'q', kind: 'weapon', refId: 'quarterstaff', quantity: 1, location: 'worn' }]
     m.loadouts[0].weapons = ['q']
     m.toggles = { ...m.toggles, flurry: true, powerAttack: 2 }
     const pa = (c: Character) => compute(c, rules).attacks.find((a) => a.itemUid === 'q')!.damage.parts.find((p) => p.sourceId === 'power-attack')!.value

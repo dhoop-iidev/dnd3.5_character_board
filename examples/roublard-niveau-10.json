@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Pip Doigts-d’Or",
     "player": "",
@@ -231,7 +231,7 @@
       "kind": "weapon",
       "refId": "short-sword",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 1
     },
     {
@@ -239,7 +239,7 @@
       "kind": "weapon",
       "refId": "dagger",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "masterwork": true
     },
     {
@@ -247,7 +247,7 @@
       "kind": "weapon",
       "refId": "light-crossbow",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "masterwork": true
     },
     {
@@ -255,7 +255,7 @@
       "kind": "gear",
       "refId": "crossbow-bolts-10",
       "quantity": 2,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "shirt",
@@ -292,14 +292,14 @@
       "kind": "magic",
       "refId": "potion-of-cure-light-wounds",
       "quantity": 3,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "rope",
       "kind": "gear",
       "refId": "silk-rope-50-ft",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "backpack",

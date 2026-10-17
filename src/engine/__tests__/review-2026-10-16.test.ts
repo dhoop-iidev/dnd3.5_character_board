@@ -18,7 +18,7 @@ const fresh = (classId: string, n = 1, abilities = ABIL, race = 'human') => {
   return c
 }
 const ids = (c: Character) => validate(c, rules).map((w) => w.id)
-const weapon = (uid: string, refId: string, extra: Partial<ItemInstance> = {}): ItemInstance => ({ uid, kind: 'weapon', refId, quantity: 1, location: 'carried', ...extra })
+const weapon = (uid: string, refId: string, extra: Partial<ItemInstance> = {}): ItemInstance => ({ uid, kind: 'weapon', refId, quantity: 1, location: 'worn', ...extra })
 
 describe('M1 ki damage includes damage bonuses from effects', () => {
   it('+1 morale damage: greatsword 2d6+9, ki 21', () => {
@@ -188,7 +188,7 @@ describe('minor fixes', () => {
   })
   it('two-handed weapon with a heavy shield is flagged', () => {
     const c = fresh('fighter')
-    c.inventory = [weapon('g', 'greatsword'), { uid: 's', kind: 'armor', refId: 'heavy-steel-shield', quantity: 1, location: 'carried' }]
+    c.inventory = [weapon('g', 'greatsword'), { uid: 's', kind: 'armor', refId: 'heavy-steel-shield', quantity: 1, location: 'worn' }]
     c.loadouts[0].weapons = ['g']
     c.loadouts[0].shield = 's'
     expect(ids(c)).toContain('two-hands-shield')

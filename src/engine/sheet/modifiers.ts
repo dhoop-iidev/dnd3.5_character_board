@@ -50,7 +50,7 @@ export function modifiersStage(rules: Rules, opts: ComputeOptions, c: BuildOut) 
       mods.push({ spec, sourceId, label: def!.name, source: def!.source })
     }
   }
-  // A custom weapon's bonuses apply while it is wielded (in the active loadout).
+  // A custom weapon's bonuses apply while it is wielded (worn and in hand in the active loadout).
   const wieldedNow = new Set(
     (char.loadouts.find((l) => l.id === char.activeLoadout) ?? char.loadouts[0])?.weapons ?? [],
   )
@@ -59,14 +59,15 @@ export function modifiersStage(rules: Rules, opts: ComputeOptions, c: BuildOut) 
       item.kind === 'weapon' &&
       item.custom?.modifiers &&
       wieldedNow.has(item.uid) &&
-      item.location !== 'stored' &&
+      item.location === 'worn' &&
       !shape
     ) {
       for (const spec of item.custom.modifiers)
         mods.push({ spec, sourceId: `item:${item.uid}`, label: item.name ?? i18n(item.refId) })
       continue
     }
-    if (item.location !== 'worn') continue
+    // A weapon gives its bonuses only in hand (above), not merely sheathed.
+    if (item.location !== 'worn' || item.kind === 'weapon') continue
     const def = item.kind === 'magic' ? rules.magicItems.get(item.refId) : undefined
     for (const spec of def?.modifiers ?? item.custom?.modifiers ?? [])
       mods.push({

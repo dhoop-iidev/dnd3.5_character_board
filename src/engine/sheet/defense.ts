@@ -67,9 +67,9 @@ export function defenseStage(rules: Rules, opts: ComputeOptions, c: CoreOut) {
   }
   const armor =
     armorItem && armorDef ? { item: armorItem, def: armorDef, category: shiftCat(armorDef.category) } : undefined
-  // A stored (or melded) shield is not on her arm.
+  // Only a worn shield can be on her arm (not one in the backpack, stored or melded).
   const shieldItem = loadout?.shield
-    ? char.inventory.find((i) => i.uid === loadout.shield && i.location !== 'stored')
+    ? char.inventory.find((i) => i.uid === loadout.shield && i.location === 'worn')
     : undefined
   const shield = shieldItem ? { item: shieldItem, def: rules.armor.get(shieldItem.refId)! } : undefined
 

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Aldéric de Lumeval",
     "player": "",
@@ -222,7 +222,7 @@
       "kind": "weapon",
       "refId": "heavy-mace",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 2
     },
     {
@@ -230,14 +230,14 @@
       "kind": "weapon",
       "refId": "light-crossbow",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "bolts",
       "kind": "gear",
       "refId": "crossbow-bolts-10",
       "quantity": 2,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "plate",
@@ -253,7 +253,7 @@
       "kind": "armor",
       "refId": "heavy-steel-shield",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 2,
       "material": "mithral"
     },
@@ -297,28 +297,28 @@
       "kind": "magic",
       "refId": "potion-of-cure-moderate-wounds",
       "quantity": 3,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "symbol",
       "kind": "gear",
       "refId": "silver-holy-symbol",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "holy-water",
       "kind": "gear",
       "refId": "holy-water-flask",
       "quantity": 4,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "pouch",
       "kind": "gear",
       "refId": "spell-component-pouch",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "healer",

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Faelan Brisefeuille",
     "player": "",
@@ -244,7 +244,7 @@
       "kind": "weapon",
       "refId": "composite-longbow",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 2
     },
     {
@@ -252,14 +252,14 @@
       "kind": "gear",
       "refId": "arrows-20",
       "quantity": 3,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "sword",
       "kind": "weapon",
       "refId": "longsword",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 1
     },
     {
@@ -267,7 +267,7 @@
       "kind": "weapon",
       "refId": "short-sword",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "masterwork": true
     },
     {
@@ -319,21 +319,21 @@
       "kind": "magic",
       "refId": "potion-of-cure-light-wounds",
       "quantity": 3,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "rope",
       "kind": "gear",
       "refId": "silk-rope-50-ft",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "flint",
       "kind": "gear",
       "refId": "flint-and-steel",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "backpack",

@@ -87,7 +87,7 @@
     picking = null
   }
   function unequip(item: ItemInstance) {
-    item.location = 'pack'
+    item.location = 'carried'
   }
 
   // ---- weapons and shield of the active loadout

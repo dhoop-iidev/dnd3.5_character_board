@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Vilamara",
     "player": "",
@@ -189,7 +189,7 @@
       "kind": "armor",
       "refId": "light-wooden-shield",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 1
     },
     {
@@ -197,7 +197,7 @@
       "kind": "weapon",
       "refId": "scimitar",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 1
     },
     {
@@ -205,14 +205,14 @@
       "kind": "weapon",
       "refId": "sling",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "bullets",
       "kind": "gear",
       "refId": "sling-bullets-10",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "periapt",
@@ -240,7 +240,7 @@
       "kind": "magic",
       "refId": "potion-of-cure-moderate-wounds",
       "quantity": 2,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "backpack",
@@ -254,7 +254,7 @@
       "kind": "gear",
       "refId": "spell-component-pouch",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "bedroll",

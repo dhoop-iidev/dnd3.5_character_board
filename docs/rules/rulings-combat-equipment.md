@@ -245,6 +245,12 @@ Confidence labels: **RAW** = the book text answers it directly; **RAW + errata r
 - Pinned: see R15. Helpless: see R14. Dying timing: see R13.
 - Paralyzed (FR page error on the FR site): not a rules question. Use the DRS "18 (pouvoirs et états préjudiciables)" text instead of the FR site page (R06).
 
+### R33 Item locations: worn, carried (backpack), stored (2026-10-17, user decision)
+- **Rule:** drawing a weapon or readying a shield is a move action that doesn't provoke; retrieving a stored item is a move action that provokes an attack of opportunity; a magic item works only worn in its slot. Putting on armor takes minutes.
+- **App:** three locations. **Worn** = on the body (armor, slotted magic items, sheathed weapons, slung shield). **Carried** = in the backpack. **Stored** = left elsewhere, no weight. Only worn weapons and shields can be ticked in hand in the Combat pane. A weapon's own bonuses apply only in hand, not sheathed. The action to draw is not tracked.
+- **Save v7:** old "carried (hands, belt)" becomes worn (magic and custom items with a slot or bonuses go to the backpack instead, so they don't switch on); old "backpack" becomes carried; weapons and shields used in a loadout become worn.
+- **Sources:** https://www.d20srd.org/srd/combat/actionsInCombat.htm#moveActions ; https://www.d20srd.org/srd/magicItems/magicItemBasics.htm#limitsOnMagicItemsWorn ; https://www.d20srd.org/srd/equipment/armor.htm#donningArmor
+
 ---
 
 ## Still genuinely open

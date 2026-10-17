@@ -1,6 +1,6 @@
 import type { AbilityId, I18n, Lang, ModifierSpec, Slot } from '../data/types'
 
-export const SCHEMA_VERSION = 6
+export const SCHEMA_VERSION = 7
 
 /**
  * Feat slot that granted the feat (docs/rules/advancement.md): general (1st + every 3 levels), race (human bonus
@@ -149,8 +149,13 @@ export interface WildShapeState {
 }
 
 export type ItemKind = 'weapon' | 'armor' | 'gear' | 'magic' | 'custom'
-/** worn = equipped on the body; carried = in hand/belt; pack = backpack; stored = not carried (no weight). */
-export type ItemLocation = 'worn' | 'carried' | 'pack' | 'stored'
+/**
+ * Where an item is (https://www.d20srd.org/srd/combat/actionsInCombat.htm#moveActions): worn = on the body (armor,
+ * magic items in their slot, weapons in a sheath or on the belt, a slung shield: drawn or readied without provoking);
+ * carried = in the backpack (retrieving it is a move action that provokes an attack of opportunity); stored = left
+ * elsewhere (no weight). The weapons and shield in hand are picked among the worn ones in the Combat pane (`Loadout`).
+ */
+export type ItemLocation = 'worn' | 'carried' | 'stored'
 
 export interface ItemInstance {
   uid: string
@@ -213,9 +218,9 @@ export interface StoredSpell {
 export interface Loadout {
   id: string
   name: I18n
-  /** Weapon item uids usable in this loadout (first = primary). */
+  /** Weapon item uids in hand (worn weapons only; first = primary). */
   weapons: string[]
-  /** Shield item uid strapped on the arm, if any. */
+  /** Shield item uid strapped on the arm (a worn shield), if any. */
   shield?: string
   /** One-handed weapons (uids) gripped with two hands: Str ×1.5, Power Attack ×2. */
   twoHanded?: string[]

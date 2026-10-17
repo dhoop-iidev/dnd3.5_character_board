@@ -27,7 +27,7 @@
   const pickedElemental = $derived(elementals.some((d) => d.id === pick))
   const form = $derived(s.wildShape?.def)
   const naturalSpell = $derived(s.feats.some((f) => f.featId === 'natural-spell'))
-  // Items that can meld: everything carried, worn or in the pack (stored items are not on her).
+  // Items that can meld: everything worn or in the backpack (stored items are not on her).
   const items = $derived(c.inventory.filter((i) => i.location !== 'stored'))
 
   function take() {

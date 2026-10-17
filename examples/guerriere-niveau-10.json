@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Brunhilde Barbe-de-Fer",
     "player": "",
@@ -188,7 +188,7 @@
       "kind": "weapon",
       "refId": "dwarven-waraxe",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 2
     },
     {
@@ -196,14 +196,14 @@
       "kind": "weapon",
       "refId": "throwing-axe",
       "quantity": 2,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "xbow",
       "kind": "weapon",
       "refId": "heavy-crossbow",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "masterwork": true
     },
     {
@@ -211,7 +211,7 @@
       "kind": "gear",
       "refId": "crossbow-bolts-10",
       "quantity": 2,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "plate",
@@ -226,7 +226,7 @@
       "kind": "armor",
       "refId": "heavy-steel-shield",
       "quantity": 1,
-      "location": "carried",
+      "location": "worn",
       "enhancement": 2
     },
     {
@@ -255,7 +255,7 @@
       "kind": "magic",
       "refId": "potion-of-cure-serious-wounds",
       "quantity": 2,
-      "location": "pack"
+      "location": "carried"
     },
     {
       "uid": "backpack",

@@ -189,6 +189,8 @@
 
   // Spontaneous casters: the metamagic chosen for the next spell, per class (not saved).
   let nextMm = $state<Record<string, MetamagicChoice>>({})
+  // Prepared slots whose metamagic options are open (`class:level:slot`; not saved).
+  let mmOpen = $state<Record<string, boolean>>({})
   const mmOf = (sc: Spellcasting): MetamagicChoice => nextMm[sc.classId] ?? {}
   function toggleNext(sc: Spellcasting, id: string, on: boolean) {
     const c = mmOf(sc)
@@ -436,9 +438,9 @@
               {@const need = slotLevel(g.level, c)}
               {@const slotLvl = bad.length ? undefined : slotFor(sc, need, !!c.metamagic?.length)}
               <li class="school-row school-{sp.schoolId ?? 'none'}" title={tr(sp.school)}>
-                <button class="link" onclick={() => spellPopup(sp, sc, false, c, true)}><strong>{tr(sp.name)}</strong> ⓘ {tr(sp.summary)}</button>
+                <button class="link sum" title={tr(sp.summary)} onclick={() => spellPopup(sp, sc, false, c, true)}><strong>{tr(sp.name)}</strong> ⓘ {tr(sp.summary)}</button>
                 <button
-                  class="cast"
+                  class="castbtn"
                   disabled={slotLvl === undefined}
                   title={bad.length ? bad.map((p) => tr(p.text)).join(' · ') : undefined}
                   onclick={() => slotLvl !== undefined && setUsed(sc, slotLvl, usedAt(sc, slotLvl) + 1)}
@@ -513,45 +515,48 @@
                   </optgroup>
                 {/each}
               </select>
-              {#if def}<button class="link" onclick={() => spellPopup(def, sc, extra && sc.classId === 'cleric', prep)}
-                  >ⓘ {tr(def.summary)}</button
-                >{/if}
+              {#if def}<button class="link sum" title={tr(def.summary)} onclick={() => spellPopup(def, sc, extra && sc.classId === 'cleric', prep)}
+                  >ⓘ <span class="sumtext">{tr(def.summary)}</span></button
+                >{:else}<span class="sum"></span>{/if}
+              {#if prep.spontaneous}
+                <small class="note"
+                  >{tr({ en: 'as', fr: 'comme' })} {tr(rules.spells.get(prep.spontaneous)?.name)}</small
+                >
+              {/if}
               {#if def && (owned.length || prep.metamagic?.length)}
                 {@const base = baseLevel(def, sc, extra && sc.classId === 'cleric')}
-                <details class="mm" open={!!prep.metamagic?.length}>
-                  <summary
-                    >✦ {prep.metamagic?.length
-                      ? `${tr(metamagicLabel(rules, prep))} (${tr({ en: 'level', fr: 'niv.' })} ${slotLevel(base, prep)})`
-                      : tr({ en: 'metamagic', fr: 'métamagie' })}</summary
-                  >
-                  {#each owned as id (id)}
-                    {@const on = !!prep.metamagic?.includes(id)}
-                    {@const next = withFeat(sc, base, prep, id, !on, slot.spellLevel)}
-                    {@const ok = on || (!!next && !illegal(def, sc, base, next, false).length)}
-                    <label class="mmchip" class:on>
-                      <input type="checkbox" checked={on} disabled={prep.cast || !ok} onchange={(e) => toggleFeat(sc, slot.spellLevel, j, prep, base, id, e.currentTarget.checked)} />
-                      {tr(metamagicName(rules, id))}{id === 'heighten-spell' ? '' : ` +${metamagicDef(id)?.adj}`}
-                    </label>
-                  {/each}
-                  {#if prep.metamagic?.includes('heighten-spell')}
-                    <label class="mmchip on"
-                      >{tr({ en: 'to level', fr: 'au niveau' })}
-                      <select value={prep.heighten} disabled={prep.cast} onchange={(e) => setSlot(sc, slot.spellLevel, j, { heighten: Number(e.currentTarget.value) })}>
-                        {#each heightenLevels(sc, base, prep, slot.spellLevel) as l (l)}<option value={l}>{l}</option>{/each}
-                      </select></label
-                    >
-                  {/if}
-                </details>
+                {@const key = `${sc.classId}:${slot.spellLevel}:${j}`}
+                <button
+                  class="mmbtn"
+                  class:on={!!prep.metamagic?.length}
+                  aria-expanded={!!mmOpen[key]}
+                  title={tr({ en: 'Metamagic', fr: 'Métamagie' })}
+                  onclick={() => (mmOpen[key] = !mmOpen[key])}
+                  >✦{#if prep.metamagic?.length}
+                    {tr(metamagicLabel(rules, prep))} ({tr({ en: 'lvl', fr: 'niv.' })} {slotLevel(base, prep)}){/if}</button
+                >
+                {#if mmOpen[key]}
+                  <div class="mmrow">
+                    {#each owned as id (id)}
+                      {@const on = !!prep.metamagic?.includes(id)}
+                      {@const next = withFeat(sc, base, prep, id, !on, slot.spellLevel)}
+                      {@const ok = on || (!!next && !illegal(def, sc, base, next, false).length)}
+                      <label class="mmchip" class:on>
+                        <input type="checkbox" checked={on} disabled={prep.cast || !ok} onchange={(e) => toggleFeat(sc, slot.spellLevel, j, prep, base, id, e.currentTarget.checked)} />
+                        {tr(metamagicName(rules, id))}{id === 'heighten-spell' ? '' : ` +${metamagicDef(id)?.adj}`}
+                      </label>
+                    {/each}
+                    {#if prep.metamagic?.includes('heighten-spell')}
+                      <label class="mmchip on"
+                        >{tr({ en: 'to level', fr: 'au niveau' })}
+                        <select value={prep.heighten} disabled={prep.cast} onchange={(e) => setSlot(sc, slot.spellLevel, j, { heighten: Number(e.currentTarget.value) })}>
+                          {#each heightenLevels(sc, base, prep, slot.spellLevel) as l (l)}<option value={l}>{l}</option>{/each}
+                        </select></label
+                      >
+                    {/if}
+                  </div>
+                {/if}
               {/if}
-              <label class="check">
-                <input
-                  type="checkbox"
-                  checked={prep.cast}
-                  disabled={!prep.id}
-                  onchange={(e) => setSlot(sc, slot.spellLevel, j, { cast: e.currentTarget.checked })}
-                />
-                {tr({ en: 'cast', fr: 'lancé' })}
-              </label>
               {#if sc.classId === 'cleric' && !extra && prep.id && !prep.cast}
                 <select
                   class="spont"
@@ -568,11 +573,15 @@
                     >{/each}
                 </select>
               {/if}
-              {#if prep.spontaneous}
-                <small class="note"
-                  >{tr({ en: 'cast as', fr: 'lancé comme' })} {tr(rules.spells.get(prep.spontaneous)?.name)}</small
-                >
-              {/if}
+              <button
+                class="castbtn"
+                class:done={prep.cast}
+                disabled={!prep.id}
+                aria-pressed={prep.cast}
+                title={prep.cast ? tr({ en: 'Click to undo', fr: 'Cliquer pour annuler' }) : undefined}
+                onclick={() => setSlot(sc, slot.spellLevel, j, prep.cast ? { cast: false, spontaneous: undefined } : { cast: true })}
+                >{prep.cast ? tr({ en: 'Cast ✓', fr: 'Lancé ✓' }) : tr({ en: 'Cast', fr: 'Lancer' })}</button
+              >
             </li>
           {/each}
         </ul>
@@ -659,12 +668,14 @@
     padding: 0;
   }
   /* School of magic: a coloured edge on each spell (muted palette, app.css). */
+  /* One line per spell: spell, summary (cut with an ellipsis), metamagic ✦, cast button; the metamagic options
+     open on a second line only when asked. */
   .slots li {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
     align-items: center;
-    padding: 0.3rem 0.4rem 0.3rem 0.6rem;
+    padding: 0.15rem 0.3rem 0.15rem 0.6rem;
     margin-bottom: 2px;
     border-radius: 2px;
   }
@@ -683,8 +694,9 @@
     color: var(--accent);
   }
   .spont {
-    min-height: 2.4rem;
-    font-size: 0.9rem;
+    min-height: 2.2rem;
+    max-width: 11rem;
+    font-size: 0.85rem;
   }
   .mmbar {
     display: flex;
@@ -694,16 +706,43 @@
     margin-bottom: 0.6rem;
     font-size: 0.9rem;
   }
-  .mm {
-    flex-basis: 100%;
-    font-size: 0.9rem;
+  .sum {
+    flex: 1 1 8rem;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-  .mm summary {
-    font-family: var(--font-body);
+  /* Phones: the summary shrinks to its ⓘ (the popup has it), so a spell still fits on one line. */
+  @media (max-width: 40rem) {
+    .slots li > .sum:has(.sumtext) {
+      flex: 0 0 auto;
+    }
+    .sumtext {
+      display: none;
+    }
+    .slots li > select:not(.spont) {
+      flex: 1 1 9rem;
+    }
+  }
+  .mmbtn {
+    min-height: 2.2rem;
+    padding: 0 0.5rem;
+    font-size: 0.85rem;
     color: var(--ink-soft);
   }
-  .mm[open] summary {
+  .mmbtn.on,
+  .mmbtn[aria-expanded='true'] {
     color: var(--accent);
+    border-color: var(--accent);
+  }
+  .mmrow {
+    order: 1; /* under the line, after the cast button */
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.2rem;
+    font-size: 0.9rem;
   }
   .mmchip {
     display: inline-flex;
@@ -740,13 +779,18 @@
     color: var(--ink-soft);
   }
   .slotcount button,
-  .cast {
-    min-height: 2.4rem;
+  .castbtn {
+    min-height: 2.2rem;
     min-width: 2.4rem;
     padding: 0 0.6rem;
   }
-  .cast {
-    margin-left: auto;
+  .castbtn {
+    min-width: 5.5rem;
+  }
+  .castbtn.done {
+    color: var(--ink-soft);
+    background: var(--paper-2);
+    border-color: var(--rule);
   }
   .domains {
     display: flex;
@@ -755,13 +799,17 @@
     align-items: center;
   }
   .slots li.cast select,
-  .slots li.cast .link {
+  .slots li.cast .sum {
     text-decoration: line-through;
     opacity: 0.75;
   }
   select {
-    min-height: 2.6rem;
+    min-height: 2.2rem;
     max-width: 100%;
+  }
+  .slots li > select:not(.spont) {
+    flex: 0 1 14rem;
+    min-width: 9rem;
   }
   .list li {
     padding: 0.2rem 0;

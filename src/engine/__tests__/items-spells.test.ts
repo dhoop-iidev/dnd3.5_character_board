@@ -44,7 +44,7 @@ describe('using spell items (https://www.d20srd.org/srd/magicItems/magicItemBasi
     refId: '',
     name: { en: 'Wand of cure light wounds', fr: 'Baguette de soins légers' },
     quantity: 1,
-    location: 'carried',
+    location: 'worn',
     spellItem: 'wand',
     spells: [spell('cure-light-wounds', 1, 1)],
     charges: { left: 50, max: 50 },
@@ -64,8 +64,8 @@ describe('using spell items (https://www.d20srd.org/srd/magicItems/magicItemBasi
   it('using spends charges; a scroll is removed when its last spell is read; a potion is drunk', () => {
     const c = make('cleric')
     const w = wand()
-    const scroll: ItemInstance = { uid: 's', kind: 'custom', refId: '', quantity: 1, location: 'pack', spellItem: 'scroll', spells: [spell('bless', 1, 1, { activation: 'completion', uses: 'single' })] }
-    const potion: ItemInstance = { uid: 'p', kind: 'custom', refId: '', quantity: 2, location: 'pack', spellItem: 'potion', spells: [spell('cure-light-wounds', 1, 1, { activation: 'use', uses: 'single' })] }
+    const scroll: ItemInstance = { uid: 's', kind: 'custom', refId: '', quantity: 1, location: 'carried', spellItem: 'scroll', spells: [spell('bless', 1, 1, { activation: 'completion', uses: 'single' })] }
+    const potion: ItemInstance = { uid: 'p', kind: 'custom', refId: '', quantity: 2, location: 'carried', spellItem: 'potion', spells: [spell('cure-light-wounds', 1, 1, { activation: 'use', uses: 'single' })] }
     c.inventory = [w, scroll, potion]
     useStoredSpell(c, w, 0)
     expect(w.charges!.left).toBe(49)
@@ -76,13 +76,13 @@ describe('using spell items (https://www.d20srd.org/srd/magicItems/magicItemBasi
   })
   it('scroll above the reader’s caster level: caster level check DC = scroll CL + 1', () => {
     const c = make('cleric')
-    const sc: ItemInstance = { uid: 's', kind: 'custom', refId: '', quantity: 1, location: 'pack', spellItem: 'scroll', spells: [spell('cure-serious-wounds', 3, 5, { activation: 'completion', uses: 'single' })] }
+    const sc: ItemInstance = { uid: 's', kind: 'custom', refId: '', quantity: 1, location: 'carried', spellItem: 'scroll', spells: [spell('cure-serious-wounds', 3, 5, { activation: 'completion', uses: 'single' })] }
     const u = storedSpellUse(sc, sc.spells![0], compute(c, rules), rules)
     expect(u.notes.some((n) => n.en.includes('DC 6'))).toBe(true)
   })
   it('a weapon with daylight 3/day: uses per day, back on a new day', () => {
     const c = make('fighter')
-    const sword: ItemInstance = { uid: 'gs', kind: 'weapon', refId: 'greatsword', quantity: 1, location: 'carried', spells: [spell('daylight', 3, 5, { activation: 'command', uses: 'perDay', perDay: 3 })] }
+    const sword: ItemInstance = { uid: 'gs', kind: 'weapon', refId: 'greatsword', quantity: 1, location: 'worn', spells: [spell('daylight', 3, 5, { activation: 'command', uses: 'perDay', perDay: 3 })] }
     c.inventory = [sword]
     const sheet = compute(c, rules)
     expect(storedSpellUse(sword, sword.spells![0], sheet, rules)).toMatchObject({ usable: true, left: 3 })
@@ -103,7 +103,7 @@ describe('custom weapons', () => {
         refId: 'greatsword',
         name: { en: 'Justicar', fr: 'Justicière' },
         quantity: 1,
-        location: 'carried',
+        location: 'worn',
         enhancement: 3,
         custom: {
           weightLb: 8,
@@ -126,8 +126,8 @@ describe('custom weapons', () => {
     const c = make('rogue', 4)
     c.levels[0].feats = [{ featId: 'weapon-finesse', slot: 'general' }]
     c.inventory = [
-      { uid: 'ss', kind: 'weapon', refId: 'short-sword', quantity: 1, location: 'carried' },
-      { uid: 'sh', kind: 'armor', refId: 'heavy-steel-shield', quantity: 1, location: 'carried' },
+      { uid: 'ss', kind: 'weapon', refId: 'short-sword', quantity: 1, location: 'worn' },
+      { uid: 'sh', kind: 'armor', refId: 'heavy-steel-shield', quantity: 1, location: 'worn' },
     ]
     c.loadouts[0].weapons = ['ss']
     c.loadouts[0].shield = 'sh'

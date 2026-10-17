@@ -9,7 +9,7 @@ import { choicesAt } from '../classChoices'
 
 const ABIL = { str: 14, dex: 14, con: 12, int: 10, wis: 12, cha: 10 }
 const fresh = (race = 'human', classId = 'fighter', abilities = ABIL) => newCharacter({ name: 'Test', race, classId, abilities, lang: 'en' })
-const weapon = (uid: string, refId: string): ItemInstance => ({ uid, kind: 'weapon', refId, quantity: 1, location: 'carried' })
+const weapon = (uid: string, refId: string): ItemInstance => ({ uid, kind: 'weapon', refId, quantity: 1, location: 'worn' })
 function wield(c: Character, uids: string[], twoWeapon = false) {
   c.loadouts[0].weapons = uids
   c.loadouts[0].twoWeapon = twoWeapon
@@ -306,5 +306,29 @@ describe('class choices offered at 1st level', () => {
   })
   it('swordsage: discipline focus', () => {
     expect(choicesAt(at1('swordsage'), rules, 1).map((x) => x.key)).toEqual(['disciplineFocus'])
+  })
+})
+
+describe('item locations (worn / carried / stored)', () => {
+  it('only worn weapons and shields can be in hand', () => {
+    const c = wield(fresh(), ['ls'])
+    c.inventory = [weapon('ls', 'longsword'), { uid: 'sh', kind: 'armor', refId: 'heavy-steel-shield', quantity: 1, location: 'worn' }]
+    c.loadouts[0].shield = 'sh'
+    expect(atk(c, 'ls')).toBeDefined()
+    expect(compute(c, rules).ac.total).toBe(14) // 10 + Dex 2 + shield 2
+    c.inventory = c.inventory.map((i) => ({ ...i, location: 'carried' as const })) // in the backpack
+    expect(compute(c, rules).attacks.find((a) => a.itemUid === 'ls')).toBeUndefined()
+    expect(compute(c, rules).ac.total).toBe(12)
+  })
+
+  it("a sheathed custom weapon's bonuses apply only in hand", () => {
+    const blade: ItemInstance = {
+      ...weapon('bl', 'longsword'),
+      custom: { weightLb: 4, costGp: 0, text: { en: '', fr: '' }, modifiers: [{ target: 'save.will', bonusType: 'luck', value: 1 }] },
+    }
+    const c = wield(fresh(), [])
+    c.inventory = [blade]
+    const will = compute(c, rules).saves.will.total
+    expect(compute(wield(c, ['bl']), rules).saves.will.total).toBe(will + 1)
   })
 })

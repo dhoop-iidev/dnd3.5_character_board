@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "identity": {
     "name": "Isaure Valcendre",
     "player": "",
@@ -198,14 +198,14 @@
       "kind": "weapon",
       "refId": "quarterstaff",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     },
     {
       "uid": "dagger",
       "kind": "weapon",
       "refId": "dagger",
       "quantity": 1,
-      "location": "carried"
+      "location": "worn"
     }
   ],
   "loadouts": [
@@ -295,7 +295,7 @@
             "cast": false
           },
           {
-            "id": "read-magic",
+            "id": "dancing-lights",
             "cast": false
           }
         ],

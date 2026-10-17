@@ -85,7 +85,7 @@ function attackEnv(rules: Rules, c: SkillsOut) {
               kind: 'weapon',
               refId: 'unarmed-strike',
               quantity: 1,
-              location: 'carried',
+              location: 'worn',
               enhancement: fists ? Number(fists.refId.slice(-1)) : 0,
             },
           ],
@@ -99,7 +99,7 @@ function attackEnv(rules: Rules, c: SkillsOut) {
         ...virtualItems.keys(),
         ...(loadout?.weapons ?? []).filter((uid) =>
           char.inventory.some(
-            (i) => i.uid === uid && i.location !== 'stored' && !(monkLevel > 0 && i.refId === 'unarmed-strike'),
+            (i) => i.uid === uid && i.location === 'worn' && !(monkLevel > 0 && i.refId === 'unarmed-strike'),
           ),
         ),
       ]

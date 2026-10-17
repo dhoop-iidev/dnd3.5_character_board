@@ -18,9 +18,10 @@
   let spellEditor = $state<Record<string, boolean>>({})
 
   const LOCATIONS: { id: ItemLocation; label: I18n }[] = [
-    { id: 'worn', label: { en: 'Worn', fr: 'Porté' } },
-    { id: 'carried', label: { en: 'Carried (hands, belt)', fr: 'Transporté (mains, ceinture)' } },
-    { id: 'pack', label: { en: 'Backpack', fr: 'Sac à dos' } },
+    // https://www.d20srd.org/srd/combat/actionsInCombat.htm#moveActions: drawing a weapon or readying a shield doesn't
+    // provoke; retrieving a stored item (backpack) does.
+    { id: 'worn', label: { en: 'Worn (on the body)', fr: 'Porté (sur soi)' } },
+    { id: 'carried', label: { en: 'Carried (backpack)', fr: 'Transporté (sac à dos)' } },
     { id: 'stored', label: { en: 'Stored (not carried)', fr: 'Entreposé (non transporté)' } },
   ]
 
@@ -38,7 +39,9 @@
   )
 
   function add(kind: ItemInstance['kind'], refId: string) {
-    app.character.inventory.push({ uid: newUid(), kind, refId, quantity: 1, location: 'pack' })
+    // A new weapon or shield goes on the body, ready to be taken in hand; anything else into the backpack.
+    const shield = kind === 'armor' && ['shield', 'tower'].includes(rules.armor.get(refId)?.category ?? '')
+    app.character.inventory.push({ uid: newUid(), kind, refId, quantity: 1, location: kind === 'weapon' || shield ? 'worn' : 'carried' })
     query = ''
   }
 

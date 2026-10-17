@@ -17,7 +17,7 @@ function make(classId: string, n: number, opts: { alignment?: string; race?: str
   return c
 }
 const ids = (c: Character) => validate(c, rules).map((w) => w.id)
-const item = (uid: string, kind: ItemInstance['kind'], refId: string, extra: Partial<ItemInstance> = {}): ItemInstance => ({ uid, kind, refId, quantity: 1, location: 'carried', ...extra })
+const item = (uid: string, kind: ItemInstance['kind'], refId: string, extra: Partial<ItemInstance> = {}): ItemInstance => ({ uid, kind, refId, quantity: 1, location: 'worn', ...extra })
 
 describe('barbarian (https://www.d20srd.org/srd/classes/barbarian.htm)', () => {
   it('rage: +4 Str/Con (untyped), +2 morale Will, −2 AC, 3 + new Con rounds, extra hp', () => {
