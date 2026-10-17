@@ -160,7 +160,7 @@
   }
 </script>
 
-<!-- Quick reference: hit points, then the combat numbers in four groups (defense, saves, offense, movement). -->
+<!-- Quick reference: hit points, then the combat numbers in a 2 × 2 grid: defense and offense, saves and movement. -->
 <section class="box summary">
   <h3>{tr({ en: 'At a glance', fr: "En un coup d'œil" })}</h3>
   <div class="glance">
@@ -169,19 +169,11 @@
       <div class="group">
         <h4>{tr({ en: 'Defense', fr: 'Défense' })}</h4>
         <div class="cells">
-          <div class="cell"><span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} big /></div>
+          <div class="cell"><span>{tr(UI.acShort)}</span><StatValue stat={() => view.sheet.ac} title={UI.ac} signed={false} /></div>
           <div class="cell"><span>{tr(UI.touch)}</span><StatValue stat={() => view.sheet.touchAc} title={UI.touch} signed={false} /></div>
           <div class="cell">
             <span>{tr({ en: 'Flat-footed', fr: 'Dépourvu' })}</span><StatValue stat={() => view.sheet.flatFootedAc} title={UI.flatFooted} signed={false} />
           </div>
-        </div>
-      </div>
-      <div class="group">
-        <h4>{tr({ en: 'Saves', fr: 'Sauvegardes' })}</h4>
-        <div class="cells">
-          <div class="cell"><span>{tr(UI.fort)}</span><StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></div>
-          <div class="cell"><span>{tr(UI.ref)}</span><StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></div>
-          <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
         </div>
       </div>
       <div class="group">
@@ -196,6 +188,14 @@
           <div class="cell">
             <span>{tr({ en: 'AoO / round', fr: 'AO / round' })}</span><StatValue stat={() => view.sheet.attacksOfOpportunity} title={UI.aoo} signed={false} />
           </div>
+        </div>
+      </div>
+      <div class="group">
+        <h4>{tr({ en: 'Saves', fr: 'Sauvegardes' })}</h4>
+        <div class="cells">
+          <div class="cell"><span>{tr(UI.fort)}</span><StatValue stat={() => view.sheet.saves.fort} title={UI.fort} /></div>
+          <div class="cell"><span>{tr(UI.ref)}</span><StatValue stat={() => view.sheet.saves.ref} title={UI.ref} /></div>
+          <div class="cell"><span>{tr(UI.will)}</span><StatValue stat={() => view.sheet.saves.will} title={UI.will} /></div>
         </div>
       </div>
       <div class="group">
@@ -869,13 +869,16 @@
     gap: 1rem 1.5rem;
     align-items: start;
   }
+  /* Two columns of groups (defense | offense, saves | movement); the cells sit on a shared 4-column grid so the values
+     line up from one row to the next. */
   .groups {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-    gap: 0.8rem 1.2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+    align-content: start;
   }
   .group h4 {
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.4rem;
     font-family: var(--font-title);
     font-size: 0.8rem;
     letter-spacing: 0.06em;
@@ -883,10 +886,19 @@
     border-bottom: 1px solid var(--rule);
   }
   .cells {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.1rem;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem 0.5rem;
+    align-items: start;
+  }
+  .cells small {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 64rem) {
+    .groups {
+      grid-template-columns: 1fr;
+    }
   }
   @media (max-width: 40rem) {
     .glance {
@@ -904,17 +916,27 @@
     font-size: 0.8rem;
     color: var(--ink-soft);
   }
+  /* Labels may wrap on two lines; a fixed height keeps the values aligned. */
   .cell > span {
     font-family: var(--font-title);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    line-height: 1.1;
+    min-height: 2.2em;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
     color: var(--ink-soft);
-    white-space: nowrap;
   }
+  /* Values without a breakdown popup, boxed like the others. */
   .cell .plain {
     font-family: var(--font-num);
     min-height: 2.75rem;
+    min-width: 2.75rem;
+    padding: 0 0.4rem;
     display: grid;
     place-items: center;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
   }
   .fields {
     display: grid;
