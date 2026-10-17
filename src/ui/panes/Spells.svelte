@@ -2,7 +2,7 @@
   // Spells: per casting class, caster level, save DCs, spells per day (bonus spells included), prepared spells and
   // the ones cast today. https://www.d20srd.org/srd/magicOverview/castingSpells.htm
   import { rules } from '../../data/rules'
-  import type { DomainDef, SpellDef } from '../../data/types'
+  import type { DomainDef, I18n, SpellDef } from '../../data/types'
   import { clericChoices, domainCasterLevelBonus } from '../../engine/cleric'
   import { classSpellLevel, spellLevelFor, type Spellcasting } from '../../engine/spells'
   import { hasSomatic, LEARNING_CLASSES, preparable, wizardSchools } from '../../engine/arcane'
@@ -181,6 +181,20 @@
     if (on && id === 'heighten-spell') next.heighten = heightenLevels(sc, base, next, maxSlot)[0]
     if (next.metamagic?.includes('heighten-spell') && next.heighten === undefined) return undefined
     return slotLevel(base, next) <= maxSlot ? next : undefined
+  }
+  /** Why a feat can't be added to a prepared spell in a slot of this level (undefined: it can). */
+  function featBlocker(sp: SpellDef, sc: Spellcasting, base: number, c: MetamagicChoice, id: string, maxSlot: number): I18n | undefined {
+    if (c.metamagic?.includes(id)) return undefined
+    if (isBlocked(sc, maxSlot))
+      return { en: 'key ability too low for this slot (house rule #40)', fr: 'caractéristique trop basse pour cet emplacement (règle maison n° 40)' }
+    const next = withFeat(sc, base, c, id, true, maxSlot)
+    if (!next) {
+      const ids = [...(c.metamagic ?? []), id]
+      const need = slotLevel(base, { metamagic: ids, heighten: ids.includes('heighten-spell') ? (c.heighten ?? base + 1) : undefined })
+      return { en: `needs a level ${need} slot`, fr: `emplacement de niveau ${need} requis` }
+    }
+    const bad = illegal(sp, sc, base, next, false)
+    return bad.length ? bad[0].text : undefined
   }
   function toggleFeat(sc: Spellcasting, level: number, j: number, prep: PreparedSlot, base: number, id: string, on: boolean) {
     const next = withFeat(sc, base, prep, id, on, level)
@@ -465,6 +479,15 @@
       </label>
     {/if}
 
+    {#if sc.def.style === 'prepared' && owned.length}
+      <p class="note">
+        ✦ {tr({
+          en: 'Metamagic: prepare the spell in a slot higher than its level (Extend +1: one level higher…); the ✦ button then appears on its line.',
+          fr: 'Métamagie : préparez le sort dans un emplacement de niveau supérieur au sien (Extension de durée +1 : un niveau au-dessus…) ; le bouton ✦ apparaît alors sur sa ligne.',
+        })}
+        <a href="https://www.d20srd.org/srd/feats.htm#metamagicFeats" target="_blank" rel="noopener">d20srd</a>
+      </p>
+    {/if}
     {#each sc.def.style === 'prepared' ? sc.slots.filter((x) => x.total > 0) : [] as slot (slot.spellLevel)}
       <div class="level">
         <h4>
@@ -523,9 +546,12 @@
                   >{tr({ en: 'as', fr: 'comme' })} {tr(rules.spells.get(prep.spontaneous)?.name)}</small
                 >
               {/if}
-              {#if def && (owned.length || prep.metamagic?.length)}
+              {#if def}
                 {@const base = baseLevel(def, sc, extra && sc.classId === 'cleric')}
                 {@const key = `${sc.classId}:${slot.spellLevel}:${j}`}
+                {@const blockers = Object.fromEntries(owned.map((id) => [id, featBlocker(def, sc, base, prep, id, slot.spellLevel)]))}
+                <!-- ✦ only when a feat can be applied in this slot (or already is). -->
+                {#if prep.metamagic?.length || owned.some((id) => !blockers[id])}
                 <button
                   class="mmbtn"
                   class:on={!!prep.metamagic?.length}
@@ -539,11 +565,11 @@
                   <div class="mmrow">
                     {#each owned as id (id)}
                       {@const on = !!prep.metamagic?.includes(id)}
-                      {@const next = withFeat(sc, base, prep, id, !on, slot.spellLevel)}
-                      {@const ok = on || (!!next && !illegal(def, sc, base, next, false).length)}
-                      <label class="mmchip" class:on>
-                        <input type="checkbox" checked={on} disabled={prep.cast || !ok} onchange={(e) => toggleFeat(sc, slot.spellLevel, j, prep, base, id, e.currentTarget.checked)} />
+                      {@const why = blockers[id]}
+                      <label class="mmchip" class:on class:off={!!why}>
+                        <input type="checkbox" checked={on} disabled={prep.cast || !!why} onchange={(e) => toggleFeat(sc, slot.spellLevel, j, prep, base, id, e.currentTarget.checked)} />
                         {tr(metamagicName(rules, id))}{id === 'heighten-spell' ? '' : ` +${metamagicDef(id)?.adj}`}
+                        {#if why}<small>({tr(why)})</small>{/if}
                       </label>
                     {/each}
                     {#if prep.metamagic?.includes('heighten-spell')}
@@ -555,6 +581,7 @@
                       >
                     {/if}
                   </div>
+                {/if}
                 {/if}
               {/if}
               {#if sc.classId === 'cleric' && !extra && prep.id && !prep.cast}
@@ -753,6 +780,9 @@
   }
   .mmchip.on {
     font-weight: 600;
+  }
+  .mmchip.off {
+    color: var(--ink-soft);
   }
   .mmchip select {
     min-height: 2rem;
