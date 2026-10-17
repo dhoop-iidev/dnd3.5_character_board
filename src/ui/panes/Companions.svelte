@@ -3,7 +3,17 @@
   // https://www.d20srd.org/srd/classes/druid.htm#animalCompanion
   // Sorcerer/wizard familiar: https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars
   import { rules } from '../../data/rules'
-  import { familiarAdvancement, familiarLevel, FAMILIAR_URL, FAMILIARS } from '../../engine/arcane'
+  import {
+    familiarAdvancement,
+    familiarLevel,
+    FAMILIAR_URL,
+    FAMILIARS,
+    IMPROVED_FAMILIAR_URL,
+    IMPROVED_FAMILIARS,
+    improvedFamiliarBlockers,
+    isImprovedFamiliar,
+  } from '../../engine/arcane'
+  import WarningList from '../WarningList.svelte'
   import { companionAdvancement, companionLevel, computeCreature, paladinMountAdvancement, WAR_TRAINABLE } from '../../engine/creature'
   import type { CompanionState } from '../../model/character'
   import { app, tr, view } from '../../state.svelte'
@@ -53,10 +63,21 @@
     ;(app.character.companions ??= []).push({ uid: newUid(), creatureId: famPick, kind: 'familiar', maxHp: true, damage: 0 })
     famPick = ''
   }
+  // Improved Familiar (https://www.d20srd.org/srd/feats.htm#improvedFamiliar): more creatures, from an arcane
+  // spellcaster level, alignment within one step.
+  const hasImproved = $derived(view.sheet.feats.some((f) => f.featId === 'improved-familiar'))
+  const arcaneLevel = $derived(Math.max(0, ...view.sheet.spellcasting.filter((x) => x.def.kind === 'arcane').map((x) => x.casterLevel.total)))
+  const improvedOptions = $derived(
+    IMPROVED_FAMILIARS.filter((f) => rules.creatures.has(f.id)).map((f) => ({
+      ...f,
+      why: improvedFamiliarBlockers(f.id, { hasFeat: hasImproved, arcaneLevel, alignment: app.character.identity.alignment }),
+    })),
+  )
   const baseSave = (id: 'fort' | 'ref' | 'will') =>
     view.sheet.saves[id].parts.filter((p) => p.bonusType === 'base').reduce((n, p) => n + p.value, 0)
   const familiarSheet = (c: CompanionState) => {
-    const f = familiarAdvancement(famLevel)
+    const improved = isImprovedFamiliar(c.creatureId)
+    const f = familiarAdvancement(famLevel, improved)
     return computeCreature(rules.creatures.get(c.creatureId)!, {
       advancement: f?.advancement,
       familiar: f && {
@@ -66,6 +87,7 @@
         masterBab: view.sheet.bab.total,
         masterLevel: view.sheet.characterLevel,
         sr: f.sr,
+        improved,
       },
       masterBaseSaves: { fort: baseSave('fort'), ref: baseSave('ref'), will: baseSave('will') },
       maxHp: true,
@@ -154,6 +176,17 @@
           {#each FAMILIARS.filter((f) => rules.creatures.has(f.id)) as f (f.id)}
             <option value={f.id}>{tr(rules.creatures.get(f.id)!.name)} — {tr(f.text)}</option>
           {/each}
+          {#if hasImproved}
+            <optgroup label={tr({ en: 'Improved Familiar', fr: 'Familier supérieur' })}>
+              {#each improvedOptions as f (f.id)}
+                <option value={f.id} disabled={!!f.why.length}
+                  >{tr(rules.creatures.get(f.id)!.name)} — {f.alignment}, {tr({ en: 'arcane level', fr: 'niveau profane' })} {f.level}{f.why.length
+                    ? ` (${f.why.map((x) => tr(x)).join(', ')})`
+                    : ''}</option
+                >
+              {/each}
+            </optgroup>
+          {/if}
         </select>
         <button disabled={!famPick} onclick={addFamiliar}>＋ {tr({ en: 'Add', fr: 'Ajouter' })}</button>
       </div>
@@ -167,8 +200,16 @@
         <label class="name">{tr({ en: 'Name', fr: 'Nom' })} <input bind:value={c.name} /></label>
         <p class="note">
           <strong>{tr({ en: 'Master’s benefit', fr: 'Avantage du maître' })} :</strong>
-          {tr(FAMILIARS.find((f) => f.id === c.creatureId)?.text ?? { en: '—', fr: '—' })}
-          {tr({ en: '(within 1 mile; applied to your sheet)', fr: '(à 1,5 km ou moins ; appliqué à votre feuille)' })}
+          {#if isImprovedFamiliar(c.creatureId)}
+            {tr({
+              en: 'none besides Alertness (improved familiar: keeps its own type, no speech with animals of its kind)',
+              fr: 'aucun en dehors de Vigilance (familier supérieur : garde son type, pas de communication avec les animaux de son espèce)',
+            })}
+            <a href={IMPROVED_FAMILIAR_URL} target="_blank" rel="noopener">d20srd</a>
+          {:else}
+            {tr(FAMILIARS.find((f) => f.id === c.creatureId)?.text ?? { en: '—', fr: '—' })}
+            {tr({ en: '(within 1 mile; applied to your sheet)', fr: '(à 1,5 km ou moins ; appliqué à votre feuille)' })}
+          {/if}
           · {tr({ en: 'HD for effects', fr: 'DV pour les effets' })} {fs.effectHd}
           {#if fs.spellResistance}· {tr({ en: 'SR', fr: 'RM' })} {fs.spellResistance}{/if}
         </p>
@@ -176,6 +217,7 @@
       {/if}
     </section>
   {/each}
+  <WarningList areas={['companions']} />
 {/if}
 
 {#if level > 0 || animals.length || (paladinLevel < 5 && famLevel === 0)}

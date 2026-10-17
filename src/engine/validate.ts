@@ -11,13 +11,15 @@ import { raceOf } from './race'
 import { parseAlignment, opposedDescriptors } from './alignment'
 import { domainsOf } from './cleric'
 import { CLASS_ALIGNMENT, NO_RETURN_CLASSES, ROGUE_SPECIAL_LEVELS } from './classFeatures'
-import { listLevel, preparable, prohibitedCount, wizardSchools } from './arcane'
-import { knownUpTo, learningProblems, spellLearning, swapProblems } from './spellLearning'
+import { FAMILIARS, IMPROVED_FAMILIAR_URL, improvedFamiliarBlockers, isImprovedFamiliar, listLevel, preparable, prohibitedCount, wizardSchools } from './arcane'
+import { knownUpTo, learningProblems, masteredSpells, masteryProblems, spellLearning, spellMasteryPicks, SPELL_MASTERY_URL, swapProblems } from './spellLearning'
+import { METAMAGIC_URL, metamagicProblems, ownedMetamagic, slotLevel } from './metamagic'
+import { classSpellLevel } from './spells'
 
 export { unmetPrereqs }
 
 export type Severity = 'error' | 'warning' | 'info'
-export type WarningArea = 'abilities' | 'skills' | 'feats' | 'levels' | 'inventory' | 'combat' | 'maneuvers' | 'spells'
+export type WarningArea = 'abilities' | 'skills' | 'feats' | 'levels' | 'inventory' | 'combat' | 'maneuvers' | 'spells' | 'companions'
 
 export interface RuleWarning {
   id: string
@@ -447,6 +449,54 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
 
   // Current state checks (with temporary effects).
   const now = compute(char, rules)
+  // Spell Mastery: as many spells as the Int modifier, from the spellbook; without the spellbook, only those (and read
+  // magic) can be prepared (https://www.d20srd.org/srd/feats.htm#spellMasterySpecial).
+  for (const p of spellMasteryPicks(char, rules))
+    for (const x of masteryProblems(char, rules, p))
+      out.push(w(`spell-mastery-${x.kind}-${p.L}-${p.index}-${x.text.en}`, x.kind === 'missing' ? 'warning' : 'error', 'spells', `Spell Mastery (level ${p.L}): ${x.text.en}`, `Maîtrise des sorts (niveau ${p.L}) : ${x.text.fr}`, { level: p.L, srdUrl: SPELL_MASTERY_URL }))
+  if (char.spells?.['wizard']?.withoutBook) {
+    const mastered = masteredSpells(char)
+    for (const list of Object.values(char.spells['wizard'].prepared))
+      for (const slot of list) {
+        const sp = slot.id ? rules.spells.get(slot.id) : undefined
+        if (sp && sp.id !== 'read-magic' && !mastered.has(sp.id))
+          out.push(w(`prepared-without-book-${sp.id}`, 'warning', 'spells', `${sp.name.en}: prepared without the spellbook, but not a Spell Mastery spell`, `${sp.name.fr} : préparé sans le grimoire, mais pas un sort de Maîtrise des sorts`, { srdUrl: SPELL_MASTERY_URL }))
+      }
+  }
+  // Metamagic on prepared spells (https://www.d20srd.org/srd/feats.htm#metamagicFeats): feats known, the slot is of the
+  // spell's level + the feats' adjustments or higher, each feat's restrictions.
+  {
+    const owned = ownedMetamagic(now.feats)
+    for (const sc of now.spellcasting) {
+      if (sc.def.style !== 'prepared') continue
+      for (const [lvl, list] of Object.entries(char.spells?.[sc.classId]?.prepared ?? {}))
+        list.forEach((slot, j) => {
+          const sp = slot.id ? rules.spells.get(slot.id) : undefined
+          if (!sp || !slot.metamagic?.length) return
+          const own = classSpellLevel(sp, sc.classId, sc.def.list)
+          const domain = Math.min(...Object.entries(sp.level).filter(([k]) => k.startsWith('domain:')).map(([, v]) => v))
+          const base = own ?? (Number.isFinite(domain) ? domain : Number(lvl))
+          const id = `prepared-metamagic-${sc.classId}-${lvl}-${j}`
+          const need = slotLevel(base, slot)
+          if (need > Number(lvl))
+            out.push(w(`${id}-slot`, 'error', 'spells', `${sp.name.en} with metamagic needs a level ${need} slot (prepared in a level ${lvl} slot)`, `${sp.name.fr} avec métamagie demande un emplacement de niveau ${need} (préparé dans un emplacement de niveau ${lvl})`, { srdUrl: METAMAGIC_URL }))
+          for (const p of metamagicProblems(sp, base, slot, { owned, spontaneous: false, bard: false, maxLevel: sc.def.maxSpellLevel }))
+            out.push(w(`${id}-${p.text.en}`, p.kind === 'illegal' ? 'error' : 'info', 'spells', `${sp.name.en}: ${p.text.en}`, `${sp.name.fr} : ${p.text.fr}`, { srdUrl: METAMAGIC_URL }))
+        })
+    }
+  }
+  // Familiar: an improved familiar needs the feat, the arcane spellcaster level and an alignment close enough
+  // (https://www.d20srd.org/srd/feats.htm#improvedFamiliar); otherwise one of the ten standard familiars.
+  for (const c of (char.companions ?? []).filter((x) => x.kind === 'familiar')) {
+    const name = rules.creatures.get(c.creatureId)?.name ?? { en: c.creatureId, fr: c.creatureId }
+    if (isImprovedFamiliar(c.creatureId)) {
+      const arcaneLevel = Math.max(0, ...now.spellcasting.filter((s) => s.def.kind === 'arcane').map((s) => s.casterLevel.total))
+      const why = improvedFamiliarBlockers(c.creatureId, { hasFeat: now.feats.some((f) => f.featId === 'improved-familiar'), arcaneLevel, alignment: char.identity.alignment })
+      if (why.length)
+        out.push(w(`familiar-improved-${c.uid}`, 'error', 'companions', `${name.en} as a familiar: ${why.map((x) => x.en).join(', ')}`, `${name.fr} comme familier : ${why.map((x) => x.fr).join(', ')}`, { srdUrl: IMPROVED_FAMILIAR_URL }))
+    } else if (!FAMILIARS.some((f) => f.id === c.creatureId))
+      out.push(w(`familiar-not-allowed-${c.uid}`, 'error', 'companions', `${name.en} is not on the familiar lists`, `${name.fr} n’est pas sur les listes de familiers`, { srdUrl: IMPROVED_FAMILIAR_URL }))
+  }
   if (!rules.races.has(char.identity.race))
     out.push(w('unknown-race', 'error', 'levels', `Unknown race "${char.identity.race}": human rules used`, `Race inconnue « ${char.identity.race} » : règles de l'humain utilisées`, { srdUrl: `${SRD}races.htm` }))
   // Two-weapon fighting: neither weapon can be wielded in two hands.

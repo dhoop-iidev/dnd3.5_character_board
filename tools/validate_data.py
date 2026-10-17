@@ -885,7 +885,7 @@ def spot_checks(files, custom):
            and sp["cure-light-wounds"]["name"]["fr"] == "Soins légers")
     cr = by["creatures.json"]
     wolf = cr["wolf"]
-    expect("195 creatures (companion lists + Summon Nature's Ally I-IX: 115; other animals and plants: 22; Summon Monster I-IX base creatures: 58)", len(cr) == 195)
+    expect("202 creatures (companion lists + Summon Nature's Ally I-IX: 115; other animals and plants: 22; Summon Monster I-IX base creatures: 58; Improved Familiar: 7)", len(cr) == 202)
     wh = cr["warhorse-heavy"]
     expect("heavy warhorse: Cheval de guerre lourd, 4d8+12, 2 hooves +6 1d6+4 primary, bite +1 1d4+2 secondary, #warhorseHeavy",
            wh["name"]["fr"].startswith("Cheval de guerre lourd") and wh["hp"] == 30

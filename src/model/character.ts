@@ -14,6 +14,8 @@ export interface FeatPick {
   slot: FeatSlot
   /** Chosen weapon/skill for feats like Weapon Focus (e.g. "greatsword"). */
   choice?: string
+  /** Spell Mastery: the spells chosen (as many as the Int modifier, https://www.d20srd.org/srd/feats.htm#spellMasterySpecial). */
+  spells?: string[]
 }
 
 /** Choices made when gaining one character level. Hit points follow house rule #9 (max hit die). */
@@ -73,14 +75,27 @@ export interface MartialState {
   pool?: number
 }
 
+/** One prepared spell slot: the spell, cast today or not, a cleric's spontaneous cure/inflict, metamagic feats. */
+export interface PreparedSlot {
+  id: string
+  cast: boolean
+  spontaneous?: string
+  /** Metamagic feat ids applied when preparing (https://www.d20srd.org/srd/feats.htm#metamagicFeats). */
+  metamagic?: string[]
+  /** Heighten Spell: the spell's new level. */
+  heighten?: number
+}
+
 /** Prepared spells of one casting class (slots by spell level; spontaneous casters only count casts). */
 export interface SpellcastingState {
-  /** Spell level -> prepared slots (spell id, cast today or not). */
-  prepared: Record<number, { id: string; cast: boolean; spontaneous?: string }[]>
+  /** Slot level -> prepared slots. */
+  prepared: Record<number, PreparedSlot[]>
   /** Spontaneous casters: spell slots used today per slot level. */
   castCount?: Record<number, number>
   /** Wizard: spells copied into the spellbook from scrolls or other spellbooks (besides the free spells per level). */
   spellbook?: string[]
+  /** Wizard without her spellbook today: only read magic and the Spell Mastery spells can be prepared. */
+  withoutBook?: boolean
 }
 
 /** A creature with the character: animal companion or summoned creature (stat block from creatures.json). */

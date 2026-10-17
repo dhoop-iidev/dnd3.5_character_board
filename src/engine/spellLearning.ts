@@ -4,7 +4,7 @@
 import type { Rules } from '../data/rules'
 import type { I18n } from '../data/types'
 import type { Character } from '../model/character'
-import { castableLevels, isSwapLevel, knownCaps, LEARNING_CLASSES, listLevel, spellLearnBlockers, wizardSchools } from './arcane'
+import { castableLevels, isSwapLevel, knownCaps, LEARNING_CLASSES, listLevel, spellbook, spellLearnBlockers, wizardSchools } from './arcane'
 import { compute } from './compute'
 import { spellcastingAdvance } from './spells'
 import { i18n } from './stacking'
@@ -143,5 +143,55 @@ export function swapProblems(rules: Rules, x: SpellLearning, swap: { from: strin
   if (a === undefined || b === undefined || a !== b) out.push(i18n('both spells must be of the same level', 'les deux sorts doivent être du même niveau'))
   if (a !== undefined && a > x.highest - 2) out.push(i18n(`level ${a} is not two levels below the highest (${x.highest})`, `le niveau ${a} n’est pas inférieur de deux au plus haut (${x.highest})`))
   if (x.knownBefore.includes(swap.to) || x.learned.includes(swap.to)) out.push(i18n('the new spell is already known', 'le nouveau sort est déjà connu'))
+  return out
+}
+
+// ---- Spell Mastery (https://www.d20srd.org/srd/feats.htm#spellMasterySpecial): each time, as many spells as the Int modifier,
+// among the spells she already knows (in her spellbook); she can prepare them without the spellbook.
+
+export const SPELL_MASTERY_URL = 'https://www.d20srd.org/srd/feats.htm#spellMasterySpecial'
+
+export interface MasteryPick {
+  /** Character level the feat was taken at. */
+  L: number
+  /** Index of the feat in that level's feats. */
+  index: number
+  spells: string[]
+  /** Int modifier at that level. */
+  allowed: number
+}
+
+export function spellMasteryPicks(char: Character, rules: Rules): MasteryPick[] {
+  const out: MasteryPick[] = []
+  char.levels.forEach((lvl, i) =>
+    lvl.feats.forEach((f, index) => {
+      if (f.featId !== 'spell-mastery') return
+      const L = i + 1
+      out.push({ L, index, spells: f.spells ?? [], allowed: Math.max(0, compute(char, rules, { level: L }).abilities.int.mod) })
+    }),
+  )
+  return out
+}
+
+/** Spells prepared without the spellbook: every Spell Mastery pick. */
+export const masteredSpells = (char: Character) =>
+  new Set(char.levels.flatMap((l) => l.feats.filter((f) => f.featId === 'spell-mastery').flatMap((f) => f.spells ?? [])))
+
+/** Spells a Spell Mastery pick at level L can choose: the spellbook at that level (copied spells count, as their date
+ * isn't recorded). */
+export const masteryOptions = (char: Character, rules: Rules, L: number) => spellbook(char, rules, knownUpTo(char, rules, 'wizard', L))
+
+export function masteryProblems(char: Character, rules: Rules, p: MasteryPick): { kind: 'extra' | 'missing' | 'illegal'; text: I18n }[] {
+  const out: { kind: 'extra' | 'missing' | 'illegal'; text: I18n }[] = []
+  if (p.spells.length > p.allowed)
+    out.push({ kind: 'extra', text: i18n(`${p.spells.length - p.allowed} spell(s) too many (Int modifier ${p.allowed})`, `${p.spells.length - p.allowed} sort(s) en trop (modificateur d’Int ${p.allowed})`) })
+  if (p.spells.length < p.allowed)
+    out.push({ kind: 'missing', text: i18n(`${p.allowed - p.spells.length} spell(s) to choose`, `${p.allowed - p.spells.length} sort(s) à choisir`) })
+  const book = new Set(masteryOptions(char, rules, p.L).map((e) => e.id))
+  for (const id of p.spells)
+    if (!book.has(id)) {
+      const n = rules.spells.get(id)?.name ?? i18n(id, id)
+      out.push({ kind: 'illegal', text: i18n(`${n.en}: not in her spellbook at level ${p.L}`, `${n.fr} : absent du grimoire au niveau ${p.L}`) })
+    }
   return out
 }

@@ -66,7 +66,9 @@ MONSTER_PAGES = [f"monsters/{p}.htm" for p in (
     "achaierai", "archon", "avoral", "bralani", "chaosBeast", "couatl", "demon", "devil", "giantBee",
     "giantBombardierBeetle", "giantFireBeetle", "giantPrayingMantis", "giantStagBeetle", "giantWasp", "hellHound",
     "howler", "leonal", "lillend", "mephit", "monstrousCentipede", "monstrousScorpion", "monstrousSpider", "nightHag",
-    "shadowMastiff", "xill", "yethHound", "celestialCreature", "fiendishCreature")]
+    "shadowMastiff", "xill", "yethHound", "celestialCreature", "fiendishCreature",
+    # Improved Familiar creatures (build_creatures.IMPROVED_FAMILIAR)
+    "formian", "homunculus", "pseudodragon", "shockerLizard", "stirge")]
 PAGES += MONSTER_PAGES
 
 _SMALL = {"of", "and", "or", "the", "in", "a", "an", "to", "by", "with", "on", "for", "than", "at"}

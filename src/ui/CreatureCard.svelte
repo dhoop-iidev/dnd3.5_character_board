@@ -1,4 +1,12 @@
 <script lang="ts">
+  // Fly maneuverability, official French SRD terms (https://www.d20srd.org/srd/movement.htm#tacticalAerialMovement).
+  const MANEUVER: Record<string, { en: string; fr: string }> = {
+    perfect: { en: 'perfect', fr: 'parfaite' },
+    good: { en: 'good', fr: 'bonne' },
+    average: { en: 'average', fr: 'moyenne' },
+    poor: { en: 'poor', fr: 'médiocre' },
+    clumsy: { en: 'clumsy', fr: 'déplorable' },
+  }
   // Stat block of a companion or summoned creature: hit points (maximum dice or entered), AC, attacks, saves…
   // Every computed value opens its breakdown. Stat blocks: SRD monsters (https://www.d20srd.org/srd/monsters/).
   import type { I18n } from '../data/types'
@@ -68,7 +76,7 @@
       fmtDistance(ftToDistance(s.landSpeed), lang()),
       ...(d.speed.fly
         ? [
-            `${tr({ en: 'fly', fr: 'vol' })} ${fmtDistance(ftToDistance(d.speed.fly), lang())}${d.speed.flyManeuver ? ` (${d.speed.flyManeuver})` : ''}`,
+            `${tr({ en: 'fly', fr: 'vol' })} ${fmtDistance(ftToDistance(d.speed.fly), lang())}${d.speed.flyManeuver ? ` (${tr(MANEUVER[d.speed.flyManeuver] ?? { en: d.speed.flyManeuver, fr: d.speed.flyManeuver })})` : ''}`,
           ]
         : []),
       ...(d.speed.swim ? [`${tr({ en: 'swim', fr: 'nage' })} ${fmtDistance(ftToDistance(d.speed.swim), lang())}`] : []),

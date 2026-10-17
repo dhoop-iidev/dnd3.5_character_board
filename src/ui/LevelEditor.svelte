@@ -265,6 +265,10 @@
                       <option value={undefined}>— {tr(UI.skill)} —</option>
                       {#each skillChoices as sk (sk.id)}<option value={sk.id}>{tr(sk.name)}</option>{/each}
                     </select>
+                  {:else if pick?.featId === 'spell-mastery'}
+                    <small class="hint"
+                      >{tr({ en: `spells: Spells tab, spellbook (${pick.spells?.length ?? 0} chosen)`, fr: `sorts : onglet Sorts, grimoire (${pick.spells?.length ?? 0} choisis)` })}</small
+                    >
                   {/if}
                 </div>
               {/each}
@@ -341,6 +345,10 @@
 </section>
 
 <style>
+  .hint {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
   .hd {
     display: flex;
     gap: 0.5rem;

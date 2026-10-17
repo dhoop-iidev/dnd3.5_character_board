@@ -7,7 +7,8 @@ Scope: every creature on the SRD druid animal companion lists (base list + alter
 https://www.d20srd.org/srd/classes/druid.htm#wildShape; WILD_SHAPE below), plus every base creature of the Summon
 Monster I-IX table (https://www.d20srd.org/srd/spells/summonMonsterI.htm; SUMMON_MONSTER below: vermin, archons, demons,
 devils, mephits...). The Summon Monster lists go to summon-lists.json after the Summon Nature's Ally ones, with the
-celestial / fiendish template and the alignment printed for each entry (templates.json: build_templates.py).
+celestial / fiendish template and the alignment printed for each entry (templates.json: build_templates.py). Plus the
+Improved Familiar creatures (https://www.d20srd.org/srd/feats.htm#improvedFamiliar; IMPROVED_FAMILIAR below).
 
 English: Andargor SRD SQLite (`monster` stat block columns, `full_text` for the description; `class` Druid full_text and
 `spell` Summon Nature's Ally IX full_text for the lists, which are parsed and must give exactly the hand catalog below).
@@ -222,6 +223,18 @@ for _fam, _sizes in MONSTROUS_SIZES.items():
 for _m in MEPHITS:
     SUMMON_MONSTER[f"mephit-{_m}"] = (f"{_m.capitalize()} Mephit", "mephit.htm", f"{_m}Mephit")
 CATALOG.update(SUMMON_MONSTER)
+# Improved Familiar creatures (https://www.d20srd.org/srd/feats.htm#improvedFamiliar) not already above (the Small
+# elementals and the ice mephit are).
+IMPROVED_FAMILIAR: dict[str, tuple[str, str, str | None]] = {
+    "formian-worker": ("Formian Worker", "formian.htm", "worker"),
+    "homunculus": ("Homunculus", "homunculus.htm", None),
+    "imp": ("Imp", "devil.htm", "imp"),
+    "pseudodragon": ("Pseudodragon", "pseudodragon.htm", None),
+    "quasit": ("Quasit", "demon.htm", "quasit"),
+    "shocker-lizard": ("Shocker Lizard", "shockerLizard.htm", None),
+    "stirge": ("Stirge", "stirge.htm", None),
+}
+CATALOG.update(IMPROVED_FAMILIAR)
 # Stat blocks missing from dnd35.db: dnd35.db name -> (local English SRD HTML file, heading id of the stat block).
 HTML_STATBLOCK = {"Lemure": ("monsters/monsters-d-de.html", "lemure")}
 for _el in ELEMENTS:
@@ -873,12 +886,14 @@ def parse_saves(s: str, names=("Fort", "Ref", "Will")) -> dict:
 
 
 EN_ATK = re.compile(r"^(?:(\d+) )?(.+?) ([+-]\d+(?:/[+-]\d+)*) (melee|ranged)( touch)?\*? \((.+?)\)(/x\d)?$", re.I)
-FR_ATK = re.compile(r"^(?:(\d+) )?(.+?) \(([+–-]\d+(?:/[+–-]\d+)*) (corps à corps|distance|contact à distance|contact)\*?, (.+?)\)$")
+FR_ATK = re.compile(r"^(?:(\d+) )?(.+?) \(([+–-]\d+(?:/[+–-]\d+)*) (corps à corps|distance|contact à distance|contact au corps à corps|contact)\*?, (.+?)\)$")
 
 
 def parse_damage(d: str, tail: str | None = None) -> tuple[str, str | None, str | None]:
     """'1d8+3/x3 plus 1d6 fire' -> ('1d8+3', '×3', 'plus 1d6 fire'); critical as '19-20/×2' or '×3'."""
     d = d.replace("*", "").replace("–", "-").strip()
+    if re.match(r"^[a-z][a-z ]*$", d):  # no damage, only an effect (stirge touch: "attach")
+        return "0", None, d
     m = re.match(r"^([0-9d+\-]+)(?:/([0-9]+-20))?(?:/[x×](\d))?\s*(.*)$", d)
     assert m, d
     dmg, rng, mult, extra = m.group(1), m.group(2), m.group(3), m.group(4).strip() or None
@@ -920,7 +935,7 @@ def parse_en_attacks(s: str) -> list[list[dict]]:
 
 
 EN_ATK_NO_DAMAGE = re.compile(r"^(?:(\d+) )?(.+?) ([+-]\d+(?:/[+-]\d+)*) (melee|ranged)( touch)?$", re.I)
-FR_ATK_NO_DAMAGE = re.compile(r"^(?:(\d+) )?(.+?) \(([+–-]\d+(?:/[+–-]\d+)*) (corps à corps|distance|contact à distance|contact)\)$")
+FR_ATK_NO_DAMAGE = re.compile(r"^(?:(\d+) )?(.+?) \(([+–-]\d+(?:/[+–-]\d+)*) (corps à corps|distance|contact à distance|contact au corps à corps|contact)\)$")
 
 
 def split_dice(d: str) -> list[str]:
@@ -943,7 +958,8 @@ def parse_fr_attacks(s: str) -> list[list[dict]]:
             parts = split_dice(m.group(5).replace("–", "-"))
             for part in parts:
                 dm = re.match(r"^([0-9d+\-]+)(?:\s*[/,]\s*[0-9]+-\d+)?(?:\s*[/,]\s*[x×]\d)?\s*(.*)$", part.replace("–", "-").replace("*", "").strip())
-                extra = re.sub(r"^plus(?=\d)", "plus ", dm.group(2).strip()) if dm else ""  # "plus1d8" misprint
+                # "plus1d8" misprint; no damage, only an effect (stirge: "fixation")
+                extra = re.sub(r"^plus(?=\d)", "plus ", dm.group(2).strip()) if dm else part.strip()
                 atks.append({"count": int(m.group(1) or 1) // len(parts), "name": re.sub(r"^(et|puis) ", "", m.group(2).strip()),
                              "bonus": signed(m.group(3).split("/")[0]), "extra": extra or None})
         out.append(atks)
@@ -1272,6 +1288,7 @@ def build_creatures(weapons: list[dict] | None = None, feats: list[dict] | None 
     sm_ids = {x for e in sm.values() for x in e["creatures"]}
     assert set(SUMMON_MONSTER) <= sm_ids, set(SUMMON_MONSTER) - sm_ids
     used |= sm_ids
+    used |= set(IMPROVED_FAMILIAR)
     # Wild shape scope: every dnd35.db animal / plant outside the epic and psionic SRD is in the catalog.
     by_name = {v[0]: k for k, v in CATALOG.items()}
     scope = c.execute(f"select name, reference from monster where type in ({','.join('?' * len(WILD_SHAPE_TYPES))})",

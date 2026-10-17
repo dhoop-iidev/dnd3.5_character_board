@@ -21,7 +21,7 @@ import { raceOf } from './race'
 import { classSkillsOf, clericChoices, domainFeats, domainsOf, TURNING_TABLE } from './cleric'
 import { proficiencies, proficientWith, type Proficiencies } from './proficiency'
 import { spellcastingAdvance, spellcastingOf, type Spellcasting } from './spells'
-import { BARD_URL, bardicSongs, FAMILIAR_URL, FAMILIARS, familiarLevel, songModifiers, SONG_EFFECTS, spellFailure, type BardicSong } from './arcane'
+import { BARD_URL, bardicSongs, FAMILIAR_URL, FAMILIARS, familiarLevel, isImprovedFamiliar, songModifiers, SONG_EFFECTS, spellFailure, type BardicSong } from './arcane'
 import { parseAlignment } from './alignment'
 import {
   barbarianDR,
@@ -597,7 +597,8 @@ export function compute(char: Character, rules: Rules, opts: ComputeOptions = {}
   // Familiar: the master's benefit while within 1 mile, and Alertness while it is within arm's reach (a situational
   // toggle; nothing more if the master already has the feat). https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars
   const familiar = familiarLevel(classLevels) > 0 ? (char.companions ?? []).find((c) => c.kind === 'familiar') : undefined
-  const familiarDef = familiar && FAMILIARS.find((f) => f.id === familiar.creatureId)
+  // An improved familiar (Improved Familiar feat) gives Alertness but no other master's benefit.
+  const familiarDef = familiar && (FAMILIARS.find((f) => f.id === familiar.creatureId) ?? (isImprovedFamiliar(familiar.creatureId) ? { master: [] } : undefined))
   if (familiar && familiarDef) {
     const name = rules.creatures.get(familiar.creatureId)?.name ?? i18n(familiar.creatureId, familiar.creatureId)
     const label = i18n(`Familiar (${familiar.name || name.en})`, `Familier (${familiar.name || name.fr})`)

@@ -40,10 +40,11 @@ export interface CreatureOptions {
   /** Paladin's mount: Str adjustment and Int score from Table: The Paladin's Mount (the bonus HD and natural armor come
    * through `advancement`). https://www.d20srd.org/srd/classes/paladin.htm#specialMount */
   mount?: { strAdj: number; int: number; speedBonus?: number }
-  /** Sorcerer/wizard familiar: Int from the familiar table, half the master's hit points, the master's base attack
+  /** Sorcerer/wizard familiar: Int from the familiar table (an improved familiar too, even below its own: house rule
+   * #39, pending), half the master's hit points, the master's base attack
    * bonus, the familiar's Str or Dex for its natural attacks (natural armor and abilities come through `advancement`,
    * the master's base saves through `masterBaseSaves`). https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars */
-  familiar?: { int: number; masterHp: number; masterBab: number; masterLevel: number; sr: number }
+  familiar?: { int: number; masterHp: number; masterBab: number; masterLevel: number; sr: number; improved?: boolean }
   /** Paladin's (or familiar master's) base saves (share saving throws: the mount uses the better base save). */
   masterBaseSaves?: Record<'fort' | 'ref' | 'will', number>
   /** Maximum hit points for every hit die (otherwise `hpManual`, or the printed average). */
@@ -303,7 +304,7 @@ export function computeCreature(def0: CreatureDef, opts: CreatureOptions = {}): 
         en: def.typeText.en.replace(/\b(animal|vermin)\b/i, (w) => `magical beast (augmented ${w.toLowerCase()})`),
         fr: def.typeText.fr.replace(/\b(animal|vermine)\b/i, (w) => `créature magique (${w.toLowerCase()} augmenté${/vermine/i.test(w) ? 'e' : ''})`),
       }
-    : opts.mount || fam
+    : opts.mount || (fam && !(fam.improved && def.type !== 'animal'))
       ? { en: `${def.typeText.en} (magical beast for effects)`, fr: `${def.typeText.fr} (créature magique pour les effets)` }
       : def.typeText
   // Companion bonus HD: a feat per 3 HD, an ability increase per 4 HD, skill points per HD (animal: 2 + Int, min 1)

@@ -9035,6 +9035,107 @@
     }
   },
   {
+    "id": "formian-worker",
+    "name": {
+      "en": "Formian Worker",
+      "fr": "Ouvrier formien"
+    },
+    "size": "small",
+    "type": "outsider",
+    "typeText": {
+      "en": "Small outsider (lawful, extraplanar)",
+      "fr": "Extérieur (extraplanaire, Loi) de taille P"
+    },
+    "hitDice": {
+      "count": 1,
+      "die": 8,
+      "bonus": 1
+    },
+    "hp": 5,
+    "initiative": 2,
+    "speed": {
+      "land": 40
+    },
+    "ac": {
+      "total": 17,
+      "touch": 13,
+      "flatFooted": 15,
+      "natural": 4,
+      "dexMod": 2,
+      "sizeMod": 1,
+      "other": 0
+    },
+    "bab": 1,
+    "quadruped": false,
+    "grapple": -2,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 3,
+        "damage": "1d4+1",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 3,
+      "ref": 4,
+      "will": 2
+    },
+    "abilities": {
+      "str": 13,
+      "dex": 14,
+      "con": 13,
+      "int": 6,
+      "wis": 10,
+      "cha": 9
+    },
+    "skills": {
+      "en": "Climb +10, Craft (any one) +5, Hide +6, Listen +4, Search +2, Spot +4",
+      "fr": "Artisanat (une forme au choix) +5, Détection +4, Discrétion +6, Escalade +10, Fouille +2, Perception auditive +4"
+    },
+    "feats": {
+      "en": "Skill Focus (Craft [selected skill])",
+      "fr": "Talent (Artisanat (de la forme choisie))"
+    },
+    "featIds": [
+      "skill-focus"
+    ],
+    "specialAttacks": {
+      "en": "—",
+      "fr": "—"
+    },
+    "specialQualities": {
+      "en": "Cure serious wounds, hive mind, immunity to poison, petrification, and cold, make whole, electricity resistance 10, fire resistance 10, sonic resistance 10",
+      "fr": "esprit de fourmilière, immunité contre le froid, la pétrification et le poison, réparation intégrale, résistance à l’électricité, au feu et au son (10), soins importants"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Hive Mind (Ex):</b> All formians within 50 miles of their queen are in constant communication. If one is aware of a particular danger, they all are. If one in a group is not flat-footed, none of them are. No formian in a group is considered flanked unless all of them are.</p><p>While workers cannot speak, they can convey simple concepts (such as danger) by body movements. Through the hive mind, however, they can communicate just fine-although their intelligence still limits the concepts that they can grasp.</p><p>A worker is about 3 feet long and about 2-1/2 feet high at the front. It weighs about 60 pounds. Its hands are suitable only for manual labor.</p><p>Formian workers fight only to defend their hive-cities, using their mandibled bite.</p><p>A formian worker's natural weapons, as well as any weapons it wields, are treated as lawful-aligned for the purpose of overcoming damage reduction.</p><p><b><i>cure serious wounds</i> (Sp):</b> Eight workers together can heal a creature's wounds as though using the <i>cure serious wounds</i> spell (caster level 7th). This is a full-round action for all eight workers.</p><p><b><i>make whole</i> (Sp):</b> Three workers together can repair an object as though using the <i>make whole</i> spell (caster level 7th). This is a fullround action for all three workers.</p><p>Warriors communicate through the hive mind to convey battle plans and make reports to their commanders. They cannot speak otherwise.</p><p>A warrior is about is about 5 feet long and about 4-1/2 feet high at the front. It weighs about 180 pounds.</p><p>Warriors are wicked combatants, using claws, bite, and a poisonous sting all at once. Through the hive mind, they attack with coordinated and extremely efficient tactics.</p><p>A formian warrior's natural weapons, as well as any weapons it wields, are treated as lawful-aligned for the purpose of overcoming damage reduction.</p><p><b>Poison (Ex):</b> Injury, Fortitude DC 14, initial and secondary damage 1d6 Str. The save DC is Constitution-based.</p><p>These formians communicate only telepathically and derive sustenance from the mental energies of those they dominate.</p><p>A taskmaster is about the same size as a warrior.</p><p>Taskmasters rely on their dominated slaves to fight for them if at all possible. If necessary, though, they can defend themselves with claws and a poison sting.</p><p>A formian taskmaster's natural weapons, as well as any weapons it wields, are treated as lawful-aligned for the purpose of overcoming damage reduction.</p><p><b>Dominate Monster (Su):</b> A taskmaster can use a <i>dominate monster</i> ability as the spell from a 10th-level caster (Will DC 17 negates), although the subject may be of any kind and may be up to Large size. Creatures that successfully save cannot be affected by the same taskmaster's dominate monster ability for 24 hours. A single taskmaster can dominate up to four subjects at a time. The save DC is Charisma-based.</p><p><b>Dominated Creature (Ex):</b> A taskmaster is never encountered alone. One dominated nonformian creature always accompanies it (choose or determine randomly any creature of CR 4).</p><p><b>Poison (Ex):</b> Injury, Fortitude DC 15, initial and secondary damage 1d6 Str. The save DC is Constitution-based.</p><p>Myrmarchs are the elite of formian society. Much more than those beneath them, these creatures are individuals, with goals, desires, and creative thought.</p><p>A myrmarch is about is about 7 feet long and about 5-1/2 feet high at the front. It weighs about 1,500 pounds. Its claws are capable of fine manipulation, like human hands. Each myrmarch wears a bronze helm to signify its position (the more elaborate the helm, the more prestigious the position).</p><p>Myrmarchs speak Formian and Common.</p><p>Myrmarchs' claws are like hands and thus serve no combat purpose.</p><p>Myrmarchs occasionally employ javelins for ranged attacks, coated with poison from their own stingers.</p><p>They fight intelligently, aiding those under them (if any such are present) and commanding them through the hive mind. If chaotic creatures are present, however, a myrmarch is singleminded in its quest to destroy them.</p><p>A formian myrmarch's natural weapons, as well as any weapons it wields, are treated as lawful-aligned for the purpose of overcoming damage reduction.</p><p><b>Poison (Ex):</b> Injury, Fortitude DC 20, initial and secondary damage 2d6 Dex. The save DC is Constitution-based.</p><p><b>Spell-Like Abilities:</b> At will-<i>charm monster</i> (DC 17), <i>clairaudience/clairvoyance</i>, <i>detect chaos</i>, <i>detect thoughts</i> (DC 15), <i>magic circle against chaos</i>, <i>greater teleport</i>; 1/day-<i>dictum</i> (DC 20), <i>order's wrath</i> (DC 17). Caster level 12th. The save DCs are Charisma-based.</p><p>The formian queen cannot move. With her telepathic abilities, though, she can send instructions to and get reports from any formian within her range.</p><p>She is about 10 feet long, perhaps 4 feet high, and weighs about 3,500 pounds.</p><p>The queen speaks Formian and Common, although she can communicate with any creature telepathically.</p><p>The queen does not fight. She has no ability to move. If necessary, a team of workers and myrmarchs (or dominated slaves) haul her enormous bulk to where she needs to go. This sort of occurrence is very rare, however, and most of the time the queen remains within her well-defended chambers.</p><p>Despite her utter lack of physical activity, the queen can cast spells and use spell-like abilities to great effect in her own defense as well as the defense of the hive-city.</p><p><b>Spells:</b> The queen casts arcane spells as a 17th-level sorcerer.</p>",
+      "fr": "<p><b>Esprit de fourmilière (Ext).</b> Tous les formiens sont en communication constante tant qu’ils restent à moins de 75 kilomètres de leur reine. Si l’un d’eux a conscience d’un péril, tous les autres sont immédiatement prévenus. Au sein d’un groupe, il suffit qu’un seul formien ne soit pas pris au dépourvu pour qu’aucun ne le soit. De même, il faut tous les prendre en tenaille pour que la manœuvre fonctionne.</p><p>Bien qu’incapables de parler, ils peuvent exprimer certains concepts (tels que le danger) à l’aide de gestes. L’esprit de fourmilière leur permet de communiquer normalement avec les autres formiens, même si leur intellect limité ne leur donne pas la chance de comprendre les concepts trop élaborés.</p><p>Les ouvriers formiens font environ 90 cm de long pour 75 cm de haut. Ils pèsent approximativement 30 kg. Leurs pattes griffues ne sont pas assez dextres pour qu’ils puissent s’en servir autrement que pour travailler (ils sont incapables d’attaquer avec).</p><p><b>Réparation intégrale (Mag).</b> Trois ouvriers œuvrant de concert peuvent réparer un objet comme à l’aide du sort réparation intégrale (niveau 7 de lanceur de sorts). Cela nécessite une action complexe de la part des trois participants.</p><p><b>Soins importants (Mag).</b> En se groupant à huit, les ouvriers peuvent soigner une créature comme à l’aide du sort soins importants (niveau 7 de lanceur de sorts). Cela nécessite une action complexe de la part de tous les participants.</p>"
+    },
+    "alignment": {
+      "en": "Always lawful neutral",
+      "fr": "toujours loyal neutre"
+    },
+    "cr": "1/2",
+    "text": {
+      "en": "<p>A formian resembles a cross between an ant and a centaur. All formians are covered in a brownish-red carapace; size and appearance differs for each variety.</p><p>Formians are generally aggressive, seeking to subdue all they encounter. If they perceive even the slightest threat to their hive-city or to their queen, they attack immediately and fight to the death. Any formian also attacks immediately if ordered to do so by a superior.</p>",
+      "fr": "<p>Ces créatures ressemblent à un croisement entre une fourmi géante et un centaure. Elles sont couvertes d’une carapace brun-roux, leur taille et leur aspect variant en fonction de leur rôle au sein de la fourmilière.</p><p>Naturellement agressifs, les formiens cherchent à mettre hors de combat toutes les créatures qu’ils rencontrent. S’ils perçoivent la moindre menace pour leur fourmilière ou leur reine, ils attaquent immédiatement et combattent jusqu’à la mort. Ils se jettent également au combat si un de leurs supérieurs le leur ordonne.</p><p>Les ouvriers formiens ne combattent que pour défendre la fourmilière. Quand ils le font, c’est à l’aide de leurs mandibules.</p><p>Les armes naturelles de l’ouvrier formien, ainsi que les armes manufacturées qu’il pourrait utiliser, sont considérées comme étant d’alignement loyal pour ce qui est d’ignorer la réduction des dégâts.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/formian.htm#worker",
+      "frRef": "DRS 37 (monstres E-G)"
+    }
+  },
+  {
     "id": "fungus-violet",
     "name": {
       "en": "Violet Fungus",
@@ -10055,6 +10156,113 @@
     }
   },
   {
+    "id": "homunculus",
+    "name": {
+      "en": "Homunculus",
+      "fr": "Homoncule"
+    },
+    "size": "tiny",
+    "type": "construct",
+    "typeText": {
+      "en": "Tiny construct",
+      "fr": "Créature artificielle de taille TP"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 10,
+      "bonus": 0
+    },
+    "hp": 11,
+    "initiative": 2,
+    "speed": {
+      "land": 20,
+      "fly": 50,
+      "flyManeuver": "good"
+    },
+    "ac": {
+      "total": 14,
+      "touch": 14,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 1,
+    "quadruped": false,
+    "grapple": -8,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 2,
+        "damage": "1d4-1",
+        "extra": {
+          "en": "plus poison",
+          "fr": "et poison"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 0,
+      "ref": 4,
+      "will": 1
+    },
+    "abilities": {
+      "str": 8,
+      "dex": 15,
+      "con": null,
+      "int": 10,
+      "wis": 12,
+      "cha": 7
+    },
+    "skills": {
+      "en": "Hide +14, Listen +4, Spot +4",
+      "fr": "—"
+    },
+    "feats": {
+      "en": "Lightning Reflexes",
+      "fr": "Réflexes surhumains"
+    },
+    "featIds": [
+      "lightning-reflexes"
+    ],
+    "specialAttacks": {
+      "en": "Poison",
+      "fr": "poison"
+    },
+    "specialQualities": {
+      "en": "Construct traits, darkvision 60 ft., low-light vision",
+      "fr": "créature artificielle, vision dans le noir (18 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Poison (Ex):</b> Injury, Fortitude DC 13, initial damage sleep for 1 minute, secondary damage sleep for another 5d6 minutes. The save DC is Constitution-based and includes a +2 racial bonus.</p><p>A homunculus is shaped from a mixture of clay, ashes, mandrake root, spring water, and one pint of the creator's own blood. The materials cost 50 gp. The creature's master may assemble the body or hire someone else to do the job. Creating the body requires a DC 12 Craft (sculpting) check or a DC 12 Craft (pottery) check.</p><p>After the body is sculpted, it is animated through an extended magical ritual that requires a specially prepared laboratory or workroom, similar to an alchemist's laboratory and costing 500 gp to establish. If the creator is personally constructing the creature's body, the building and ritual can be performed together.</p><p>A homunculus with more than 2 Hit Dice can be created, but each additional Hit Die adds +2,000 gp to the cost to create.</p><p>Craft Construct, <i>arcane eye</i>, <i>mirror image</i>, <i>mending</i>, caster must be at least 4th level; Price - (never sold); Cost 1,050 gp + 78 XP.</p>",
+      "fr": "<p><b>Poison (Ext).</b> Blessure, jet de Vigueur (DD 13) ; effet initial : sommeil pendant 1 minute, effet secondaire : sommeil pendant 5d6 minutes supplémentaires. Le DD de sauvegarde est lié à la Constitution et inclut un bonus racial de +2.</p>"
+    },
+    "alignment": {
+      "en": "Any (same as creator)",
+      "fr": "quelconque (identique à celui de son créateur)"
+    },
+    "cr": "1",
+    "text": {
+      "en": "<p>A homunculus is a miniature servant created by a wizard. These creatures are weak combatants but make effective spies, messengers, and scouts. A homunculus's creator determines its precise features. Homunculi are little more than tools designed to carry out assigned tasks. They are extensions of their creators, sharing the same alignment and basic nature. A homunculus cannot speak, but the process of creating one links it telepathically with its creator.</p><p>It knows what its master knows and can convey to him or her everything it sees and hears, out to a distance of 1,500 feet. A homunculus never travels beyond this range willingly, though it can be removed forcibly. If this occurs, the creature does everything in its power to regain contact with its master. An attack that destroys a homunculus deals 2d10 points of damage to its master.</p><p>If the creature's master is slain, the homunculus also dies, and its body swiftly melts away into a pool of ichor.</p><p>Homunculi land on their victims and bite with their venomous fangs.</p>",
+      "fr": "<p>L’homoncule est un petit serviteur créé par un magicien. Presque incapable de se battre, il fait par contre un excellent espion, éclaireur ou messager. Son créateur peut le modeler à son goût.</p><p>L’homoncule n’est guère plus qu’un outil conçu pour exécuter certaines tâches spécialisées. C’est une extension de son créateur, dont il possède l’alignement et la nature. Il est incapable de parler, mais le processus de création le lie télépathiquement à son maître. Il sait les mêmes choses que lui et peut lui transmettre tout ce qu’il voit ou entend du moment qu’il ne s’éloigne pas à plus de 450 mètres. L’homoncule ne s’éloigne jamais volontairement de son maître au-delà de cette distance, mais il est possible de l’emmener de force. Si cela se produit, il fait tout ce qui est en son pouvoir pour retourner auprès de son créateur. Si l’homoncule est détruit, son maître perd instantanément 2d10 points de vie. Si le maître meurt, l’homoncule perd le semblant de vie qui l’anime et son corps fond rapidement pour ne laisser qu’une petite flaque de fluide nauséabond.</p><p>L’homoncule se pose sur sa proie et la mord pour l’empoisonner.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/homunculus.htm",
+      "frRef": "DRS 38 (monstres H-M)"
+    }
+  },
+  {
     "id": "horse-heavy",
     "name": {
       "en": "Horse, Heavy",
@@ -10473,6 +10681,114 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/hyena.htm",
       "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "imp",
+    "name": {
+      "en": "Imp",
+      "fr": "Diablotin"
+    },
+    "size": "tiny",
+    "type": "outsider",
+    "typeText": {
+      "en": "Tiny outsider (evil, extraplanar, lawful)",
+      "fr": "Extérieur (extraplanaire, Loi, Mal) de taille TP"
+    },
+    "hitDice": {
+      "count": 3,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 13,
+    "initiative": 3,
+    "speed": {
+      "land": 20,
+      "fly": 50,
+      "flyManeuver": "perfect"
+    },
+    "ac": {
+      "total": 20,
+      "touch": 15,
+      "flatFooted": 17,
+      "natural": 5,
+      "dexMod": 3,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 3,
+    "quadruped": false,
+    "grapple": -5,
+    "attacks": [
+      {
+        "name": {
+          "en": "Sting",
+          "fr": "Dard"
+        },
+        "bonus": 8,
+        "damage": "1d4",
+        "extra": {
+          "en": "plus poison",
+          "fr": "et venin"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 3,
+      "ref": 6,
+      "will": 4
+    },
+    "abilities": {
+      "str": 10,
+      "dex": 17,
+      "con": 10,
+      "int": 10,
+      "wis": 12,
+      "cha": 14
+    },
+    "skills": {
+      "en": "Diplomacy +8, Hide +17, Knowledge (any one) +6, Listen +7, Move Silently +9, Search +6, Spellcraft +6, Spot +7, Survival +1 (+3 following tracks)",
+      "fr": "Art de la magie +6, Connaissances (une au choix) +6, Déplacement silencieux +9, Détection +7, Diplomatie +8, Discrétion +17, Fouille +6, Perception auditive +7, Survie +1 (+3 pour suivre des traces)"
+    },
+    "feats": {
+      "en": "Dodge, Weapon Finesse",
+      "fr": "Attaque en finesse, Esquive"
+    },
+    "featIds": [
+      "dodge",
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "Poison, spell-like abilities",
+      "fr": "pouvoirs magiques, venin"
+    },
+    "specialQualities": {
+      "en": "Alternate form, damage reduction 5/good or silver, darkvision 60 ft., fast healing 2, immunity to poison, fire resistance 5",
+      "fr": "immunité contre le poison, guérison accélérée (2), résistance au feu (20), réduction des dégâts (5/Bien ou argent), résistance au feu (5), vision dans le noir (18 m), transformation"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Poison (Ex):</b> Injury, Fortitude DC 13, initial damage 1d4 Dex, secondary damage 2d4 Dex. The save DC is Constitution-based and includes a +2 racial bonus.</p><p><b>Spell-Like Abilities:</b> At will-<i>detect good</i>, <i>detect magic</i>, <i>invisibility</i> (self only); 1/day-<i>suggestion</i> (DC 15). Caster level 6th. The save DC is Charisma-based.</p><p>Once per week an imp can use <i>commune</i> to ask six questions. The ability otherwise works as the spell (caster level 12th).</p><p><b>Alternate Form (Su):</b> An imp can assume other forms at will as a standard action. This ability functions as a <i>polymorph</i> spell cast on itself (caster level 12th), except that an imp does not regain hit points for changing form, and an individual imp can assume only one or two forms no larger than Medium. Common forms include monstrous spider, raven, rat, and boar.</p>",
+      "fr": "<p><b>Pouvoirs magiques.</b> Détection de la magie, détection du Bien et invisibilité (uniquement sur lui-même) à volonté ; suggestion (DD 15) 1 fois par jour. Niveau 6 de lanceur de sorts. Les DD de sauvegarde sont liés au Charisme.</p><p>Une fois par semaine, le diablotin peut faire appel au sort communion pour poser un total de 6 questions. À cette exception près, le pouvoir fonctionne comme le sort du même nom (niveau 12 de lanceur de sorts).</p><p><b>Venin (Ext).</b> Blessure, jet de Vigueur (DD 13) ; effet initial : affaiblissement temporaire de 1d4 points de Dextérité, effet secondaire : affaiblissement temporaire de 2d4 points de Dextérité. Le DD de sauvegarde est lié à la Constitution et comprend un bonus racial de +2.</p><p><b>Transformation (Sur).</b> Le diablotin peut se transformer par une action simple. Ce pouvoir fonctionne comme le sort métamorphose lancé sur lui-même (niveau 12 de lanceur de sorts), si ce n’est que le diablotin ne récupère aucun point de vie de par sa transformation et qu’il est limité à une ou deux formes de taille M ou moins. Les formes les plus couramment utilisées sont : araignée monstrueuse, corbeau, rat et sanglier.</p>"
+    },
+    "alignment": {
+      "en": "Always lawful evil",
+      "fr": "toujours loyal mauvais"
+    },
+    "cr": "2",
+    "text": {
+      "en": "<p>In its natural form, an imp stands almost 2 feet tall and weighs about 8 pounds.</p><p>Imps are craven, but not so timid as to pass up an opportunity for a surprise attack using their <i>invisibility</i> and alternate form ability. In its natural form, an imp attacks with the wicked stinger on its tail. It quickly flies out of reach if a foe manages to strike back effectively.</p><p>An imp's natural weapons, as well as any weapons it wields, are treated as evil-aligned and lawful-aligned for the purpose of overcoming damage reduction.</p>",
+      "fr": "<p>Sous sa forme naturelle, il est haut d’une soixantaine de centimètres, il ne pèse pas plus de 4 kg.</p><p>Le diablotin est extrêmement lâche, mais pas au point de laisser passer la chance de porter une attaque par surprise (ses pouvoirs d’invisibilité et de métamorphose lui en offrent souvent l’occasion). Sous son aspect naturel, il attaque à l’aide du dard de sa queue, mais se replie sans attendre si l’adversaire est de taille à riposter.</p><p>Les armes naturelles du diablotin, ainsi que les armes manufacturées qu’il pourrait utiliser, sont considérées comme étant d’alignement loyal et mauvais pour ce qui est d’ignorer la réduction des dégâts.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/devil.htm#imp",
+      "frRef": "DRS 36 (monstres D)"
     }
   },
   {
@@ -16038,6 +16354,247 @@
     }
   },
   {
+    "id": "pseudodragon",
+    "name": {
+      "en": "Pseudodragon",
+      "fr": "Pseudo-dragon"
+    },
+    "size": "tiny",
+    "type": "dragon",
+    "typeText": {
+      "en": "Tiny dragon",
+      "fr": "Dragon de taille TP"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 12,
+      "bonus": 2
+    },
+    "hp": 15,
+    "initiative": 2,
+    "speed": {
+      "land": 15,
+      "fly": 60,
+      "flyManeuver": "good"
+    },
+    "ac": {
+      "total": 18,
+      "touch": 14,
+      "flatFooted": 16,
+      "natural": 4,
+      "dexMod": 2,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 2,
+    "quadruped": false,
+    "grapple": -8,
+    "attacks": [
+      {
+        "name": {
+          "en": "Sting",
+          "fr": "Dard"
+        },
+        "bonus": 4,
+        "damage": "1d3-2",
+        "extra": {
+          "en": "plus poison",
+          "fr": "plus venin"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 1
+      },
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": -1,
+        "damage": "1",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 4,
+      "ref": 5,
+      "will": 4
+    },
+    "abilities": {
+      "str": 6,
+      "dex": 15,
+      "con": 13,
+      "int": 10,
+      "wis": 12,
+      "cha": 10
+    },
+    "skills": {
+      "en": "Diplomacy +2, Hide +20*, Listen +7, Search +6, Sense Motive +7, Spot +7, Survival +1 (+3 following tracks)",
+      "fr": "Détection +7, Diplomatie +2, Discrétion +20*, Fouille +6, Perception auditive +7, Psychologie +7, Survie +1 (+3 pour suivre une piste)"
+    },
+    "feats": {
+      "en": "Weapon Finesse",
+      "fr": "Attaque en finesse"
+    },
+    "featIds": [
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "Poison",
+      "fr": "venin"
+    },
+    "specialQualities": {
+      "en": "Blindsense 60 ft., darkvision 60 ft., immunity to sleep and paralysis, low-light vision, spell resistance 19, telepathy 60 ft.",
+      "fr": "immunité contre la paralysie et le sommeil, perception aveugle (18 m), résistance à la magie (19), télépathie (18 m), vision dans le noir (18 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Poison (Ex):</b> Injury, Fortitude DC 14, initial damage sleep for 1 minute, secondary damage sleep for 1d3 hours. The save DC is Constitution-based and includes a +2 racial bonus.</p><p><b>Blindsense (Ex):</b> A pseudodragon can locate creatures within 60 feet by nonvisual means (mostly hearing and scent, but also by noticing vibration and other environmental clues). Opponents the pseudodragon can't actually see still have total concealment against the pseudodragon.</p><p><b>Telepathy (Su):</b> Pseudodragons can communicate telepathically with creatures that speak Common or Sylvan, provided they are within 60 feet.</p><p><b>Skills:</b> Pseudodragons have a chameleonlike ability that grants them a +4 racial bonus on Hide checks. *In forests or overgrown areas, this bonus improves to +8.</p>",
+      "fr": "<p><b>Venin (Ext).</b> Blessure, jet de Vigueur (DD 14) ; effet initial : sommeil pendant 1 minute, effet secondaire : sommeil pendant 1d3 jours. Le DD de sauvegarde est lié à la Constitution et inclut un bonus racial de +2.</p><p><b>Perception aveugle (Ext).</b> Le pseudo-dragon exploite son ouïe, son odorat et les vibrations alentour pour localiser les créatures distants de 18 mètres ou moins. La perception aveugle est imprécise et les adversaires bénéficient tout de même d’un camouflage total à moins que le pseudo-dragon ne puisse les voir.</p><p><b>Télépathie (Sur).</b> Le pseudo-dragon peut communiquer télépathiquement avec toute créature parlant le commun ou le sylvestre (portée 18 mètres).</p><p><b>Compétences.</b> Son pouvoir de caméléon confère au pseudo-dragon un bonus racial de +4 aux tests de Discrétion. * En forêt ou au milieu d’une végétation abondante, ce bonus passe à +8.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral good",
+      "fr": "toujours neutre bon"
+    },
+    "cr": "1",
+    "text": {
+      "en": "<p>A pseudodragon has a body about 1 foot long, with a 2-foot tail. It weights about 7 pounds.</p><p>A pseudodragon can communicate telepathically and can also vocalize animal noises.</p><p>A pseudodragon can deliver a vicious bite, but its principal weapon is its sting-equipped tail.</p>",
+      "fr": "<p>Son corps fait 30 centimètres de long, sa queue deux fois plus. Il pèse dans les 3,5 kilos.</p><p>Capable de communiquer par télépathie, il peut également émettre des bruits d’animaux pour exprimer son état d’esprit.</p><p>Le pseudo-dragon peut mordre, mais sa meilleure arme reste son dard caudal.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/pseudodragon.htm",
+      "frRef": "DRS 39 (monstres N-S)"
+    }
+  },
+  {
+    "id": "quasit",
+    "name": {
+      "en": "Quasit",
+      "fr": "Quasit"
+    },
+    "size": "tiny",
+    "type": "outsider",
+    "typeText": {
+      "en": "Tiny outsider (chaotic, extraplanar, evil)",
+      "fr": "Extérieur (Chaos, extraplanaire, Mal) de taille TP"
+    },
+    "hitDice": {
+      "count": 3,
+      "die": 8,
+      "bonus": 0
+    },
+    "hp": 13,
+    "initiative": 7,
+    "speed": {
+      "land": 20,
+      "fly": 50,
+      "flyManeuver": "perfect"
+    },
+    "ac": {
+      "total": 18,
+      "touch": 15,
+      "flatFooted": 15,
+      "natural": 3,
+      "dexMod": 3,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 3,
+    "quadruped": false,
+    "grapple": -6,
+    "attacks": [
+      {
+        "name": {
+          "en": "Claws",
+          "fr": "Griffes"
+        },
+        "bonus": 8,
+        "damage": "1d3-1",
+        "extra": {
+          "en": "plus poison",
+          "fr": "et venin"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 2,
+        "attackAbility": "dex",
+        "strDamageFactor": 1
+      },
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 3,
+        "damage": "1d4-1",
+        "kind": "melee",
+        "role": "secondary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 0.5
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 3,
+      "ref": 6,
+      "will": 4
+    },
+    "abilities": {
+      "str": 8,
+      "dex": 17,
+      "con": 10,
+      "int": 10,
+      "wis": 12,
+      "cha": 10
+    },
+    "skills": {
+      "en": "Bluff +6, Diplomacy +2, Disguise +0 (+2 acting), Hide +17, Intimidate +2, Knowledge (any one) +6, Listen +7, Move Silently +9, Search +6, Spellcraft +6, Spot +6",
+      "fr": "Art de la magie +6, Bluff +6, Connaissances (une au choix) +6, Déguisement +0 (+2 pour tenir un rôle), Déplacement silencieux +9, Détection +6, Diplomatie +2, Discrétion +17, Fouille +6, Intimidation +2, Perception auditive +7"
+    },
+    "feats": {
+      "en": "Improved Initiative, Weapon Finesse",
+      "fr": "Attaque en finesse, Science de l’initiative"
+    },
+    "featIds": [
+      "improved-initiative",
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "Poison, spell-like abilities",
+      "fr": "pouvoirs magiques, venin"
+    },
+    "specialQualities": {
+      "en": "Alternate form, damage reduction 5/cold iron or good, darkvision 60 ft., fast healing 2, immunity to poison, fire resistance 10",
+      "fr": "guérison accélérée (2), immunité contre le poison, réduction des dégâts (5/fer froid ou Bien), résistance au feu (10), télépathie (30 m), transformation, vision dans le noir (18 m)"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Poison (Ex):</b> Injury, Fortitude DC 13, initial damage 1d4 Dex, secondary damage 2d4 Dex. The save DC is Constitution-based and includes a +2 racial bonus.</p><p><b>Spell-Like Abilities:</b> At will-<i>detect good</i>, <i>detect magic</i>, and <i>invisibility</i> (self only); 1/day-<i>cause fear</i> (as the spell, except that its area is a 30-foot radius from the quasit, save DC 11). Caster level 6th.</p><p>The save DCs are Charisma-based.</p><p>Once per week a quasit can use <i>commune</i> to ask six questions. The ability otherwise works as the spell (caster level 12th).</p><p><b>Alternate Form (Su):</b> A quasit can assume other forms at will as a standard action. This ability functions as a <i>polymorph</i> spell cast on itself (caster level 12th), except that a quasit does not regain hit points for changing form, and any individual quasit can assume only one or two forms no larger than Medium. Common forms include bat, monstrous centipede, toad, and wolf. A quasit in alternate form loses its poison attack.</p>",
+      "fr": "<p><b>Pouvoirs magiques.</b> Détection de la magie, détection du Bien et invisibilité (uniquement sur lui-même) à volonté ; frayeur 1 fois par jour (comme le sort du même nom, si ce n’est que l’effet est généré dans un rayon de 9 mètres autour du quasit, jet de sauvegarde DD 11). Niveau 6 de lanceur de sorts. Les DD de sauvegarde sont liés au Charisme.</p><p>Une fois par semaine, le quasit peut également faire appel au sort communion pour poser jusqu’à 6 questions. À cette exception près, le pouvoir fonctionne comme le sort du même nom au niveau 12 de lanceur de sorts.</p><p><b>Venin (Ext).</b> Blessure, jet de Vigueur (DD 13) ; effet initial : affaiblissement temporaire de 1d4 points de Dextérité, effet secondaire : affaiblissement temporaire de 2d4 points de Dextérité. Le DD de sauvegarde est lié à la Constitution et inclut un bonus racial de +2.</p><p><b>Transformation (Sur).</b> Le quasit peut également se transformer à volonté, par une action simple. Ce pouvoir fonctionne comme le sort métamorphose lancé sur lui-même (niveau 12 de lanceur de sorts), si ce n’est que la créature ne regagne pas de points de vie et qu’elle est limitée à une ou deux formes de taille M ou moins. Généralement, les formes possibles sont : chauve-souris, crapaud, loup et mille-pattes monstrueux. Un quasit transformé perd son attaque de venin.</p>"
+    },
+    "alignment": {
+      "en": "Always chaotic evil",
+      "fr": "toujours chaotique mauvais"
+    },
+    "cr": "2",
+    "text": {
+      "en": "<p>In its natural form, a quasit stands about 1-1/2 feet tall and weighs about 8 pounds.</p><p>Quasits speak Common and Abyssal.</p><p>Although quasits thirst for victory and power as other demons do, they are cowards at heart. They typically attack from ambush, using their alternate form ability and <i>invisibility</i> to get within reach, then try to scuttle away. When retreating, they use their <i>cause fear</i> ability to deter pursuit.</p><p>A quasit's natural weapons, as well as any weapons it wields, are treated as chaotic-aligned and evil-aligned for the purpose of overcoming damage reduction.</p>",
+      "fr": "<p>Sous sa forme naturelle, il mesure une soixantaine de centimètres de haut pour un poids de 4 kg.</p><p>Le quasit parle le commun et l’abyssal.</p><p>Même si le quasit aime tout autant que les autres démons triompher de ses ennemis, c’est d’abord et avant tout un lâche. Il attaque généralement par surprise, utilise ses pouvoirs d’invisibilité et de transformation pour s’approcher sans être vu, puis fuit après avoir porté son attaque. En cas de retraite, il utilise son pouvoir de frayeur pour décourager toute poursuite.</p><p>Les armes naturelles du quasit, ainsi que les armes manufacturées qu’il pourrait utiliser, sont considérées comme étant d’alignement chaotique et mauvais pour ce qui est d’ignorer la réduction des dégâts.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/demon.htm#quasit",
+      "frRef": "DRS 35 (monstres A-De)"
+    }
+  },
+  {
     "id": "rat",
     "name": {
       "en": "Rat",
@@ -17624,6 +18181,109 @@
     }
   },
   {
+    "id": "shocker-lizard",
+    "name": {
+      "en": "Shocker Lizard",
+      "fr": "Lézard voltaïque"
+    },
+    "size": "small",
+    "type": "magical-beast",
+    "typeText": {
+      "en": "Small magical beast",
+      "fr": "Créature magique de taille P"
+    },
+    "hitDice": {
+      "count": 2,
+      "die": 10,
+      "bonus": 2
+    },
+    "hp": 13,
+    "initiative": 6,
+    "speed": {
+      "land": 40,
+      "climb": 20,
+      "swim": 20
+    },
+    "ac": {
+      "total": 16,
+      "touch": 13,
+      "flatFooted": 14,
+      "natural": 3,
+      "dexMod": 2,
+      "sizeMod": 1,
+      "other": 0
+    },
+    "bab": 2,
+    "quadruped": false,
+    "grapple": -2,
+    "attacks": [
+      {
+        "name": {
+          "en": "Bite",
+          "fr": "Morsure"
+        },
+        "bonus": 3,
+        "damage": "1d4",
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "str",
+        "strDamageFactor": 1.5
+      }
+    ],
+    "space": 5,
+    "reach": 5,
+    "saves": {
+      "fort": 4,
+      "ref": 5,
+      "will": 1
+    },
+    "abilities": {
+      "str": 10,
+      "dex": 15,
+      "con": 13,
+      "int": 2,
+      "wis": 12,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Climb +11, Hide +11, Jump +7, Listen +4, Spot +4, Swim +10",
+      "fr": "Détection +4, Discrétion +11, Escalade +11, Natation +10, Perception auditive +4, Saut +7"
+    },
+    "feats": {
+      "en": "Improved Initiative",
+      "fr": "Science de l’initiative"
+    },
+    "featIds": [
+      "improved-initiative"
+    ],
+    "specialAttacks": {
+      "en": "Stunning shock, lethal shock",
+      "fr": "décharge étourdissante, décharge mortelle"
+    },
+    "specialQualities": {
+      "en": "Darkvision 60 ft., electricity sense, immunity to electricity, low-light vision",
+      "fr": "détection des courants électriques, immunité contre l’électricité, vision dans le noir (18 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Stunning Shock (Su):</b> Once per round, a shocker lizard can deliver an electrical shock to a single opponent within 5 feet. This attack deals 2d8 points of nonlethal damage to living opponents (Reflex DC 12 half ). The save DC is Constitution-based.</p><p><b>Lethal Shock (Su):</b> Whenever two or more shocker lizards are within 20 feet of each other, they can work together to create a lethal shock. This effect has a radius of 20 feet, centered on any one contributing lizard. The shock deals 2d8 points of electricity damage for each lizard contributing to it, to a maximum of 12d8. A Reflex save (DC 10 + number of lizards contributing) reduces the damage by half.</p><p><b>Electricity Sense (Ex):</b> Shocker lizards automatically detect any electrical discharges within 100 feet.</p><p><b>Skills:</b> Shocker lizards have a +4 racial bonus on Hide checks due to their coloration. Shocker lizards have a +2 racial bonus on Listen and Spot checks.</p><p>Shocker lizards use their Dexterity modifier instead of their Strength modifier for Climb and Jump checks.</p><p>A shocker lizard has a +8 racial bonus on Climb checks and can always choose to take 10 on a Climb check, even if rushed or threatened.</p><p>A shocker lizard has a +8 racial bonus on any Swim check to perform some special action or avoid a hazard. It can always choose to take 10 on a Swim check, even if distracted or endangered. It can use the run action while swimming, provided it swims in a straight line.</p>",
+      "fr": "<p><b>Décharge étourdissante (Sur).</b> Une fois par round, le lézard voltaïque peut générer une décharge étourdissante prenant pour cible une créature vivante distante de 1,50 mètre ou moins. La cible subit 2d8 points de dégâts non-létaux, total réduit de moitié sur un jet de Réflexes réussi (DD 12). Le DD de sauvegarde est lié à la Constitution.</p><p><b>Décharge mortelle (Sur).</b> Dès qu’au moins deux lézards voltaïques se trouvent à 6 mètres ou moins l’un de l’autre, ils peuvent regrouper leur énergie électrique pour produire un choc violent ayant pour source l’un d’entre eux (au choix). L’effet couvre une zone de 6 mètres de rayon et inflige 2d8 points de dégâts par lézard participant, jusqu’à un maximum de 12d8. Toute créature réussissant un jet de Réflexes (DD 10 + nombre de lézards impliqués) ne subit que la moitié des dégâts indiqués.</p><p><b>Perception des courants électriques (Ext).</b> Le lézard voltaïque détecte automatiquement toute décharge électrique se produisant à 30 mètres ou moins de lui.</p><p><b>Compétences.</b> La couleur de sa peau lui confère un bonus racial de +4 aux tests de Discrétion. Il bénéficie aussi d’un bonus racial de +2 aux tests de Détection et de Perception auditive.</p><p>Pour ce qui est des tests d’Escalade et de Saut, il exploite son modificateur de Dextérité et non celui de Force.</p><p>Il bénéficie d’un bonus racial de +8 aux tests d’Escalade. Du reste, il peut toujours faire 10 à ce type de test, même s’il est pressé ou menacé.</p><p>Enfin, il bénéficie d’un bonus racial de +8 aux tests de Natation visant à effectuer une tâche spéciale ou à éviter un danger. Il peut toujours choisir de faire 10 à ce type de test, même s’il est distrait ou en danger. Quand il nage en ligne droite, il peut recourir à l’action de course.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "2",
+    "text": {
+      "en": "<p>A shocker lizard has a pale gray or blue underside, shading to a darker hue on its back. It has blue-black markings along its back and tail. A shocker lizard is about 1 foot tall at the shoulder and weighs about 25 pounds.</p><p>A shocker lizard relies on its electricity abilities in combat. A lizard tends to bite only after its shock has rendered an opponent unconscious or when the shock seems to have no effect at all. A solitary lizard flees once it delivers its shocks, but if other shocker lizards are nearby, they all home in on their comrade's discharges and attempt to administer their shocks to the foe.</p>",
+      "fr": "<p>Son ventre est bleu ou gris pâle, le reste de son corps étant plus sombre. Son dos et sa queue arborent des taches noires ou bleu nuit. Il fait 30 centimètres au garrot et pèse 12,5 kilos.</p><p>À moins d’être affamé, le lézard voltaïque préfère ne pas affronter les créatures plus grandes que lui. Généralement, il essaye de faire peur aux intrus en émettant de petits grésillements rapprochés, provoqués par une succession d’infimes décharges électriques. Les créatures vivantes distantes de 3 mètres ou moins ont automatiquement les poils qui se hérissent. Si l’avertissement ne suffit pas, le lézard dresse les cornes et la queue pour administrer de violentes décharges électriques.</p><p>Au combat, le lézard voltaïque s’appuie exclusivement sur sa capacité à générer de l’électricité. Bien souvent, il ne mord qu’une fois son adversaire inconscient ou si ses décharges semblent rester sans effet. S’il est seul, il s’enfuit après avoir lancé sa décharge, mais si d’autres se trouvent à proximité, tous perçoivent l’utilisation qui vient d’être faite de l’énergie électrique et se dirigent sans la moindre hésitation vers leur congénère pour lui prêter secours.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/shockerLizard.htm",
+      "frRef": "DRS 38 (monstres H-M)"
+    }
+  },
+  {
     "id": "snake-constrictor",
     "name": {
       "en": "Constrictor Snake",
@@ -18603,6 +19263,114 @@
     "source": {
       "srdUrl": "https://www.d20srd.org/srd/monsters/squidGiant.htm",
       "frRef": "DRS 33 (animaux)"
+    }
+  },
+  {
+    "id": "stirge",
+    "name": {
+      "en": "Stirge",
+      "fr": "Strige"
+    },
+    "size": "tiny",
+    "type": "magical-beast",
+    "typeText": {
+      "en": "Tiny magical beast",
+      "fr": "Créature magique de taille TP"
+    },
+    "hitDice": {
+      "count": 1,
+      "die": 10,
+      "bonus": 0
+    },
+    "hp": 5,
+    "initiative": 4,
+    "speed": {
+      "land": 10,
+      "fly": 40,
+      "flyManeuver": "average"
+    },
+    "ac": {
+      "total": 16,
+      "touch": 16,
+      "flatFooted": 12,
+      "natural": 0,
+      "dexMod": 4,
+      "sizeMod": 2,
+      "other": 0
+    },
+    "bab": 1,
+    "quadruped": false,
+    "grapple": -11,
+    "attacks": [
+      {
+        "name": {
+          "en": "Touch",
+          "fr": "Trompe"
+        },
+        "bonus": 7,
+        "damage": "0",
+        "extra": {
+          "en": "attach",
+          "fr": "fixation"
+        },
+        "kind": "melee",
+        "role": "primary",
+        "count": 1,
+        "attackAbility": "dex",
+        "strDamageFactor": 0
+      }
+    ],
+    "space": 2.5,
+    "reach": 0,
+    "saves": {
+      "fort": 2,
+      "ref": 6,
+      "will": 1
+    },
+    "abilities": {
+      "str": 3,
+      "dex": 19,
+      "con": 10,
+      "int": 1,
+      "wis": 12,
+      "cha": 6
+    },
+    "skills": {
+      "en": "Hide +14, Listen +4, Spot +4",
+      "fr": "Détection +4, Discrétion +14, Perception auditive +4"
+    },
+    "feats": {
+      "en": "Alertness, Weapon Finesse (B)",
+      "fr": "Attaque en finesse (S), Vigilance"
+    },
+    "featIds": [
+      "alertness",
+      "weapon-finesse"
+    ],
+    "specialAttacks": {
+      "en": "Attach, blood drain",
+      "fr": "absorption de sang, fixation"
+    },
+    "specialQualities": {
+      "en": "Darkvision 60 ft., low-light vision",
+      "fr": "vision dans le noir (18 m), vision nocturne"
+    },
+    "specialAbilities": {
+      "en": "<p><b>Attach (Ex):</b> If a stirge hits with a touch attack, it uses its eight pincers to latch onto the opponent's body. An attached stirge is effectively grappling its prey. The stirge loses its Dexterity bonus to AC and has an AC of 12, but holds on with great tenacity. Stirges have a +12 racial bonus on grapple checks (already figured into the Base Attack/Grapple entry above).</p><p>An attached stirge can be struck with a weapon or grappled itself. To remove an attached stirge through grappling, the opponent must achieve a pin against the stirge.</p><p><b>Blood Drain (Ex):</b> A stirge drains blood, dealing 1d4 points of Constitution damage in any round when it begins its turn attached to a victim. Once it has dealt 4 points of Constitution damage, it detaches and flies off to digest the meal. If its victim dies before the stirge's appetite has been sated, the stirge detaches and seeks a new target.</p>",
+      "fr": "<p><b>Absorption de sang (Ext).</b> La strige boit le sang de sa victime, lui infligeant un affaiblissement temporaire de 1d4 points de Constitution à chaque round où elle reste accrochée. Dès qu’elle a pompé une quantité de sang correspondant à 4 points de Constitution, elle se détache et s’en va digérer au calme. Si la victime meurt avant, la strige se détache également, mais elle part en quête d’une autre proie.</p><p><b>Fixation (Ext).</b> Si la strige réussit son attaque de contact au corps à corps, elle utilise ses huit pattes pour s’accrocher à sa proie (on considère alors qu’elle l’a agrippée). À partir de cet instant, elle perd son bonus de Dex à la CA, qui passe à 12, mais elle reste fermement accrochée. Les striges bénéficient d’un bonus racial de +12 aux tests de lutte (déjà inclus à la ligne « Attaque de base/lutte » ci-dessus).</p><p>Une strige ainsi fixée peut être frappée, mais également agrippée. Pour l’ôter, la victime doit réussir à l’immobiliser.</p>"
+    },
+    "alignment": {
+      "en": "Always neutral",
+      "fr": "toujours neutre"
+    },
+    "cr": "1/2",
+    "text": {
+      "en": "<p>A stirge's coloration ranges from rust-red to reddish-brown, with a dirty yellow underside. The proboscis is pink at the tip, fading to gray at its base.</p><p>A stirge's body is about 1 foot long, with a wingspan of about 2 feet. It weighs about 1 pound.</p><p>A stirge attacks by landing on a victim, finding a vulnerable spot, and plunging its proboscis into the flesh. This is a touch attack and can target only Small or larger creatures.</p>",
+      "fr": "<p>Sa couleur va du rouille au brun rougeâtre, son ventre étant jaune sale. Rose vif à son extrémité, sa trompe devient de plus en plus terne pour prendre une couleur grise à sa base.</p><p>La strige fait 30 centimètres de long, pour une envergure de 60 centimètres. Elle pèse 500 grammes.</p><p>La strige se pose sur sa proie, trouve un point vulnérable et plante sa trompe dans la chair non protégée. Cette attaque de contact ne peut prendre pour cible qu’une créature de taille P ou supérieure.</p>"
+    },
+    "source": {
+      "srdUrl": "https://www.d20srd.org/srd/monsters/stirge.htm",
+      "frRef": "DRS 39 (monstres N-S)"
     }
   },
   {

@@ -6,7 +6,20 @@
   import { clericChoices, domainCasterLevelBonus } from '../../engine/cleric'
   import { classSpellLevel, type Spellcasting } from '../../engine/spells'
   import { hasSomatic, LEARNING_CLASSES, preparable, wizardSchools } from '../../engine/arcane'
-  import { knownUpTo } from '../../engine/spellLearning'
+  import { knownUpTo, masteredSpells } from '../../engine/spellLearning'
+  import {
+    actualLevel,
+    metamagicDef,
+    metamagicLabel,
+    metamagicName,
+    metamagicProblems,
+    ownedMetamagic,
+    slotLevel,
+    somaticAfter,
+    spontaneousCastingTime,
+    type MetamagicChoice,
+  } from '../../engine/metamagic'
+  import type { PreparedSlot } from '../../model/character'
   import SpellLearning from '../SpellLearning.svelte'
   import WarningList from '../WarningList.svelte'
   import { app, tr, view } from '../../state.svelte'
@@ -31,8 +44,20 @@
       .filter((sp) => lvlIn(sp, sc) === level && !(sc.classId === 'wizard' && prohibited.includes(sp.schoolId ?? '')))
       .sort((a, b) => tr(a.name).localeCompare(tr(b.name)))
   }
-  // Wizard: only spells in the spellbook can be prepared (read magic from memory); bard and sorcerer: spells known.
-  const book = $derived(preparable(app.character, rules, knownUpTo(app.character, rules, 'wizard')))
+  // Wizard: only spells in the spellbook can be prepared (read magic from memory); without the spellbook, only read
+  // magic and the Spell Mastery spells (https://www.d20srd.org/srd/feats.htm#spellMasterySpecial). Bard and sorcerer:
+  // spells known.
+  const withoutBook = $derived(!!app.character.spells?.['wizard']?.withoutBook)
+  const mastered = $derived(masteredSpells(app.character))
+  const book = $derived.by(() => {
+    const all = preparable(app.character, rules, knownUpTo(app.character, rules, 'wizard'))
+    return withoutBook ? new Set([...all].filter((id) => id === 'read-magic' || mastered.has(id))) : all
+  })
+  function setWithoutBook(on: boolean) {
+    const st = ((app.character.spells ??= {})['wizard'] ??= { prepared: {} })
+    if (on) st.withoutBook = true
+    else delete st.withoutBook
+  }
   const knownOf = (sc: Spellcasting) => knownUpTo(app.character, rules, sc.classId)
   const prepList = (sc: Spellcasting, level: number) =>
     spellsOf(sc, level).filter((sp) => sc.classId !== 'wizard' || book.has(sp.id))
@@ -120,21 +145,72 @@
     const list = app.character.spells?.[sc.classId]?.prepared[level] ?? []
     return Array.from({ length: total }, (_, j) => list[j] ?? { id: '', cast: false })
   }
-  function setSlot(sc: Spellcasting, level: number, j: number, patch: Partial<{ id: string; cast: boolean; spontaneous: string }>) {
+  function setSlot(sc: Spellcasting, level: number, j: number, patch: Partial<PreparedSlot>) {
     const st = (app.character.spells ??= {})
     const cls = (st[sc.classId] ??= { prepared: {} })
     if (!cls.prepared[level]) cls.prepared[level] = []
     const list = cls.prepared[level]
     while (list.length <= j) list.push({ id: '', cast: false })
     Object.assign(list[j], patch)
+    for (const k of ['spontaneous', 'metamagic', 'heighten'] as const) if (list[j][k] === undefined) delete list[j][k]
   }
 
-  function spellPopup(sp: SpellDef, sc: Spellcasting, domainSlot = false) {
+  // ---- metamagic (https://www.d20srd.org/srd/feats.htm#metamagicFeats): prepared in a slot of the spell's level +
+  // the feats' adjustments or higher; a bard or sorcerer applies them when casting (full-round action, no Quicken).
+  const owned = $derived(ownedMetamagic(s.feats))
+  /** Spell level in this class (a cleric domain slot: the domain level). */
+  function baseLevel(sp: SpellDef, sc: Spellcasting, domainSlot = false): number {
+    const domain = Math.min(...s.domains.map((d) => sp.level[`domain:${d.id}`] ?? 99))
+    return (domainSlot && domain < 99 ? domain : undefined) ?? lvlIn(sp, sc) ?? (domain < 99 ? domain : 0)
+  }
+  const isBlocked = (sc: Spellcasting, l: number) => !!sc.slots.find((x) => x.spellLevel === l)?.blocked
+  const mmOpts = (sc: Spellcasting, spontaneous: boolean) => ({ owned, spontaneous, bard: sc.classId === 'bard', maxLevel: sc.def.maxSpellLevel })
+  const illegal = (sp: SpellDef, sc: Spellcasting, base: number, c: MetamagicChoice, spontaneous: boolean) =>
+    metamagicProblems(sp, base, c, mmOpts(sc, spontaneous)).filter((p) => p.kind === 'illegal')
+  /** Heighten Spell: the levels a spell can be raised to in a slot of this level (not a level the key ability is too
+   * low for; house rule #40). */
+  function heightenLevels(sc: Spellcasting, base: number, c: MetamagicChoice, maxSlot: number): number[] {
+    const others = slotLevel(base, { ...c, metamagic: (c.metamagic ?? []).filter((x) => x !== 'heighten-spell') }) - base
+    const out: number[] = []
+    for (let l = base + 1; l <= Math.min(9, sc.def.maxSpellLevel, maxSlot - others); l++) if (!isBlocked(sc, l)) out.push(l)
+    return out
+  }
+  /** Adding (or removing) a feat on a prepared spell, if the spell still fits its slot. */
+  function withFeat(sc: Spellcasting, base: number, c: MetamagicChoice, id: string, on: boolean, maxSlot: number): MetamagicChoice | undefined {
+    const ids = on ? [...(c.metamagic ?? []), id] : (c.metamagic ?? []).filter((x) => x !== id)
+    const next: MetamagicChoice = { metamagic: ids.length ? ids : undefined, heighten: ids.includes('heighten-spell') ? c.heighten : undefined }
+    if (on && id === 'heighten-spell') next.heighten = heightenLevels(sc, base, next, maxSlot)[0]
+    if (next.metamagic?.includes('heighten-spell') && next.heighten === undefined) return undefined
+    return slotLevel(base, next) <= maxSlot ? next : undefined
+  }
+  function toggleFeat(sc: Spellcasting, level: number, j: number, prep: PreparedSlot, base: number, id: string, on: boolean) {
+    const next = withFeat(sc, base, prep, id, on, level)
+    if (next) setSlot(sc, level, j, { metamagic: next.metamagic, heighten: next.heighten })
+  }
+
+  // Spontaneous casters: the metamagic chosen for the next spell, per class (not saved).
+  let nextMm = $state<Record<string, MetamagicChoice>>({})
+  const mmOf = (sc: Spellcasting): MetamagicChoice => nextMm[sc.classId] ?? {}
+  function toggleNext(sc: Spellcasting, id: string, on: boolean) {
+    const c = mmOf(sc)
+    const ids = on ? [...(c.metamagic ?? []), id] : (c.metamagic ?? []).filter((x) => x !== id)
+    nextMm[sc.classId] = { metamagic: ids.length ? ids : undefined, heighten: ids.includes('heighten-spell') ? (c.heighten ?? 1) : undefined }
+  }
+
+  function spellPopup(sp: SpellDef, sc: Spellcasting, domainSlot = false, mm: MetamagicChoice = {}, spontaneous = false) {
     const dom = domainOf(sp)
     // In a domain slot the spell is cast at its domain level (fire storm: Fire 7, cleric 8).
     const domainLevel = Math.min(...s.domains.map((d) => sp.level[`domain:${d.id}`] ?? 99))
     const lvl = (domainSlot && domainLevel < 99 ? domainLevel : undefined) ?? lvlIn(sp, sc) ?? (dom ? sp.level[`domain:${dom.id}`] : 0) ?? 0
     const asf = sc.spellFailure?.total ?? 0
+    const withMm = !!mm.metamagic?.length
+    // Heighten Spell raises the actual level (save DC); the other feats only the slot.
+    const dcLevel = actualLevel(lvl, mm)
+    const castTime = mm.metamagic?.includes('quicken-spell')
+      ? { en: '1 free action (quickened)', fr: '1 action libre (incantation rapide)' }
+      : spontaneous && withMm
+        ? spontaneousCastingTime(sp)
+        : sp.castingTime
     // Caster level for this spell: the class's, + domain bonus (Good, Evil, Law, Chaos, Healing, Knowledge).
     const clBonus = sc.classId === 'cleric' ? domainCasterLevelBonus(sp, s.domains) : { value: 0, domain: undefined }
     const cl = sc.casterLevel.total + clBonus.value
@@ -145,20 +221,30 @@
       summary: sp.summary,
       lines: [
         {
-          en: `${sp.school.en}, level ${lvl}${hasSave(sp) ? ` · save DC ${sc.dc(lvl)}` : ''}`,
-          fr: `${sp.school.fr}, niveau ${lvl}${hasSave(sp) ? ` · DD ${sc.dc(lvl)}` : ''}`,
+          en: `${sp.school.en}, level ${dcLevel}${hasSave(sp) ? ` · save DC ${sc.dc(dcLevel)}` : ''}`,
+          fr: `${sp.school.fr}, niveau ${dcLevel}${hasSave(sp) ? ` · DD ${sc.dc(dcLevel)}` : ''}`,
         },
+        ...(withMm
+          ? [
+              {
+                en: `Metamagic: ${metamagicLabel(rules, mm).en} · level ${slotLevel(lvl, mm)} slot (spell level ${lvl})`,
+                fr: `Métamagie : ${metamagicLabel(rules, mm).fr} · emplacement de niveau ${slotLevel(lvl, mm)} (sort de niveau ${lvl})`,
+              },
+            ]
+          : []),
         {
           en: `Caster level ${cl}${clBonus.value ? ` (+${clBonus.value} ${clBonus.domain?.name.en} domain)` : ''}`,
           fr: `Niveau de lanceur ${cl}${clBonus.value ? ` (+${clBonus.value} domaine ${clBonus.domain?.name.fr})` : ''}`,
         },
         { en: `Components: ${sp.components}`, fr: `Composantes : ${sp.components}` },
         ...(sc.def.kind === 'arcane' && asf
-          ? [hasSomatic(sp)
+          ? [somaticAfter(sp, mm)
               ? { en: `Arcane spell failure ${asf}% (somatic component)`, fr: `Échec des sorts profanes ${asf} % (composante gestuelle)` }
-              : { en: 'No somatic component: no arcane spell failure', fr: 'Pas de composante gestuelle : pas d’échec des sorts profanes' }]
+              : hasSomatic(sp)
+                ? { en: 'Stilled: no somatic component, no arcane spell failure', fr: 'Incantation statique : pas de composante gestuelle, pas d’échec des sorts profanes' }
+                : { en: 'No somatic component: no arcane spell failure', fr: 'Pas de composante gestuelle : pas d’échec des sorts profanes' }]
           : []),
-        ...line('Casting time', 'Temps d’incantation', sp.castingTime),
+        ...line('Casting time', 'Temps d’incantation', castTime),
         ...line('Range', 'Portée', sp.range),
         ...line('Target', 'Cible', sp.target),
         ...line('Area', 'Zone', sp.area),
@@ -318,19 +404,48 @@
           </div>
         {/each}
       </div>
+      {#if owned.length}
+        {@const c = mmOf(sc)}
+        <div class="mmbar">
+          <strong>{tr({ en: 'Metamagic for the next spell', fr: 'Métamagie pour le prochain sort' })} :</strong>
+          {#each owned as id (id)}
+            {@const no = id === 'quicken-spell' ? { en: 'not on a spontaneous spell', fr: 'pas sur un sort spontané' } : id === 'silent-spell' && sc.classId === 'bard' ? { en: 'not on bard spells', fr: 'pas sur les sorts de barde' } : undefined}
+            <label class="mmchip" class:on={c.metamagic?.includes(id)} title={no ? tr(no) : undefined}>
+              <input type="checkbox" checked={!!c.metamagic?.includes(id)} disabled={!!no} onchange={(e) => toggleNext(sc, id, e.currentTarget.checked)} />
+              {tr(metamagicName(rules, id))}{id === 'heighten-spell' ? '' : ` +${metamagicDef(id)?.adj}`}
+            </label>
+          {/each}
+          {#if c.metamagic?.includes('heighten-spell')}
+            <label class="mmchip on"
+              >{tr({ en: 'to level', fr: 'au niveau' })}
+              <select value={c.heighten} onchange={(e) => (nextMm[sc.classId] = { ...c, heighten: Number(e.currentTarget.value) })}>
+                {#each sc.slots.filter((x) => x.total > 0 && x.spellLevel > 0) as x (x.spellLevel)}<option value={x.spellLevel}>{x.spellLevel}</option>{/each}
+              </select></label
+            >
+          {/if}
+          {#if c.metamagic?.length}
+            <span class="note">{tr({ en: '1 full-round action to cast', fr: '1 action complexe pour lancer' })}</span>
+            <button onclick={() => delete nextMm[sc.classId]}>{tr({ en: 'Clear', fr: 'Effacer' })}</button>
+          {/if}
+        </div>
+      {/if}
       {#each knownByLevel(sc) as g (g.level)}
         <div class="level">
           <h4>{tr({ en: 'Known, level', fr: 'Connus, niveau' })} {g.level}</h4>
           <ul class="slots">
             {#each g.spells as sp (sp.id)}
-              {@const slotLvl = slotFor(sc, g.level)}
+              {@const c = mmOf(sc)}
+              {@const bad = c.metamagic?.length ? illegal(sp, sc, g.level, c, true) : []}
+              {@const need = slotLevel(g.level, c)}
+              {@const slotLvl = bad.length ? undefined : slotFor(sc, need)}
               <li class="school-row school-{sp.schoolId ?? 'none'}" title={tr(sp.school)}>
-                <button class="link" onclick={() => spellPopup(sp, sc)}><strong>{tr(sp.name)}</strong> ⓘ {tr(sp.summary)}</button>
+                <button class="link" onclick={() => spellPopup(sp, sc, false, c, true)}><strong>{tr(sp.name)}</strong> ⓘ {tr(sp.summary)}</button>
                 <button
                   class="cast"
                   disabled={slotLvl === undefined}
+                  title={bad.length ? bad.map((p) => tr(p.text)).join(' · ') : undefined}
                   onclick={() => slotLvl !== undefined && setUsed(sc, slotLvl, usedAt(sc, slotLvl) + 1)}
-                  >{tr({ en: 'Cast', fr: 'Lancer' })}{slotLvl !== undefined && slotLvl > g.level
+                  >{tr({ en: 'Cast', fr: 'Lancer' })}{c.metamagic?.length ? ' ✦' : ''}{slotLvl !== undefined && slotLvl > g.level
                     ? ` (${tr({ en: 'level', fr: 'niv.' })} ${slotLvl})`
                     : ''}</button
                 >
@@ -341,6 +456,14 @@
       {:else}
         <p class="note">{tr({ en: 'No spells known yet: learn them below.', fr: 'Aucun sort connu : apprenez-les ci-dessous.' })}</p>
       {/each}
+    {/if}
+
+    {#if sc.classId === 'wizard'}
+      <label class="check book">
+        <input type="checkbox" checked={withoutBook} onchange={(e) => setWithoutBook(e.currentTarget.checked)} />
+        {tr({ en: 'Without my spellbook today: only read magic and the Spell Mastery spells', fr: 'Sans mon grimoire aujourd’hui : seulement lecture de la magie et les sorts de Maîtrise des sorts' })}
+        ({mastered.size})
+      </label>
     {/if}
 
     {#each sc.def.style === 'prepared' ? sc.slots.filter((x) => x.total > 0) : [] as slot (slot.spellLevel)}
@@ -383,7 +506,7 @@
                 >{/if}
               <select
                 value={prep.id}
-                onchange={(e) => setSlot(sc, slot.spellLevel, j, { id: e.currentTarget.value, cast: false, spontaneous: undefined })}
+                onchange={(e) => setSlot(sc, slot.spellLevel, j, { id: e.currentTarget.value, cast: false, spontaneous: undefined, metamagic: undefined, heighten: undefined })}
                 aria-label={tr({ en: 'Prepared spell', fr: 'Sort préparé' })}
               >
                 <option value="">— {tr({ en: 'prepare a spell', fr: 'préparer un sort' })} —</option>
@@ -393,9 +516,36 @@
                   </optgroup>
                 {/each}
               </select>
-              {#if def}<button class="link" onclick={() => spellPopup(def, sc, extra && sc.classId === 'cleric')}
+              {#if def}<button class="link" onclick={() => spellPopup(def, sc, extra && sc.classId === 'cleric', prep)}
                   >ⓘ {tr(def.summary)}</button
                 >{/if}
+              {#if def && (owned.length || prep.metamagic?.length)}
+                {@const base = baseLevel(def, sc, extra && sc.classId === 'cleric')}
+                <details class="mm" open={!!prep.metamagic?.length}>
+                  <summary
+                    >✦ {prep.metamagic?.length
+                      ? `${tr(metamagicLabel(rules, prep))} (${tr({ en: 'level', fr: 'niv.' })} ${slotLevel(base, prep)})`
+                      : tr({ en: 'metamagic', fr: 'métamagie' })}</summary
+                  >
+                  {#each owned as id (id)}
+                    {@const on = !!prep.metamagic?.includes(id)}
+                    {@const next = withFeat(sc, base, prep, id, !on, slot.spellLevel)}
+                    {@const ok = on || (!!next && !illegal(def, sc, base, next, false).length)}
+                    <label class="mmchip" class:on>
+                      <input type="checkbox" checked={on} disabled={prep.cast || !ok} onchange={(e) => toggleFeat(sc, slot.spellLevel, j, prep, base, id, e.currentTarget.checked)} />
+                      {tr(metamagicName(rules, id))}{id === 'heighten-spell' ? '' : ` +${metamagicDef(id)?.adj}`}
+                    </label>
+                  {/each}
+                  {#if prep.metamagic?.includes('heighten-spell')}
+                    <label class="mmchip on"
+                      >{tr({ en: 'to level', fr: 'au niveau' })}
+                      <select value={prep.heighten} disabled={prep.cast} onchange={(e) => setSlot(sc, slot.spellLevel, j, { heighten: Number(e.currentTarget.value) })}>
+                        {#each heightenLevels(sc, base, prep, slot.spellLevel) as l (l)}<option value={l}>{l}</option>{/each}
+                      </select></label
+                    >
+                  {/if}
+                </details>
+              {/if}
               <label class="check">
                 <input
                   type="checkbox"
@@ -538,6 +688,41 @@
   .spont {
     min-height: 2.4rem;
     font-size: 0.9rem;
+  }
+  .mmbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+  }
+  .mm {
+    flex-basis: 100%;
+    font-size: 0.9rem;
+  }
+  .mm summary {
+    font-family: var(--font-body);
+    color: var(--ink-soft);
+  }
+  .mm[open] summary {
+    color: var(--accent);
+  }
+  .mmchip {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+    margin-right: 0.6rem;
+    min-height: 2.2rem;
+  }
+  .mmchip.on {
+    font-weight: 600;
+  }
+  .mmchip select {
+    min-height: 2rem;
+  }
+  .book {
+    margin: 0.2rem 0 0.6rem;
   }
   .spont-slots {
     display: flex;

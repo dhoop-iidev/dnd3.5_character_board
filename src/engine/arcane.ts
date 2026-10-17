@@ -4,6 +4,7 @@
 import type { Rules } from '../data/rules'
 import type { CompanionAdvancementRow, I18n, ModifierSpec, SpellDef } from '../data/types'
 import type { Character } from '../model/character'
+import { parseAlignment } from './alignment'
 import { classSpellLevel } from './spells'
 import { i18n, resolve, type Part, type Stat } from './stacking'
 
@@ -164,6 +165,41 @@ export const FAMILIARS: { id: string; master: ModifierSpec[]; text: I18n }[] = [
   { id: 'weasel', master: [{ target: 'save.ref', bonusType: 'untyped', value: 2 }], text: i18n('+2 on Reflex saves', '+2 aux jets de Réflexes') },
 ]
 
+// ---- Improved Familiar (https://www.d20srd.org/srd/feats.htm#improvedFamiliar): more familiars from an arcane
+// spellcaster level, for a master whose alignment is at most one step away on each axis. They keep their own type and
+// don't speak with animals of their kind; no master's benefit is listed for them. The feat's second table (familiars by
+// the master's type or subtype) is presented as a DM option: not offered (house rule #38, pending).
+
+export const IMPROVED_FAMILIAR_URL = `${SRD}feats.htm#improvedFamiliar`
+
+export const IMPROVED_FAMILIARS: { id: string; alignment: string; level: number }[] = [
+  { id: 'shocker-lizard', alignment: 'N', level: 5 },
+  { id: 'stirge', alignment: 'N', level: 5 },
+  { id: 'formian-worker', alignment: 'LN', level: 7 },
+  { id: 'imp', alignment: 'LE', level: 7 },
+  { id: 'pseudodragon', alignment: 'NG', level: 7 },
+  { id: 'quasit', alignment: 'CE', level: 7 },
+]
+
+export const isImprovedFamiliar = (id: string) => IMPROVED_FAMILIARS.some((f) => f.id === id)
+
+const AXIS = { lawful: -1, chaotic: 1, good: -1, evil: 1, neutral: 0 } as const
+
+/** Why the master can't have this improved familiar (empty = she can). `arcaneLevel`: her arcane spellcaster level. */
+export function improvedFamiliarBlockers(id: string, opts: { hasFeat: boolean; arcaneLevel: number; alignment?: string }): I18n[] {
+  const f = IMPROVED_FAMILIARS.find((x) => x.id === id)
+  if (!f) return []
+  const out: I18n[] = []
+  if (!opts.hasFeat) out.push(i18n('needs the Improved Familiar feat', 'il faut le don Familier supérieur'))
+  if (opts.arcaneLevel < f.level) out.push(i18n(`arcane spellcaster level ${f.level}`, `niveau ${f.level} de lanceur de sorts profanes`))
+  const a = parseAlignment(opts.alignment)
+  const b = parseAlignment(f.alignment)!
+  if (!a) out.push(i18n(`alignment within one step of ${f.alignment} (none given)`, `alignement à un cran au plus de ${f.alignment} (non indiqué)`))
+  else if (Math.abs(AXIS[a.order] - AXIS[b.order]) > 1 || Math.abs(AXIS[a.moral] - AXIS[b.moral]) > 1)
+    out.push(i18n(`alignment within one step of ${f.alignment}`, `alignement à un cran au plus de ${f.alignment}`))
+  return out
+}
+
 const FAMILIAR_SPECIAL: Record<string, { name: I18n; text: I18n }> = {
   alertness: { name: i18n('Alertness', 'Vigilance'), text: i18n('The master has the Alertness feat while the familiar is within arm’s reach.', 'Le maître a le don Vigilance tant que le familier est à portée de main.') },
   'improved-evasion': { name: i18n('Improved evasion', 'Esquive extraordinaire'), text: i18n('Reflex for half: no damage on a success, half on a failure.', 'Réflexes pour moitié : aucun dégât en cas de réussite, moitié en cas d’échec.') },
@@ -191,11 +227,15 @@ const FAMILIAR_TABLE: { min: number; natural: number; int: number; special: stri
 ]
 
 /** Familiar advancement for a master level: natural armor, Int and the cumulative special abilities. */
-export function familiarAdvancement(level: number): { advancement: CompanionAdvancementRow; int: number; sr: number } | undefined {
+export function familiarAdvancement(level: number, improved = false): { advancement: CompanionAdvancementRow; int: number; sr: number } | undefined {
   if (level < 1) return undefined
   const rows = FAMILIAR_TABLE.filter((r) => r.min <= level)
   const row = rows.at(-1)!
-  const special = rows.flatMap((r) => r.special).map((id) => ({ id, ...FAMILIAR_SPECIAL[id] }))
+  // An improved familiar doesn't gain "speak with animals of its kind".
+  const special = rows
+    .flatMap((r) => r.special)
+    .filter((id) => !(improved && id === 'speak-with-animals'))
+    .map((id) => ({ id, ...FAMILIAR_SPECIAL[id] }))
   return {
     advancement: { minLevel: row.min, maxLevel: row.min + 1, bonusHD: 0, naturalArmorAdj: row.natural, strDexAdj: 0, bonusTricks: 0, special },
     int: row.int,

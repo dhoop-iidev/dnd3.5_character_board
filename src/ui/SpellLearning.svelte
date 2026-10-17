@@ -5,7 +5,19 @@
   import { rules } from '../data/rules'
   import type { SpellDef } from '../data/types'
   import { copyCost, knownCaps, listLevel, spellbook, wizardSchools } from '../engine/arcane'
-  import { castingLevelAt, knownUpTo, learningProblems, spellLearning, spellOwner, swapProblems } from '../engine/spellLearning'
+  import {
+    castingLevelAt,
+    knownUpTo,
+    learningProblems,
+    masteredSpells,
+    masteryOptions,
+    masteryProblems,
+    spellLearning,
+    spellMasteryPicks,
+    SPELL_MASTERY_URL,
+    spellOwner,
+    swapProblems,
+  } from '../engine/spellLearning'
   import type { Spellcasting } from '../engine/spells'
   import { app, tr } from '../state.svelte'
 
@@ -97,6 +109,16 @@
     const st = app.character.spells?.['wizard']
     if (st?.spellbook) st.spellbook = st.spellbook.filter((s) => s !== id)
   }
+  // ---- Spell Mastery: spells prepared without the spellbook (https://www.d20srd.org/srd/feats.htm#spellMasterySpecial)
+  const masteryPicks = $derived(wizard ? spellMasteryPicks(app.character, rules) : [])
+  const mastered = $derived(masteredSpells(app.character))
+  function setMastery(L: number, index: number, spells: string[]) {
+    const f = app.character.levels[L - 1]?.feats[index]
+    if (!f) return
+    if (spells.length) f.spells = spells
+    else delete f.spells
+  }
+
   const SCHOOL: Record<string, { en: string; fr: string }> = {
     abjuration: { en: 'abjuration', fr: 'abjuration' },
     conjuration: { en: 'conjuration', fr: 'invocation' },
@@ -126,7 +148,7 @@
         {#each book.filter((e) => e.level === lvl) as e, k (e.id)}
           {@const sp = rules.spells.get(e.id)!}
           {k ? ', ' : ''}<button class="link school-{sp.schoolId}" onclick={() => onspell(sp)}>{tr(sp.name)}</button
-          >{#if e.how === 'copied'}<button class="x" onclick={() => uncopy(e.id)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}>✕</button>{/if}
+          >{#if mastered.has(e.id)}<span class="star" title={tr({ en: 'Spell Mastery', fr: 'Maîtrise des sorts' })}>★</span>{/if}{#if e.how === 'copied'}<button class="x" onclick={() => uncopy(e.id)} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}>✕</button>{/if}
         {/each}
       </p>
     {/each}
@@ -148,6 +170,39 @@
       })}
       <a href="https://www.d20srd.org/srd/magicOverview/arcaneSpells.htm#addingSpellsToAWizardsSpellbook" target="_blank" rel="noopener">d20srd</a>
     </p>
+    {#each masteryPicks as m (`${m.L}-${m.index}`)}
+      {@const opts = masteryOptions(app.character, rules, m.L).filter((e) => !m.spells.includes(e.id))}
+      <h4>{tr({ en: 'Spell Mastery', fr: 'Maîtrise des sorts' })} <small>· {tr({ en: 'level', fr: 'niveau' })} {m.L} · {m.spells.length} / {m.allowed} ({tr({ en: 'Int modifier', fr: 'modificateur d’Int' })})</small></h4>
+      <ul class="chips">
+        {#each m.spells as id (id)}
+          {@const sp = rules.spells.get(id)}
+          <li class="school-row school-{sp?.schoolId ?? 'none'}">
+            {#if sp}<button class="link" onclick={() => onspell(sp)}>{tr(sp.name)}</button> <small>{lvlOf(id)}</small>{:else}{id}{/if}
+            <button class="x" onclick={() => setMastery(m.L, m.index, m.spells.filter((s) => s !== id))} aria-label={tr({ en: 'Remove', fr: 'Retirer' })}>✕</button>
+          </li>
+        {/each}
+      </ul>
+      {#if m.spells.length < m.allowed}
+        <select value="" onchange={(e) => e.currentTarget.value && setMastery(m.L, m.index, [...m.spells, e.currentTarget.value])} aria-label={tr({ en: 'Master a spell', fr: 'Maîtriser un sort' })}>
+          <option value="">— {tr({ en: 'master a spell of the spellbook', fr: 'maîtriser un sort du grimoire' })} —</option>
+          {#each Array.from(new Set(opts.map((e) => e.level))) as lvl (lvl)}
+            <optgroup label={`${tr({ en: 'Level', fr: 'Niveau' })} ${lvl}`}>
+              {#each opts.filter((e) => e.level === lvl) as e (e.id)}<option value={e.id}>{tr(rules.spells.get(e.id)?.name)}</option>{/each}
+            </optgroup>
+          {/each}
+        </select>
+      {/if}
+      {#each masteryProblems(app.character, rules, m) as p, k (k)}<p class="warn">{tr(p.text)}</p>{/each}
+    {/each}
+    {#if masteryPicks.length}
+      <p class="note">
+        {tr({
+          en: 'Spell Mastery: these spells (★) can be prepared without the spellbook; tick “Without my spellbook today” above when it is lost or out of reach.',
+          fr: 'Maîtrise des sorts : ces sorts (★) se préparent sans le grimoire ; cochez « Sans mon grimoire aujourd’hui » plus haut s’il est perdu ou hors d’atteinte.',
+        })}
+        <a href={SPELL_MASTERY_URL} target="_blank" rel="noopener">d20srd</a>
+      </p>
+    {/if}
   {:else}
     <h4>{tr({ en: 'Spells known', fr: 'Sorts connus' })}</h4>
     <p class="known">
@@ -301,6 +356,10 @@
     text-align: left;
     text-decoration: underline dotted var(--accent);
     color: inherit;
+  }
+  .star {
+    color: var(--accent);
+    margin-left: 0.15rem;
   }
   .x {
     background: none;

@@ -2964,5 +2964,70 @@
   "searchIndex",
   "siteLogo",
   "siteSearch"
+ ],
+ "monsters/formian.htm": [
+  "bolsMenu",
+  "d20SystemMenu",
+  "extrasMenu",
+  "hd20srdMenu",
+  "header",
+  "myrmarch",
+  "path",
+  "queen",
+  "rollovermenu",
+  "searchIndex",
+  "siteLogo",
+  "siteSearch",
+  "taskmaster",
+  "warrior",
+  "worker"
+ ],
+ "monsters/homunculus.htm": [
+  "bolsMenu",
+  "d20SystemMenu",
+  "extrasMenu",
+  "hd20srdMenu",
+  "header",
+  "path",
+  "rollovermenu",
+  "searchIndex",
+  "siteLogo",
+  "siteSearch"
+ ],
+ "monsters/pseudodragon.htm": [
+  "bolsMenu",
+  "d20SystemMenu",
+  "extrasMenu",
+  "hd20srdMenu",
+  "header",
+  "path",
+  "rollovermenu",
+  "searchIndex",
+  "siteLogo",
+  "siteSearch"
+ ],
+ "monsters/shockerLizard.htm": [
+  "bolsMenu",
+  "d20SystemMenu",
+  "extrasMenu",
+  "hd20srdMenu",
+  "header",
+  "path",
+  "rollovermenu",
+  "searchIndex",
+  "siteLogo",
+  "siteSearch"
+ ],
+ "monsters/stirge.htm": [
+  "bolsMenu",
+  "d20SystemMenu",
+  "extrasMenu",
+  "hd20srdMenu",
+  "header",
+  "path",
+  "rollovermenu",
+  "searchIndex",
+  "siteLogo",
+  "siteSearch"
  ]
 }
