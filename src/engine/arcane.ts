@@ -208,6 +208,12 @@ export const TEMPLATE_FAMILIARS: Record<string, { subtype: I18n; level: number }
   fiendish: { subtype: SUB('Evil', 'Mal'), level: 3 },
 }
 
+/** Arcane spellcaster level for Improved Familiar (house rule #42, from the FAQ's reading of "spellcaster level"
+ * requirements, 6/30/2008 p. 30): the actual level in one arcane spellcasting class, the highest one — not the caster
+ * level, and levels of several classes don't add up. */
+export const arcaneSpellcasterLevel = (classLevels: Record<string, number>, rules: Rules) =>
+  Math.max(0, ...Object.entries(classLevels).filter(([id]) => rules.classes.get(id)?.spellcasting?.kind === 'arcane').map(([, n]) => n))
+
 export const isImprovedFamiliar = (id: string, template?: string) => !!template || IMPROVED_FAMILIARS.some((f) => f.id === id)
 /** A creature of its own kind (not a standard animal with a template): keeps its type, no master's benefit. */
 export const isNewFamiliarKind = (id: string) => IMPROVED_FAMILIARS.some((f) => f.id === id)

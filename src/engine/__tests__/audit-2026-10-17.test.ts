@@ -6,7 +6,8 @@ import { newCharacter } from '../../model/newCharacter'
 import { storedSpellUse } from '../spellItems'
 import { compute } from '../compute'
 import { computeCreature } from '../creature'
-import { familiarAdvancement } from '../arcane'
+import { arcaneSpellcasterLevel, familiarAdvancement, knownCaps } from '../arcane'
+import { spellLearning } from '../spellLearning'
 import { hpState, takeDamage } from '../hitPoints'
 import { metamagicProblems } from '../metamagic'
 import { validate } from '../validate'
@@ -118,3 +119,20 @@ describe('classes', () => {
 function times(id: string, n: number) {
   return Array.from({ length: n }, () => id)
 }
+
+describe('house rules #41 and #42', () => {
+  it('#41: a sorcerer whose Charisma reaches 12 at level 8 learns all the 2nd-level spells known at once', () => {
+    const c = make(times('sorcerer', 8), { str: 10, dex: 14, con: 12, int: 10, wis: 10, cha: 10 })
+    c.levels[3].abilityIncrease = 'cha'
+    c.levels[7].abilityIncrease = 'cha'
+    const x = spellLearning(c, rules, 8)!
+    expect(x.castable).toContain(2)
+    expect(x.newByLevel![2]).toBe(knownCaps(rules, 'sorcerer', 8)[2])
+    // Level 7 (Cha 11): no 2nd-level spell yet.
+    expect(spellLearning(c, rules, 7)!.newByLevel![2]).toBeUndefined()
+  })
+  it('#42: arcane spellcaster level = the highest single arcane class level (sorcerer 3 / wizard 4 = 4)', () => {
+    const c = make([...times('sorcerer', 3), ...times('wizard', 4)])
+    expect(arcaneSpellcasterLevel(compute(c, rules).classLevels, rules)).toBe(4)
+  })
+})

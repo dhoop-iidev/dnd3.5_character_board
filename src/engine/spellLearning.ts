@@ -73,9 +73,16 @@ export function spellLearning(char: Character, rules: Rules, L: number): SpellLe
   }
   const now = knownCaps(rules, owner, n)
   const prev = castingLevelAt(char, rules, owner, L - 1) ? knownCaps(rules, owner, castingLevelAt(char, rules, owner, L - 1)) : []
+  // House rule #41: spells known of a level the key ability was too low for are learned as soon as it is high enough.
+  // The previous level where this class learned spells tells which levels were blocked then.
+  const Lp = [...Array(L - 1).keys()].map((i) => i + 1).filter((l) => spellOwner(char, rules, l) === owner).at(-1)
+  const prevCastable = Lp
+    ? castableLevels(rules, owner, castingLevelAt(char, rules, owner, Lp), compute(permanentScores(char, rules), rules, { level: Lp }).abilities[def.ability].score.total)
+    : []
   const newByLevel: Record<number, number> = {}
   now.forEach((v, lvl) => {
-    const d = (v ?? 0) - (prev[lvl] ?? 0)
+    const catchUp = Lp && !prevCastable.includes(lvl) ? (prev[lvl] ?? 0) : 0
+    const d = (v ?? 0) - (prev[lvl] ?? 0) + catchUp
     if (d > 0 && castable.includes(lvl)) newByLevel[lvl] = d
   })
   return { ...base, newByLevel }

@@ -4,6 +4,7 @@
   // Sorcerer/wizard familiar: https://www.d20srd.org/srd/classes/sorcererWizard.htm#familiars
   import { rules } from '../../data/rules'
   import {
+    arcaneSpellcasterLevel,
     familiarAdvancement,
     familiarLevel,
     FAMILIAR_URL,
@@ -70,7 +71,7 @@
   // Improved Familiar (https://www.d20srd.org/srd/feats.htm#improvedFamiliar): more creatures, from an arcane
   // spellcaster level; by alignment (within one step) or by the master's type or subtype (house rule #38).
   const hasImproved = $derived(view.sheet.feats.some((f) => f.featId === 'improved-familiar'))
-  const arcaneLevel = $derived(Math.max(0, ...view.sheet.spellcasting.filter((x) => x.def.kind === 'arcane').map((x) => x.casterLevel.total)))
+  const arcaneLevel = $derived(arcaneSpellcasterLevel(view.sheet.classLevels, rules))
   const checkOf = (id: string, template?: string) =>
     improvedFamiliarCheck(id, { hasFeat: hasImproved, arcaneLevel, alignment: app.character.identity.alignment, template })
   const improvedOptions = $derived([

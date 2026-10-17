@@ -11,7 +11,7 @@ import { raceOf } from './race'
 import { parseAlignment, opposedDescriptors } from './alignment'
 import { domainsOf } from './cleric'
 import { CLASS_ALIGNMENT, NO_RETURN_CLASSES, ROGUE_SPECIAL_LEVELS } from './classFeatures'
-import { FAMILIARS, familiarLevel, IMPROVED_FAMILIAR_URL, improvedFamiliarCheck, isImprovedFamiliar, listLevel, preparable, prohibitedCount, wizardSchools } from './arcane'
+import { arcaneSpellcasterLevel, FAMILIARS, familiarLevel, IMPROVED_FAMILIAR_URL, improvedFamiliarCheck, isImprovedFamiliar, listLevel, preparable, prohibitedCount, wizardSchools } from './arcane'
 import { knownUpTo, learningProblems, masteredSpells, masteryProblems, spellLearning, spellMasteryPicks, SPELL_MASTERY_URL, swapProblems } from './spellLearning'
 import { METAMAGIC_URL, metamagicProblems, ownedMetamagic, slotLevel } from './metamagic'
 import { spellLevelFor } from './spells'
@@ -502,7 +502,7 @@ export function validate(char: Character, rules: Rules): RuleWarning[] {
   for (const c of (char.companions ?? []).filter((x) => x.kind === 'familiar')) {
     const name = rules.creatures.get(c.creatureId)?.name ?? { en: c.creatureId, fr: c.creatureId }
     if (isImprovedFamiliar(c.creatureId, c.template)) {
-      const arcaneLevel = Math.max(0, ...now.spellcasting.filter((s) => s.def.kind === 'arcane').map((s) => s.casterLevel.total))
+      const arcaneLevel = arcaneSpellcasterLevel(now.classLevels, rules)
       const { blockers: why, check } = improvedFamiliarCheck(c.creatureId, { hasFeat: now.feats.some((f) => f.featId === 'improved-familiar'), arcaneLevel, alignment: char.identity.alignment, template: c.template })
       if (why.length)
         out.push(w(`familiar-improved-${c.uid}`, 'error', 'companions', `${name.en} as a familiar: ${why.map((x) => x.en).join(', ')}`, `${name.fr} comme familier : ${why.map((x) => x.fr).join(', ')}`, { srdUrl: IMPROVED_FAMILIAR_URL }))
