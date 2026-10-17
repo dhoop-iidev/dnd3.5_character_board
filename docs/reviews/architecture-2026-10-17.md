@@ -30,12 +30,12 @@
 
 | # | Change | Size | Risk |
 |---|---|---|---|
-| 1 | Split `compute()` into stage functions (`engine/sheet/abilities.ts`, `defense.ts`, `attacks.ts`, `skills.ts`, `classes.ts`…) sharing one context object | ~1,500 lines moved | medium |
-| 2 | Split `validate()` into per-area checkers (levels, skills, feats, spells, maneuvers, equipment, companions) | ~550 lines moved | low–medium |
+| 1 | **Done (2026-10-17).** `compute()` split into 8 stage functions in `engine/sheet/` (build, modifiers, core, defense, skills, attacks, classes, assemble); `compute.ts` is now 38 lines. Checked identical on 100+ sheets (every example at every level, with effects and toggles, 4 wild shape forms) | ~1,500 lines moved | done |
+| 2 | **Done (2026-10-17).** `validate()` split into 6 checkers in `engine/checks/` (build, maneuvers, spells, classes, companions, equipment) on one context; `validate.ts` is now 56 lines. Checked identical warnings on every example | ~550 lines moved | done |
 | 3 | Move the bilingual strings of the engine and the large panes into `i18n/` message tables | large, mechanical | low |
 | 4 | Move rule tables (sizes, load effects, familiars, paladin mount, class alignment) to `src/data/custom/*.json`, checked by `validate_data.py` | ~150 lines | low |
 | 5 | Move the pure logic out of `Spells.svelte` and `Combat.svelte` into engine modules | ~200 lines | low–medium |
-| 6 | Run Prettier with `printWidth: 120` to break up the 200-character lines | mechanical | low |
+| 6 | Run Prettier (`printWidth: 120`, already the project setting) to break up the 200-character lines — **done for the engine's compute/validate files**; the rest of the repo still to do | mechanical | low |
 | 7 | Give class-specific branches in `compute()` a hook interface per class | large | medium–high; after 1 |
 
 ### Not worth changing
